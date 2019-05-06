@@ -16,6 +16,9 @@ class User(models.Model):
 class Project(models.Model):
     project_name = models.CharField(max_length=100, unique=True)
     location = models.CharField(max_length=200)
+    geotech_file = models.FileField(upload_to='files/Project/geotech/%Y/%m/%d/')
+    access_letter = models.FileField(upload_to='files/Project/accessletters/%Y/%m/%d/')
+    approved_drawing = models.FileField(upload_to='files/Project/approveddrawings/%Y/%m/%d/')
     created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
