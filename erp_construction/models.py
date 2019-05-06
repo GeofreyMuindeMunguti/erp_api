@@ -262,3 +262,25 @@ class InstallationTeam(models.Model):
 
     def access_approvals(self):
         return "\n , ".join(str([v.project_name for v in self.access_approvals.all()]))
+
+
+class SafaricomTeam(models.Model):
+    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    signoff_and_rf_document = models.FileField(upload_to='files/SafaricomTeam/rfsignoff/%Y/%m/%d/')
+    signoff_and_rf_document_comment = models.CharField(max_length=100 , blank=True, null=True)
+    integration_parameter = models.FileField(upload_to='files/SafaricomTeam/integrationparameters/%Y/%m/%d/')
+    integration_parameter_comment = models.CharField(max_length=100 , blank=True, null=True)
+    snag_document = models.FileField(upload_to='files/SafaricomTeam/snag/%Y/%m/%d/')
+    snag_document_comment = models.CharField(max_length=100 , blank=True, null=True)
+    conditional_acceptance_cert = models.FileField(upload_to='files/SafaricomTeam/conditionalcert/%Y/%m/%d/')
+    conditional_acceptance_cert_comment = models.CharField(max_length=100 , blank=True, null=True)
+    final_acceptance_cert = models.FileField(upload_to='files/SafaricomTeam/finalcert/%Y/%m/%d/')
+    final_acceptance_cert_comment = models.CharField(max_length=100 , blank=True, null=True)
+    posted_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    is_approved = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.project_name)
