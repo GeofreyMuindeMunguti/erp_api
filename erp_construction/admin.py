@@ -14,7 +14,7 @@ admin.site.register(User, UserAdmin)
 
 
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'location', 'created_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'geotech_file', 'access_letter', 'approved_drawing', 'location', 'created_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)
