@@ -26,7 +26,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG')
 
-AUTH_USER_MODEL = 'erp_construction.User'
+AUTH_USER_MODEL = 'erp_construction.CustomUser'
 
 ALLOWED_HOSTS = []
 

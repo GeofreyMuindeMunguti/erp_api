@@ -3,6 +3,40 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.postgres.fields import ArrayField
 
 
+class Employee(models.Model):
+    employee_id = models.CharField(max_length=150)
+    first_name = models.CharField(max_length=150)
+    last_name = models.CharField(max_length=150)
+    team = models.CharField(max_length=150)
+    position = models.CharField(max_length=150)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.employee_id
+
+    @classmethod
+    def get_employees(cls):
+        employees = Employee.objects.all()
+        return employees
+
+    @classmethod
+    def get_single_emp(cls, employee_id):
+        single_emp = Employee.objects.get(employee=employee_id)
+        return single_emp
+
+
+class CustomUser(AbstractUser):
+    email = models.EmailField(unique=True)
+    #employee_id = models.ForeignKey(Employee, null=True, on_delete=models.DO_NOTHING, related_name='employees')
+    username = models.CharField(blank=True, null=True, max_length=150)
+    REQUIRED_FIELDS = ['username']
+    USERNAME_FIELD = 'email'
+
+    def __str__(self):
+        return self.email
+
 
 class Project(models.Model):
     project_name = models.CharField(max_length=100, unique=True)
@@ -13,7 +47,7 @@ class Project(models.Model):
         upload_to='files/Project/accessletters/%Y/%m/%d/')
     approved_drawing = models.FileField(
         upload_to='files/Project/approveddrawings/%Y/%m/%d/')
-    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
@@ -103,7 +137,7 @@ class CommercialTeam(models.Model):
         upload_to='files/CommercialTeam/initialinvoice/%Y/%m/%d/')
     initial_invoice_comment = models.CharField(
         max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -126,7 +160,7 @@ class ProcurementTeam(models.Model):
         upload_to='files/ProcurementTeam/posubcontractor/%Y/%m/%d/')
     po_subcontractors_comment = models.CharField(
         max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -154,7 +188,7 @@ class HealthDocumentsCivilTeam(models.Model):
         upload_to='files/HealthDocumentsCivilTeam/communication/%Y/%m/%d/')
     communication_plan_form_comment = models.CharField(
         max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -194,7 +228,7 @@ class CivilWorksTeam(models.Model):
     site_walling_images_field = models.ManyToManyField(SiteWallingImage)
     site_walling_images_comment = models.CharField(
         max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -237,7 +271,7 @@ class HealthDocumentsInstallationTeam(models.Model):
         upload_to='files/HealthDocumentsInstallationTeam/communication/%Y/%m/%d/')
     communication_plan_form_comment = models.CharField(
         max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -276,7 +310,7 @@ class InstallationTeam(models.Model):
     kplc_solar_installation_images = models.ManyToManyField(KPLCSolarImage)
     kplc_solar_installation_comment = models.CharField(
         max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -323,7 +357,7 @@ class SafaricomTeam(models.Model):
         upload_to='files/SafaricomTeam/finalcert/%Y/%m/%d/')
     final_acceptance_cert_comment = models.CharField(
         max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

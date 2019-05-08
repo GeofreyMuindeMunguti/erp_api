@@ -1,10 +1,11 @@
 from django.contrib import admin
 #from django.contrib.auth.admin import UserAdmin
-from .models import Project, ProcurementTeam, HealthDocumentsCivilTeam, CivilWorksTeam, FoundationImage, BTSAndGeneatorSlabsImage, SiteWallingImage, RFAndLinkImage, ElectricalImage, KPLCSolarImage, CommercialTeam, AccessApprovalCivil, AccessApprovalInstallation, HealthDocumentsInstallationTeam, InstallationTeam, SafaricomTeam
+from .models import CustomUser, Employee, Project, ProcurementTeam, HealthDocumentsCivilTeam, CivilWorksTeam, FoundationImage, BTSAndGeneatorSlabsImage, SiteWallingImage, RFAndLinkImage, ElectricalImage, KPLCSolarImage, CommercialTeam, AccessApprovalCivil, AccessApprovalInstallation, HealthDocumentsInstallationTeam, InstallationTeam, SafaricomTeam
 
 
 #admin.site.register(User, UserAdmin)
-
+admin.site.register(CustomUser)
+admin.site.register(Employee)
 
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'geotech_file', 'access_letter', 'approved_drawing',
