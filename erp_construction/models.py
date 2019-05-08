@@ -3,27 +3,6 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.postgres.fields import ArrayField
 
 
-class User(AbstractUser):
-    email = models.EmailField(unique=True)
-    team = models.CharField(max_length=150)
-    position = models.CharField(max_length=150)
-    is_active = models.BooleanField(default=True)
-    REQUIRED_FIELDS = ['email']
-    USERNAME_FIELD = 'username'
-
-    def __str__(self):
-        return str(self.username)
-
-    @classmethod
-    def get_employees(cls):
-        employees = User.objects.all()
-        return employees
-
-    @classmethod
-    def get_single_emp(cls, username):
-        single_emp = User.objects.get(employee=username)
-        return single_emp
-
 
 class Project(models.Model):
     project_name = models.CharField(max_length=100, unique=True)

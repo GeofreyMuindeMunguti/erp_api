@@ -1,9 +1,9 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
-from .models import User, Project, ProcurementTeam, HealthDocumentsCivilTeam, CivilWorksTeam, FoundationImage, BTSAndGeneatorSlabsImage, SiteWallingImage, RFAndLinkImage, ElectricalImage, KPLCSolarImage, CommercialTeam, AccessApprovalCivil, AccessApprovalInstallation, HealthDocumentsInstallationTeam, InstallationTeam, SafaricomTeam
+#from django.contrib.auth.admin import UserAdmin
+from .models import Project, ProcurementTeam, HealthDocumentsCivilTeam, CivilWorksTeam, FoundationImage, BTSAndGeneatorSlabsImage, SiteWallingImage, RFAndLinkImage, ElectricalImage, KPLCSolarImage, CommercialTeam, AccessApprovalCivil, AccessApprovalInstallation, HealthDocumentsInstallationTeam, InstallationTeam, SafaricomTeam
 
 
-admin.site.register(User, UserAdmin)
+#admin.site.register(User, UserAdmin)
 
 
 class ProjectAdmin(admin.ModelAdmin):
