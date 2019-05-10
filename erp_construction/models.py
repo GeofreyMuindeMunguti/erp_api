@@ -29,7 +29,6 @@ class Employee(models.Model):
 
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
-    #employee_id = models.ForeignKey(Employee, null=True, on_delete=models.DO_NOTHING, related_name='employees')
     username = models.CharField(blank=True, null=True, max_length=150)
     REQUIRED_FIELDS = ['username']
     USERNAME_FIELD = 'email'
@@ -40,6 +39,9 @@ class CustomUser(AbstractUser):
 
 class Project(models.Model):
     project_name = models.CharField(max_length=100, unique=True)
+    site_number = models.CharField(max_length=100, unique=True)
+    BTS_type = models.CharField(max_length=100)
+    site_owner = models.CharField(max_length=100)
     location = models.CharField(max_length=200)
     geotech_file = models.FileField(
         upload_to='files/Project/geotech/%Y/%m/%d/')
@@ -58,7 +60,11 @@ class Project(models.Model):
 
 class FoundationImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
-    foundation_and_curing_image = models.ImageField(
+    foundation_and_curing_image_1 = models.ImageField(
+        upload_to='images/CivilWorksTeam/foundation/%Y/%m/%d/')
+    foundation_and_curing_image_2 = models.ImageField(
+        upload_to='images/CivilWorksTeam/foundation/%Y/%m/%d/')
+    foundation_and_curing_image_3 = models.ImageField(
         upload_to='images/CivilWorksTeam/foundation/%Y/%m/%d/')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -70,7 +76,11 @@ class FoundationImage(models.Model):
 
 class BTSAndGeneatorSlabsImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
-    bts_and_generator_slabs_image = models.ImageField(
+    bts_and_generator_slabs_image_1 = models.ImageField(
+        upload_to='images/CivilWorksTeam/slabs/%Y/%m/%d/')
+    bts_and_generator_slabs_image_2 = models.ImageField(
+        upload_to='images/CivilWorksTeam/slabs/%Y/%m/%d/')
+    bts_and_generator_slabs_image_3 = models.ImageField(
         upload_to='images/CivilWorksTeam/slabs/%Y/%m/%d/')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -82,7 +92,11 @@ class BTSAndGeneatorSlabsImage(models.Model):
 
 class SiteWallingImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
-    site_walling_image = models.ImageField(
+    site_walling_image_1 = models.ImageField(
+        upload_to='images/CivilWorksTeam/sitewalling/%Y/%m/%d/')
+    site_walling_image_2 = models.ImageField(
+        upload_to='images/CivilWorksTeam/sitewalling/%Y/%m/%d/')
+    site_walling_image_3 = models.ImageField(
         upload_to='images/CivilWorksTeam/sitewalling/%Y/%m/%d/')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -94,7 +108,11 @@ class SiteWallingImage(models.Model):
 
 class RFAndLinkImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
-    rf_and_link_installation_image = models.ImageField(
+    rf_and_link_installation_image_1 = models.ImageField(
+        upload_to='images/InstallationTeam/RFAndLink/%Y/%m/%d/')
+    rf_and_link_installation_image_2 = models.ImageField(
+        upload_to='images/InstallationTeam/RFAndLink/%Y/%m/%d/')
+    rf_and_link_installation_image_3 = models.ImageField(
         upload_to='images/InstallationTeam/RFAndLink/%Y/%m/%d/')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -106,7 +124,11 @@ class RFAndLinkImage(models.Model):
 
 class ElectricalImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
-    electrical_installation_image = models.ImageField(
+    electrical_installation_image_1 = models.ImageField(
+        upload_to='images/InstallationTeam/Electrical/%Y/%m/%d/')
+    electrical_installation_image_2 = models.ImageField(
+        upload_to='images/InstallationTeam/Electrical/%Y/%m/%d/')
+    electrical_installation_image_3 = models.ImageField(
         upload_to='images/InstallationTeam/Electrical/%Y/%m/%d/')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -118,7 +140,11 @@ class ElectricalImage(models.Model):
 
 class KPLCSolarImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
-    kplc_solar_installation_image = models.ImageField(
+    kplc_solar_installation_image_1 = models.ImageField(
+        upload_to='images/InstallationTeam/KPLCSolar/%Y/%m/%d/')
+    kplc_solar_installation_image_2 = models.ImageField(
+        upload_to='images/InstallationTeam/KPLCSolar/%Y/%m/%d/')
+    kplc_solar_installation_image_3 = models.ImageField(
         upload_to='images/InstallationTeam/KPLCSolar/%Y/%m/%d/')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -218,14 +244,14 @@ class CivilWorksTeam(models.Model):
     access_approvals_field = models.ManyToManyField(AccessApprovalCivil)
     access_approval_comment = models.CharField(
         max_length=100, blank=True, null=True)
-    foundation_and_curing_images = models.ManyToManyField(FoundationImage)
+    foundation_and_curing_images = models.OneToOneField(FoundationImage, on_delete=models.DO_NOTHING)
     foundation_and_curing_comment = models.CharField(
         max_length=100, blank=True, null=True)
-    bts_and_generator_slabs_images = models.ManyToManyField(
-        BTSAndGeneatorSlabsImage)
+    bts_and_generator_slabs_images = models.OneToOneField(
+        BTSAndGeneatorSlabsImage, on_delete=models.DO_NOTHING)
     bts_and_generator_slabs_comment = models.CharField(
         max_length=100, blank=True, null=True)
-    site_walling_images_field = models.ManyToManyField(SiteWallingImage)
+    site_walling_images_field = models.OneToOneField(SiteWallingImage, on_delete=models.DO_NOTHING)
     site_walling_images_comment = models.CharField(
         max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
@@ -240,17 +266,8 @@ class CivilWorksTeam(models.Model):
     def health_documents_civil(self):
         return "\n , ".join(str([v.project_name for v in self.health_documents.all()]))
 
-    def foundation_images(self):
-        return "\n , ".join(str([v.project_name for v in self.foundation_and_curing_images.all()]))
-
-    def slabs_images(self):
-        return "\n , ".join(str([v.project_name for v in self.bts_and_generator_slabs_images.all()]))
-
-    def site_walling_images(self):
-        return "\n , ".join(str([v.project_name for v in self.site_walling_images.all()]))
-
     def access_approvals(self):
-        return "\n , ".join(str([v.project_name for v in self.access_approvals.all()]))
+        return "\n , ".join(str([v.project_name for v in self.access_approvals_field.all()]))
 
 
 class HealthDocumentsInstallationTeam(models.Model):
@@ -301,13 +318,13 @@ class InstallationTeam(models.Model):
     access_approvals_field = models.ManyToManyField(AccessApprovalInstallation)
     access_approval_comment = models.CharField(
         max_length=100, blank=True, null=True)
-    rf_and_link_installation_images = models.ManyToManyField(RFAndLinkImage)
+    rf_and_link_installation_images = models.OneToOneField(RFAndLinkImage, on_delete=models.DO_NOTHING)
     rf_and_link_installation_comment = models.CharField(
         max_length=100, blank=True, null=True)
-    electrical_installation_images = models.ManyToManyField(ElectricalImage)
+    electrical_installation_images = models.OneToOneField(ElectricalImage, on_delete=models.DO_NOTHING)
     electrical_installation_comment = models.CharField(
         max_length=100, blank=True, null=True)
-    kplc_solar_installation_images = models.ManyToManyField(KPLCSolarImage)
+    kplc_solar_installation_images = models.OneToOneField(KPLCSolarImage, on_delete=models.DO_NOTHING)
     kplc_solar_installation_comment = models.CharField(
         max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
@@ -322,17 +339,8 @@ class InstallationTeam(models.Model):
     def health_documents_installation(self):
         return "\n , ".join(str([v.project_name for v in self.health_documents.all()]))
 
-    def rf_and_link_images(self):
-        return "\n , ".join(str([v.project_name for v in self.rf_and_link_installation_images.all()]))
-
-    def electrical_connections_images(self):
-        return "\n , ".join(str([v.project_name for v in self.electrical_installation_images.all()]))
-
-    def kplc_solar_images(self):
-        return "\n , ".join(str([v.project_name for v in self.kplc_solar_installation_images.all()]))
-
     def access_approvals(self):
-        return "\n , ".join(str([v.project_name for v in self.access_approvals.all()]))
+        return "\n , ".join(str([v.project_name for v in self.access_approvals_field.all()]))
 
 
 class SafaricomTeam(models.Model):
