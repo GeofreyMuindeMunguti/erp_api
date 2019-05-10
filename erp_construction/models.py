@@ -226,7 +226,8 @@ class HealthDocumentsCivilTeam(models.Model):
         upload_to='files/HealthDocumentsCivilTeam/communication/%Y/%m/%d/')
     communication_plan_form_comment = models.CharField(
         max_length=100, blank=True, null=True)
-    health_documents_comment = models.CharField(max_length=100, blank=True, null=True)
+    health_documents_comment = models.CharField(
+        max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -255,10 +256,12 @@ class CivilWorksTeam(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
     health_documents = models.ManyToManyField(HealthDocumentsCivilTeam)
     access_approvals_field = models.ManyToManyField(AccessApprovalCivil)
-    foundation_and_curing_images = models.OneToOneField(FoundationImage, on_delete=models.DO_NOTHING)
+    foundation_and_curing_images = models.OneToOneField(
+        FoundationImage, on_delete=models.DO_NOTHING)
     bts_and_generator_slabs_images = models.OneToOneField(
         BTSAndGeneatorSlabsImage, on_delete=models.DO_NOTHING)
-    site_walling_images_field = models.OneToOneField(SiteWallingImage, on_delete=models.DO_NOTHING)
+    site_walling_images_field = models.OneToOneField(
+        SiteWallingImage, on_delete=models.DO_NOTHING)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -293,7 +296,8 @@ class HealthDocumentsInstallationTeam(models.Model):
         upload_to='files/HealthDocumentsInstallationTeam/communication/%Y/%m/%d/')
     communication_plan_form_comment = models.CharField(
         max_length=100, blank=True, null=True)
-    health_documents_comment = models.CharField(max_length=100, blank=True, null=True)
+    health_documents_comment = models.CharField(
+        max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -322,9 +326,12 @@ class InstallationTeam(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
     health_documents = models.ManyToManyField(HealthDocumentsInstallationTeam)
     access_approvals_field = models.ManyToManyField(AccessApprovalInstallation)
-    rf_and_link_installation_images = models.OneToOneField(RFAndLinkImage, on_delete=models.DO_NOTHING)
-    electrical_installation_images = models.OneToOneField(ElectricalImage, on_delete=models.DO_NOTHING)
-    kplc_solar_installation_images = models.OneToOneField(KPLCSolarImage, on_delete=models.DO_NOTHING)
+    rf_and_link_installation_images = models.OneToOneField(
+        RFAndLinkImage, on_delete=models.DO_NOTHING)
+    electrical_installation_images = models.OneToOneField(
+        ElectricalImage, on_delete=models.DO_NOTHING)
+    kplc_solar_installation_images = models.OneToOneField(
+        KPLCSolarImage, on_delete=models.DO_NOTHING)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
