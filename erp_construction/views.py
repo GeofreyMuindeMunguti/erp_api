@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from .serializers import ProjectSerializer, ProcurementTeamSerializer, HealthDocumentsCivilTeamSerializer, AccessApprovalCivilSerializer, CivilWorksTeamSerializer, FoundationImageSerializer, BTSAndGeneatorSlabsImageSerializer, SiteWallingImageSerializer, CommercialTeamSerializer
+from .serializers import ProjectSerializer, ProcurementTeamSerializer, HealthDocumentsCivilTeamSerializer, AccessApprovalCivilSerializer, CivilWorksTeamSerializer, FoundationImageSerializer, BTSAndGeneatorSlabsImageSerializer, SiteWallingImageSerializer, CommercialTeamSerializer, SafaricomTeamSerializer
 from rest_framework import generics, permissions, viewsets, serializers, permissions, filters, status
-from .models import Project, ProcurementTeam, HealthDocumentsCivilTeam, AccessApprovalCivil, CivilWorksTeam, FoundationImage, BTSAndGeneatorSlabsImage, SiteWallingImage, CommercialTeam
+from .models import Project, ProcurementTeam, HealthDocumentsCivilTeam, AccessApprovalCivil, CivilWorksTeam, FoundationImage, BTSAndGeneatorSlabsImage, SiteWallingImage, CommercialTeam, SafaricomTeam
 # from drf_nested_field_multipart import NestedMultipartParser
 # from rest_framework.parsers import JSONParser
+
 
 class DefaultsMixin(object):
 
@@ -107,6 +108,15 @@ class CivilTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating tasks for civil team."""
     queryset = CivilWorksTeam.objects.order_by('created_at')
     serializer_class = CivilWorksTeamSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
+class SafaricomTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating tasks for safaricom team."""
+    queryset = SafaricomTeam.objects.order_by('created_at')
+    serializer_class = SafaricomTeamSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )

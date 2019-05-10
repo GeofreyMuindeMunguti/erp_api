@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Project, ProcurementTeam, HealthDocumentsCivilTeam, AccessApprovalCivil, CivilWorksTeam, FoundationImage, BTSAndGeneatorSlabsImage, SiteWallingImage, CommercialTeam
+from .models import Project, ProcurementTeam, HealthDocumentsCivilTeam, AccessApprovalCivil, CivilWorksTeam, FoundationImage, BTSAndGeneatorSlabsImage, SiteWallingImage, CommercialTeam, SafaricomTeam
 
 
 class ProjectSerializer(serializers.ModelSerializer):
@@ -70,5 +70,13 @@ class CivilWorksTeamSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CivilWorksTeam
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class SafaricomTeamSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SafaricomTeam
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
