@@ -5,6 +5,7 @@ from . import views
 router = DefaultRouter()
 
 router.register(r'projects', views.ProjectViewSet)
+router.register(r'commercialteamtasks', views.CommercialTeamViewSet)
 router.register(r'procurementteamtasks', views.ProcurementTeamViewSet)
 router.register(r'healthdocscivil', views.HealthDocCivilViewSet)
 router.register(r'accessapprovalscivil', views.AccessApprovalCivilViewSet)

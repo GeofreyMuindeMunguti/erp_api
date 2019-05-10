@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from .serializers import ProjectSerializer, ProcurementTeamSerializer, HealthDocumentsCivilTeamSerializer, AccessApprovalCivilSerializer, CivilWorksTeamSerializer, FoundationImageSerializer, BTSAndGeneatorSlabsImageSerializer, SiteWallingImageSerializer
+from .serializers import ProjectSerializer, ProcurementTeamSerializer, HealthDocumentsCivilTeamSerializer, AccessApprovalCivilSerializer, CivilWorksTeamSerializer, FoundationImageSerializer, BTSAndGeneatorSlabsImageSerializer, SiteWallingImageSerializer, CommercialTeamSerializer
 from rest_framework import generics, permissions, viewsets, serializers, permissions, filters, status
-from .models import Project, ProcurementTeam, HealthDocumentsCivilTeam, AccessApprovalCivil, CivilWorksTeam, FoundationImage, BTSAndGeneatorSlabsImage, SiteWallingImage
+from .models import Project, ProcurementTeam, HealthDocumentsCivilTeam, AccessApprovalCivil, CivilWorksTeam, FoundationImage, BTSAndGeneatorSlabsImage, SiteWallingImage, CommercialTeam
 # from drf_nested_field_multipart import NestedMultipartParser
 # from rest_framework.parsers import JSONParser
 
@@ -44,6 +44,15 @@ class ProcurementTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating procurement team tasks."""
     queryset = ProcurementTeam.objects.order_by('created_at')
     serializer_class = ProcurementTeamSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
+class CommercialTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating commercial team tasks."""
+    queryset = CommercialTeam.objects.order_by('created_at')
+    serializer_class = CommercialTeamSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
