@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'erp_construction'
+    'erp_construction',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
