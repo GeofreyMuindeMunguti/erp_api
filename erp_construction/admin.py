@@ -151,8 +151,8 @@ admin.site.register(KPLCSolarImage, KPLCSolarImageAdmin)
 
 
 class CivilWorksTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'health_documents_civil', 'health_documents_comment', 'access_approvals', 'access_approval_comment', 'foundation_images', 'foundation_and_curing_comment',
-                    'slabs_images', 'bts_and_generator_slabs_comment', 'site_walling_images', 'site_walling_images_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'health_documents_civil', 'health_documents_comment', 'access_approvals', 'access_approval_comment', 'foundation_and_curing_images', 'foundation_and_curing_comment',
+                    'bts_and_generator_slabs_images', 'bts_and_generator_slabs_comment', 'site_walling_images_field', 'site_walling_images_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -176,8 +176,8 @@ admin.site.register(HealthDocumentsInstallationTeam,
 
 
 class InstallationTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'health_documents_installation', 'health_documents_comment', 'access_approvals', 'access_approval_comment', 'rf_and_link_images', 'rf_and_link_installation_comment',
-                    'electrical_connections_images', 'electrical_installation_comment', 'kplc_solar_images', 'kplc_solar_installation_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'health_documents_installation', 'health_documents_comment', 'access_approvals', 'access_approval_comment', 'rf_and_link_installation_images', 'rf_and_link_installation_comment',
+                    'electrical_installation_images', 'electrical_installation_comment', 'kplc_solar_installation_images', 'kplc_solar_installation_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )

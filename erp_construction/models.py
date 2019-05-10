@@ -244,14 +244,14 @@ class CivilWorksTeam(models.Model):
     access_approvals_field = models.ManyToManyField(AccessApprovalCivil)
     access_approval_comment = models.CharField(
         max_length=100, blank=True, null=True)
-    foundation_and_curing_images = models.ManyToManyField(FoundationImage)
+    foundation_and_curing_images = models.OneToOneField(FoundationImage, on_delete=models.DO_NOTHING)
     foundation_and_curing_comment = models.CharField(
         max_length=100, blank=True, null=True)
-    bts_and_generator_slabs_images = models.ManyToManyField(
-        BTSAndGeneatorSlabsImage)
+    bts_and_generator_slabs_images = models.OneToOneField(
+        BTSAndGeneatorSlabsImage, on_delete=models.DO_NOTHING)
     bts_and_generator_slabs_comment = models.CharField(
         max_length=100, blank=True, null=True)
-    site_walling_images_field = models.ManyToManyField(SiteWallingImage)
+    site_walling_images_field = models.OneToOneField(SiteWallingImage, on_delete=models.DO_NOTHING)
     site_walling_images_comment = models.CharField(
         max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
@@ -265,15 +265,6 @@ class CivilWorksTeam(models.Model):
 
     def health_documents_civil(self):
         return "\n , ".join(str([v.project_name for v in self.health_documents.all()]))
-
-    def foundation_images(self):
-        return "\n , ".join(str([v.project_name for v in self.foundation_and_curing_images.all()]))
-
-    def slabs_images(self):
-        return "\n , ".join(str([v.project_name for v in self.bts_and_generator_slabs_images.all()]))
-
-    def site_walling_images(self):
-        return "\n , ".join(str([v.project_name for v in self.site_walling_images_field.all()]))
 
     def access_approvals(self):
         return "\n , ".join(str([v.project_name for v in self.access_approvals_field.all()]))
@@ -327,13 +318,13 @@ class InstallationTeam(models.Model):
     access_approvals_field = models.ManyToManyField(AccessApprovalInstallation)
     access_approval_comment = models.CharField(
         max_length=100, blank=True, null=True)
-    rf_and_link_installation_images = models.ManyToManyField(RFAndLinkImage)
+    rf_and_link_installation_images = models.OneToOneField(RFAndLinkImage, on_delete=models.DO_NOTHING)
     rf_and_link_installation_comment = models.CharField(
         max_length=100, blank=True, null=True)
-    electrical_installation_images = models.ManyToManyField(ElectricalImage)
+    electrical_installation_images = models.OneToOneField(ElectricalImage, on_delete=models.DO_NOTHING)
     electrical_installation_comment = models.CharField(
         max_length=100, blank=True, null=True)
-    kplc_solar_installation_images = models.ManyToManyField(KPLCSolarImage)
+    kplc_solar_installation_images = models.OneToOneField(KPLCSolarImage, on_delete=models.DO_NOTHING)
     kplc_solar_installation_comment = models.CharField(
         max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
@@ -347,15 +338,6 @@ class InstallationTeam(models.Model):
 
     def health_documents_installation(self):
         return "\n , ".join(str([v.project_name for v in self.health_documents.all()]))
-
-    def rf_and_link_images(self):
-        return "\n , ".join(str([v.project_name for v in self.rf_and_link_installation_images.all()]))
-
-    def electrical_connections_images(self):
-        return "\n , ".join(str([v.project_name for v in self.electrical_installation_images.all()]))
-
-    def kplc_solar_images(self):
-        return "\n , ".join(str([v.project_name for v in self.kplc_solar_installation_images.all()]))
 
     def access_approvals(self):
         return "\n , ".join(str([v.project_name for v in self.access_approvals_field.all()]))
