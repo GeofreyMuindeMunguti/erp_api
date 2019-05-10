@@ -66,6 +66,8 @@ class FoundationImage(models.Model):
         upload_to='images/CivilWorksTeam/foundation/%Y/%m/%d/')
     foundation_and_curing_image_3 = models.ImageField(
         upload_to='images/CivilWorksTeam/foundation/%Y/%m/%d/')
+    foundation_and_curing_comment = models.CharField(
+        max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
@@ -82,6 +84,8 @@ class BTSAndGeneatorSlabsImage(models.Model):
         upload_to='images/CivilWorksTeam/slabs/%Y/%m/%d/')
     bts_and_generator_slabs_image_3 = models.ImageField(
         upload_to='images/CivilWorksTeam/slabs/%Y/%m/%d/')
+    bts_and_generator_slabs_comment = models.CharField(
+        max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
@@ -98,6 +102,8 @@ class SiteWallingImage(models.Model):
         upload_to='images/CivilWorksTeam/sitewalling/%Y/%m/%d/')
     site_walling_image_3 = models.ImageField(
         upload_to='images/CivilWorksTeam/sitewalling/%Y/%m/%d/')
+    site_walling_images_comment = models.CharField(
+        max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
@@ -114,6 +120,8 @@ class RFAndLinkImage(models.Model):
         upload_to='images/InstallationTeam/RFAndLink/%Y/%m/%d/')
     rf_and_link_installation_image_3 = models.ImageField(
         upload_to='images/InstallationTeam/RFAndLink/%Y/%m/%d/')
+    rf_and_link_installation_comment = models.CharField(
+        max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
@@ -130,6 +138,8 @@ class ElectricalImage(models.Model):
         upload_to='images/InstallationTeam/Electrical/%Y/%m/%d/')
     electrical_installation_image_3 = models.ImageField(
         upload_to='images/InstallationTeam/Electrical/%Y/%m/%d/')
+    electrical_installation_comment = models.CharField(
+        max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
@@ -146,6 +156,8 @@ class KPLCSolarImage(models.Model):
         upload_to='images/InstallationTeam/KPLCSolar/%Y/%m/%d/')
     kplc_solar_installation_image_3 = models.ImageField(
         upload_to='images/InstallationTeam/KPLCSolar/%Y/%m/%d/')
+    kplc_solar_installation_comment = models.CharField(
+        max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
@@ -214,6 +226,7 @@ class HealthDocumentsCivilTeam(models.Model):
         upload_to='files/HealthDocumentsCivilTeam/communication/%Y/%m/%d/')
     communication_plan_form_comment = models.CharField(
         max_length=100, blank=True, null=True)
+    health_documents_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -228,6 +241,8 @@ class AccessApprovalCivil(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
     access_approval = models.FileField(
         upload_to='files/CivilWorksTeam/accessapproval/%Y/%m/%d/')
+    access_approval_comment = models.CharField(
+        max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
@@ -239,21 +254,11 @@ class AccessApprovalCivil(models.Model):
 class CivilWorksTeam(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
     health_documents = models.ManyToManyField(HealthDocumentsCivilTeam)
-    health_documents_comment = ArrayField(
-        models.CharField(max_length=100, blank=True, null=True))
     access_approvals_field = models.ManyToManyField(AccessApprovalCivil)
-    access_approval_comment = models.CharField(
-        max_length=100, blank=True, null=True)
     foundation_and_curing_images = models.OneToOneField(FoundationImage, on_delete=models.DO_NOTHING)
-    foundation_and_curing_comment = models.CharField(
-        max_length=100, blank=True, null=True)
     bts_and_generator_slabs_images = models.OneToOneField(
         BTSAndGeneatorSlabsImage, on_delete=models.DO_NOTHING)
-    bts_and_generator_slabs_comment = models.CharField(
-        max_length=100, blank=True, null=True)
     site_walling_images_field = models.OneToOneField(SiteWallingImage, on_delete=models.DO_NOTHING)
-    site_walling_images_comment = models.CharField(
-        max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -288,6 +293,7 @@ class HealthDocumentsInstallationTeam(models.Model):
         upload_to='files/HealthDocumentsInstallationTeam/communication/%Y/%m/%d/')
     communication_plan_form_comment = models.CharField(
         max_length=100, blank=True, null=True)
+    health_documents_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -302,6 +308,8 @@ class AccessApprovalInstallation(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
     access_approval = models.FileField(
         upload_to='files/InstallationTeam/accessapproval/%Y/%m/%d/')
+    access_approval_comment = models.CharField(
+        max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
@@ -313,20 +321,10 @@ class AccessApprovalInstallation(models.Model):
 class InstallationTeam(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
     health_documents = models.ManyToManyField(HealthDocumentsInstallationTeam)
-    health_documents_comment = ArrayField(
-        models.CharField(max_length=100, blank=True, null=True))
     access_approvals_field = models.ManyToManyField(AccessApprovalInstallation)
-    access_approval_comment = models.CharField(
-        max_length=100, blank=True, null=True)
     rf_and_link_installation_images = models.OneToOneField(RFAndLinkImage, on_delete=models.DO_NOTHING)
-    rf_and_link_installation_comment = models.CharField(
-        max_length=100, blank=True, null=True)
     electrical_installation_images = models.OneToOneField(ElectricalImage, on_delete=models.DO_NOTHING)
-    electrical_installation_comment = models.CharField(
-        max_length=100, blank=True, null=True)
     kplc_solar_installation_images = models.OneToOneField(KPLCSolarImage, on_delete=models.DO_NOTHING)
-    kplc_solar_installation_comment = models.CharField(
-        max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)

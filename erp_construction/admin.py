@@ -20,7 +20,7 @@ admin.site.register(Project, ProjectAdmin)
 
 
 class AccessApprovalCivilAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'access_approval',
+    list_display = ('id', 'project_name', 'access_approval', 'access_approval_comment',
                     'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
@@ -31,7 +31,7 @@ admin.site.register(AccessApprovalCivil, AccessApprovalCivilAdmin)
 
 
 class AccessApprovalInstallationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'access_approval',
+    list_display = ('id', 'project_name', 'access_approval', 'access_approval_comment',
                     'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
@@ -68,7 +68,7 @@ admin.site.register(ProcurementTeam, ProcurementTeamAdmin)
 
 class HealthDocumentsCivilTeamAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'job_hazard_form', 'job_hazard_form_comment', 'incident_notification_form', 'incident_notification_form_comment', 'toolbox_meeting_form',
-                    'toolbox_meeting_form_comment', 'communication_plan_form', 'communication_plan_form_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+                    'toolbox_meeting_form_comment', 'communication_plan_form', 'communication_plan_form_comment', 'health_documents_comment','posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -79,7 +79,7 @@ admin.site.register(HealthDocumentsCivilTeam, HealthDocumentsCivilTeamAdmin)
 
 
 class FoundationImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'foundation_and_curing_image_1', 'foundation_and_curing_image_2', 'foundation_and_curing_image_3',
+    list_display = ('id', 'project_name', 'foundation_and_curing_image_1', 'foundation_and_curing_image_2', 'foundation_and_curing_image_3', 'foundation_and_curing_comment',
                     'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -91,7 +91,7 @@ admin.site.register(FoundationImage, FoundationImageAdmin)
 
 
 class BTSAndGeneatorSlabsImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'bts_and_generator_slabs_image_1', 'bts_and_generator_slabs_image_2', 'bts_and_generator_slabs_image_3',
+    list_display = ('id', 'project_name', 'bts_and_generator_slabs_image_1', 'bts_and_generator_slabs_image_2', 'bts_and_generator_slabs_image_3', 'bts_and_generator_slabs_comment',
                     'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -103,7 +103,7 @@ admin.site.register(BTSAndGeneatorSlabsImage, BTSAndGeneatorSlabsImageAdmin)
 
 
 class SiteWallingImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'site_walling_image_1', 'site_walling_image_2', 'site_walling_image_3',
+    list_display = ('id', 'project_name', 'site_walling_image_1', 'site_walling_image_2', 'site_walling_image_3', 'site_walling_images_comment',
                     'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -115,7 +115,7 @@ admin.site.register(SiteWallingImage, SiteWallingImageAdmin)
 
 
 class RFAndLinkImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'rf_and_link_installation_image_1', 'rf_and_link_installation_image_2', 'rf_and_link_installation_image_3',
+    list_display = ('id', 'project_name', 'rf_and_link_installation_image_1', 'rf_and_link_installation_image_2', 'rf_and_link_installation_image_3', 'rf_and_link_installation_comment',
                     'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -127,7 +127,7 @@ admin.site.register(RFAndLinkImage, RFAndLinkImageAdmin)
 
 
 class ElectricalImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'electrical_installation_image_1', 'electrical_installation_image_2', 'electrical_installation_image_3',
+    list_display = ('id', 'project_name', 'electrical_installation_image_1', 'electrical_installation_image_2', 'electrical_installation_image_3', 'electrical_installation_comment',
                     'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -139,7 +139,7 @@ admin.site.register(ElectricalImage, ElectricalImageAdmin)
 
 
 class KPLCSolarImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'kplc_solar_installation_image_1', 'kplc_solar_installation_image_2', 'kplc_solar_installation_image_3',
+    list_display = ('id', 'project_name', 'kplc_solar_installation_image_1', 'kplc_solar_installation_image_2', 'kplc_solar_installation_image_3', 'kplc_solar_installation_comment',
                     'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -151,8 +151,8 @@ admin.site.register(KPLCSolarImage, KPLCSolarImageAdmin)
 
 
 class CivilWorksTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'health_documents_civil', 'health_documents_comment', 'access_approvals', 'access_approval_comment', 'foundation_and_curing_images', 'foundation_and_curing_comment',
-                    'bts_and_generator_slabs_images', 'bts_and_generator_slabs_comment', 'site_walling_images_field', 'site_walling_images_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'health_documents_civil', 'access_approvals', 'foundation_and_curing_images',
+                    'bts_and_generator_slabs_images', 'site_walling_images_field', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -164,7 +164,7 @@ admin.site.register(CivilWorksTeam, CivilWorksTeamAdmin)
 
 class HealthDocumentsInstallationTeamAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'job_hazard_form', 'job_hazard_form_comment', 'incident_notification_form', 'incident_notification_form_comment', 'toolbox_meeting_form',
-                    'toolbox_meeting_form_comment', 'communication_plan_form', 'communication_plan_form_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+                    'toolbox_meeting_form_comment', 'communication_plan_form', 'communication_plan_form_comment', 'health_documents_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -176,8 +176,8 @@ admin.site.register(HealthDocumentsInstallationTeam,
 
 
 class InstallationTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'health_documents_installation', 'health_documents_comment', 'access_approvals', 'access_approval_comment', 'rf_and_link_installation_images', 'rf_and_link_installation_comment',
-                    'electrical_installation_images', 'electrical_installation_comment', 'kplc_solar_installation_images', 'kplc_solar_installation_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'health_documents_installation', 'access_approvals', 'rf_and_link_installation_images',
+                    'electrical_installation_images', 'kplc_solar_installation_images', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
