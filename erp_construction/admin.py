@@ -5,5 +5,10 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .models import *
 
 # Register your models here.
-admin.site.register(CustomUser)
-admin.site.register(Employee)
+class CustomUserAdmin(admin.ModelAdmin):
+    list_display = ('user', 'team', 'position')
+    list_display_links = ('user', )
+    search_fields = ('user', )
+
+
+admin.site.register(CustomUser, CustomUserAdmin)
