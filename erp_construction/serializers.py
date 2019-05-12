@@ -5,6 +5,7 @@ from .models import CustomUser, Project, ProcurementTeam, HealthDocumentsCivilTe
 
 
 class UserloginSerializer(serializers.ModelSerializer):
+
     username = serializers.CharField(max_length=32, validators=[UniqueValidator(queryset=User.objects.all())])
     password = serializers.CharField(min_length=5, write_only=True)
 

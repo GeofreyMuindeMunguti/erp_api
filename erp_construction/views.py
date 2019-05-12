@@ -34,12 +34,14 @@ class DefaultsMixin(object):
 
 
 class UserViewSet(viewsets.ModelViewSet):
+
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
 # Login Users
 class UserLoginView(viewsets.ModelViewSet):
+
     queryset = User.objects.all()
     serializer_class = UserloginSerializer
 
