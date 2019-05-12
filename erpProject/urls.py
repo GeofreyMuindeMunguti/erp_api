@@ -21,4 +21,5 @@ from erp_construction.urls import router
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^api/', include(router.urls)),
+    path('', include('erp_construction.urls')),
 ]
