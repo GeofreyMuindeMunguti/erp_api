@@ -22,14 +22,11 @@ class UserloginSerializer(serializers.ModelSerializer):
         profile_data = validated_data.pop('profile')
         password = validated_data.pop('password')
         profile = instance.profile
-
-        instance.email = validated_data.get('email', instance.email)
-        instance.save()
-
         profile.team = profile_data.get('team', profile.team)
         profile.position = profile_data.get('position', profile.position)
         profile.save()
-
+        instance.email = validated_data.get('email', instance.email)
+        instance.save()
         return instance
 
 
