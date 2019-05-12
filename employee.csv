@@ -1,0 +1,4 @@
+username,email,password,is_superuser,first_name,last_name,is_staff,is_active,date_joined
+ADE12DH,denno@adriankenya.com,123456,no,denno,denno,no,no,10-05-2017
+ADE13DH,olal@adriankenya.com,123456,no,olal,olal,no,no,10-05-2018
+ADE14DH,peter@adriankenya.com,123456,no,peter,peter,no,no,10-05-2019

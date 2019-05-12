@@ -1,12 +1,16 @@
 from django.contrib import admin
 #from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser, Employee, Project, ProcurementTeam, HealthDocumentsCivilTeam, CivilWorksTeam, FoundationImage, BTSAndGeneatorSlabsImage, SiteWallingImage, RFAndLinkImage, ElectricalImage, KPLCSolarImage, CommercialTeam, AccessApprovalCivil, AccessApprovalInstallation, HealthDocumentsInstallationTeam, InstallationTeam, SafaricomTeam
+from .models import *
 
 
-#admin.site.register(User, UserAdmin)
-admin.site.register(CustomUser)
-admin.site.register(Employee)
+# Register your models here.
+class CustomUserAdmin(admin.ModelAdmin):
+    list_display = ('user', 'team', 'position')
+    list_display_links = ('user', )
+    search_fields = ('user', )
 
+
+admin.site.register(CustomUser, CustomUserAdmin)
 
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'site_number', 'BTS_type', 'site_owner', 'geotech_file', 'access_letter', 'approved_drawing',
