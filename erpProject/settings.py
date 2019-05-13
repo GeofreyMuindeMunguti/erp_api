@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'erp_construction',
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_auth',
 ]
 
 MIDDLEWARE = [
