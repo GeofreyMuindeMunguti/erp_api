@@ -53,9 +53,9 @@ class ProcurementTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     ordering_fields = ('updated_at', 'project_name', )
 
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
         get_status = status_function(CommercialTeam, request)
         if get_status == 'Approved':
+            serializer = self.get_serializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             self.perform_create(serializer)
             headers = self.get_success_headers(serializer.data)
