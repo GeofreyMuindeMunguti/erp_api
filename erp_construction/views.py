@@ -49,15 +49,11 @@ class ProcurementTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = ProcurementTeam.objects.order_by('created_at')
     serializer_class = ProcurementTeamSerializer
 
-    @action(detail=False, methods=['post'])
+    @action(detail=False, methods=['POST'])
     def status(self, request):
-        project_id = request.POST['project_name']
-        previous_team = CommercialTeam.objects.get(project_name=project_id)
-        status_field = previous_team.is_approved
-        if status_field is True:
-            return Response({'status': 'Approved'})
-        else:
-            return Response({'status': 'Denied'})
+        project_name = request.POST['project_name']
+        get_status = status_function(CommercialTeam, project_name)
+        return Response({'status': get_status})
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
@@ -133,3 +129,14 @@ class SafaricomTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
+
+
+def status_function(model, project_name):
+    status = 'Denied'
+    previous_team = model.objects.get(project_name=project_name)
+    status_field = previous_team.is_approved
+    if status_field is True:
+        status = 'Approved'
+        return status
+    else:
+        return status
