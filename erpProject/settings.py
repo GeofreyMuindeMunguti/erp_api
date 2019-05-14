@@ -29,7 +29,6 @@ DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = []
 
-# AUTH_USER_MODEL = 'erp_construction.CustomUser'
 
 # Application definition
 

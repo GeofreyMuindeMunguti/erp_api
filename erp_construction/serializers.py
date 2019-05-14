@@ -1,5 +1,8 @@
-from rest_framework import serializers
+
+from rest_framework import serializers, exceptions
 from rest_framework.validators import UniqueValidator
+
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from .models import CustomUser, Project, ProcurementTeam, HealthDocumentsCivilTeam, AccessApprovalCivil, CivilWorksTeam, FoundationImage, BTSAndGeneatorSlabsImage, SiteWallingImage, CommercialTeam, SafaricomTeam
 
