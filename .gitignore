@@ -2,7 +2,11 @@ postgres
 Dockerfile
 docker-compose.yml
 .dockerignore
-interestingtoChencha.py
+employee.csv
+
+#DigitalOcean
+erp_api.sock
+erp_apienv/
 
 .DS_Store
 virtual/
