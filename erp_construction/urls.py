@@ -5,9 +5,9 @@ from . views import *
 from . import views
 
 router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
-router.register(r'api/login', UserLoginView)
+router.register(r'users', views.UserViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('rest-auth/', include('rest_auth.urls')),
 ]
