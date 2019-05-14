@@ -130,10 +130,11 @@ class SafaricomTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     ordering_fields = ('updated_at', 'project_name', )
 
 
-def status_function(model, request):
+def status_function(model_class, request):
+    """Function to return status of previous team before posting """
     status = 'Denied'
     project_name = request.POST['project_name']
-    previous_team = model.objects.get(project_name=project_name)
+    previous_team = model_class.objects.get(project_name=project_name)
     status_field = previous_team.is_approved
     if status_field is True:
         status = 'Approved'
