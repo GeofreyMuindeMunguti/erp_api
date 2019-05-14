@@ -52,10 +52,16 @@ class ProcurementTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
-    @action(detail=False, methods=['POST'])
-    def status(self, request):
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
         get_status = status_function(CommercialTeam, request)
-        return Response({'status': get_status})
+        if get_status == 'Approved':
+            serializer.is_valid(raise_exception=True)
+            self.perform_create(serializer)
+            headers = self.get_success_headers(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        else:
+            return Response({'status': get_status, 'project_name': request.POST['project_name']})
 
 
 class CommercialTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
@@ -132,7 +138,7 @@ class SafaricomTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
 def status_function(model_class, request):
     """Function to return status of previous team before posting """
-    status = 'Denied'
+    status = 'Previous Team Not Approved'
     project_name = request.POST['project_name']
     previous_team = model_class.objects.get(project_name=project_name)
     status_field = previous_team.is_approved
