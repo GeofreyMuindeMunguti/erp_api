@@ -5,6 +5,8 @@ from .models import Project, ProcurementTeam, HealthDocumentsCivilTeam, AccessAp
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
+from rest_framework.decorators import action
+from datetime import datetime
 
 
 class DefaultsMixin(object):
@@ -46,6 +48,16 @@ class ProcurementTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating procurement team tasks."""
     queryset = ProcurementTeam.objects.order_by('created_at')
     serializer_class = ProcurementTeamSerializer
+
+    @action(detail=False, methods=['post'])
+    def status(self, request):
+        project_id = request.POST['project_name']
+        previous_team = CommercialTeam.objects.get(project_name=project_id)
+        status_field = previous_team.is_approved
+        if status_field is True:
+            return Response({'status': 'Approved'})
+        else:
+            return Response({'status': 'Denied'})
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
