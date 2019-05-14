@@ -29,7 +29,6 @@ DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = []
 
-# AUTH_USER_MODEL = 'erp_construction.CustomUser'
 
 # Application definition
 
@@ -43,6 +42,7 @@ INSTALLED_APPS = [
     'erp_construction',
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_auth',
 ]
 
 MIDDLEWARE = [
