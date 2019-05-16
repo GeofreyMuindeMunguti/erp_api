@@ -2,6 +2,7 @@ postgres
 Dockerfile
 docker-compose.yml
 .dockerignore
+employee.csv
 
 #DigitalOcean
 erp_api.sock
