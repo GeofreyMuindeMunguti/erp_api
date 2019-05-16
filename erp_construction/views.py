@@ -89,8 +89,8 @@ class FoundationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
 class SlabsImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating slabs images for civil team."""
-    queryset = SiteWallingImage.objects.order_by('created_at')
-    serializer_class = SiteWallingImageSerializer
+    queryset = BTSAndGeneatorSlabsImage.objects.order_by('created_at')
+    serializer_class = BTSAndGeneatorSlabsImageSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
@@ -98,8 +98,8 @@ class SlabsImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
 class SiteWallingImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating site walling images for civil team."""
-    queryset = BTSAndGeneatorSlabsImage.objects.order_by('created_at')
-    serializer_class = BTSAndGeneatorSlabsImageSerializer
+    queryset = SiteWallingImage.objects.order_by('created_at')
+    serializer_class = SiteWallingImageSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
