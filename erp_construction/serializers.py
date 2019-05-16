@@ -4,7 +4,7 @@ from rest_framework.validators import UniqueValidator
 
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from .models import * #CustomUser, Project, ProcurementTeam, HealthDocumentsCivilTeam, AccessApprovalCivil, CivilWorksTeam, FoundationImage, BTSAndGeneatorSlabsImage, SiteWallingImage, CommercialTeam, SafaricomTeam
+from .models import CustomUser, Project, ProcurementTeam, HealthDocumentsCivilTeam, AccessApprovalCivil, CivilWorksTeam, FoundationImage, BTSAndGeneatorSlabsImage, SiteWallingImage, CommercialTeam, SafaricomTeam,InstallationTeam,AccessApprovalInstallation,KPLCSolarImage,HealthDocumentsInstallationTeam, RFAndLinkImage,ElectricalImage
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
