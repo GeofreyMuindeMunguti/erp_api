@@ -34,8 +34,9 @@ class DefaultsMixin(object):
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
+    queryset = User.objects.order_by('date_joined')
     serializer_class = UserSerializer
+    ordering_fields = ('updated_at', )
 
 
 class ProjectViewSet(DefaultsMixin, viewsets.ModelViewSet):
@@ -127,8 +128,8 @@ class SafaricomTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
-AccessApprovalInstallationSerializer
-class InstallationTeamViewSet(DefaultsMixin,viewsets.ModelViewSet):
+
+class InstallationTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating installation team."""
     queryset = InstallationTeam.objects.order_by('created_at')
     serializer_class = InstallationTeamSerializer
@@ -137,7 +138,7 @@ class InstallationTeamViewSet(DefaultsMixin,viewsets.ModelViewSet):
     ordering_fields = ('updated_at', 'project_name', )
 
 
-class HealthDocumentsInstallationTeamViewset(DefaultsMixin,viewsets.ModelViewSet):
+class HealthDocumentsInstallationTeamViewset(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating HealthDocument for electrical installation  team."""
     queryset = HealthDocumentsInstallationTeam.objects.order_by('created_at')
     serializer_class = HealthDocumentsInstallationTeamSerializer
@@ -145,7 +146,8 @@ class HealthDocumentsInstallationTeamViewset(DefaultsMixin,viewsets.ModelViewSet
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
-class AccessApprovalInstallationViewSet(DefaultsMixin,viewsets.ModelViewSet):
+
+class AccessApprovalInstallationViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating installation team."""
     queryset = AccessApprovalInstallation.objects.order_by('created_at')
     serializer_class = AccessApprovalInstallationSerializer
@@ -161,6 +163,7 @@ class RFAndLinkImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
+
 
 class ElectricalImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating Electrical Images for Electrical team."""
