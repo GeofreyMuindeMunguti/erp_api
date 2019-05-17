@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .serializers import ProjectSerializer, ProcurementTeamSerializer, HealthDocumentsCivilTeamSerializer, AccessApprovalCivilSerializer, CivilWorksTeamSerializer, FoundationImageSerializer, BTSAndGeneatorSlabsImageSerializer, SiteWallingImageSerializer, CommercialTeamSerializer, SafaricomTeamSerializer, UserSerializer,KPLCSolarImageSerializer,ElectricalImageSerializer,RFAndLinkImageSerializer,AccessApprovalInstallationSerializer,InstallationTeamSerializer,HealthDocumentsInstallationTeamSerializer
 from rest_framework import generics, permissions, viewsets, serializers, permissions, filters, status
-from .models import Project, ProcurementTeam, HealthDocumentsCivilTeam, AccessApprovalCivil, CivilWorksTeam, FoundationImage, BTSAndGeneatorSlabsImage, SiteWallingImage, CommercialTeam, SafaricomTeam, InstallationTeam, AccessApprovalInstallation, KPLCSolarImage, HealthDocumentsInstallationTeam, RFAndLinkImage, ElectricalImage
+from .models import Project, ProcurementTeam, HealthDocumentsCivilTeam, AccessApprovalCivil, CivilWorksTeam, FoundationImage, BTSAndGeneatorSlabsImage, SiteWallingImage, CommercialTeam, SafaricomTeam,InstallationTeam,AccessApprovalInstallation,KPLCSolarImage,HealthDocumentsInstallationTeam, RFAndLinkImage,ElectricalImage
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
@@ -33,6 +33,12 @@ class DefaultsMixin(object):
     ViewSet . We configure the OrderingFilter by adding a list of fields, which can be used
     for ordering the ordering_fields .
     '''
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.order_by('date_joined')
+    serializer_class = UserSerializer
+    ordering_fields = ('updated_at', )
 
 
 class ProjectViewSet(DefaultsMixin, viewsets.ModelViewSet):
@@ -102,8 +108,8 @@ class FoundationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
 class SlabsImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating slabs images for civil team."""
-    queryset = SiteWallingImage.objects.order_by('created_at')
-    serializer_class = SiteWallingImageSerializer
+    queryset = BTSAndGeneatorSlabsImage.objects.order_by('created_at')
+    serializer_class = BTSAndGeneatorSlabsImageSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
@@ -111,8 +117,8 @@ class SlabsImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
 class SiteWallingImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating site walling images for civil team."""
-    queryset = BTSAndGeneatorSlabsImage.objects.order_by('created_at')
-    serializer_class = BTSAndGeneatorSlabsImageSerializer
+    queryset = SiteWallingImage.objects.order_by('created_at')
+    serializer_class = SiteWallingImageSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )

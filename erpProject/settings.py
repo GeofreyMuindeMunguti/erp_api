@@ -27,9 +27,8 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG')
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ ]
 
-# AUTH_USER_MODEL = 'erp_construction.CustomUser'
 
 # Application definition
 
@@ -145,4 +144,8 @@ REST_FRAMEWORK = {
       'rest_framework.authentication.TokenAuthentication',
       'rest_framework.authentication.SessionAuthentication',
     )
+}
+
+REST_AUTH_SERIALIZERS = {
+    'TOKEN_SERIALIZER': 'erp_construction.serializers.TokenSerializer',
 }
