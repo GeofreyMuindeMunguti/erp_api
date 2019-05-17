@@ -132,3 +132,49 @@ class SafaricomTeamSerializer(serializers.ModelSerializer):
         model = SafaricomTeam
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class InstallationTeamSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = InstallationTeam
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class HealthDocumentsInstallationTeamSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HealthDocumentsInstallationTeam
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class AccessApprovalInstallationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AccessApprovalInstallation
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class RFAndLinkImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = RFAndLinkImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class ElectricalImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ElectricalImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class KPLCSolarImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = KPLCSolarImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
