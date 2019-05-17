@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from .serializers import ProjectSerializer, ProcurementTeamSerializer, HealthDocumentsCivilTeamSerializer, AccessApprovalCivilSerializer, CivilWorksTeamSerializer, FoundationImageSerializer, BTSAndGeneatorSlabsImageSerializer, SiteWallingImageSerializer, CommercialTeamSerializer, SafaricomTeamSerializer
+from .serializers import ProjectSerializer, ProcurementTeamSerializer, HealthDocumentsCivilTeamSerializer, AccessApprovalCivilSerializer, CivilWorksTeamSerializer, FoundationImageSerializer, BTSAndGeneatorSlabsImageSerializer, SiteWallingImageSerializer, CommercialTeamSerializer, SafaricomTeamSerializer, UserSerializer,KPLCSolarImageSerializer,ElectricalImageSerializer,RFAndLinkImageSerializer,AccessApprovalInstallationSerializer,InstallationTeamSerializer,HealthDocumentsInstallationTeamSerializer
 from rest_framework import generics, permissions, viewsets, serializers, permissions, filters, status
-from .models import Project, ProcurementTeam, HealthDocumentsCivilTeam, AccessApprovalCivil, CivilWorksTeam, FoundationImage, BTSAndGeneatorSlabsImage, SiteWallingImage, CommercialTeam, SafaricomTeam
+from .models import Project, ProcurementTeam, HealthDocumentsCivilTeam, AccessApprovalCivil, CivilWorksTeam, FoundationImage, BTSAndGeneatorSlabsImage, SiteWallingImage, CommercialTeam, SafaricomTeam, InstallationTeam, AccessApprovalInstallation, KPLCSolarImage, HealthDocumentsInstallationTeam, RFAndLinkImage, ElectricalImage
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
@@ -142,6 +142,60 @@ class SafaricomTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating tasks for safaricom team."""
     queryset = SafaricomTeam.objects.order_by('created_at')
     serializer_class = SafaricomTeamSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
+class InstallationTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating installation team."""
+    queryset = InstallationTeam.objects.order_by('created_at')
+    serializer_class = InstallationTeamSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
+class HealthDocumentsInstallationTeamViewset(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating HealthDocument for electrical installation  team."""
+    queryset = HealthDocumentsInstallationTeam.objects.order_by('created_at')
+    serializer_class = HealthDocumentsInstallationTeamSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
+class AccessApprovalInstallationViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating installation team."""
+    queryset = AccessApprovalInstallation.objects.order_by('created_at')
+    serializer_class = AccessApprovalInstallationSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
+class RFAndLinkImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating RF & Link  images for Electrical team."""
+    queryset = RFAndLinkImage.objects.order_by('created_at')
+    serializer_class = RFAndLinkImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
+class ElectricalImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating Electrical Images for Electrical team."""
+    queryset = ElectricalImage.objects.order_by('created_at')
+    serializer_class = ElectricalImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
+class KPLCSolarImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating KPLC & Solar images for Electrical team."""
+    queryset = KPLCSolarImage.objects.order_by('created_at')
+    serializer_class = KPLCSolarImageSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
