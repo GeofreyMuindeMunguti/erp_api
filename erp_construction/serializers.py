@@ -1,17 +1,23 @@
-
 from rest_framework import serializers, exceptions
 from rest_framework.validators import UniqueValidator
-
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from .models import *
+from rest_framework.authtoken.models import Token
+
+
+class TokenSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Token
+        fields = ('key', 'user_id')
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ('user_id','team','position')
+        fields = ('user_id', 'team', 'position')
         read_only_fields = ('is_active', 'is_staff')
 
 
@@ -23,7 +29,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id','username', 'email', 'first_name', 'last_name', 'password','profile')
+        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'password', 'profile')
 
     def create(self, validated_data):
         profile_data = validated_data.pop('profile')
