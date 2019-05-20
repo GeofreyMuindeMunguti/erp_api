@@ -148,5 +148,10 @@ REST_FRAMEWORK = {
       'rest_framework.authentication.SessionAuthentication',
     )
 }
+
+REST_AUTH_SERIALIZERS = {
+    'TOKEN_SERIALIZER': 'erp_construction.serializers.TokenSerializer',
+}
+
 #CORS HEADERS settings
 CORS_ORIGIN_ALLOW_ALL = True
