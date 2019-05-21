@@ -37,8 +37,8 @@ admin.site.register(AccessApprovalInstallation, AccessApprovalInstallationAdmin)
 
 
 class CommercialTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'po_file', 'po_file_comment', 'initial_invoice',
-                    'initial_invoice_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'approved_quote', 'approved_quote_comment','po_file', 'po_file_comment', 'initial_invoice',
+                    'initial_invoice_comment','project_cost','project_cost_comment','posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )

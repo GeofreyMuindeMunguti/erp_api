@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from users.models import CustomUser
+from django.contrib.postgres.fields import ArrayField
 
 
 # Create your models here.
@@ -28,7 +29,7 @@ class Project(models.Model):
 
 class FoundationImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
-    setting_site_clearing = models.ImageField(upload_to='images/CivilWorksTeam/foundation/%Y/%m/%d/')
+    setting_site_clearing = ArrayField(models.ImageField(upload_to='images/CivilWorksTeam/foundation/%Y/%m/%d/'))
     excavation_tower_base= models.ImageField(upload_to='images/CivilWorksTeam/foundation/%Y/%m/%d/')
     binding = models.ImageField(upload_to='images/CivilWorksTeam/foundation/%Y/%m/%d/')
     steel_fix_formwork= models.ImageField(upload_to='images/CivilWorksTeam/foundation/%Y/%m/%d/')
@@ -133,12 +134,14 @@ class KPLCSolarImage(models.Model):
 
 class CommercialTeam(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    approved_quote = models.FileField(upload_to='files/CommercialTeam/approvedquote/%Y/%m/%d/',blank=False)
+    approved_quote_comment = models.CharField(max_length=100, blank=True, null=True)
     po_file = models.FileField(upload_to='files/CommercialTeam/pofile/%Y/%m/%d/')
     po_file_comment = models.CharField(max_length=100, blank=True, null=True)
     initial_invoice = models.FileField(upload_to='files/CommercialTeam/initialinvoice/%Y/%m/%d/')
     initial_invoice_comment = models.CharField(max_length=100, blank=True, null=True)
-    approved_quote = models.FileField(upload_to='files/CommercialTeam/approvedquote/%Y/%m/%d/')
     project_cost = models.FileField(upload_to='files/CommercialTeam/projectcost/%Y/%m/%d/')
+    project_cost_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
