@@ -148,5 +148,5 @@ REST_FRAMEWORK = {
 }
 
 REST_AUTH_SERIALIZERS = {
-    'TOKEN_SERIALIZER': 'erp_construction.serializers.TokenSerializer',
+    'TOKEN_SERIALIZER': 'users.serializers.TokenSerializer',
 }
