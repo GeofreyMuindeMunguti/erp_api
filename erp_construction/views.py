@@ -5,6 +5,8 @@ from .models import Project, ProcurementTeam, HealthDocumentsCivilTeam, AccessAp
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
+from rest_framework.decorators import action
+from datetime import datetime
 
 
 class DefaultsMixin(object):
@@ -34,8 +36,9 @@ class DefaultsMixin(object):
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
+    queryset = User.objects.order_by('date_joined')
     serializer_class = UserSerializer
+    ordering_fields = ('updated_at', )
 
 
 class ProjectViewSet(DefaultsMixin, viewsets.ModelViewSet):
@@ -94,8 +97,8 @@ class FoundationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
 class SlabsImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating slabs images for civil team."""
-    queryset = SiteWallingImage.objects.order_by('created_at')
-    serializer_class = SiteWallingImageSerializer
+    queryset = BTSAndGeneatorSlabsImage.objects.order_by('created_at')
+    serializer_class = BTSAndGeneatorSlabsImageSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
@@ -103,8 +106,8 @@ class SlabsImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
 class SiteWallingImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating site walling images for civil team."""
-    queryset = BTSAndGeneatorSlabsImage.objects.order_by('created_at')
-    serializer_class = BTSAndGeneatorSlabsImageSerializer
+    queryset = SiteWallingImage.objects.order_by('created_at')
+    serializer_class = SiteWallingImageSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
@@ -127,8 +130,8 @@ class SafaricomTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
-AccessApprovalInstallationSerializer
-class InstallationTeamViewSet(DefaultsMixin,viewsets.ModelViewSet):
+
+class InstallationTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating installation team."""
     queryset = InstallationTeam.objects.order_by('created_at')
     serializer_class = InstallationTeamSerializer
@@ -137,7 +140,7 @@ class InstallationTeamViewSet(DefaultsMixin,viewsets.ModelViewSet):
     ordering_fields = ('updated_at', 'project_name', )
 
 
-class HealthDocumentsInstallationTeamViewset(DefaultsMixin,viewsets.ModelViewSet):
+class HealthDocumentsInstallationTeamViewset(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating HealthDocument for electrical installation  team."""
     queryset = HealthDocumentsInstallationTeam.objects.order_by('created_at')
     serializer_class = HealthDocumentsInstallationTeamSerializer
@@ -145,7 +148,8 @@ class HealthDocumentsInstallationTeamViewset(DefaultsMixin,viewsets.ModelViewSet
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
-class AccessApprovalInstallationViewSet(DefaultsMixin,viewsets.ModelViewSet):
+
+class AccessApprovalInstallationViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating installation team."""
     queryset = AccessApprovalInstallation.objects.order_by('created_at')
     serializer_class = AccessApprovalInstallationSerializer
@@ -161,6 +165,7 @@ class RFAndLinkImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
+
 
 class ElectricalImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating Electrical Images for Electrical team."""
@@ -178,3 +183,16 @@ class KPLCSolarImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
+
+
+def status_function(model_class, request):
+    """Function to return status of previous team before posting """
+    status = 'Previous Team Not Approved'
+    project_name = request.POST['project_name']
+    previous_team = model_class.objects.get(project_name=project_name)
+    status_field = previous_team.is_approved
+    if status_field is True:
+        status = 'Approved'
+        return status
+    else:
+        return status
