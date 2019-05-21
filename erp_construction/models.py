@@ -154,10 +154,10 @@ class KPLCSolarImage(models.Model):
 class CommercialTeam(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
     po_file = models.FileField(
-        upload_to='files/CommercialTeam/pofile/%Y/%m/%d/')
+        upload_to='files/CommercialTeam/pofile/%Y/%m/%d/', blank=True, null=True)
     po_file_comment = models.CharField(max_length=100, blank=True, null=True)
     initial_invoice = models.FileField(
-        upload_to='files/CommercialTeam/initialinvoice/%Y/%m/%d/')
+        upload_to='files/CommercialTeam/initialinvoice/%Y/%m/%d/', blank=True, null=True)
     initial_invoice_comment = models.CharField(
         max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)

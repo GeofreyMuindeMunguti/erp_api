@@ -78,6 +78,29 @@ class CommercialTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
+    @action(detail=False, methods=['POST'])
+    def progress(self, request):
+        total_task = 2
+        completed_tasks = 0
+        po_status = ''
+        initial_invoice_status = ''
+        project_id = request.POST['project_name']
+        progress_object = CommercialTeam.objects.get(project_name=project_id)
+        po = progress_object.po_file
+        initialinvoice = progress_object.initial_invoice
+        if bool(po) is False:
+            po_status = "Not uploaded"
+        else:
+            completed_tasks += 1
+            po_status = "Uploaded"
+        if bool(initialinvoice) is False:
+            initial_invoice_status = "Not Uploaded"
+        else:
+            completed_tasks += 1
+            initial_invoice_status = "Uploaded"
+        percentage = percentage_function(completed_tasks, total_task)
+        return Response({'po_status': po_status, 'initial_invoice_status': initial_invoice_status, 'progress': percentage})
+
 
 class HealthDocCivilViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating health docs for civil team."""
@@ -240,3 +263,9 @@ def status_function(model_class, request):
         return status
     else:
         return status
+
+
+def percentage_function(no_of_complete, total_task):
+    """Function to return perecentage of progress  """
+    percentage = ((no_of_complete/total_task) * 100)
+    return percentage
