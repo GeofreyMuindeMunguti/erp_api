@@ -5,7 +5,6 @@ from django.urls import path, include
 
 router = DefaultRouter()
 
-router.register(r'users', views.UserViewSet)
 router.register(r'projects', views.ProjectViewSet)
 router.register(r'commercialteamtasks', views.CommercialTeamViewSet)
 router.register(r'procurementteamtasks', views.ProcurementTeamViewSet)
@@ -15,7 +14,6 @@ router.register(r'foundationimages', views.FoundationImageViewSet)
 router.register(r'slabsimages', views.SlabsImageViewSet)
 router.register(r'sitewallingimages', views.SiteWallingImageViewSet)
 router.register(r'civilteamtasks', views.CivilTeamViewSet)
-router.register(r'safteamtasks', views.SafaricomTeamViewSet)
 router.register(r'installationteams', views.InstallationTeamViewSet)
 router.register(r'healthdocumentsinstallationteams', views.HealthDocumentsInstallationTeamViewset)
 router.register(r'accessapprovalinstallations', views.AccessApprovalInstallationViewSet)
@@ -26,5 +24,4 @@ router.register(r'kplcsolarsmages', views.KPLCSolarImageViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('rest-auth/', include('rest_auth.urls')),
 ]

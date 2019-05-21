@@ -1,18 +1,8 @@
 from django.contrib import admin
-#from django.contrib.auth.admin import UserAdmin
 from .models import *
 
 
 # Register your models here.
-class CustomUserAdmin(admin.ModelAdmin):
-    list_display = ('user', 'team', 'position')
-    list_display_links = ('user', )
-    search_fields = ('user', )
-
-
-admin.site.register(CustomUser, CustomUserAdmin)
-
-
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'site_number', 'BTS_type', 'site_owner', 'geotech_file', 'access_letter', 'approved_drawing',
                     'location', 'created_by', 'created_at', 'updated_at', 'is_active')
@@ -83,7 +73,7 @@ admin.site.register(HealthDocumentsCivilTeam, HealthDocumentsCivilTeamAdmin)
 
 
 class FoundationImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'foundation_and_curing_image_1', 'foundation_and_curing_image_2', 'foundation_and_curing_image_3', 'foundation_and_curing_comment',
+    list_display = ('id', 'project_name', 'setting_site_clearing', 'excavation_tower_base', 'binding','steel_fix_formwork','concrete_pour_curing', 'foundation_and_curing_comment',
                     'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -180,7 +170,8 @@ admin.site.register(HealthDocumentsInstallationTeam, HealthDocumentsInstallation
 
 class InstallationTeamAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'health_documents_installation', 'access_approvals', 'rf_and_link_installation_images',
-                    'electrical_installation_images', 'kplc_solar_installation_images', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+                    'electrical_installation_images', 'kplc_solar_installation_images', 'signoff', 'signoff_comment','rf_document','rf_document_comment', 'integration_parameter', 'integration_parameter_comment', 'snag_document', 'snag_document_comment',
+                    'conditional_acceptance_cert', 'conditional_acceptance_cert_comment', 'final_acceptance_cert', 'final_acceptance_cert_comment','posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -188,15 +179,3 @@ class InstallationTeamAdmin(admin.ModelAdmin):
 
 
 admin.site.register(InstallationTeam, InstallationTeamAdmin)
-
-
-class SafaricomTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'signoff_and_rf_document', 'signoff_and_rf_document_comment', 'integration_parameter', 'integration_parameter_comment', 'snag_document', 'snag_document_comment',
-                    'conditional_acceptance_cert', 'conditional_acceptance_cert_comment', 'final_acceptance_cert', 'final_acceptance_cert_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    list_filter = ('project_name',)
-    search_fields = ('project_name', )
-    list_editable = ('is_active',)
-
-
-admin.site.register(SafaricomTeam, SafaricomTeamAdmin)

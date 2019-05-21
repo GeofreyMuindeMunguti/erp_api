@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from .serializers import ProjectSerializer, ProcurementTeamSerializer, HealthDocumentsCivilTeamSerializer, AccessApprovalCivilSerializer, CivilWorksTeamSerializer, FoundationImageSerializer, BTSAndGeneatorSlabsImageSerializer, SiteWallingImageSerializer, CommercialTeamSerializer, SafaricomTeamSerializer, UserSerializer,KPLCSolarImageSerializer,ElectricalImageSerializer,RFAndLinkImageSerializer,AccessApprovalInstallationSerializer,InstallationTeamSerializer,HealthDocumentsInstallationTeamSerializer
+from .serializers import ProjectSerializer, ProcurementTeamSerializer, HealthDocumentsCivilTeamSerializer, AccessApprovalCivilSerializer, CivilWorksTeamSerializer, FoundationImageSerializer, BTSAndGeneatorSlabsImageSerializer, SiteWallingImageSerializer, CommercialTeamSerializer,KPLCSolarImageSerializer,ElectricalImageSerializer,RFAndLinkImageSerializer,AccessApprovalInstallationSerializer,InstallationTeamSerializer,HealthDocumentsInstallationTeamSerializer
 from rest_framework import generics, permissions, viewsets, serializers, permissions, filters, status
-from .models import Project, ProcurementTeam, HealthDocumentsCivilTeam, AccessApprovalCivil, CivilWorksTeam, FoundationImage, BTSAndGeneatorSlabsImage, SiteWallingImage, CommercialTeam, SafaricomTeam,InstallationTeam,AccessApprovalInstallation,KPLCSolarImage,HealthDocumentsInstallationTeam, RFAndLinkImage,ElectricalImage
+from .models import Project, ProcurementTeam, HealthDocumentsCivilTeam, AccessApprovalCivil, CivilWorksTeam, FoundationImage, BTSAndGeneatorSlabsImage, SiteWallingImage, CommercialTeam,InstallationTeam,AccessApprovalInstallation,KPLCSolarImage,HealthDocumentsInstallationTeam, RFAndLinkImage,ElectricalImage
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
@@ -34,13 +34,6 @@ class DefaultsMixin(object):
     for ordering the ordering_fields .
     '''
 
-
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.order_by('date_joined')
-    serializer_class = UserSerializer
-    ordering_fields = ('updated_at', )
-
-
 class ProjectViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating a project."""
     queryset = Project.objects.order_by('created_at')
@@ -57,17 +50,6 @@ class ProcurementTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
-
-    def create(self, request, *args, **kwargs):
-        get_status = status_function(CommercialTeam, request)
-        if get_status == 'Approved':
-            serializer = self.get_serializer(data=request.data)
-            serializer.is_valid(raise_exception=True)
-            self.perform_create(serializer)
-            headers = self.get_success_headers(serializer.data)
-            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-        else:
-            return Response({'status': get_status, 'project_name': request.POST['project_name']})
 
 
 class CommercialTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
@@ -132,37 +114,6 @@ class CivilTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
-    def create(self, request, *args, **kwargs):
-        get_status = status_function(ProcurementTeam, request)
-        if get_status == 'Approved':
-            serializer = self.get_serializer(data=request.data)
-            serializer.is_valid(raise_exception=True)
-            self.perform_create(serializer)
-            headers = self.get_success_headers(serializer.data)
-            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-        else:
-            return Response({'status': get_status, 'project_name': request.POST['project_name']})
-
-
-class SafaricomTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
-    """API endpoint for listing and creating tasks for safaricom team."""
-    queryset = SafaricomTeam.objects.order_by('created_at')
-    serializer_class = SafaricomTeamSerializer
-
-    search_fields = ('project_name', )
-    ordering_fields = ('updated_at', 'project_name', )
-
-    def create(self, request, *args, **kwargs):
-        get_status = status_function(InstallationTeam, request)
-        if get_status == 'Approved':
-            serializer = self.get_serializer(data=request.data)
-            serializer.is_valid(raise_exception=True)
-            self.perform_create(serializer)
-            headers = self.get_success_headers(serializer.data)
-            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-        else:
-            return Response({'status': get_status, 'project_name': request.POST['project_name']})
-
 
 class InstallationTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating installation team."""
@@ -171,17 +122,6 @@ class InstallationTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
-
-    def create(self, request, *args, **kwargs):
-        get_status = status_function(CivilWorksTeam, request)
-        if get_status == 'Approved':
-            serializer = self.get_serializer(data=request.data)
-            serializer.is_valid(raise_exception=True)
-            self.perform_create(serializer)
-            headers = self.get_success_headers(serializer.data)
-            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-        else:
-            return Response({'status': get_status, 'project_name': request.POST['project_name']})
 
 
 class HealthDocumentsInstallationTeamViewset(DefaultsMixin, viewsets.ModelViewSet):
