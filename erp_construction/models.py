@@ -154,10 +154,10 @@ class KPLCSolarImage(models.Model):
 class CommercialTeam(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
     po_file = models.FileField(
-        upload_to='files/CommercialTeam/pofile/%Y/%m/%d/')
+        upload_to='files/CommercialTeam/pofile/%Y/%m/%d/', blank=True, null=True)
     po_file_comment = models.CharField(max_length=100, blank=True, null=True)
     initial_invoice = models.FileField(
-        upload_to='files/CommercialTeam/initialinvoice/%Y/%m/%d/')
+        upload_to='files/CommercialTeam/initialinvoice/%Y/%m/%d/', blank=True, null=True)
     initial_invoice_comment = models.CharField(
         max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
@@ -173,14 +173,14 @@ class CommercialTeam(models.Model):
 class ProcurementTeam(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
     po_steel = models.FileField(
-        upload_to='files/ProcurementTeam/posteel/%Y/%m/%d/')
+        upload_to='files/ProcurementTeam/posteel/%Y/%m/%d/', blank=True, null=True)
     po_steel_comment = models.CharField(max_length=100, blank=True, null=True)
     po_electrical_materials = models.FileField(
-        upload_to='files/ProcurementTeam/poelectrical/%Y/%m/%d/')
+        upload_to='files/ProcurementTeam/poelectrical/%Y/%m/%d/', blank=True, null=True)
     po_electrical_materials_comment = models.CharField(
         max_length=100, blank=True, null=True)
     po_subcontractors = models.FileField(
-        upload_to='files/ProcurementTeam/posubcontractor/%Y/%m/%d/')
+        upload_to='files/ProcurementTeam/posubcontractor/%Y/%m/%d/', blank=True, null=True)
     po_subcontractors_comment = models.CharField(
         max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
@@ -242,11 +242,11 @@ class CivilWorksTeam(models.Model):
     health_documents = models.ManyToManyField(HealthDocumentsCivilTeam)
     access_approvals_field = models.ManyToManyField(AccessApprovalCivil)
     foundation_and_curing_images = models.OneToOneField(
-        FoundationImage, on_delete=models.DO_NOTHING)
+        FoundationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     bts_and_generator_slabs_images = models.OneToOneField(
-        BTSAndGeneatorSlabsImage, on_delete=models.DO_NOTHING)
+        BTSAndGeneatorSlabsImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     site_walling_images_field = models.OneToOneField(
-        SiteWallingImage, on_delete=models.DO_NOTHING)
+        SiteWallingImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
