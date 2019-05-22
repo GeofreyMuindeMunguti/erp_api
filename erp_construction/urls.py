@@ -24,6 +24,9 @@ router.register(r'rfandlinkimages', views.RFAndLinkImageViewSet)
 router.register(r'electricalimages', views.ElectricalImageViewSet)
 router.register(r'kplcsolarsmages', views.KPLCSolarImageViewSet)
 
+""" ENDPOINTS FOR FRONTEND"""
+
+router.register(r'commercialtask', views.CommercialTasksViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from .serializers import ProjectSerializer, ProcurementTeamSerializer, HealthDocumentsCivilTeamSerializer, AccessApprovalCivilSerializer, CivilWorksTeamSerializer, FoundationImageSerializer, BTSAndGeneatorSlabsImageSerializer, SiteWallingImageSerializer, CommercialTeamSerializer, SafaricomTeamSerializer, UserSerializer,KPLCSolarImageSerializer,ElectricalImageSerializer,RFAndLinkImageSerializer,AccessApprovalInstallationSerializer,InstallationTeamSerializer,HealthDocumentsInstallationTeamSerializer
+from .serializers import ProjectSerializer, ProcurementTeamSerializer, HealthDocumentsCivilTeamSerializer, AccessApprovalCivilSerializer, CivilWorksTeamSerializer, FoundationImageSerializer, BTSAndGeneatorSlabsImageSerializer, SiteWallingImageSerializer, CommercialTeamSerializer, SafaricomTeamSerializer, UserSerializer,KPLCSolarImageSerializer,ElectricalImageSerializer,RFAndLinkImageSerializer,AccessApprovalInstallationSerializer,InstallationTeamSerializer,HealthDocumentsInstallationTeamSerializer, CommercialTeamTasksSerializer
 from rest_framework import generics, permissions, viewsets, serializers, permissions, filters, status
-from .models import Project, ProcurementTeam, HealthDocumentsCivilTeam, AccessApprovalCivil, CivilWorksTeam, FoundationImage, BTSAndGeneatorSlabsImage, SiteWallingImage, CommercialTeam, SafaricomTeam,InstallationTeam,AccessApprovalInstallation,KPLCSolarImage,HealthDocumentsInstallationTeam, RFAndLinkImage,ElectricalImage
+from .models import Project, ProcurementTeam, HealthDocumentsCivilTeam, AccessApprovalCivil, CivilWorksTeam, FoundationImage, BTSAndGeneatorSlabsImage, SiteWallingImage, CommercialTeam, SafaricomTeam,InstallationTeam,AccessApprovalInstallation,KPLCSolarImage,HealthDocumentsInstallationTeam, RFAndLinkImage,ElectricalImage, CommercialTeamTasks
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
@@ -229,6 +229,15 @@ class KPLCSolarImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
+
+
+class CommercialTasksViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating Commercial Tasks"""
+    queryset = CommercialTeamTasks.objects.order_by('created_at')
+    serializer_class = CommercialTeamTasksSerializer
+
+    search_fields = ('task', )
+    ordering_fields = ('updated_at',  )
 
 
 class CommercialTeamProgressView(APIView):

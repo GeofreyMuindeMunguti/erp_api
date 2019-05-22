@@ -200,3 +200,13 @@ class SafaricomTeamAdmin(admin.ModelAdmin):
 
 
 admin.site.register(SafaricomTeam, SafaricomTeamAdmin)
+
+
+class CommercialTeamTasksAdmin(admin.ModelAdmin):
+    list_display = ('id', 'task', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('task', )
+    search_fields = ('task', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(CommercialTeamTasks, CommercialTeamTasksAdmin)

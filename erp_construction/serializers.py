@@ -2,7 +2,7 @@ from rest_framework import serializers, exceptions
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from .models import CustomUser, Project, ProcurementTeam, HealthDocumentsCivilTeam, AccessApprovalCivil, CivilWorksTeam, FoundationImage, BTSAndGeneatorSlabsImage, SiteWallingImage, CommercialTeam, SafaricomTeam,InstallationTeam,AccessApprovalInstallation,KPLCSolarImage,HealthDocumentsInstallationTeam, RFAndLinkImage,ElectricalImage
+from .models import CustomUser, Project, ProcurementTeam, HealthDocumentsCivilTeam, AccessApprovalCivil, CivilWorksTeam, FoundationImage, BTSAndGeneatorSlabsImage, SiteWallingImage, CommercialTeam, SafaricomTeam,InstallationTeam,AccessApprovalInstallation,KPLCSolarImage,HealthDocumentsInstallationTeam, RFAndLinkImage,ElectricalImage, CommercialTeamTasks
 from rest_framework.authtoken.models import Token
 
 
@@ -177,5 +177,13 @@ class KPLCSolarImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = KPLCSolarImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class CommercialTeamTasksSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CommercialTeamTasks
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
