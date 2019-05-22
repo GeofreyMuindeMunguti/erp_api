@@ -24,12 +24,11 @@ router.register(r'rfandlinkimages', views.RFAndLinkImageViewSet)
 router.register(r'electricalimages', views.ElectricalImageViewSet)
 router.register(r'kplcsolarsmages', views.KPLCSolarImageViewSet)
 
-""" ENDPOINTS FOR DASHBOARD"""
-
 
 urlpatterns = [
     path('', include(router.urls)),
     path('rest-auth/', include('rest_auth.urls')),
+    # ENDPOINTS FOR DASHBOARD
     path('commercialprogress/<int:pk>', CommercialTeamProgressView.as_view()),
     path('procurementprogress/<int:pk>', ProcurementTeamView.as_view()),
     path('civilprogress/<int:pk>', CivilProgressView.as_view())
