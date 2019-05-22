@@ -256,7 +256,7 @@ class CommercialTeamProgressView(APIView):
             completed_tasks += 1
             initial_invoice_status = "Uploaded"
         commercial_percentage = percentage_function(completed_tasks, total_tasks)
-        return Response({'po_status': po_status, 'initial_invoice_status': initial_invoice_status, 'progress': commercial_percentage})
+        return Response({'no_of_tasks': total_tasks, 'po_status': po_status, 'initial_invoice_status': initial_invoice_status, 'progress': commercial_percentage})
 
 
 class ProcurementTeamView(APIView):
@@ -291,7 +291,7 @@ class ProcurementTeamView(APIView):
             completed_tasks += 1
             po_subcontractors_status = "Uploaded"
         procurement_percentage = percentage_function(completed_tasks, total_tasks)
-        return Response({'po_steel_status': po_steel_status, 'po_electrical_materials_status': po_electrical_materials_status, 'po_subcontractors_status': po_subcontractors_status, 'progress': procurement_percentage})
+        return Response({'no_of_tasks': total_tasks, 'po_steel_status': po_steel_status, 'po_electrical_materials_status': po_electrical_materials_status, 'po_subcontractors_status': po_subcontractors_status, 'progress': procurement_percentage})
 
 
 class CivilProgressView(APIView):
@@ -326,7 +326,7 @@ class CivilProgressView(APIView):
             completed_tasks += 1
             site_walling_status = "Uploaded"
         civil_percentage = percentage_function(completed_tasks, total_tasks)
-        return Response({'foundation_status': foundation_status, 'slabs_status': slabs_status, 'site_walling_status': site_walling_status, 'progress': civil_percentage})
+        return Response({'no_of_tasks': total_tasks, 'foundation_status': foundation_status, 'slabs_status': slabs_status, 'site_walling_status': site_walling_status, 'progress': civil_percentage})
 
 
 def status_function(model_class, request):
