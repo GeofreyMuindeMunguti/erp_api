@@ -7,6 +7,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from datetime import datetime
+from django.http import JsonResponse
 
 
 class DefaultsMixin(object):
@@ -69,6 +70,39 @@ class ProcurementTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
         else:
             return Response({'status': get_status, 'project_name': request.POST['project_name']})
 
+    @action(detail=False, methods=['POST'])
+    def progress(self, request):
+        total_tasks = 3
+        completed_tasks = 0
+        po_steel_status = ''
+        po_electrical_materials_status = ''
+        po_subcontractors_status = ''
+        project_id = request.POST['project_name']
+        try:
+            progress_object = ProcurementTeam.objects.get(project_name=project_id)
+        except Exception as e:
+            return Response({'error': 'Record does not exist'})
+        po_steel = progress_object.po_steel
+        po_electrical_materials = progress_object.po_electrical_materials
+        po_subcontractors = progress_object.po_subcontractors
+        if bool(po_steel) is False:
+            po_steel_status = "Not uploaded"
+        else:
+            completed_tasks += 1
+            po_steel_status = "Uploaded"
+        if bool(po_electrical_materials) is False:
+            po_electrical_materials_status = "Not Uploaded"
+        else:
+            completed_tasks += 1
+            po_electrical_materials_status = "Uploaded"
+        if bool(po_subcontractors) is False:
+            po_subcontractors_status = "Not Uploaded"
+        else:
+            completed_tasks += 1
+            po_subcontractors_status = "Uploaded"
+        percentage = percentage_function(completed_tasks, total_tasks)
+        return Response({'po_steel_status': po_steel_status, 'po_electrical_materials_status': po_electrical_materials_status, 'po_subcontractors_status': po_subcontractors_status, 'progress': percentage})
+
 
 class CommercialTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating commercial team tasks."""
@@ -80,12 +114,15 @@ class CommercialTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     @action(detail=False, methods=['POST'])
     def progress(self, request):
-        total_task = 2
+        total_tasks = 2
         completed_tasks = 0
         po_status = ''
         initial_invoice_status = ''
         project_id = request.POST['project_name']
-        progress_object = CommercialTeam.objects.get(project_name=project_id)
+        try:
+            progress_object = CommercialTeam.objects.get(project_name=project_id)
+        except Exception as e:
+            return Response({'error': 'Record does not exist'})
         po = progress_object.po_file
         initialinvoice = progress_object.initial_invoice
         if bool(po) is False:
@@ -98,7 +135,7 @@ class CommercialTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
         else:
             completed_tasks += 1
             initial_invoice_status = "Uploaded"
-        percentage = percentage_function(completed_tasks, total_task)
+        percentage = percentage_function(completed_tasks, total_tasks)
         return Response({'po_status': po_status, 'initial_invoice_status': initial_invoice_status, 'progress': percentage})
 
 
@@ -165,6 +202,39 @@ class CivilTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
         else:
             return Response({'status': get_status, 'project_name': request.POST['project_name']})
+
+    @action(detail=False, methods=['POST'])
+    def progress(self, request):
+        total_tasks = 7
+        completed_tasks = 0
+        foundation_status = ''
+        slabs_status = ''
+        site_walling_status = ''
+        project_id = request.POST['project_name']
+        try:
+            progress_object = CivilWorksTeam.objects.get(project_name=project_id)
+        except Exception as e:
+            return Response({'error': 'Record does not exist'})
+        foundation_and_curing_images = progress_object.foundation_and_curing_images
+        bts_and_generator_slabs_images = progress_object.bts_and_generator_slabs_images
+        site_walling_images_field = progress_object.site_walling_images_field
+        if bool(foundation_and_curing_images) is False:
+            foundation_status = "Not uploaded"
+        else:
+            completed_tasks += 1
+            foundation_status = "Uploaded"
+        if bool(bts_and_generator_slabs_images) is False:
+            slabs_status = "Not Uploaded"
+        else:
+            completed_tasks += 1
+            slabs_status = "Uploaded"
+        if bool(site_walling_images_field) is False:
+            site_walling_status = "Not Uploaded"
+        else:
+            completed_tasks += 1
+            site_walling_status = "Uploaded"
+        percentage = percentage_function(completed_tasks, total_tasks)
+        return Response({'foundation_status': foundation_status, 'slabs_status': slabs_status, 'site_walling_status': site_walling_status, 'progress': percentage})
 
 
 class SafaricomTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
