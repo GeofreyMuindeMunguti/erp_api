@@ -152,7 +152,7 @@ class KPLCSolarImage(models.Model):
 
 
 class CommercialTeam(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     po_file = models.FileField(
         upload_to='files/CommercialTeam/pofile/%Y/%m/%d/', blank=True, null=True)
     po_file_comment = models.CharField(max_length=100, blank=True, null=True)
@@ -171,7 +171,7 @@ class CommercialTeam(models.Model):
 
 
 class ProcurementTeam(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     po_steel = models.FileField(
         upload_to='files/ProcurementTeam/posteel/%Y/%m/%d/', blank=True, null=True)
     po_steel_comment = models.CharField(max_length=100, blank=True, null=True)
@@ -238,7 +238,7 @@ class AccessApprovalCivil(models.Model):
 
 
 class CivilWorksTeam(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     health_documents = models.ManyToManyField(HealthDocumentsCivilTeam)
     access_approvals_field = models.ManyToManyField(AccessApprovalCivil)
     foundation_and_curing_images = models.OneToOneField(
@@ -308,7 +308,7 @@ class AccessApprovalInstallation(models.Model):
 
 
 class InstallationTeam(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     health_documents = models.ManyToManyField(HealthDocumentsInstallationTeam)
     access_approvals_field = models.ManyToManyField(AccessApprovalInstallation)
     rf_and_link_installation_images = models.OneToOneField(
@@ -334,7 +334,7 @@ class InstallationTeam(models.Model):
 
 
 class SafaricomTeam(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     signoff_and_rf_document = models.FileField(
         upload_to='files/SafaricomTeam/rfsignoff/%Y/%m/%d/')
     signoff_and_rf_document_comment = models.CharField(
