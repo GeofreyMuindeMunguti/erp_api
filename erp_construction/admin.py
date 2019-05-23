@@ -37,8 +37,8 @@ admin.site.register(AccessApprovalInstallation, AccessApprovalInstallationAdmin)
 
 
 class CommercialTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'approved_quote', 'approved_quote_comment','po_file', 'po_file_comment', 'initial_invoice',
-                    'initial_invoice_comment','project_cost','project_cost_comment','posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'po_file', 'po_file_comment', 'initial_invoice',
+                    'initial_invoice_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -60,6 +60,7 @@ class ProcurementTeamAdmin(admin.ModelAdmin):
 admin.site.register(ProcurementTeam, ProcurementTeamAdmin)
 
 
+
 class HealthDocumentsCivilTeamAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'job_hazard_form', 'job_hazard_form_comment', 'incident_notification_form', 'incident_notification_form_comment', 'toolbox_meeting_form',
                     'toolbox_meeting_form_comment', 'communication_plan_form', 'communication_plan_form_comment', 'health_documents_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
@@ -72,16 +73,55 @@ class HealthDocumentsCivilTeamAdmin(admin.ModelAdmin):
 admin.site.register(HealthDocumentsCivilTeam, HealthDocumentsCivilTeamAdmin)
 
 
-class FoundationImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'setting_site_clearing', 'excavation_tower_base', 'binding','steel_fix_formwork','concrete_pour_curing', 'foundation_and_curing_comment',
-                    'created_at', 'updated_at', 'is_active')
+class SetSiteClearingImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'setting_site_clearing_image_1', 'setting_site_clearing_image_2', 'setting_site_clearing_image_3', 'setting_site_clearing_comment','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
     list_editable = ('is_active',)
 
 
-admin.site.register(FoundationImage, FoundationImageAdmin)
+admin.site.register(SetSiteClearingImage, SetSiteClearingImageAdmin)
+
+class TowerBaseImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name','towerbase_image_1', 'towerbase_image_2', 'towerbase_image_3', 'tower_base_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(TowerBaseImage, TowerBaseImageAdmin)
+
+class BindingImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'binding_image_1', 'binding_image_2', 'binding_image_3', 'binding_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(BindingImage, BindingImageAdmin)
+
+class SteelFixFormworkImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name','steel_fix_formwork_image_1', 'steel_fix_formwork_image_2', 'steel_fix_formwork_image_3', 'steel_fix_formwork_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(SteelFixFormworkImage, SteelFixFormworkImageAdmin)
+
+class ConcretePourCuringImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'concrete_pour_curing_image_1', 'concrete_pour_curing_image_2', 'concrete_pour_curing_image_3', 'concrete_pour_curing_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(ConcretePourCuringImage, ConcretePourCuringImageAdmin)
 
 
 class BTSAndGeneatorSlabsImageAdmin(admin.ModelAdmin):

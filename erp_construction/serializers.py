@@ -3,7 +3,7 @@ from rest_framework.validators import UniqueValidator
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from users.models import CustomUser
-from .models import Project, ProcurementTeam, HealthDocumentsCivilTeam, AccessApprovalCivil, CivilWorksTeam, FoundationImage, BTSAndGeneatorSlabsImage, SiteWallingImage, CommercialTeam,InstallationTeam,AccessApprovalInstallation,KPLCSolarImage,HealthDocumentsInstallationTeam, RFAndLinkImage,ElectricalImage
+from .models import *
 from rest_framework.authtoken.models import Token
 
 class ProjectSerializer(serializers.ModelSerializer):
@@ -50,6 +50,41 @@ class FoundationImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FoundationImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class SiteClearingSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SetSiteClearingImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class TowerBaseImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TowerBaseImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class BindingImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BindingImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class SteelFixFormworkImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SteelFixFormworkImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class ConcretePourCuringImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ConcretePourCuringImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
