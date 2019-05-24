@@ -23,8 +23,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('erp_construction.urls')),
-    path('', include('users.urls')),
+    path('erp_construction/', include('erp_construction.urls')),
+    path('users/', include('users.urls')),
+    # path('inventory/', include('inventory.urls')),
 ]
 
 if settings.DEBUG:

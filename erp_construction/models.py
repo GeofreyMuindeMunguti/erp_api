@@ -309,7 +309,7 @@ class InstallationTeam(models.Model):
     signoff_comment = models.CharField(max_length=100, blank=True, null=True)
     rf_document = models.FileField(upload_to='files/SafaricomTeam/rf/%Y/%m/%d/')
     rf_document_comment = models.CharField(max_length=100, blank=True, null=True)
-    integration_parameter = models.FileField(upload_to='files/SafaricomTeam/integrationparameters/%Y/%m/%d/')
+    integration_parameter = models.BooleanField(default=False)
     integration_parameter_comment = models.CharField(max_length=100, blank=True, null=True)
     snag_document = models.FileField(upload_to='files/SafaricomTeam/snag/%Y/%m/%d/')
     snag_document_comment = models.CharField(max_length=100, blank=True, null=True)

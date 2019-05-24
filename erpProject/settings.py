@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'erp_construction',
     'users',
+    'inventory',
+    'phonenumber_field',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
