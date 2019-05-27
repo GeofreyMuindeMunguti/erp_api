@@ -2,6 +2,7 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.urlpatterns import format_suffix_patterns
 from . import views
 from django.urls import path, include
+from .views import CivilProgressView, CommercialTeamProgressView, ProcurementTeamView
 
 
 router = DefaultRouter()
@@ -30,4 +31,8 @@ router.register(r'slabsimages', views.SlabsImageViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    # ENDPOINTS FOR DASHBOARD
+    path('commercialprogress/<int:pk>', CommercialTeamProgressView.as_view()),
+    path('procurementprogress/<int:pk>', ProcurementTeamView.as_view()),
+    path('civilprogress/<int:pk>', CivilProgressView.as_view())
 ]
