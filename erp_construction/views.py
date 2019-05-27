@@ -1,14 +1,19 @@
 from django.shortcuts import render
-from .serializers import ProjectSerializer, ProcurementTeamSerializer, HealthDocumentsCivilTeamSerializer, AccessApprovalCivilSerializer, CivilWorksTeamSerializer, FoundationImageSerializer, BTSAndGeneatorSlabsImageSerializer, SiteWallingImageSerializer, CommercialTeamSerializer, SafaricomTeamSerializer, UserSerializer,KPLCSolarImageSerializer,ElectricalImageSerializer,RFAndLinkImageSerializer,AccessApprovalInstallationSerializer,InstallationTeamSerializer,HealthDocumentsInstallationTeamSerializer
+from .serializers import *
 from rest_framework import generics, permissions, viewsets, serializers, permissions, filters, status
-from .models import Project, ProcurementTeam, HealthDocumentsCivilTeam, AccessApprovalCivil, CivilWorksTeam, FoundationImage, BTSAndGeneatorSlabsImage, SiteWallingImage, CommercialTeam, SafaricomTeam,InstallationTeam,AccessApprovalInstallation,KPLCSolarImage,HealthDocumentsInstallationTeam, RFAndLinkImage,ElectricalImage
+from .models import *
 from django.contrib.auth.models import User
+from datetime import datetime
+
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from datetime import datetime
 from django.http import JsonResponse
 from rest_framework.views import APIView
+from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
+from rest_framework import status, viewsets
+from rest_framework.decorators import parser_classes
 
 
 class DefaultsMixin(object):
@@ -29,19 +34,12 @@ class DefaultsMixin(object):
     #view  filtering
     #DefaultsMixin now defines the list of available filter_backends , which will enable these for all of the existing ViewSets.
     """
-    filter_backends = (filters.SearchFilter, filters.OrderingFilter,)
+    filter_backends = (filters.SearchFilter,)
     '''
     We configure the SearchFilter by adding a search_fields attribute to each
     ViewSet . We configure the OrderingFilter by adding a list of fields, which can be used
     for ordering the ordering_fields .
     '''
-
-
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.order_by('date_joined')
-    serializer_class = UserSerializer
-    ordering_fields = ('updated_at', )
-
 
 class ProjectViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating a project."""
@@ -49,7 +47,6 @@ class ProjectViewSet(DefaultsMixin, viewsets.ModelViewSet):
     serializer_class = ProjectSerializer
 
     search_fields = ('project_name', )
-    ordering_fields = ('updated_at', 'project_name', )
 
 
 class ProcurementTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
@@ -96,6 +93,46 @@ class FoundationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
+class SetSiteClearingImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = SetSiteClearingImage.objects.order_by('created_at')
+    serializer_class = SiteClearingSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+class TowerBaseImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = TowerBaseImage.objects.order_by('created_at')
+    serializer_class = TowerBaseImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+class BindingImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = BindingImage.objects.order_by('created_at')
+    serializer_class = BindingImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+class SteelFixFormworkImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = SteelFixFormworkImage.objects.order_by('created_at')
+    serializer_class = SteelFixFormworkImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+class ConcretePourCuringImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = ConcretePourCuringImage.objects.order_by('created_at')
+    serializer_class = ConcretePourCuringImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
 
 class SlabsImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating slabs images for civil team."""
@@ -119,15 +156,6 @@ class CivilTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating tasks for civil team."""
     queryset = CivilWorksTeam.objects.order_by('created_at')
     serializer_class = CivilWorksTeamSerializer
-
-    search_fields = ('project_name', )
-    ordering_fields = ('updated_at', 'project_name', )
-
-
-class SafaricomTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
-    """API endpoint for listing and creating tasks for safaricom team."""
-    queryset = SafaricomTeam.objects.order_by('created_at')
-    serializer_class = SafaricomTeamSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )

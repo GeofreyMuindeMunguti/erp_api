@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'erp_construction',
+    'users',
+    'inventory',
+    'phonenumber_field',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
@@ -150,7 +153,7 @@ REST_FRAMEWORK = {
 }
 
 REST_AUTH_SERIALIZERS = {
-    'TOKEN_SERIALIZER': 'erp_construction.serializers.TokenSerializer',
+    'TOKEN_SERIALIZER': 'users.serializers.TokenSerializer',
 }
 
 #CORS HEADERS settings
