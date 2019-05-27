@@ -26,7 +26,4 @@ urlpatterns = [
     path('erp_construction/', include('erp_construction.urls')),
     path('', include('users.urls')),
     # path('inventory/', include('inventory.urls')),
-]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
