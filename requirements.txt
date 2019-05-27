@@ -1,8 +1,13 @@
+Babel==2.6.0
 certifi==2019.3.9
 chardet==3.0.4
 Click==7.0
 Django==2.2.1
+django-audit-log==0.7.0
 django-cors-headers==3.0.1
+django-filter==2.1.0
+django-phone-field==1.7.1
+django-phonenumber-field==2.4.0
 django-rest-auth==0.9.5
 django-user-tracking==0.4.11
 djangorestframework==3.9.2
@@ -15,6 +20,7 @@ livereload==2.6.1
 Markdown==3.1.1
 MarkupSafe==1.1.1
 mkdocs==1.0.4
+phonenumbers==8.10.12
 Pillow==6.0.0
 pkg-resources==0.0.0
 psycopg2==2.8.2

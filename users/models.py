@@ -7,7 +7,9 @@ from phonenumber_field.modelfields import PhoneNumberField
 # Create your models here.
 class CustomUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    customuser_phone_no = PhoneNumberField(blank=True, help_text='Phone Number')
+    # customuser_phone_no = PhoneNumberField(blank=True, help_text='Phone Number')
+    customuser_phone_no = models.CharField(max_length=100, blank=True, null=True)
+    profile_pic = models.ImageField(upload_to='files/ProfilePictures', blank=True)
     team = models.CharField(max_length=150, unique=True)
     position = models.CharField(max_length=500, blank=False)
 
@@ -66,7 +68,8 @@ class Location(models.Model):
 class Casual(models.Model):
     casual_first_name = models.CharField(max_length=150, unique=True)
     casual_last_name = models.CharField(max_length=150, unique=True)
-    casual_phone_no = PhoneNumberField(blank=True, help_text='Phone Number')
+    casual_phone_no = models.CharField(max_length=100, blank=True, null=True)
+    # casual_phone_no = PhoneNumberField(blank=True, help_text='Phone Number')
     location_name = models.ForeignKey(Location, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -88,8 +91,10 @@ class Casual(models.Model):
 
 class Engineer(models.Model):
     engineer_name = models. ForeignKey(User,on_delete=models.CASCADE, related_name='Engineers')
-    engineer_phone_no = PhoneNumberField(blank=True, help_text='Phone Number')
+    engineer_phone_no = models.CharField(max_length=100, blank=True, null=True)
+    # engineer_phone_no = PhoneNumberField(blank=True, help_text='Phone Number')
     department = models.CharField(max_length=100, blank=True)
+    location_name = models.ForeignKey(Location, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)

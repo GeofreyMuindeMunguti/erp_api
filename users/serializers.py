@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, user_logged_in
 from django.contrib.auth.models import User
 from erp_construction.models import *
+from .models import *
 
 from rest_framework import serializers, exceptions
 from rest_framework.validators import UniqueValidator
@@ -89,3 +90,24 @@ class UserSerializer(serializers.ModelSerializer):
         profile.save()
 
         return instance
+
+# location
+class LocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Location
+        fields = ('__all__')
+        read_only_fields = ('created_at','updated_at','is_active')
+
+# casual
+class CasualSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Casual
+        fields = ('__all__')
+        read_only_fields = ('created_at','updated_at','is_active')
+
+# Engineer
+class EngineerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Engineer
+        fields = ('__all__')
+        read_only_fields = ('created_at','updated_at','is_active')
