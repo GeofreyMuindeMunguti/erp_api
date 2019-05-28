@@ -31,6 +31,22 @@ class ProcurementTeamSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
+class ProjectCostingSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ProjectCosting
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class ProjectPurchaseOrdersSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ProjectPurchaseOrders
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
 class CommercialTeamSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -62,12 +78,14 @@ class FoundationImageSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+
 class SiteClearingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SetSiteClearingImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
 
 class TowerBaseImageSerializer(serializers.ModelSerializer):
 
@@ -76,6 +94,7 @@ class TowerBaseImageSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+
 class BindingImageSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -83,12 +102,14 @@ class BindingImageSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+
 class SteelFixFormworkImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SteelFixFormworkImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
 
 class ConcretePourCuringImageSerializer(serializers.ModelSerializer):
 
@@ -131,6 +152,7 @@ class InstallationTeamSerializer(serializers.ModelSerializer):
 
 
 class HealthDocumentsInstallationTeamSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = HealthDocumentsInstallationTeam
         fields = ('__all__')
@@ -138,6 +160,7 @@ class HealthDocumentsInstallationTeamSerializer(serializers.ModelSerializer):
 
 
 class AccessApprovalInstallationSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = AccessApprovalInstallation
         fields = ('__all__')

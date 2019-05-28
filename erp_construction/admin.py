@@ -46,13 +46,37 @@ class AccessApprovalInstallationAdmin(admin.ModelAdmin):
 admin.site.register(AccessApprovalInstallation, AccessApprovalInstallationAdmin)
 
 
+class ProjectCostingAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'project_costing_file', 'material_cost',
+                    'labour_cost', 'total_projected_cost', 'is_approved',
+                    'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+    list_editable = ('is_active', 'is_approved')
+
+
+admin.site.register(ProjectCosting, ProjectCostingAdmin)
+
+
+class ProjectPurchaseOrdersAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'po_file', 'material_cost',
+                    'labour_cost', 'total_cost_of_po', 'is_approved',
+                    'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+    list_editable = ('is_active', 'is_approved')
+
+
+admin.site.register(ProjectPurchaseOrders, ProjectPurchaseOrdersAdmin)
+
+
 class CommercialTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'po_file', 'po_file_comment', 'initial_invoice',
-                    'initial_invoice_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'approved_quote_file', 'approved_quote_amount', 'po_data',
+                    'project_costing_data', 'initial_invoice', 'initial_invoice_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
-    list_editable = ('is_active',)
+    list_editable = ('is_active', 'is_approved')
 
 
 admin.site.register(CommercialTeam, CommercialTeamAdmin)
@@ -64,11 +88,10 @@ class ProcurementTeamAdmin(admin.ModelAdmin):
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
-    list_editable = ('is_active',)
+    list_editable = ('is_active', 'is_approved')
 
 
 admin.site.register(ProcurementTeam, ProcurementTeamAdmin)
-
 
 
 class HealthDocumentsCivilTeamAdmin(admin.ModelAdmin):
@@ -77,7 +100,7 @@ class HealthDocumentsCivilTeamAdmin(admin.ModelAdmin):
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
-    list_editable = ('is_active',)
+    list_editable = ('is_active', 'is_approved')
 
 
 admin.site.register(HealthDocumentsCivilTeam, HealthDocumentsCivilTeamAdmin)
@@ -92,6 +115,7 @@ class SetSiteClearingImageAdmin(admin.ModelAdmin):
 
 
 admin.site.register(SetSiteClearingImage, SetSiteClearingImageAdmin)
+
 
 class TowerBaseImageAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name','towerbase_image_1', 'towerbase_image_2', 'towerbase_image_3', 'tower_base_comment','created_at', 'updated_at', 'is_active')

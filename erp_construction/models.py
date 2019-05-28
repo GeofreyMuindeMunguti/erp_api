@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from users.models import CustomUser
+from users.models import CustomUser, Location
 from django.contrib.postgres.fields import ArrayField
 
 
@@ -23,7 +23,7 @@ class Project(models.Model):
     BTS_type = models.CharField(max_length=100)
     site_owner = models.CharField(max_length=100)
     icon = models.ForeignKey(ProjectIcons, on_delete=models.DO_NOTHING, blank=True, null=True)
-    location = models.CharField(max_length=200)
+    location = models.ForeignKey(Location, on_delete=models.DO_NOTHING)
     geotech_file = models.FileField(upload_to='files/Project/geotech/%Y/%m/%d/')
     access_letter = models.FileField(upload_to='files/Project/accessletters/%Y/%m/%d/')
     approved_drawing = models.FileField(upload_to='files/Project/approveddrawings/%Y/%m/%d/')
@@ -192,10 +192,50 @@ class KPLCSolarImage(models.Model):
         return str(self.project_name)
 
 
-class CommercialTeam(models.Model):
+class ProjectPurchaseOrders(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
     po_file = models.FileField(upload_to='files/CommercialTeam/pofile/%Y/%m/%d/', blank=True, null=True)
-    po_file_comment = models.CharField(max_length=100, blank=True, null=True)
+    material_cost = models.IntegerField()
+    labour_cost = models.IntegerField()
+    total_cost_of_po = models.IntegerField()
+    is_approved = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+    def totalPOS(self):
+        count = self.objects.all().count()
+        return count
+
+
+class ProjectCosting(models.Model):
+    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    project_costing_file = models.FileField(upload_to='files/CommercialTeam/projectcosting/%Y/%m/%d/', blank=True, null=True)
+    material_cost = models.IntegerField()
+    labour_cost = models.IntegerField()
+    total_projected_cost = models.IntegerField()
+    is_approved = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+    def totalPOS(self):
+        count = self.objects.all().count()
+        return count
+
+
+class CommercialTeam(models.Model):
+    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    approved_quote_file = models.FileField(upload_to='files/CommercialTeam/approvedquote/%Y/%m/%d/')
+    approved_quote_amount = models.IntegerField()
+    po_data = models.OneToOneField(ProjectPurchaseOrders, on_delete=models.CASCADE, blank=True, null=True)
+    project_costing_data = models.OneToOneField(ProjectCosting, on_delete=models.CASCADE, blank=True, null=True)
     initial_invoice = models.FileField(upload_to='files/CommercialTeam/initialinvoice/%Y/%m/%d/', blank=True, null=True)
     initial_invoice_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)

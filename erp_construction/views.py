@@ -69,6 +69,24 @@ class ProcurementTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     ordering_fields = ('updated_at', 'project_name', )
 
 
+class ProjectCostingViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating project costing."""
+    queryset = ProjectCosting.objects.order_by('created_at')
+    serializer_class = ProjectCostingSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
+class ProjectPOSViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating project costing."""
+    queryset = ProjectPurchaseOrders.objects.order_by('created_at')
+    serializer_class = ProjectPurchaseOrdersSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
 class CommercialTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating commercial team tasks."""
     queryset = CommercialTeam.objects.order_by('created_at')
