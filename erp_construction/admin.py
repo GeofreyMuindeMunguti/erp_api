@@ -209,7 +209,7 @@ admin.site.register(MWInstallationTask, MWInstallationTaskAdmin)
 
 
 class TelecomTasksAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'engineers', 'Installation_of_BTS', 'Installation_of_MW_links', 'link_commissioning', 'is_approved',
+    list_display = ('id', 'project_name', 'engineers', 'names_of_engineers', 'Installation_of_BTS', 'Installation_of_MW_links', 'link_commissioning', 'is_approved',
                     'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -281,7 +281,7 @@ admin.site.register(KPLCSolarImage, KPLCSolarImageAdmin)
 
 
 class ElectricalTasksAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'engineers', 'Underground_ducting_and_manholes', 'Electricalreticulation_APSInstallation', 'Earthing_connections_and_testing', 'Generator_and_Fuel_Tank_Installation', 'KPLC_solar_installation',
+    list_display = ('id', 'project_name', 'engineers', 'names_of_engineers', 'Underground_ducting_and_manholes', 'Electricalreticulation_APSInstallation', 'Earthing_connections_and_testing', 'Generator_and_Fuel_Tank_Installation', 'KPLC_solar_installation',
                     'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
