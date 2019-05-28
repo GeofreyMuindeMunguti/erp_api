@@ -315,7 +315,7 @@ class AccessApprovalInstallation(models.Model):
 
 class UndergroundTasks(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
-    casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual)
     start_date = models.DateTimeField()
     Underground_ducting_and_manholes_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/UndergroundTasks/%Y/%m/%d/')
     Underground_ducting_and_manholes_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/UndergroundTasks/%Y/%m/%d/')
@@ -328,14 +328,17 @@ class UndergroundTasks(models.Model):
     def __str__(self):
         return str(self.project_name)
 
-    def casuals(self):
-        count = self.casuals_atsite.count()
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
         return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
 
 
 class ReticulationAPSinstallation(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
-    casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual)
     start_date = models.DateTimeField()
     Electricalreticulation_APSInstallation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ReticulationAPSinstallation/%Y/%m/%d/')
     Electricalreticulation_APSInstallation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ReticulationAPSinstallation/%Y/%m/%d/')
@@ -348,14 +351,17 @@ class ReticulationAPSinstallation(models.Model):
     def __str__(self):
         return str(self.project_name)
 
-    def casuals(self):
-        count = self.casuals_atsite.count()
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
         return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
 
 
 class ElectricalEarthing(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
-    casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual)
     start_date = models.DateTimeField()
     Earthing_connections_and_testing_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/')
     Earthing_connections_and_testing_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/')
@@ -368,14 +374,17 @@ class ElectricalEarthing(models.Model):
     def __str__(self):
         return str(self.project_name)
 
-    def casuals(self):
-        count = self.casuals_atsite.count()
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
         return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
 
 
 class GeneratorInstallation(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
-    casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual)
     start_date = models.DateTimeField()
     Generator_and_Fuel_Tank_Installation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/')
     Generator_and_Fuel_Tank_Installation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/')
@@ -392,14 +401,17 @@ class GeneratorInstallation(models.Model):
     def __str__(self):
         return str(self.project_name)
 
-    def casuals(self):
-        count = self.casuals_atsite.count()
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
         return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
 
 
 class KPLCSolarImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
-    casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual)
     start_date = models.DateTimeField()
     kplc_solar_installation_image_1 = models.ImageField(upload_to='images/InstallationTeam/KPLCSolar/%Y/%m/%d/')
     kplc_solar_installation_image_2 = models.ImageField(upload_to='images/InstallationTeam/KPLCSolar/%Y/%m/%d/')
@@ -412,9 +424,12 @@ class KPLCSolarImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
-    def casuals(self):
-        count = self.casuals_atsite.count()
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
         return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
 
 
 class ElectricalTasks(models.Model):
@@ -437,10 +452,13 @@ class ElectricalTasks(models.Model):
         count = self.engineers_atsite.count()
         return "\n , ".join(str(count))
 
+    def names_of_engineers(self):
+        return [v.engineer_name for v in self.engineers_atsite.all()]
+
 
 class BTSinstallationTask(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
-    casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual)
     start_date = models.DateTimeField()
     BTSinstallation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Telecom/BTSinstallation/%Y/%m/%d/')
     BTSinstallation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Telecom/BTSinstallation/%Y/%m/%d/')
@@ -453,14 +471,17 @@ class BTSinstallationTask(models.Model):
     def __str__(self):
         return str(self.project_name)
 
-    def casuals(self):
-        count = self.casuals_atsite.count()
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
         return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
 
 
 class MWInstallationTask(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
-    casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual)
     start_date = models.DateTimeField()
     MWinstallation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Telecom/MWinstallation/%Y/%m/%d/')
     MWinstallation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Telecom/MWinstallation/%Y/%m/%d/')
@@ -473,9 +494,12 @@ class MWInstallationTask(models.Model):
     def __str__(self):
         return str(self.project_name)
 
-    def casuals(self):
-        count = self.casuals_atsite.count()
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
         return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
 
 
 class TelecomTasks(models.Model):
@@ -495,6 +519,9 @@ class TelecomTasks(models.Model):
     def engineers(self):
         count = self.engineers_atsite.count()
         return "\n , ".join(str(count))
+
+    def names_of_engineers(self):
+        return [v.engineer_name for v in self.engineers_atsite.all()]
 
 
 class InstallationTeam(models.Model):
