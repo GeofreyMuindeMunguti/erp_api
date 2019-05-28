@@ -92,12 +92,14 @@ class UserSerializer(serializers.ModelSerializer):
 
         return instance
 
+
 # location
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
         fields = ('__all__')
         read_only_fields = ('created_at','updated_at','is_active')
+
 
 # casual
 class CasualSerializer(serializers.ModelSerializer):
@@ -106,9 +108,17 @@ class CasualSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at','updated_at','is_active')
 
+
 # Engineer
 class EngineerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Engineer
+        fields = ('__all__')
+        read_only_fields = ('created_at','updated_at','is_active')
+
+
+class RatesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rates
         fields = ('__all__')
         read_only_fields = ('created_at','updated_at','is_active')

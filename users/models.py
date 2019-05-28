@@ -108,3 +108,14 @@ class Engineer(models.Model):
     def get_single_engineer(cls, engineer_id):
         single_engineer = Engineer.objects.get(engineer=engineer_id)
         return single_engineer
+
+
+class Rates(models.Model):
+    casuals_rate = models.IntegerField()
+    engineers_rate = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.engineers_rate)
