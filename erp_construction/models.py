@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from users.models import CustomUser, Location, Casual, Engineer
+from users.models import CustomUser, Location, Casual, Engineer, Rates
 from django.contrib.postgres.fields import ArrayField
 
 
@@ -335,6 +335,13 @@ class UndergroundTasks(models.Model):
     def names_of_casuals(self):
         return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
 
+    def casuals_cost(self):
+        rate_data = Rates.objects.get(id=1)
+        casual_rate = rate_data.casuals_rate
+        count = self.no_of_casuals_atsite.count()
+        cost = (count * casual_rate)
+        return cost
+
 
 class ReticulationAPSinstallation(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
@@ -358,6 +365,13 @@ class ReticulationAPSinstallation(models.Model):
     def names_of_casuals(self):
         return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
 
+    def casuals_cost(self):
+        rate_data = Rates.objects.get(id=1)
+        casual_rate = rate_data.casuals_rate
+        count = self.no_of_casuals_atsite.count()
+        cost = (count * casual_rate)
+        return cost
+
 
 class ElectricalEarthing(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
@@ -380,6 +394,13 @@ class ElectricalEarthing(models.Model):
 
     def names_of_casuals(self):
         return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+
+    def casuals_cost(self):
+        rate_data = Rates.objects.get(id=1)
+        casual_rate = rate_data.casuals_rate
+        count = self.no_of_casuals_atsite.count()
+        cost = (count * casual_rate)
+        return cost
 
 
 class GeneratorInstallation(models.Model):
@@ -408,6 +429,13 @@ class GeneratorInstallation(models.Model):
     def names_of_casuals(self):
         return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
 
+    def casuals_cost(self):
+        rate_data = Rates.objects.get(id=1)
+        casual_rate = rate_data.casuals_rate
+        count = self.no_of_casuals_atsite.count()
+        cost = (count * casual_rate)
+        return cost
+
 
 class KPLCSolarImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
@@ -430,6 +458,13 @@ class KPLCSolarImage(models.Model):
 
     def names_of_casuals(self):
         return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+
+    def casuals_cost(self):
+        rate_data = Rates.objects.get(id=1)
+        casual_rate = rate_data.casuals_rate
+        count = self.no_of_casuals_atsite.count()
+        cost = (count * casual_rate)
+        return cost
 
 
 class ElectricalTasks(models.Model):
@@ -478,6 +513,13 @@ class BTSinstallationTask(models.Model):
     def names_of_casuals(self):
         return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
 
+    def casuals_cost(self):
+        rate_data = Rates.objects.get(id=1)
+        casual_rate = rate_data.casuals_rate
+        count = self.no_of_casuals_atsite.count()
+        cost = (count * casual_rate)
+        return cost
+
 
 class MWInstallationTask(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
@@ -500,6 +542,13 @@ class MWInstallationTask(models.Model):
 
     def names_of_casuals(self):
         return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+
+    def casuals_cost(self):
+        rate_data = Rates.objects.get(id=1)
+        casual_rate = rate_data.casuals_rate
+        count = self.no_of_casuals_atsite.count()
+        cost = (count * casual_rate)
+        return cost
 
 
 class TelecomTasks(models.Model):
