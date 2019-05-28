@@ -336,11 +336,15 @@ class UndergroundTasks(models.Model):
         return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
-        rate_data = Rates.objects.get(id=1)
-        casual_rate = rate_data.casuals_rate
-        count = self.no_of_casuals_atsite.count()
-        cost = (count * casual_rate)
-        return cost
+        try:
+            rate_data = Rates.objects.get(id=2)
+            casual_rate = rate_data.casuals_rate
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate)
+            return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
 
 
 class ReticulationAPSinstallation(models.Model):
@@ -366,11 +370,15 @@ class ReticulationAPSinstallation(models.Model):
         return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
-        rate_data = Rates.objects.get(id=1)
-        casual_rate = rate_data.casuals_rate
-        count = self.no_of_casuals_atsite.count()
-        cost = (count * casual_rate)
-        return cost
+        try:
+            rate_data = Rates.objects.get(id=2)
+            casual_rate = rate_data.casuals_rate
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate)
+            return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
 
 
 class ElectricalEarthing(models.Model):
@@ -396,11 +404,15 @@ class ElectricalEarthing(models.Model):
         return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
-        rate_data = Rates.objects.get(id=1)
-        casual_rate = rate_data.casuals_rate
-        count = self.no_of_casuals_atsite.count()
-        cost = (count * casual_rate)
-        return cost
+        try:
+            rate_data = Rates.objects.get(id=2)
+            casual_rate = rate_data.casuals_rate
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate)
+            return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
 
 
 class GeneratorInstallation(models.Model):
@@ -430,11 +442,15 @@ class GeneratorInstallation(models.Model):
         return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
-        rate_data = Rates.objects.get(id=1)
-        casual_rate = rate_data.casuals_rate
-        count = self.no_of_casuals_atsite.count()
-        cost = (count * casual_rate)
-        return cost
+        try:
+            rate_data = Rates.objects.get(id=2)
+            casual_rate = rate_data.casuals_rate
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate)
+            return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
 
 
 class KPLCSolarImage(models.Model):
@@ -460,11 +476,15 @@ class KPLCSolarImage(models.Model):
         return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
-        rate_data = Rates.objects.get(id=1)
-        casual_rate = rate_data.casuals_rate
-        count = self.no_of_casuals_atsite.count()
-        cost = (count * casual_rate)
-        return cost
+        try:
+            rate_data = Rates.objects.get(id=2)
+            casual_rate = rate_data.casuals_rate
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate)
+            return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
 
 
 class ElectricalTasks(models.Model):
@@ -514,11 +534,16 @@ class BTSinstallationTask(models.Model):
         return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
-        rate_data = Rates.objects.get(id=1)
-        casual_rate = rate_data.casuals_rate
-        count = self.no_of_casuals_atsite.count()
-        cost = (count * casual_rate)
-        return cost
+        try:
+            rate_data = Rates.objects.get(id=1)
+            rate_data = Rates.objects.get(id=1)
+            casual_rate = rate_data.casuals_rate
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate)
+            return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
 
 
 class MWInstallationTask(models.Model):
@@ -544,11 +569,15 @@ class MWInstallationTask(models.Model):
         return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
-        rate_data = Rates.objects.get(id=1)
-        casual_rate = rate_data.casuals_rate
-        count = self.no_of_casuals_atsite.count()
-        cost = (count * casual_rate)
-        return cost
+        try:
+            rate_data = Rates.objects.get(id=2)
+            casual_rate = rate_data.casuals_rate
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate)
+            return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
 
 
 class TelecomTasks(models.Model):
