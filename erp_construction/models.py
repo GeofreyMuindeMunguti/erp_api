@@ -329,7 +329,8 @@ class UndergroundTasks(models.Model):
         return str(self.project_name)
 
     def casuals(self):
-        return "\n , ".join(str([v.casual_last_name for v in self.casuals_atsite.all()]))
+        count = self.casuals_atsite.count()
+        return "\n , ".join(str(count))
 
 
 class ReticulationAPSinstallation(models.Model):
@@ -348,7 +349,8 @@ class ReticulationAPSinstallation(models.Model):
         return str(self.project_name)
 
     def casuals(self):
-        return "\n , ".join(str([v.casual_last_name for v in self.casuals_atsite.all()]))
+        count = self.casuals_atsite.count()
+        return "\n , ".join(str(count))
 
 
 class ElectricalEarthing(models.Model):
@@ -367,7 +369,8 @@ class ElectricalEarthing(models.Model):
         return str(self.project_name)
 
     def casuals(self):
-        return "\n , ".join(str([v.casual_last_name for v in self.casuals_atsite.all()]))
+        count = self.casuals_atsite.count()
+        return "\n , ".join(str(count))
 
 
 class GeneratorInstallation(models.Model):
@@ -390,7 +393,8 @@ class GeneratorInstallation(models.Model):
         return str(self.project_name)
 
     def casuals(self):
-        return "\n , ".join(str([v.casual_last_name for v in self.casuals_atsite.all()]))
+        count = self.casuals_atsite.count()
+        return "\n , ".join(str(count))
 
 
 class KPLCSolarImage(models.Model):
@@ -409,7 +413,8 @@ class KPLCSolarImage(models.Model):
         return str(self.project_name)
 
     def casuals(self):
-        return "\n , ".join(str([v.casual_last_name for v in self.casuals_atsite.all()]))
+        count = self.casuals_atsite.count()
+        return "\n , ".join(str(count))
 
 
 class ElectricalTasks(models.Model):
@@ -429,7 +434,8 @@ class ElectricalTasks(models.Model):
         return str(self.project_name)
 
     def engineers(self):
-        return "\n , ".join(str([v.engineer_name for v in self.engineers_atsite.all()]))
+        count = self.engineers_atsite.count()
+        return "\n , ".join(str(count))
 
 
 class BTSinstallationTask(models.Model):
@@ -448,7 +454,8 @@ class BTSinstallationTask(models.Model):
         return str(self.project_name)
 
     def casuals(self):
-        return "\n , ".join(str([v.casual_last_name for v in self.casuals_atsite.all()]))
+        count = self.casuals_atsite.count()
+        return "\n , ".join(str(count))
 
 
 class MWInstallationTask(models.Model):
@@ -467,7 +474,8 @@ class MWInstallationTask(models.Model):
         return str(self.project_name)
 
     def casuals(self):
-        return "\n , ".join(str([v.casual_last_name for v in self.casuals_atsite.all()]))
+        count = self.casuals_atsite.count()
+        return "\n , ".join(str(count))
 
 
 class TelecomTasks(models.Model):
@@ -485,7 +493,8 @@ class TelecomTasks(models.Model):
         return str(self.project_name)
 
     def engineers(self):
-        return "\n , ".join(str([v.engineer_name for v in self.engineers_atsite.all()]))
+        count = self.engineers_atsite.count()
+        return "\n , ".join(str(count))
 
 
 class InstallationTeam(models.Model):
