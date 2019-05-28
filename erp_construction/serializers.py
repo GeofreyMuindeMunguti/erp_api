@@ -143,6 +143,70 @@ class CivilWorksTeamSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
+class BTSinstallationTaskSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BTSinstallationTask
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class MWInstallationTaskSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = MWInstallationTask
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class TelecomTasksSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TelecomTasks
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class UndergroundTasksSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = UndergroundTasks
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class ReticulationAPSinstallationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ReticulationAPSinstallation
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class ElectricalEarthingSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ElectricalEarthing
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class GeneratorInstallationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = GeneratorInstallation
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class ElectricalTasksSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ElectricalTasks
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
 class InstallationTeamSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -163,22 +227,6 @@ class AccessApprovalInstallationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AccessApprovalInstallation
-        fields = ('__all__')
-        read_only_fields = ('created_at', 'updated_at', 'is_active')
-
-
-class RFAndLinkImageSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = RFAndLinkImage
-        fields = ('__all__')
-        read_only_fields = ('created_at', 'updated_at', 'is_active')
-
-
-class ElectricalImageSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = ElectricalImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 

@@ -199,6 +199,78 @@ class InstallationTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     ordering_fields = ('updated_at', 'project_name', )
 
 
+class ElectricalTasksViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating Electrical Tasks."""
+    queryset = ElectricalTasks.objects.order_by('created_at')
+    serializer_class = ElectricalTasksSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
+class GeneratorInstallationViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating generator installation tasks."""
+    queryset = GeneratorInstallation.objects.order_by('created_at')
+    serializer_class = GeneratorInstallationSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
+class EarthingViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating electrical earthing tasks."""
+    queryset = ElectricalEarthing.objects.order_by('created_at')
+    serializer_class = ElectricalEarthingSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
+class ReticulationAPSViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating aps and reticulation tasks."""
+    queryset = ReticulationAPSinstallation.objects.order_by('created_at')
+    serializer_class = ReticulationAPSinstallationSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
+class UndergroundTasksViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating aps and reticulation tasks."""
+    queryset = UndergroundTasks.objects.order_by('created_at')
+    serializer_class = UndergroundTasksSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
+class TelecomTasksViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating telecom tasks."""
+    queryset = TelecomTasks.objects.order_by('created_at')
+    serializer_class = TelecomTasksSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
+class MWInstallationTasksViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating mw installation tasks."""
+    queryset = MWInstallationTask.objects.order_by('created_at')
+    serializer_class = MWInstallationTaskSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
+class BTSInstallationTasksViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating bts installation tasks."""
+    queryset = BTSinstallationTask.objects.order_by('created_at')
+    serializer_class = BTSinstallationTaskSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
 class HealthDocumentsInstallationTeamViewset(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating HealthDocument for electrical installation  team."""
     queryset = HealthDocumentsInstallationTeam.objects.order_by('created_at')
@@ -212,24 +284,6 @@ class AccessApprovalInstallationViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating installation team."""
     queryset = AccessApprovalInstallation.objects.order_by('created_at')
     serializer_class = AccessApprovalInstallationSerializer
-
-    search_fields = ('project_name', )
-    ordering_fields = ('updated_at', 'project_name', )
-
-
-class RFAndLinkImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
-    """API endpoint for listing and creating RF & Link  images for Electrical team."""
-    queryset = RFAndLinkImage.objects.order_by('created_at')
-    serializer_class = RFAndLinkImageSerializer
-
-    search_fields = ('project_name', )
-    ordering_fields = ('updated_at', 'project_name', )
-
-
-class ElectricalImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
-    """API endpoint for listing and creating Electrical Images for Electrical team."""
-    queryset = ElectricalImage.objects.order_by('created_at')
-    serializer_class = ElectricalImageSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )

@@ -23,6 +23,7 @@ class CustomUser(models.Model):
         single_emp = CustomUser.objects.get(employee=username)
         return single_emp
 
+
 class UserLoginActivity(models.Model):
     # Login Status
     SUCCESS = 'S'
