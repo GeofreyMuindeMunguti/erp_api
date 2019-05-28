@@ -8,8 +8,8 @@ from phonenumber_field.modelfields import PhoneNumberField
 class CustomUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     # customuser_phone_no = PhoneNumberField(blank=True, help_text='Phone Number')
-    customuser_phone_no = models.CharField(max_length=100, blank=True, null=True)
-    profile_pic = models.ImageField(upload_to='files/ProfilePictures', blank=True)
+    customuser_phone_no = models.CharField(max_length=10, blank=True, null=True)
+    customuser_profile_pic = models.ImageField(upload_to='ProfilePictures/Employee', blank=True, null=True)
     team = models.CharField(max_length=150, unique=True)
     position = models.CharField(max_length=500, blank=False)
 
@@ -90,11 +90,12 @@ class Casual(models.Model):
 
 
 class Engineer(models.Model):
-    engineer_name = models. ForeignKey(User,on_delete=models.CASCADE, related_name='Engineers')
+    user = models. ForeignKey(User,on_delete=models.CASCADE, related_name='engineerprofile')
     engineer_phone_no = models.CharField(max_length=100, blank=True, null=True)
     # engineer_phone_no = PhoneNumberField(blank=True, help_text='Phone Number')
     department = models.CharField(max_length=100, blank=True)
-    location_name = models.ForeignKey(Location, on_delete=models.DO_NOTHING)
+    location_name = models.ForeignKey(Location, on_delete=models.DO_NOTHING, related_name='location')
+    eng_profile_pic = models.ImageField(upload_to='ProfilePictures/Engineer', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)

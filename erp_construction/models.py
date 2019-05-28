@@ -6,6 +6,16 @@ from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 
+class Category(models.Model):
+    category_name = models.CharField(max_length=100, unique=True)
+    created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.category_name
+
 class Project(models.Model):
     project_name = models.CharField(max_length=100, unique=True)
     site_number = models.CharField(max_length=100, unique=True)
@@ -23,7 +33,7 @@ class Project(models.Model):
     def __str__(self):
         return self.project_name
 
-
+#######################################START FOUNDATION IMAGES########################################################################################################################################
 class SetSiteClearingImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
     setting_site_clearing_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/siteclearing/%Y/%m/%d/')
@@ -105,12 +115,41 @@ class FoundationImage(models.Model):
 
     def __str__(self):
         return str(self.project_name)
+######################################## END #######################################################################################################################################
+
+#######################################BS241 & GENERATOR FOUNDATION ###########################################################################################################################
+
+class ExcavationImage(models.Model):
+    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    excavation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
+    excavation_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
+    excavation_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
+    excavation_comment = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+class ConcretePourCuringPeriodImage(models.Model):
+    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    concrete_pour_curing_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
+    concrete_pour_curing_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
+    concrete_pour_curing_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
+    concrete_pour_curing_comment = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
 
 class BTSAndGeneatorSlabsImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
-    bts_and_generator_slabs_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/slabs/%Y/%m/%d/')
-    bts_and_generator_slabs_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/slabs/%Y/%m/%d/')
-    bts_and_generator_slabs_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/slabs/%Y/%m/%d/')
+    foundation_foot_pouring = models.ForeignKey(ExcavationImage, on_delete=models.DO_NOTHING)
+    concrete_pour_period = models.ForeignKey(ConcretePourCuringPeriodImage, on_delete=models.DO_NOTHING)
     bts_and_generator_slabs_comment = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -118,20 +157,150 @@ class BTSAndGeneatorSlabsImage(models.Model):
 
     def __str__(self):
         return str(self.project_name)
+######################################## END #######################################################################################################################################
+
+####################################### BOUNDARY WALL ###########################################################################################################################
 
 
-class SiteWallingImage(models.Model):
+class FoundFootPourImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
-    site_walling_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/sitewalling/%Y/%m/%d/')
-    site_walling_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/sitewalling/%Y/%m/%d/')
-    site_walling_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/sitewalling/%Y/%m/%d/')
-    site_walling_images_comment = models.CharField(max_length=100, blank=True, null=True)
+    foundfootpour_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
+    foundfootpour_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
+    foundfootpour_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
+    foundfootpour_comment = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
+
+class BlockworkPanelConstImage(models.Model):
+    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    blockwallpanelconst_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/BlockworkPanelConst/%Y/%m/%d/')
+    blockwallpanelconst_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/BlockworkPanelConst/%Y/%m/%d/')
+    blockwallpanelconst_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/BlockworkPanelConst/%Y/%m/%d/')
+    blockwallpanelconst_comment = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+class GateInstallationImage(models.Model):
+    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    gateinstallation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/GateInstallation/%Y/%m/%d/')
+    gateinstallation_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/GateInstallation/%Y/%m/%d/')
+    gateinstallation_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/GateInstallation/%Y/%m/%d/')
+    gateinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+class RazorElectricFenceImage(models.Model):
+    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    razorelectricfance_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/RazorElectricFence/%Y/%m/%d/')
+    razorelectricfance_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/RazorElectricFence/%Y/%m/%d/')
+    razorelectricfance_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/RazorElectricFence/%Y/%m/%d/')
+    razorelectricfance_comment = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+class BoundaryWallImage(models.Model):
+    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    foundation_foot_pouring = models.ForeignKey(FoundFootPourImage, on_delete=models.DO_NOTHING)
+    block_construction = models.ForeignKey(BlockworkPanelConstImage, on_delete=models.DO_NOTHING)
+    gate_installation = models.ForeignKey(GateInstallationImage, on_delete=models.DO_NOTHING)
+    razor_electric_fence = models.ForeignKey(RazorElectricFenceImage, on_delete=models.DO_NOTHING)
+    boundary_wall_comment = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.project_name)
+######################################## END #######################################################################################################################################
+
+####################################### TOWER & ANTENNA_COAX ###########################################################################################################################
+
+class TowerErectionImage(models.Model):
+    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    tower_erection_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/towererection/%Y/%m/%d/')
+    tower_erection_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/towererection/%Y/%m/%d/')
+    tower_erection_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/towererection/%Y/%m/%d/')
+    tower_erection_comment = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+class TowerPaintImage(models.Model):
+    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    tower_painting_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/towerpainting/%Y/%m/%d/')
+    tower_painting_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/towerpainting/%Y/%m/%d/')
+    tower_painting_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/towerpainting/%Y/%m/%d/')
+    tower_painting_comment = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+class CableWaysImage(models.Model):
+    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    cable_ways_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/cableways/%Y/%m/%d/')
+    cable_ways_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/cableways/%Y/%m/%d/')
+    cable_ways_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/cableways/%Y/%m/%d/')
+    cable_ways_comment = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+class AntennaCoaxInstallImage(models.Model):
+    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    antenna_coax_installation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/antennacoaxinstallation/%Y/%m/%d/')
+    antenna_coax_installation_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/antennacoaxinstallation/%Y/%m/%d/')
+    antenna_coax_installation_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/antennacoaxinstallation/%Y/%m/%d/')
+    antenna_coax_installation_comment = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+class TowerAntennaCoaxImage(models.Model):
+    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    tower_erection = models.ForeignKey(TowerErectionImage, on_delete=models.DO_NOTHING)
+    tower_painting = models.ForeignKey(TowerPaintImage, on_delete=models.DO_NOTHING)
+    cable_ways = models.ForeignKey(CableWaysImage, on_delete=models.DO_NOTHING)
+    antenna_coax_installation = models.ForeignKey(AntennaCoaxInstallImage, on_delete=models.DO_NOTHING)
+    tower_antenna_coax_comment = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+######################################## END #######################################################################################################################################
+
+
+####################################### INSTALLATION ###########################################################################################################################
 
 
 class RFAndLinkImage(models.Model):
@@ -195,11 +364,11 @@ class CommercialTeam(models.Model):
 class ProcurementTeam(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
     po_steel = models.FileField(upload_to='files/ProcurementTeam/posteel/%Y/%m/%d/', blank=True, null=True)
-    po_steel_comment = models.CharField(max_length=100, blank=True, null=True)
+    po_steel_cost = models.IntegerField(blank=True, null=True)
     po_electrical_materials = models.FileField(upload_to='files/ProcurementTeam/poelectrical/%Y/%m/%d/', blank=True, null=True)
-    po_electrical_materials_comment = models.CharField(max_length=100, blank=True, null=True)
+    po_electrical_materials_cost = models.IntegerField(blank=True, null=True)
     po_subcontractors = models.FileField(upload_to='files/ProcurementTeam/posubcontractor/%Y/%m/%d/', blank=True, null=True)
-    po_subcontractors_comment = models.CharField(max_length=100, blank=True, null=True)
+    po_subcontractors_cost = models.IntegerField(blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -248,7 +417,7 @@ class CivilWorksTeam(models.Model):
     access_approvals_field = models.ManyToManyField(AccessApprovalCivil)
     foundation_and_curing_images = models.OneToOneField(FoundationImage, on_delete=models.DO_NOTHING)
     bts_and_generator_slabs_images = models.OneToOneField(BTSAndGeneatorSlabsImage, on_delete=models.DO_NOTHING)
-    site_walling_images_field = models.OneToOneField(SiteWallingImage, on_delete=models.DO_NOTHING)
+    site_walling_images_field = models.OneToOneField(BoundaryWallImage, on_delete=models.DO_NOTHING)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)

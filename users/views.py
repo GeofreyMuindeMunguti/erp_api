@@ -66,7 +66,7 @@ class CasualViewSet(viewsets.ModelViewSet):
 
 class EngineerViewSet(viewsets.ModelViewSet):
     queryset = Engineer.objects.order_by('created_at')
-    serializer_class = EngineerSerializer
+    serializer_class = EngineerProfileSerializer
 
     search_fields = ('engineer_name', )
     ordering_fields = ('updated_at', 'engineer_name', )
