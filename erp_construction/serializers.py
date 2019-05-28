@@ -1,46 +1,159 @@
-
 from rest_framework import serializers, exceptions
 from rest_framework.validators import UniqueValidator
-
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from . models import *
+from users.models import CustomUser
+from .models import *
+from rest_framework.authtoken.models import Token
 
-# UserList
-class UserProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CustomUser
-        fields = ('user_id','team','position')
-        read_only_fields = ('is_active', 'is_staff')
-
-class UserSerializer(serializers.ModelSerializer):
-    """
-    A UserProfile serializer to return the UserProfile details
-    """
-    profile = UserProfileSerializer(required=True)
+class ProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = User
-        fields = ('url','username', 'email', 'first_name', 'last_name', 'password','profile')
-    def create(self, validated_data):
-        profile_data = validated_data.pop('profile')
-        password = validated_data.pop('password')
-        user = UserSerializer.create(UserSerializer(), validated_data=profile_data)
-        user.set_password(password_data)
-        user.save()
-        userprofile = User.objects.create(user=user, **validated_data)
-        return userprofile
+        model = Project
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
 
-    def update(self, instance, validated_data):
-        profile_data = validated_data.pop('profile')
-        password = validated_data.pop('password')
-        profile = instance.profile
 
-        instance.email = validated_data.get('email', instance.email)
-        instance.save()
+class ProcurementTeamSerializer(serializers.ModelSerializer):
 
-        profile.team = profile_data.get('team', profile.team)
-        profile.position = profile_data.get('position', profile.position)
-        profile.save()
+    class Meta:
+        model = ProcurementTeam
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
 
-        return instance
+
+class CommercialTeamSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CommercialTeam
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class HealthDocumentsCivilTeamSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = HealthDocumentsCivilTeam
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class AccessApprovalCivilSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = AccessApprovalCivil
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class FoundationImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FoundationImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class SiteClearingSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SetSiteClearingImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class TowerBaseImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TowerBaseImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class BindingImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BindingImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class SteelFixFormworkImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SteelFixFormworkImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class ConcretePourCuringImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ConcretePourCuringImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class BTSAndGeneatorSlabsImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BTSAndGeneatorSlabsImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class SiteWallingImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SiteWallingImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class CivilWorksTeamSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CivilWorksTeam
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class InstallationTeamSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = InstallationTeam
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class HealthDocumentsInstallationTeamSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HealthDocumentsInstallationTeam
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class AccessApprovalInstallationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AccessApprovalInstallation
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class RFAndLinkImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = RFAndLinkImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class ElectricalImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ElectricalImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class KPLCSolarImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = KPLCSolarImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
