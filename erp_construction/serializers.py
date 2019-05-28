@@ -6,6 +6,15 @@ from users.models import CustomUser
 from .models import *
 from rest_framework.authtoken.models import Token
 
+
+class ProjectIconsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ProjectIcons
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
 class ProjectSerializer(serializers.ModelSerializer):
 
     class Meta:

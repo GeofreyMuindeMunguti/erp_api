@@ -6,11 +6,23 @@ from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 
+class ProjectIcons(models.Model):
+    icon = models.ImageField(upload_to='images/Project/Icons/%Y/%m/%d/')
+    site_owner = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.site_owner
+
+
 class Project(models.Model):
     project_name = models.CharField(max_length=100, unique=True)
     site_number = models.CharField(max_length=100, unique=True)
     BTS_type = models.CharField(max_length=100)
     site_owner = models.CharField(max_length=100)
+    icon = models.ForeignKey(ProjectIcons, on_delete=models.DO_NOTHING, blank=True, null=True)
     location = models.CharField(max_length=200)
     geotech_file = models.FileField(upload_to='files/Project/geotech/%Y/%m/%d/')
     access_letter = models.FileField(upload_to='files/Project/accessletters/%Y/%m/%d/')
@@ -37,6 +49,7 @@ class SetSiteClearingImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+
 class TowerBaseImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
     towerbase_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/towerbase/%Y/%m/%d/')
@@ -49,6 +62,7 @@ class TowerBaseImage(models.Model):
 
     def __str__(self):
         return str(self.project_name)
+
 
 class BindingImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
@@ -76,6 +90,7 @@ class SteelFixFormworkImage(models.Model):
 
     def __str__(self):
         return str(self.project_name)
+
 
 class ConcretePourCuringImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
@@ -105,6 +120,7 @@ class FoundationImage(models.Model):
 
     def __str__(self):
         return str(self.project_name)
+
 
 class BTSAndGeneatorSlabsImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
@@ -208,6 +224,7 @@ class ProcurementTeam(models.Model):
 
     def __str__(self):
         return str(self.project_name)
+
 
 class HealthDocumentsCivilTeam(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)

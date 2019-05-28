@@ -8,6 +8,7 @@ from .views import CivilProgressView, CommercialTeamProgressView, ProcurementTea
 router = DefaultRouter()
 
 router.register(r'projects', views.ProjectViewSet)
+router.register(r'Icons', views.ProjectIconViewSet)
 router.register(r'commercialteamtasks', views.CommercialTeamViewSet)
 router.register(r'procurementteamtasks', views.ProcurementTeamViewSet)
 router.register(r'healthdocscivil', views.HealthDocCivilViewSet)

@@ -41,12 +41,23 @@ class DefaultsMixin(object):
     for ordering the ordering_fields .
     '''
 
+
 class ProjectViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating a project."""
     queryset = Project.objects.order_by('created_at')
     serializer_class = ProjectSerializer
 
     search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
+class ProjectIconViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating a project icons."""
+    queryset = ProjectIcons.objects.order_by('created_at')
+    serializer_class = ProjectIconsSerializer
+
+    search_fields = ('site_owner', )
+    ordering_fields = ('updated_at', 'project_name', )
 
 
 class ProcurementTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):

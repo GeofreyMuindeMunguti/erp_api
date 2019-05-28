@@ -3,8 +3,18 @@ from .models import *
 
 
 # Register your models here.
+class ProjectIconsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'icon', 'site_owner', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('site_owner', )
+    search_fields = ('site_owner', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(ProjectIcons, ProjectIconsAdmin)
+
+
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'site_number', 'BTS_type', 'site_owner', 'geotech_file', 'access_letter', 'approved_drawing',
+    list_display = ('id', 'project_name', 'icon', 'site_number', 'BTS_type', 'site_owner', 'geotech_file', 'access_letter', 'approved_drawing',
                     'location', 'created_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
