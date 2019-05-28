@@ -186,7 +186,7 @@ admin.site.register(SiteWallingImage, SiteWallingImageAdmin)
 
 
 class BTSinstallationTaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'start_date', 'BTSinstallation_image_1', 'BTSinstallation_image_2', 'BTSinstallation_image_3', 'BTSinstallation_comment',
+    list_display = ('id', 'project_name', 'no_of_casuals', 'names_of_casuals', 'casuals_cost','engineers_cost',  'start_date', 'BTSinstallation_image_1', 'BTSinstallation_image_2', 'BTSinstallation_image_3', 'BTSinstallation_comment',
                     'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -197,7 +197,7 @@ admin.site.register(BTSinstallationTask, BTSinstallationTaskAdmin)
 
 
 class MWInstallationTaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'start_date','MWinstallation_image_1', 'MWinstallation_image_2', 'MWinstallation_image_3', 'MWinstallation_comment',
+    list_display = ('id', 'project_name', 'no_of_casuals', 'names_of_casuals', 'casuals_cost','engineers_cost',  'start_date','MWinstallation_image_1', 'MWinstallation_image_2', 'MWinstallation_image_3', 'MWinstallation_comment',
                     'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -221,7 +221,7 @@ admin.site.register(TelecomTasks, TelecomTasksAdmin)
 
 
 class UndergroundTasksAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'start_date', 'Underground_ducting_and_manholes_image_1', 'Underground_ducting_and_manholes_image_2', 'Underground_ducting_and_manholes_image_3', 'Underground_ducting_and_manholes_images_comment',
+    list_display = ('id', 'project_name', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost',  'start_date', 'Underground_ducting_and_manholes_image_1', 'Underground_ducting_and_manholes_image_2', 'Underground_ducting_and_manholes_image_3', 'Underground_ducting_and_manholes_images_comment',
                     'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -233,7 +233,7 @@ admin.site.register(UndergroundTasks, UndergroundTasksAdmin)
 
 
 class ReticulationAPSinstallationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'start_date', 'Electricalreticulation_APSInstallation_image_1', 'Electricalreticulation_APSInstallation_image_2', 'Electricalreticulation_APSInstallation_image_3', 'Electricalreticulation_APSInstallation_images_comment',
+    list_display = ('id', 'project_name', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost',  'start_date', 'Electricalreticulation_APSInstallation_image_1', 'Electricalreticulation_APSInstallation_image_2', 'Electricalreticulation_APSInstallation_image_3', 'Electricalreticulation_APSInstallation_images_comment',
                     'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -245,7 +245,7 @@ admin.site.register(ReticulationAPSinstallation, ReticulationAPSinstallationAdmi
 
 
 class ElectricalEarthingAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'start_date', 'Earthing_connections_and_testing_image_1', 'Earthing_connections_and_testing_image_2', 'Earthing_connections_and_testing_image_3', 'Earthing_connections_and_testing_images_comment',
+    list_display = ('id', 'project_name', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date', 'Earthing_connections_and_testing_image_1', 'Earthing_connections_and_testing_image_2', 'Earthing_connections_and_testing_image_3', 'Earthing_connections_and_testing_images_comment',
                     'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -257,7 +257,7 @@ admin.site.register(ElectricalEarthing, ElectricalEarthingAdmin)
 
 
 class GeneratorInstallationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'start_date', 'Generator_and_Fuel_Tank_Installation_image_1', 'Generator_and_Fuel_Tank_Installation_image_2', 'Generator_and_Fuel_Tank_Installation_image_3', 'before_fuel_image_1',
+    list_display = ('id', 'project_name', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost',  'start_date', 'Generator_and_Fuel_Tank_Installation_image_1', 'Generator_and_Fuel_Tank_Installation_image_2', 'Generator_and_Fuel_Tank_Installation_image_3', 'before_fuel_image_1',
                     'before_fuel_image_2', 'after_fuel_image_1', 'after_fuel_image_2', 'Generator_and_Fuel_Tank_Installation_comment', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -269,7 +269,7 @@ admin.site.register(GeneratorInstallation, GeneratorInstallationAdmin)
 
 
 class KPLCSolarImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'start_date', 'kplc_solar_installation_image_1', 'kplc_solar_installation_image_2', 'kplc_solar_installation_image_3', 'kplc_solar_installation_comment',
+    list_display = ('id', 'project_name', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost',  'start_date', 'kplc_solar_installation_image_1', 'kplc_solar_installation_image_2', 'kplc_solar_installation_image_3', 'kplc_solar_installation_comment',
                     'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)

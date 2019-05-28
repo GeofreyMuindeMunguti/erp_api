@@ -347,6 +347,23 @@ class UndergroundTasks(models.Model):
             error = "Rates does not exist"
             return error
 
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            engineer_rate = rate_data.engineers_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            try:
+                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
 
 class ReticulationAPSinstallation(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
@@ -382,6 +399,23 @@ class ReticulationAPSinstallation(models.Model):
             error = "Rates does not exist"
             return error
 
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            engineer_rate = rate_data.engineers_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            try:
+                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
 
 class ElectricalEarthing(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
@@ -413,6 +447,23 @@ class ElectricalEarthing(models.Model):
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            engineer_rate = rate_data.engineers_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            try:
+                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
         except Exception as e:
             error = "Rates does not exist"
             return error
@@ -456,6 +507,23 @@ class GeneratorInstallation(models.Model):
             error = "Rates does not exist"
             return error
 
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            engineer_rate = rate_data.engineers_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            try:
+                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
 
 class KPLCSolarImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
@@ -487,6 +555,23 @@ class KPLCSolarImage(models.Model):
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            engineer_rate = rate_data.engineers_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            try:
+                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
         except Exception as e:
             error = "Rates does not exist"
             return error
@@ -550,6 +635,23 @@ class BTSinstallationTask(models.Model):
             error = "Rates does not exist"
             return error
 
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            engineer_rate = rate_data.engineers_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            try:
+                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
 
 class MWInstallationTask(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
@@ -581,6 +683,23 @@ class MWInstallationTask(models.Model):
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            engineer_rate = rate_data.engineers_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            try:
+                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
         except Exception as e:
             error = "Rates does not exist"
             return error
