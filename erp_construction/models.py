@@ -339,8 +339,9 @@ class UndergroundTasks(models.Model):
         try:
             rate_data = Rates.objects.get(id=2)
             casual_rate = rate_data.casuals_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
-            cost = (count * casual_rate)
+            cost = (count * casual_rate * days_spent)
             return cost
         except Exception as e:
             error = "Rates does not exist"
@@ -373,8 +374,9 @@ class ReticulationAPSinstallation(models.Model):
         try:
             rate_data = Rates.objects.get(id=2)
             casual_rate = rate_data.casuals_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
-            cost = (count * casual_rate)
+            cost = (count * casual_rate * days_spent)
             return cost
         except Exception as e:
             error = "Rates does not exist"
@@ -407,8 +409,9 @@ class ElectricalEarthing(models.Model):
         try:
             rate_data = Rates.objects.get(id=2)
             casual_rate = rate_data.casuals_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
-            cost = (count * casual_rate)
+            cost = (count * casual_rate * days_spent)
             return cost
         except Exception as e:
             error = "Rates does not exist"
@@ -445,8 +448,9 @@ class GeneratorInstallation(models.Model):
         try:
             rate_data = Rates.objects.get(id=2)
             casual_rate = rate_data.casuals_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
-            cost = (count * casual_rate)
+            cost = (count * casual_rate * days_spent)
             return cost
         except Exception as e:
             error = "Rates does not exist"
@@ -479,8 +483,9 @@ class KPLCSolarImage(models.Model):
         try:
             rate_data = Rates.objects.get(id=2)
             casual_rate = rate_data.casuals_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
-            cost = (count * casual_rate)
+            cost = (count * casual_rate * days_spent)
             return cost
         except Exception as e:
             error = "Rates does not exist"
@@ -535,11 +540,11 @@ class BTSinstallationTask(models.Model):
 
     def casuals_cost(self):
         try:
-            rate_data = Rates.objects.get(id=1)
-            rate_data = Rates.objects.get(id=1)
+            rate_data = Rates.objects.get(id=2)
             casual_rate = rate_data.casuals_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
-            cost = (count * casual_rate)
+            cost = (count * casual_rate * days_spent)
             return cost
         except Exception as e:
             error = "Rates does not exist"
@@ -572,8 +577,9 @@ class MWInstallationTask(models.Model):
         try:
             rate_data = Rates.objects.get(id=2)
             casual_rate = rate_data.casuals_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
-            cost = (count * casual_rate)
+            cost = (count * casual_rate * days_spent)
             return cost
         except Exception as e:
             error = "Rates does not exist"
@@ -634,3 +640,9 @@ class InstallationTeam(models.Model):
 
     def access_approvals(self):
         return "\n , ".join(str([v.project_name for v in self.access_approvals_field.all()]))
+
+
+def date_difference(start_date, end_date):
+    diff = end_date - start_date
+    no_of_days = diff.days
+    return no_of_days
