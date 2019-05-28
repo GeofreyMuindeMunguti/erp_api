@@ -151,7 +151,7 @@ class SiteWallingImage(models.Model):
 
 
 class ProjectPurchaseOrders(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     po_file = models.FileField(upload_to='files/CommercialTeam/pofile/%Y/%m/%d/', blank=True, null=True)
     material_cost = models.IntegerField()
     labour_cost = models.IntegerField()
@@ -170,7 +170,7 @@ class ProjectPurchaseOrders(models.Model):
 
 
 class ProjectCosting(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     project_costing_file = models.FileField(upload_to='files/CommercialTeam/projectcosting/%Y/%m/%d/', blank=True, null=True)
     material_cost = models.IntegerField()
     labour_cost = models.IntegerField()
@@ -189,7 +189,7 @@ class ProjectCosting(models.Model):
 
 
 class CommercialTeam(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     approved_quote_file = models.FileField(upload_to='files/CommercialTeam/approvedquote/%Y/%m/%d/')
     approved_quote_amount = models.IntegerField()
     po_data = models.OneToOneField(ProjectPurchaseOrders, on_delete=models.CASCADE, blank=True, null=True)
@@ -207,7 +207,7 @@ class CommercialTeam(models.Model):
 
 
 class ProcurementTeam(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     po_steel = models.FileField(upload_to='files/ProcurementTeam/posteel/%Y/%m/%d/', blank=True, null=True)
     po_steel_comment = models.CharField(max_length=100, blank=True, null=True)
     po_electrical_materials = models.FileField(upload_to='files/ProcurementTeam/poelectrical/%Y/%m/%d/', blank=True, null=True)
@@ -258,7 +258,7 @@ class AccessApprovalCivil(models.Model):
 
 
 class CivilWorksTeam(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     health_documents = models.ManyToManyField(HealthDocumentsCivilTeam)
     access_approvals_field = models.ManyToManyField(AccessApprovalCivil)
     foundation_and_curing_images = models.OneToOneField(FoundationImage, on_delete=models.DO_NOTHING)
@@ -314,12 +314,12 @@ class AccessApprovalInstallation(models.Model):
 
 
 class UndergroundTasks(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual)
     start_date = models.DateTimeField()
-    Underground_ducting_and_manholes_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/UndergroundTasks/%Y/%m/%d/')
-    Underground_ducting_and_manholes_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/UndergroundTasks/%Y/%m/%d/')
-    Underground_ducting_and_manholes_image_3 = models.ImageField(upload_to='images/InstallationTeam/Electrical/UndergroundTasks/%Y/%m/%d/')
+    Underground_ducting_and_manholes_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/UndergroundTasks/%Y/%m/%d/', blank=True, null=True)
+    Underground_ducting_and_manholes_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/UndergroundTasks/%Y/%m/%d/', blank=True, null=True)
+    Underground_ducting_and_manholes_image_3 = models.ImageField(upload_to='images/InstallationTeam/Electrical/UndergroundTasks/%Y/%m/%d/', blank=True, null=True)
     Underground_ducting_and_manholes_images_comment = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -366,12 +366,12 @@ class UndergroundTasks(models.Model):
 
 
 class ReticulationAPSinstallation(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual)
     start_date = models.DateTimeField()
-    Electricalreticulation_APSInstallation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ReticulationAPSinstallation/%Y/%m/%d/')
-    Electricalreticulation_APSInstallation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ReticulationAPSinstallation/%Y/%m/%d/')
-    Electricalreticulation_APSInstallation_image_3 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ReticulationAPSinstallation/%Y/%m/%d/')
+    Electricalreticulation_APSInstallation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ReticulationAPSinstallation/%Y/%m/%d/', blank=True, null=True)
+    Electricalreticulation_APSInstallation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ReticulationAPSinstallation/%Y/%m/%d/', blank=True, null=True)
+    Electricalreticulation_APSInstallation_image_3 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ReticulationAPSinstallation/%Y/%m/%d/', blank=True, null=True)
     Electricalreticulation_APSInstallation_images_comment = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -418,12 +418,12 @@ class ReticulationAPSinstallation(models.Model):
 
 
 class ElectricalEarthing(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual)
     start_date = models.DateTimeField()
-    Earthing_connections_and_testing_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/')
-    Earthing_connections_and_testing_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/')
-    Earthing_connections_and_testing_image_3 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/')
+    Earthing_connections_and_testing_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
+    Earthing_connections_and_testing_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
+    Earthing_connections_and_testing_image_3 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
     Earthing_connections_and_testing_images_comment = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -470,12 +470,12 @@ class ElectricalEarthing(models.Model):
 
 
 class GeneratorInstallation(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual)
     start_date = models.DateTimeField()
-    Generator_and_Fuel_Tank_Installation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/')
-    Generator_and_Fuel_Tank_Installation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/')
-    Generator_and_Fuel_Tank_Installation_image_3 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/')
+    Generator_and_Fuel_Tank_Installation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
+    Generator_and_Fuel_Tank_Installation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
+    Generator_and_Fuel_Tank_Installation_image_3 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
     before_fuel_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/Fueling/%Y/%m/%d/')
     before_fuel_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/Fueling/%Y/%m/%d/')
     after_fuel_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/Fueling/%Y/%m/%d/')
@@ -526,12 +526,12 @@ class GeneratorInstallation(models.Model):
 
 
 class KPLCSolarImage(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual)
     start_date = models.DateTimeField()
-    kplc_solar_installation_image_1 = models.ImageField(upload_to='images/InstallationTeam/KPLCSolar/%Y/%m/%d/')
-    kplc_solar_installation_image_2 = models.ImageField(upload_to='images/InstallationTeam/KPLCSolar/%Y/%m/%d/')
-    kplc_solar_installation_image_3 = models.ImageField(upload_to='images/InstallationTeam/KPLCSolar/%Y/%m/%d/')
+    kplc_solar_installation_image_1 = models.ImageField(upload_to='images/InstallationTeam/KPLCSolar/%Y/%m/%d/', blank=True, null=True)
+    kplc_solar_installation_image_2 = models.ImageField(upload_to='images/InstallationTeam/KPLCSolar/%Y/%m/%d/', blank=True, null=True)
+    kplc_solar_installation_image_3 = models.ImageField(upload_to='images/InstallationTeam/KPLCSolar/%Y/%m/%d/', blank=True, null=True)
     kplc_solar_installation_comment = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -578,7 +578,7 @@ class KPLCSolarImage(models.Model):
 
 
 class ElectricalTasks(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     engineers_atsite = models.ManyToManyField(Engineer)
     Underground_ducting_and_manholes = models.OneToOneField(UndergroundTasks, on_delete=models.CASCADE, blank=True, null=True)
     Electricalreticulation_APSInstallation = models.OneToOneField(ReticulationAPSinstallation, on_delete=models.CASCADE, blank=True, null=True)
@@ -602,12 +602,12 @@ class ElectricalTasks(models.Model):
 
 
 class BTSinstallationTask(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual)
     start_date = models.DateTimeField()
-    BTSinstallation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Telecom/BTSinstallation/%Y/%m/%d/')
-    BTSinstallation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Telecom/BTSinstallation/%Y/%m/%d/')
-    BTSinstallation_image_3 = models.ImageField(upload_to='images/InstallationTeam/Telecom/BTSinstallation/%Y/%m/%d/')
+    BTSinstallation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Telecom/BTSinstallation/%Y/%m/%d/', blank=True, null=True)
+    BTSinstallation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Telecom/BTSinstallation/%Y/%m/%d/', blank=True, null=True)
+    BTSinstallation_image_3 = models.ImageField(upload_to='images/InstallationTeam/Telecom/BTSinstallation/%Y/%m/%d/', blank=True, null=True)
     BTSinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -654,12 +654,12 @@ class BTSinstallationTask(models.Model):
 
 
 class MWInstallationTask(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual)
     start_date = models.DateTimeField()
-    MWinstallation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Telecom/MWinstallation/%Y/%m/%d/')
-    MWinstallation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Telecom/MWinstallation/%Y/%m/%d/')
-    MWinstallation_image_3 = models.ImageField(upload_to='images/InstallationTeam/Telecom/MWinstallation/%Y/%m/%d/')
+    MWinstallation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Telecom/MWinstallation/%Y/%m/%d/', blank=True, null=True)
+    MWinstallation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Telecom/MWinstallation/%Y/%m/%d/', blank=True, null=True)
+    MWinstallation_image_3 = models.ImageField(upload_to='images/InstallationTeam/Telecom/MWinstallation/%Y/%m/%d/', blank=True, null=True)
     MWinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -706,7 +706,7 @@ class MWInstallationTask(models.Model):
 
 
 class TelecomTasks(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     engineers_atsite = models.ManyToManyField(Engineer)
     Installation_of_BTS = models.OneToOneField(BTSinstallationTask, on_delete=models.CASCADE, blank=True, null=True)
     Installation_of_MW_links = models.OneToOneField(MWInstallationTask, on_delete=models.CASCADE, blank=True, null=True)
@@ -728,7 +728,7 @@ class TelecomTasks(models.Model):
 
 
 class InstallationTeam(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     health_documents = models.ManyToManyField(HealthDocumentsInstallationTeam)
     access_approvals_field = models.ManyToManyField(AccessApprovalInstallation)
     electrical_tasks_data = models.OneToOneField(ElectricalTasks, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -755,10 +755,10 @@ class InstallationTeam(models.Model):
         return str(self.project_name)
 
     def health_documents_installation(self):
-        return "\n , ".join(str([v.project_name for v in self.health_documents.all()]))
+        return [v.project_name for v in self.health_documents.all()]
 
     def access_approvals(self):
-        return "\n , ".join(str([v.project_name for v in self.access_approvals_field.all()]))
+        return [v.project_name for v in self.access_approvals_field.all()]
 
 
 def date_difference(start_date, end_date):
