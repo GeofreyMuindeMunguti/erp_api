@@ -1,7 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from phone_field import PhoneField
-from phonenumber_field.modelfields import PhoneNumberField
 
 
 # Create your models here.
@@ -25,6 +23,7 @@ class CustomUser(models.Model):
     def get_single_emp(cls, username):
         single_emp = CustomUser.objects.get(employee=username)
         return single_emp
+
 
 class UserLoginActivity(models.Model):
     # Login Status
@@ -69,7 +68,6 @@ class Casual(models.Model):
     casual_first_name = models.CharField(max_length=150, unique=True)
     casual_last_name = models.CharField(max_length=150, unique=True)
     casual_phone_no = models.CharField(max_length=100, blank=True, null=True)
-    # casual_phone_no = PhoneNumberField(blank=True, help_text='Phone Number')
     location_name = models.ForeignKey(Location, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -92,7 +90,6 @@ class Casual(models.Model):
 class Engineer(models.Model):
     user = models. ForeignKey(User,on_delete=models.CASCADE, related_name='engineerprofile')
     engineer_phone_no = models.CharField(max_length=100, blank=True, null=True)
-    # engineer_phone_no = PhoneNumberField(blank=True, help_text='Phone Number')
     department = models.CharField(max_length=100, blank=True)
     location_name = models.ForeignKey(Location, on_delete=models.DO_NOTHING, related_name='location')
     eng_profile_pic = models.ImageField(upload_to='ProfilePictures/Engineer', blank=True, null=True)
@@ -113,3 +110,14 @@ class Engineer(models.Model):
     def get_single_engineer(cls, engineer_id):
         single_engineer = Engineer.objects.get(engineer=engineer_id)
         return single_engineer
+
+
+class Rates(models.Model):
+    casuals_rate = models.IntegerField()
+    engineers_rate = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.engineers_rate)

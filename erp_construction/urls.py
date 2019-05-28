@@ -8,6 +8,9 @@ from .views import *
 router = DefaultRouter()
 
 router.register(r'projects', views.ProjectViewSet)
+router.register(r'Icons', views.ProjectIconViewSet)
+router.register(r'projectcosting', views.ProjectCostingViewSet)
+router.register(r'projectpos', views.ProjectPOSViewSet)
 router.register(r'commercialteamtasks', views.CommercialTeamViewSet)
 router.register(r'procurementteamtasks', views.ProcurementTeamViewSet)
 router.register(r'healthdocscivil', views.HealthDocCivilViewSet)
@@ -40,10 +43,16 @@ router.register(r'antennacoaxinstallation', views.AntennaCoaxInstallImageViewSet
 router.register(r'towerantennacoax', views.TowerAntennaCoaxImageViewSet)
 
 router.register(r'installationteams', views.InstallationTeamViewSet)
+router.register(r'electricaltasks', views.ElectricalTasksViewSet)
+router.register(r'generatortasks', views.GeneratorInstallationViewSet)
+router.register(r'earthingtasks', views.EarthingViewSet)
+router.register(r'reticulationtasks', views.ReticulationAPSViewSet)
+router.register(r'undergroundtasks', views.UndergroundTasksViewSet)
+router.register(r'telecomtasks', views.TelecomTasksViewSet)
+router.register(r'mwinstallationtasks', views.MWInstallationTasksViewSet)
+router.register(r'btsinstallationtasks', views.BTSInstallationTasksViewSet)
 router.register(r'healthdocumentsinstallationteams', views.HealthDocumentsInstallationTeamViewset)
 router.register(r'accessapprovalinstallations', views.AccessApprovalInstallationViewSet)
-router.register(r'rfandlinkimages', views.RFAndLinkImageViewSet)
-router.register(r'electricalimages', views.ElectricalImageViewSet)
 router.register(r'kplcsolarsmages', views.KPLCSolarImageViewSet)
 router.register(r'slabsimages', views.SlabsImageViewSet)
 
