@@ -644,5 +644,5 @@ class InstallationTeam(models.Model):
 
 def date_difference(start_date, end_date):
     diff = end_date - start_date
-    no_of_days = diff.days
+    no_of_days = (diff.days + 1)
     return no_of_days
