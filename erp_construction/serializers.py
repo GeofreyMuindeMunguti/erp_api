@@ -333,11 +333,3 @@ class KPLCSolarImageSerializer(serializers.ModelSerializer):
         model = KPLCSolarImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
-
-
-class CommercialTeamTasksSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = CommercialTeamTasks
-        fields = ('__all__')
-        read_only_fields = ('created_at', 'updated_at', 'is_active')

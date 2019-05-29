@@ -58,7 +58,6 @@ router.register(r'slabsimages', views.SlabsImageViewSet)
 
 """ ENDPOINTS FOR FRONTEND"""
 
-router.register(r'commercialtask', views.CommercialTasksViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

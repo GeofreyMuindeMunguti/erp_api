@@ -412,15 +412,6 @@ class KPLCSolarImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     ordering_fields = ('updated_at', 'project_name', )
 
 
-class CommercialTasksViewSet(DefaultsMixin, viewsets.ModelViewSet):
-    """API endpoint for listing and creating Commercial Tasks"""
-    queryset = CommercialTeamTasks.objects.order_by('created_at')
-    serializer_class = CommercialTeamTasksSerializer
-
-    search_fields = ('task', )
-    ordering_fields = ('updated_at',  )
-
-
 class CommercialTeamProgressView(APIView):
 
     def get(self, request, pk):
