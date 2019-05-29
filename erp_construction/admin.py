@@ -113,6 +113,48 @@ class HealthDocumentsCivilTeamAdmin(admin.ModelAdmin):
 
 admin.site.register(HealthDocumentsCivilTeam, HealthDocumentsCivilTeamAdmin)
 
+####################################### KPI ###############################################################################################################################
+
+class KpiAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'kpi','posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active', 'is_approved')
+
+
+admin.site.register(Kpi, KpiAdmin)
+
+######################################## END #######################################################################################################################################
+
+####################################### TASKS ###############################################################################################################################
+
+class TaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'category_name','task_name', 'kpi', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('task_name', )
+    list_filter = ('task_name',)
+    search_fields = ('task_name', )
+    list_editable = ('is_active', 'is_approved')
+
+
+admin.site.register(Task, TaskAdmin)
+
+######################################## END #######################################################################################################################################
+
+####################################### SUBTASKS ###############################################################################################################################
+
+class SubTaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'category_name','task_name','subtask_name', 'kpi', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('subtask_name', )
+    list_filter = ('subtask_name',)
+    search_fields = ('subtask_name', )
+    list_editable = ('is_active', 'is_approved')
+
+
+admin.site.register(SubTask, SubTaskAdmin)
+
+######################################## END #######################################################################################################################################
+
 #######################################START FOUNDATION IMAGES########################################################################################################################################
 class FoundationImageAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'setting_site_clearing', 'excavation_tower_base', 'binding', 'steel_fix_formwork','concrete_pour_curing','foundation_and_curing_comment','created_at', 'updated_at', 'is_active')
