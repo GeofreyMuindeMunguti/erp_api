@@ -406,6 +406,44 @@ class ElectricalTaskProgressView(APIView):
         return Response({'no_of_tasks': total_tasks, 'Underground_status': Underground_status, 'reticulation_status': reticulation_status, 'earthing_status': earthing_status, 'fuel_installation_status': fuel_installation_status, 'kplc_status': kplc_status, 'progress': electrical_percentage})
 
 
+class TelecomTaskProgressView(APIView):
+
+    def get(self, request, pk):
+        total_tasks = 3
+        completed_tasks = 0
+        bts_installation_status = ''
+        mw_installation_status = ''
+        link_commissioning_status = ''
+        project_id = pk
+        try:
+            progress_object = TelecomTasks.objects.get(project_name=project_id)
+        except Exception as e:
+            return Response({'error': 'Task not started'})
+        bts = progress_object.towerInstallation_of_BTS_erection
+        microwave = progress_object.Installation_of_MW_links
+        commissioning = progress_object.link_commissioning
+        if bool(bts) is False:
+            bts_installation_status = "Not uploaded"
+        else:
+            completed_tasks += 1
+            bts_installation_status = "Uploaded"
+        if bool(microwave) is False:
+            mw_installation_status = "Not Uploaded"
+        else:
+            completed_tasks += 1
+            mw_installation_status = "Uploaded"
+        if commissioning is False:
+            link_commissioning_status = "Link not commissioned"
+        else:
+            completed_tasks += 1
+            link_commissioning_status = "Link is commissioned"
+        telecom_percentage = percentage_function(completed_tasks, total_tasks)
+        return Response({'no_of_tasks': total_tasks, 'bts_installation_status': bts_installation_status, 'mw_installation_status': mw_installation_status, 'link_commissioning_status': link_commissioning_status, 'progress': telecom_percentage})
+
+
+"""END OF INSTALLATION TASKS"""
+
+
 def percentage_function(no_of_complete, total_task):
     """Function to return perecentage of progress  """
     percentage = ((no_of_complete/total_task) * 100)
