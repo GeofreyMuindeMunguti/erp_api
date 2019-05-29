@@ -415,16 +415,20 @@ class KPLCSolarImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
 class CommercialTeamProgressView(APIView):
 
     def get(self, request, pk):
-        total_tasks = 2
+        total_tasks = 4
         completed_tasks = 0
+        approved_quote_status = ''
         po_status = ''
+        project_costing_status = ''
         initial_invoice_status = ''
         project_id = pk
         try:
             progress_object = CommercialTeam.objects.get(project_name=project_id)
         except Exception as e:
             return Response({'error': 'Record does not exist'})
-        po = progress_object.po_file
+        approved_quote = progress_object.approved_quote_file
+        po = progress_object.po_data
+        project_costing = progress_object.project_costing_data
         initialinvoice = progress_object.initial_invoice
         if bool(po) is False:
             po_status = "Not uploaded"
@@ -436,8 +440,18 @@ class CommercialTeamProgressView(APIView):
         else:
             completed_tasks += 1
             initial_invoice_status = "Uploaded"
+        if bool(approved_quote) is False:
+            approved_quote_status = "Not Uploaded"
+        else:
+            completed_tasks += 1
+            approved_quote_status = "Uploaded"
+        if bool(project_costing) is False:
+            project_costing_status = "Not Uploaded"
+        else:
+            completed_tasks += 1
+            project_costing_status = "Uploaded"
         commercial_percentage = percentage_function(completed_tasks, total_tasks)
-        return Response({'no_of_tasks': total_tasks, 'po_status': po_status, 'initial_invoice_status': initial_invoice_status, 'progress': commercial_percentage})
+        return Response({'no_of_tasks': total_tasks, 'po_status': po_status, 'initial_invoice_status': initial_invoice_status, 'approved_quote_status': approved_quote_status, 'project_costing_status': project_costing_status, 'progress': commercial_percentage})
 
 
 class ProcurementTeamView(APIView):
