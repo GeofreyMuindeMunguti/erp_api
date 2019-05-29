@@ -46,6 +46,20 @@ class Project(models.Model):
     def __str__(self):
         return self.project_name
 
+    def status(self):
+        try:
+            final_acceptance_data = InstallationTeam.objects.get(project_name=self.project_name)
+            final_acceptance_cert = final_acceptance_data.final_acceptance_cert
+            project_status = ''
+            if bool(final_acceptance_cert) is False:
+                project_status = "Open"
+            else:
+                project_status = "Closed"
+            return project_status
+        except Exception as e:
+            error = "Open"
+            return error
+
 #######################################START FOUNDATION IMAGES########################################################################################################################################
 class SetSiteClearingImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
@@ -903,7 +917,7 @@ class InstallationTeam(models.Model):
     access_approvals_field = models.ManyToManyField(AccessApprovalInstallation)
     electrical_tasks_data = models.OneToOneField(ElectricalTasks, on_delete=models.DO_NOTHING, blank=True, null=True)
     telecom_tasks_data = models.OneToOneField(TelecomTasks, on_delete=models.DO_NOTHING, blank=True, null=True)
-    signoff = models.FileField(upload_to='files/SafaricomTeam/signoff/%Y/%m/%d/')
+    signoff = models.FileField(upload_to='files/SafaricomTeam/signoff/%Y/%m/%d/', blank=True, null=True)
     signoff_comment = models.CharField(max_length=100, blank=True, null=True)
     rf_document = models.FileField(upload_to='files/SafaricomTeam/rf/%Y/%m/%d/')
     rf_document_comment = models.CharField(max_length=100, blank=True, null=True)
