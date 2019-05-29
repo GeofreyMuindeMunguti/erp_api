@@ -141,11 +141,11 @@ class ConcretePourCuringImage(models.Model):
 
 class FoundationImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    setting_site_clearing = models.OneToOneField(SetSiteClearingImage, on_delete=models.DO_NOTHING)
-    excavation_tower_base = models.OneToOneField(TowerBaseImage, on_delete=models.DO_NOTHING)
-    binding = models.OneToOneField(BindingImage, on_delete=models.DO_NOTHING)
-    steel_fix_formwork = models.OneToOneField(SteelFixFormworkImage, on_delete=models.DO_NOTHING)
-    concrete_pour_curing = models.OneToOneField(ConcretePourCuringImage, on_delete=models.DO_NOTHING)
+    setting_site_clearing = models.OneToOneField(SetSiteClearingImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    excavation_tower_base = models.OneToOneField(TowerBaseImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    binding = models.OneToOneField(BindingImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    steel_fix_formwork = models.OneToOneField(SteelFixFormworkImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    concrete_pour_curing = models.OneToOneField(ConcretePourCuringImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     foundation_and_curing_comment = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -188,8 +188,8 @@ class ConcretePourCuringPeriodImage(models.Model):
 
 class BTSAndGeneatorSlabsImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    foundation_foot_pouring = models.OneToOneField(ExcavationImage, on_delete=models.DO_NOTHING)
-    concrete_pour_period = models.OneToOneField(ConcretePourCuringPeriodImage, on_delete=models.DO_NOTHING)
+    foundation_foot_pouring = models.OneToOneField(ExcavationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    concrete_pour_period = models.OneToOneField(ConcretePourCuringPeriodImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     bts_and_generator_slabs_comment = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -260,10 +260,10 @@ class RazorElectricFenceImage(models.Model):
 
 class BoundaryWallImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    foundation_foot_pouring = models.OneToOneField(FoundFootPourImage, on_delete=models.DO_NOTHING)
-    block_construction = models.OneToOneField(BlockworkPanelConstImage, on_delete=models.DO_NOTHING)
-    gate_installation = models.OneToOneField(GateInstallationImage, on_delete=models.DO_NOTHING)
-    razor_electric_fence = models.OneToOneField(RazorElectricFenceImage, on_delete=models.DO_NOTHING)
+    foundation_foot_pouring = models.OneToOneField(FoundFootPourImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    block_construction = models.OneToOneField(BlockworkPanelConstImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    gate_installation = models.OneToOneField(GateInstallationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    razor_electric_fence = models.OneToOneField(RazorElectricFenceImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     boundary_wall_comment = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -334,10 +334,10 @@ class AntennaCoaxInstallImage(models.Model):
 
 class TowerAntennaCoaxImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    tower_erection = models.OneToOneField(TowerErectionImage, on_delete=models.DO_NOTHING)
-    tower_painting = models.OneToOneField(TowerPaintImage, on_delete=models.DO_NOTHING)
-    cable_ways = models.OneToOneField(CableWaysImage, on_delete=models.DO_NOTHING)
-    antenna_coax_installation = models.OneToOneField(AntennaCoaxInstallImage, on_delete=models.DO_NOTHING)
+    tower_erection = models.OneToOneField(TowerErectionImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    tower_painting = models.OneToOneField(TowerPaintImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    cable_ways = models.OneToOneField(CableWaysImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    antenna_coax_installation = models.OneToOneField(AntennaCoaxInstallImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     tower_antenna_coax_comment = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
