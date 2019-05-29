@@ -177,8 +177,11 @@ class InstallationProgressView(APIView):
         else:
             completed_tasks += 1
             conditional_acceptance_status = "Uploaded"
-        civil_percentage = percentage_function(completed_tasks, total_tasks)
-        return Response({'no_of_tasks': total_tasks, 'electrical_tasks_status': electrical_tasks_status, 'telecom_tasks_status': telecom_tasks_status, 'sign_off_status': sign_off_status, 'rfi_status': rfi_status, 'integration_parameter_status': integration_parameter_status, 'conditional_acceptance_status': conditional_acceptance_status, 'progress': civil_percentage})
+        installation_percentage = percentage_function(completed_tasks, total_tasks)
+        return Response({'no_of_tasks': total_tasks, 'electrical_tasks_status': electrical_tasks_status, 'telecom_tasks_status': telecom_tasks_status, 'sign_off_status': sign_off_status, 'rfi_status': rfi_status, 'integration_parameter_status': integration_parameter_status, 'conditional_acceptance_status': conditional_acceptance_status, 'progress': installation_percentage})
+
+
+"""END OF TEAM PROGRESS"""
 
 
 """VIEWS TO CALCULATE PROGRESS OF TASKS"""
@@ -232,8 +235,36 @@ class FoundationTaskProgressView(APIView):
         else:
             completed_tasks += 1
             concrete_pour_status = "Uploaded"
-        commercial_percentage = percentage_function(completed_tasks, total_tasks)
-        return Response({'no_of_tasks': total_tasks, 'setting_site_status': setting_site_status, 'excavation_status': excavation_status, 'binding_status': binding_status, 'steel_fix_status': steel_fix_status, 'concrete_pour_status': concrete_pour_status, 'progress': commercial_percentage})
+        foundation_percentage = percentage_function(completed_tasks, total_tasks)
+        return Response({'no_of_tasks': total_tasks, 'setting_site_status': setting_site_status, 'excavation_status': excavation_status, 'binding_status': binding_status, 'steel_fix_status': steel_fix_status, 'concrete_pour_status': concrete_pour_status, 'progress': foundation_percentage})
+
+
+class BTSandGenTaskProgressView(APIView):
+
+    def get(self, request, pk):
+        total_tasks = 2
+        completed_tasks = 0
+        foundation_foot_status = ''
+        concrete_pour_status = ''
+        project_id = pk
+        try:
+            progress_object = BTSAndGeneatorSlabsImage.objects.get(project_name=project_id)
+        except Exception as e:
+            return Response({'error': 'Task not started'})
+        foundation_foot = progress_object.foundation_foot_pouring
+        concrete_pour = progress_object.concrete_pour_period
+        if bool(foundation_foot) is False:
+            foundation_foot_status = "Not uploaded"
+        else:
+            completed_tasks += 1
+            foundation_foot_status = "Uploaded"
+        if bool(concrete_pour) is False:
+            concrete_pour_status = "Not Uploaded"
+        else:
+            completed_tasks += 1
+            concrete_pour_status = "Uploaded"
+        bts_gen_percentage = percentage_function(completed_tasks, total_tasks)
+        return Response({'no_of_tasks': total_tasks, 'foundation_foot_status': foundation_foot_status, 'concrete_pour_status': concrete_pour_status, 'progress': bts_gen_percentage})
 
 
 def percentage_function(no_of_complete, total_task):
