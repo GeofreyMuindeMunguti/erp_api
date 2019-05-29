@@ -309,6 +309,48 @@ class BoundaryTaskProgressView(APIView):
         return Response({'no_of_tasks': total_tasks, 'foundation_foot_status': foundation_foot_status, 'block_status': block_status, 'gate_status': gate_status, 'razor_electric_status': razor_electric_status, 'progress': boundary_percentage})
 
 
+class TowerTaskProgressView(APIView):
+
+    def get(self, request, pk):
+        total_tasks = 4
+        completed_tasks = 0
+        tower_erection_status = ''
+        tower_painting_status = ''
+        cable_ways_status = ''
+        antenna_status = ''
+        project_id = pk
+        try:
+            progress_object = TowerAntennaCoaxImage.objects.get(project_name=project_id)
+        except Exception as e:
+            return Response({'error': 'Task not started'})
+        erection = progress_object.tower_erection
+        painting = progress_object.tower_painting
+        cable = progress_object.cable_ways
+        antenna = progress_object.antenna_coax_installation
+        if bool(erection) is False:
+            tower_erection_status = "Not uploaded"
+        else:
+            completed_tasks += 1
+            tower_erection_status = "Uploaded"
+        if bool(painting) is False:
+            tower_painting_status = "Not Uploaded"
+        else:
+            completed_tasks += 1
+            tower_painting_status = "Uploaded"
+        if bool(cable) is False:
+            cable_ways_status = "Not Uploaded"
+        else:
+            completed_tasks += 1
+            cable_ways_status = "Uploaded"
+        if bool(antenna) is False:
+            antenna_status = "Not Uploaded"
+        else:
+            completed_tasks += 1
+            antenna_status = "Uploaded"
+        tower_percentage = percentage_function(completed_tasks, total_tasks)
+        return Response({'no_of_tasks': total_tasks, 'tower_erection_status': tower_erection_status, 'tower_painting_status': tower_painting_status, 'cable_ways_status': cable_ways_status, 'antenna_status': antenna_status, 'progress': tower_percentage})
+
+
 def percentage_function(no_of_complete, total_task):
     """Function to return perecentage of progress  """
     percentage = ((no_of_complete/total_task) * 100)
