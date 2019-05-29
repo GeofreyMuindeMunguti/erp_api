@@ -184,6 +184,9 @@ class InstallationProgressView(APIView):
 """VIEWS TO CALCULATE PROGRESS OF TASKS"""
 
 
+"""CIVIL TEAM TASKS"""
+
+
 class FoundationTaskProgressView(APIView):
 
     def get(self, request, pk):
