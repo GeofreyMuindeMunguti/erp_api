@@ -71,5 +71,6 @@ urlpatterns = [
     path('btsgenprogress/<int:pk>', BTSandGenTaskProgressView.as_view()),
     path('boundarywallprogress/<int:pk>', BoundaryTaskProgressView.as_view()),
     path('towerprogress/<int:pk>', TowerTaskProgressView.as_view()),
+    path('electricalprogress/<int:pk>', ElectricalTaskProgressView.as_view()),
     # path('procurementsum/<int:pk>', ProcurementSumView.as_view())
 ]

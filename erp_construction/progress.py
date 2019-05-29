@@ -351,6 +351,61 @@ class TowerTaskProgressView(APIView):
         return Response({'no_of_tasks': total_tasks, 'tower_erection_status': tower_erection_status, 'tower_painting_status': tower_painting_status, 'cable_ways_status': cable_ways_status, 'antenna_status': antenna_status, 'progress': tower_percentage})
 
 
+"""END OF CIVIL TASKS"""
+
+
+"""INSTALLATION TEAM TASKS"""
+
+
+class ElectricalTaskProgressView(APIView):
+
+    def get(self, request, pk):
+        total_tasks = 5
+        completed_tasks = 0
+        Underground_status = ''
+        reticulation_status = ''
+        earthing_status = ''
+        fuel_installation_status = ''
+        kplc_status = ''
+        project_id = pk
+        try:
+            progress_object = ElectricalTasks.objects.get(project_name=project_id)
+        except Exception as e:
+            return Response({'error': 'Task not started'})
+        underground = progress_object.Underground_ducting_and_manholes
+        reticulation = progress_object.Electricalreticulation_APSInstallation
+        earthing = progress_object.Earthing_connections_and_testing
+        fuel_tasks = progress_object.Generator_and_Fuel_Tank_Installation
+        kplc_solar = progress_object.KPLC_solar_installation
+        if bool(underground) is False:
+            Underground_status = "Not uploaded"
+        else:
+            completed_tasks += 1
+            Underground_status = "Uploaded"
+        if bool(reticulation) is False:
+            reticulation_status = "Not Uploaded"
+        else:
+            completed_tasks += 1
+            reticulation_status = "Uploaded"
+        if bool(earthing) is False:
+            earthing_status = "Not Uploaded"
+        else:
+            completed_tasks += 1
+            earthing_status = "Uploaded"
+        if bool(fuel_tasks) is False:
+            fuel_installation_status = "Not Uploaded"
+        else:
+            completed_tasks += 1
+            fuel_installation_status = "Uploaded"
+        if bool(kplc_solar) is False:
+            kplc_status = "Not Uploaded"
+        else:
+            completed_tasks += 1
+            kplc_status = "Uploaded"
+        electrical_percentage = percentage_function(completed_tasks, total_tasks)
+        return Response({'no_of_tasks': total_tasks, 'Underground_status': Underground_status, 'reticulation_status': reticulation_status, 'earthing_status': earthing_status, 'fuel_installation_status': fuel_installation_status, 'kplc_status': kplc_status, 'progress': electrical_percentage})
+
+
 def percentage_function(no_of_complete, total_task):
     """Function to return perecentage of progress  """
     percentage = ((no_of_complete/total_task) * 100)
