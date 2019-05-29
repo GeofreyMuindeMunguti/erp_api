@@ -419,7 +419,7 @@ class TelecomTaskProgressView(APIView):
             progress_object = TelecomTasks.objects.get(project_name=project_id)
         except Exception as e:
             return Response({'error': 'Task not started'})
-        bts = progress_object.towerInstallation_of_BTS_erection
+        bts = progress_object.Installation_of_BTS
         microwave = progress_object.Installation_of_MW_links
         commissioning = progress_object.link_commissioning
         if bool(bts) is False:
