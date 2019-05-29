@@ -63,7 +63,7 @@ urlpatterns = [
     path('', include(router.urls)),
     # ENDPOINTS FOR DASHBOARD
     path('commercialprogress/<int:pk>', CommercialTeamProgressView.as_view()),
-    path('procurementprogress/<int:pk>', ProcurementTeamView.as_view()),
+    path('procurementprogress/<int:pk>', ProcurementProgressTeamView.as_view()),
     path('civilprogress/<int:pk>', CivilProgressView.as_view()),
     # path('procurementsum/<int:pk>', ProcurementSumView.as_view())
 ]

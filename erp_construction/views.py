@@ -454,7 +454,7 @@ class CommercialTeamProgressView(APIView):
         return Response({'no_of_tasks': total_tasks, 'po_status': po_status, 'initial_invoice_status': initial_invoice_status, 'approved_quote_status': approved_quote_status, 'project_costing_status': project_costing_status, 'progress': commercial_percentage})
 
 
-class ProcurementTeamView(APIView):
+class ProcurementProgressTeamView(APIView):
 
     def get(self, request, pk):
         total_tasks = 3
@@ -492,11 +492,12 @@ class ProcurementTeamView(APIView):
 class CivilProgressView(APIView):
 
     def get(self, request, pk):
-        total_tasks = 3 # CHANGE THIS TO SEVEN WHEN NEW FIELDS ARE IMPLEMENTED
+        total_tasks = 4
         completed_tasks = 0
         foundation_status = ''
         slabs_status = ''
         site_walling_status = ''
+        tower_status = ''
         project_id = pk
         try:
             progress_object = CivilWorksTeam.objects.get(project_name=project_id)
@@ -505,6 +506,7 @@ class CivilProgressView(APIView):
         foundation_and_curing_images = progress_object.foundation_and_curing_images
         bts_and_generator_slabs_images = progress_object.bts_and_generator_slabs_images
         site_walling_images_field = progress_object.site_walling_images_field
+        tower_field = progress_object.tower_data
         if bool(foundation_and_curing_images) is False:
             foundation_status = "Not uploaded"
         else:
@@ -520,8 +522,13 @@ class CivilProgressView(APIView):
         else:
             completed_tasks += 1
             site_walling_status = "Uploaded"
+        if bool(tower_field) is False:
+            tower_status = "Not Uploaded"
+        else:
+            completed_tasks += 1
+            tower_status = "Uploaded"
         civil_percentage = percentage_function(completed_tasks, total_tasks)
-        return Response({'no_of_tasks': total_tasks, 'foundation_status': foundation_status, 'slabs_status': slabs_status, 'site_walling_status': site_walling_status, 'progress': civil_percentage})
+        return Response({'no_of_tasks': total_tasks, 'foundation_status': foundation_status, 'slabs_status': slabs_status, 'site_walling_status': site_walling_status, 'tower_status': tower_status, 'progress': civil_percentage})
 
 
 def status_function(model_class, request):

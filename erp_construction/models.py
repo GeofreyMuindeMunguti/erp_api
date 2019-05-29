@@ -467,9 +467,10 @@ class CivilWorksTeam(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     health_documents = models.ManyToManyField(HealthDocumentsCivilTeam)
     access_approvals_field = models.ManyToManyField(AccessApprovalCivil)
-    foundation_and_curing_images = models.OneToOneField(FoundationImage, on_delete=models.DO_NOTHING)
-    bts_and_generator_slabs_images = models.OneToOneField(BTSAndGeneatorSlabsImage, on_delete=models.DO_NOTHING)
-    site_walling_images_field = models.OneToOneField(BoundaryWallImage, on_delete=models.DO_NOTHING)
+    foundation_and_curing_images = models.OneToOneField(FoundationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    bts_and_generator_slabs_images = models.OneToOneField(BTSAndGeneatorSlabsImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    site_walling_images_field = models.OneToOneField(BoundaryWallImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    tower_data = models.OneToOneField(TowerAntennaCoaxImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -480,10 +481,10 @@ class CivilWorksTeam(models.Model):
         return str(self.project_name)
 
     def health_documents_civil(self):
-        return "\n , ".join(str([v.project_name for v in self.health_documents.all()]))
+        return [v.project_name for v in self.health_documents.all()]
 
     def access_approvals(self):
-        return "\n , ".join(str([v.project_name for v in self.access_approvals_field.all()]))
+        return [v.project_name for v in self.access_approvals_field.all()]
 
 
 class HealthDocumentsInstallationTeam(models.Model):
