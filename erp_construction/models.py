@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 
 # Create your models here.
 
+
 class Category(models.Model):
     category_name = models.CharField(max_length=100, unique=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
@@ -67,6 +68,8 @@ class Project(models.Model):
         return days
 
 #######################################START FOUNDATION IMAGES########################################################################################################################################
+
+
 class SetSiteClearingImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
     setting_site_clearing_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/siteclearing/%Y/%m/%d/')
@@ -155,6 +158,7 @@ class FoundationImage(models.Model):
 
 #######################################BS241 & GENERATOR FOUNDATION ###########################################################################################################################
 
+
 class ExcavationImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
     excavation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
@@ -168,6 +172,7 @@ class ExcavationImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+
 class ConcretePourCuringPeriodImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
     concrete_pour_curing_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
@@ -180,7 +185,6 @@ class ConcretePourCuringPeriodImage(models.Model):
 
     def __str__(self):
         return str(self.project_name)
-
 
 
 class BTSAndGeneatorSlabsImage(models.Model):
@@ -212,6 +216,7 @@ class FoundFootPourImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+
 class BlockworkPanelConstImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
     blockwallpanelconst_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/BlockworkPanelConst/%Y/%m/%d/')
@@ -224,6 +229,7 @@ class BlockworkPanelConstImage(models.Model):
 
     def __str__(self):
         return str(self.project_name)
+
 
 class GateInstallationImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
@@ -238,6 +244,7 @@ class GateInstallationImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+
 class RazorElectricFenceImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
     razorelectricfance_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/RazorElectricFence/%Y/%m/%d/')
@@ -250,6 +257,7 @@ class RazorElectricFenceImage(models.Model):
 
     def __str__(self):
         return str(self.project_name)
+
 
 class BoundaryWallImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
@@ -268,6 +276,7 @@ class BoundaryWallImage(models.Model):
 
 ####################################### TOWER & ANTENNA_COAX ###########################################################################################################################
 
+
 class TowerErectionImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
     tower_erection_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/towererection/%Y/%m/%d/')
@@ -280,6 +289,7 @@ class TowerErectionImage(models.Model):
 
     def __str__(self):
         return str(self.project_name)
+
 
 class TowerPaintImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
@@ -294,6 +304,7 @@ class TowerPaintImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+
 class CableWaysImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
     cable_ways_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/cableways/%Y/%m/%d/')
@@ -307,6 +318,7 @@ class CableWaysImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+
 class AntennaCoaxInstallImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
     antenna_coax_installation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/antennacoaxinstallation/%Y/%m/%d/')
@@ -319,6 +331,7 @@ class AntennaCoaxInstallImage(models.Model):
 
     def __str__(self):
         return str(self.project_name)
+
 
 class TowerAntennaCoaxImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
