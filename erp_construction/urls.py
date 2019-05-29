@@ -3,6 +3,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from . import views
 from django.urls import path, include
 from .views import *
+from .progress import *
 
 
 router = DefaultRouter()
@@ -66,5 +67,6 @@ urlpatterns = [
     path('procurementprogress/<int:pk>', ProcurementProgressTeamView.as_view()),
     path('civilprogress/<int:pk>', CivilProgressView.as_view()),
     path('installationprogress/<int:pk>', InstallationProgressView.as_view()),
+    path('foundationprogress/<int:pk>', FoundationTaskProgressView.as_view()),
     # path('procurementsum/<int:pk>', ProcurementSumView.as_view())
 ]
