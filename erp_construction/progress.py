@@ -267,6 +267,48 @@ class BTSandGenTaskProgressView(APIView):
         return Response({'no_of_tasks': total_tasks, 'foundation_foot_status': foundation_foot_status, 'concrete_pour_status': concrete_pour_status, 'progress': bts_gen_percentage})
 
 
+class BoundaryTaskProgressView(APIView):
+
+    def get(self, request, pk):
+        total_tasks = 4
+        completed_tasks = 0
+        foundation_foot_status = ''
+        block_status = ''
+        gate_status = ''
+        razor_electric_status = ''
+        project_id = pk
+        try:
+            progress_object = BoundaryWallImage.objects.get(project_name=project_id)
+        except Exception as e:
+            return Response({'error': 'Task not started'})
+        foundation_foot = progress_object.foundation_foot_pouring
+        block = progress_object.block_construction
+        gate = progress_object.gate_installation
+        razor_electric = progress_object.razor_electric_fence
+        if bool(foundation_foot) is False:
+            foundation_foot_status = "Not uploaded"
+        else:
+            completed_tasks += 1
+            foundation_foot_status = "Uploaded"
+        if bool(block) is False:
+            block_status = "Not Uploaded"
+        else:
+            completed_tasks += 1
+            block_status = "Uploaded"
+        if bool(gate) is False:
+            gate_status = "Not Uploaded"
+        else:
+            completed_tasks += 1
+            gate_status = "Uploaded"
+        if bool(razor_electric) is False:
+            razor_electric_status = "Not Uploaded"
+        else:
+            completed_tasks += 1
+            razor_electric_status = "Uploaded"
+        boundary_percentage = percentage_function(completed_tasks, total_tasks)
+        return Response({'no_of_tasks': total_tasks, 'foundation_foot_status': foundation_foot_status, 'block_status': block_status, 'gate_status': gate_status, 'razor_electric_status': razor_electric_status, 'progress': boundary_percentage})
+
+
 def percentage_function(no_of_complete, total_task):
     """Function to return perecentage of progress  """
     percentage = ((no_of_complete/total_task) * 100)
