@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from users.models import CustomUser, Location, Casual, Engineer, Rates
 from django.contrib.postgres.fields import ArrayField
-
+from datetime import datetime, timezone
 
 # Create your models here.
 
@@ -56,8 +56,15 @@ class Project(models.Model):
                 project_status = "Closed"
             return project_status
         except Exception as e:
-            error = "Error occured"
             return e
+
+    def turn_around_time(self):
+        if bool(self.final_acceptance_cert) is False:
+            today = datetime.now(timezone.utc)
+            days = date_difference(self.created_at, today)
+        else:
+            days = date_difference(self.created_at, self.updated_at)
+        return days
 
 #######################################START FOUNDATION IMAGES########################################################################################################################################
 class SetSiteClearingImage(models.Model):

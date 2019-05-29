@@ -23,7 +23,7 @@ admin.site.register(Category, CategoryAdmin)
 
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'icon', 'site_number', 'BTS_type', 'site_owner', 'geotech_file', 'access_letter', 'approved_drawing','final_acceptance_cert', 'final_acceptance_cert_comment',
-                    'location', 'created_by', 'status', 'created_at', 'updated_at', 'is_active')
+                    'location', 'created_by', 'status', 'turn_around_time', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)
