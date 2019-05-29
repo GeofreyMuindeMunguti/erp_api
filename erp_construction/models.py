@@ -3,7 +3,7 @@ from django.db.models import Sum, F
 from django.contrib.auth.models import User
 from users.models import CustomUser, Location, Casual, Engineer, Rates
 from django.contrib.postgres.fields import ArrayField
-
+from datetime import datetime, timezone
 
 # Create your models here.
 
@@ -39,6 +39,8 @@ class Project(models.Model):
     geotech_file = models.FileField(upload_to='files/Project/geotech/%Y/%m/%d/')
     access_letter = models.FileField(upload_to='files/Project/accessletters/%Y/%m/%d/')
     approved_drawing = models.FileField(upload_to='files/Project/approveddrawings/%Y/%m/%d/')
+    final_acceptance_cert = models.FileField(upload_to='files/SafaricomTeam/finalcert/%Y/%m/%d/', blank=True, null=True)
+    final_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -46,6 +48,24 @@ class Project(models.Model):
 
     def __str__(self):
         return self.project_name
+
+    def status(self):
+        try:
+            if bool(self.final_acceptance_cert) is False:
+                project_status = "Open"
+            else:
+                project_status = "Closed"
+            return project_status
+        except Exception as e:
+            return e
+
+    def turn_around_time(self):
+        if bool(self.final_acceptance_cert) is False:
+            today = datetime.now(timezone.utc)
+            days = date_difference(self.created_at, today)
+        else:
+            days = date_difference(self.created_at, self.updated_at)
+        return days
 
 #######################################START FOUNDATION IMAGES########################################################################################################################################
 class SetSiteClearingImage(models.Model):
@@ -958,18 +978,16 @@ class InstallationTeam(models.Model):
     access_approvals_field = models.ManyToManyField(AccessApprovalInstallation)
     electrical_tasks_data = models.OneToOneField(ElectricalTasks, on_delete=models.DO_NOTHING, blank=True, null=True)
     telecom_tasks_data = models.OneToOneField(TelecomTasks, on_delete=models.DO_NOTHING, blank=True, null=True)
-    signoff = models.FileField(upload_to='files/SafaricomTeam/signoff/%Y/%m/%d/')
+    signoff = models.FileField(upload_to='files/SafaricomTeam/signoff/%Y/%m/%d/', blank=True, null=True)
     signoff_comment = models.CharField(max_length=100, blank=True, null=True)
-    rf_document = models.FileField(upload_to='files/SafaricomTeam/rf/%Y/%m/%d/')
+    rf_document = models.FileField(upload_to='files/SafaricomTeam/rf/%Y/%m/%d/', blank=True, null=True)
     rf_document_comment = models.CharField(max_length=100, blank=True, null=True)
     integration_parameter = models.BooleanField(default=False)
     integration_parameter_comment = models.CharField(max_length=100, blank=True, null=True)
-    snag_document = models.FileField(upload_to='files/SafaricomTeam/snag/%Y/%m/%d/')
+    snag_document = models.FileField(upload_to='files/SafaricomTeam/snag/%Y/%m/%d/', blank=True, null=True)
     snag_document_comment = models.CharField(max_length=100, blank=True, null=True)
-    conditional_acceptance_cert = models.FileField(upload_to='files/SafaricomTeam/conditionalcert/%Y/%m/%d/')
+    conditional_acceptance_cert = models.FileField(upload_to='files/SafaricomTeam/conditionalcert/%Y/%m/%d/', blank=True, null=True)
     conditional_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
-    final_acceptance_cert = models.FileField(upload_to='files/SafaricomTeam/finalcert/%Y/%m/%d/')
-    final_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
