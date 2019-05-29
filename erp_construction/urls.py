@@ -65,5 +65,6 @@ urlpatterns = [
     path('commercialprogress/<int:pk>', CommercialTeamProgressView.as_view()),
     path('procurementprogress/<int:pk>', ProcurementProgressTeamView.as_view()),
     path('civilprogress/<int:pk>', CivilProgressView.as_view()),
+    path('installationprogress/<int:pk>', InstallationProgressView.as_view()),
     # path('procurementsum/<int:pk>', ProcurementSumView.as_view())
 ]

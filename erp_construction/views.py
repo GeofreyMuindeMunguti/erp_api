@@ -531,6 +531,62 @@ class CivilProgressView(APIView):
         return Response({'no_of_tasks': total_tasks, 'foundation_status': foundation_status, 'slabs_status': slabs_status, 'site_walling_status': site_walling_status, 'tower_status': tower_status, 'progress': civil_percentage})
 
 
+class InstallationProgressView(APIView):
+
+    def get(self, request, pk):
+        total_tasks = 6
+        completed_tasks = 0
+        electrical_tasks_status = ''
+        telecom_tasks_status = ''
+        sign_off_status = ''
+        rfi_status = ''
+        integration_parameter_status = ''
+        conditional_acceptance_status = ''
+        project_id = pk
+        try:
+            progress_object = InstallationTeam.objects.get(project_name=project_id)
+        except Exception as e:
+            return Response({'error': 'Record does not exist'})
+        electrical_tasks_data = progress_object.electrical_tasks_data
+        telecom_tasks_data = progress_object.telecom_tasks_data
+        signoff = progress_object.signoff
+        rfi_document = progress_object.rfi_document
+        integration_parameter = progress_object.integration_parameter
+        conditional_acceptance_cert = progress_object.conditional_acceptance_cert
+        if bool(electrical_tasks_data) is False:
+            electrical_tasks_status = "Not uploaded"
+        else:
+            completed_tasks += 1
+            electrical_tasks_status = "Uploaded"
+        if bool(telecom_tasks_data) is False:
+            telecom_tasks_status = "Not Uploaded"
+        else:
+            completed_tasks += 1
+            telecom_tasks_status = "Uploaded"
+        if bool(signoff) is False:
+            sign_off_status = "Not Uploaded"
+        else:
+            completed_tasks += 1
+            sign_off_status = "Uploaded"
+        if bool(rfi_document) is False:
+            rfi_status = "Not Uploaded"
+        else:
+            completed_tasks += 1
+            rfi_status = "Uploaded"
+        if bool(integration_parameter) is False:
+            integration_parameter_status = "Not Uploaded"
+        else:
+            completed_tasks += 1
+            integration_parameter_status = "Uploaded"
+        if bool(conditional_acceptance_cert) is False:
+            conditional_acceptance_status = "Not Uploaded"
+        else:
+            completed_tasks += 1
+            conditional_acceptance_status = "Uploaded"
+        civil_percentage = percentage_function(completed_tasks, total_tasks)
+        return Response({'no_of_tasks': total_tasks, 'electrical_tasks_status': electrical_tasks_status, 'telecom_tasks_status': telecom_tasks_status, 'sign_off_status': sign_off_status, 'rfi_status': rfi_status, 'integration_parameter_status': integration_parameter_status, 'conditional_acceptance_status': conditional_acceptance_status, 'progress': civil_percentage})
+
+
 def status_function(model_class, request):
     """Function to return status of previous team before posting """
     status = 'Previous Team Not Approved'
