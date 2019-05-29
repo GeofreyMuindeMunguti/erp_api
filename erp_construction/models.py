@@ -38,6 +38,8 @@ class Project(models.Model):
     geotech_file = models.FileField(upload_to='files/Project/geotech/%Y/%m/%d/')
     access_letter = models.FileField(upload_to='files/Project/accessletters/%Y/%m/%d/')
     approved_drawing = models.FileField(upload_to='files/Project/approveddrawings/%Y/%m/%d/')
+    final_acceptance_cert = models.FileField(upload_to='files/SafaricomTeam/finalcert/%Y/%m/%d/', blank=True, null=True)
+    final_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -48,17 +50,14 @@ class Project(models.Model):
 
     def status(self):
         try:
-            final_acceptance_data = InstallationTeam.objects.get(project_name=self.project_name)
-            final_acceptance_cert = final_acceptance_data.final_acceptance_cert
-            project_status = ''
-            if bool(final_acceptance_cert) is False:
+            if bool(self.final_acceptance_cert) is False:
                 project_status = "Open"
             else:
                 project_status = "Closed"
             return project_status
         except Exception as e:
-            error = "Open"
-            return error
+            error = "Error occured"
+            return e
 
 #######################################START FOUNDATION IMAGES########################################################################################################################################
 class SetSiteClearingImage(models.Model):
@@ -927,8 +926,6 @@ class InstallationTeam(models.Model):
     snag_document_comment = models.CharField(max_length=100, blank=True, null=True)
     conditional_acceptance_cert = models.FileField(upload_to='files/SafaricomTeam/conditionalcert/%Y/%m/%d/', blank=True, null=True)
     conditional_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
-    final_acceptance_cert = models.FileField(upload_to='files/SafaricomTeam/finalcert/%Y/%m/%d/', blank=True, null=True)
-    final_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)

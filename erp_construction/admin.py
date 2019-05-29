@@ -22,7 +22,7 @@ class CategoryAdmin(admin.ModelAdmin):
 admin.site.register(Category, CategoryAdmin)
 
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'icon', 'site_number', 'BTS_type', 'site_owner', 'geotech_file', 'access_letter', 'approved_drawing',
+    list_display = ('id', 'project_name', 'icon', 'site_number', 'BTS_type', 'site_owner', 'geotech_file', 'access_letter', 'approved_drawing','final_acceptance_cert', 'final_acceptance_cert_comment',
                     'location', 'created_by', 'status', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
@@ -457,7 +457,7 @@ admin.site.register(HealthDocumentsInstallationTeam, HealthDocumentsInstallation
 class InstallationTeamAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'health_documents_installation', 'access_approvals', 'electrical_tasks_data',
                     'telecom_tasks_data', 'signoff', 'signoff_comment','rf_document','rf_document_comment', 'integration_parameter', 'integration_parameter_comment', 'snag_document', 'snag_document_comment',
-                    'conditional_acceptance_cert', 'conditional_acceptance_cert_comment', 'final_acceptance_cert', 'final_acceptance_cert_comment','posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+                    'conditional_acceptance_cert', 'conditional_acceptance_cert_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
