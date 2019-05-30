@@ -353,7 +353,7 @@ class FoundationImage(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_engineers(self):
-        return [v.engineer_name for v in self.engineers_atsite.all()]
+        return [v.user.username for v in self.engineers_atsite.all()]
 
 ######################################## END #######################################################################################################################################
 
@@ -481,7 +481,7 @@ class BTSAndGeneatorSlabsImage(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_engineers(self):
-        return [v.engineer_name for v in self.engineers_atsite.all()]
+        return [v.user.username for v in self.engineers_atsite.all()]
 
 ######################################## END #######################################################################################################################################
 
@@ -717,7 +717,7 @@ class BoundaryWallImage(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_engineers(self):
-        return [v.engineer_name for v in self.engineers_atsite.all()]
+        return [v.user.username for v in self.engineers_atsite.all()]
 
 ######################################## END #######################################################################################################################################
 
@@ -952,7 +952,7 @@ class TowerAntennaCoaxImage(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_engineers(self):
-        return [v.engineer_name for v in self.engineers_atsite.all()]
+        return [v.user.username for v in self.engineers_atsite.all()]
 
 ######################################## END #######################################################################################################################################
 
@@ -1468,7 +1468,7 @@ class ElectricalTasks(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_engineers(self):
-        return [v.engineer_name for v in self.engineers_atsite.all()]
+        return [v.user.username for v in self.engineers_atsite.all()]
 
 
 class BTSinstallationTask(models.Model):
@@ -1594,7 +1594,7 @@ class TelecomTasks(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_engineers(self):
-        return [v.engineer_name for v in self.engineers_atsite.all()]
+        return [v.user.username for v in self.engineers_atsite.all()]
 
 
 class InstallationTeam(models.Model):
