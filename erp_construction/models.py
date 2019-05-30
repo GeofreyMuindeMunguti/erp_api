@@ -142,11 +142,11 @@ class ConcretePourCuringImage(models.Model):
 
 class FoundationImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    setting_site_clearing = models.OneToOneField(SetSiteClearingImage, on_delete=models.DO_NOTHING)
-    excavation_tower_base = models.OneToOneField(TowerBaseImage, on_delete=models.DO_NOTHING)
-    binding = models.OneToOneField(BindingImage, on_delete=models.DO_NOTHING)
-    steel_fix_formwork = models.OneToOneField(SteelFixFormworkImage, on_delete=models.DO_NOTHING)
-    concrete_pour_curing = models.OneToOneField(ConcretePourCuringImage, on_delete=models.DO_NOTHING)
+    setting_site_clearing = models.OneToOneField(SetSiteClearingImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    excavation_tower_base = models.OneToOneField(TowerBaseImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    binding = models.OneToOneField(BindingImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    steel_fix_formwork = models.OneToOneField(SteelFixFormworkImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    concrete_pour_curing = models.OneToOneField(ConcretePourCuringImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     foundation_and_curing_comment = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -154,6 +154,7 @@ class FoundationImage(models.Model):
 
     def __str__(self):
         return str(self.project_name)
+
 ######################################## END #######################################################################################################################################
 
 #######################################BS241 & GENERATOR FOUNDATION ###########################################################################################################################
@@ -189,8 +190,8 @@ class ConcretePourCuringPeriodImage(models.Model):
 
 class BTSAndGeneatorSlabsImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    foundation_foot_pouring = models.OneToOneField(ExcavationImage, on_delete=models.DO_NOTHING)
-    concrete_pour_period = models.OneToOneField(ConcretePourCuringPeriodImage, on_delete=models.DO_NOTHING)
+    foundation_foot_pouring = models.OneToOneField(ExcavationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    concrete_pour_period = models.OneToOneField(ConcretePourCuringPeriodImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     bts_and_generator_slabs_comment = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -198,6 +199,7 @@ class BTSAndGeneatorSlabsImage(models.Model):
 
     def __str__(self):
         return str(self.project_name)
+
 ######################################## END #######################################################################################################################################
 
 ####################################### BOUNDARY WALL ###########################################################################################################################
@@ -261,10 +263,10 @@ class RazorElectricFenceImage(models.Model):
 
 class BoundaryWallImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    foundation_foot_pouring = models.OneToOneField(FoundFootPourImage, on_delete=models.DO_NOTHING)
-    block_construction = models.OneToOneField(BlockworkPanelConstImage, on_delete=models.DO_NOTHING)
-    gate_installation = models.OneToOneField(GateInstallationImage, on_delete=models.DO_NOTHING)
-    razor_electric_fence = models.OneToOneField(RazorElectricFenceImage, on_delete=models.DO_NOTHING)
+    foundation_foot_pouring = models.OneToOneField(FoundFootPourImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    block_construction = models.OneToOneField(BlockworkPanelConstImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    gate_installation = models.OneToOneField(GateInstallationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    razor_electric_fence = models.OneToOneField(RazorElectricFenceImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     boundary_wall_comment = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -272,6 +274,7 @@ class BoundaryWallImage(models.Model):
 
     def __str__(self):
         return str(self.project_name)
+
 ######################################## END #######################################################################################################################################
 
 ####################################### TOWER & ANTENNA_COAX ###########################################################################################################################
@@ -335,10 +338,10 @@ class AntennaCoaxInstallImage(models.Model):
 
 class TowerAntennaCoaxImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    tower_erection = models.OneToOneField(TowerErectionImage, on_delete=models.DO_NOTHING)
-    tower_painting = models.OneToOneField(TowerPaintImage, on_delete=models.DO_NOTHING)
-    cable_ways = models.OneToOneField(CableWaysImage, on_delete=models.DO_NOTHING)
-    antenna_coax_installation = models.OneToOneField(AntennaCoaxInstallImage, on_delete=models.DO_NOTHING)
+    tower_erection = models.OneToOneField(TowerErectionImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    tower_painting = models.OneToOneField(TowerPaintImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    cable_ways = models.OneToOneField(CableWaysImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    antenna_coax_installation = models.OneToOneField(AntennaCoaxInstallImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     tower_antenna_coax_comment = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -464,9 +467,10 @@ class CivilWorksTeam(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     health_documents = models.ManyToManyField(HealthDocumentsCivilTeam)
     access_approvals_field = models.ManyToManyField(AccessApprovalCivil)
-    foundation_and_curing_images = models.OneToOneField(FoundationImage, on_delete=models.DO_NOTHING)
-    bts_and_generator_slabs_images = models.OneToOneField(BTSAndGeneatorSlabsImage, on_delete=models.DO_NOTHING)
-    site_walling_images_field = models.OneToOneField(BoundaryWallImage, on_delete=models.DO_NOTHING)
+    foundation_and_curing_images = models.OneToOneField(FoundationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    bts_and_generator_slabs_images = models.OneToOneField(BTSAndGeneatorSlabsImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    site_walling_images_field = models.OneToOneField(BoundaryWallImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    tower_data = models.OneToOneField(TowerAntennaCoaxImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -477,10 +481,10 @@ class CivilWorksTeam(models.Model):
         return str(self.project_name)
 
     def health_documents_civil(self):
-        return "\n , ".join(str([v.project_name for v in self.health_documents.all()]))
+        return [v.project_name for v in self.health_documents.all()]
 
     def access_approvals(self):
-        return "\n , ".join(str([v.project_name for v in self.access_approvals_field.all()]))
+        return [v.project_name for v in self.access_approvals_field.all()]
 
 
 class HealthDocumentsInstallationTeam(models.Model):
@@ -938,8 +942,8 @@ class InstallationTeam(models.Model):
     telecom_tasks_data = models.OneToOneField(TelecomTasks, on_delete=models.DO_NOTHING, blank=True, null=True)
     signoff = models.FileField(upload_to='files/SafaricomTeam/signoff/%Y/%m/%d/', blank=True, null=True)
     signoff_comment = models.CharField(max_length=100, blank=True, null=True)
-    rf_document = models.FileField(upload_to='files/SafaricomTeam/rf/%Y/%m/%d/', blank=True, null=True)
-    rf_document_comment = models.CharField(max_length=100, blank=True, null=True)
+    rfi_document = models.FileField(upload_to='files/SafaricomTeam/rf/%Y/%m/%d/', blank=True, null=True)
+    rfi_document_comment = models.CharField(max_length=100, blank=True, null=True)
     integration_parameter = models.BooleanField(default=False)
     integration_parameter_comment = models.CharField(max_length=100, blank=True, null=True)
     snag_document = models.FileField(upload_to='files/SafaricomTeam/snag/%Y/%m/%d/', blank=True, null=True)
