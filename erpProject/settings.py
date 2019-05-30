@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'erp_construction',
     'users',
     'inventory',
-    'phonenumber_field',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',

@@ -8,6 +8,7 @@ from rest_framework.validators import UniqueValidator
 from rest_framework.authtoken.models import Token
 from rest_framework_jwt.serializers import JSONWebTokenSerializer, jwt_payload_handler, jwt_encode_handler
 
+
 class JWTSerializer(JSONWebTokenSerializer):
     def validate(self, attrs):
         credentials = {
@@ -54,8 +55,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ('user_id', 'team', 'position')
+        fields = ('user_id', 'customuser_phone_no','customuser_profile_pic','team', 'position')
         read_only_fields = ('is_active', 'is_staff')
+
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -87,9 +89,20 @@ class UserSerializer(serializers.ModelSerializer):
 
         profile.team = profile_data.get('team', profile.team)
         profile.position = profile_data.get('position', profile.position)
+        profile.customuser_phone_no = profile_data.get('customuser_phone_no', profile.customuser_phone_no)
+        profile.customuser_profile_pic = profile_data.get('customuser_profile_pic', profile.customuser_profile_pic)
         profile.save()
 
         return instance
+
+
+# Engineer
+class EngineerProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Engineer
+        fields = ('user_id','engineer_phone_no','department','location_name', 'eng_profile_pic')
+        read_only_fields = ('created_at','updated_at','is_active')
+
 
 # location
 class LocationSerializer(serializers.ModelSerializer):
@@ -98,6 +111,7 @@ class LocationSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at','updated_at','is_active')
 
+
 # casual
 class CasualSerializer(serializers.ModelSerializer):
     class Meta:
@@ -105,9 +119,17 @@ class CasualSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at','updated_at','is_active')
 
+
 # Engineer
 class EngineerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Engineer
+        fields = ('__all__')
+        read_only_fields = ('created_at','updated_at','is_active')
+
+
+class RatesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rates
         fields = ('__all__')
         read_only_fields = ('created_at','updated_at','is_active')

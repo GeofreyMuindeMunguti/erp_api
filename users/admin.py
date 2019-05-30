@@ -4,7 +4,7 @@ from .models import *
 
 # Register your models here.
 class CustomUserAdmin(admin.ModelAdmin):
-    list_display = ('user', 'team', 'position')
+    list_display = ('user', 'customuser_phone_no','customuser_profile_pic', 'team', 'position')
     list_display_links = ('user', )
     search_fields = ('user', )
 
@@ -34,8 +34,16 @@ admin.site.register(Casual, CasualAdmin)
 
 
 class EngineerAdmin(admin.ModelAdmin):
-    list_display = ('engineer_name', 'engineer_phone_no','department')
-    list_display_links = ('engineer_name', )
-    search_fields = ('engineer_name', )
+    list_display = ('user', 'engineer_phone_no','department','location_name', 'eng_profile_pic')
+    list_display_links = ('user', )
+    search_fields = ('user', )
 
 admin.site.register(Engineer, EngineerAdmin)
+
+
+class RatesAdmin(admin.ModelAdmin):
+    list_display = ('id', 'casuals_rate', 'engineers_rate', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('id', )
+    search_fields = ('id', )
+
+admin.site.register(Rates, RatesAdmin)

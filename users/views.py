@@ -38,8 +38,10 @@ class DefaultsMixin(object):
     for ordering the ordering_fields .
     '''
 
+
 class ObtainJWTView(ObtainJSONWebToken):
     serializer_class = JWTSerializer
+
 
 # Users
 class UserViewSet(viewsets.ModelViewSet):
@@ -64,9 +66,18 @@ class CasualViewSet(viewsets.ModelViewSet):
     search_fields = ('casual_name', )
     ordering_fields = ('updated_at', 'casual_name', )
 
+
 class EngineerViewSet(viewsets.ModelViewSet):
     queryset = Engineer.objects.order_by('created_at')
-    serializer_class = EngineerSerializer
+    serializer_class = EngineerProfileSerializer
 
     search_fields = ('engineer_name', )
     ordering_fields = ('updated_at', 'engineer_name', )
+
+
+class RatesViewSet(viewsets.ModelViewSet):
+    queryset = Rates.objects.order_by('created_at')
+    serializer_class = RatesSerializer
+
+    search_fields = ('id', )
+    ordering_fields = ('updated_at', 'engineers_rate', )
