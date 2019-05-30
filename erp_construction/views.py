@@ -15,6 +15,7 @@ from rest_framework.views import APIView
 from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
 from rest_framework import status, viewsets
 from rest_framework.decorators import parser_classes
+from rest_framework.decorators import detail_route
 
 
 class DefaultsMixin(object):
@@ -69,14 +70,19 @@ class CategoryViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('category_name', )
     ordering_fields = ('updated_at', 'category_name', )
 
+
+####################################### PROCUREMENT TEAM ###########################################################################################################################
+
+# .annotate(po_sum=F('po_steel_cost') + F('po_electrical_materials_cost')+ F('po_subcontractors_cost'))
 class ProcurementTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating procurement team tasks."""
-    queryset = ProcurementTeam.objects.order_by('created_at').annotate(po_sum=F('po_steel_cost') + F('po_electrical_materials_cost')+ F('po_subcontractors_cost'))
+    queryset = ProcurementTeam.objects.order_by('created_at')
     serializer_class = ProcurementTeamSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
+######################################## END #######################################################################################################################################
 
 class ProjectCostingViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating project costing."""
@@ -122,6 +128,41 @@ class AccessApprovalCivilViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
+####################################### KPI ###############################################################################################################################
+
+class KpiViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating access approval docs for civil team."""
+    queryset = Kpi.objects.order_by('created_at')
+    serializer_class = KpiSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+######################################## END #######################################################################################################################################
+
+####################################### TASKS ###############################################################################################################################
+
+class TaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating access approval docs for civil team."""
+    queryset = Task.objects.order_by('created_at')
+    serializer_class = TaskSerializer
+
+    search_fields = ('task_name', )
+    ordering_fields = ('updated_at', 'task_name', )
+
+######################################## END #######################################################################################################################################
+
+####################################### SUBTASKS ###############################################################################################################################
+
+class SubTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating access approval docs for civil team."""
+    queryset = SubTask.objects.order_by('created_at')
+    serializer_class = SubTaskSerializer
+
+    search_fields = ('subtask_name', )
+    ordering_fields = ('updated_at', 'subtask_name', )
+
+######################################## END #######################################################################################################################################
 
 ####################################### START FOUNDATION IMAGES ###########################################################################################################################
 
