@@ -43,6 +43,10 @@ router.register(r'cableways', views.CableWaysImageViewSet)
 router.register(r'antennacoaxinstallation', views.AntennaCoaxInstallImageViewSet)
 router.register(r'towerantennacoax', views.TowerAntennaCoaxImageViewSet)
 
+router.register(r'kpi', views.KpiViewSet)
+router.register(r'tasks', views.TaskViewSet)
+router.register(r'subtasks', views.SubTaskViewSet)
+
 router.register(r'installationteams', views.InstallationTeamViewSet)
 router.register(r'electricaltasks', views.ElectricalTasksViewSet)
 router.register(r'generatortasks', views.GeneratorInstallationViewSet)

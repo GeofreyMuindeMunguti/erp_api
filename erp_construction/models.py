@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum, F
 from django.contrib.auth.models import User
 from users.models import CustomUser, Location, Casual, Engineer, Rates
 from django.contrib.postgres.fields import ArrayField
@@ -67,11 +68,14 @@ class Project(models.Model):
             days = date_difference(self.created_at, self.updated_at)
         return days
 
+
 #######################################START FOUNDATION IMAGES########################################################################################################################################
 
 
 class SetSiteClearingImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    start_date = models.DateTimeField()
     setting_site_clearing_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/siteclearing/%Y/%m/%d/')
     setting_site_clearing_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/siteclearing/%Y/%m/%d/')
     setting_site_clearing_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/siteclearing/%Y/%m/%d/')
@@ -83,9 +87,47 @@ class SetSiteClearingImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+
+    def casuals_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            casual_rate = rate_data.casuals_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate * days_spent)
+            return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            engineer_rate = rate_data.engineers_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            try:
+                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
 
 class TowerBaseImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    start_date = models.DateTimeField()
     towerbase_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/towerbase/%Y/%m/%d/')
     towerbase_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/towerbase/%Y/%m/%d/')
     towerbase_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/towerbase/%Y/%m/%d/')
@@ -97,9 +139,47 @@ class TowerBaseImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+
+    def casuals_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            casual_rate = rate_data.casuals_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate * days_spent)
+            return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            engineer_rate = rate_data.engineers_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            try:
+                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
 
 class BindingImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    start_date = models.DateTimeField()
     binding_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/binding/%Y/%m/%d/')
     binding_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/binding/%Y/%m/%d/')
     binding_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/binding/%Y/%m/%d/')
@@ -111,9 +191,47 @@ class BindingImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+
+    def casuals_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            casual_rate = rate_data.casuals_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate * days_spent)
+            return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            engineer_rate = rate_data.engineers_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            try:
+                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
 
 class SteelFixFormworkImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    start_date = models.DateTimeField()
     steel_fix_formwork_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/steelfix/%Y/%m/%d/')
     steel_fix_formwork_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/steelfix/%Y/%m/%d/')
     steel_fix_formwork_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/steelfix/%Y/%m/%d/')
@@ -125,9 +243,47 @@ class SteelFixFormworkImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+
+    def casuals_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            casual_rate = rate_data.casuals_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate * days_spent)
+            return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            engineer_rate = rate_data.engineers_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            try:
+                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
 
 class ConcretePourCuringImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    start_date = models.DateTimeField()
     concrete_pour_curing_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/concretepour/%Y/%m/%d/')
     concrete_pour_curing_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/concretepour/%Y/%m/%d/')
     concrete_pour_curing_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/concretepour/%Y/%m/%d/')
@@ -139,9 +295,46 @@ class ConcretePourCuringImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+
+    def casuals_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            casual_rate = rate_data.casuals_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate * days_spent)
+            return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            engineer_rate = rate_data.engineers_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            try:
+                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
 
 class FoundationImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    engineers_atsite = models.ManyToManyField(Engineer)
     setting_site_clearing = models.OneToOneField(SetSiteClearingImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     excavation_tower_base = models.OneToOneField(TowerBaseImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     binding = models.OneToOneField(BindingImage, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -155,6 +348,13 @@ class FoundationImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+    def engineers(self):
+        count = self.engineers_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_engineers(self):
+        return [v.engineer_name for v in self.engineers_atsite.all()]
+
 ######################################## END #######################################################################################################################################
 
 #######################################BS241 & GENERATOR FOUNDATION ###########################################################################################################################
@@ -162,6 +362,8 @@ class FoundationImage(models.Model):
 
 class ExcavationImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    start_date = models.DateTimeField()
     excavation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
     excavation_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
     excavation_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
@@ -173,9 +375,47 @@ class ExcavationImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+
+    def casuals_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            casual_rate = rate_data.casuals_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate * days_spent)
+            return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            engineer_rate = rate_data.engineers_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            try:
+                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
 
 class ConcretePourCuringPeriodImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    start_date = models.DateTimeField()
     concrete_pour_curing_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
     concrete_pour_curing_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
     concrete_pour_curing_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
@@ -187,9 +427,45 @@ class ConcretePourCuringPeriodImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+
+    def casuals_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            casual_rate = rate_data.casuals_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate * days_spent)
+            return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            engineer_rate = rate_data.engineers_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            try:
+                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
 
 class BTSAndGeneatorSlabsImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    engineers_atsite = models.ManyToManyField(Engineer)
     foundation_foot_pouring = models.OneToOneField(ExcavationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     concrete_pour_period = models.OneToOneField(ConcretePourCuringPeriodImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     bts_and_generator_slabs_comment = models.CharField(max_length=100, blank=True, null=True)
@@ -200,6 +476,13 @@ class BTSAndGeneatorSlabsImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+    def engineers(self):
+        count = self.engineers_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_engineers(self):
+        return [v.engineer_name for v in self.engineers_atsite.all()]
+
 ######################################## END #######################################################################################################################################
 
 ####################################### BOUNDARY WALL ###########################################################################################################################
@@ -207,6 +490,8 @@ class BTSAndGeneatorSlabsImage(models.Model):
 
 class FoundFootPourImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    start_date = models.DateTimeField()
     foundfootpour_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
     foundfootpour_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
     foundfootpour_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
@@ -218,9 +503,47 @@ class FoundFootPourImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+
+    def casuals_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            casual_rate = rate_data.casuals_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate * days_spent)
+            return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            engineer_rate = rate_data.engineers_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            try:
+                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
 
 class BlockworkPanelConstImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    start_date = models.DateTimeField()
     blockwallpanelconst_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/BlockworkPanelConst/%Y/%m/%d/')
     blockwallpanelconst_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/BlockworkPanelConst/%Y/%m/%d/')
     blockwallpanelconst_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/BlockworkPanelConst/%Y/%m/%d/')
@@ -232,9 +555,47 @@ class BlockworkPanelConstImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+
+    def casuals_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            casual_rate = rate_data.casuals_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate * days_spent)
+            return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            engineer_rate = rate_data.engineers_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            try:
+                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
 
 class GateInstallationImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    start_date = models.DateTimeField()
     gateinstallation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/GateInstallation/%Y/%m/%d/')
     gateinstallation_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/GateInstallation/%Y/%m/%d/')
     gateinstallation_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/GateInstallation/%Y/%m/%d/')
@@ -246,9 +607,48 @@ class GateInstallationImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+
+    def casuals_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            casual_rate = rate_data.casuals_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate * days_spent)
+            return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            engineer_rate = rate_data.engineers_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            try:
+                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+
 
 class RazorElectricFenceImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    start_date = models.DateTimeField()
     razorelectricfance_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/RazorElectricFence/%Y/%m/%d/')
     razorelectricfance_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/RazorElectricFence/%Y/%m/%d/')
     razorelectricfance_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/RazorElectricFence/%Y/%m/%d/')
@@ -260,9 +660,46 @@ class RazorElectricFenceImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+
+    def casuals_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            casual_rate = rate_data.casuals_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate * days_spent)
+            return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            engineer_rate = rate_data.engineers_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            try:
+                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
 
 class BoundaryWallImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    engineers_atsite = models.ManyToManyField(Engineer)
     foundation_foot_pouring = models.OneToOneField(FoundFootPourImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     block_construction = models.OneToOneField(BlockworkPanelConstImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     gate_installation = models.OneToOneField(GateInstallationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -275,6 +712,13 @@ class BoundaryWallImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+    def engineers(self):
+        count = self.engineers_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_engineers(self):
+        return [v.engineer_name for v in self.engineers_atsite.all()]
+
 ######################################## END #######################################################################################################################################
 
 ####################################### TOWER & ANTENNA_COAX ###########################################################################################################################
@@ -282,6 +726,8 @@ class BoundaryWallImage(models.Model):
 
 class TowerErectionImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    start_date = models.DateTimeField()
     tower_erection_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/towererection/%Y/%m/%d/')
     tower_erection_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/towererection/%Y/%m/%d/')
     tower_erection_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/towererection/%Y/%m/%d/')
@@ -293,9 +739,47 @@ class TowerErectionImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+
+    def casuals_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            casual_rate = rate_data.casuals_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate * days_spent)
+            return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            engineer_rate = rate_data.engineers_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            try:
+                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
 
 class TowerPaintImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    start_date = models.DateTimeField()
     tower_painting_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/towerpainting/%Y/%m/%d/')
     tower_painting_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/towerpainting/%Y/%m/%d/')
     tower_painting_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/towerpainting/%Y/%m/%d/')
@@ -307,9 +791,47 @@ class TowerPaintImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+
+    def casuals_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            casual_rate = rate_data.casuals_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate * days_spent)
+            return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            engineer_rate = rate_data.engineers_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            try:
+                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
 
 class CableWaysImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    start_date = models.DateTimeField()
     cable_ways_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/cableways/%Y/%m/%d/')
     cable_ways_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/cableways/%Y/%m/%d/')
     cable_ways_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/cableways/%Y/%m/%d/')
@@ -321,9 +843,47 @@ class CableWaysImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+
+    def casuals_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            casual_rate = rate_data.casuals_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate * days_spent)
+            return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            engineer_rate = rate_data.engineers_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            try:
+                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
 
 class AntennaCoaxInstallImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    start_date = models.DateTimeField()
     antenna_coax_installation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/antennacoaxinstallation/%Y/%m/%d/')
     antenna_coax_installation_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/antennacoaxinstallation/%Y/%m/%d/')
     antenna_coax_installation_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/antennacoaxinstallation/%Y/%m/%d/')
@@ -335,9 +895,46 @@ class AntennaCoaxInstallImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+
+    def casuals_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            casual_rate = rate_data.casuals_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate * days_spent)
+            return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(id=2)
+            engineer_rate = rate_data.engineers_rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            try:
+                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
 
 class TowerAntennaCoaxImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    engineers_atsite = models.ManyToManyField(Engineer)
     tower_erection = models.OneToOneField(TowerErectionImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     tower_painting = models.OneToOneField(TowerPaintImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     cable_ways = models.OneToOneField(CableWaysImage, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -350,8 +947,70 @@ class TowerAntennaCoaxImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+    def engineers(self):
+        count = self.engineers_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_engineers(self):
+        return [v.engineer_name for v in self.engineers_atsite.all()]
+
 ######################################## END #######################################################################################################################################
 
+####################################### KPI ###############################################################################################################################
+
+
+class Kpi(models.Model):
+    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    kpi = models.IntegerField(blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    is_approved = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.kpi)
+
+######################################## END #######################################################################################################################################
+
+####################################### TASKS ###############################################################################################################################
+
+
+class Task(models.Model):
+    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    category_name = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    task_name = models.CharField(blank=True, null=True, max_length=150)
+    kpi = models.IntegerField(blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    is_approved = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.task_name)
+
+######################################## END #######################################################################################################################################
+
+####################################### SUBTASKS ###############################################################################################################################
+
+
+class SubTask(models.Model):
+    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    category_name = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    task_name = models.ForeignKey(Task, on_delete=models.DO_NOTHING)
+    subtask_name = models.CharField(blank=True, null=True, max_length=150)
+    kpi = models.IntegerField(blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    is_approved = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.subtask_name)
+
+######################################## END #######################################################################################################################################
 
 ####################################### INSTALLATION ###########################################################################################################################
 
@@ -389,7 +1048,7 @@ class ProjectCosting(models.Model):
     def __str__(self):
         return str(self.project_name)
 
-    def totalPOS(self):
+    def totalProjectCosts(self):
         count = self.objects.all().count()
         return count
 
@@ -412,6 +1071,8 @@ class CommercialTeam(models.Model):
         return str(self.project_name)
 
 
+####################################### PROCURMENT TEAM ###########################################################################################################################
+
 class ProcurementTeam(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     po_steel = models.FileField(upload_to='files/ProcurementTeam/posteel/%Y/%m/%d/', blank=True, null=True)
@@ -429,6 +1090,8 @@ class ProcurementTeam(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+
+######################################## END #######################################################################################################################################
 
 class HealthDocumentsCivilTeam(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
