@@ -3,6 +3,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from . import views
 from django.urls import path, include
 from .views import *
+from .progress import *
 
 
 router = DefaultRouter()
@@ -60,12 +61,21 @@ router.register(r'accessapprovalinstallations', views.AccessApprovalInstallation
 router.register(r'kplcsolarsmages', views.KPLCSolarImageViewSet)
 router.register(r'slabsimages', views.SlabsImageViewSet)
 
+""" ENDPOINTS FOR FRONTEND"""
+
 
 urlpatterns = [
     path('', include(router.urls)),
     # ENDPOINTS FOR DASHBOARD
     path('commercialprogress/<int:pk>', CommercialTeamProgressView.as_view()),
-    path('procurementprogress/<int:pk>', ProcurementTeamView.as_view()),
+    path('procurementprogress/<int:pk>', ProcurementProgressTeamView.as_view()),
     path('civilprogress/<int:pk>', CivilProgressView.as_view()),
-    # path('procurpo/<int:pk>', ProcurementPoSumViewSet.as_view())
+    path('installationprogress/<int:pk>', InstallationProgressView.as_view()),
+    path('foundationprogress/<int:pk>', FoundationTaskProgressView.as_view()),
+    path('btsgenprogress/<int:pk>', BTSandGenTaskProgressView.as_view()),
+    path('boundarywallprogress/<int:pk>', BoundaryTaskProgressView.as_view()),
+    path('towerprogress/<int:pk>', TowerTaskProgressView.as_view()),
+    path('electricalprogress/<int:pk>', ElectricalTaskProgressView.as_view()),
+    path('telecomprogress/<int:pk>', TelecomTaskProgressView.as_view()),
+    # path('procurementsum/<int:pk>', ProcurementSumView.as_view())
 ]

@@ -98,7 +98,7 @@ class Engineer(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.engineer_name.username
+        return self.user.username
 
 
     @classmethod
