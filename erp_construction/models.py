@@ -7,6 +7,7 @@ from datetime import datetime, timezone
 
 # Create your models here.
 
+
 class Category(models.Model):
     category_name = models.CharField(max_length=100, unique=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
@@ -67,7 +68,10 @@ class Project(models.Model):
             days = date_difference(self.created_at, self.updated_at)
         return days
 
+
 #######################################START FOUNDATION IMAGES########################################################################################################################################
+
+
 class SetSiteClearingImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual)
@@ -144,13 +148,13 @@ class ConcretePourCuringImage(models.Model):
 
 
 class FoundationImage(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     engineers_atsite = models.ManyToManyField(Engineer)
-    setting_site_clearing = models.ForeignKey(SetSiteClearingImage, on_delete=models.DO_NOTHING)
-    excavation_tower_base = models.ForeignKey(TowerBaseImage, on_delete=models.DO_NOTHING)
-    binding = models.ForeignKey(BindingImage, on_delete=models.DO_NOTHING)
-    steel_fix_formwork = models.ForeignKey(SteelFixFormworkImage, on_delete=models.DO_NOTHING)
-    concrete_pour_curing = models.ForeignKey(ConcretePourCuringImage, on_delete=models.DO_NOTHING)
+    setting_site_clearing = models.OneToOneField(SetSiteClearingImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    excavation_tower_base = models.OneToOneField(TowerBaseImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    binding = models.OneToOneField(BindingImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    steel_fix_formwork = models.OneToOneField(SteelFixFormworkImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    concrete_pour_curing = models.OneToOneField(ConcretePourCuringImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     foundation_and_curing_comment = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -158,9 +162,11 @@ class FoundationImage(models.Model):
 
     def __str__(self):
         return str(self.project_name)
+
 ######################################## END #######################################################################################################################################
 
 #######################################BS241 & GENERATOR FOUNDATION ###########################################################################################################################
+
 
 class ExcavationImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -175,6 +181,7 @@ class ExcavationImage(models.Model):
 
     def __str__(self):
         return str(self.project_name)
+
 
 class ConcretePourCuringPeriodImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -191,7 +198,6 @@ class ConcretePourCuringPeriodImage(models.Model):
         return str(self.project_name)
 
 
-
 class BTSAndGeneatorSlabsImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
     engineers_atsite = models.ManyToManyField(Engineer)
@@ -204,6 +210,7 @@ class BTSAndGeneatorSlabsImage(models.Model):
 
     def __str__(self):
         return str(self.project_name)
+
 ######################################## END #######################################################################################################################################
 
 ####################################### BOUNDARY WALL ###########################################################################################################################
@@ -223,6 +230,7 @@ class FoundFootPourImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+
 class BlockworkPanelConstImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual)
@@ -236,6 +244,7 @@ class BlockworkPanelConstImage(models.Model):
 
     def __str__(self):
         return str(self.project_name)
+
 
 class GateInstallationImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -251,6 +260,7 @@ class GateInstallationImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+
 class RazorElectricFenceImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual)
@@ -264,6 +274,7 @@ class RazorElectricFenceImage(models.Model):
 
     def __str__(self):
         return str(self.project_name)
+
 
 class BoundaryWallImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
@@ -279,9 +290,11 @@ class BoundaryWallImage(models.Model):
 
     def __str__(self):
         return str(self.project_name)
+
 ######################################## END #######################################################################################################################################
 
 ####################################### TOWER & ANTENNA_COAX ###########################################################################################################################
+
 
 class TowerErectionImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -297,6 +310,7 @@ class TowerErectionImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+
 class TowerPaintImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual)
@@ -310,6 +324,7 @@ class TowerPaintImage(models.Model):
 
     def __str__(self):
         return str(self.project_name)
+
 
 class CableWaysImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -325,6 +340,7 @@ class CableWaysImage(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+
 class AntennaCoaxInstallImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual)
@@ -338,6 +354,7 @@ class AntennaCoaxInstallImage(models.Model):
 
     def __str__(self):
         return str(self.project_name)
+
 
 class TowerAntennaCoaxImage(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
@@ -358,6 +375,7 @@ class TowerAntennaCoaxImage(models.Model):
 
 ####################################### KPI ###############################################################################################################################
 
+
 class Kpi(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     kpi = models.IntegerField(blank=True, null=True)
@@ -373,6 +391,7 @@ class Kpi(models.Model):
 ######################################## END #######################################################################################################################################
 
 ####################################### TASKS ###############################################################################################################################
+
 
 class Task(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -392,6 +411,7 @@ class Task(models.Model):
 
 ####################################### SUBTASKS ###############################################################################################################################
 
+
 class SubTask(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     category_name = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
@@ -410,6 +430,7 @@ class SubTask(models.Model):
 ######################################## END #######################################################################################################################################
 
 ####################################### INSTALLATION ###########################################################################################################################
+
 
 class ProjectPurchaseOrders(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
