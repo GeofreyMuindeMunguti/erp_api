@@ -484,11 +484,7 @@ class ProcurementTeam(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
-
-    def Procurement_po_sum(po_steel_cost, po_electrical_materials_cost, po_subcontractors_cost):
-        total_procur_cost = po_steel_cost + po_electrical_materials_cost + po_subcontractors_cost
-        return total_procur_cost
+        return str(self.po_steel_cost)
 
 ######################################## END #######################################################################################################################################
 
