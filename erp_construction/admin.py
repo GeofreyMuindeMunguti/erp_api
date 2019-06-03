@@ -116,10 +116,9 @@ admin.site.register(HealthDocumentsCivilTeam, HealthDocumentsCivilTeamAdmin)
 ####################################### KPI ###############################################################################################################################
 
 class KpiAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'kpi','posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    list_filter = ('project_name',)
-    search_fields = ('project_name', )
+    list_display = ('id' ,'kpi','posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('kpi', )
+    search_fields = ('kpi', )
     list_editable = ('is_active', 'is_approved')
 
 
@@ -130,9 +129,9 @@ admin.site.register(Kpi, KpiAdmin)
 ####################################### TASKS ###############################################################################################################################
 
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'category_name','task_name', 'kpi', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'category_name','task_name', 'kpi', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('task_name', )
-    list_filter = ('task_name',)
+    list_filter = ('category_name',)
     search_fields = ('task_name', )
     list_editable = ('is_active', 'is_approved')
 
@@ -144,9 +143,9 @@ admin.site.register(Task, TaskAdmin)
 ####################################### SUBTASKS ###############################################################################################################################
 
 class SubTaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'category_name','task_name','subtask_name', 'kpi', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'task_name','subtask_name', 'kpi', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('subtask_name', )
-    list_filter = ('subtask_name',)
+    list_filter = ('task_name',)
     search_fields = ('subtask_name', )
     list_editable = ('is_active', 'is_approved')
 
