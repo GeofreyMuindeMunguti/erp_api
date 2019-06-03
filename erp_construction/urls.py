@@ -77,5 +77,4 @@ urlpatterns = [
     path('towerprogress/<int:pk>', TowerTaskProgressView.as_view()),
     path('electricalprogress/<int:pk>', ElectricalTaskProgressView.as_view()),
     path('telecomprogress/<int:pk>', TelecomTaskProgressView.as_view()),
-    # path('procurementsum/<int:pk>', ProcurementSumView.as_view())
 ]
