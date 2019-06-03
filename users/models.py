@@ -8,7 +8,7 @@ class CustomUser(models.Model):
     # customuser_phone_no = PhoneNumberField(blank=True, help_text='Phone Number')
     customuser_phone_no = models.CharField(max_length=10, blank=True, null=True)
     customuser_profile_pic = models.ImageField(upload_to='ProfilePictures/Employee', blank=True, null=True)
-    team = models.CharField(max_length=150, unique=True)
+    team = models.CharField(max_length=150)
     position = models.CharField(max_length=500, blank=False)
 
     def __str__(self):
