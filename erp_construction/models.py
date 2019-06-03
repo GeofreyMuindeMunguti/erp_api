@@ -377,7 +377,6 @@ class TowerAntennaCoaxImage(models.Model):
 
 
 class Kpi(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     kpi = models.IntegerField(blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
@@ -394,7 +393,6 @@ class Kpi(models.Model):
 
 
 class Task(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     category_name = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
     task_name = models.CharField(blank=True, null=True, max_length=150)
     kpi = models.IntegerField(blank=True, null=True)
@@ -413,8 +411,6 @@ class Task(models.Model):
 
 
 class SubTask(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    category_name = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
     task_name = models.ForeignKey(Task, on_delete=models.DO_NOTHING)
     subtask_name = models.CharField(blank=True, null=True, max_length=150)
     kpi = models.IntegerField(blank=True, null=True)
