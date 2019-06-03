@@ -490,13 +490,16 @@ class ProcurementTeamView(APIView):
         po_electrical_materials_status = ''
         po_subcontractors_status = ''
         project_id = pk
+
         try:
             progress_object = ProcurementTeam.objects.get(project_name=project_id)
         except Exception as e:
             return Response({'error': 'Record does not exist'})
+
         po_steel = progress_object.po_steel
         po_electrical_materials = progress_object.po_electrical_materials
         po_subcontractors = progress_object.po_subcontractors
+
         if bool(po_steel) is False:
             po_steel_status = "Not uploaded"
         else:
@@ -512,8 +515,14 @@ class ProcurementTeamView(APIView):
         else:
             completed_tasks += 1
             po_subcontractors_status = "Uploaded"
+
         procurement_percentage = percentage_function(completed_tasks, total_tasks)
-        return Response({'no_of_tasks': total_tasks, 'po_steel_status': po_steel_status, 'po_electrical_materials_status': po_electrical_materials_status, 'po_subcontractors_status': po_subcontractors_status, 'progress': procurement_percentage})
+
+        return Response({'no_of_tasks': total_tasks, 'po_steel_status': po_steel_status, 'po_electrical_materials_status': po_electrical_materials_status,
+        'po_subcontractors_status': po_subcontractors_status, 'progress': procurement_percentage})
+
+
+################################### END ###############################################################################################################3
 
 
 class CivilProgressView(APIView):
