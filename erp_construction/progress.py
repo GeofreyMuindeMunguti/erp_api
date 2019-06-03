@@ -10,6 +10,7 @@ class CommercialTeamProgressView(APIView):
 
     def get(self, request, pk):
         total_tasks = 4
+        automatic_total_tasks = Task.objects.filter(category_name=1).count()
         completed_tasks = 0
         approved_quote_status = ''
         po_status = ''
@@ -19,7 +20,7 @@ class CommercialTeamProgressView(APIView):
         try:
             progress_object = CommercialTeam.objects.get(project_name=project_id)
         except Exception as e:
-            return Response({'error': 'Task not started'})
+            return Response({'error': 'Task not started', 'no_of_tasks': automatic_total_tasks,})
         approved_quote = progress_object.approved_quote_file
         po = progress_object.po_data
         project_costing = progress_object.project_costing_data
@@ -44,8 +45,8 @@ class CommercialTeamProgressView(APIView):
         else:
             completed_tasks += 1
             project_costing_status = "Uploaded"
-        commercial_percentage = percentage_function(completed_tasks, total_tasks)
-        return Response({'no_of_tasks': total_tasks, 'po_status': po_status, 'initial_invoice_status': initial_invoice_status, 'approved_quote_status': approved_quote_status, 'project_costing_status': project_costing_status, 'progress': commercial_percentage})
+        commercial_percentage = percentage_function(completed_tasks, automatic_total_tasks)
+        return Response({'no_of_tasks': automatic_total_tasks, 'po_status': po_status, 'initial_invoice_status': initial_invoice_status, 'approved_quote_status': approved_quote_status, 'project_costing_status': project_costing_status, 'progress': commercial_percentage})
 
 
 class ProcurementProgressTeamView(APIView):
