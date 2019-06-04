@@ -65,16 +65,17 @@ class Location(models.Model):
 
 
 class Casual(models.Model):
-    casual_first_name = models.CharField(max_length=150, unique=True)
-    casual_last_name = models.CharField(max_length=150, unique=True)
-    casual_phone_no = models.CharField(max_length=100, blank=True, null=True)
+    casual_first_name = models.CharField(max_length=150)
+    casual_last_name = models.CharField(max_length=150)
+    country_code = models.CharField(max_length=100)
+    casual_phone_no = models.CharField(max_length=100, unique=True)
     location_name = models.ForeignKey(Location, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.casual_first_name  + self.casual_last_name
+        return self.casual_first_name + self.casual_last_name
 
     @classmethod
     def get_casual(cls):
@@ -89,7 +90,8 @@ class Casual(models.Model):
 
 class Engineer(models.Model):
     user = models. ForeignKey(User,on_delete=models.CASCADE, related_name='engineerprofile')
-    engineer_phone_no = models.CharField(max_length=100, blank=True, null=True)
+    country_code = models.CharField(max_length=100)
+    engineer_phone_no = models.CharField(max_length=100)
     department = models.CharField(max_length=100, blank=True)
     location_name = models.ForeignKey(Location, on_delete=models.DO_NOTHING, related_name='location')
     eng_profile_pic = models.ImageField(upload_to='ProfilePictures/Engineer', blank=True, null=True)
@@ -113,8 +115,8 @@ class Engineer(models.Model):
 
 
 class Rates(models.Model):
-    casuals_rate = models.IntegerField()
-    engineers_rate = models.IntegerField()
+    worker_type = models.CharField(max_length=100, unique=True)
+    rate = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)

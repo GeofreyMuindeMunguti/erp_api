@@ -96,8 +96,8 @@ class SetSiteClearingImage(models.Model):
 
     def casuals_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            casual_rate = rate_data.casuals_rate
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
@@ -108,8 +108,8 @@ class SetSiteClearingImage(models.Model):
 
     def engineers_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            engineer_rate = rate_data.engineers_rate
+            rate_data = Rates.objects.get(worker_type='Engineer')
+            engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
@@ -148,8 +148,8 @@ class TowerBaseImage(models.Model):
 
     def casuals_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            casual_rate = rate_data.casuals_rate
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
@@ -160,8 +160,8 @@ class TowerBaseImage(models.Model):
 
     def engineers_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            engineer_rate = rate_data.engineers_rate
+            rate_data = Rates.objects.get(worker_type='Engineer')
+            engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
@@ -200,8 +200,8 @@ class BindingImage(models.Model):
 
     def casuals_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            casual_rate = rate_data.casuals_rate
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
@@ -212,8 +212,8 @@ class BindingImage(models.Model):
 
     def engineers_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            engineer_rate = rate_data.engineers_rate
+            rate_data = Rates.objects.get(worker_type='Engineer')
+            engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
@@ -252,8 +252,8 @@ class SteelFixFormworkImage(models.Model):
 
     def casuals_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            casual_rate = rate_data.casuals_rate
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
@@ -264,8 +264,8 @@ class SteelFixFormworkImage(models.Model):
 
     def engineers_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            engineer_rate = rate_data.engineers_rate
+            rate_data = Rates.objects.get(worker_type='Engineer')
+            engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
@@ -304,8 +304,8 @@ class ConcretePourCuringImage(models.Model):
 
     def casuals_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            casual_rate = rate_data.casuals_rate
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
@@ -316,8 +316,8 @@ class ConcretePourCuringImage(models.Model):
 
     def engineers_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            engineer_rate = rate_data.engineers_rate
+            rate_data = Rates.objects.get(worker_type='Engineer')
+            engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
@@ -384,8 +384,8 @@ class ExcavationImage(models.Model):
 
     def casuals_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            casual_rate = rate_data.casuals_rate
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
@@ -396,8 +396,8 @@ class ExcavationImage(models.Model):
 
     def engineers_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            engineer_rate = rate_data.engineers_rate
+            rate_data = Rates.objects.get(worker_type='Engineer')
+            engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
@@ -436,8 +436,8 @@ class ConcretePourCuringPeriodImage(models.Model):
 
     def casuals_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            casual_rate = rate_data.casuals_rate
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
@@ -448,8 +448,8 @@ class ConcretePourCuringPeriodImage(models.Model):
 
     def engineers_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            engineer_rate = rate_data.engineers_rate
+            rate_data = Rates.objects.get(worker_type='Engineer')
+            engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
@@ -512,8 +512,8 @@ class FoundFootPourImage(models.Model):
 
     def casuals_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            casual_rate = rate_data.casuals_rate
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
@@ -524,8 +524,8 @@ class FoundFootPourImage(models.Model):
 
     def engineers_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            engineer_rate = rate_data.engineers_rate
+            rate_data = Rates.objects.get(worker_type='Engineer')
+            engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
@@ -564,8 +564,8 @@ class BlockworkPanelConstImage(models.Model):
 
     def casuals_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            casual_rate = rate_data.casuals_rate
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
@@ -576,8 +576,8 @@ class BlockworkPanelConstImage(models.Model):
 
     def engineers_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            engineer_rate = rate_data.engineers_rate
+            rate_data = Rates.objects.get(worker_type='Engineer')
+            engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
@@ -616,20 +616,20 @@ class GateInstallationImage(models.Model):
 
     def casuals_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            casual_rate = rate_data.casuals_rate
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
         except Exception as e:
-            error = "Rates does not exist"
+            error = "Casual Rates does not exist"
             return error
 
     def engineers_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            engineer_rate = rate_data.engineers_rate
+            rate_data = Rates.objects.get(worker_type='Engineer')
+            engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
@@ -640,9 +640,8 @@ class GateInstallationImage(models.Model):
                 error = "No engineers assigned to project"
                 return error
         except Exception as e:
-            error = "Rates does not exist"
+            error = "Engineer Rates does not exist"
             return error
-
 
 
 class RazorElectricFenceImage(models.Model):
@@ -669,20 +668,20 @@ class RazorElectricFenceImage(models.Model):
 
     def casuals_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            casual_rate = rate_data.casuals_rate
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
         except Exception as e:
-            error = "Rates does not exist"
+            error = "Casuals Rates does not exist"
             return error
 
     def engineers_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            engineer_rate = rate_data.engineers_rate
+            rate_data = Rates.objects.get(worker_type='Engineer')
+            engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
@@ -693,7 +692,7 @@ class RazorElectricFenceImage(models.Model):
                 error = "No engineers assigned to project"
                 return error
         except Exception as e:
-            error = "Rates does not exist"
+            error = "Engineer Rates does not exist"
             return error
 
 
@@ -748,20 +747,20 @@ class TowerErectionImage(models.Model):
 
     def casuals_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            casual_rate = rate_data.casuals_rate
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
         except Exception as e:
-            error = "Rates does not exist"
+            error = "Casuals Rates does not exist"
             return error
 
     def engineers_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            engineer_rate = rate_data.engineers_rate
+            rate_data = Rates.objects.get(worker_type='Enginner')
+            engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
@@ -772,7 +771,7 @@ class TowerErectionImage(models.Model):
                 error = "No engineers assigned to project"
                 return error
         except Exception as e:
-            error = "Rates does not exist"
+            error = "Engineer Rates does not exist"
             return error
 
 
@@ -800,20 +799,20 @@ class TowerPaintImage(models.Model):
 
     def casuals_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            casual_rate = rate_data.casuals_rate
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
         except Exception as e:
-            error = "Rates does not exist"
+            error = "Casual Rates does not exist"
             return error
 
     def engineers_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            engineer_rate = rate_data.engineers_rate
+            rate_data = Rates.objects.get(worker_type='Engineer')
+            engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
@@ -824,7 +823,7 @@ class TowerPaintImage(models.Model):
                 error = "No engineers assigned to project"
                 return error
         except Exception as e:
-            error = "Rates does not exist"
+            error = "Engineer Rates does not exist"
             return error
 
 
@@ -852,20 +851,20 @@ class CableWaysImage(models.Model):
 
     def casuals_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            casual_rate = rate_data.casuals_rate
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
         except Exception as e:
-            error = "Rates does not exist"
+            error = "Casual Rates does not exist"
             return error
 
     def engineers_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            engineer_rate = rate_data.engineers_rate
+            rate_data = Rates.objects.get(worker_type='Engineer')
+            engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
@@ -876,7 +875,7 @@ class CableWaysImage(models.Model):
                 error = "No engineers assigned to project"
                 return error
         except Exception as e:
-            error = "Rates does not exist"
+            error = "Engineer Rates does not exist"
             return error
 
 
@@ -904,20 +903,20 @@ class AntennaCoaxInstallImage(models.Model):
 
     def casuals_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            casual_rate = rate_data.casuals_rate
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
         except Exception as e:
-            error = "Rates does not exist"
+            error = "Casual Rates does not exist"
             return error
 
     def engineers_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            engineer_rate = rate_data.engineers_rate
+            rate_data = Rates.objects.get(worker_type='Engineer')
+            engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
@@ -928,7 +927,7 @@ class AntennaCoaxInstallImage(models.Model):
                 error = "No engineers assigned to project"
                 return error
         except Exception as e:
-            error = "Rates does not exist"
+            error = "Engineer Rates does not exist"
             return error
 
 
@@ -1051,8 +1050,8 @@ class ProjectCosting(models.Model):
 
 class CommercialTeam(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    approved_quote_file = models.FileField(upload_to='files/CommercialTeam/approvedquote/%Y/%m/%d/')
-    approved_quote_amount = models.IntegerField()
+    approved_quote_file = models.FileField(upload_to='files/CommercialTeam/approvedquote/%Y/%m/%d/', blank=True, null=True)
+    approved_quote_amount = models.IntegerField(blank=True, null=True)
     po_data = models.OneToOneField(ProjectPurchaseOrders, on_delete=models.CASCADE, blank=True, null=True)
     project_costing_data = models.OneToOneField(ProjectCosting, on_delete=models.CASCADE, blank=True, null=True)
     initial_invoice = models.FileField(upload_to='files/CommercialTeam/initialinvoice/%Y/%m/%d/', blank=True, null=True)
@@ -1203,20 +1202,20 @@ class UndergroundTasks(models.Model):
 
     def casuals_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            casual_rate = rate_data.casuals_rate
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
         except Exception as e:
-            error = "Rates does not exist"
+            error = "Casuals Rates does not exist"
             return error
 
     def engineers_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            engineer_rate = rate_data.engineers_rate
+            rate_data = Rates.objects.get(worker_type='Engineer')
+            engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
@@ -1227,7 +1226,7 @@ class UndergroundTasks(models.Model):
                 error = "No engineers assigned to project"
                 return error
         except Exception as e:
-            error = "Rates does not exist"
+            error = "Engineer Rates does not exist"
             return error
 
 
@@ -1255,20 +1254,20 @@ class ReticulationAPSinstallation(models.Model):
 
     def casuals_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            casual_rate = rate_data.casuals_rate
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
         except Exception as e:
-            error = "Rates does not exist"
+            error = "Casuals Rates does not exist"
             return error
 
     def engineers_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            engineer_rate = rate_data.engineers_rate
+            rate_data = Rates.objects.get(worker_type='Engineer')
+            engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
@@ -1279,7 +1278,7 @@ class ReticulationAPSinstallation(models.Model):
                 error = "No engineers assigned to project"
                 return error
         except Exception as e:
-            error = "Rates does not exist"
+            error = "Engineer Rates does not exist"
             return error
 
 
@@ -1307,20 +1306,20 @@ class ElectricalEarthing(models.Model):
 
     def casuals_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            casual_rate = rate_data.casuals_rate
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
         except Exception as e:
-            error = "Rates does not exist"
+            error = "Casuals Rates does not exist"
             return error
 
     def engineers_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            engineer_rate = rate_data.engineers_rate
+            rate_data = Rates.objects.get(worker_type='Enginner')
+            engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
@@ -1331,7 +1330,7 @@ class ElectricalEarthing(models.Model):
                 error = "No engineers assigned to project"
                 return error
         except Exception as e:
-            error = "Rates does not exist"
+            error = "Enginner Rates does not exist"
             return error
 
 
@@ -1363,20 +1362,20 @@ class GeneratorInstallation(models.Model):
 
     def casuals_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            casual_rate = rate_data.casuals_rate
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
         except Exception as e:
-            error = "Rates does not exist"
+            error = "Casuals Rates does not exist"
             return error
 
     def engineers_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            engineer_rate = rate_data.engineers_rate
+            rate_data = Rates.objects.get(worker_type='Engineer')
+            engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
@@ -1387,7 +1386,7 @@ class GeneratorInstallation(models.Model):
                 error = "No engineers assigned to project"
                 return error
         except Exception as e:
-            error = "Rates does not exist"
+            error = "Engineer Rates does not exist"
             return error
 
 
@@ -1415,20 +1414,20 @@ class KPLCSolarImage(models.Model):
 
     def casuals_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            casual_rate = rate_data.casuals_rate
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
         except Exception as e:
-            error = "Rates does not exist"
+            error = "Casuals Rates does not exist"
             return error
 
     def engineers_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            engineer_rate = rate_data.engineers_rate
+            rate_data = Rates.objects.get(worker_type='Engineer')
+            engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
@@ -1439,7 +1438,7 @@ class KPLCSolarImage(models.Model):
                 error = "No engineers assigned to project"
                 return error
         except Exception as e:
-            error = "Rates does not exist"
+            error = "Engineer Rates does not exist"
             return error
 
 
@@ -1491,20 +1490,20 @@ class BTSinstallationTask(models.Model):
 
     def casuals_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            casual_rate = rate_data.casuals_rate
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
         except Exception as e:
-            error = "Rates does not exist"
+            error = "Casuals Rates does not exist"
             return error
 
     def engineers_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            engineer_rate = rate_data.engineers_rate
+            rate_data = Rates.objects.get(worker_type='Engineer')
+            engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
@@ -1515,7 +1514,7 @@ class BTSinstallationTask(models.Model):
                 error = "No engineers assigned to project"
                 return error
         except Exception as e:
-            error = "Rates does not exist"
+            error = "Engineer Rates does not exist"
             return error
 
 
@@ -1543,20 +1542,20 @@ class MWInstallationTask(models.Model):
 
     def casuals_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            casual_rate = rate_data.casuals_rate
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
         except Exception as e:
-            error = "Rates does not exist"
+            error = "Casuals Rates does not exist"
             return error
 
     def engineers_cost(self):
         try:
-            rate_data = Rates.objects.get(id=2)
-            engineer_rate = rate_data.engineers_rate
+            rate_data = Rates.objects.get(worker_type='Engineer')
+            engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
@@ -1567,7 +1566,7 @@ class MWInstallationTask(models.Model):
                 error = "No engineers assigned to project"
                 return error
         except Exception as e:
-            error = "Rates does not exist"
+            error = "Engineer Rates does not exist"
             return error
 
 
