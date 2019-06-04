@@ -353,7 +353,7 @@ class FoundationImage(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_engineers(self):
-        return [v.engineer_name for v in self.engineers_atsite.all()]
+        return [v.user.username for v in self.engineers_atsite.all()]
 
 ######################################## END #######################################################################################################################################
 
@@ -481,7 +481,7 @@ class BTSAndGeneatorSlabsImage(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_engineers(self):
-        return [v.engineer_name for v in self.engineers_atsite.all()]
+        return [v.user.username for v in self.engineers_atsite.all()]
 
 ######################################## END #######################################################################################################################################
 
@@ -716,7 +716,7 @@ class BoundaryWallImage(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_engineers(self):
-        return [v.engineer_name for v in self.engineers_atsite.all()]
+        return [v.user.username for v in self.engineers_atsite.all()]
 
 ######################################## END #######################################################################################################################################
 
@@ -951,7 +951,7 @@ class TowerAntennaCoaxImage(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_engineers(self):
-        return [v.engineer_name for v in self.engineers_atsite.all()]
+        return [v.user.username for v in self.engineers_atsite.all()]
 
 ######################################## END #######################################################################################################################################
 
@@ -1463,7 +1463,7 @@ class ElectricalTasks(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_engineers(self):
-        return [v.engineer_name for v in self.engineers_atsite.all()]
+        return [v.user.username for v in self.engineers_atsite.all()]
 
 
 class BTSinstallationTask(models.Model):
@@ -1589,7 +1589,7 @@ class TelecomTasks(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_engineers(self):
-        return [v.engineer_name for v in self.engineers_atsite.all()]
+        return [v.user.username for v in self.engineers_atsite.all()]
 
 
 class InstallationTeam(models.Model):
@@ -1598,6 +1598,7 @@ class InstallationTeam(models.Model):
     access_approvals_field = models.ManyToManyField(AccessApprovalInstallation)
     electrical_tasks_data = models.OneToOneField(ElectricalTasks, on_delete=models.DO_NOTHING, blank=True, null=True)
     telecom_tasks_data = models.OneToOneField(TelecomTasks, on_delete=models.DO_NOTHING, blank=True, null=True)
+    as_built = models.FileField(upload_to='files/SafaricomTeam/as_built/%Y/%m/%d/', blank=True, null=True)
     signoff = models.FileField(upload_to='files/SafaricomTeam/signoff/%Y/%m/%d/', blank=True, null=True)
     signoff_comment = models.CharField(max_length=100, blank=True, null=True)
     rfi_document = models.FileField(upload_to='files/SafaricomTeam/rf/%Y/%m/%d/', blank=True, null=True)
