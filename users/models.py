@@ -30,9 +30,7 @@ class UserLoginActivity(models.Model):
     SUCCESS = 'S'
     FAILED = 'F'
 
-    LOGIN_STATUS = ((SUCCESS, 'Success'),
-                           (FAILED, 'Failed'))
-
+    LOGIN_STATUS = ((SUCCESS, 'Success'), (FAILED, 'Failed'))
     login_IP = models.GenericIPAddressField(null=True, blank=True)
     login_datetime = models.DateTimeField(auto_now=True)
     login_username = models.CharField(max_length=40, null=True, blank=True)
