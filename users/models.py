@@ -89,7 +89,7 @@ class Casual(models.Model):
 
 
 class Engineer(models.Model):
-    user = models. ForeignKey(User,on_delete=models.CASCADE, related_name='engineerprofile')
+    user = models.ForeignKey(User,on_delete=models.CASCADE, related_name='engineerprofile')
     country_code = models.CharField(max_length=100)
     engineer_phone_no = models.CharField(max_length=100)
     department = models.CharField(max_length=100, blank=True)
@@ -101,7 +101,6 @@ class Engineer(models.Model):
 
     def __str__(self):
         return self.user.username
-
 
     @classmethod
     def get_engineer(cls):
