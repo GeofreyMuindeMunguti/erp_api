@@ -42,7 +42,7 @@ admin.site.register(Engineer, EngineerAdmin)
 
 
 class RatesAdmin(admin.ModelAdmin):
-    list_display = ('id', 'casuals_rate', 'engineers_rate', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'worker_type', 'rate', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('id', )
     search_fields = ('id', )
 

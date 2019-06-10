@@ -119,4 +119,4 @@ class Rates(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.engineers_rate)
+        return str(self.worker_type)
