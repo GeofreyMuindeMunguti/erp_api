@@ -123,6 +123,26 @@ class SetSiteClearingImage(models.Model):
             error = "Rates does not exist"
             return error
 
+    def labour_cost(self):
+        try:
+            engineer_rate_data = Rates.objects.get(worker_type='Engineer')
+            casual_rate_data = Rates.objects.get(worker_type='Casual')
+            engineer_rate = engineer_rate_data.rate
+            casual_rate = casual_rate_data.rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            try:
+                engineer_data = FoundationImage.objects.get(project_name=self.project_name)
+                engineer_count = engineer_data.engineers_atsite.count()
+                casual_count = self.no_of_casuals_atsite.count()
+                cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
 
 class TowerBaseImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
