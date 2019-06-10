@@ -112,7 +112,7 @@ class SetSiteClearingImage(models.Model):
             engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
-                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                engineer_data = FoundationImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -164,7 +164,7 @@ class TowerBaseImage(models.Model):
             engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
-                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                engineer_data = FoundationImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -216,7 +216,7 @@ class BindingImage(models.Model):
             engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
-                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                engineer_data = FoundationImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -268,7 +268,7 @@ class SteelFixFormworkImage(models.Model):
             engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
-                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                engineer_data = FoundationImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -320,7 +320,7 @@ class ConcretePourCuringImage(models.Model):
             engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
-                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                engineer_data = FoundationImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -400,7 +400,7 @@ class ExcavationImage(models.Model):
             engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
-                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                engineer_data = BTSAndGeneatorSlabsImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -452,7 +452,7 @@ class ConcretePourCuringPeriodImage(models.Model):
             engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
-                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                engineer_data = BTSAndGeneatorSlabsImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -462,6 +462,7 @@ class ConcretePourCuringPeriodImage(models.Model):
         except Exception as e:
             error = "Rates does not exist"
             return error
+
 
 class BTSAndGeneatorSlabsImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -528,7 +529,7 @@ class FoundFootPourImage(models.Model):
             engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
-                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                engineer_data = BoundaryWallImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -580,7 +581,7 @@ class BlockworkPanelConstImage(models.Model):
             engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
-                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                engineer_data = BoundaryWallImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -632,7 +633,7 @@ class GateInstallationImage(models.Model):
             engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
-                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                engineer_data = BoundaryWallImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -684,7 +685,7 @@ class RazorElectricFenceImage(models.Model):
             engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
-                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                engineer_data = BoundaryWallImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -763,7 +764,7 @@ class TowerErectionImage(models.Model):
             engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
-                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                engineer_data = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -815,7 +816,7 @@ class TowerPaintImage(models.Model):
             engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
-                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                engineer_data = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -867,7 +868,7 @@ class CableWaysImage(models.Model):
             engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
-                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                engineer_data = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -919,7 +920,7 @@ class AntennaCoaxInstallImage(models.Model):
             engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
-                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                engineer_data = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -1506,7 +1507,7 @@ class BTSinstallationTask(models.Model):
             engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
-                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                engineer_data = TelecomTasks.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -1558,7 +1559,7 @@ class MWInstallationTask(models.Model):
             engineer_rate = rate_data.rate
             days_spent = date_difference(self.start_date, self.updated_at)
             try:
-                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                engineer_data = TelecomTasks.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
