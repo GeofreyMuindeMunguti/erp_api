@@ -7,6 +7,7 @@ from rest_framework import generics, permissions, viewsets, serializers, permiss
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework_jwt.views import ObtainJSONWebToken
+from rest_framework.permissions import IsAuthenticated
 
 from .serializers import JWTSerializer
 
@@ -47,6 +48,11 @@ class ObtainJWTView(ObtainJSONWebToken):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+# Permission
+class PermissionMapViewSet(viewsets.ModelViewSet):
+    queryset = PermissionMap.objects.all()
+    serializer_class = PermissionMapSerializer
 
 
 # location

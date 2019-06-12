@@ -4,11 +4,18 @@ from .models import *
 
 # Register your models here.
 class CustomUserAdmin(admin.ModelAdmin):
-    list_display = ('user', 'customuser_phone_no','customuser_profile_pic', 'team', 'position')
+    list_display = ('user', 'customuser_phone_no','customuser_profile_pic', 'team', 'position','get_permissions')
     list_display_links = ('user', )
     search_fields = ('user', )
 
 admin.site.register(CustomUser, CustomUserAdmin)
+
+class PermissionMapAdmin(admin.ModelAdmin):
+    list_display = ('position','content_type','view','edit','create','approver','is_superuser', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('position', )
+    search_fields = ('position', )
+
+admin.site.register(PermissionMap, PermissionMapAdmin)
 
 class UserLoginActivityAdmin(admin.ModelAdmin):
     list_display = ('login_IP', 'login_datetime', 'login_username','status','user_agent_info')
