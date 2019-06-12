@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth.models import Permission
 
 
-# Create your models here.
 class CustomUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     # customuser_phone_no = PhoneNumberField(blank=True, help_text='Phone Number')
@@ -23,6 +23,10 @@ class CustomUser(models.Model):
     def get_single_emp(cls, username):
         single_emp = CustomUser.objects.get(employee=username)
         return single_emp
+
+    def get_permissions(self):
+        perm_tuple = [(x.id, x.name) for x in Permission.objects.filter(group__user=self.user)]
+        return perm_tuple
 
 
 class UserLoginActivity(models.Model):
@@ -119,4 +123,4 @@ class Rates(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.engineers_rate)
+        return str(self.worker_type)
