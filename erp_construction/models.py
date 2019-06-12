@@ -997,7 +997,7 @@ class Kpi(models.Model):
 
 class Task(models.Model):
     category_name = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
-    task_name = models.CharField(blank=True, null=True, max_length=150)
+    task_name = models.CharField(blank=True, null=True, max_length=150, unique=True)
     kpi = models.IntegerField(blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
@@ -1015,7 +1015,7 @@ class Task(models.Model):
 
 class SubTask(models.Model):
     task_name = models.ForeignKey(Task, on_delete=models.DO_NOTHING)
-    subtask_name = models.CharField(blank=True, null=True, max_length=150)
+    subtask_name = models.CharField(blank=True, null=True, max_length=150, unique=True)
     kpi = models.IntegerField(blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
