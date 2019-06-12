@@ -99,8 +99,8 @@ class UserSerializer(serializers.ModelSerializer):
 class PermissionMapSerializer(serializers.ModelSerializer):
     class Meta:
         model = PermissionMap
-        fields = ('position','content_type','view','edit','create','approver')
-        read_only_fields = ('view','edit','create', 'created_at', 'updated_at', 'is_active')
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
 # Engineer
