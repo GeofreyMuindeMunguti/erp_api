@@ -130,7 +130,7 @@ admin.site.register(Kpi, KpiAdmin)
 
 
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'category_name','task_name', 'kpi', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'category_name','task_name', 'kpi', 'posted_by', 'is_approved', 'created_at', 'updated_at','end_date', 'is_active')
     list_display_links = ('task_name', )
     list_filter = ('category_name',)
     search_fields = ('task_name', )
@@ -138,7 +138,6 @@ class TaskAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Task, TaskAdmin)
-
 ######################################## END #######################################################################################################################################
 
 ####################################### SUBTASKS ###############################################################################################################################

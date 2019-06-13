@@ -91,6 +91,7 @@ class KpiSerializer(serializers.ModelSerializer):
 ####################################### TASKS ###############################################################################################################################
 
 class TaskSerializer(serializers.ModelSerializer):
+    end_date = serializers.IntegerField()
 
     class Meta:
         model = Task

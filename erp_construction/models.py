@@ -1,9 +1,10 @@
 from django.db import models
 from django.db.models import Sum, F
 from django.contrib.auth.models import User
-from users.models import CustomUser, Location, Casual, Engineer, Rates
+from users.models import *
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime, timezone
+from datetime import timedelta
 
 # Create your models here.
 
@@ -1007,6 +1008,11 @@ class Task(models.Model):
 
     def __str__(self):
         return str(self.task_name)
+
+    def end_date(self):
+        """Function to return task end date"""
+        end_date =  self.created_at + timedelta(days=self.kpi)
+        return end_date
 
 ######################################## END #######################################################################################################################################
 
