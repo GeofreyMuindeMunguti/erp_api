@@ -1613,6 +1613,19 @@ class TelecomTasks(models.Model):
         return [v.user.username for v in self.engineers_atsite.all()]
 
 
+class Issues(models.Model):
+    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    issue = models.CharField(max_length=100)
+    closed = models.BooleanField(default=False)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.issue
+
+
 class InstallationTeam(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     health_documents = models.ManyToManyField(HealthDocumentsInstallationTeam)
@@ -1628,6 +1641,7 @@ class InstallationTeam(models.Model):
     integration_parameter_comment = models.CharField(max_length=100, blank=True, null=True)
     snag_document = models.FileField(upload_to='files/SafaricomTeam/snag/%Y/%m/%d/', blank=True, null=True)
     snag_document_comment = models.CharField(max_length=100, blank=True, null=True)
+    issues = models.ManyToManyField(Issues, blank=True, null=True)
     conditional_acceptance_cert = models.FileField(upload_to='files/SafaricomTeam/conditionalcert/%Y/%m/%d/', blank=True, null=True)
     conditional_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
@@ -1644,6 +1658,9 @@ class InstallationTeam(models.Model):
 
     def access_approvals(self):
         return [v.project_name for v in self.access_approvals_field.all()]
+
+    def project_issues(self):
+        return [v.project_name for v in self.issues.all()]
 
 
 def date_difference(start_date, end_date):

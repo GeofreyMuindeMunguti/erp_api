@@ -79,5 +79,6 @@ urlpatterns = [
     path('electricalprogress/<int:pk>', ElectricalTaskProgressView.as_view()),
     path('telecomprogress/<int:pk>', TelecomTaskProgressView.as_view()),
     path('taskstatus/', TaskStatusView.as_view()),
+    path('timesheetsummary/', TimesheetSummaryView.as_view()),
     # path('procurementsum/<int:pk>', ProcurementSumView.as_view())
 ]
