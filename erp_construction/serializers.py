@@ -384,5 +384,5 @@ class SiteClearingFilesSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = SetSiteClearingImage
-        fields = ('setting_site_clearing_image_1','setting_site_clearing_image_1','setting_site_clearing_image_1',)
+        fields = ('setting_site_clearing_image_1','setting_site_clearing_image_2','setting_site_clearing_image_3',)
        # read_only_fields = ('created_at', 'updated_at', 'is_active')

@@ -79,7 +79,7 @@ urlpatterns = [
     path('telecomprogress/<int:pk>', TelecomTaskProgressView.as_view()),
     # path('procurementsum/<int:pk>', ProcurementSumView.as_view())
 
-    #PROJECT FILES 
+    #PROJECT FILES # allow  GET Method only 
     path('projectstartfiles/<int:pk>/', views.ProjectFilesView.as_view()),
     path('siteclearingfiles/<int:pk>/', views.SiteClearingFilesView.as_view()),
 ]
