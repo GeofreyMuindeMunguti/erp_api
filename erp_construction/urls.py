@@ -10,6 +10,7 @@ from .flag import *
 router = DefaultRouter()
 
 router.register(r'projects', views.ProjectViewSet)
+router.register(r'category', views.CategoryViewSet)
 router.register(r'Icons', views.ProjectIconViewSet)
 router.register(r'projectcosting', views.ProjectCostingViewSet)
 router.register(r'projectpos', views.ProjectPOSViewSet)
