@@ -12,7 +12,7 @@ class TaskStatusView(APIView):
     def get(self, request):
         total_projects = Project.objects.all().count()
         projects_open = Project.objects.filter(final_acceptance_cert_comment__isnull=True).count()
-        projects_closed = Project.objects.filter(final_acceptance_cert_comment__isnull=False).count()
+        projects_closed = total_projects - projects_open
         return Response({'total_projects': total_projects, 'open': projects_open, 'closed': projects_closed, })
 
 
@@ -36,5 +36,5 @@ class IssueStatusView(APIView):
     def get(self, request):
         issues = Issues.objects.all().count()
         issues_closed = Issues.objects.filter(closed=True).count()
-        issues_open = Issues.objects.filter(closed=True).count()
+        issues_open = issues - issues_closed
         return Response({'total_issues': issues, 'issues_closed': issues_closed, 'issues_open': issues_open, })
