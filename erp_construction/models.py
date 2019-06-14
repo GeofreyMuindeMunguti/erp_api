@@ -3,12 +3,9 @@ from django.db.models import Sum, F
 from django.contrib.auth.models import User
 from users.models import *
 from django.contrib.postgres.fields import ArrayField
-from datetime import datetime, timezone
-from datetime import timedelta
+from datetime import datetime, timezone, timedelta
 
 # Create your models here.
-
-
 class Category(models.Model):
     category_name = models.CharField(max_length=100, unique=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
@@ -301,7 +298,7 @@ class SteelFixFormworkImage(models.Model):
             return error
 
 
-class ConcretePourCuringImage(models.Model):
+class ConcretePourImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual)
     start_date = models.DateTimeField()
@@ -353,6 +350,60 @@ class ConcretePourCuringImage(models.Model):
             return error
 
 
+
+class ConcreteCuringPeriodImage(models.Model):
+    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    start_date = models.DateTimeField()
+    concrete_pour_curing_period_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
+    concrete_pour_curing_period_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
+    concrete_pour_curing_period_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
+    concrete_pour_curing_period_comment = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+
+    def casuals_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate * days_spent)
+            return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Engineer')
+            engineer_rate = rate_data.rate
+            days_spent = date_difference(self.start_date, self.updated_at)
+            try:
+                engineer_data = BTSAndGeneatorSlabsImage.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+
+
 class FoundationImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     engineers_atsite = models.ManyToManyField(Engineer)
@@ -360,7 +411,8 @@ class FoundationImage(models.Model):
     excavation_tower_base = models.OneToOneField(TowerBaseImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     binding = models.OneToOneField(BindingImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     steel_fix_formwork = models.OneToOneField(SteelFixFormworkImage, on_delete=models.DO_NOTHING, blank=True, null=True)
-    concrete_pour_curing = models.OneToOneField(ConcretePourCuringImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    concrete_pour_curing = models.OneToOneField(ConcretePourImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    concrete_pour_period = models.OneToOneField(ConcreteCuringPeriodImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     foundation_and_curing_comment = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -433,14 +485,15 @@ class ExcavationImage(models.Model):
             return error
 
 
-class ConcretePourCuringPeriodImage(models.Model):
+
+class BS241ConcretePourCuringPeriodImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual)
     start_date = models.DateTimeField()
-    concrete_pour_curing_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
-    concrete_pour_curing_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
-    concrete_pour_curing_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
-    concrete_pour_curing_comment = models.CharField(max_length=100, blank=True, null=True)
+    bs241_concrete_pour_curing_period_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/BS241ConcretePourCuringPeriod/%Y/%m/%d/')
+    bs241_concrete_pour_curing_period_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/BS241ConcretePourCuringPeriod/%Y/%m/%d/')
+    bs241_concrete_pour_curing_period_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/BS241ConcretePourCuringPeriod/%Y/%m/%d/')
+    bs241_concrete_pour_curing_period_comment = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
@@ -485,12 +538,13 @@ class ConcretePourCuringPeriodImage(models.Model):
             return error
 
 
-class BTSAndGeneatorSlabsImage(models.Model):
+
+class BS241AndGeneatorSlabsImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     engineers_atsite = models.ManyToManyField(Engineer)
     foundation_foot_pouring = models.OneToOneField(ExcavationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
-    concrete_pour_period = models.OneToOneField(ConcretePourCuringPeriodImage, on_delete=models.DO_NOTHING, blank=True, null=True)
-    bts_and_generator_slabs_comment = models.CharField(max_length=100, blank=True, null=True)
+    bs241_concrete_pour_pouring_period = models.OneToOneField(BS241ConcretePourCuringPeriodImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    bs241_and_generator_slabs_comment = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
@@ -1011,8 +1065,12 @@ class Task(models.Model):
 
     def end_date(self):
         """Function to return task end date"""
-        end_date =  self.created_at + timedelta(days=self.kpi)
-        return end_date
+        end_dates =  self.created_at + timedelta(days=self.kpi)
+        return end_dates
+
+    def track_docs(self):
+        """Function that returns value either OnTrack/OffTrack"""
+
 
 ######################################## END #######################################################################################################################################
 
@@ -1158,7 +1216,7 @@ class CivilWorksTeam(models.Model):
     health_documents = models.ManyToManyField(HealthDocumentsCivilTeam)
     access_approvals_field = models.ManyToManyField(AccessApprovalCivil)
     foundation_and_curing_images = models.OneToOneField(FoundationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
-    bts_and_generator_slabs_images = models.OneToOneField(BTSAndGeneatorSlabsImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    bs241_and_generator_slabs_images = models.OneToOneField(BS241AndGeneatorSlabsImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     site_walling_images_field = models.OneToOneField(BoundaryWallImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     tower_data = models.OneToOneField(TowerAntennaCoaxImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)

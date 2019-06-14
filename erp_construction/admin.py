@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import *
+from .flag import *
 
 
 # Register your models here.
@@ -126,11 +127,11 @@ admin.site.register(Kpi, KpiAdmin)
 
 ######################################## END #######################################################################################################################################
 
-####################################### TASKS ###############################################################################################################################
+####################################### TASKS #################################################################################################,'track_docs'##############################
 
 
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'category_name','task_name', 'kpi', 'posted_by', 'is_approved', 'created_at', 'updated_at','end_date', 'is_active')
+    list_display = ('id', 'category_name','task_name', 'kpi', 'posted_by', 'is_approved', 'created_at', 'updated_at','end_date', 'is_active','track_docs')
     list_display_links = ('task_name', )
     list_filter = ('category_name',)
     search_fields = ('task_name', )
@@ -156,7 +157,7 @@ admin.site.register(SubTask, SubTaskAdmin)
 
 #######################################START FOUNDATION IMAGES########################################################################################################################################
 class FoundationImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'setting_site_clearing', 'excavation_tower_base', 'binding', 'steel_fix_formwork','concrete_pour_curing','foundation_and_curing_comment','engineers', 'names_of_engineers', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'setting_site_clearing', 'excavation_tower_base', 'binding', 'steel_fix_formwork','concrete_pour_curing', 'concrete_pour_period','foundation_and_curing_comment','engineers', 'names_of_engineers', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -209,7 +210,7 @@ class SteelFixFormworkImageAdmin(admin.ModelAdmin):
 admin.site.register(SteelFixFormworkImage, SteelFixFormworkImageAdmin)
 
 
-class ConcretePourCuringImageAdmin(admin.ModelAdmin):
+class ConcretePourImageAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'concrete_pour_curing_image_1', 'concrete_pour_curing_image_2', 'concrete_pour_curing_image_3', 'concrete_pour_curing_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -217,7 +218,19 @@ class ConcretePourCuringImageAdmin(admin.ModelAdmin):
     list_editable = ('is_active',)
 
 
-admin.site.register(ConcretePourCuringImage, ConcretePourCuringImageAdmin)
+admin.site.register(ConcretePourImage, ConcretePourImageAdmin)
+
+
+class ConcreteCuringPeriodImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name','concrete_pour_curing_period_image_1', 'concrete_pour_curing_period_image_2', 'concrete_pour_curing_period_image_3', 'concrete_pour_curing_period_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(ConcreteCuringPeriodImage, ConcreteCuringPeriodImageAdmin)
+
 
 ######################################## END #######################################################################################################################################
 
@@ -233,25 +246,25 @@ class ExcavationImageAdmin(admin.ModelAdmin):
 
 admin.site.register(ExcavationImage, ExcavationImageAdmin)
 
-class ConcretePourCuringPeriodImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','concrete_pour_curing_image_1', 'concrete_pour_curing_image_2', 'concrete_pour_curing_image_3', 'concrete_pour_curing_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost','created_at', 'updated_at', 'is_active')
+class BS241ConcretePourCuringPeriodImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'bs241_concrete_pour_curing_period_image_1', 'bs241_concrete_pour_curing_period_image_2','bs241_concrete_pour_curing_period_image_3', 'bs241_concrete_pour_curing_period_comment','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
     list_editable = ('is_active',)
 
 
-admin.site.register(ConcretePourCuringPeriodImage, ConcretePourCuringPeriodImageAdmin)
+admin.site.register(BS241ConcretePourCuringPeriodImage, BS241ConcretePourCuringPeriodImageAdmin)
 
-class BTSAndGeneatorSlabsImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'foundation_foot_pouring', 'concrete_pour_period', 'bts_and_generator_slabs_comment','engineers', 'names_of_engineers','created_at', 'updated_at', 'is_active')
+class BS241AndGeneatorSlabsImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'foundation_foot_pouring', 'bs241_concrete_pour_pouring_period','bs241_and_generator_slabs_comment','engineers', 'names_of_engineers','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
     list_editable = ('is_active',)
 
 
-admin.site.register(BTSAndGeneatorSlabsImage, BTSAndGeneatorSlabsImageAdmin)
+admin.site.register(BS241AndGeneatorSlabsImage, BS241AndGeneatorSlabsImageAdmin)
 
 ######################################## END #######################################################################################################################################
 
@@ -473,7 +486,7 @@ admin.site.register(ElectricalTasks, ElectricalTasksAdmin)
 
 class CivilWorksTeamAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'health_documents_civil', 'access_approvals', 'foundation_and_curing_images',
-                    'bts_and_generator_slabs_images', 'site_walling_images_field', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+                    'bs241_and_generator_slabs_images', 'site_walling_images_field', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
