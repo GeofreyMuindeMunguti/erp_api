@@ -90,7 +90,7 @@ class SetSiteClearingImage(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_casuals(self):
-        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
         try:
@@ -162,7 +162,7 @@ class TowerBaseImage(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_casuals(self):
-        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
         try:
@@ -214,7 +214,7 @@ class BindingImage(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_casuals(self):
-        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
         try:
@@ -266,7 +266,7 @@ class SteelFixFormworkImage(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_casuals(self):
-        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
         try:
@@ -318,7 +318,7 @@ class ConcretePourImage(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_casuals(self):
-        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
         try:
@@ -371,7 +371,7 @@ class ConcreteCuringPeriodImage(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_casuals(self):
-        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
         try:
@@ -453,7 +453,7 @@ class ExcavationImage(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_casuals(self):
-        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
         try:
@@ -506,7 +506,7 @@ class BS241ConcretePourCuringPeriodImage(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_casuals(self):
-        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
         try:
@@ -584,7 +584,7 @@ class FoundFootPourImage(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_casuals(self):
-        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
         try:
@@ -636,7 +636,7 @@ class BlockworkPanelConstImage(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_casuals(self):
-        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
         try:
@@ -688,7 +688,7 @@ class GateInstallationImage(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_casuals(self):
-        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
         try:
@@ -740,7 +740,7 @@ class RazorElectricFenceImage(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_casuals(self):
-        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
         try:
@@ -819,7 +819,7 @@ class TowerErectionImage(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_casuals(self):
-        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
         try:
@@ -871,7 +871,7 @@ class TowerPaintImage(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_casuals(self):
-        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
         try:
@@ -923,7 +923,7 @@ class CableWaysImage(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_casuals(self):
-        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
         try:
@@ -975,7 +975,7 @@ class AntennaCoaxInstallImage(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_casuals(self):
-        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
         try:
@@ -1288,7 +1288,7 @@ class UndergroundTasks(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_casuals(self):
-        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
         try:
@@ -1340,7 +1340,7 @@ class ReticulationAPSinstallation(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_casuals(self):
-        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
         try:
@@ -1392,7 +1392,7 @@ class ElectricalEarthing(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_casuals(self):
-        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
         try:
@@ -1448,7 +1448,7 @@ class GeneratorInstallation(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_casuals(self):
-        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
         try:
@@ -1500,7 +1500,7 @@ class KPLCSolarImage(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_casuals(self):
-        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
         try:
@@ -1576,7 +1576,7 @@ class BTSinstallationTask(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_casuals(self):
-        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
         try:
@@ -1628,7 +1628,7 @@ class MWInstallationTask(models.Model):
         return "\n , ".join(str(count))
 
     def names_of_casuals(self):
-        return [v.casual_last_name for v in self.no_of_casuals_atsite.all()]
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
     def casuals_cost(self):
         try:
