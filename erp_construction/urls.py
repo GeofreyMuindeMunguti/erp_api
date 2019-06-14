@@ -78,4 +78,8 @@ urlpatterns = [
     path('electricalprogress/<int:pk>', ElectricalTaskProgressView.as_view()),
     path('telecomprogress/<int:pk>', TelecomTaskProgressView.as_view()),
     # path('procurementsum/<int:pk>', ProcurementSumView.as_view())
+
+    #PROJECT FILES 
+    path('projectstartfiles/<int:pk>/', views.ProjectFilesView.as_view()),
+    path('siteclearingfiles/<int:pk>/', views.SiteClearingFilesView.as_view()),
 ]

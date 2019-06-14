@@ -366,3 +366,23 @@ class KPLCSolarImageSerializer(serializers.ModelSerializer):
         model = KPLCSolarImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+# PROJECT FILES:
+
+
+
+class ProjectFilesSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = Project
+        fields = ('geotech_file','access_letter','approved_drawing','final_acceptance_cert',)
+        #read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class SiteClearingFilesSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = SetSiteClearingImage
+        fields = ('setting_site_clearing_image_1','setting_site_clearing_image_1','setting_site_clearing_image_1',)
+       # read_only_fields = ('created_at', 'updated_at', 'is_active')

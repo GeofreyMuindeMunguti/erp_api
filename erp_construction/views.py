@@ -464,3 +464,16 @@ def status_function(model_class, request):
         return status
     else:
         return status
+
+
+
+#FILES
+
+
+class ProjectFilesView(generics.RetrieveAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectFilesSerializer
+
+class SiteClearingFilesView(generics.RetrieveAPIView):
+    queryset = SetSiteClearingImage.objects.all()
+    serializer_class = SiteClearingFilesSerializer
