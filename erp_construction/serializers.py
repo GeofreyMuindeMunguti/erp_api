@@ -490,5 +490,11 @@ class AntennaCoaxInstallImagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = AntennaCoaxInstallImage
         fields = ('antenna_coax_installation_image_1','antenna_coax_installation_image_2','antenna_coax_installation_image_3',)
-        read_only_fields = ('created_at', 'updated_at', 'is_active')
+       # read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+class ProjectPurchaseOrdersSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ProjectPurchaseOrders
+        fields = ('po_file',)
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
