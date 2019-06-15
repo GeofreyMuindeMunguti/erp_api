@@ -477,3 +477,11 @@ class ProjectFilesView(generics.RetrieveAPIView):
 class SiteClearingFilesView(generics.RetrieveAPIView):
     queryset = SetSiteClearingImage.objects.all()
     serializer_class = SiteClearingFilesSerializer
+
+class TowerBaseImagesView(generics.RetrieveAPIView):
+    queryset = TowerBaseImage.objects.all()
+    serializer_class = TowerBaseImagesSerializer
+
+class BindingImagesView(generics.RetrieveAPIView):
+    queryset = BindingImage.objects.all()
+    serializer_class = BindingImagesSerializer

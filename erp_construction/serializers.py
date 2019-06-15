@@ -386,3 +386,110 @@ class SiteClearingFilesSerializer(serializers.HyperlinkedModelSerializer):
         model = SetSiteClearingImage
         fields = ('setting_site_clearing_image_1','setting_site_clearing_image_2','setting_site_clearing_image_3',)
        # read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class TowerBaseImagesSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = TowerBaseImage
+        fields = ('towerbase_image_1','towerbase_image_1','towerbase_image_1',)
+       # read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class BindingImagesSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = BindingImage
+        fields = ('binding_image_1','binding_image_2','binding_image_3',)
+       # read_only_fields = ('created_at', 'updated_at', 'is_active')
+class SteelFixFormworkImagesSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = SteelFixFormworkImage
+        fields = ('steel_fix_formwork_image_1','steel_fix_formwork_image_2','steel_fix_formwork_image_3',)
+        #read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class ConcretePourCuringImagesSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = ConcretePourCuringImage
+        fields = ('concrete_pour_curing_image_1','concrete_pour_curing_image_2','concrete_pour_curing_image_3',)
+       # read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+#######################################BS241 & GENERATOR FOUNDATION ###########################################################################################################################
+class ExcavationImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ExcavationImage
+        fields = ('excavation_image_1','excavation_image_2','excavation_image_3',)
+        #read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class ConcretePourCuringPeriodImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ConcretePourCuringPeriodImage
+        fields = ('concrete_pour_curing_image_1','concrete_pour_curing_image_2','concrete_pour_curing_image_1',)
+       # read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+#  BOUNDARY WALL 
+
+class FoundFootPourImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FoundFootPourImage
+        fields = ('foundfootpour_image_1','foundfootpour_image_2','foundfootpour_image_3',)
+      #  read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class BlockworkPanelConstImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BlockworkPanelConstImage
+        fields = ('blockwallpanelconst_image_1','blockwallpanelconst_image_2','blockwallpanelconst_image_3',)
+       # read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class GateInstallationImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = GateInstallationImage
+        fields = ('gateinstallation_image_1','gateinstallation_image_2','gateinstallation_image_3',)
+        #read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class RazorElectricFenceImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = RazorElectricFenceImage
+        fields = ('razorelectricfance_image_1','razorelectricfance_image_2','razorelectricfance_image_3')
+       # read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+#TOWER & ANTENNA_COAXs 
+
+class TowerErectionImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:   
+        model = TowerErectionImage
+        fields = ('tower_erection_image_1','tower_erection_image_2','tower_erection_image_3',)
+        #read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class TowerPaintImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TowerPaintImage
+        fields = ('tower_painting_image_1','tower_painting_image_2','tower_painting_image_3',)
+       # read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class CableWaysImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CableWaysImage
+        fields = ('cable_ways_image_1','cable_ways_image_2','cable_ways_image_3',)
+        #read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class AntennaCoaxInstallImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = AntennaCoaxInstallImage
+        fields = ('antenna_coax_installation_image_1','antenna_coax_installation_image_2','antenna_coax_installation_image_3',)
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+        

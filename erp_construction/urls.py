@@ -81,5 +81,7 @@ urlpatterns = [
 
     #PROJECT FILES # allow  GET Method only 
     path('projectstartfiles/<int:pk>/', views.ProjectFilesView.as_view()),
-    path('siteclearingfiles/<int:pk>/', views.SiteClearingFilesView.as_view()),
+    path('siteclearingimages/<int:pk>/', views.SiteClearingFilesView.as_view()),
+    path('towerbaseimages/<int:pk>/', views.TowerBaseImagesView.as_view()),
+    path('bindingimages/<int:pk>/', views.BindingImagesView.as_view()),
 ]
