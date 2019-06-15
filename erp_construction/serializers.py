@@ -492,9 +492,140 @@ class AntennaCoaxInstallImagesSerializer(serializers.ModelSerializer):
         fields = ('antenna_coax_installation_image_1','antenna_coax_installation_image_2','antenna_coax_installation_image_3',)
        # read_only_fields = ('created_at', 'updated_at', 'is_active')
 
-class ProjectPurchaseOrdersSerializer(serializers.ModelSerializer):
+
+#END
+
+class ProjectPurchaseOrdersFileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProjectPurchaseOrders
         fields = ('po_file',)
-        read_only_fields = ('created_at', 'updated_at', 'is_active')
+       # read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class ProjectCostingFileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ProjectCosting
+        fields = ('project_costing_file',)
+       # read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class CommercialTeamFilesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CommercialTeam
+        fields = ('approved_quote_file','initial_invoice',)
+       # read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class ProcurementTeamFilesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ProcurementTeam
+        fields = ('po_steel','po_subcontractors',)
+       # read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class HealthDocumentsFilesCivilTeamSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = HealthDocumentsCivilTeam
+        fields = ('job_hazard_form','incident_notification_form','toolbox_meeting_form','communication_plan_for',)
+       # read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class AccessApprovalFileCivilSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = AccessApprovalCivil
+        fields = ('access_approval',)
+       # read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class UndergroundTasksFilesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = UndergroundTasks
+        fields = ('Underground_ducting_and_manholes_image_1','Underground_ducting_and_manholes_image_2','Underground_ducting_and_manholes_image_3',)
+        #read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+
+class ReticulationAPSinstallationFilesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ReticulationAPSinstallation
+        fields = ('Electricalreticulation_APSInstallation_image_1','Electricalreticulation_APSInstallation_image_2','Electricalreticulation_APSInstallation_image_3')
+       # read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class ElectricalEarthingImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ElectricalEarthing
+        fields = ('Earthing_connections_and_testing_image_1','Earthing_connections_and_testing_image_2','Earthing_connections_and_testing_image_3',)
+        #read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class GeneratorInstallationImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = GeneratorInstallation
+        fields = ('Generator_and_Fuel_Tank_Installation_image_1','Generator_and_Fuel_Tank_Installation_image_2','Generator_and_Fuel_Tank_Installation_image_3','before_fuel_image_1','before_fuel_image_2','after_fuel_image_1','after_fuel_image_2')
+       # read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class KPLCSolarImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = KPLCSolarImage
+        fields = ('kplc_solar_installation_image_1','kplc_solar_installation_image_2','kplc_solar_installation_image_3',)
+      #  read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class BTSinstallationTaskImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BTSinstallationTask
+        fields = ('BTSinstallation_image_1','BTSinstallation_image_2','BTSinstallation_image_3',)
+      #  read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+
+class MWInstallationTaskImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = MWInstallationTask
+        fields = ('MWinstallation_image_1','MWinstallation_image_2','MWinstallation_image_3',)
+       # read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class InstallationTeamFilesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = InstallationTeam
+        fields = ('as_built','signoff','rfi_document','snag_document','conditional_acceptance_cert',)
+       # read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+'''
+class ProjectFilesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Project
+        fields = ('geotech_file','access_letter','approved_drawing','final_acceptance_cert',)
+        #read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class SiteClearingFilesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SetSiteClearingImage
+        fields = ('setting_site_clearing_image_1','setting_site_clearing_image_2','setting_site_clearing_image_3',)
+       # read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+#TO DO 
+class ProjectFilessSerializer(serializers.ModelSerializer):
+    #project = PojecectFilesSerialozer(many=False)
+    siteclearing= SiteClearingFilesSerializer(many=True)
+
+    class Meta:
+        model = Project
+        fields = ('geotech_file','access_letter','approved_drawing','final_acceptance_cert','siteclearing',)
+       # fields = '__all__'
+'''

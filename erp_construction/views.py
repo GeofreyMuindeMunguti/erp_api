@@ -539,5 +539,64 @@ class AntennaCoaxInstallImagesView(generics.RetrieveAPIView):
     queryset = AntennaCoaxInstallImage.objects.all()
     serializer_class = AntennaCoaxInstallImagesSerializer
 
+class TowerAntennaCoaxImagesView(generics.RetrieveAPIView):
+    queryset = TowerAntennaCoaxImage.objects.all()
+    serializer_class = TowerAntennaCoaxImageSerializer
 
+#END
 
+class ProjectPurchaseOrdersView(generics.RetrieveAPIView):
+    queryset = ProjectPurchaseOrders.objects.all()
+    serializer_class = ProjectPurchaseOrdersFileSerializer
+
+class ProjectCostingFileView(generics.RetrieveAPIView):
+    queryset = ProjectCosting.objects.all()
+    serializer_class = ProjectCostingFileSerializer
+
+class CommercialTeamFilesView(generics.RetrieveAPIView):
+    queryset = CommercialTeam.objects.all()
+    serializer_class = CommercialTeamFilesSerializer
+
+class ProcurementTeamFilesView(generics.RetrieveAPIView):
+    queryset = ProcurementTeam.objects.all()
+    serializer_class = ProcurementTeamFilesSerializer
+
+class HealthDocumentsFilesCivilTeamView(generics.RetrieveAPIView):
+    queryset = HealthDocumentsCivilTeam.objects.all()
+    serializer_class = HealthDocumentsFilesCivilTeamSerializer
+
+class AccessApprovalFileCivilView(generics.RetrieveAPIView):
+    queryset = AccessApprovalCivil.objects.all()
+    serializer_class = AccessApprovalFileCivilSerializer
+
+class UndergroundTasksFilesView(generics.RetrieveAPIView):
+    queryset = UndergroundTasks.objects.all()
+    serializer_class = UndergroundTasksFilesSerializer
+
+class ReticulationAPSinstallationFilesView(generics.RetrieveAPIView):
+    queryset = ReticulationAPSinstallation.objects.all()
+    serializer_class = ReticulationAPSinstallationFilesSerializer
+
+class ElectricalEarthingImagesView(generics.RetrieveAPIView):
+    queryset = ElectricalEarthing.objects.all()
+    serializer_class = ElectricalEarthingImagesSerializer
+
+class GeneratorInstallationImagesView(generics.RetrieveAPIView):
+    queryset = GeneratorInstallation.objects.all()
+    serializer_class = GeneratorInstallationImagesSerializer
+
+class KPLCSolarImagesView(generics.RetrieveAPIView):
+    queryset = KPLCSolarImage.objects.all()
+    serializer_class = KPLCSolarImagesSerializer
+
+class BTSinstallationTaskImagesView(generics.RetrieveAPIView):
+    queryset = BTSinstallationTask.objects.all()
+    serializer_class = BTSinstallationTaskImagesSerializer
+
+class MWInstallationTaskImagesView(generics.RetrieveAPIView):
+    queryset = MWInstallationTask.objects.all()
+    serializer_class = MWInstallationTaskImagesSerializer
+
+class InstallationTeamFilesView(generics.RetrieveAPIView):
+    queryset = InstallationTeam.objects.all()
+    serializer_class = InstallationTeamFilesSerializer
