@@ -469,7 +469,6 @@ def status_function(model_class, request):
 
 #FILES
 
-
 class ProjectFilesView(generics.RetrieveAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectFilesSerializer
@@ -485,3 +484,44 @@ class TowerBaseImagesView(generics.RetrieveAPIView):
 class BindingImagesView(generics.RetrieveAPIView):
     queryset = BindingImage.objects.all()
     serializer_class = BindingImagesSerializer
+
+class SteelFixFormworkImagesView(generics.RetrieveAPIView):
+    queryset = SteelFixFormworkImage.objects.all()
+    serializer_class = SteelFixFormworkImagesSerializer
+
+class ConcretePourCuringImagesView(generics.RetrieveAPIView):
+    queryset = ConcretePourCuringImage.objects.all()
+    serializer_class = ConcretePourCuringImagesSerializer
+
+#GENERATOR FOUNDATION
+
+class ExcavationImagesView(generics.RetrieveAPIView):
+    queryset = ExcavationImage.objects.all()
+    serializer_class = ExcavationImagesSerializer
+
+class ConcretePourCuringPeriodImagesView(generics.RetrieveAPIView):
+    queryset = ConcretePourCuringPeriodImage.objects.all()
+    serializer_class = ConcretePourCuringPeriodImagesSerializer
+
+# BOUNDARY WALL
+
+class FoundFootPourImageView(generics.RetrieveAPIView):
+    queryset = FoundFootPourImage.objects.all()
+    serializer_class = FoundFootPourImagesSerializer
+
+class BlockworkPanelConstImagesView(generics.RetrieveAPIView):
+    queryset = BlockworkPanelConstImage.objects.all()
+    serializer_class = BlockworkPanelConstImagesSerializer
+
+class GateInstallationImagesView(generics.RetrieveAPIView):
+    queryset = GateInstallationImage.objects.all()
+    serializer_class = GateInstallationImagesSerializer
+
+class RazorElectricFenceImagesView(generics.RetrieveAPIView):
+    queryset = RazorElectricFenceImage.objects.all()
+    serializer_class = RazorElectricFenceImagesSerializer
+
+#TOWER & ANTENNA_COAXs 
+
+
+
