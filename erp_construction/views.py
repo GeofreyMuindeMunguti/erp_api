@@ -523,5 +523,21 @@ class RazorElectricFenceImagesView(generics.RetrieveAPIView):
 
 #TOWER & ANTENNA_COAXs 
 
+class TowerErectionImagesView(generics.RetrieveAPIView):
+    queryset = TowerErectionImage.objects.all()
+    serializer_class = TowerErectionImagesSerializer
+
+class TowerPaintImagesView(generics.RetrieveAPIView):
+    queryset = TowerPaintImage.objects.all()
+    serializer_class = TowerPaintImagesSerializer
+
+class CableWaysImagesView(generics.RetrieveAPIView):
+    queryset = CableWaysImage.objects.all()
+    serializer_class = CableWaysImagesSerializer
+
+class AntennaCoaxInstallImagesView(generics.RetrieveAPIView):
+    queryset = AntennaCoaxInstallImage.objects.all()
+    serializer_class = AntennaCoaxInstallImagesSerializer
+
 
 

@@ -372,7 +372,7 @@ class KPLCSolarImageSerializer(serializers.ModelSerializer):
 
 
 
-class ProjectFilesSerializer(serializers.HyperlinkedModelSerializer):
+class ProjectFilesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
@@ -380,27 +380,27 @@ class ProjectFilesSerializer(serializers.HyperlinkedModelSerializer):
         #read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class SiteClearingFilesSerializer(serializers.HyperlinkedModelSerializer):
+class SiteClearingFilesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SetSiteClearingImage
         fields = ('setting_site_clearing_image_1','setting_site_clearing_image_2','setting_site_clearing_image_3',)
        # read_only_fields = ('created_at', 'updated_at', 'is_active')
 
-class TowerBaseImagesSerializer(serializers.HyperlinkedModelSerializer):
+class TowerBaseImagesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TowerBaseImage
         fields = ('towerbase_image_1','towerbase_image_1','towerbase_image_1',)
        # read_only_fields = ('created_at', 'updated_at', 'is_active')
 
-class BindingImagesSerializer(serializers.HyperlinkedModelSerializer):
+class BindingImagesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BindingImage
         fields = ('binding_image_1','binding_image_2','binding_image_3',)
        # read_only_fields = ('created_at', 'updated_at', 'is_active')
-class SteelFixFormworkImagesSerializer(serializers.HyperlinkedModelSerializer):
+class SteelFixFormworkImagesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SteelFixFormworkImage
@@ -408,7 +408,7 @@ class SteelFixFormworkImagesSerializer(serializers.HyperlinkedModelSerializer):
         #read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class ConcretePourCuringImagesSerializer(serializers.HyperlinkedModelSerializer):
+class ConcretePourCuringImagesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ConcretePourCuringImage
@@ -416,7 +416,7 @@ class ConcretePourCuringImagesSerializer(serializers.HyperlinkedModelSerializer)
        # read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-#######################################BS241 & GENERATOR FOUNDATION ###########################################################################################################################
+#GENERATOR FOUNDATION
 class ExcavationImagesSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -492,4 +492,3 @@ class AntennaCoaxInstallImagesSerializer(serializers.ModelSerializer):
         fields = ('antenna_coax_installation_image_1','antenna_coax_installation_image_2','antenna_coax_installation_image_3',)
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
-        
