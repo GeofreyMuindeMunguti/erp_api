@@ -6,6 +6,16 @@ from django.contrib.postgres.fields import ArrayField
 from datetime import datetime, timezone, timedelta
 
 # Create your models here.
+############################# Chouces #########################################################################################################################################################
+
+# PO_STEEL_COST_CHOICES = (
+#     ('1 - 49kg' ,'10,000ksh'),
+#     ('50 - 99kg','20,000ksh'),
+#     ('100 - 199kg','30,000ksh)',
+#     ('200 - 299kg','40,000ksh'),
+# )
+
+############################ END ##############################################################################################################################################################
 class Category(models.Model):
     category_name = models.CharField(max_length=100, unique=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
@@ -1731,15 +1741,35 @@ class CommercialTeam(models.Model):
 
 
 ####################################### PROCURMENT TEAM ###########################################################################################################################
+PO_STEEL_COST_CHOICES = (
+    ('1 - 49kg' ,'1 - 49kg: 10,000ksh'),
+    ('50 - 99kg','50 - 99kg: 20,000ksh'),
+    ('100 - 199kg','100 - 199kg: 30,000ksh'),
+    ('200 - 299kg','200 - 299kg: 40,000ksh'),
+    )
+
+PO_ELECTRICAL_MATERIAL_CHOICES = (
+    ('1 - 49kg' ,'1 - 49kg: 10,000ksh'),
+    ('50 - 99kg','50 - 99kg: 20,000ksh'),
+    ('100 - 199kg','100 - 199kg: 30,000ksh'),
+    ('200 - 299kg','200 - 299kg: 40,000ksh'),
+    )
+
+PO_SUBCONTRACTORS_CHOICES = (
+    ('1 - 49kg' ,'1 - 49kg: 10,000ksh'),
+    ('50 - 99kg','50 - 99kg: 20,000ksh'),
+    ('100 - 199kg','100 - 199kg: 30,000ksh'),
+    ('200 - 299kg','200 - 299kg: 40,000ksh'),
+    )
 
 class ProcurementTeam(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     po_steel = models.FileField(upload_to='files/ProcurementTeam/posteel/%Y/%m/%d/', blank=True, null=True)
-    po_steel_cost = models.IntegerField(blank=True, null=True)
+    po_steel_cost = models.CharField(max_length=120, choices=PO_STEEL_COST_CHOICES, default='None', blank=True)
     po_electrical_materials = models.FileField(upload_to='files/ProcurementTeam/poelectrical/%Y/%m/%d/', blank=True, null=True)
-    po_electrical_materials_cost = models.IntegerField(blank=True, null=True)
+    po_electrical_materials_cost =models.CharField(max_length=120, choices=PO_ELECTRICAL_MATERIAL_CHOICES, default='None', blank=True)
     po_subcontractors = models.FileField(upload_to='files/ProcurementTeam/posubcontractor/%Y/%m/%d/', blank=True, null=True)
-    po_subcontractors_cost = models.IntegerField(blank=True, null=True)
+    po_subcontractors_cost = models.CharField(max_length=120, choices=PO_SUBCONTRACTORS_CHOICES, default='None', blank=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -1749,7 +1779,7 @@ class ProcurementTeam(models.Model):
     def __str__(self):
         return str(self.project_name)
 
-############################ PROCURMENT  PO TOTAL COST  ###################################
+############################ PROCURMENT  PO TOTAL COST  ###########################################################################################################################
     def total_material_cost(self):
         """Function to return total procurement PO cost"""
         total_procurpo = self.po_steel_cost + self.po_electrical_materials_cost + self.po_subcontractors_cost
