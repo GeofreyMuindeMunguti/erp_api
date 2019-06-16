@@ -10,8 +10,15 @@ from django.db.models import Avg, Max, Min, Sum
 class TurnAroundTimeView(APIView):
 
     def get(self, request):
-        turn_around_time_data = Project.objects.all().aggregate(Avg('turn_around_time'))
-        return Response({'turn_around_time': turn_around_time_data, })
+        project_count = Project.objects.all().count()
+        turn_around_time_data = Project.objects.all()
+        turn_around_time = 0
+        for time in turn_around_time_data:
+            turn_around_time = turn_around_time + time.turn_around_time()
+        average_turn_around_time = (turn_around_time/project_count)
+        return Response({'average_turn_around_time': average_turn_around_time, })
+        # turn_around_time_data = Project.objects.aggregate(turn_around_time=Avg('project__turn_around_time'))
+        # return Response({'turn_around_time': turn_around_time_data, })
 
 
 class TotalPurchaseOrdersView(APIView):
