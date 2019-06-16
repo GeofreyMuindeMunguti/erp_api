@@ -14,7 +14,7 @@ class TurnAroundTimeView(APIView):
         turn_around_time_data = Project.objects.all()
         turn_around_time = 0
         for time in turn_around_time_data:
-            turn_around_time = turn_around_time + time.turn_around_time()
+            turn_around_time += time.turn_around_time()
         average_turn_around_time = (turn_around_time/project_count)
         return Response({'average_turn_around_time': average_turn_around_time, })
 
