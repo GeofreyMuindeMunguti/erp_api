@@ -84,5 +84,7 @@ urlpatterns = [
     path('issuestatus/', IssueStatusView.as_view()),
     path('turnaroundtime/', TurnAroundTimeView.as_view()),
     path('totalpurchaseprders/', TotalPurchaseOrdersView.as_view()),
+    path('revenueperproject/<int:pk>', RevenueDetailView.as_view()),
+    path('revenue/', RevenueListView.as_view()),
     # path('procurementsum/<int:pk>', ProcurementSumView.as_view())
 ]
