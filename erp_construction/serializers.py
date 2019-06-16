@@ -269,13 +269,6 @@ class TowerAntennaCoaxImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 ######################################## END #######################################################################################################################################
 
-# class BS241AndGeneatorSlabsImageSerializer(serializers.ModelSerializer):
-#
-#     class Meta:
-#         model = BTSAndGeneatorSlabsImage
-#         fields = ('__all__')
-#         read_only_fields = ('created_at', 'updated_at', 'is_active')
-
 class CivilWorksTeamSerializer(serializers.ModelSerializer):
 
     class Meta:
