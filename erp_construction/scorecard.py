@@ -16,9 +16,9 @@ class TurnAroundTimeView(APIView):
 
 class TotalPurchaseOrdersView(APIView):
 
-     def get(self, request):
-         purchase_order_data = ProjectPurchaseOrders.objects.all().count()
-         return Response({'total_purchase_orders': purchase_order_data, })
+    def get(self, request):
+        purchase_order_data = ProjectPurchaseOrders.objects.all().count()
+        return Response({'total_purchase_orders': purchase_order_data, })
 
 
 class RevenueDetailView(APIView):
