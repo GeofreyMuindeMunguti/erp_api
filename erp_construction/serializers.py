@@ -17,10 +17,13 @@ class ProjectIconsSerializer(serializers.ModelSerializer):
 
 class ProjectSerializer(serializers.ModelSerializer):
 
+    turn_around_time = serializers.IntegerField()
+
     class Meta:
         model = Project
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
 
 class CategorySerializer(serializers.ModelSerializer):
 
@@ -28,6 +31,7 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
 
 class ProcurementTeamSerializer(serializers.ModelSerializer):
 
@@ -78,6 +82,7 @@ class AccessApprovalCivilSerializer(serializers.ModelSerializer):
 
 ####################################### KPI ###############################################################################################################################
 
+
 class KpiSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -88,6 +93,7 @@ class KpiSerializer(serializers.ModelSerializer):
 ######################################## END #######################################################################################################################################
 
 ####################################### TASKS ###############################################################################################################################
+
 
 class TaskSerializer(serializers.ModelSerializer):
 
@@ -100,6 +106,7 @@ class TaskSerializer(serializers.ModelSerializer):
 
 ####################################### SUBTASKS ###############################################################################################################################
 
+
 class SubTaskSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -110,6 +117,8 @@ class SubTaskSerializer(serializers.ModelSerializer):
 ######################################## END #######################################################################################################################################
 
 ####################################### START FOUNDATION IMAGES ###########################################################################################################################
+
+
 class FoundationImageSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -160,6 +169,8 @@ class ConcretePourCuringImageSerializer(serializers.ModelSerializer):
 ######################################## END #######################################################################################################################################
 
 #######################################BS241 & GENERATOR FOUNDATION ###########################################################################################################################
+
+
 class ExcavationImageerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -167,12 +178,14 @@ class ExcavationImageerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+
 class ConcretePourCuringPeriodImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ConcretePourCuringPeriodImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
 
 class BTSAndGeneatorSlabsImageSerializer(serializers.ModelSerializer):
 
@@ -183,12 +196,15 @@ class BTSAndGeneatorSlabsImageSerializer(serializers.ModelSerializer):
 ######################################## END #######################################################################################################################################
 
 ######################################  BOUNDARY WALL ###########################################################################################################################
+
+
 class FoundFootPourImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FoundFootPourImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
 
 class BlockworkPanelConstImageSerializer(serializers.ModelSerializer):
 
@@ -197,6 +213,7 @@ class BlockworkPanelConstImageSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+
 class GateInstallationImageSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -204,12 +221,14 @@ class GateInstallationImageSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+
 class RazorElectricFenceImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RazorElectricFenceImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
 
 class BoundaryWallImageSerializer(serializers.ModelSerializer):
 
@@ -221,12 +240,15 @@ class BoundaryWallImageSerializer(serializers.ModelSerializer):
 ######################################## END #######################################################################################################################################
 
 ####################################### TOWER & ANTENNA_COAXs ###########################################################################################################################
+
+
 class TowerErectionImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TowerErectionImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
 
 class TowerPaintImageSerializer(serializers.ModelSerializer):
 
@@ -235,6 +257,7 @@ class TowerPaintImageSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+
 class CableWaysImageSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -242,12 +265,14 @@ class CableWaysImageSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+
 class AntennaCoaxInstallImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AntennaCoaxInstallImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
 
 class TowerAntennaCoaxImageSerializer(serializers.ModelSerializer):
 
@@ -257,12 +282,14 @@ class TowerAntennaCoaxImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 ######################################## END #######################################################################################################################################
 
+
 class BTSAndGeneatorSlabsImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BTSAndGeneatorSlabsImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
 
 class CivilWorksTeamSerializer(serializers.ModelSerializer):
 

@@ -50,6 +50,12 @@ class Project(models.Model):
     def __str__(self):
         return self.project_name
 
+    def delete(self, *args, **kwargs):
+        if self.is_active == False:
+            return "Item already deleted"
+        else:
+            self.is_active is False
+
     def status(self):
         try:
             if bool(self.final_acceptance_cert) is False:

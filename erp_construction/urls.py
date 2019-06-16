@@ -5,6 +5,7 @@ from django.urls import path, include
 from .views import *
 from .progress import *
 from .monitoring import *
+from .scorecard import *
 
 
 router = DefaultRouter()
@@ -81,5 +82,7 @@ urlpatterns = [
     path('taskstatus/', TaskStatusView.as_view()),
     path('timesheetsummary/', TimesheetSummaryView.as_view()),
     path('issuestatus/', IssueStatusView.as_view()),
+    path('turnaroundtime/', TurnAroundTimeView.as_view()),
+    path('totalpurchaseprders/', TotalPurchaseOrdersView.as_view()),
     # path('procurementsum/<int:pk>', ProcurementSumView.as_view())
 ]
