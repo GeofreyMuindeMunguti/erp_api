@@ -131,7 +131,7 @@ admin.site.register(Kpi, KpiAdmin)
 
 
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'category_name','task_name', 'kpi', 'posted_by', 'is_approved', 'created_at', 'updated_at','finish_date', 'is_active','track_docs')
+    list_display = ('id', 'category_name','task_name', 'kpi', 'posted_by', 'is_approved', 'created_at', 'updated_at','finish_date', 'is_active')
     list_display_links = ('task_name', )
     list_filter = ('category_name',)
     search_fields = ('task_name', )
@@ -144,7 +144,7 @@ admin.site.register(Task, TaskAdmin)
 ####################################### SUBTASKS ###############################################################################################################################
 
 class SubTaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'task_name', 'subtask_name', 'kpi', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'finish_date','is_active')
+    list_display = ('id', 'task_name', 'subtask_name', 'kpi', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('subtask_name', )
     list_filter = ('task_name',)
     search_fields = ('subtask_name', )
@@ -157,7 +157,7 @@ admin.site.register(SubTask, SubTaskAdmin)
 
 #######################################START FOUNDATION IMAGES########################################################################################################################################
 class FoundationImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'setting_site_clearing', 'excavation_tower_base', 'binding', 'steel_fix_formwork','concrete_pour_curing', 'concrete_pour_period','foundation_and_curing_comment','engineers', 'names_of_engineers','start_date','end_date', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'setting_site_clearing', 'excavation_tower_base', 'binding', 'steel_fix_formwork','concrete_pour_curing', 'concrete_pour_period','foundation_and_curing_comment','engineers', 'names_of_engineers','start_date','end_date', 'raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -167,7 +167,7 @@ class FoundationImageAdmin(admin.ModelAdmin):
 admin.site.register(FoundationImage, FoundationImageAdmin)
 
 class SetSiteClearingImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'setting_site_clearing_image_1', 'setting_site_clearing_image_2', 'setting_site_clearing_image_3', 'setting_site_clearing_comment', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'start_date','end_date','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'setting_site_clearing_image_1', 'setting_site_clearing_image_2', 'setting_site_clearing_image_3', 'setting_site_clearing_comment', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -178,7 +178,7 @@ admin.site.register(SetSiteClearingImage, SetSiteClearingImageAdmin)
 
 
 class TowerBaseImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','towerbase_image_1', 'towerbase_image_2', 'towerbase_image_3', 'tower_base_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name','towerbase_image_1', 'towerbase_image_2', 'towerbase_image_3', 'tower_base_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -189,7 +189,7 @@ admin.site.register(TowerBaseImage, TowerBaseImageAdmin)
 
 
 class BindingImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'binding_image_1', 'binding_image_2', 'binding_image_3', 'binding_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'binding_image_1', 'binding_image_2', 'binding_image_3', 'binding_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -200,7 +200,7 @@ admin.site.register(BindingImage, BindingImageAdmin)
 
 
 class SteelFixFormworkImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','steel_fix_formwork_image_1', 'steel_fix_formwork_image_2', 'steel_fix_formwork_image_3', 'steel_fix_formwork_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name','steel_fix_formwork_image_1', 'steel_fix_formwork_image_2', 'steel_fix_formwork_image_3', 'steel_fix_formwork_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -211,7 +211,7 @@ admin.site.register(SteelFixFormworkImage, SteelFixFormworkImageAdmin)
 
 
 class ConcretePourImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'concrete_pour_curing_image_1', 'concrete_pour_curing_image_2', 'concrete_pour_curing_image_3', 'concrete_pour_curing_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'concrete_pour_curing_image_1', 'concrete_pour_curing_image_2', 'concrete_pour_curing_image_3', 'concrete_pour_curing_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -222,7 +222,7 @@ admin.site.register(ConcretePourImage, ConcretePourImageAdmin)
 
 
 class ConcreteCuringPeriodImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','concrete_pour_curing_period_image_1', 'concrete_pour_curing_period_image_2', 'concrete_pour_curing_period_image_3', 'concrete_pour_curing_period_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name','concrete_pour_curing_period_image_1', 'concrete_pour_curing_period_image_2', 'concrete_pour_curing_period_image_3', 'concrete_pour_curing_period_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -237,7 +237,7 @@ admin.site.register(ConcreteCuringPeriodImage, ConcreteCuringPeriodImageAdmin)
 #######################################BS241 & GENERATOR FOUNDATION ###########################################################################################################################
 
 class ExcavationImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'excavation_image_1', 'excavation_image_2', 'excavation_image_3', 'excavation_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'excavation_image_1', 'excavation_image_2', 'excavation_image_3', 'excavation_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'raise_flag','start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -247,7 +247,7 @@ class ExcavationImageAdmin(admin.ModelAdmin):
 admin.site.register(ExcavationImage, ExcavationImageAdmin)
 
 class BS241ConcretePourCuringPeriodImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'bs241_concrete_pour_curing_period_image_1', 'bs241_concrete_pour_curing_period_image_2','bs241_concrete_pour_curing_period_image_3', 'bs241_concrete_pour_curing_period_comment', 'start_date','end_date','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'bs241_concrete_pour_curing_period_image_1', 'bs241_concrete_pour_curing_period_image_2','bs241_concrete_pour_curing_period_image_3', 'bs241_concrete_pour_curing_period_comment', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -257,7 +257,7 @@ class BS241ConcretePourCuringPeriodImageAdmin(admin.ModelAdmin):
 admin.site.register(BS241ConcretePourCuringPeriodImage, BS241ConcretePourCuringPeriodImageAdmin)
 
 class BS241AndGeneatorSlabsImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'foundation_foot_pouring', 'bs241_concrete_pour_pouring_period','bs241_and_generator_slabs_comment','engineers', 'names_of_engineers', 'start_date','end_date','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'foundation_foot_pouring', 'bs241_concrete_pour_pouring_period','bs241_and_generator_slabs_comment','engineers', 'names_of_engineers', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -271,7 +271,7 @@ admin.site.register(BS241AndGeneatorSlabsImage, BS241AndGeneatorSlabsImageAdmin)
 ####################################### BOUNDARY WALL ###########################################################################################################################
 
 class FoundFootPourImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'foundfootpour_image_1', 'foundfootpour_image_2', 'foundfootpour_image_3', 'foundfootpour_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'foundfootpour_image_1', 'foundfootpour_image_2', 'foundfootpour_image_3', 'foundfootpour_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -281,7 +281,7 @@ class FoundFootPourImageAdmin(admin.ModelAdmin):
 admin.site.register(FoundFootPourImage, FoundFootPourImageAdmin)
 
 class BlockworkPanelConstImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','blockwallpanelconst_image_1', 'blockwallpanelconst_image_2', 'blockwallpanelconst_image_3', 'blockwallpanelconst_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name','blockwallpanelconst_image_1', 'blockwallpanelconst_image_2', 'blockwallpanelconst_image_3', 'blockwallpanelconst_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -291,7 +291,7 @@ class BlockworkPanelConstImageAdmin(admin.ModelAdmin):
 admin.site.register(BlockworkPanelConstImage, BlockworkPanelConstImageAdmin)
 
 class GateInstallationImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'gateinstallation_image_1', 'gateinstallation_image_2', 'gateinstallation_image_3','gateinstallation_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'gateinstallation_image_1', 'gateinstallation_image_2', 'gateinstallation_image_3','gateinstallation_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -302,7 +302,7 @@ admin.site.register(GateInstallationImage, GateInstallationImageAdmin)
 
 
 class RazorElectricFenceImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'razorelectricfance_image_1', 'razorelectricfance_image_2', 'razorelectricfance_image_3', 'razorelectricfance_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'razorelectricfance_image_1', 'razorelectricfance_image_2', 'razorelectricfance_image_3', 'razorelectricfance_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -312,7 +312,7 @@ class RazorElectricFenceImageAdmin(admin.ModelAdmin):
 admin.site.register(RazorElectricFenceImage, RazorElectricFenceImageAdmin)
 
 class BoundaryWallImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','foundation_foot_pouring', 'block_construction', 'gate_installation', 'razor_electric_fence','boundary_wall_comment','engineers', 'names_of_engineers', 'start_date','end_date','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name','foundation_foot_pouring', 'block_construction', 'gate_installation', 'razor_electric_fence','boundary_wall_comment','engineers', 'names_of_engineers', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -326,7 +326,7 @@ admin.site.register(BoundaryWallImage, BoundaryWallImageAdmin)
 #######################################  TOWER & ANTENNA_COAX ###########################################################################################################################
 
 class TowerErectionImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'tower_erection_image_1', 'tower_erection_image_2', 'tower_erection_image_3', 'tower_erection_comment', 'start_date','end_date','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'tower_erection_image_1', 'tower_erection_image_2', 'tower_erection_image_3', 'tower_erection_comment', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -336,7 +336,7 @@ class TowerErectionImageAdmin(admin.ModelAdmin):
 admin.site.register(TowerErectionImage, TowerErectionImageAdmin)
 
 class TowerPaintImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','tower_painting_image_1', 'tower_painting_image_2', 'tower_painting_image_3', 'tower_painting_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost','engineers_cost', 'start_date','end_date','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name','tower_painting_image_1', 'tower_painting_image_2', 'tower_painting_image_3', 'tower_painting_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost','engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -357,7 +357,7 @@ admin.site.register(CableWaysImage, CableWaysImageAdmin)
 
 
 class AntennaCoaxInstallImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'antenna_coax_installation_image_1', 'antenna_coax_installation_image_2', 'antenna_coax_installation_image_3', 'antenna_coax_installation_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost','engineers_cost', 'start_date','end_date','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'antenna_coax_installation_image_1', 'antenna_coax_installation_image_2', 'antenna_coax_installation_image_3', 'antenna_coax_installation_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost','engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -367,7 +367,7 @@ class AntennaCoaxInstallImageAdmin(admin.ModelAdmin):
 admin.site.register(AntennaCoaxInstallImage, AntennaCoaxInstallImageAdmin)
 
 class TowerAntennaCoaxImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','tower_erection', 'tower_painting', 'cable_ways', 'antenna_coax_installation','tower_antenna_coax_comment','engineers', 'names_of_engineers', 'start_date','end_date','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name','tower_erection', 'tower_painting', 'cable_ways', 'antenna_coax_installation','tower_antenna_coax_comment','engineers', 'names_of_engineers', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -379,7 +379,7 @@ admin.site.register(TowerAntennaCoaxImage, TowerAntennaCoaxImageAdmin)
 
 class BTSinstallationTaskAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'no_of_casuals', 'names_of_casuals', 'casuals_cost','engineers_cost',  'start_date', 'BTSinstallation_image_1', 'BTSinstallation_image_2', 'BTSinstallation_image_3', 'BTSinstallation_comment',
-                     'start_date','end_date','created_at', 'updated_at', 'is_active')
+                     'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -390,7 +390,7 @@ admin.site.register(BTSinstallationTask, BTSinstallationTaskAdmin)
 
 class MWInstallationTaskAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'no_of_casuals', 'names_of_casuals', 'casuals_cost','engineers_cost',  'start_date','MWinstallation_image_1', 'MWinstallation_image_2', 'MWinstallation_image_3', 'MWinstallation_comment',
-                     'start_date','end_date','created_at', 'updated_at', 'is_active')
+                     'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -402,7 +402,7 @@ admin.site.register(MWInstallationTask, MWInstallationTaskAdmin)
 
 class TelecomTasksAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'engineers', 'names_of_engineers', 'Installation_of_BTS', 'Installation_of_MW_links', 'link_commissioning', 'is_approved',
-                     'start_date','end_date','created_at', 'updated_at', 'is_active')
+                     'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -414,7 +414,7 @@ admin.site.register(TelecomTasks, TelecomTasksAdmin)
 
 class UndergroundTasksAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost',  'start_date', 'Underground_ducting_and_manholes_image_1', 'Underground_ducting_and_manholes_image_2', 'Underground_ducting_and_manholes_image_3', 'Underground_ducting_and_manholes_images_comment',
-                     'start_date','end_date','created_at', 'updated_at', 'is_active')
+                     'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -426,7 +426,7 @@ admin.site.register(UndergroundTasks, UndergroundTasksAdmin)
 
 class ReticulationAPSinstallationAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost',  'start_date', 'Electricalreticulation_APSInstallation_image_1', 'Electricalreticulation_APSInstallation_image_2', 'Electricalreticulation_APSInstallation_image_3', 'Electricalreticulation_APSInstallation_images_comment',
-                     'start_date','end_date','created_at', 'updated_at', 'is_active')
+                     'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -438,7 +438,7 @@ admin.site.register(ReticulationAPSinstallation, ReticulationAPSinstallationAdmi
 
 class ElectricalEarthingAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date', 'Earthing_connections_and_testing_image_1', 'Earthing_connections_and_testing_image_2', 'Earthing_connections_and_testing_image_3', 'Earthing_connections_and_testing_images_comment',
-                     'start_date','end_date','created_at', 'updated_at', 'is_active')
+                     'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -450,7 +450,7 @@ admin.site.register(ElectricalEarthing, ElectricalEarthingAdmin)
 
 class GeneratorInstallationAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost',  'start_date', 'Generator_and_Fuel_Tank_Installation_image_1', 'Generator_and_Fuel_Tank_Installation_image_2', 'Generator_and_Fuel_Tank_Installation_image_3', 'before_fuel_image_1',
-                    'before_fuel_image_2', 'after_fuel_image_1', 'after_fuel_image_2', 'Generator_and_Fuel_Tank_Installation_comment', 'start_date','end_date', 'created_at', 'updated_at', 'is_active')
+                    'before_fuel_image_2', 'after_fuel_image_1', 'after_fuel_image_2', 'Generator_and_Fuel_Tank_Installation_comment', 'start_date','end_date','raise_flag', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -462,7 +462,7 @@ admin.site.register(GeneratorInstallation, GeneratorInstallationAdmin)
 
 class KPLCSolarImageAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost',  'start_date', 'kplc_solar_installation_image_1', 'kplc_solar_installation_image_2', 'kplc_solar_installation_image_3', 'kplc_solar_installation_comment',
-                     'start_date','end_date','created_at', 'updated_at', 'is_active')
+                     'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -474,7 +474,7 @@ admin.site.register(KPLCSolarImage, KPLCSolarImageAdmin)
 
 class ElectricalTasksAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'engineers', 'names_of_engineers', 'Underground_ducting_and_manholes', 'Electricalreticulation_APSInstallation', 'Earthing_connections_and_testing', 'Generator_and_Fuel_Tank_Installation', 'KPLC_solar_installation',
-                    'is_approved',  'start_date','end_date','created_at', 'updated_at', 'is_active')
+                    'is_approved',  'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )

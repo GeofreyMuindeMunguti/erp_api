@@ -142,6 +142,33 @@ class SetSiteClearingImage(models.Model):
             error = "Rates does not exist"
             return error
 
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name = 'Upload site clearing and setting images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
 
 class TowerBaseImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -195,6 +222,33 @@ class TowerBaseImage(models.Model):
             error = "Rates does not exist"
             return error
 
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name = 'Upload Excavation for tower base images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
 
 class BindingImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -248,6 +302,33 @@ class BindingImage(models.Model):
             error = "Rates does not exist"
             return error
 
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name = 'Upload binding images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
 
 class SteelFixFormworkImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -301,6 +382,33 @@ class SteelFixFormworkImage(models.Model):
             error = "Rates does not exist"
             return error
 
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name = 'Upload steel fixing images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
 
 class ConcretePourImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -354,6 +462,33 @@ class ConcretePourImage(models.Model):
             error = "Rates does not exist"
             return error
 
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name = 'Upload concrete pour images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
 
 
 class ConcreteCuringPeriodImage(models.Model):
@@ -409,6 +544,34 @@ class ConcreteCuringPeriodImage(models.Model):
             return error
 
 
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name = 'Upload concrete curing images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
 
 class FoundationImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -435,6 +598,34 @@ class FoundationImage(models.Model):
 
     def names_of_engineers(self):
         return [v.user.username for v in self.engineers_atsite.all()]
+
+    def raise_flag(self):
+        try:
+            kpi_data =Task.objects.get(task_name = 'Tower foundation and curing.')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
 
 ######################################## END #######################################################################################################################################
 
@@ -493,6 +684,34 @@ class ExcavationImage(models.Model):
             error = "Rates does not exist"
             return error
 
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name = 'Upload BTS and Generator excavation images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
 
 
 class BS241ConcretePourCuringPeriodImage(models.Model):
@@ -547,6 +766,33 @@ class BS241ConcretePourCuringPeriodImage(models.Model):
             error = "Rates does not exist"
             return error
 
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name = 'Upload BS241 concerete pour and curing images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
 
 
 class BS241AndGeneatorSlabsImage(models.Model):
@@ -570,6 +816,35 @@ class BS241AndGeneatorSlabsImage(models.Model):
 
     def names_of_engineers(self):
         return [v.user.username for v in self.engineers_atsite.all()]
+
+
+    def raise_flag(self):
+        try:
+            kpi_data = Task.objects.get(task_name = 'BS241 & Generator Foundation')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
 
 ######################################## END #######################################################################################################################################
 
@@ -628,6 +903,34 @@ class FoundFootPourImage(models.Model):
             error = "Rates does not exist"
             return error
 
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name = 'Upload foundation, footing and pouring images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
 
 class BlockworkPanelConstImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -680,6 +983,34 @@ class BlockworkPanelConstImage(models.Model):
         except Exception as e:
             error = "Rates does not exist"
             return error
+
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name = 'Upload Blockwork/panel construction images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
 
 
 class GateInstallationImage(models.Model):
@@ -734,6 +1065,34 @@ class GateInstallationImage(models.Model):
             error = "Engineer Rates does not exist"
             return error
 
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name = 'Upload Gate Installation images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
 
 class RazorElectricFenceImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -787,6 +1146,34 @@ class RazorElectricFenceImage(models.Model):
             error = "Engineer Rates does not exist"
             return error
 
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name = 'Upload Razor Wire/Electric Fence images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
 
 class BoundaryWallImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -811,6 +1198,36 @@ class BoundaryWallImage(models.Model):
 
     def names_of_engineers(self):
         return [v.user.username for v in self.engineers_atsite.all()]
+
+
+    def raise_flag(self):
+        try:
+            kpi_data = Task.objects.get(task_name = 'Upload Boundary Wall images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
 
 ######################################## END #######################################################################################################################################
 
@@ -869,6 +1286,34 @@ class TowerErectionImage(models.Model):
             error = "Engineer Rates does not exist"
             return error
 
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name = 'Upload tower erection images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
 
 class TowerPaintImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -921,6 +1366,34 @@ class TowerPaintImage(models.Model):
         except Exception as e:
             error = "Engineer Rates does not exist"
             return error
+
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name = 'Upload tower painting images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
 
 
 class CableWaysImage(models.Model):
@@ -975,6 +1448,34 @@ class CableWaysImage(models.Model):
             error = "Engineer Rates does not exist"
             return error
 
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name = 'Upload cable ways images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
 
 class AntennaCoaxInstallImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -1028,6 +1529,34 @@ class AntennaCoaxInstallImage(models.Model):
             error = "Engineer Rates does not exist"
             return error
 
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name = 'Upload Antenna Coax Installation images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
 
 class TowerAntennaCoaxImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -1052,6 +1581,34 @@ class TowerAntennaCoaxImage(models.Model):
 
     def names_of_engineers(self):
         return [v.user.username for v in self.engineers_atsite.all()]
+
+    def raise_flag(self):
+        try:
+            kpi_data = Task.objects.get(task_name = 'Tower & Antenna-Coax')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
 
 ######################################## END #######################################################################################################################################
 
@@ -1092,9 +1649,6 @@ class Task(models.Model):
         end_dates =  self.created_at + timedelta(days=self.kpi)
         return end_dates
 
-    def track_docs(self):
-        """Function that returns value either OnTrack/OffTrack"""
-
 
 ######################################## END #######################################################################################################################################
 
@@ -1114,10 +1668,6 @@ class SubTask(models.Model):
     def __str__(self):
         return str(self.subtask_name)
 
-    def finish_date(self):
-        """Function to return task end date"""
-        end_dates =  self.created_at + timedelta(days=self.kpi)
-        return end_dates
 
 ######################################## END #######################################################################################################################################
 
@@ -1349,6 +1899,34 @@ class UndergroundTasks(models.Model):
             error = "Engineer Rates does not exist"
             return error
 
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name = 'Upload Underground ducting & manholes images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
 
 class ReticulationAPSinstallation(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -1402,6 +1980,34 @@ class ReticulationAPSinstallation(models.Model):
             error = "Engineer Rates does not exist"
             return error
 
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name = 'Upload Electrical reticulation/APS Installation images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
 
 class ElectricalEarthing(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -1454,6 +2060,34 @@ class ElectricalEarthing(models.Model):
         except Exception as e:
             error = "Enginner Rates does not exist"
             return error
+
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name = 'Upload Earthing connections and testing images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
 
 
 class GeneratorInstallation(models.Model):
@@ -1512,6 +2146,34 @@ class GeneratorInstallation(models.Model):
             error = "Engineer Rates does not exist"
             return error
 
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name = 'Upload Generator & Fuel Tank Installation images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
 
 class KPLCSolarImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -1565,6 +2227,34 @@ class KPLCSolarImage(models.Model):
             error = "Engineer Rates does not exist"
             return error
 
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name = 'Upload KPLC/solar installation images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
 
 class ElectricalTasks(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -1590,6 +2280,34 @@ class ElectricalTasks(models.Model):
 
     def names_of_engineers(self):
         return [v.user.username for v in self.engineers_atsite.all()]
+
+    def raise_flag(self):
+        try:
+            kpi_data = Task.objects.get(task_name = 'Electrical Tasks')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
 
 
 class BTSinstallationTask(models.Model):
@@ -1645,6 +2363,34 @@ class BTSinstallationTask(models.Model):
             error = "Engineer Rates does not exist"
             return error
 
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name = '	Upload BTS installation images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
 
 class MWInstallationTask(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -1698,6 +2444,34 @@ class MWInstallationTask(models.Model):
             error = "Engineer Rates does not exist"
             return error
 
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name = 'Upload MW installation images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
 
 class TelecomTasks(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -1721,6 +2495,34 @@ class TelecomTasks(models.Model):
 
     def names_of_engineers(self):
         return [v.user.username for v in self.engineers_atsite.all()]
+
+    def raise_flag(self):
+        try:
+            kpi_data = Task.objects.get(task_name = 'Telecom Tasks')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
 
 
 class InstallationTeam(models.Model):
