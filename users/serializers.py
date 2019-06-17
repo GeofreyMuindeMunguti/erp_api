@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, user_logged_in
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from erp_construction.models import *
 from .models import *
 
@@ -55,7 +55,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ('user_id', 'customuser_phone_no','customuser_profile_pic','team', 'position')
+        fields = ('user_id', 'customuser_phone_no','customuser_profile_pic','team', 'position','get_permissions')
         read_only_fields = ('is_active', 'is_staff')
 
 
@@ -94,6 +94,13 @@ class UserSerializer(serializers.ModelSerializer):
         profile.save()
 
         return instance
+
+# Permission
+class PermissionMapSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PermissionMap
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
 # Engineer

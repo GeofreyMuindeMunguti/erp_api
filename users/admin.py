@@ -10,6 +10,13 @@ class CustomUserAdmin(admin.ModelAdmin):
 
 admin.site.register(CustomUser, CustomUserAdmin)
 
+class PermissionMapAdmin(admin.ModelAdmin):
+    list_display = ('position','content_type','view','edit','create','approver','is_superuser', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('position', )
+    search_fields = ('position', )
+
+admin.site.register(PermissionMap, PermissionMapAdmin)
+
 class UserLoginActivityAdmin(admin.ModelAdmin):
     list_display = ('login_IP', 'login_datetime', 'login_username','status','user_agent_info')
     list_display_links = ('login_username', )

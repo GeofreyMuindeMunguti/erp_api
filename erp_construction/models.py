@@ -1106,6 +1106,11 @@ class ProcurementTeam(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+############################ PROCURMENT  PO TOTAL COST  ###################################
+    def total_material_cost(self):
+        """Function to return total procurement PO cost"""
+        total_procurpo = self.po_steel_cost + self.po_electrical_materials_cost + self.po_subcontractors_cost
+        return total_procurpo
 
 ######################################## END #######################################################################################################################################
 

@@ -30,6 +30,7 @@ class CategorySerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class ProcurementTeamSerializer(serializers.ModelSerializer):
+    total_material_cost = serializers.IntegerField()
 
     class Meta:
         model = ProcurementTeam
