@@ -10,6 +10,7 @@ from .flag import *
 router = DefaultRouter()
 
 router.register(r'projects', views.ProjectViewSet)
+router.register(r'category', views.CategoryViewSet)
 router.register(r'Icons', views.ProjectIconViewSet)
 router.register(r'projectcosting', views.ProjectCostingViewSet)
 router.register(r'projectpos', views.ProjectPOSViewSet)
@@ -24,12 +25,13 @@ router.register(r'setclearingimages', views.SetSiteClearingImageViewSet)
 router.register(r'towerbaseimages', views.TowerBaseImageViewSet)
 router.register(r'bindingimages', views.BindingImageViewSet)
 router.register(r'steelfixformworkimages', views.SteelFixFormworkImageViewSet)
-router.register(r'concretepourcuringimages', views.ConcretePourCuringImageViewSet)
+router.register(r'concretepourimages', views.ConcretePourImageViewSet)
+router.register(r'concretecuringperiod', views.ConcreteCuringPeriodImageViewSet)
 
 
 router.register(r'excavation', views.ExcavationImageViewSet)
-router.register(r'concretepourcuringperiod', views.ConcretePourCuringPeriodImageViewSet)
-router.register(r'btsgeneratorslabs', views.BTSAndGeneatorSlabsImageViewSet)
+router.register(r'bs241concretepourcuringperiod', views.bs241ConcretePourCuringPeriodImageViewSet)
+router.register(r'bs241generatorslabs', views.BS241AndGeneatorSlabsImageViewSet)
 
 
 router.register(r'foundationfootpour', views.FoundFootPourImageViewSet)
@@ -60,7 +62,6 @@ router.register(r'btsinstallationtasks', views.BTSInstallationTasksViewSet)
 router.register(r'healthdocumentsinstallationteams', views.HealthDocumentsInstallationTeamViewset)
 router.register(r'accessapprovalinstallations', views.AccessApprovalInstallationViewSet)
 router.register(r'kplcsolarsmages', views.KPLCSolarImageViewSet)
-router.register(r'slabsimages', views.SlabsImageViewSet)
 
 """ ENDPOINTS FOR FRONTEND"""
 
