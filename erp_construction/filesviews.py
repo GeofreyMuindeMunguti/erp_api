@@ -31,7 +31,7 @@ class FilesView(APIView):
 
     def get(self, request, format=None):
         "TO DO"
-        resp = "# TO DO        Gibeon working on this.. RELAX!"
+        resp = "# TO DO        Gibeon working on this.. RELAX! Add id  to get files for individual project files.Now get the fuc* outta here!"
         return Response(resp)
 
 
