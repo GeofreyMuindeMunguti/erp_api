@@ -531,49 +531,6 @@ class HealthDocumentsFilesCivilTeamSerializer(serializers.ModelSerializer):
         fields = ('job_hazard_form','incident_notification_form','toolbox_meeting_form','communication_plan_form',)
        # read_only_fields = ('created_at', 'updated_at', 'is_active')
 
-
-################### Main Project Serializer################################
-
-class ProjectFilesSerializer(serializers.ModelSerializer):
-    ''' Main Serializer class : to access all serializers classes above to get all images per project '''
-
-    setsiteclearingimage = SiteClearingFilesSerializer ( read_only =True)
-    towerbaseimage = TowerBaseImagesSerializer(read_only=True)
-    bindingimage = BindingImagesSerializer(read_only=True)
-    steelfixformworkimage =SteelFixFormworkImagesSerializer(read_only=True)
-    concretepourcuringimage = ConcretePourCuringImagesSerializer(read_only=True)
-    excavationimage =ExcavationImagesSerializer(read_only=True)
-    concretepourcuringieriodimage =ConcretePourCuringPeriodImagesSerializer(read_only=True)
-    foundfootpourimage= FoundFootPourImagesSerializer(read_only=True)
-    blockworkpanelconstimage= BlockworkPanelConstImagesSerializer(read_only=True)
-    gateinstallationimage= GateInstallationImagesSerializer(read_only=True)
-    razorelectricfenceimage =RazorElectricFenceImagesSerializer(read_only=True)
-    towererectionimage =TowerErectionImagesSerializer(read_only=True)
-    cablewaysimage= CableWaysImagesSerializer(read_only=True)
-    antennacoaxinstallimage =AntennaCoaxInstallImagesSerializer(read_only=True)
-    projectpurchaseorders =ProjectPurchaseOrdersFileSerializer(read_only=True)
-    healthdocumentscivilteam =HealthDocumentsFilesCivilTeamSerializer(many = True,read_only =True)
-    
-
-    class Meta:
-        model = Project
-       # fields = ('__all__')
-        exclude = ("id","project_name","site_number","BTS_type","site_owner","geotech_file","access_letter",
-           "approved_drawing","final_acceptance_cert","final_acceptance_cert_comment","created_at",
-           "updated_at", "is_active","icon", "location", "created_by")
-
-        #fields = ('geotech_file','access_letter','approved_drawing','final_acceptance_cert','setsiteclearingimage',
-        #'towerbaseimage','bindingimage','steelfixformworkimage','concretepourcuringimage')
-        #read_only_fields = ('created_at', 'updated_at', 'is_active')
-
-
-
-
-
-
-
-
-
 class AccessApprovalFileCivilSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -644,29 +601,48 @@ class InstallationTeamFilesSerializer(serializers.ModelSerializer):
         fields = ('as_built','signoff','rfi_document','snag_document','conditional_acceptance_cert',)
        # read_only_fields = ('created_at', 'updated_at', 'is_active')
 
-'''
+################### Main Project Serializer################################
+
 class ProjectFilesSerializer(serializers.ModelSerializer):
+    ''' Main Serializer class : to access all serializers classes above to get all images  and files per project '''
+
+    setsiteclearingimage = SiteClearingFilesSerializer ( read_only =True)
+    towerbaseimage = TowerBaseImagesSerializer(read_only=True)
+    bindingimage = BindingImagesSerializer(read_only=True)
+    steelfixformworkimage =SteelFixFormworkImagesSerializer(read_only=True)
+    concretepourcuringimage = ConcretePourCuringImagesSerializer(read_only=True)
+    excavationimage =ExcavationImagesSerializer(read_only=True)
+    concretepourcuringieriodimage =ConcretePourCuringPeriodImagesSerializer(read_only=True)
+    foundfootpourimage= FoundFootPourImagesSerializer(read_only=True)
+    blockworkpanelconstimage= BlockworkPanelConstImagesSerializer(read_only=True)
+    gateinstallationimage= GateInstallationImagesSerializer(read_only=True)
+    razorelectricfenceimage =RazorElectricFenceImagesSerializer(read_only=True)
+    towererectionimage =TowerErectionImagesSerializer(read_only=True)
+    cablewaysimage= CableWaysImagesSerializer(read_only=True)
+    antennacoaxinstallimage =AntennaCoaxInstallImagesSerializer(read_only=True)
+    projectpurchaseorders =ProjectPurchaseOrdersFileSerializer(read_only=True)
+
+    healthdocumentscivilteam =HealthDocumentsFilesCivilTeamSerializer(many = True,read_only =True)
+    accessapprovalcivil=AccessApprovalFileCivilSerializer(many = True,read_only=True)
+
+    undergroundtasks= UndergroundTasksFilesSerializer(read_only=True)
+    reticulationapsinstallation = ReticulationAPSinstallationFilesSerializer(read_only=True)
+    electricalearthing = ElectricalEarthingImagesSerializer(read_only =True)
+    generatorinstallation = GeneratorInstallationImagesSerializer(read_only=True)
+    kplcsolarimage = KPLCSolarImagesSerializer(read_only=True)
+    btsinstallationtask = BTSinstallationTaskImagesSerializer(read_only=True)
+    mwinstallationtask = MWInstallationTaskImagesSerializer(read_only=True)
+    installationteam = InstallationTeamFilesSerializer(read_only =True)
+    
+
 
     class Meta:
         model = Project
-        fields = ('geotech_file','access_letter','approved_drawing','final_acceptance_cert',)
+       # fields = ('__all__')
+        exclude = ("id","project_name","site_number","BTS_type","site_owner","geotech_file","access_letter",
+           "approved_drawing","final_acceptance_cert","final_acceptance_cert_comment","created_at",
+           "updated_at", "is_active","icon", "location", "created_by")
+
+        #fields = ('geotech_file','access_letter','approved_drawing','final_acceptance_cert','setsiteclearingimage',
+        #'towerbaseimage','bindingimage','steelfixformworkimage','concretepourcuringimage')
         #read_only_fields = ('created_at', 'updated_at', 'is_active')
-
-
-class SiteClearingFilesSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = SetSiteClearingImage
-        fields = ('setting_site_clearing_image_1','setting_site_clearing_image_2','setting_site_clearing_image_3',)
-       # read_only_fields = ('created_at', 'updated_at', 'is_active')
-
-#TO DO 
-class ProjectFilessSerializer(serializers.ModelSerializer):
-    #project = PojecectFilesSerialozer(many=False)
-    siteclearing= SiteClearingFilesSerializer(many=True)
-
-    class Meta:
-        model = Project
-        fields = ('geotech_file','access_letter','approved_drawing','final_acceptance_cert','siteclearing',)
-       # fields = '__all__'
-'''
