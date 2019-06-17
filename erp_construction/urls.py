@@ -81,11 +81,14 @@ urlpatterns = [
 
     #PROJECT FILES # allow  GET Method only 
     path('files/', filesviews.FilesView.as_view()),
-    path('files/<int:pk>/', filesviews.ProjectFilesView.as_view()),
+    path('files/<int:pk>/', filesviews.ProjectFilesView.as_view()), # main url path to retrieve files per project
+    #Paths to retrieve individual files
+
     path('files/<int:pk>/siteclearingimages/', filesviews.SiteClearingFilesView.as_view()),
-    #path('siteclearingimages/<int:pk>/', views.SiteClearingFilesView.as_view()),
-    path('filestowerbaseimages/<int:pk>/', filesviews.TowerBaseImagesView.as_view()),
-    path('filesbindingimages/<int:pk>/', filesviews.BindingImagesView.as_view()),
-    path('filessteelfixformworkimages/<int:pk>/', filesviews.SteelFixFormworkImagesView.as_view()),
-    path('filesconcretepourcuringimages/<int:pk>/', filesviews.ConcretePourCuringImagesView.as_view()),
+    path('files/<int:pk>/towerbaseimages/', filesviews.TowerBaseImagesView.as_view()),
+    path('files/<int:pk>/bindingimages/', filesviews.BindingImagesView.as_view()),
+
+    path('files/<int:pk>/steelfixformworkimages/', filesviews.SteelFixFormworkImagesView.as_view()),
+
+ 
 ]
