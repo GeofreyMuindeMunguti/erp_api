@@ -244,7 +244,16 @@ class InstallationTeamFilesSerializer(serializers.ModelSerializer):
 ################### Main Project Serializer################################
 
 class ProjectFilesSerializer(serializers.ModelSerializer):
-    ''' Main Serializer class : to access all serializers classes above to get all images  and files per project '''
+
+    ''' 
+    Main Serializer class : to access all serializers classes above 
+    :: facilitate selialization of all images and files per project
+    :: Files that need not to be serialized can be commented out  
+     e.g 
+       # setsiteclearingimage = SiteClearingFilesSerializer ( read_only =True)  
+    :: More field can be added from the excluded one by removing from exlude variable 
+     
+      '''
 
     setsiteclearingimage = SiteClearingFilesSerializer ( read_only =True)
     towerbaseimage = TowerBaseImagesSerializer(read_only=True)
