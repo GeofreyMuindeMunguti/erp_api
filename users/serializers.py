@@ -105,7 +105,6 @@ class PermissionMapSerializer(serializers.ModelSerializer):
 
 # Engineer
 class EngineerProfileSerializer(serializers.ModelSerializer):
-    # engineerprofile = UserSerializer(required=True)
 
     class Meta:
         model = Engineer

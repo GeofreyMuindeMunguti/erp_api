@@ -67,7 +67,7 @@ class HealthDocumentsCivilTeamSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = HealthDocumentsCivilTeam
-        fields = ('__all__')
+        fields = ('id','project_name','job_hazard_form','job_hazard_form_comment','incident_notification_form','incident_notification_form_comment','toolbox_meeting_form','toolbox_meeting_form_comment','communication_plan_form','communication_plan_form_comment','health_documents_comment','posted_by','is_approved')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
