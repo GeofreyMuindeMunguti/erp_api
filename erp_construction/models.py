@@ -1834,6 +1834,19 @@ class CivilWorksTeam(models.Model):
     def access_approvals(self):
         return [v.project_name for v in self.access_approvals_field.all()]
 
+######################################################3 INSTALLATION TEAM ##################################################################################################################################################################3
+
+class AccessApprovalInstallation(models.Model):
+    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    access_approval = models.FileField(upload_to='files/InstallationTeam/accessapproval/%Y/%m/%d/')
+    access_approval_comment = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
 
 class HealthDocumentsInstallationTeam(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
@@ -1855,19 +1868,6 @@ class HealthDocumentsInstallationTeam(models.Model):
 
     def __str__(self):
         return str(self.project_name)
-
-
-class AccessApprovalInstallation(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
-    access_approval = models.FileField(upload_to='files/InstallationTeam/accessapproval/%Y/%m/%d/')
-    access_approval_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
-
-    def __str__(self):
-        return str(self.project_name)
-
 
 class UndergroundTasks(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
