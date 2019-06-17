@@ -7,6 +7,8 @@ from rest_framework import generics, permissions, viewsets, serializers, permiss
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework_jwt.views import ObtainJSONWebToken
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
 
 from .serializers import JWTSerializer
 
@@ -46,7 +48,11 @@ class ObtainJWTView(ObtainJSONWebToken):
 # Users
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+
+# Permission
+class PermissionMapViewSet(viewsets.ModelViewSet):
+    queryset = PermissionMap.objects.all()
+    serializer_class = PermissionMapSerializer
 
 
 # location
@@ -71,7 +77,7 @@ class EngineerViewSet(viewsets.ModelViewSet):
     queryset = Engineer.objects.order_by('created_at')
     serializer_class = EngineerProfileSerializer
 
-    search_fields = ('engineer_name', )
+    lookup_fields = ( 'username')
     ordering_fields = ('updated_at', 'engineer_name', )
 
 
