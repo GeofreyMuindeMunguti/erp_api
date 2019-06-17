@@ -467,15 +467,7 @@ def status_function(model_class, request):
 
 
 
-#################################FILES  HANDLING VIEWS   BLOCK#####################################################
-
-class FilesView(APIView):
-
-    def get(self, request, format=None):
-        "TO DO"
-        resp = "# TO DO         '.  By the way ,you gotta be kidding! Is returnig all file of all project nessesary realy?!It make sense to return per project only.!"
-        return Response(resp)
-
+#FILES
 
 class ProjectFilesView(generics.RetrieveAPIView):
     queryset = Project.objects.all()
@@ -484,7 +476,7 @@ class ProjectFilesView(generics.RetrieveAPIView):
 class SiteClearingFilesView(generics.RetrieveAPIView):
     #queryset = SetSiteClearingImage.objects.all()
     def get_queryset(self):
-        queryset = SetSiteClearingImage.objects.filter(project_name_id=self.kwargs["pk"])
+        queryset = SetSiteClearingImage.objects.get(project_name_id=self.kwargs["pk"])
         return queryset
     serializer_class = SiteClearingFilesSerializer
 
@@ -497,12 +489,7 @@ class BindingImagesView(generics.RetrieveAPIView):
     queryset = BindingImage.objects.all()
     serializer_class = BindingImagesSerializer
 
-    bindingimage = BindingImagesSerializer(read_only=True)
-    class Meta:
-        model = Project
-        fields = ('geotech_file','access_letter','approved_drawing','final_acceptance_cert','setsiteclearingimage','towerbaseimage','bindingimage',)
 class SteelFixFormworkImagesView(generics.RetrieveAPIView):
-
     queryset = SteelFixFormworkImage.objects.all()
     serializer_class = SteelFixFormworkImagesSerializer
 

@@ -81,6 +81,9 @@ urlpatterns = [
 
     #PROJECT FILES # allow  GET Method only 
     path('projectstartfiles/<int:pk>/', views.ProjectFilesView.as_view()),
+  #  path("polls/<int:pk>/choices/", ChoiceList.as_view(), name="choice_list"),
+    path('projectstartfiles/', views.FilesView.as_view()),
+    path('projectstartfiles/<int:pk>/siteclearingimages/', views.SiteClearingFilesView.as_view()),
     path('siteclearingimages/<int:pk>/', views.SiteClearingFilesView.as_view()),
     path('filestowerbaseimages/<int:pk>/', views.TowerBaseImagesView.as_view()),
     path('filesbindingimages/<int:pk>/', views.BindingImagesView.as_view()),
