@@ -1,10 +1,10 @@
 from rest_framework.routers import DefaultRouter
 from rest_framework.urlpatterns import format_suffix_patterns
-from . import views
+from . import views ,filesviews
 from django.urls import path, include
 from .views import *
 from .progress import *
-
+#from .filesviews import *
 
 router = DefaultRouter()
 
@@ -80,12 +80,12 @@ urlpatterns = [
     # path('procurementsum/<int:pk>', ProcurementSumView.as_view())
 
     #PROJECT FILES # allow  GET Method only 
-    path('files/', views.FilesView.as_view()),
-    path('files/<int:pk>/', views.ProjectFilesView.as_view()),
-    path('files/<int:pk>/siteclearingimages/', views.SiteClearingFilesView.as_view()),
+    path('files/', filesviews.FilesView.as_view()),
+    path('files/<int:pk>/', filesviews.ProjectFilesView.as_view()),
+    path('files/<int:pk>/siteclearingimages/', filesviews.SiteClearingFilesView.as_view()),
     #path('siteclearingimages/<int:pk>/', views.SiteClearingFilesView.as_view()),
-    path('filestowerbaseimages/<int:pk>/', views.TowerBaseImagesView.as_view()),
-    path('filesbindingimages/<int:pk>/', views.BindingImagesView.as_view()),
-    path('filessteelfixformworkimages/<int:pk>/', views.SteelFixFormworkImagesView.as_view()),
-    path('filesconcretepourcuringimages/<int:pk>/', views.ConcretePourCuringImagesView.as_view()),
+    path('filestowerbaseimages/<int:pk>/', filesviews.TowerBaseImagesView.as_view()),
+    path('filesbindingimages/<int:pk>/', filesviews.BindingImagesView.as_view()),
+    path('filessteelfixformworkimages/<int:pk>/', filesviews.SteelFixFormworkImagesView.as_view()),
+    path('filesconcretepourcuringimages/<int:pk>/', filesviews.ConcretePourCuringImagesView.as_view()),
 ]
