@@ -36,8 +36,14 @@ class FilesView(APIView):
 
 
 class ProjectFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    ''' Main View to return all files per project'''
+
     queryset = Project.objects.all()
     serializer_class = ProjectFilesSerializer
+
+
+
+    # Views for individual files type
 
 class SiteClearingFilesView(generics.RetrieveAPIView,DefaultsMixin):
     #queryset = SetSiteClearingImage.objects.all()
