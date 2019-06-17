@@ -206,13 +206,24 @@ class SteelFixFormworkImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
-class ConcretePourCuringImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+class ConcretePourImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
-    queryset = ConcretePourCuringImage.objects.order_by('created_at')
-    serializer_class = ConcretePourCuringImageSerializer
+    queryset = ConcretePourImage.objects.order_by('created_at')
+    serializer_class = ConcretePourImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name',)
+
+
+class ConcreteCuringPeriodImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = ConcreteCuringPeriodImage.objects.order_by('created_at')
+    serializer_class = ConcreteCuringPeriodImageSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
+
+
 ######################################## END #######################################################################################################################################
 
 #######################################BS241 & GENERATOR FOUNDATION ###########################################################################################################################
@@ -224,21 +235,23 @@ class ExcavationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
-class ConcretePourCuringPeriodImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+
+class bs241ConcretePourCuringPeriodImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
-    queryset = ConcretePourCuringPeriodImage.objects.order_by('created_at')
+    queryset = BS241ConcretePourCuringPeriodImage.objects.order_by('created_at')
     serializer_class = ConcretePourCuringPeriodImageSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
-class BTSAndGeneatorSlabsImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+class BS241AndGeneatorSlabsImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
-    queryset = BTSAndGeneatorSlabsImage.objects.order_by('created_at')
-    serializer_class = BTSAndGeneatorSlabsImageSerializer
+    queryset = BS241AndGeneatorSlabsImage.objects.order_by('created_at')
+    serializer_class = BS241AndGeneatorSlabsImageSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
+
 ######################################## END #######################################################################################################################################
 
 ####################################### BOUNDARY WALL ###########################################################################################################################
@@ -326,15 +339,6 @@ class TowerAntennaCoaxImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 ######################################## END #######################################################################################################################################
-
-class SlabsImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
-    """API endpoint for listing and creating slabs images for civil team."""
-    queryset = BTSAndGeneatorSlabsImage.objects.order_by('created_at')
-    serializer_class = BTSAndGeneatorSlabsImageSerializer
-
-    search_fields = ('project_name', )
-    ordering_fields = ('updated_at', 'project_name', )
-
 
 class CivilTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating tasks for civil team."""

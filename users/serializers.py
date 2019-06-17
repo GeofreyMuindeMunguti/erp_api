@@ -105,9 +105,11 @@ class PermissionMapSerializer(serializers.ModelSerializer):
 
 # Engineer
 class EngineerProfileSerializer(serializers.ModelSerializer):
+    # engineerprofile = UserSerializer(required=True)
+
     class Meta:
         model = Engineer
-        fields = ('user_id','engineer_phone_no','department','location_name', 'eng_profile_pic')
+        fields = ('id','user_id','engineer_name','country_code', 'engineer_phone_no','department','location_name', 'eng_profile_pic','is_active','engineer_name')
         read_only_fields = ('created_at','updated_at','is_active')
 
 
@@ -127,13 +129,13 @@ class CasualSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at','updated_at','is_active')
 
 
-# Engineer
-class EngineerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Engineer
-        fields = ('__all__')
-        read_only_fields = ('created_at','updated_at','is_active')
-
+# # Engineer
+# class EngineerSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Engineer
+#         fields = ('__all__')
+#         read_only_fields = ('created_at','updated_at','is_active')
+#
 
 class RatesSerializer(serializers.ModelSerializer):
     class Meta:

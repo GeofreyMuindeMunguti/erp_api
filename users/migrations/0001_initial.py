@@ -30,8 +30,8 @@ class Migration(migrations.Migration):
             name='Rates',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('casuals_rate', models.IntegerField()),
-                ('engineers_rate', models.IntegerField()),
+                ('worker_type', models.CharField(max_length=100, unique=True)),
+                ('rate', models.IntegerField()),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
@@ -72,7 +72,8 @@ class Migration(migrations.Migration):
             name='Engineer',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('engineer_phone_no', models.CharField(blank=True, max_length=100, null=True)),
+                ('country_code', models.CharField(max_length=100)),
+                ('engineer_phone_no', models.CharField(max_length=100)),
                 ('department', models.CharField(blank=True, max_length=100)),
                 ('eng_profile_pic', models.ImageField(blank=True, null=True, upload_to='ProfilePictures/Engineer')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
@@ -97,9 +98,9 @@ class Migration(migrations.Migration):
             name='Casual',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('casual_first_name', models.CharField(max_length=150, unique=True)),
-                ('casual_last_name', models.CharField(max_length=150, unique=True)),
-                ('casual_phone_no', models.CharField(blank=True, max_length=100, null=True)),
+                ('casual_name', models.CharField(max_length=150)),
+                ('country_code', models.CharField(max_length=100)),
+                ('casual_phone_no', models.CharField(max_length=100, unique=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
