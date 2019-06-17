@@ -633,7 +633,6 @@ class ProjectFilesSerializer(serializers.ModelSerializer):
     btsinstallationtask = BTSinstallationTaskImagesSerializer(read_only=True)
     mwinstallationtask = MWInstallationTaskImagesSerializer(read_only=True)
     installationteam = InstallationTeamFilesSerializer(read_only =True)
-    
 
 
     class Meta:
