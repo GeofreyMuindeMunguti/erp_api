@@ -528,7 +528,7 @@ class HealthDocumentsFilesCivilTeamSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = HealthDocumentsCivilTeam
-        fields = ('job_hazard_form','incident_notification_form','toolbox_meeting_form','communication_plan_for',)
+        fields = ('job_hazard_form','incident_notification_form','toolbox_meeting_form','communication_plan_form',)
        # read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
@@ -552,7 +552,8 @@ class ProjectFilesSerializer(serializers.ModelSerializer):
     cablewaysimage= CableWaysImagesSerializer(read_only=True)
     antennacoaxinstallimage =AntennaCoaxInstallImagesSerializer(read_only=True)
     projectpurchaseorders =ProjectPurchaseOrdersFileSerializer(read_only=True)
-    healthdocumentscivilteam =HealthDocumentsFilesCivilTeamSerializer(many = True ,read_only =True)
+    healthdocumentscivilteam =HealthDocumentsFilesCivilTeamSerializer(many = True,read_only =True)
+    
 
     class Meta:
         model = Project

@@ -1110,7 +1110,7 @@ class ProcurementTeam(models.Model):
 ######################################## END #######################################################################################################################################
 
 class HealthDocumentsCivilTeam(models.Model):
-    project_name = models.ForeignKey(Project,related_name = 'healthdocumentscivilteam', on_delete=models.DO_NOTHING)
+    project_name = models.ForeignKey(Project,related_name= 'healthdocumentscivilteam' ,on_delete=models.DO_NOTHING)
     job_hazard_form = models.FileField(upload_to='files/HealthDocumentsCivilTeam/jobhazard/%Y/%m/%d/')
     job_hazard_form_comment = models.CharField(max_length=100, blank=True, null=True)
     incident_notification_form = models.FileField(upload_to='files/HealthDocumentsCivilTeam/incident/%Y/%m/%d/')
