@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Permission
 
@@ -9,7 +12,7 @@ class CustomUser(models.Model):
     customuser_phone_no = models.CharField(max_length=10, blank=True, null=True)
     customuser_profile_pic = models.ImageField(upload_to='ProfilePictures/Employee', blank=True, null=True)
     team = models.CharField(max_length=150)
-    position = models.CharField(max_length=500, blank=False)
+    position = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='group')
 
     def __str__(self):
         return self.user.username
@@ -27,6 +30,22 @@ class CustomUser(models.Model):
     def get_permissions(self):
         perm_tuple = [(x.id, x.name) for x in Permission.objects.filter(group__user=self.user)]
         return perm_tuple
+
+class PermissionMap(models.Model):
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, related_name='authpermission', unique=True)
+    position = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='role')
+    view = models.BooleanField(default=False)
+    edit = models.BooleanField(default=False)
+    create = models.BooleanField(default=False)
+    approver = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+    def __str__(self):
+        return "%s" % self.position
 
 
 class UserLoginActivity(models.Model):
@@ -67,8 +86,7 @@ class Location(models.Model):
 
 
 class Casual(models.Model):
-    casual_first_name = models.CharField(max_length=150)
-    casual_last_name = models.CharField(max_length=150)
+    casual_name = models.CharField(max_length=150)
     country_code = models.CharField(max_length=100)
     casual_phone_no = models.CharField(max_length=100, unique=True)
     location_name = models.ForeignKey(Location, on_delete=models.DO_NOTHING)
@@ -77,7 +95,7 @@ class Casual(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.casual_first_name + self.casual_last_name
+        return self.casual_name
 
     @classmethod
     def get_casual(cls):
@@ -100,6 +118,10 @@ class Engineer(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
+
+    def engineer_name(self):
+        eng_name = self.user.username
+        return eng_name
 
     def __str__(self):
         return self.user.username
