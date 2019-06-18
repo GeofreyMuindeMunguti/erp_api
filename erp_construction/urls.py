@@ -83,7 +83,6 @@ urlpatterns = [
     path('towerprogress/<int:pk>', TowerTaskProgressView.as_view()),
     path('electricalprogress/<int:pk>', ElectricalTaskProgressView.as_view()),
     path('telecomprogress/<int:pk>', TelecomTaskProgressView.as_view()),
-<<<<<<< HEAD
     # path('procurementsum/<int:pk>', ProcurementSumView.as_view())
 
     #PROJECT FILES # allow  GET Method only 
@@ -131,6 +130,4 @@ urlpatterns = [
     path('files/<int:pk>/mwinstallationtaskimages/', filesviews.MWInstallationTaskImagesView.as_view()),
     path('files/<int:pk>/installationteamfiles/', filesviews.InstallationTeamFilesView.as_view()),
  
-=======
->>>>>>> development
 ]
