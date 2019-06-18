@@ -4,12 +4,8 @@ from . import views ,filesviews
 from django.urls import path, include
 from .views import *
 from .progress import *
-<<<<<<< HEAD
-#from .filesviews import *
-=======
 from .flag import *
 
->>>>>>> development
 
 router = DefaultRouter()
 
