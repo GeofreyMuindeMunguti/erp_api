@@ -21,7 +21,7 @@ class DefaultsMixin(object):
     filter_backends = (filters.SearchFilter,)
 
     #authentication_classes = (authentication.BasicAuthentication,authentication.TokenAuthentication,)
-    #permission_classes = (permissions.IsAuthenticated,) 
+    permission_classes = (permissions.IsAuthenticated,) 
     
 
 
@@ -31,7 +31,7 @@ class FilesView(APIView):
 
     def get(self, request, format=None):
         "TO DO"
-        resp = "# TO DO        Gibeon working on this.. RELAX! Add id  to get files for individual project files."
+        resp = "# TO DO        Gibeon working on this.. RELAX! Add id  to get files for individual project files.Is this end point necessary? NO!"
         return Response(resp)
 
 
