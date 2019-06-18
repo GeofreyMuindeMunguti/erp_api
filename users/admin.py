@@ -10,6 +10,13 @@ class CustomUserAdmin(admin.ModelAdmin):
 
 admin.site.register(CustomUser, CustomUserAdmin)
 
+class PermissionMapAdmin(admin.ModelAdmin):
+    list_display = ('position','content_type','view','edit','create','approver','is_superuser', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('position', )
+    search_fields = ('position', )
+
+admin.site.register(PermissionMap, PermissionMapAdmin)
+
 class UserLoginActivityAdmin(admin.ModelAdmin):
     list_display = ('login_IP', 'login_datetime', 'login_username','status','user_agent_info')
     list_display_links = ('login_username', )
@@ -26,17 +33,17 @@ class LocationAdmin(admin.ModelAdmin):
 admin.site.register(Location, LocationAdmin)
 
 class CasualAdmin(admin.ModelAdmin):
-    list_display = ('casual_first_name', 'casual_last_name', 'casual_phone_no','location_name')
-    list_display_links = ('casual_last_name', )
-    search_fields = ('casual_last_name', )
+    list_display = ('casual_name', 'casual_phone_no','location_name')
+    list_display_links = ('casual_name', )
+    search_fields = ('casual_name', )
 
 admin.site.register(Casual, CasualAdmin)
 
 
 class EngineerAdmin(admin.ModelAdmin):
-    list_display = ('user', 'engineer_phone_no','department','location_name', 'eng_profile_pic')
-    list_display_links = ('user', )
-    search_fields = ('user', )
+    list_display = ('id','user_id','engineer_phone_no','department','location_name', 'country_code', 'eng_profile_pic')
+    list_display_links = ('id', )
+    search_fields = ('id', )
 
 admin.site.register(Engineer, EngineerAdmin)
 
