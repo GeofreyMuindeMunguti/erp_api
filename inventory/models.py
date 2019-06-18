@@ -6,6 +6,7 @@ from erp_construction.models import *
 ############################## PROCUREMENT TEAM ########################################################################################################################################################
 class ProcurementCostTeam(models.Model):
     item = models.CharField(max_length=200)
+    quantity = models.IntegerField()
     unit_price = models.IntegerField()
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
