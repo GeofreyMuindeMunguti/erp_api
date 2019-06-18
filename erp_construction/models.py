@@ -1732,26 +1732,26 @@ class CommercialTeam(models.Model):
 
 
 ####################################### PROCURMENT TEAM ###########################################################################################################################
-# PO_STEEL_COST_CHOICES = (
-#     ('10000' ,'10000'),
-#     ('20000','20000'),
-#     ('30000','30000'),
-#     ('40000','40000'),
-#     )
-#
-# PO_ELECTRICAL_MATERIAL_CHOICES = (
-#     ('10000' ,'10000'),
-#     ('20000','20000'),
-#     ('30000','30000'),
-#     ('40000','40000'),
-#     )
-#
-# PO_SUBCONTRACTORS_CHOICES = (
-#     ('10000' ,'10000'),
-#     ('20000','20000'),
-#     ('30000','30000'),
-#     ('40000','40000'),
-#     )
+PO_STEEL_COST_CHOICES = (
+    ('10000' ,'10000'),
+    ('20000','20000'),
+    ('30000','30000'),
+    ('40000','40000'),
+    )
+
+PO_ELECTRICAL_MATERIAL_CHOICES = (
+    ('10000' ,'10000'),
+    ('20000','20000'),
+    ('30000','30000'),
+    ('40000','40000'),
+    )
+
+PO_SUBCONTRACTORS_CHOICES = (
+    ('10000' ,'10000'),
+    ('20000','20000'),
+    ('30000','30000'),
+    ('40000','40000'),
+    )
 
 class ProcurementTeam(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -1778,6 +1778,17 @@ class ProcurementTeam(models.Model):
 
 ######################################## END #######################################################################################################################################
 
+class AccessApprovalCivil(models.Model):
+    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    access_approval = models.FileField(upload_to='files/CivilWorksTeam/accessapproval/%Y/%m/%d/')
+    access_approval_comment = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
 class HealthDocumentsCivilTeam(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
     job_hazard_form = models.FileField(upload_to='files/HealthDocumentsCivilTeam/jobhazard/%Y/%m/%d/')
@@ -1789,6 +1800,7 @@ class HealthDocumentsCivilTeam(models.Model):
     communication_plan_form = models.FileField(upload_to='files/HealthDocumentsCivilTeam/communication/%Y/%m/%d/')
     communication_plan_form_comment = models.CharField(max_length=100, blank=True, null=True)
     health_documents_comment = models.CharField(max_length=100, blank=True, null=True)
+    access_approval = models.OneToOneField(AccessApprovalCivil, on_delete=models.CASCADE, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -1798,17 +1810,6 @@ class HealthDocumentsCivilTeam(models.Model):
     def __str__(self):
         return str(self.project_name)
 
-
-class AccessApprovalCivil(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
-    access_approval = models.FileField(upload_to='files/CivilWorksTeam/accessapproval/%Y/%m/%d/')
-    access_approval_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
-
-    def __str__(self):
-        return str(self.project_name)
 
 
 class CivilWorksTeam(models.Model):
@@ -1834,27 +1835,7 @@ class CivilWorksTeam(models.Model):
     def access_approvals(self):
         return [v.project_name for v in self.access_approvals_field.all()]
 
-
-class HealthDocumentsInstallationTeam(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
-    job_hazard_form = models.FileField(upload_to='files/HealthDocumentsInstallationTeam/jobhazard/%Y/%m/%d/')
-    job_hazard_form_comment = models.CharField(max_length=100, blank=True, null=True)
-    incident_notification_form = models.FileField(upload_to='files/HealthDocumentsInstallationTeam/incident/%Y/%m/%d/')
-    incident_notification_form_comment = models.CharField(max_length=100, blank=True, null=True)
-    toolbox_meeting_form = models.FileField(upload_to='files/HealthDocumentsInstallationTeam/toolbox/%Y/%m/%d/')
-    toolbox_meeting_form_comment = models.CharField(max_length=100, blank=True, null=True)
-    communication_plan_form = models.FileField(upload_to='files/HealthDocumentsInstallationTeam/communication/%Y/%m/%d/')
-    communication_plan_form_comment = models.CharField(max_length=100, blank=True, null=True)
-    health_documents_comment = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    is_approved = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
-
-    def __str__(self):
-        return str(self.project_name)
-
+######################################################3 INSTALLATION TEAM ##################################################################################################################################################################3
 
 class AccessApprovalInstallation(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
@@ -1867,6 +1848,27 @@ class AccessApprovalInstallation(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+
+class HealthDocumentsInstallationTeam(models.Model):
+    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    job_hazard_form = models.FileField(upload_to='files/HealthDocumentsInstallationTeam/jobhazard/%Y/%m/%d/')
+    job_hazard_form_comment = models.CharField(max_length=100, blank=True, null=True)
+    incident_notification_form = models.FileField(upload_to='files/HealthDocumentsInstallationTeam/incident/%Y/%m/%d/')
+    incident_notification_form_comment = models.CharField(max_length=100, blank=True, null=True)
+    toolbox_meeting_form = models.FileField(upload_to='files/HealthDocumentsInstallationTeam/toolbox/%Y/%m/%d/')
+    toolbox_meeting_form_comment = models.CharField(max_length=100, blank=True, null=True)
+    communication_plan_form = models.FileField(upload_to='files/HealthDocumentsInstallationTeam/communication/%Y/%m/%d/')
+    communication_plan_form_comment = models.CharField(max_length=100, blank=True, null=True)
+    health_documents_comment = models.CharField(max_length=100, blank=True, null=True)
+    access_approval = models.OneToOneField(AccessApprovalInstallation, on_delete=models.CASCADE, blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    is_approved = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.project_name)
 
 class UndergroundTasks(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
