@@ -1824,7 +1824,7 @@ class AccessApprovalCivil(models.Model):
 
 class CivilWorksTeam(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    health_documents = models.ForeignKey(HealthDocumentsCivilTeam, on_delete=models.DO_NOTHING)
+    health_documents = models.ManyToManyField(HealthDocumentsCivilTeam)
     access_approvals_field = models.ManyToManyField(AccessApprovalCivil)
     foundation_and_curing_images = models.OneToOneField(FoundationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     bs241_and_generator_slabs_images = models.OneToOneField(BS241AndGeneatorSlabsImage, on_delete=models.DO_NOTHING, blank=True, null=True)
