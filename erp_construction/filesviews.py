@@ -31,7 +31,7 @@ class FilesView(APIView):
 
     def get(self, request, format=None):
         "TO DO"
-        resp = "# TO DO        Gibeon working on this.. RELAX! Add id  to get files for individual project files.Now get the fuc* outta here!"
+        resp = "# TO DO        Gibeon working on this.. RELAX! Add id  to get files for individual project files."
         return Response(resp)
 
 
@@ -76,13 +76,13 @@ class SteelFixFormworkImagesView(generics.RetrieveAPIView,DefaultsMixin):
         return queryset
     serializer_class = SteelFixFormworkImagesSerializer
 
-class ConcretePourCuringImagesView(generics.RetrieveAPIView,DefaultsMixin):
-    #queryset = ConcretePourCuringImage.objects.all()
+class ConcretePourImagesView(generics.RetrieveAPIView,DefaultsMixin):
+    #queryset = ConcretePourImage.objects.all()
 
     def get_queryset(self):
-        queryset = ConcretePourCuringImage.objects.filter(project_name_id=self.kwargs["pk"])
+        queryset = ConcretePourImage.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
-    serializer_class = ConcretePourCuringImagesSerializer
+    serializer_class = ConcretePourImagesSerializer
 
 #GENERATOR FOUNDATION
 
@@ -94,12 +94,12 @@ class ExcavationImagesView(generics.RetrieveAPIView,DefaultsMixin):
         return queryset
     serializer_class = ExcavationImagesSerializer
 
-class ConcretePourCuringPeriodImagesView(generics.RetrieveAPIView,DefaultsMixin):
+class ConcreteCuringPeriodImagesView(generics.RetrieveAPIView,DefaultsMixin):
     #queryset = ConcretePourCuringPeriodImage.objects.all()
     def get_queryset(self):
         queryset = ConcretePourCuringImage.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
-    serializer_class = ConcretePourCuringPeriodImagesSerializer
+    serializer_class = ConcreteCuringPeriodImagesSerializer
 
 # BOUNDARY WALL
 

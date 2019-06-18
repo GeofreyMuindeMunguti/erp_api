@@ -33,10 +33,10 @@ class SteelFixFormworkImagesSerializer(serializers.ModelSerializer):
         model = SteelFixFormworkImage
         fields = ('steel_fix_formwork_image_1','steel_fix_formwork_image_2','steel_fix_formwork_image_3',)
         #read_only_fields = ('created_at', 'updated_at', 'is_active')
-class ConcretePourCuringImagesSerializer(serializers.ModelSerializer):
+class ConcretePourImagesSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = ConcretePourCuringImage
+        model = ConcretePourImage
         fields = ('concrete_pour_curing_image_1','concrete_pour_curing_image_2','concrete_pour_curing_image_3',)
        # read_only_fields = ('created_at', 'updated_at', 'is_active')
 
@@ -56,10 +56,10 @@ class ExcavationImagesSerializer(serializers.ModelSerializer):
         fields = ('excavation_image_1','excavation_image_2','excavation_image_3',)
         #read_only_fields = ('created_at', 'updated_at', 'is_active')
 
-class ConcretePourCuringPeriodImagesSerializer(serializers.ModelSerializer):
+class ConcreteCuringPeriodImagesSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = ConcretePourCuringPeriodImage
+        model = ConcreteCuringPeriodImage
         fields = ('concrete_pour_curing_image_1','concrete_pour_curing_image_2','concrete_pour_curing_image_1',)
        # read_only_fields = ('created_at', 'updated_at', 'is_active')
 
@@ -260,10 +260,10 @@ class ProjectFilesSerializer(serializers.ModelSerializer):
     bindingimage = BindingImagesSerializer(read_only=True)
 
     steelfixformworkimage =SteelFixFormworkImagesSerializer(read_only=True)
-    concretepourcuringimage = ConcretePourCuringImagesSerializer(read_only=True)
+    concretepourcuringimage = ConcretePourImagesSerializer(read_only=True)
     excavationimage =ExcavationImagesSerializer(read_only=True)
 
-    concretepourcuringieriodimage =ConcretePourCuringPeriodImagesSerializer(read_only=True)
+    concretepourcuringieriodimage =ConcreteCuringPeriodImagesSerializer(read_only=True)
     foundfootpourimage= FoundFootPourImagesSerializer(read_only=True)
     blockworkpanelconstimage= BlockworkPanelConstImagesSerializer(read_only=True)
 
@@ -294,8 +294,7 @@ class ProjectFilesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
        # fields = ('__all__')
-        exclude = ("id","project_name","site_number","BTS_type","site_owner","geotech_file","access_letter",
-           "approved_drawing","final_acceptance_cert","final_acceptance_cert_comment","created_at",
+        exclude = ("id","project_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
            "updated_at", "is_active","icon", "location", "created_by")
 
         #fields = ('geotech_file','access_letter','approved_drawing','final_acceptance_cert','setsiteclearingimage',

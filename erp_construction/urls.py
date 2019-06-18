@@ -94,10 +94,10 @@ urlpatterns = [
     path('files/<int:pk>/bindingimages/', filesviews.BindingImagesView.as_view()),
 
     path('files/<int:pk>/steelfixformworkimages/', filesviews.SteelFixFormworkImagesView.as_view()),
-    path('files/<int:pk>/concretepourcuringimages/', filesviews.ConcretePourCuringImagesView.as_view()),
+    path('files/<int:pk>/concretepourimages/', filesviews.ConcretePourImagesView.as_view()),
     path('files/<int:pk>/excavationimages/', filesviews.ExcavationImagesView.as_view()),
 
-    path('files/<int:pk>/concretepourcuringperiodimages/', filesviews.ConcretePourCuringPeriodImagesView.as_view()),
+    path('files/<int:pk>/concretepourcuringperiodimages/', filesviews.ConcreteCuringPeriodImagesView.as_view()),
     path('files/<int:pk>/foundfootpourimage/', filesviews.FoundFootPourImageView.as_view()),
     path('files/<int:pk>/blockworkpanelconstimages/', filesviews.BlockworkPanelConstImagesView.as_view()),
 
