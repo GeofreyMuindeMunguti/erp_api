@@ -12,7 +12,10 @@ router.register(r'users', views.UserViewSet)
 router.register(r'location', views.LocationViewSet)
 router.register(r'casuals', views.CasualViewSet)
 router.register(r'enginners', views.EngineerViewSet)
+
 router.register(r'rates', views.RatesViewSet)
+
+router.register(r'permissions', views.PermissionMapViewSet)
 
 
 urlpatterns = [
