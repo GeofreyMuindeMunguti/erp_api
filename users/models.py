@@ -31,8 +31,9 @@ class CustomUser(models.Model):
         perm_tuple = [(x.id, x.name) for x in Permission.objects.filter(group__user=self.user)]
         return perm_tuple
 
+
 class PermissionMap(models.Model):
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, related_name='authpermission', unique=True)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, related_name='authpermission')
     position = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='role')
     view = models.BooleanField(default=False)
     edit = models.BooleanField(default=False)

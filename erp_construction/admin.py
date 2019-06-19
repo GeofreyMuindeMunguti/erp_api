@@ -131,7 +131,7 @@ admin.site.register(Kpi, KpiAdmin)
 
 
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'category_name','task_name', 'kpi', 'posted_by', 'is_approved', 'created_at', 'updated_at','finish_date', 'is_active')
+    list_display = ('id', 'category_name','task_name', 'kpi', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('task_name', )
     list_filter = ('category_name',)
     search_fields = ('task_name', )
@@ -508,10 +508,21 @@ class HealthDocumentsInstallationTeamAdmin(admin.ModelAdmin):
 admin.site.register(HealthDocumentsInstallationTeam, HealthDocumentsInstallationTeamAdmin)
 
 
+class IssuesAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'issue', 'closed', 'posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('issue', )
+    list_filter = ('project_name',)
+    search_fields = ('issue', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(Issues, IssuesAdmin)
+
+
 class InstallationTeamAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'health_documents_installation', 'access_approvals', 'electrical_tasks_data',
                     'telecom_tasks_data', 'as_built', 'signoff', 'signoff_comment','rfi_document','rfi_document_comment', 'integration_parameter', 'integration_parameter_comment', 'snag_document', 'snag_document_comment',
-                    'conditional_acceptance_cert', 'conditional_acceptance_cert_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+                    'project_issues', 'conditional_acceptance_cert', 'conditional_acceptance_cert_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
