@@ -18,7 +18,7 @@ class ProjectIconsSerializer(serializers.ModelSerializer):
 
 class ProjectSerializer(serializers.ModelSerializer):
 
-    turn_around_time = serializers.IntegerField()
+    turn_around_time = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Project
@@ -395,3 +395,5 @@ class KPLCSolarImageSerializer(serializers.ModelSerializer):
         model = KPLCSolarImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+

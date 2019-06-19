@@ -1782,7 +1782,7 @@ class ProcurementTeam(models.Model):
 
 
 class AccessApprovalCivil(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    project_name = models.ForeignKey(Project,related_name= 'accessapprovalcivil', on_delete=models.DO_NOTHING)
     access_approval = models.FileField(upload_to='files/CivilWorksTeam/accessapproval/%Y/%m/%d/')
     access_approval_comment = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -1794,7 +1794,7 @@ class AccessApprovalCivil(models.Model):
 
 
 class HealthDocumentsCivilTeam(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    project_name = models.ForeignKey(Project,related_name= 'healthdocumentscivilteam' ,on_delete=models.DO_NOTHING)
     job_hazard_form = models.FileField(upload_to='files/HealthDocumentsCivilTeam/jobhazard/%Y/%m/%d/')
     job_hazard_form_comment = models.CharField(max_length=100, blank=True, null=True)
     incident_notification_form = models.FileField(upload_to='files/HealthDocumentsCivilTeam/incident/%Y/%m/%d/')
