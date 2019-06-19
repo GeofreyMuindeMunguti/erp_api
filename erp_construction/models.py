@@ -1779,11 +1779,8 @@ class ProcurementTeam(models.Model):
         return total_procurpo
 
 ######################################## END #######################################################################################################################################
-<<<<<<< HEAD
-=======
 
 
->>>>>>> development
 class AccessApprovalCivil(models.Model):
     project_name = models.ForeignKey(Project,related_name= 'accessapprovalcivil', on_delete=models.DO_NOTHING)
     access_approval = models.FileField(upload_to='files/CivilWorksTeam/accessapproval/%Y/%m/%d/')
