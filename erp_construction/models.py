@@ -6,7 +6,7 @@ from inventory.models import *
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime, timezone, timedelta
 
-# Create your models here.
+
 class Category(models.Model):
     category_name = models.CharField(max_length=100, unique=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
@@ -48,6 +48,12 @@ class Project(models.Model):
 
     def __str__(self):
         return self.project_name
+
+    def delete(self, *args, **kwargs):
+        if self.is_active == False:
+            return "Item already deleted"
+        else:
+            self.is_active is False
 
     def status(self):
         try:
@@ -134,7 +140,7 @@ class SetSiteClearingImage(models.Model):
                 engineer_data = FoundationImage.objects.get(project_name=self.project_name)
                 engineer_count = engineer_data.engineers_atsite.count()
                 casual_count = self.no_of_casuals_atsite.count()
-                cost = (6 * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
+                cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
                 return cost
             except Exception as e:
                 error = "No engineers assigned to project"
@@ -170,6 +176,7 @@ class SetSiteClearingImage(models.Model):
 
         except Exception as e:
             return e
+
 
 class TowerBaseImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -250,6 +257,7 @@ class TowerBaseImage(models.Model):
 
         except Exception as e:
             return e
+
 
 class BindingImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -411,6 +419,7 @@ class SteelFixFormworkImage(models.Model):
         except Exception as e:
             return e
 
+
 class ConcretePourImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual)
@@ -543,7 +552,6 @@ class ConcreteCuringPeriodImage(models.Model):
         except Exception as e:
             error = "Rates does not exist"
             return error
-
 
     def raise_flag(self):
         try:
@@ -714,7 +722,6 @@ class ExcavationImage(models.Model):
             return e
 
 
-
 class BS241ConcretePourCuringPeriodImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual)
@@ -817,7 +824,6 @@ class BS241AndGeneatorSlabsImage(models.Model):
 
     def names_of_engineers(self):
         return [v.user.username for v in self.engineers_atsite.all()]
-
 
     def raise_flag(self):
         try:
@@ -1645,10 +1651,6 @@ class Task(models.Model):
     def __str__(self):
         return str(self.task_name)
 
-    def finish_date(self):
-        """Function to return task end date"""
-        end_dates =  self.created_at + timedelta(days=self.kpi)
-        return end_dates
 
 
 ######################################## END #######################################################################################################################################
@@ -1658,7 +1660,7 @@ class Task(models.Model):
 
 class SubTask(models.Model):
     task_name = models.ForeignKey(Task, on_delete=models.DO_NOTHING)
-    subtask_name = models.CharField(blank=True, null=True, max_length=150)
+    subtask_name = models.CharField(blank=True, null=True, max_length=150, unique=True)
     kpi = models.IntegerField(blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
@@ -1777,8 +1779,9 @@ class ProcurementTeam(models.Model):
 
 ######################################## END #######################################################################################################################################
 
+
 class AccessApprovalCivil(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    project_name = models.ForeignKey(Project,related_name= 'accessapprovalcivil', on_delete=models.DO_NOTHING)
     access_approval = models.FileField(upload_to='files/CivilWorksTeam/accessapproval/%Y/%m/%d/')
     access_approval_comment = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -1788,8 +1791,9 @@ class AccessApprovalCivil(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+
 class HealthDocumentsCivilTeam(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    project_name = models.ForeignKey(Project,related_name= 'healthdocumentscivilteam' ,on_delete=models.DO_NOTHING)
     job_hazard_form = models.FileField(upload_to='files/HealthDocumentsCivilTeam/jobhazard/%Y/%m/%d/')
     job_hazard_form_comment = models.CharField(max_length=100, blank=True, null=True)
     incident_notification_form = models.FileField(upload_to='files/HealthDocumentsCivilTeam/incident/%Y/%m/%d/')
@@ -1808,7 +1812,6 @@ class HealthDocumentsCivilTeam(models.Model):
 
     def __str__(self):
         return str(self.project_name)
-
 
 
 class CivilWorksTeam(models.Model):
@@ -1835,6 +1838,7 @@ class CivilWorksTeam(models.Model):
         return [v.project_name for v in self.access_approvals_field.all()]
 
 ######################################################3 INSTALLATION TEAM ##################################################################################################################################################################3
+
 
 class AccessApprovalInstallation(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
@@ -1868,6 +1872,7 @@ class HealthDocumentsInstallationTeam(models.Model):
 
     def __str__(self):
         return str(self.project_name)
+
 
 class UndergroundTasks(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -2547,6 +2552,19 @@ class TelecomTasks(models.Model):
             return e
 
 
+class Issues(models.Model):
+    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    issue = models.CharField(max_length=100)
+    closed = models.BooleanField(default=False)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.issue
+
+
 class InstallationTeam(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     health_documents = models.ManyToManyField(HealthDocumentsInstallationTeam)
@@ -2562,6 +2580,7 @@ class InstallationTeam(models.Model):
     integration_parameter_comment = models.CharField(max_length=100, blank=True, null=True)
     snag_document = models.FileField(upload_to='files/SafaricomTeam/snag/%Y/%m/%d/', blank=True, null=True)
     snag_document_comment = models.CharField(max_length=100, blank=True, null=True)
+    issues = models.ManyToManyField(Issues, blank=True)
     conditional_acceptance_cert = models.FileField(upload_to='files/SafaricomTeam/conditionalcert/%Y/%m/%d/', blank=True, null=True)
     conditional_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
@@ -2578,6 +2597,9 @@ class InstallationTeam(models.Model):
 
     def access_approvals(self):
         return [v.project_name for v in self.access_approvals_field.all()]
+
+    def project_issues(self):
+        return [v.project_name for v in self.issues.all()]
 
 
 def date_difference(start_date, end_date):
