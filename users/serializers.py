@@ -42,8 +42,6 @@ class JWTSerializer(JSONWebTokenSerializer):
             raise serializers.ValidationError(msg)
 
 
-
-
 class TokenSerializer(serializers.ModelSerializer):
 
     class Meta:
