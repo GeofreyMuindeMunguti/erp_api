@@ -4,6 +4,8 @@ from . import views ,filesviews
 from django.urls import path, include
 from .views import *
 from .progress import *
+from .monitoring import *
+from .scorecard import *
 from .flag import *
 
 
@@ -79,6 +81,7 @@ urlpatterns = [
     path('towerprogress/<int:pk>', TowerTaskProgressView.as_view()),
     path('electricalprogress/<int:pk>', ElectricalTaskProgressView.as_view()),
     path('telecomprogress/<int:pk>', TelecomTaskProgressView.as_view()),
+<<<<<<< HEAD
     # path('procurementsum/<int:pk>', ProcurementSumView.as_view())
 
     #PROJECT FILES # allow  GET Method only 
@@ -126,4 +129,14 @@ urlpatterns = [
     path('files/<int:pk>/mwinstallationtaskimages/', filesviews.MWInstallationTaskImagesView.as_view()),
     path('files/<int:pk>/installationteamfiles/', filesviews.InstallationTeamFilesView.as_view()),
  
+=======
+    path('taskstatus/', TaskStatusView.as_view()),
+    path('timesheetsummary/', TimesheetSummaryView.as_view()),
+    path('issuestatus/', IssueStatusView.as_view()),
+    path('turnaroundtime/', TurnAroundTimeView.as_view()),
+    path('totalpurchaseprders/', TotalPurchaseOrdersView.as_view()),
+    path('revenueperproject/<int:pk>', RevenueDetailView.as_view()),
+    path('revenue/', RevenueListView.as_view()),
+    # path('procurementsum/<int:pk>', ProcurementSumView.as_view())
+>>>>>>> development
 ]
