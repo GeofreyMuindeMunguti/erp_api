@@ -73,7 +73,6 @@ class CategoryViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
 ####################################### PROCUREMENT TEAM ###########################################################################################################################
 
-# queryset = ProcurementTeam.objects.order_by('created_at').annotate(po_sum=F('po_steel_cost') + F('po_electrical_materials_cost')+ F('po_subcontractors_cost'))
 class ProcurementTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating procurement team tasks."""
     queryset = ProcurementTeam.objects.order_by('created_at')

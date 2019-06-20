@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models import Sum, F
 from django.contrib.auth.models import User
 from users.models import *
+from inventory.models import *
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime, timezone, timedelta
 
@@ -1733,36 +1734,14 @@ class CommercialTeam(models.Model):
 
 
 ####################################### PROCURMENT TEAM ###########################################################################################################################
-PO_STEEL_COST_CHOICES = (
-    ('10000' ,'10000'),
-    ('20000','20000'),
-    ('30000','30000'),
-    ('40000','40000'),
-    )
-
-PO_ELECTRICAL_MATERIAL_CHOICES = (
-    ('10000' ,'10000'),
-    ('20000','20000'),
-    ('30000','30000'),
-    ('40000','40000'),
-    )
-
-PO_SUBCONTRACTORS_CHOICES = (
-    ('10000' ,'10000'),
-    ('20000','20000'),
-    ('30000','30000'),
-    ('40000','40000'),
-    )
-
-
 class ProcurementTeam(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     po_steel = models.FileField(upload_to='files/ProcurementTeam/posteel/%Y/%m/%d/', blank=True, null=True)
-    po_steel_cost = models.CharField(max_length=120, choices=PO_STEEL_COST_CHOICES, default='None', blank=True)
+    po_steel_quantity = models.IntegerField(blank=True, null=True)
     po_electrical_materials = models.FileField(upload_to='files/ProcurementTeam/poelectrical/%Y/%m/%d/', blank=True, null=True)
-    po_electrical_materials_cost =models.CharField(max_length=120, choices=PO_ELECTRICAL_MATERIAL_CHOICES, default='None', blank=True)
+    po_electrical_materials_quantity = models.IntegerField(blank=True, null=True)
     po_subcontractors = models.FileField(upload_to='files/ProcurementTeam/posubcontractor/%Y/%m/%d/', blank=True, null=True)
-    po_subcontractors_cost = models.CharField(max_length=120, choices=PO_SUBCONTRACTORS_CHOICES, default='None', blank=True)
+    po_subcontractors_amount = models.IntegerField(blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -1772,11 +1751,31 @@ class ProcurementTeam(models.Model):
     def __str__(self):
         return str(self.project_name)
 
-############################ PROCURMENT  PO TOTAL COST  ###########################################################################################################################
-    def total_material_cost(self):
+############################ PROCURMENT PO COST  ###################################################################################################################################
+    def po_steel_cost(self):
+        try:
+            steel_cost_data = ProcurementCostTeam.objects.get(item='Po Steel Cost')
+            steel_cost = steel_cost_data.unit_price
+            total_steel_cost = float(self.po_steel_quantity * steel_cost)
+            return total_steel_cost
+        except Exception as e:
+            error = "Cost Does Not Exist"
+            return error
+
+    def po_electrical_material_cost(self):
+        try:
+            electrial_cost_data = ProcurementCostTeam.objects.get(item='Po Electrical Material Cost')
+            elec_material_cost = electrial_cost_data.unit_price
+            material_elec_cost = float(self.po_electrical_materials_quantity * elec_material_cost)
+            return material_elec_cost
+        except Exception as e:
+            error = "Cost Does Not Exist"
+            return error
+
+    def total_procurpocost(self):
         """Function to return total procurement PO cost"""
-        total_procurpo = float(self.po_steel_cost) + float(self.po_electrical_materials_cost) + float(self.po_subcontractors_cost)
-        return total_procurpo
+        total_procur_cost = float(self.po_steel_cost() + self.po_electrical_material_cost() + self.po_subcontractors_amount)
+        return total_procur_cost
 
 ######################################## END #######################################################################################################################################
 
