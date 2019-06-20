@@ -6,7 +6,6 @@ from .views import *
 from .progress import *
 from .monitoring import *
 from .scorecard import *
-from .flag import *
 
 
 router = DefaultRouter()
@@ -81,10 +80,9 @@ urlpatterns = [
     path('towerprogress/<int:pk>', TowerTaskProgressView.as_view()),
     path('electricalprogress/<int:pk>', ElectricalTaskProgressView.as_view()),
     path('telecomprogress/<int:pk>', TelecomTaskProgressView.as_view()),
-    # path('procurementsum/<int:pk>', ProcurementSumView.as_view())
 
-    #PROJECT FILES # allow  GET Method only 
-    
+    #PROJECT FILES # allow  GET Method only
+
     path('files/', filesviews.FilesView.as_view()), # Retrieve all projects files :: TO DO
 
     path('files/<int:pk>/', filesviews.ProjectFilesView.as_view()), # main url path to retrieve files per project
@@ -127,7 +125,7 @@ urlpatterns = [
     path('files/<int:pk>/btsinstallationtaskimages/', filesviews.BTSinstallationTaskImagesView.as_view()),
     path('files/<int:pk>/mwinstallationtaskimages/', filesviews.MWInstallationTaskImagesView.as_view()),
     path('files/<int:pk>/installationteamfiles/', filesviews.InstallationTeamFilesView.as_view()),
- 
+
     path('taskstatus/', TaskStatusView.as_view()),
     path('timesheetsummary/', TimesheetSummaryView.as_view()),
     path('issuestatus/', IssueStatusView.as_view()),
@@ -135,5 +133,4 @@ urlpatterns = [
     path('totalpurchaseprders/', TotalPurchaseOrdersView.as_view()),
     path('revenueperproject/<int:pk>', RevenueDetailView.as_view()),
     path('revenue/', RevenueListView.as_view()),
-    # path('procurementsum/<int:pk>', ProcurementSumView.as_view())
 ]

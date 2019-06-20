@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from users.models import CustomUser
 from .models import *
 from rest_framework.authtoken.models import Token
-from .flag import *
 
 
 class ProjectIconsSerializer(serializers.ModelSerializer):
@@ -121,8 +120,8 @@ class SubTaskSerializer(serializers.ModelSerializer):
 
 ####################################### START FOUNDATION IMAGES ###########################################################################################################################
 
-
 class FoundationImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = FoundationImage
@@ -131,6 +130,7 @@ class FoundationImageSerializer(serializers.ModelSerializer):
 
 
 class SiteClearingSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = SetSiteClearingImage
@@ -139,6 +139,7 @@ class SiteClearingSerializer(serializers.ModelSerializer):
 
 
 class TowerBaseImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = TowerBaseImage
@@ -147,6 +148,7 @@ class TowerBaseImageSerializer(serializers.ModelSerializer):
 
 
 class BindingImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = BindingImage
@@ -155,6 +157,7 @@ class BindingImageSerializer(serializers.ModelSerializer):
 
 
 class SteelFixFormworkImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = SteelFixFormworkImage
@@ -163,6 +166,7 @@ class SteelFixFormworkImageSerializer(serializers.ModelSerializer):
 
 
 class ConcretePourImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = ConcretePourImage
@@ -170,6 +174,7 @@ class ConcretePourImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class ConcreteCuringPeriodImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = ConcreteCuringPeriodImage
@@ -182,6 +187,7 @@ class ConcreteCuringPeriodImageSerializer(serializers.ModelSerializer):
 
 
 class ExcavationImageerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = ExcavationImage
@@ -190,6 +196,7 @@ class ExcavationImageerializer(serializers.ModelSerializer):
 
 
 class ConcretePourCuringPeriodImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = BS241ConcretePourCuringPeriodImage
@@ -198,6 +205,7 @@ class ConcretePourCuringPeriodImageSerializer(serializers.ModelSerializer):
 
 
 class BS241AndGeneatorSlabsImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = BS241AndGeneatorSlabsImage
@@ -209,6 +217,7 @@ class BS241AndGeneatorSlabsImageSerializer(serializers.ModelSerializer):
 
 
 class FoundFootPourImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = FoundFootPourImage
@@ -217,6 +226,7 @@ class FoundFootPourImageSerializer(serializers.ModelSerializer):
 
 
 class BlockworkPanelConstImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = BlockworkPanelConstImage
@@ -225,6 +235,7 @@ class BlockworkPanelConstImageSerializer(serializers.ModelSerializer):
 
 
 class GateInstallationImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = GateInstallationImage
@@ -233,6 +244,7 @@ class GateInstallationImageSerializer(serializers.ModelSerializer):
 
 
 class RazorElectricFenceImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = RazorElectricFenceImage
@@ -241,6 +253,7 @@ class RazorElectricFenceImageSerializer(serializers.ModelSerializer):
 
 
 class BoundaryWallImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = BoundaryWallImage
@@ -253,6 +266,7 @@ class BoundaryWallImageSerializer(serializers.ModelSerializer):
 
 
 class TowerErectionImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = TowerErectionImage
@@ -261,6 +275,7 @@ class TowerErectionImageSerializer(serializers.ModelSerializer):
 
 
 class TowerPaintImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = TowerPaintImage
@@ -269,6 +284,7 @@ class TowerPaintImageSerializer(serializers.ModelSerializer):
 
 
 class CableWaysImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = CableWaysImage
@@ -277,6 +293,7 @@ class CableWaysImageSerializer(serializers.ModelSerializer):
 
 
 class AntennaCoaxInstallImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = AntennaCoaxInstallImage
@@ -285,6 +302,7 @@ class AntennaCoaxInstallImageSerializer(serializers.ModelSerializer):
 
 
 class TowerAntennaCoaxImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = TowerAntennaCoaxImage
@@ -294,6 +312,7 @@ class TowerAntennaCoaxImageSerializer(serializers.ModelSerializer):
 
 
 class CivilWorksTeamSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = CivilWorksTeam
@@ -302,6 +321,7 @@ class CivilWorksTeamSerializer(serializers.ModelSerializer):
 
 
 class BTSinstallationTaskSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = BTSinstallationTask
@@ -310,6 +330,7 @@ class BTSinstallationTaskSerializer(serializers.ModelSerializer):
 
 
 class MWInstallationTaskSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = MWInstallationTask
@@ -318,6 +339,7 @@ class MWInstallationTaskSerializer(serializers.ModelSerializer):
 
 
 class TelecomTasksSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = TelecomTasks
@@ -326,6 +348,7 @@ class TelecomTasksSerializer(serializers.ModelSerializer):
 
 
 class UndergroundTasksSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = UndergroundTasks
@@ -334,6 +357,7 @@ class UndergroundTasksSerializer(serializers.ModelSerializer):
 
 
 class ReticulationAPSinstallationSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = ReticulationAPSinstallation
@@ -342,6 +366,7 @@ class ReticulationAPSinstallationSerializer(serializers.ModelSerializer):
 
 
 class ElectricalEarthingSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = ElectricalEarthing
@@ -350,6 +375,7 @@ class ElectricalEarthingSerializer(serializers.ModelSerializer):
 
 
 class GeneratorInstallationSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = GeneratorInstallation
@@ -358,6 +384,7 @@ class GeneratorInstallationSerializer(serializers.ModelSerializer):
 
 
 class ElectricalTasksSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = ElectricalTasks
@@ -390,10 +417,9 @@ class AccessApprovalInstallationSerializer(serializers.ModelSerializer):
 
 
 class KPLCSolarImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField()
 
     class Meta:
         model = KPLCSolarImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
-
-
