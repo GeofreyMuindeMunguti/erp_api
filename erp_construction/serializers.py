@@ -17,7 +17,7 @@ class ProjectIconsSerializer(serializers.ModelSerializer):
 
 class ProjectSerializer(serializers.ModelSerializer):
 
-    turn_around_time = serializers.IntegerField()
+    turn_around_time = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Project
