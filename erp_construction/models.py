@@ -1751,7 +1751,7 @@ class ProcurementTeam(models.Model):
     def __str__(self):
         return str(self.project_name)
 
-############################ PROCURMENT  PO STEEL COST  ###########################################################################################################################
+############################ PROCURMENT PO COST  ###################################################################################################################################
     def po_steel_cost(self):
         try:
             steel_cost_data = ProcurementCostTeam.objects.get(item='Po Steel Cost')
@@ -1771,11 +1771,11 @@ class ProcurementTeam(models.Model):
         except Exception as e:
             error = "Cost Does Not Exist"
             return error
-    #
-    # def total_procurpocost(self):
-    #     """Function to return total procurement PO cost"""
-    #     total_procur_cost = float(self.po_steel_quantity * steel_cost) + float(material_elec_cost) + float(self.po_subcontractors_amount)
-    #     return total_procur_cost
+
+    def total_procurpocost(self):
+        """Function to return total procurement PO cost"""
+        total_procur_cost = float(self.po_steel_cost() + self.po_electrical_material_cost() + self.po_subcontractors_amount)
+        return total_procur_cost
 
 ######################################## END #######################################################################################################################################
 
