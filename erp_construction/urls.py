@@ -71,6 +71,7 @@ router.register(r'kplcsolarsmages', views.KPLCSolarImageViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     # ENDPOINTS FOR DASHBOARD
+    path('projectprogress/<int:pk>', ProjectProgressView.as_view()),
     path('commercialprogress/<int:pk>', CommercialTeamProgressView.as_view()),
     path('procurementprogress/<int:pk>', ProcurementProgressTeamView.as_view()),
     path('civilprogress/<int:pk>', CivilProgressView.as_view()),
