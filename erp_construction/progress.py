@@ -263,7 +263,7 @@ class CivilProgressView(APIView):
         except Exception as e:
             return Response({'error': 'Task not started', 'no_of_tasks': automatic_total_tasks,})
         foundation_and_curing_images = progress_object.foundation_and_curing_images
-        bts_and_generator_slabs_images = progress_object.bts_and_generator_slabs_images
+        bts_and_generator_slabs_images = progress_object.bs241_and_generator_slabs_images
         site_walling_images_field = progress_object.site_walling_images_field
         tower_field = progress_object.tower_data
         if bool(foundation_and_curing_images) is False:
