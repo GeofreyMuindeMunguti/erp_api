@@ -77,7 +77,7 @@ class ProjectProgressView(APIView):
             project_id = pk
             progress_object = CivilWorksTeam.objects.get(project_name=project_id)
             foundation_and_curing_images = progress_object.foundation_and_curing_images
-            bts_and_generator_slabs_images = progress_object.bts_and_generator_slabs_images
+            bts_and_generator_slabs_images = progress_object.bs241_and_generator_slabs_images
             site_walling_images_field = progress_object.site_walling_images_field
             tower_field = progress_object.tower_data
             if bool(foundation_and_curing_images) is False:
