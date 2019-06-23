@@ -387,8 +387,8 @@ class FoundationTaskProgressView(APIView):
         excavation = progress_object.excavation_tower_base
         binding = progress_object.binding
         steel_fix = progress_object.steel_fix_formwork
-        concrete_pour_curing = progress_object.concrete_pour_curing
-        concrete_curing = progress_object.concrete_pour_period
+        concrete_pour_curing = progress_object.concrete_pour_curing_period
+        concrete_curing = progress_object.concrete_curing_period
         if bool(setting_site) is False:
             setting_site_status = "Not uploaded"
         else:
