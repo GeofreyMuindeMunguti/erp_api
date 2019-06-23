@@ -46,10 +46,11 @@ class ProjectFilesView(generics.RetrieveAPIView,DefaultsMixin):
     # Views for individual files type
 
 class SiteClearingFilesView(generics.RetrieveAPIView,DefaultsMixin):
-    #queryset = SetSiteClearingImage.objects.all()
-    def get_queryset(self):
-        queryset = SetSiteClearingImage.objects.filter(project_name_id=self.kwargs["pk"])
-        return queryset
+    queryset = SetSiteClearingImage.objects.all()
+   # def get_queryset(self):
+     #   print('This are the Kwargs i need to know:',self.kwargs,self.serializer_class)
+     #   queryset = SetSiteClearingImage.objects.filter(project_name_id=self.kwargs["pk"])
+      #  return queryset
     serializer_class = SiteClearingFilesSerializer
 
 class TowerBaseImagesView(generics.RetrieveAPIView,DefaultsMixin):
