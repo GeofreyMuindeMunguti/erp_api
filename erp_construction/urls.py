@@ -9,6 +9,7 @@ from .scorecard import *
 from .flag import *
 from .fileshandler import filesviews ,filesserializers ,compressedfiles
 
+
 router = DefaultRouter()
 
 router.register(r'projects', views.ProjectViewSet)
@@ -52,6 +53,7 @@ router.register(r'kpi', views.KpiViewSet)
 router.register(r'tasks', views.TaskViewSet)
 router.register(r'subtasks', views.SubTaskViewSet)
 
+router.register(r'issues', views.IssuesViewSet)
 router.register(r'installationteams', views.InstallationTeamViewSet)
 router.register(r'electricaltasks', views.ElectricalTasksViewSet)
 router.register(r'generatortasks', views.GeneratorInstallationViewSet)
@@ -64,6 +66,8 @@ router.register(r'btsinstallationtasks', views.BTSInstallationTasksViewSet)
 router.register(r'healthdocumentsinstallationteams', views.HealthDocumentsInstallationTeamViewset)
 router.register(r'accessapprovalinstallations', views.AccessApprovalInstallationViewSet)
 router.register(r'kplcsolarsmages', views.KPLCSolarImageViewSet)
+router.register(r'warrantyCertificates', views.WarrantyCertificateViewSet)
+router.register(r'testCetificates', views.TestCetificateViewSet)
 
 """ ENDPOINTS FOR FRONTEND"""
 
@@ -71,6 +75,7 @@ router.register(r'kplcsolarsmages', views.KPLCSolarImageViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     # ENDPOINTS FOR DASHBOARD
+    path('projectprogress/<int:pk>', ProjectProgressView.as_view()),
     path('commercialprogress/<int:pk>', CommercialTeamProgressView.as_view()),
     path('procurementprogress/<int:pk>', ProcurementProgressTeamView.as_view()),
     path('civilprogress/<int:pk>', CivilProgressView.as_view()),
@@ -81,10 +86,9 @@ urlpatterns = [
     path('towerprogress/<int:pk>', TowerTaskProgressView.as_view()),
     path('electricalprogress/<int:pk>', ElectricalTaskProgressView.as_view()),
     path('telecomprogress/<int:pk>', TelecomTaskProgressView.as_view()),
-    # path('procurementsum/<int:pk>', ProcurementSumView.as_view())
 
-    #PROJECT FILES # allow  GET Method only 
-    
+    #PROJECT FILES # allow  GET Method only
+
     path('files/', filesviews.FilesView.as_view()), # Retrieve all projects files :: TO DO
     path('compressedfiles/', compressedfiles.FileArchiver.as_view()), # Retrieve all projects files :: TO DO
 
@@ -128,7 +132,7 @@ urlpatterns = [
     path('files/<int:pk>/btsinstallationtaskimages/', filesviews.BTSinstallationTaskImagesView.as_view()),
     path('files/<int:pk>/mwinstallationtaskimages/', filesviews.MWInstallationTaskImagesView.as_view()),
     path('files/<int:pk>/installationteamfiles/', filesviews.InstallationTeamFilesView.as_view()),
- 
+
     path('taskstatus/', TaskStatusView.as_view()),
     path('timesheetsummary/', TimesheetSummaryView.as_view()),
     path('issuestatus/', IssueStatusView.as_view()),
@@ -136,5 +140,4 @@ urlpatterns = [
     path('totalpurchaseprders/', TotalPurchaseOrdersView.as_view()),
     path('revenueperproject/<int:pk>', RevenueDetailView.as_view()),
     path('revenue/', RevenueListView.as_view()),
-    # path('procurementsum/<int:pk>', ProcurementSumView.as_view())
 ]

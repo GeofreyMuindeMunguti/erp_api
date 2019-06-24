@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models import Sum, F
 from django.contrib.auth.models import User
 from users.models import *
+from inventory.models import *
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime, timezone, timedelta
 import os   # to define file path per project
@@ -114,7 +115,10 @@ class SetSiteClearingImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -126,7 +130,10 @@ class SetSiteClearingImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = FoundationImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -145,7 +152,10 @@ class SetSiteClearingImage(models.Model):
             casual_rate_data = Rates.objects.get(worker_type='Casual')
             engineer_rate = engineer_rate_data.rate
             casual_rate = casual_rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = FoundationImage.objects.get(project_name=self.project_name)
                 engineer_count = engineer_data.engineers_atsite.count()
@@ -161,7 +171,7 @@ class SetSiteClearingImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload site clearing and setting images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload site clearing and setting images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -215,7 +225,10 @@ class TowerBaseImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -227,7 +240,10 @@ class TowerBaseImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = FoundationImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -242,7 +258,7 @@ class TowerBaseImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload Excavation for tower base images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload excavation images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -296,7 +312,10 @@ class BindingImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -308,7 +327,10 @@ class BindingImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = FoundationImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -323,7 +345,7 @@ class BindingImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload binding images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload binding images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -348,6 +370,7 @@ class BindingImage(models.Model):
 
         except Exception as e:
             return e
+
 
 class SteelFixFormworkImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -376,7 +399,10 @@ class SteelFixFormworkImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -388,7 +414,10 @@ class SteelFixFormworkImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = FoundationImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -403,7 +432,7 @@ class SteelFixFormworkImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload steel fixing images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload steel fixing images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -457,7 +486,10 @@ class ConcretePourImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -469,7 +501,10 @@ class ConcretePourImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = FoundationImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -484,7 +519,7 @@ class ConcretePourImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload concrete pour images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload concrete pour images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -538,7 +573,10 @@ class ConcreteCuringPeriodImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -550,7 +588,10 @@ class ConcreteCuringPeriodImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = FoundationImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -565,7 +606,7 @@ class ConcreteCuringPeriodImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload concrete curing images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload concrete curing images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -599,8 +640,8 @@ class FoundationImage(models.Model):
     excavation_tower_base = models.OneToOneField(TowerBaseImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     binding = models.OneToOneField(BindingImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     steel_fix_formwork = models.OneToOneField(SteelFixFormworkImage, on_delete=models.DO_NOTHING, blank=True, null=True)
-    concrete_pour_curing = models.OneToOneField(ConcretePourImage, on_delete=models.DO_NOTHING, blank=True, null=True)
-    concrete_pour_period = models.OneToOneField(ConcreteCuringPeriodImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    concrete_pour_curing_period = models.OneToOneField(ConcretePourImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    concrete_curing_period = models.OneToOneField(ConcreteCuringPeriodImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     foundation_and_curing_comment = models.CharField(max_length=100, blank=True, null=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
@@ -620,7 +661,7 @@ class FoundationImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data =Task.objects.get(task_name = 'Tower foundation and curing.')
+            kpi_data =Task.objects.get(task_name='Tower foundation and curing.')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -678,7 +719,10 @@ class ExcavationImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -690,7 +734,10 @@ class ExcavationImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = BS241AndGeneatorSlabsImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -705,7 +752,7 @@ class ExcavationImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload BTS and Generator excavation images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload BTS and Generator excavation images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -759,7 +806,10 @@ class BS241ConcretePourCuringPeriodImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -771,7 +821,10 @@ class BS241ConcretePourCuringPeriodImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = BS241AndGeneatorSlabsImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -786,7 +839,7 @@ class BS241ConcretePourCuringPeriodImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload BS241 concerete pour and curing images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload concerete pour and curing images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -837,7 +890,7 @@ class BS241AndGeneatorSlabsImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = Task.objects.get(task_name = 'BS241 & Generator Foundation')
+            kpi_data = Task.objects.get(task_name='BTS and Generator Foundation')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -895,7 +948,10 @@ class FoundFootPourImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -907,7 +963,10 @@ class FoundFootPourImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = BoundaryWallImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -922,7 +981,7 @@ class FoundFootPourImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload foundation, footing and pouring images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload foundation, footing and pouring images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -976,7 +1035,10 @@ class BlockworkPanelConstImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -988,7 +1050,10 @@ class BlockworkPanelConstImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = BoundaryWallImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -1003,7 +1068,7 @@ class BlockworkPanelConstImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload Blockwork/panel construction images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload panel construction images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -1057,7 +1122,10 @@ class GateInstallationImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -1069,7 +1137,10 @@ class GateInstallationImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = BoundaryWallImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -1084,7 +1155,7 @@ class GateInstallationImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload Gate Installation images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload gate installation images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -1138,7 +1209,10 @@ class RazorElectricFenceImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -1150,7 +1224,10 @@ class RazorElectricFenceImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = BoundaryWallImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -1165,7 +1242,7 @@ class RazorElectricFenceImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload Razor Wire/Electric Fence images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload razor/electric fence images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -1216,10 +1293,9 @@ class BoundaryWallImage(models.Model):
     def names_of_engineers(self):
         return [v.user.username for v in self.engineers_atsite.all()]
 
-
     def raise_flag(self):
         try:
-            kpi_data = Task.objects.get(task_name = 'Upload Boundary Wall images')
+            kpi_data = Task.objects.get(task_name='Boundary Wall')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -1278,7 +1354,10 @@ class TowerErectionImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -1290,7 +1369,10 @@ class TowerErectionImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Enginner')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -1305,7 +1387,7 @@ class TowerErectionImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload tower erection images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload tower erection images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -1359,7 +1441,10 @@ class TowerPaintImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -1371,7 +1456,10 @@ class TowerPaintImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -1386,7 +1474,7 @@ class TowerPaintImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload tower painting images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload tower painting images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -1440,7 +1528,10 @@ class CableWaysImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -1452,7 +1543,10 @@ class CableWaysImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -1467,7 +1561,7 @@ class CableWaysImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload cable ways images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload cable ways images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -1521,7 +1615,10 @@ class AntennaCoaxInstallImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -1533,7 +1630,10 @@ class AntennaCoaxInstallImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -1548,7 +1648,7 @@ class AntennaCoaxInstallImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload Antenna Coax Installation images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload Antenna Coax Installation images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -1601,7 +1701,7 @@ class TowerAntennaCoaxImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = Task.objects.get(task_name = 'Tower & Antenna-Coax')
+            kpi_data = Task.objects.get(task_name='Tower & Antenna-Coax')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -1744,36 +1844,23 @@ class CommercialTeam(models.Model):
 
 
 ####################################### PROCURMENT TEAM ###########################################################################################################################
-PO_STEEL_COST_CHOICES = (
-    ('10000' ,'10000'),
-    ('20000','20000'),
-    ('30000','30000'),
-    ('40000','40000'),
-    )
-
-PO_ELECTRICAL_MATERIAL_CHOICES = (
-    ('10000' ,'10000'),
-    ('20000','20000'),
-    ('30000','30000'),
-    ('40000','40000'),
-    )
-
-PO_SUBCONTRACTORS_CHOICES = (
-    ('10000' ,'10000'),
-    ('20000','20000'),
-    ('30000','30000'),
-    ('40000','40000'),
-    )
-
-
 class ProcurementTeam(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+<<<<<<< HEAD
     po_steel = models.FileField(upload_to= project_directory_path('files/ProcurementTeam/PO_Steel/'), blank=True, null=True)
     po_steel_cost = models.CharField(max_length=120, choices=PO_STEEL_COST_CHOICES, default='None', blank=True)
     po_electrical_materials = models.FileField(upload_to=project_directory_path('files/ProcurementTeam/poelectrical/'), blank=True, null=True)
     po_electrical_materials_cost =models.CharField(max_length=120, choices=PO_ELECTRICAL_MATERIAL_CHOICES, default='None', blank=True)
     po_subcontractors = models.FileField(upload_to=project_directory_path('files/ProcurementTeam/PO_Subcontractor/'), blank=True, null=True)
     po_subcontractors_cost = models.CharField(max_length=120, choices=PO_SUBCONTRACTORS_CHOICES, default='None', blank=True)
+=======
+    po_steel = models.FileField(upload_to='files/ProcurementTeam/posteel/%Y/%m/%d/', blank=True, null=True)
+    po_steel_quantity = models.IntegerField(blank=True, null=True)
+    po_electrical_materials = models.FileField(upload_to='files/ProcurementTeam/poelectrical/%Y/%m/%d/', blank=True, null=True)
+    po_electrical_materials_quantity = models.IntegerField(blank=True, null=True)
+    po_subcontractors = models.FileField(upload_to='files/ProcurementTeam/posubcontractor/%Y/%m/%d/', blank=True, null=True)
+    po_subcontractors_amount = models.IntegerField(blank=True, null=True)
+>>>>>>> development
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -1783,11 +1870,31 @@ class ProcurementTeam(models.Model):
     def __str__(self):
         return str(self.project_name)
 
-############################ PROCURMENT  PO TOTAL COST  ###########################################################################################################################
-    def total_material_cost(self):
+############################ PROCURMENT PO COST  ###################################################################################################################################
+    def po_steel_cost(self):
+        try:
+            steel_cost_data = ProcurementCostTeam.objects.get(item='Po Steel Cost')
+            steel_cost = steel_cost_data.unit_price
+            total_steel_cost = float(self.po_steel_quantity * steel_cost)
+            return total_steel_cost
+        except Exception as e:
+            error = "Cost Does Not Exist"
+            return error
+
+    def po_electrical_material_cost(self):
+        try:
+            electrial_cost_data = ProcurementCostTeam.objects.get(item='Po Electrical Material Cost')
+            elec_material_cost = electrial_cost_data.unit_price
+            material_elec_cost = float(self.po_electrical_materials_quantity * elec_material_cost)
+            return material_elec_cost
+        except Exception as e:
+            error = "Cost Does Not Exist"
+            return error
+
+    def total_procurpocost(self):
         """Function to return total procurement PO cost"""
-        total_procurpo = float(self.po_steel_cost) + float(self.po_electrical_materials_cost) + float(self.po_subcontractors_cost)
-        return total_procurpo
+        total_procur_cost = float(self.po_steel_cost() + self.po_electrical_material_cost() + self.po_subcontractors_amount)
+        return total_procur_cost
 
 ######################################## END #######################################################################################################################################
 
@@ -1816,6 +1923,7 @@ class HealthDocumentsCivilTeam(models.Model):
     communication_plan_form_comment = models.CharField(max_length=100, blank=True, null=True)
     health_documents_comment = models.CharField(max_length=100, blank=True, null=True)
     access_approval = models.OneToOneField(AccessApprovalCivil, on_delete=models.CASCADE, blank=True, null=True)
+    safety_picture = models.ImageField(upload_to='images/HealthDocumentsCivilTeam/%Y/%m/%d/', blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -1829,7 +1937,6 @@ class HealthDocumentsCivilTeam(models.Model):
 class CivilWorksTeam(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     health_documents = models.ManyToManyField(HealthDocumentsCivilTeam)
-    access_approvals_field = models.ManyToManyField(AccessApprovalCivil)
     foundation_and_curing_images = models.OneToOneField(FoundationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     bs241_and_generator_slabs_images = models.OneToOneField(BS241AndGeneatorSlabsImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     site_walling_images_field = models.OneToOneField(BoundaryWallImage, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -1876,6 +1983,7 @@ class HealthDocumentsInstallationTeam(models.Model):
     communication_plan_form_comment = models.CharField(max_length=100, blank=True, null=True)
     health_documents_comment = models.CharField(max_length=100, blank=True, null=True)
     access_approval = models.OneToOneField(AccessApprovalInstallation, on_delete=models.CASCADE, blank=True, null=True)
+    safety_picture = models.ImageField(upload_to='images/HealthDocumentsInstallationTeam/%Y/%m/%d/', blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -1913,7 +2021,10 @@ class UndergroundTasks(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -1925,7 +2036,10 @@ class UndergroundTasks(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -1940,7 +2054,7 @@ class UndergroundTasks(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload Underground ducting & manholes images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload Underground ducting & manholes images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -1994,7 +2108,10 @@ class ReticulationAPSinstallation(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -2006,7 +2123,10 @@ class ReticulationAPSinstallation(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -2021,7 +2141,7 @@ class ReticulationAPSinstallation(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload Electrical reticulation/APS Installation images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload Electrical reticulation/APS Installation images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -2075,7 +2195,10 @@ class ElectricalEarthing(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -2087,7 +2210,10 @@ class ElectricalEarthing(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Enginner')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -2102,7 +2228,7 @@ class ElectricalEarthing(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload Earthing connections and testing images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload Earthing connections and testing images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -2160,7 +2286,10 @@ class GeneratorInstallation(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -2172,7 +2301,10 @@ class GeneratorInstallation(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -2187,7 +2319,7 @@ class GeneratorInstallation(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload Generator & Fuel Tank Installation images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload Generator & Fuel Tank Installation images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -2241,7 +2373,10 @@ class KPLCSolarImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -2253,7 +2388,10 @@ class KPLCSolarImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -2268,7 +2406,7 @@ class KPLCSolarImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload KPLC/solar installation images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload KPLC/solar installation images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -2322,7 +2460,7 @@ class ElectricalTasks(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = Task.objects.get(task_name = 'Electrical Tasks')
+            kpi_data = Task.objects.get(task_name='Electrical Tasks')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -2377,7 +2515,10 @@ class BTSinstallationTask(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -2389,7 +2530,10 @@ class BTSinstallationTask(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = TelecomTasks.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -2404,7 +2548,7 @@ class BTSinstallationTask(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = '	Upload BTS installation images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload BTS installation images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -2458,7 +2602,10 @@ class MWInstallationTask(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -2470,7 +2617,10 @@ class MWInstallationTask(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = TelecomTasks.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -2485,7 +2635,7 @@ class MWInstallationTask(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload MW installation images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload MW installation images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -2537,7 +2687,7 @@ class TelecomTasks(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = Task.objects.get(task_name = 'Telecom Tasks')
+            kpi_data = Task.objects.get(task_name='Telecom Tasks')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -2567,6 +2717,8 @@ class TelecomTasks(models.Model):
 class Issues(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
     issue = models.CharField(max_length=100)
+    issue_image = models.ImageField(upload_to='images/InstallationTeam/issues/%Y/%m/%d/', blank=True, null=True)
+    issue_sorted_image = models.ImageField(upload_to='images/InstallationTeam/issues/%Y/%m/%d/', blank=True, null=True)
     closed = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -2580,7 +2732,6 @@ class Issues(models.Model):
 class InstallationTeam(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     health_documents = models.ManyToManyField(HealthDocumentsInstallationTeam)
-    access_approvals_field = models.ManyToManyField(AccessApprovalInstallation)
     electrical_tasks_data = models.OneToOneField(ElectricalTasks, on_delete=models.DO_NOTHING, blank=True, null=True)
     telecom_tasks_data = models.OneToOneField(TelecomTasks, on_delete=models.DO_NOTHING, blank=True, null=True)
     as_built = models.FileField(upload_to=project_directory_path('files/SafaricomTeam/as_built/'), blank=True, null=True)
@@ -2618,3 +2769,33 @@ def date_difference(start_date, end_date):
     diff = end_date - start_date
     no_of_days = (diff.days + 1)
     return no_of_days
+
+
+class WarrantyCertificate(models.Model):
+    project_name = project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    civilworks_installation_certificate = models.FileField(upload_to='files/WarrantyCertificates/civilworks/%Y/%m/%d/', blank=True, null=True)
+    connectors_torque_certificate = models.FileField(upload_to='files/WarrantyCertificates/connectorsTorque/%Y/%m/%d/', blank=True, null=True)
+    safe_to_climb_certificate = models.FileField(upload_to='files/WarrantyCertificates/SafeToClimb/%Y/%m/%d/', blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    is_approved = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+
+class TestCetificate(models.Model):
+    project_name = project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    cube_test_7days = models.FileField(upload_to='files/TestCertificates/cubetest7/%Y/%m/%d/', blank=True, null=True)
+    cube_test_28days = models.FileField(upload_to='files/TestCertificates/cubetest28/%Y/%m/%d/', blank=True, null=True)
+    earth_test = models.FileField(upload_to='files/TestCertificates/earthtest/%Y/%m/%d/', blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    is_approved = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.project_name)
