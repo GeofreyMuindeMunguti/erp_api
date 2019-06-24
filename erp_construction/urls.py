@@ -86,6 +86,7 @@ urlpatterns = [
     #PROJECT FILES # allow  GET Method only 
     
     path('files/', filesviews.FilesView.as_view()), # Retrieve all projects files :: TO DO
+    path('compressedfiles/', filesviews.FileArchiver.as_view()), # Retrieve all projects files :: TO DO
 
     path('files/<int:pk>/', filesviews.ProjectFilesView.as_view()), # main url path to retrieve files per project
 

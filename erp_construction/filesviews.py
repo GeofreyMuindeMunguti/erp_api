@@ -278,20 +278,20 @@ class FileArchiver(APIView):
     def make_tarfile(self,output_filename, source_dir):
         import tarfile
         import os
-        with tarfile.open(output_filename, "w:bz2") as tar:
+        with tarfile.open(output_filename, "w:bz2") as tar:  # w.bz2 w.gz
             tar.add(source_dir, arcname=os.path.basename(source_dir))
             return output_filename
 
-    def compressedfile(self):
+    # def compressedfile(self):
 
-        print ('compressing files,please wait!')
-        compressed_project_files = self.make_tarfile('files.tar.bz2','media/files/')
-        print('Done compressing files! Your computer must be boiling by now!!')
-        return compressed_project_files
+    #     print ('compressing files,please wait!')
+    #     compressed_project_files = self.make_tarfile('files.tar.bz2','media/files/')
+    #     print('Done compressing files! Your computer must be boiling by now!!')
+    #     return compressed_project_files
 
     def get(self, request, format=None):
         """
         Return compressed files.
         """
-        usernames = [user.username for user in User.objects.all()]
-        return Response(usernames)
+        compressed_project_files = self.make_tarfile('files.tar.bz2','media/files/')
+        return Response(compressed_project_files)
