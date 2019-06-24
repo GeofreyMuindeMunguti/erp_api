@@ -456,6 +456,24 @@ class KPLCSolarImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     ordering_fields = ('updated_at', 'project_name', )
 
 
+class WarrantyCertificateViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating Warranty certificates."""
+    queryset = WarrantyCertificate.objects.order_by('created_at')
+    serializer_class = WarrantyCertificateSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
+class TestCetificateViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating Test certificates."""
+    queryset = TestCetificate.objects.order_by('created_at')
+    serializer_class = TestCetificateSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
 def status_function(model_class, request):
     """Function to return status of previous team before posting """
     status = 'Previous Team Not Approved'

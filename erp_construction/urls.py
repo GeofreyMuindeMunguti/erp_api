@@ -63,6 +63,8 @@ router.register(r'btsinstallationtasks', views.BTSInstallationTasksViewSet)
 router.register(r'healthdocumentsinstallationteams', views.HealthDocumentsInstallationTeamViewset)
 router.register(r'accessapprovalinstallations', views.AccessApprovalInstallationViewSet)
 router.register(r'kplcsolarsmages', views.KPLCSolarImageViewSet)
+router.register(r'warrantyCertificates', views.WarrantyCertificateViewSet)
+router.register(r'testCetificates', views.TestCetificateViewSet)
 
 """ ENDPOINTS FOR FRONTEND"""
 
