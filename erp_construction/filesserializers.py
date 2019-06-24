@@ -1,6 +1,14 @@
+"""Extract files and images per project.
+"""
+
+#__author__  = "Gibeon\ (langat@adriankenya.com)"
+
+
+#---------
+# Imports
+#---------
 from rest_framework import serializers  #, exceptions
 from .models import *
-
 
 
 ############################ PROJECT FILES SERIALIZERS ###############################################

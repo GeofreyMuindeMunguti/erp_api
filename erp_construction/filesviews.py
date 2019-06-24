@@ -46,11 +46,11 @@ class ProjectFilesView(generics.RetrieveAPIView,DefaultsMixin):
     # Views for individual files type
 
 class SiteClearingFilesView(generics.RetrieveAPIView,DefaultsMixin):
-    queryset = SetSiteClearingImage.objects.all()
-   # def get_queryset(self):
+    #queryset = SetSiteClearingImage.objects.all()
+    def get_queryset(self):
      #   print('This are the Kwargs i need to know:',self.kwargs,self.serializer_class)
-     #   queryset = SetSiteClearingImage.objects.filter(project_name_id=self.kwargs["pk"])
-      #  return queryset
+        queryset = SetSiteClearingImage.objects.filter(project_name_id=self.kwargs["pk"])
+        return queryset
     serializer_class = SiteClearingFilesSerializer
 
 class TowerBaseImagesView(generics.RetrieveAPIView,DefaultsMixin):
@@ -268,3 +268,30 @@ class InstallationTeamFilesView(generics.RetrieveAPIView,DefaultsMixin):
         queryset = InstallationTeam.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
     serializer_class = InstallationTeamFilesSerializer
+
+
+# Pull compressed file Views
+
+class FileArchiver(APIView):
+    ''' view to GET compressed files and images'''
+
+    def make_tarfile(self,output_filename, source_dir):
+        import tarfile
+        import os
+        with tarfile.open(output_filename, "w:bz2") as tar:
+            tar.add(source_dir, arcname=os.path.basename(source_dir))
+            return output_filename
+
+    def compressedfile(self):
+
+        print ('compressing files,please wait!')
+        compressed_project_files = self.make_tarfile('files.tar.bz2','media/files/')
+        print('Done compressing files! Your computer must be boiling by now!!')
+        return compressed_project_files
+
+    def get(self, request, format=None):
+        """
+        Return compressed files.
+        """
+        usernames = [user.username for user in User.objects.all()]
+        return Response(usernames)
