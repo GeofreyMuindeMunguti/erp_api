@@ -1,13 +1,13 @@
 from rest_framework.routers import DefaultRouter
 from rest_framework.urlpatterns import format_suffix_patterns
-from . import views ,filesviews
+from . import views 
 from django.urls import path, include
 from .views import *
 from .progress import *
 from .monitoring import *
 from .scorecard import *
 from .flag import *
-
+from  fileshandler import filesviews
 
 router = DefaultRouter()
 
