@@ -4,7 +4,18 @@ from django.contrib.auth.models import User
 from users.models import *
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime, timezone, timedelta
+import os   # to define file path per project
 
+
+def project_directory_path(path):
+
+    '''file will be uploaded to MEDIA_ROOT/project_name/<filename>/timepath/'''
+    def upload_callback(instance, filename):
+        print('Instance:',instance.project_name)
+        #return '%s/%s/%s' % (str(instance),path, filename)   #  This can work python2
+        return  '{}/{}/{}'.format(str(instance.project_name),path,filename)  #  Also work python3
+        #return os.path.join(str(instance),path,timepath, filename)   # This is optimal
+    return upload_callback
 
 class Category(models.Model):
     category_name = models.CharField(max_length=100, unique=True)
@@ -35,10 +46,10 @@ class Project(models.Model):
     site_owner = models.CharField(max_length=100)
     icon = models.ForeignKey(ProjectIcons, on_delete=models.DO_NOTHING, blank=True, null=True)
     location = models.ForeignKey(Location, on_delete=models.DO_NOTHING)
-    geotech_file = models.FileField(upload_to='files/Project/geotech/%Y/%m/%d/')
-    access_letter = models.FileField(upload_to='files/Project/accessletters/%Y/%m/%d/')
-    approved_drawing = models.FileField(upload_to='files/Project/approveddrawings/%Y/%m/%d/')
-    final_acceptance_cert = models.FileField(upload_to='files/SafaricomTeam/finalcert/%Y/%m/%d/', blank=True, null=True)
+    geotech_file = models.FileField(upload_to=project_directory_path('geotech_files/'))
+    access_letter = models.FileField(upload_to=project_directory_path('accessletters/'))
+    approved_drawing = models.FileField(upload_to=project_directory_path('approveddrawings/'))
+    final_acceptance_cert = models.FileField(upload_to=project_directory_path('final_acceptance_cert/'), blank=True, null=True)
     final_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -81,9 +92,9 @@ class SetSiteClearingImage(models.Model):
     no_of_casuals_atsite = models.ManyToManyField(Casual)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
-    setting_site_clearing_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/siteclearing/%Y/%m/%d/')
-    setting_site_clearing_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/siteclearing/%Y/%m/%d/')
-    setting_site_clearing_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/siteclearing/%Y/%m/%d/')
+    setting_site_clearing_image_1 = models.ImageField(upload_to=project_directory_path('siteclearing/'))
+    setting_site_clearing_image_2 = models.ImageField(upload_to=project_directory_path('siteclearing/'))
+    setting_site_clearing_image_3 = models.ImageField(upload_to=project_directory_path('siteclearing/'))
     setting_site_clearing_comment = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
