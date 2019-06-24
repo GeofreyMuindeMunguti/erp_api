@@ -30,7 +30,7 @@ class Category(models.Model):
 
 
 class ProjectIcons(models.Model):
-    icon = models.ImageField(upload_to='images/Project/Icons/%Y/%m/%d/')
+    icon = models.ImageField(upload_to=project_directory_path(icoms/images/Project/Icons/'))
     site_owner = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
