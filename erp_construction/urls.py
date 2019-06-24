@@ -7,7 +7,7 @@ from .progress import *
 from .monitoring import *
 from .scorecard import *
 from .flag import *
-from .fileshandler import filesviews ,filesserializers , compressedfiles
+from .fileshandler import filesviews ,filesserializers ,compressedfiles
 
 router = DefaultRouter()
 

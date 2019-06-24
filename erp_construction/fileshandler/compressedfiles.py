@@ -26,7 +26,7 @@ class FileArchiver(generics.RetrieveAPIView,PermissionMixin):
     def update_compressed_files(self):
         #pass
         self.allfiles = self.make_tarfile('media/compressed/files.tar.bz2','media/files/')
-        self.allimages= self.make_tarfile('media/compressed/files.tar.bz2','media/images/')
+        self.allimages= self.make_tarfile('media/compressed/images.tar.bz2','media/images/')
 
         # cfile = self.make_tarfile('media/compressed/files.tar.bz2','media/files/')
         # cfile = self.make_tarfile('media/compressed/files.tar.bz2','media/files/')
@@ -36,13 +36,15 @@ class FileArchiver(generics.RetrieveAPIView,PermissionMixin):
         """
         Compress files compressed files.
         """
-     
-            cfile = self.make_tarfile('media/compressed/files.tar.bz2','media/files/')
-            print('Compression Done')
-            compressed_project_files = 'http://127.0.0.1:8000/{}'.format(cfile)
+        print('Compressing files Please wait.')
+        self.update_compressed_files()
+        print('FIles Compression DONE!')
 
-        print(compressed_project_files)
-        return Response({'files':compressed_project_files,'images':compressed_project_files,})
+        all_filesfiles = 'http://127.0.0.1:8000/{}'.format(self.allfiles)
+        all_images =  'http://127.0.0.1:8000/{}'.format(self.allimages)
+
+        
+        return Response({'all_files': all_filesfiles,'all_images':all_images,})
 
 
         
