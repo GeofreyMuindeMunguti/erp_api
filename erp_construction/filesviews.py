@@ -31,7 +31,7 @@ class FilesView(APIView):
 
     def get(self, request, format=None):
         "TO DO"
-        resp = "# TO DO        Gibeon working on this.. RELAX! Add id  to get files for individual project files.Is this end point necessary? NO!"
+        resp = "# TO DO        USE  erp_construction/ files/<int:pk>/  :  pk is project ID"
         return Response(resp)
 
 
