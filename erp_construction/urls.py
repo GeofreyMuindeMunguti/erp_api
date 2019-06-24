@@ -6,7 +6,6 @@ from .views import *
 from .progress import *
 from .monitoring import *
 from .scorecard import *
-from .flag import *
 from .fileshandler import filesviews ,filesserializers ,compressedfiles
 
 

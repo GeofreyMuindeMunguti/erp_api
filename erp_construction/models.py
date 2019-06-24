@@ -1851,13 +1851,13 @@ class ProcurementTeam(models.Model):
     po_electrical_materials = models.FileField(upload_to=project_directory_path('files/ProcurementTeam/poelectrical/'), blank=True, null=True)
     po_electrical_materials_quantity = models.IntegerField(blank=True, null=True)
     po_subcontractors = models.FileField(upload_to=project_directory_path('files/ProcurementTeam/PO_Subcontractor/'), blank=True, null=True)
-    po_subcontractors_cost = models.CharField(max_length=120, choices=PO_SUBCONTRACTORS_CHOICES, default='None', blank=True)
     po_subcontractors_amount = models.IntegerField(blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
+
 
     def __str__(self):
         return str(self.project_name)
