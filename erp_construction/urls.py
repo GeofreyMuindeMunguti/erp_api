@@ -51,6 +51,7 @@ router.register(r'kpi', views.KpiViewSet)
 router.register(r'tasks', views.TaskViewSet)
 router.register(r'subtasks', views.SubTaskViewSet)
 
+router.register(r'issues', views.IssuesViewSet)
 router.register(r'installationteams', views.InstallationTeamViewSet)
 router.register(r'electricaltasks', views.ElectricalTasksViewSet)
 router.register(r'generatortasks', views.GeneratorInstallationViewSet)
@@ -63,6 +64,8 @@ router.register(r'btsinstallationtasks', views.BTSInstallationTasksViewSet)
 router.register(r'healthdocumentsinstallationteams', views.HealthDocumentsInstallationTeamViewset)
 router.register(r'accessapprovalinstallations', views.AccessApprovalInstallationViewSet)
 router.register(r'kplcsolarsmages', views.KPLCSolarImageViewSet)
+router.register(r'warrantyCertificates', views.WarrantyCertificateViewSet)
+router.register(r'testCetificates', views.TestCetificateViewSet)
 
 """ ENDPOINTS FOR FRONTEND"""
 
@@ -70,6 +73,7 @@ router.register(r'kplcsolarsmages', views.KPLCSolarImageViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     # ENDPOINTS FOR DASHBOARD
+    path('projectprogress/<int:pk>', ProjectProgressView.as_view()),
     path('commercialprogress/<int:pk>', CommercialTeamProgressView.as_view()),
     path('procurementprogress/<int:pk>', ProcurementProgressTeamView.as_view()),
     path('civilprogress/<int:pk>', CivilProgressView.as_view()),

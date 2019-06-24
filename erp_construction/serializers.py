@@ -423,3 +423,27 @@ class KPLCSolarImageSerializer(serializers.ModelSerializer):
         model = KPLCSolarImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class WarrantyCertificateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = WarrantyCertificate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class TestCetificateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TestCetificate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class IssuesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Issues
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')

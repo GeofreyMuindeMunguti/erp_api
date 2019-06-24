@@ -2,6 +2,153 @@ from rest_framework.views import APIView
 from .models import *
 from rest_framework.response import Response
 
+"""GET PROJECT PROGRESS"""
+
+
+class ProjectProgressView(APIView):
+
+    def get(self, request, pk):
+        #PROGRESS FOR COMMERCIAL TEAM
+        try:
+            category = Category.objects.get(category_name='Commercial Team')
+            category_id = category.id
+            automatic_total_comtasks = Task.objects.filter(category_name=category_id).count()
+            completed_ctasks = 0
+            project_id = pk
+            progress_object = CommercialTeam.objects.get(project_name=project_id)
+            approved_quote = progress_object.approved_quote_file
+            po = progress_object.po_data
+            project_costing = progress_object.project_costing_data
+            initialinvoice = progress_object.initial_invoice
+            if bool(po) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            if bool(initialinvoice) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            if bool(approved_quote) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            if bool(project_costing) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            commercial_percentage = percentage_function(completed_ctasks, automatic_total_comtasks)
+        except Exception as e:
+            commercial_percentage = 0
+            #return Response({'error': 'Commercial Team does not exist'})
+
+        #PROGRESS FOR PROCUREMENTEAM
+        try:
+            category = Category.objects.get(category_name='Procurement Team')
+            category_id = category.id
+            automatic_total_protasks = Task.objects.filter(category_name=category_id).count()
+            completed_ptasks = 0
+            project_id = pk
+            progress_object = ProcurementTeam.objects.get(project_name=project_id)
+            po_steel = progress_object.po_steel
+            po_electrical_materials = progress_object.po_electrical_materials
+            po_subcontractors = progress_object.po_subcontractors
+            if bool(po_steel) is False:
+                completed_ptasks += 0
+            else:
+                completed_ptasks += 1
+            if bool(po_electrical_materials) is False:
+                completed_ptasks += 0
+            else:
+                completed_ptasks += 1
+            if bool(po_subcontractors) is False:
+                completed_ptasks += 0
+            else:
+                completed_ptasks += 1
+            procurement_percentage = percentage_function(completed_ptasks, automatic_total_protasks)
+        except Exception as e:
+            procurement_percentage = 0
+
+        #PROGRESS FOR CIVIL TEAM
+        try:
+            category = Category.objects.get(category_name='Civil Team')
+            category_id = category.id
+            automatic_total_civtasks = Task.objects.filter(category_name=category_id).count()
+            completed_cltasks = 0
+            project_id = pk
+            progress_object = CivilWorksTeam.objects.get(project_name=project_id)
+            foundation_and_curing_images = progress_object.foundation_and_curing_images
+            bts_and_generator_slabs_images = progress_object.bs241_and_generator_slabs_images
+            site_walling_images_field = progress_object.site_walling_images_field
+            tower_field = progress_object.tower_data
+            if bool(foundation_and_curing_images) is False:
+                completed_cltasks += 0
+            else:
+                completed_cltasks += 1
+            if bool(bts_and_generator_slabs_images) is False:
+                completed_cltasks += 0
+            else:
+                completed_cltasks += 1
+            if bool(site_walling_images_field) is False:
+                completed_cltasks += 0
+            else:
+                completed_cltasks += 1
+            if bool(tower_field) is False:
+                completed_cltasks += 0
+            else:
+                completed_cltasks += 1
+            civil_percentage = percentage_function(completed_cltasks, automatic_total_civtasks)
+        except Exception as e:
+            civil_percentage = 0
+
+        #PROGRESS FOR INSTALLATION TEAM
+        try:
+            category = Category.objects.get(category_name='Installation Team')
+            category_id = category.id
+            automatic_total_instasks = Task.objects.filter(category_name=category_id).count()
+            completed_intasks = 0
+            project_id = pk
+            progress_object = InstallationTeam.objects.get(project_name=project_id)
+            electrical_tasks_data = progress_object.electrical_tasks_data
+            telecom_tasks_data = progress_object.telecom_tasks_data
+            signoff = progress_object.signoff
+            rfi_document = progress_object.rfi_document
+            integration_parameter = progress_object.integration_parameter
+            conditional_acceptance_cert = progress_object.conditional_acceptance_cert
+            if bool(electrical_tasks_data) is False:
+                completed_intasks += 0
+            else:
+                completed_intasks += 1
+            if bool(telecom_tasks_data) is False:
+                completed_intasks += 0
+            else:
+                completed_intasks += 1
+            if bool(signoff) is False:
+                completed_intasks += 0
+            else:
+                completed_intasks += 1
+            if bool(rfi_document) is False:
+                completed_intasks += 0
+            else:
+                completed_intasks += 1
+            if bool(integration_parameter) is False:
+                completed_intasks += 0
+            else:
+                completed_intasks += 1
+            if bool(conditional_acceptance_cert) is False:
+                completed_intasks += 0
+            else:
+                completed_intasks += 1
+            installation_percentage = percentage_function(completed_intasks, automatic_total_instasks)
+        except Exception as e:
+            installation_percentage = 0
+
+        project_percentage = ((commercial_percentage + civil_percentage + procurement_percentage + installation_percentage )/4)
+
+        return Response({'progress': project_percentage})
+
+
+"""END OF PROJECT PROGRESS"""
+
 
 """VIEWS TO CALCULATE PROGRESS OF TEAMS/CATEGORIES"""
 
@@ -116,7 +263,7 @@ class CivilProgressView(APIView):
         except Exception as e:
             return Response({'error': 'Task not started', 'no_of_tasks': automatic_total_tasks,})
         foundation_and_curing_images = progress_object.foundation_and_curing_images
-        bts_and_generator_slabs_images = progress_object.bts_and_generator_slabs_images
+        bts_and_generator_slabs_images = progress_object.bs241_and_generator_slabs_images
         site_walling_images_field = progress_object.site_walling_images_field
         tower_field = progress_object.tower_data
         if bool(foundation_and_curing_images) is False:
@@ -217,7 +364,7 @@ class InstallationProgressView(APIView):
 class FoundationTaskProgressView(APIView):
 
     def get(self, request, pk):
-        total_tasks = 5
+        total_tasks = 6
         try:
             task = Task.objects.get(task_name='Tower foundation and curing.')
             task_id = task.id
@@ -230,6 +377,7 @@ class FoundationTaskProgressView(APIView):
         binding_status = ''
         steel_fix_status = ''
         concrete_pour_status = ''
+        concrete_curing_status = ''
         project_id = pk
         try:
             progress_object = FoundationImage.objects.get(project_name=project_id)
@@ -239,7 +387,8 @@ class FoundationTaskProgressView(APIView):
         excavation = progress_object.excavation_tower_base
         binding = progress_object.binding
         steel_fix = progress_object.steel_fix_formwork
-        concrete_pour_curing = progress_object.concrete_pour_curing
+        concrete_pour_curing = progress_object.concrete_pour_curing_period
+        concrete_curing = progress_object.concrete_curing_period
         if bool(setting_site) is False:
             setting_site_status = "Not uploaded"
         else:
@@ -265,8 +414,13 @@ class FoundationTaskProgressView(APIView):
         else:
             completed_tasks += 1
             concrete_pour_status = "Uploaded"
+        if bool(concrete_curing) is False:
+            concrete_curing_status = "Not Uploaded"
+        else:
+            completed_tasks += 1
+            concrete_curing_status = "Uploaded"
         foundation_percentage = percentage_function(completed_tasks, automatic_total_tasks)
-        return Response({'no_of_tasks': automatic_total_tasks, 'setting_site_status': setting_site_status, 'excavation_status': excavation_status, 'binding_status': binding_status, 'steel_fix_status': steel_fix_status, 'concrete_pour_status': concrete_pour_status, 'progress': foundation_percentage})
+        return Response({'no_of_tasks': automatic_total_tasks, 'setting_site_status': setting_site_status, 'excavation_status': excavation_status, 'binding_status': binding_status, 'steel_fix_status': steel_fix_status, 'concrete_pour_status': concrete_pour_status, 'concrete_curing_status': concrete_curing_status, 'progress': foundation_percentage})
 
 
 class BTSandGenTaskProgressView(APIView):
@@ -284,11 +438,11 @@ class BTSandGenTaskProgressView(APIView):
         concrete_pour_status = ''
         project_id = pk
         try:
-            progress_object = BTSAndGeneatorSlabsImage.objects.get(project_name=project_id)
+            progress_object = BS241AndGeneatorSlabsImage.objects.get(project_name=project_id)
         except Exception as e:
             return Response({'error': 'Task not started', 'no_of_tasks': automatic_total_tasks,})
         foundation_foot = progress_object.foundation_foot_pouring
-        concrete_pour = progress_object.concrete_pour_period
+        concrete_pour = progress_object.bs241_concrete_pour_pouring_period
         if bool(foundation_foot) is False:
             foundation_foot_status = "Not uploaded"
         else:
