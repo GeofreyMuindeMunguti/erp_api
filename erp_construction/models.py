@@ -160,7 +160,7 @@ class SetSiteClearingImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload site clearing and setting images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload site clearing and setting images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -247,7 +247,7 @@ class TowerBaseImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload Excavation for tower base images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload excavation images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -334,7 +334,7 @@ class BindingImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload binding images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload binding images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -421,7 +421,7 @@ class SteelFixFormworkImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload steel fixing images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload steel fixing images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -508,7 +508,7 @@ class ConcretePourImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload concrete pour images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload concrete pour images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -595,7 +595,7 @@ class ConcreteCuringPeriodImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload concrete curing images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload concrete curing images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -650,7 +650,7 @@ class FoundationImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data =Task.objects.get(task_name = 'Tower foundation and curing.')
+            kpi_data =Task.objects.get(task_name='Tower foundation and curing.')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -741,7 +741,7 @@ class ExcavationImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload BTS and Generator excavation images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload BTS and Generator excavation images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -828,7 +828,7 @@ class BS241ConcretePourCuringPeriodImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload BS241 concerete pour and curing images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload concerete pour and curing images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -879,7 +879,7 @@ class BS241AndGeneatorSlabsImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = Task.objects.get(task_name = 'BS241 & Generator Foundation')
+            kpi_data = Task.objects.get(task_name='BTS and Generator Foundation')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -970,7 +970,7 @@ class FoundFootPourImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload foundation, footing and pouring images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload foundation, footing and pouring images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -1057,7 +1057,7 @@ class BlockworkPanelConstImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload Blockwork/panel construction images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload panel construction images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -1144,7 +1144,7 @@ class GateInstallationImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload Gate Installation images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload gate installation images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -1231,7 +1231,7 @@ class RazorElectricFenceImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload Razor Wire/Electric Fence images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload razor/electric fence images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -1284,7 +1284,7 @@ class BoundaryWallImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = Task.objects.get(task_name = 'Upload Boundary Wall images')
+            kpi_data = Task.objects.get(task_name='Boundary Wall')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -1376,7 +1376,7 @@ class TowerErectionImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload tower erection images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload tower erection images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -1463,7 +1463,7 @@ class TowerPaintImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload tower painting images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload tower painting images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -1550,7 +1550,7 @@ class CableWaysImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload cable ways images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload cable ways images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -1637,7 +1637,7 @@ class AntennaCoaxInstallImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload Antenna Coax Installation images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload Antenna Coax Installation images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -1690,7 +1690,7 @@ class TowerAntennaCoaxImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = Task.objects.get(task_name = 'Tower & Antenna-Coax')
+            kpi_data = Task.objects.get(task_name='Tower & Antenna-Coax')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -2034,7 +2034,7 @@ class UndergroundTasks(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload Underground ducting & manholes images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload Underground ducting & manholes images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -2121,7 +2121,7 @@ class ReticulationAPSinstallation(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload Electrical reticulation/APS Installation images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload Electrical reticulation/APS Installation images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -2208,7 +2208,7 @@ class ElectricalEarthing(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload Earthing connections and testing images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload Earthing connections and testing images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -2299,7 +2299,7 @@ class GeneratorInstallation(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload Generator & Fuel Tank Installation images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload Generator & Fuel Tank Installation images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -2386,7 +2386,7 @@ class KPLCSolarImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload KPLC/solar installation images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload KPLC/solar installation images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -2440,7 +2440,7 @@ class ElectricalTasks(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = Task.objects.get(task_name = 'Electrical Tasks')
+            kpi_data = Task.objects.get(task_name='Electrical Tasks')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -2528,7 +2528,7 @@ class BTSinstallationTask(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = '	Upload BTS installation images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload BTS installation images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -2615,7 +2615,7 @@ class MWInstallationTask(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name = 'Upload MW installation images')
+            kpi_data = SubTask.objects.get(subtask_name='Upload MW installation images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -2667,7 +2667,7 @@ class TelecomTasks(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = Task.objects.get(task_name = 'Telecom Tasks')
+            kpi_data = Task.objects.get(task_name='Telecom Tasks')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
