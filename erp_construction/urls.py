@@ -7,8 +7,8 @@ from .progress import *
 from .monitoring import *
 from .scorecard import *
 from .flag import *
-from .fileshandler import filesviews
-from .fileshandler import filesserializers
+from .fileshandler import filesviews ,filesserializers , compressedfiles
+
 router = DefaultRouter()
 
 router.register(r'projects', views.ProjectViewSet)
@@ -86,7 +86,7 @@ urlpatterns = [
     #PROJECT FILES # allow  GET Method only 
     
     path('files/', filesviews.FilesView.as_view()), # Retrieve all projects files :: TO DO
-    path('compressedfiles/', filesviews.FileArchiver.as_view()), # Retrieve all projects files :: TO DO
+    path('compressedfiles/', compressedfiles.FileArchiver.as_view()), # Retrieve all projects files :: TO DO
 
     path('files/<int:pk>/', filesviews.ProjectFilesView.as_view()), # main url path to retrieve files per project
 
