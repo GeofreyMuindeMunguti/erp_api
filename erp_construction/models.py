@@ -30,7 +30,7 @@ class Category(models.Model):
 
 
 class ProjectIcons(models.Model):
-    icon = models.ImageField(upload_to=project_directory_path(icoms/images/Project/Icons/'))
+    icon = models.ImageField(upload_to=project_directory_path('icoms/images/Project/Icons/'))
     site_owner = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -2764,9 +2764,9 @@ def date_difference(start_date, end_date):
 
 class WarrantyCertificate(models.Model):
     project_name = project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    civilworks_installation_certificate = models.FileField(upload_to='files/WarrantyCertificates/civilworks/%Y/%m/%d/', blank=True, null=True)
-    connectors_torque_certificate = models.FileField(upload_to='files/WarrantyCertificates/connectorsTorque/%Y/%m/%d/', blank=True, null=True)
-    safe_to_climb_certificate = models.FileField(upload_to='files/WarrantyCertificates/SafeToClimb/%Y/%m/%d/', blank=True, null=True)
+    civilworks_installation_certificate = models.FileField(upload_to=project_directory_path('files/WarrantyCertificates/civilworks/'), blank=True, null=True)
+    connectors_torque_certificate = models.FileField(upload_to=project_directory_path('files/WarrantyCertificates/civilworks/'), blank=True, null=True)
+    safe_to_climb_certificate = models.FileField(upload_to=project_directory_path('files/WarrantyCertificates/civilworks/'), blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -2779,9 +2779,9 @@ class WarrantyCertificate(models.Model):
 
 class TestCetificate(models.Model):
     project_name = project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    cube_test_7days = models.FileField(upload_to='files/TestCertificates/cubetest7/%Y/%m/%d/', blank=True, null=True)
-    cube_test_28days = models.FileField(upload_to='files/TestCertificates/cubetest28/%Y/%m/%d/', blank=True, null=True)
-    earth_test = models.FileField(upload_to='files/TestCertificates/earthtest/%Y/%m/%d/', blank=True, null=True)
+    cube_test_7days = models.FileField(upload_to=project_directory_path('files/TestCertificates/cubetest7/'), blank=True, null=True)
+    cube_test_28days = models.FileField(upload_to=project_directory_path('files/TestCertificates/cubetest7/'), blank=True, null=True)
+    earth_test = models.FileField(upload_to=project_directory_path('files/TestCertificates/cubetest7/'), blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
