@@ -1846,21 +1846,12 @@ class CommercialTeam(models.Model):
 ####################################### PROCURMENT TEAM ###########################################################################################################################
 class ProcurementTeam(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-<<<<<<< HEAD
     po_steel = models.FileField(upload_to= project_directory_path('files/ProcurementTeam/PO_Steel/'), blank=True, null=True)
     po_steel_cost = models.CharField(max_length=120, choices=PO_STEEL_COST_CHOICES, default='None', blank=True)
     po_electrical_materials = models.FileField(upload_to=project_directory_path('files/ProcurementTeam/poelectrical/'), blank=True, null=True)
     po_electrical_materials_cost =models.CharField(max_length=120, choices=PO_ELECTRICAL_MATERIAL_CHOICES, default='None', blank=True)
     po_subcontractors = models.FileField(upload_to=project_directory_path('files/ProcurementTeam/PO_Subcontractor/'), blank=True, null=True)
     po_subcontractors_cost = models.CharField(max_length=120, choices=PO_SUBCONTRACTORS_CHOICES, default='None', blank=True)
-=======
-    po_steel = models.FileField(upload_to='files/ProcurementTeam/posteel/%Y/%m/%d/', blank=True, null=True)
-    po_steel_quantity = models.IntegerField(blank=True, null=True)
-    po_electrical_materials = models.FileField(upload_to='files/ProcurementTeam/poelectrical/%Y/%m/%d/', blank=True, null=True)
-    po_electrical_materials_quantity = models.IntegerField(blank=True, null=True)
-    po_subcontractors = models.FileField(upload_to='files/ProcurementTeam/posubcontractor/%Y/%m/%d/', blank=True, null=True)
-    po_subcontractors_amount = models.IntegerField(blank=True, null=True)
->>>>>>> development
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
