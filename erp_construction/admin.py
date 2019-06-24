@@ -104,7 +104,7 @@ admin.site.register(ProcurementTeam, ProcurementTeamAdmin)
 
 class HealthDocumentsCivilTeamAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'job_hazard_form', 'job_hazard_form_comment', 'incident_notification_form', 'incident_notification_form_comment', 'toolbox_meeting_form',
-                    'toolbox_meeting_form_comment', 'communication_plan_form', 'communication_plan_form_comment', 'health_documents_comment','access_approval', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+                    'toolbox_meeting_form_comment', 'communication_plan_form', 'communication_plan_form_comment', 'health_documents_comment','access_approval', 'safety_picture','posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -484,7 +484,7 @@ admin.site.register(ElectricalTasks, ElectricalTasksAdmin)
 
 
 class CivilWorksTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'health_documents_civil', 'access_approvals', 'foundation_and_curing_images',
+    list_display = ('id', 'project_name', 'health_documents_civil', 'foundation_and_curing_images',
                     'bs241_and_generator_slabs_images', 'site_walling_images_field', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -497,7 +497,7 @@ admin.site.register(CivilWorksTeam, CivilWorksTeamAdmin)
 
 class HealthDocumentsInstallationTeamAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'job_hazard_form', 'job_hazard_form_comment', 'incident_notification_form', 'incident_notification_form_comment', 'toolbox_meeting_form',
-                    'toolbox_meeting_form_comment', 'communication_plan_form', 'communication_plan_form_comment', 'health_documents_comment', 'access_approval','posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+                    'toolbox_meeting_form_comment', 'communication_plan_form', 'communication_plan_form_comment', 'health_documents_comment', 'access_approval', 'safety_picture', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -519,7 +519,7 @@ admin.site.register(Issues, IssuesAdmin)
 
 
 class InstallationTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'health_documents_installation', 'access_approvals', 'electrical_tasks_data',
+    list_display = ('id', 'project_name', 'health_documents_installation', 'electrical_tasks_data',
                     'telecom_tasks_data', 'as_built', 'signoff', 'signoff_comment','rfi_document','rfi_document_comment', 'integration_parameter', 'integration_parameter_comment', 'snag_document', 'snag_document_comment',
                     'project_issues', 'conditional_acceptance_cert', 'conditional_acceptance_cert_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
@@ -529,3 +529,23 @@ class InstallationTeamAdmin(admin.ModelAdmin):
 
 
 admin.site.register(InstallationTeam, InstallationTeamAdmin)
+
+
+class WarrantyCertificateAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'civilworks_installation_certificate', 'connectors_torque_certificate', 'safe_to_climb_certificate', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+    list_editable = ('is_active', 'is_approved')
+
+
+admin.site.register(WarrantyCertificate, WarrantyCertificateAdmin)
+
+
+class TestCetificateAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'cube_test_7days', 'cube_test_28days', 'earth_test', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+    list_editable = ('is_active', 'is_approved')
+
+
+admin.site.register(TestCetificate, TestCetificateAdmin)
