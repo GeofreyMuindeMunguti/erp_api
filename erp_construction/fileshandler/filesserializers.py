@@ -8,7 +8,7 @@
 # Imports
 #---------
 from rest_framework import serializers  #, exceptions
-from .models import *
+from erp_construction.models import *
 
 
 ############################ PROJECT FILES SERIALIZERS ###############################################

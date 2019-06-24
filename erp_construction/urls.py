@@ -7,8 +7,8 @@ from .progress import *
 from .monitoring import *
 from .scorecard import *
 from .flag import *
-from  fileshandler import filesviews
-
+from .fileshandler import filesviews
+from .fileshandler import filesserializers
 router = DefaultRouter()
 
 router.register(r'projects', views.ProjectViewSet)

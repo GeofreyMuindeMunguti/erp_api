@@ -1,7 +1,7 @@
 #from django.shortcuts import render
 from .filesserializers import *
 from rest_framework import generics, permissions, viewsets, serializers, permissions, filters, status
-from .models import *
+from erp_construction.models import *
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
