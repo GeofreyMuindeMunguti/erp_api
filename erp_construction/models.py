@@ -2697,6 +2697,8 @@ class TelecomTasks(models.Model):
 class Issues(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
     issue = models.CharField(max_length=100)
+    issue_image = models.ImageField(upload_to='images/InstallationTeam/issues/%Y/%m/%d/', blank=True, null=True)
+    issue_sorted_image = models.ImageField(upload_to='images/InstallationTeam/issues/%Y/%m/%d/', blank=True, null=True)
     closed = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)

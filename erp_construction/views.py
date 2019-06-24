@@ -474,6 +474,15 @@ class TestCetificateViewSet(DefaultsMixin, viewsets.ModelViewSet):
     ordering_fields = ('updated_at', 'project_name', )
 
 
+class IssuesViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating Issues ."""
+    queryset = Issues.objects.order_by('created_at')
+    serializer_class = IssuesSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
 def status_function(model_class, request):
     """Function to return status of previous team before posting """
     status = 'Previous Team Not Approved'

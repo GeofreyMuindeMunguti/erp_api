@@ -508,7 +508,7 @@ admin.site.register(HealthDocumentsInstallationTeam, HealthDocumentsInstallation
 
 
 class IssuesAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'issue', 'closed', 'posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'issue', 'issue_image', 'issue_sorted_image', 'closed', 'posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('issue', )
     list_filter = ('project_name',)
     search_fields = ('issue', )
