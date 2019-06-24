@@ -439,3 +439,11 @@ class TestCetificateSerializer(serializers.ModelSerializer):
         model = TestCetificate
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class IssuesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Issues
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
