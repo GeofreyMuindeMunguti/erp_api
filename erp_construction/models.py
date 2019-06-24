@@ -104,7 +104,10 @@ class SetSiteClearingImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -116,7 +119,10 @@ class SetSiteClearingImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = FoundationImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -135,7 +141,10 @@ class SetSiteClearingImage(models.Model):
             casual_rate_data = Rates.objects.get(worker_type='Casual')
             engineer_rate = engineer_rate_data.rate
             casual_rate = casual_rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = FoundationImage.objects.get(project_name=self.project_name)
                 engineer_count = engineer_data.engineers_atsite.count()
@@ -205,7 +214,10 @@ class TowerBaseImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -217,7 +229,10 @@ class TowerBaseImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = FoundationImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -286,7 +301,10 @@ class BindingImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -298,7 +316,10 @@ class BindingImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = FoundationImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -339,6 +360,7 @@ class BindingImage(models.Model):
         except Exception as e:
             return e
 
+
 class SteelFixFormworkImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual)
@@ -366,7 +388,10 @@ class SteelFixFormworkImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -378,7 +403,10 @@ class SteelFixFormworkImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = FoundationImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -447,7 +475,10 @@ class ConcretePourImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -459,7 +490,10 @@ class ConcretePourImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = FoundationImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -528,7 +562,10 @@ class ConcreteCuringPeriodImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -540,7 +577,10 @@ class ConcreteCuringPeriodImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = FoundationImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -668,7 +708,10 @@ class ExcavationImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -680,7 +723,10 @@ class ExcavationImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = BS241AndGeneatorSlabsImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -749,7 +795,10 @@ class BS241ConcretePourCuringPeriodImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -761,7 +810,10 @@ class BS241ConcretePourCuringPeriodImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = BS241AndGeneatorSlabsImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -885,7 +937,10 @@ class FoundFootPourImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -897,7 +952,10 @@ class FoundFootPourImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = BoundaryWallImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -966,7 +1024,10 @@ class BlockworkPanelConstImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -978,7 +1039,10 @@ class BlockworkPanelConstImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = BoundaryWallImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -1047,7 +1111,10 @@ class GateInstallationImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -1059,7 +1126,10 @@ class GateInstallationImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = BoundaryWallImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -1128,7 +1198,10 @@ class RazorElectricFenceImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -1140,7 +1213,10 @@ class RazorElectricFenceImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = BoundaryWallImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -1206,7 +1282,6 @@ class BoundaryWallImage(models.Model):
     def names_of_engineers(self):
         return [v.user.username for v in self.engineers_atsite.all()]
 
-
     def raise_flag(self):
         try:
             kpi_data = Task.objects.get(task_name = 'Upload Boundary Wall images')
@@ -1268,7 +1343,10 @@ class TowerErectionImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -1280,7 +1358,10 @@ class TowerErectionImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Enginner')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -1349,7 +1430,10 @@ class TowerPaintImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -1361,7 +1445,10 @@ class TowerPaintImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -1430,7 +1517,10 @@ class CableWaysImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -1442,7 +1532,10 @@ class CableWaysImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -1511,7 +1604,10 @@ class AntennaCoaxInstallImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -1523,7 +1619,10 @@ class AntennaCoaxInstallImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -1902,7 +2001,10 @@ class UndergroundTasks(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -1914,7 +2016,10 @@ class UndergroundTasks(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -1983,7 +2088,10 @@ class ReticulationAPSinstallation(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -1995,7 +2103,10 @@ class ReticulationAPSinstallation(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -2064,7 +2175,10 @@ class ElectricalEarthing(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -2076,7 +2190,10 @@ class ElectricalEarthing(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Enginner')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -2149,7 +2266,10 @@ class GeneratorInstallation(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -2161,7 +2281,10 @@ class GeneratorInstallation(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -2230,7 +2353,10 @@ class KPLCSolarImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -2242,7 +2368,10 @@ class KPLCSolarImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -2366,7 +2495,10 @@ class BTSinstallationTask(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -2378,7 +2510,10 @@ class BTSinstallationTask(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = TelecomTasks.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
@@ -2447,7 +2582,10 @@ class MWInstallationTask(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
             cost = (count * casual_rate * days_spent)
             return cost
@@ -2459,7 +2597,10 @@ class MWInstallationTask(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
-            days_spent = date_difference(self.start_date, self.updated_at)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, self.updated_at)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = TelecomTasks.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
