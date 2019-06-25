@@ -192,8 +192,7 @@ class SetSiteClearingImage(models.Model):
             task_id = task.id
             return task_id
         except Exception as e:
-            error = "Main task doesnt exist"
-            return error
+            return
 
 
 class TowerBaseImage(models.Model):
@@ -288,8 +287,7 @@ class TowerBaseImage(models.Model):
             task_id = task.id
             return task_id
         except Exception as e:
-            error = "Main task doesnt exist"
-            return error
+            return
 
 
 class BindingImage(models.Model):
@@ -384,8 +382,7 @@ class BindingImage(models.Model):
             task_id = task.id
             return task_id
         except Exception as e:
-            error = "Main task doesnt exist"
-            return error
+            return
 
 
 class SteelFixFormworkImage(models.Model):
@@ -480,8 +477,7 @@ class SteelFixFormworkImage(models.Model):
             task_id = task.id
             return task_id
         except Exception as e:
-            error = "Main task doesnt exist"
-            return error
+            return
 
 
 class ConcretePourImage(models.Model):
@@ -576,8 +572,7 @@ class ConcretePourImage(models.Model):
             task_id = task.id
             return task_id
         except Exception as e:
-            error = "Main task doesnt exist"
-            return error
+            return
 
 
 class ConcreteCuringPeriodImage(models.Model):
@@ -672,8 +667,7 @@ class ConcreteCuringPeriodImage(models.Model):
             task_id = task.id
             return task_id
         except Exception as e:
-            error = "Main task doesnt exist"
-            return error
+            return
 
 
 class FoundationImage(models.Model):
@@ -736,8 +730,7 @@ class FoundationImage(models.Model):
             team_id = team.id
             return team_id
         except Exception as e:
-            error = "Main team task doesnt exist"
-            return error
+            return
 
 ######################################## END #######################################################################################################################################
 
@@ -836,8 +829,7 @@ class ExcavationImage(models.Model):
             task_id = task.id
             return task_id
         except Exception as e:
-            error = "Main task doesnt exist"
-            return error
+            return
 
 
 class BS241ConcretePourCuringPeriodImage(models.Model):
@@ -932,8 +924,7 @@ class BS241ConcretePourCuringPeriodImage(models.Model):
             task_id = task.id
             return task_id
         except Exception as e:
-            error = "Main task doesnt exist"
-            return error
+            return
 
 
 class BS241AndGeneatorSlabsImage(models.Model):
@@ -992,8 +983,7 @@ class BS241AndGeneatorSlabsImage(models.Model):
             team_id = team.id
             return team_id
         except Exception as e:
-            error = "Main team task doesnt exist"
-            return error
+            return
 
 ######################################## END #######################################################################################################################################
 
@@ -1092,8 +1082,7 @@ class FoundFootPourImage(models.Model):
             task_id = task.id
             return task_id
         except Exception as e:
-            error = "Main task doesnt exist"
-            return error
+            return
 
 
 class BlockworkPanelConstImage(models.Model):
@@ -1188,8 +1177,7 @@ class BlockworkPanelConstImage(models.Model):
             task_id = task.id
             return task_id
         except Exception as e:
-            error = "Main task doesnt exist"
-            return error
+            return
 
 
 class GateInstallationImage(models.Model):
@@ -1284,8 +1272,7 @@ class GateInstallationImage(models.Model):
             task_id = task.id
             return task_id
         except Exception as e:
-            error = "Main task doesnt exist"
-            return error
+            return
 
 
 class RazorElectricFenceImage(models.Model):
@@ -1380,8 +1367,7 @@ class RazorElectricFenceImage(models.Model):
             task_id = task.id
             return task_id
         except Exception as e:
-            error = "Main task doesnt exist"
-            return error
+            return
 
 
 class BoundaryWallImage(models.Model):
@@ -1442,8 +1428,7 @@ class BoundaryWallImage(models.Model):
             team_id = team.id
             return team_id
         except Exception as e:
-            error = "Main team task doesnt exist"
-            return error
+            return
 
 
 ######################################## END #######################################################################################################################################
@@ -1543,8 +1528,7 @@ class TowerErectionImage(models.Model):
             task_id = task.id
             return task_id
         except Exception as e:
-            error = "Main task doesnt exist"
-            return error
+            return
 
 
 class TowerPaintImage(models.Model):
@@ -1639,8 +1623,7 @@ class TowerPaintImage(models.Model):
             task_id = task.id
             return task_id
         except Exception as e:
-            error = "Main task doesnt exist"
-            return error
+            return
 
 
 class CableWaysImage(models.Model):
@@ -1735,8 +1718,7 @@ class CableWaysImage(models.Model):
             task_id = task.id
             return task_id
         except Exception as e:
-            error = "Main task doesnt exist"
-            return error
+            return
 
 
 class AntennaCoaxInstallImage(models.Model):
@@ -1831,8 +1813,7 @@ class AntennaCoaxInstallImage(models.Model):
             task_id = task.id
             return task_id
         except Exception as e:
-            error = "Main task doesnt exist"
-            return error
+            return
 
 
 class TowerAntennaCoaxImage(models.Model):
@@ -1893,8 +1874,7 @@ class TowerAntennaCoaxImage(models.Model):
             team_id = team.id
             return team_id
         except Exception as e:
-            error = "Main team task doesnt exist"
-            return error
+            return
 
 ######################################## END #######################################################################################################################################
 
@@ -2246,8 +2226,7 @@ class UndergroundTasks(models.Model):
             task_id = task.id
             return task_id
         except Exception as e:
-            error = "Main task doesnt exist"
-            return error
+            return
 
 
 class ReticulationAPSinstallation(models.Model):
@@ -2342,8 +2321,7 @@ class ReticulationAPSinstallation(models.Model):
             task_id = task.id
             return task_id
         except Exception as e:
-            error = "Main task doesnt exist"
-            return error
+            return
 
 
 class ElectricalEarthing(models.Model):
@@ -2438,8 +2416,7 @@ class ElectricalEarthing(models.Model):
             task_id = task.id
             return task_id
         except Exception as e:
-            error = "Main task doesnt exist"
-            return error
+            return
 
 
 class GeneratorInstallation(models.Model):
@@ -2538,8 +2515,7 @@ class GeneratorInstallation(models.Model):
             task_id = task.id
             return task_id
         except Exception as e:
-            error = "Main task doesnt exist"
-            return error
+            return
 
 
 class KPLCSolarImage(models.Model):
@@ -2634,8 +2610,7 @@ class KPLCSolarImage(models.Model):
             task_id = task.id
             return task_id
         except Exception as e:
-            error = "Main task doesnt exist"
-            return error
+            return
 
 
 class ElectricalTasks(models.Model):
@@ -2794,8 +2769,7 @@ class BTSinstallationTask(models.Model):
             task_id = task.id
             return task_id
         except Exception as e:
-            error = "Main task doesnt exist"
-            return error
+            return
 
 
 class MWInstallationTask(models.Model):
@@ -2890,8 +2864,7 @@ class MWInstallationTask(models.Model):
             task_id = task.id
             return task_id
         except Exception as e:
-            error = "Main task doesnt exist"
-            return error
+            return
 
 
 class TelecomTasks(models.Model):
@@ -2951,8 +2924,7 @@ class TelecomTasks(models.Model):
             team_id = team.id
             return team_id
         except Exception as e:
-            error = "Main team task doesnt exist"
-            return error
+            return
 
 
 class Issues(models.Model):
