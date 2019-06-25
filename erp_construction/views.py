@@ -73,7 +73,6 @@ class CategoryViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
 ####################################### PROCUREMENT TEAM ###########################################################################################################################
 
-# queryset = ProcurementTeam.objects.order_by('created_at').annotate(po_sum=F('po_steel_cost') + F('po_electrical_materials_cost')+ F('po_subcontractors_cost'))
 class ProcurementTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating procurement team tasks."""
     queryset = ProcurementTeam.objects.order_by('created_at')
@@ -452,6 +451,33 @@ class KPLCSolarImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating KPLC & Solar images for Electrical team."""
     queryset = KPLCSolarImage.objects.order_by('created_at')
     serializer_class = KPLCSolarImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
+class WarrantyCertificateViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating Warranty certificates."""
+    queryset = WarrantyCertificate.objects.order_by('created_at')
+    serializer_class = WarrantyCertificateSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
+class TestCetificateViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating Test certificates."""
+    queryset = TestCetificate.objects.order_by('created_at')
+    serializer_class = TestCetificateSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
+class IssuesViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating Issues ."""
+    queryset = Issues.objects.order_by('created_at')
+    serializer_class = IssuesSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )

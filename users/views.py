@@ -48,6 +48,7 @@ class ObtainJWTView(ObtainJSONWebToken):
 # Users
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 # Permission
 class PermissionMapViewSet(viewsets.ModelViewSet):
