@@ -12,10 +12,10 @@ def project_directory_path(path):
 
     '''file will be uploaded to MEDIA_ROOT/project_name/<filename>/timepath/'''
     def upload_callback(instance, filename):
-        print('Instance:',instance.project_name)
-        #return '%s/%s/%s' % (str(instance),path, filename)   #  This can work python2
-        return  '{}/{}/{}'.format(str(instance.project_name),path,filename)  #  Also work python3
-        #return os.path.join(str(instance),path,timepath, filename)   # This is optimal
+
+        #return  '{}/{}/{}'.format(str(instance.project_name),path,filename)  #  Also work python3
+        return os.path.join(str(instance.project_name),path, filename)   # This is optimal
+        
     return upload_callback
 
 class Category(models.Model):
@@ -1846,9 +1846,9 @@ class CommercialTeam(models.Model):
 ####################################### PROCURMENT TEAM ###########################################################################################################################
 class ProcurementTeam(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    po_steel = models.FileField(upload_to= project_directory_path('files/ProcurementTeam/PO_Steel/'), blank=True, null=True)
+    po_steel = models.FileField(upload_to=project_directory_path('files/ProcurementTeam/PO_Steel/'), blank=True, null=True)
     po_steel_quantity = models.IntegerField(blank=True, null=True)
-    po_electrical_materials = models.FileField(upload_to=project_directory_path('files/ProcurementTeam/poelectrical/'), blank=True, null=True)
+    po_electrical_materials = models.FileField(upload_to=project_directory_path('files/ProcurementTeam/PO_Eelectrical/'), blank=True, null=True)
     po_electrical_materials_quantity = models.IntegerField(blank=True, null=True)
     po_subcontractors = models.FileField(upload_to=project_directory_path('files/ProcurementTeam/PO_Subcontractor/'), blank=True, null=True)
     po_subcontractors_amount = models.IntegerField(blank=True, null=True)

@@ -9,6 +9,7 @@ from .scorecard import *
 from .fileshandler import filesviews ,filesserializers ,compressedfiles
 
 
+
 router = DefaultRouter()
 
 router.register(r'projects', views.ProjectViewSet)
@@ -92,7 +93,6 @@ urlpatterns = [
     path('compressedfiles/', compressedfiles.FileArchiver.as_view()), # Retrieve all projects files :: TO DO
 
     path('files/<int:pk>/', filesviews.ProjectFilesView.as_view()), # main url path to retrieve files per project
-
     #Paths to retrieve individual files
 
     path('files/<int:pk>/siteclearingimages/', filesviews.SiteClearingFilesView.as_view()),
