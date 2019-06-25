@@ -6,17 +6,36 @@ from inventory.models import *
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime, timezone, timedelta
 import os   # to define file path per project
+from django.utils.deconstruct import deconstructible
+
+@deconstructible
+class UploadToProjectDir(object):
+    path = "projects/{0}/{1}{2}"
+
+    def __init__(self, sub_path):
+        self.sub_path = sub_path
+
+    def __call__(self, instance, filename):
+        return path.format(instance.project_name, self.sub_path, filename)
+
+upload_dir = UploadToProjectDir('committee/reports/')
 
 
 def project_directory_path(path):
 
     '''file will be uploaded to MEDIA_ROOT/project_name/<filename>/timepath/'''
     def upload_callback(instance, filename):
+                """Dynamically returns the project directory to which this file should be uploaded.
+        """
         print('Instance:',instance.project_name)
         #return '%s/%s/%s' % (str(instance),path, filename)   #  This can work python2
         return  '{}/{}/{}'.format(str(instance.project_name),path,filename)  #  Also work python3
         #return os.path.join(str(instance),path,timepath, filename)   # This is optimal
     return upload_callback
+
+
+
+
 
 class Category(models.Model):
     category_name = models.CharField(max_length=100, unique=True)
