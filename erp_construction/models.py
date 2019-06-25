@@ -9,13 +9,21 @@ import os   # to define file path per project
 
 
 def project_directory_path(path):
-
-    '''file will be uploaded to MEDIA_ROOT/project_name/<filename>/timepath/'''
+    # project_id =0
+    '''file will be uploaded to MEDIA_ROOT/project_name/<filename>//'''
     def upload_callback(instance, filename):
+        # some logic TO DO 
+        # id = instance.id
+        # if id == None:
+        #     print('ID is NONE')
+        #     id = max(map(lambda a:a.id,Project.objects.all())) + 1
+        #     print('created ID:',id)
+
+        # _url ='Project_{}'.format(id)
+        # return os.path.join( _url, filename)
 
         #return  '{}/{}/{}'.format(str(instance.project_name),path,filename)  #  Also work python3
         return os.path.join(str(instance.project_name),path, filename)   # This is optimal
-        
     return upload_callback
 
 class Category(models.Model):
@@ -2780,9 +2788,9 @@ class WarrantyCertificate(models.Model):
 
 class TestCetificate(models.Model):
     project_name = project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    cube_test_7days = models.FileField(upload_to=project_directory_path('files/TestCertificates/cubetest7/'), blank=True, null=True)
-    cube_test_28days = models.FileField(upload_to=project_directory_path('files/TestCertificates/cubetest7/'), blank=True, null=True)
-    earth_test = models.FileField(upload_to=project_directory_path('files/TestCertificates/cubetest7/'), blank=True, null=True)
+    cube_test_7days = models.FileField(upload_to=project_directory_path('files/TestCertificates/Cubetest7/'), blank=True, null=True)
+    cube_test_28days = models.FileField(upload_to=project_directory_path('files/TestCertificates/Cubetest7/'), blank=True, null=True)
+    earth_test = models.FileField(upload_to=project_directory_path('files/TestCertificates/Cubetest7/'), blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
