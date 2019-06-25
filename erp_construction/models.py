@@ -9,15 +9,18 @@ from django.utils.deconstruct import deconstructible
 
 @deconstructible
 class UploadToProjectDir(object):
+    '''Dynamically returns the project directory to which this file should be uploaded.'''
     path = "projects/{0}/{1}{2}"
 
     def __init__(self, sub_path):
+        #Initialize instance with sub_path    i.e . #upload_dir = UploadToProjectDir('Projects/images/')
         self.sub_path = sub_path
 
     def __call__(self, instance, filename):
+        #Create  Project_name/Filename(self.sun_path)  Dir Structure
         return self.path.format(instance.project_name, self.sub_path, filename)
 
-#upload_dir = UploadToProjectDir('Projects/images/')
+
 
 class Category(models.Model):
     category_name = models.CharField(max_length=100, unique=True)
