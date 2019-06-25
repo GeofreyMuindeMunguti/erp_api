@@ -15,13 +15,15 @@ from .filemixin import PermissionMixin
 
 class FileArchiver(generics.RetrieveAPIView,PermissionMixin):
     ''' view to GET compressed files and images'''
-
+    
     def make_tarfile(self,output_filename, source_dir):
         import tarfile
         import os
         with tarfile.open(output_filename, "w:bz2") as tar:  # w.bz2 w.gz
             tar.add(source_dir, arcname=os.path.basename(source_dir))
             return output_filename
+
+        #TO DO
 
     def update_compressed_files(self):
         #pass
@@ -31,21 +33,22 @@ class FileArchiver(generics.RetrieveAPIView,PermissionMixin):
         # cfile = self.make_tarfile('media/compressed/files.tar.bz2','media/files/')
         # cfile = self.make_tarfile('media/compressed/files.tar.bz2','media/files/')
         # cfile = self.make_tarfile('media/compressed/files.tar.bz2','media/files/')
+        
+        # TO DO
+
 
     def get(self, request, format=None):
         """
         Compress files compressed files.
         """
-        print('Compressing files Please wait.')
         self.update_compressed_files()
-        print('FIles Compression DONE!')
-
+    
         all_filesfiles = 'http://127.0.0.1:8000/{}'.format(self.allfiles)
         all_images =  'http://127.0.0.1:8000/{}'.format(self.allimages)
 
         
         return Response({'all_files': all_filesfiles,'all_images':all_images,})
-
+      
 
         
     # def get(self, request, format=None):
