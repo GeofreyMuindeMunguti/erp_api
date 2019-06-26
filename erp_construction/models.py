@@ -186,6 +186,14 @@ class SetSiteClearingImage(models.Model):
         except Exception as e:
             return e
 
+    def task_id(self):
+        try:
+            task = FoundationImage.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
 
 class TowerBaseImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -272,6 +280,14 @@ class TowerBaseImage(models.Model):
 
         except Exception as e:
             return e
+
+    def task_id(self):
+        try:
+            task = FoundationImage.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
 
 
 class BindingImage(models.Model):
@@ -360,6 +376,14 @@ class BindingImage(models.Model):
         except Exception as e:
             return e
 
+    def task_id(self):
+        try:
+            task = FoundationImage.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
 
 class SteelFixFormworkImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -446,6 +470,14 @@ class SteelFixFormworkImage(models.Model):
 
         except Exception as e:
             return e
+
+    def task_id(self):
+        try:
+            task = FoundationImage.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
 
 
 class ConcretePourImage(models.Model):
@@ -534,6 +566,14 @@ class ConcretePourImage(models.Model):
         except Exception as e:
             return e
 
+    def task_id(self):
+        try:
+            task = FoundationImage.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
 
 class ConcreteCuringPeriodImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -621,6 +661,14 @@ class ConcreteCuringPeriodImage(models.Model):
         except Exception as e:
             return e
 
+    def task_id(self):
+        try:
+            task = FoundationImage.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
 
 class FoundationImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -675,6 +723,14 @@ class FoundationImage(models.Model):
 
         except Exception as e:
             return e
+
+    def team_task_id(self):
+        try:
+            team = CivilWorksTeam.objects.get(project_name=self.project_name)
+            team_id = team.id
+            return team_id
+        except Exception as e:
+            return
 
 ######################################## END #######################################################################################################################################
 
@@ -767,6 +823,14 @@ class ExcavationImage(models.Model):
         except Exception as e:
             return e
 
+    def task_id(self):
+        try:
+            task = BS241AndGeneatorSlabsImage.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
 
 class BS241ConcretePourCuringPeriodImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -854,6 +918,14 @@ class BS241ConcretePourCuringPeriodImage(models.Model):
         except Exception as e:
             return e
 
+    def task_id(self):
+        try:
+            task = BS241AndGeneatorSlabsImage.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
 
 class BS241AndGeneatorSlabsImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -904,6 +976,14 @@ class BS241AndGeneatorSlabsImage(models.Model):
 
         except Exception as e:
             return e
+
+    def team_task_id(self):
+        try:
+            team = CivilWorksTeam.objects.get(project_name=self.project_name)
+            team_id = team.id
+            return team_id
+        except Exception as e:
+            return
 
 ######################################## END #######################################################################################################################################
 
@@ -996,6 +1076,14 @@ class FoundFootPourImage(models.Model):
         except Exception as e:
             return e
 
+    def task_id(self):
+        try:
+            task = BoundaryWallImage.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
 
 class BlockworkPanelConstImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -1082,6 +1170,14 @@ class BlockworkPanelConstImage(models.Model):
 
         except Exception as e:
             return e
+
+    def task_id(self):
+        try:
+            task = BoundaryWallImage.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
 
 
 class GateInstallationImage(models.Model):
@@ -1170,6 +1266,14 @@ class GateInstallationImage(models.Model):
         except Exception as e:
             return e
 
+    def task_id(self):
+        try:
+            task = BoundaryWallImage.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
 
 class RazorElectricFenceImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -1257,6 +1361,14 @@ class RazorElectricFenceImage(models.Model):
         except Exception as e:
             return e
 
+    def task_id(self):
+        try:
+            task = BoundaryWallImage.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
 
 class BoundaryWallImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -1309,6 +1421,14 @@ class BoundaryWallImage(models.Model):
 
         except Exception as e:
             return e
+
+    def team_task_id(self):
+        try:
+            team = CivilWorksTeam.objects.get(project_name=self.project_name)
+            team_id = team.id
+            return team_id
+        except Exception as e:
+            return
 
 
 ######################################## END #######################################################################################################################################
@@ -1402,6 +1522,14 @@ class TowerErectionImage(models.Model):
         except Exception as e:
             return e
 
+    def task_id(self):
+        try:
+            task = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
 
 class TowerPaintImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -1488,6 +1616,14 @@ class TowerPaintImage(models.Model):
 
         except Exception as e:
             return e
+
+    def task_id(self):
+        try:
+            task = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
 
 
 class CableWaysImage(models.Model):
@@ -1576,6 +1712,14 @@ class CableWaysImage(models.Model):
         except Exception as e:
             return e
 
+    def task_id(self):
+        try:
+            task = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
 
 class AntennaCoaxInstallImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -1663,6 +1807,14 @@ class AntennaCoaxInstallImage(models.Model):
         except Exception as e:
             return e
 
+    def task_id(self):
+        try:
+            task = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
 
 class TowerAntennaCoaxImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -1715,6 +1867,14 @@ class TowerAntennaCoaxImage(models.Model):
 
         except Exception as e:
             return e
+
+    def team_task_id(self):
+        try:
+            team = CivilWorksTeam.objects.get(project_name=self.project_name)
+            team_id = team.id
+            return team_id
+        except Exception as e:
+            return
 
 ######################################## END #######################################################################################################################################
 
@@ -2060,6 +2220,14 @@ class UndergroundTasks(models.Model):
         except Exception as e:
             return e
 
+    def task_id(self):
+        try:
+            task = ElectricalTasks.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
 
 class ReticulationAPSinstallation(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -2147,6 +2315,14 @@ class ReticulationAPSinstallation(models.Model):
         except Exception as e:
             return e
 
+    def task_id(self):
+        try:
+            task = ElectricalTasks.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
 
 class ElectricalEarthing(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -2233,6 +2409,14 @@ class ElectricalEarthing(models.Model):
 
         except Exception as e:
             return e
+
+    def task_id(self):
+        try:
+            task = ElectricalTasks.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
 
 
 class GeneratorInstallation(models.Model):
@@ -2325,6 +2509,14 @@ class GeneratorInstallation(models.Model):
         except Exception as e:
             return e
 
+    def task_id(self):
+        try:
+            task = ElectricalTasks.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
 
 class KPLCSolarImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -2412,6 +2604,14 @@ class KPLCSolarImage(models.Model):
         except Exception as e:
             return e
 
+    def task_id(self):
+        try:
+            task = ElectricalTasks.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
 
 class ElectricalTasks(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -2465,6 +2665,15 @@ class ElectricalTasks(models.Model):
 
         except Exception as e:
             return e
+
+    def team_task_id(self):
+        try:
+            team = InstallationTeam.objects.get(project_name=self.project_name)
+            team_id = team.id
+            return team_id
+        except Exception as e:
+            error = "Main team task doesnt exist"
+            return error
 
 
 class BTSinstallationTask(models.Model):
@@ -2554,6 +2763,14 @@ class BTSinstallationTask(models.Model):
         except Exception as e:
             return e
 
+    def task_id(self):
+        try:
+            task = TelecomTasks.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
 
 class MWInstallationTask(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -2641,6 +2858,14 @@ class MWInstallationTask(models.Model):
         except Exception as e:
             return e
 
+    def task_id(self):
+        try:
+            task = TelecomTasks.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
 
 class TelecomTasks(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
@@ -2692,6 +2917,14 @@ class TelecomTasks(models.Model):
 
         except Exception as e:
             return e
+
+    def team_task_id(self):
+        try:
+            team = InstallationTeam.objects.get(project_name=self.project_name)
+            team_id = team.id
+            return team_id
+        except Exception as e:
+            return
 
 
 class Issues(models.Model):
