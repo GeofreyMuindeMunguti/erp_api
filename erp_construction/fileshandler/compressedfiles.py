@@ -29,15 +29,12 @@ class CompressedFilesDownload(APIView):
 
 
     def update_compressed_files(self):
-        print('File compression started.')
-        
+        #TO DO 
+        #implement gZIP here instead of  TAR files
+
         cfile = self.make_tarfile('media/projects/{}/files.tar.gz'.format(self.projectobject.project_name),'media/projects/{}/files/'.format(self.projectobject.project_name))
         cmage = self.make_tarfile('media/projects/{}/images.tar.gz'.format(self.projectobject.project_name),'media/projects/{}/images/'.format(self.projectobject.project_name))
-        print('Compression Done')
-
-        # cfile = self.make_tarfile('media/compressed/files.tar.bz2','media/files/')
-        # cfile = self.make_tarfile('media/compressed/files.tar.bz2','media/files/')
-        # cfile = self.make_tarfile('media/compressed/files.tar.bz2','media/files/')
+    
         return cfile ,cmage
 
 
@@ -48,14 +45,12 @@ class CompressedFilesDownload(APIView):
         self.projectobject = self.get_object(pk)
         cfile,cmage =self.update_compressed_files()
         
-        ##Hard Coded URLs for testing/Development
+       
+        # TO DO : Find a better way to address issues// Can on DEV /Debug=True
+        compressed_project_files = 'http://127.0.0.1:8005/{}'.format(cfile)   ##Hard Coded URLs for testing/Development
+        compressed_project_images = 'http://127.0.0.1:8005/{}'.format(cmage)   ##Hard Coded URLs for testing/Development
 
-        compressed_project_files = 'http://127.0.0.1:8005/{}'.format(cfile)
-        compressed_project_images = 'http://127.0.0.1:8005/{}'.format(cmage)
-
-        print(compressed_project_files)
-        return Response({'files':compressed_project_files,'images':compressed_project_images,})
-        #return Response('Year bro I got you!!') 
+        return Response({'files':compressed_project_files,'images':compressed_project_images,}) 
 
 
 
