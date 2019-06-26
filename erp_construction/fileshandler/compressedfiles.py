@@ -23,7 +23,7 @@ class CompressedFilesDownload(APIView):
     def make_tarfile(self,output_filename, source_dir):
         import tarfile
         import os
-        with tarfile.open(output_filename, "w:gz") as tar:  # w.bz2 w.gz
+        with tarfile.open(output_filename, "w:xz") as tar:  # w.bz2 w.gz
             tar.add(source_dir, arcname=os.path.basename(source_dir))
             return output_filename
 
@@ -32,8 +32,8 @@ class CompressedFilesDownload(APIView):
         #TO DO 
         #implement gZIP here instead of  TAR files
 
-        cfile = self.make_tarfile('media/projects/{}/files.tar.gz'.format(self.projectobject.project_name),'media/projects/{}/files/'.format(self.projectobject.project_name))
-        cmage = self.make_tarfile('media/projects/{}/images.tar.gz'.format(self.projectobject.project_name),'media/projects/{}/images/'.format(self.projectobject.project_name))
+        cfile = self.make_tarfile('media/projects/{}/files.tar.xz'.format(self.projectobject.project_name),'media/projects/{}/files/'.format(self.projectobject.project_name))
+        cmage = self.make_tarfile('media/projects/{}/images.tar.xz'.format(self.projectobject.project_name),'media/projects/{}/images/'.format(self.projectobject.project_name))
     
         return cfile ,cmage
 

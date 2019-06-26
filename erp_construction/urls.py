@@ -145,4 +145,4 @@ urlpatterns = [
     path('compressedfilesdownload/<int:pk>/', compressedfiles.CompressedFilesDownload.as_view()),
 
 
-] + static(settings.STATIC_URL, document_root =settings.STATIC_ROOT)
+] #+ static(settings.STATIC_URL, document_root =settings.STATIC_ROOT)

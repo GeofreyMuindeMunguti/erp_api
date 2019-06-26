@@ -6,19 +6,7 @@ from inventory.models import *
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime, timezone, timedelta
 from django.utils.deconstruct import deconstructible
-
-@deconstructible  #fixmigrations issues 
-class UploadToProjectDir(object):
-    '''Dynamically returns the project directory to which this file should be uploaded.'''
-    path = "projects/{0}/{1}{2}"
-
-    def __init__(self, sub_path):
-        #Initialize instance with sub_path    i.e . #upload_dir = UploadToProjectDir('Projects/images/')
-        self.sub_path = sub_path
-
-    def __call__(self, instance, filename):
-        #Create  Project_name/Filename(self.sun_path)  Dir Structure
-        return self.path.format(instance.project_name, self.sub_path, filename)
+from erp_construction.fileshandler.filemixin import UploadToProjectDir # create Folders(Project name) with images & files per project in /media/...
 
 
 
