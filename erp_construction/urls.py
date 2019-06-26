@@ -7,8 +7,8 @@ from .progress import *
 from .monitoring import *
 from .scorecard import *
 from .fileshandler import filesviews ,filesserializers ,compressedfiles
-
-
+from django.conf.urls.static import static
+from django.conf import settings
 
 router = DefaultRouter()
 
@@ -90,7 +90,7 @@ urlpatterns = [
     #PROJECT FILES # allow  GET Method only
 
     path('files/', filesviews.FilesView.as_view()), # Retrieve all projects files :: TO DO
-    path('compressedfiles/', compressedfiles.FileArchiver.as_view()), # Retrieve all projects files :: TO DO
+   # path('compressedfiles/', compressedfiles.FileCompressorDownload.as_view()), # Retrieve all projects files :: TO DO
 
     path('files/<int:pk>/', filesviews.ProjectFilesView.as_view()), # main url path to retrieve files per project
     #Paths to retrieve individual files
@@ -115,7 +115,7 @@ urlpatterns = [
     path('files/<int:pk>/cablewaysimages/', filesviews.CableWaysImagesView.as_view()),
     path('files/<int:pk>/antennacoaxinstallimages/', filesviews.AntennaCoaxInstallImagesView.as_view()),
 
-    path('files/<int:pk>/towerantennacoaxmages/', filesviews.TowerAntennaCoaxImagesView.as_view()),
+    #path('files/<int:pk>/towerantennacoaxmages/', filesviews.TowerAntennaCoaxImagesView.as_view()),
     path('files/<int:pk>/projectpurchaseorders/', filesviews.ProjectPurchaseOrdersView.as_view()),
     path('files/<int:pk>/projectcostingfile/', filesviews.ProjectCostingFileView.as_view()),
 
@@ -139,4 +139,10 @@ urlpatterns = [
     path('totalpurchaseprders/', TotalPurchaseOrdersView.as_view()),
     path('revenueperproject/<int:pk>', RevenueDetailView.as_view()),
     path('revenue/', RevenueListView.as_view()),
-]
+
+
+  #  path('projectz/', views.SnippetList.as_view()),
+    path('compressedfilesdownload/<int:pk>/', compressedfiles.CompressedFilesDownload.as_view()),
+
+
+] + static(settings.STATIC_URL, document_root =settings.STATIC_ROOT)

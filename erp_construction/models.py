@@ -7,7 +7,7 @@ from django.contrib.postgres.fields import ArrayField
 from datetime import datetime, timezone, timedelta
 from django.utils.deconstruct import deconstructible
 
-@deconstructible  #fixmigrations bugs 
+@deconstructible  #fixmigrations issues 
 class UploadToProjectDir(object):
     '''Dynamically returns the project directory to which this file should be uploaded.'''
     path = "projects/{0}/{1}{2}"
@@ -34,7 +34,7 @@ class Category(models.Model):
 
 
 class ProjectIcons(models.Model):
-    icon = models.ImageField(upload_to=UploadToProjectDir('images/Icons/'))
+    icon = models.ImageField(upload_to='Icons/%Y/%m/%d/')
     site_owner = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
