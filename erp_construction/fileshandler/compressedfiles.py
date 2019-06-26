@@ -12,7 +12,7 @@ from django.conf import settings
 
 class CompressedFilesDownload(APIView):
     """
-    Retrieve, update or delete a snippet instance.
+    Retrieve compressed files & images per project
     """
     def get_object(self, pk):
         try:
