@@ -141,8 +141,8 @@ urlpatterns = [
     path('revenue/', RevenueListView.as_view()),
 
 
-  #  path('projectz/', views.SnippetList.as_view()),
-    path('compressedfilesdownload/<int:pk>/', compressedfiles.CompressedFilesDownload.as_view()),
-
+  #  Get existing compressed files & images or Update the files and download
+    path('compressedfilesupdateanddownload/<int:pk>/', compressedfiles.UpdateCompressedFilesAndDownload.as_view()),
+    path('downloadexistingcompressedfiles/<int:pk>/', compressedfiles.DownloadExistingCompressedFiles.as_view()),
 
 ] #+ static(settings.STATIC_URL, document_root =settings.STATIC_ROOT)
