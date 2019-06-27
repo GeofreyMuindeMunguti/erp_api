@@ -16,16 +16,13 @@ class CompressionMixin(object):
 
     def make_ZIP_file(self,output_filename ,source_dir):
         import shutil
-        output_filename = shutil.make_archive(output_filename, 'zip', source_dir)
-    
-        print(output_filename)
+        return shutil.make_archive(output_filename, 'zip', source_dir)# / 'zip' change to get any other compression type
 
 
     def make_TAR_file(self,output_filename, source_dir): 
         import tarfile
-        with tarfile.open(output_filename, "w:gz") as tar:  # w.bz2 w.gz
-            tar.add(source_dir, arcname=os.path.basename(source_dir))
-            return output_filename
+        with tarfile.open(output_filename, "w:gz") as tar:  # w.bz2 / w.gz / w.xz   # Selections
+            return tar.add(source_dir, arcname=os.path.basename(source_dir))
 
 
 
