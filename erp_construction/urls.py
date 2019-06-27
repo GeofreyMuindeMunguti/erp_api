@@ -142,7 +142,7 @@ urlpatterns = [
 
 
   #  Get existing compressed files & images or Update the files and download
-    # path('compressedfilesupdateanddownload/<int:pk>/', compressedfiles.UpdateCompressedFilesAndDownload.as_view()),
-    # path('downloadexistingcompressedfiles/<int:pk>/', compressedfiles.DownloadExistingCompressedFiles.as_view()),
+     path('compressedfilesupdateanddownload/<int:pk>/', compressedfiles.UpdateCompressedFilesAndDownload.as_view()),
+     path('downloadexistingcompressedfiles/<int:pk>/', compressedfiles.DownloadExistingCompressedFiles.as_view()),
 
-] #+ static(settings.STATIC_URL, document_root =settings.STATIC_ROOT)
+] + static(settings.STATIC_URL, document_root =settings.STATIC_ROOT)
