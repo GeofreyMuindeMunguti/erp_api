@@ -12,7 +12,8 @@ import os
 
 ##TODO _Code below Under research on usability/adaptability to  production enviroment /
 
-#baseurl = settings.BASEIP  
+baseurl = settings.BASE_IP  # use this in production
+print(baseurl)
 
 baseurl='http://127.0.0.1:8000'   ##Hard Coded URLs for testing/Development
 
