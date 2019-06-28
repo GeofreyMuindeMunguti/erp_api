@@ -10,9 +10,10 @@ from django.http import FileResponse
 import os
 
 
-
 ##TODO _Code below Under research on usability/adaptability to  production enviroment /
-baseurl = settings.ALLOWED_HOSTS
+
+#baseurl = settings.BASEIP  
+
 baseurl='http://127.0.0.1:8000'   ##Hard Coded URLs for testing/Development
 
 #################################FILES Compression Block#####################################################
