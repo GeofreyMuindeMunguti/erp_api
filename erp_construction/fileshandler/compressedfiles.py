@@ -104,8 +104,8 @@ class UpdateCompressedFilesAndDownload(APIView,PermissionMixin,CompressionMixin)
 
         # for ZIP file
 
-        compressed_project_files_zip = baseurl+'/{}'.format(zfile)   ##Hard Coded URLs for testing/Development
-        compressed_project_images_zip = baseurl+'/{}'.format(zmage)   
+        compressed_project_files_zip = baseurl+'{}'.format(zfile)   ##Hard Coded URLs for testing/Development
+        compressed_project_images_zip = baseurl+'{}'.format(zmage)   
 
         return Response({'files':compressed_project_files,'images':compressed_project_images,'files_Zip':compressed_project_files_zip,'images_Zip':compressed_project_images_zip,}) 
       
