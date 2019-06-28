@@ -5,13 +5,15 @@ from .filemixin import PermissionMixin
 from erp_construction.models import Project
 from rest_framework.views import APIView
 from django.http import Http404
-#from django.conf import settings
+from django.conf import settings
 from django.http import FileResponse
 import os
 
 
-##TODO _Code below Under research on usability/adaptability to  production enviroment /
 
+##TODO _Code below Under research on usability/adaptability to  production enviroment /
+baseurl = settings.ALLOWED_HOSTS
+baseurl='http://127.0.0.1:8000'   ##Hard Coded URLs for testing/Development
 
 #################################FILES Compression Block#####################################################
 class CompressionMixin(object):
@@ -94,23 +96,16 @@ class UpdateCompressedFilesAndDownload(APIView,PermissionMixin,CompressionMixin)
         self.projectobject = self.get_object(pk)
         cfile,cmage ,zfile,zmage  =self.update_compressed_files()
 
-            #TODO :::Resolve this issue //"http://127.0.0.1:8007/Images does not exist"
+            #TODO :::Resolve this issue //"http://127.0.0.1:8000/Images does not exist"
 
         #for tarfile
-        compressed_project_files = 'http://127.0.0.1:8007/{}'.format(cfile)   ##Hard Coded URLs for testing/Development
-        compressed_project_images = 'http://127.0.0.1:8007/{}'.format(cmage)   ##Hard Coded URLs for testing/Development
+        compressed_project_files = baseurl+'/{}'.format(cfile)   ##Hard Coded URLs for testing/Development
+        compressed_project_images = baseurl+'/{}'.format(cmage)   
 
         # for ZIP file
 
-        compressed_project_files_zip = 'http://127.0.0.1:8007{}'.format(zfile)   ##Hard Coded URLs for testing/Development
-        compressed_project_images_zip = 'http://127.0.0.1:8007{}'.format(zmage)   ##Hard Coded URLs for testing/Development
-       
-        #response = HttpResponse(mimetype='application/zip')
-        #response['Content-Disposition'] = 'filename=logs_%s.zip' % date
-
-        # filem = open('media/projects/Project1/images.tar.gz', 'rb')
-        #return FileResponse(open(filem, 'rb'))
-        
+        compressed_project_files_zip = baseurl+'/{}'.format(zfile)   ##Hard Coded URLs for testing/Development
+        compressed_project_images_zip = baseurl+'/{}'.format(zmage)   
 
         return Response({'files':compressed_project_files,'images':compressed_project_images,'files_Zip':compressed_project_files_zip,'images_Zip':compressed_project_images_zip,}) 
       
@@ -174,16 +169,14 @@ class DownloadExistingCompressedFiles(APIView,PermissionMixin):
         self.projectobject = self.get_object(pk)
         efile,emage ,zfile, zmage  =self.get_existing_compressed_files()
 
-            #TO DO :::Resolve this issue //"http://127.0.0.1:8007/Images does not exist"
+            #TO DO :::Resolve this issue //"http://127.0.0.1:8000/Images does not exist"
         # TO DO : Find a better way to address issues// Can on DEV /Debug=True
 
-        pathg = request.path
+        compressed_project_files = baseurl+'/{}'.format(efile)   ##Hard Coded URLs for testing/Development/ replace with production URL
+        compressed_project_images = baseurl+'/{}'.format(emage)   ##Hard Coded URLs for testing/Development
 
-        compressed_project_files = 'http://127.0.0.1:8007/{}'.format(efile)   ##Hard Coded URLs for testing/Development/ replace with production URL
-        compressed_project_images = 'http://127.0.0.1:8007/{}'.format(emage)   ##Hard Coded URLs for testing/Development
-
-        compressed_project_files_zip = 'http://127.0.0.1:8007/{}'.format(zfile)   ##Hard Coded URLs for testing/Development
-        compressed_project_images_zip = 'http://127.0.0.1:8007/{}'.format(zmage)   ##Hard Coded URLs for testing/Development
+        compressed_project_files_zip = baseurl+'/{}'.format(zfile)   ##Hard Coded URLs for testing/Development
+        compressed_project_images_zip = baseurl+'/{}'.format(zmage)   ##Hard Coded URLs for testing/Development
         
         return Response({'files':compressed_project_files,'images':compressed_project_images,'files_zip':compressed_project_files_zip,'images_zip':compressed_project_images_zip,}) 
 
