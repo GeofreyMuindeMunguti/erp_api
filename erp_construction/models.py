@@ -207,7 +207,7 @@ class Project(models.Model):
         except Exception as e:
             installation_percentage = 0
 
-        project_percentage = round(((commercial_percentage + civil_percentage + procurement_percentage + installation_percentage )/4))
+        project_percentage = ((commercial_percentage + civil_percentage + procurement_percentage + installation_percentage )/4)
 
         return project_percentage
 
@@ -3150,3 +3150,8 @@ class TestCetificate(models.Model):
 
     def __str__(self):
         return str(self.project_name)
+
+def percentage_function(no_of_complete, total_task):
+    """Function to return perecentage of progress  """
+    percentage = round(((no_of_complete/total_task) * 100))
+    return percentage
