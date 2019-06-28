@@ -1,5 +1,6 @@
 #from rest_framework import generics, permissions, permissions
 from rest_framework.response import Response
+from django.http import HttpResponse
 from .filemixin import PermissionMixin
 from erp_construction.models import Project
 from rest_framework.views import APIView
@@ -39,7 +40,7 @@ class UpdateCompressedFilesAndDownload(APIView,PermissionMixin,CompressionMixin)
 
     def make_ZIP_file(self,output_filename ,source_dir):
         import shutil
-        return shutil.make_archive(output_filename, 'zip', source_dir).split('erp_api')[1]#TODO there is inconsistent path issue here to resolve
+        return shutil.make_archive(output_filename, 'zip', source_dir).split('erp_api')[1] #TODO there is inconsistent path issue here to resolve
        # return output_filename
 
 
@@ -93,24 +94,26 @@ class UpdateCompressedFilesAndDownload(APIView,PermissionMixin,CompressionMixin)
         self.projectobject = self.get_object(pk)
         cfile,cmage ,zfile,zmage  =self.update_compressed_files()
 
-       # zfile,zmage =self.update_compressed_files('ZIP')
-        print('FILLL:',cfile,cmage)
-        
-            #TODO :::Resolve this issue //"http://127.0.0.1:8000/Images does not exist"
+            #TODO :::Resolve this issue //"http://127.0.0.1:8007/Images does not exist"
 
         #for tarfile
-        compressed_project_files = 'http://127.0.0.1:8000/{}'.format(cfile)   ##Hard Coded URLs for testing/Development
-        compressed_project_images = 'http://127.0.0.1:8000/{}'.format(cmage)   ##Hard Coded URLs for testing/Development
+        compressed_project_files = 'http://127.0.0.1:8007/{}'.format(cfile)   ##Hard Coded URLs for testing/Development
+        compressed_project_images = 'http://127.0.0.1:8007/{}'.format(cmage)   ##Hard Coded URLs for testing/Development
 
         # for ZIP file
-        # compressed_project_files_zip = zfile   ##Hard Coded URLs for testing/Development
-        # compressed_project_images_zip = zmage ##Hard Coded URLs for testing/Development
 
-        compressed_project_files_zip = 'http://127.0.0.1:8000{}'.format(zfile)   ##Hard Coded URLs for testing/Development
-        compressed_project_images_zip = 'http://127.0.0.1:8000{}'.format(zmage)   ##Hard Coded URLs for testing/Development
+        compressed_project_files_zip = 'http://127.0.0.1:8007{}'.format(zfile)   ##Hard Coded URLs for testing/Development
+        compressed_project_images_zip = 'http://127.0.0.1:8007{}'.format(zmage)   ##Hard Coded URLs for testing/Development
+       
+        #response = HttpResponse(mimetype='application/zip')
+        #response['Content-Disposition'] = 'filename=logs_%s.zip' % date
+
+        # filem = open('media/projects/Project1/images.tar.gz', 'rb')
+        #return FileResponse(open(filem, 'rb'))
+        
 
         return Response({'files':compressed_project_files,'images':compressed_project_images,'files_Zip':compressed_project_files_zip,'images_Zip':compressed_project_images_zip,}) 
-        #return FileResponse(open('', 'rb'))
+      
 
 
 class DownloadExistingCompressedFiles(APIView,PermissionMixin):
@@ -132,49 +135,84 @@ class DownloadExistingCompressedFiles(APIView,PermissionMixin):
                 # TO DO # rewrite below code in more  pythonic way : may be write vadidate function
 
         if os.path.exists(os.path.join('media','projects','{}'.format(self.projectobject.project_name),'files')) is False:
-            efile = 'Files does not exist'
+            efile =  'Files does not exist'
+            zfile = 'Files does not exist'
 
             #os.mkdir(os.path.join('media','projects','{}'.format(self.projectobject),'files'))/make file dir if not existing
     
             if os.path.exists(os.path.join('media','projects','{}'.format(self.projectobject.project_name),'images')) is False:
                 emage = 'Images does not exist'
+                zmage = 'Images does not exist'
 
             else:
                 
                 emage = 'media/projects/{}/images.tar.gz'.format(self.projectobject.project_name)
+                zmage = 'Images does not exist'
         else:
             if os.path.exists(os.path.join('media','projects','{}'.format(self.projectobject),'images')) is False:
                 
                 emage = 'Images does not exist'
                 efile = 'media/projects/{}/files.tar.gz'.format(self.projectobject.project_name)
-                
+
+                zmage = 'Images does not exist'
+                zfile = 'media/projects/{}/files.zip'.format(self.projectobject.project_name)
             else:
 
                 efile ='media/projects/{}/files.tar.gz'.format(self.projectobject.project_name)
                 emage = 'media/projects/{}/images.tar.gz'.format(self.projectobject.project_name)
+
+                zfile ='media/projects/{}/files.zip'.format(self.projectobject.project_name)
+                zmage = 'media/projects/{}/images.zip'.format(self.projectobject.project_name)
                ## END  BLOCK to validate if files and images has been uploaded yet before compression and download
         
-        return efile,emage
+        return efile,emage ,zfile ,zmage
     
     def get(self, request, pk, format=None):
         """
         Return compressed files.
         """
         self.projectobject = self.get_object(pk)
-        efile,emage =self.get_existing_compressed_files()
+        efile,emage ,zfile, zmage  =self.get_existing_compressed_files()
 
-            #TO DO :::Resolve this issue //"http://127.0.0.1:8000/Images does not exist"
-
+            #TO DO :::Resolve this issue //"http://127.0.0.1:8007/Images does not exist"
         # TO DO : Find a better way to address issues// Can on DEV /Debug=True
-        compressed_project_files = 'http://127.0.0.1:8000/{}'.format(efile)   ##Hard Coded URLs for testing/Development
-        compressed_project_images = 'http://127.0.0.1:8000/{}'.format(emage)   ##Hard Coded URLs for testing/Development
 
-        return Response({'files':compressed_project_files,'images':compressed_project_images,}) 
+        pathg = request.path
+
+        compressed_project_files = 'http://127.0.0.1:8007/{}'.format(efile)   ##Hard Coded URLs for testing/Development/ replace with production URL
+        compressed_project_images = 'http://127.0.0.1:8007/{}'.format(emage)   ##Hard Coded URLs for testing/Development
+
+        compressed_project_files_zip = 'http://127.0.0.1:8007/{}'.format(zfile)   ##Hard Coded URLs for testing/Development
+        compressed_project_images_zip = 'http://127.0.0.1:8007/{}'.format(zmage)   ##Hard Coded URLs for testing/Development
+        
+        return Response({'files':compressed_project_files,'images':compressed_project_images,'files_zip':compressed_project_files_zip,'images_zip':compressed_project_images_zip,}) 
 
 
 
-###TO DO DOWNLOAD STUFF
 
+###TODO DOWNLOAD STUFF //It seems download can only be done on frontend and not through API???
+
+'''
+##BACKEND 
+
+file_path = file_url
+FilePointer = open(file_path,"r")
+response = HttpResponse(FilePointer,content_type='application/zip')
+response['Content-Disposition'] = 'attachment; filename=NameOfFile'
+
+return response.
+
+##ANGULAR FRONTEND
+
+   $http.get("http://"+$localStorage.ip+":"+$localStorage.port+"/exportDB").success(function(response) {
+        var dataURI = 'data:application/octet-stream;base64,' + btoa(response);
+        $('<a></a>').attr({
+            download:  'db.csv',
+            href: dataURI
+        })[0].click();
+    });
+
+'''
 # import os
 # file_name = 'media/projects/Project4/files4.tar.bz2'
 
@@ -189,4 +227,23 @@ class DownloadExistingCompressedFiles(APIView,PermissionMixin):
 #     response['Content-Disposition'] = 'attachment; filename=%s/' % smart_str(file_name) 
 #     return response
 
- 
+
+#  #response = HttpResponse(mimetype='application/zip')
+# #response['Content-Disposition'] = 'filename=logs_%s.zip' % date
+
+
+
+# # filem = open('media/projects/Project1/images.tar.gz', 'rb')
+# #return FileResponse(open(filem, 'rb'))
+
+
+# #return Response({'files':compressed_project_files,'images':compressed_project_images,'files_Zip':compressed_project_files_zip,'images_Zip':compressed_project_images_zip,}) 
+
+# zip_file = open('media/projects/Project1/files.tar.gz', 'rb')
+
+# response = HttpResponse(zip_file, content_type='application/zip')
+# response['Content-Disposition'] = 'attachment; filename=files.zip'
+
+# return response
+
+
