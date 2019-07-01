@@ -39,7 +39,7 @@ class Project(models.Model):
     site_owner = models.CharField(max_length=100)
     icon = models.ForeignKey(ProjectIcons, on_delete=models.DO_NOTHING, blank=True, null=True)
     location = models.ForeignKey(Location, on_delete=models.DO_NOTHING)
-    geotech_file = models.FileField(upload_to=UploadToProjectDir('files/geotech'))
+    geotech_file = models.FileField(upload_to=UploadToProjectDir('files/geotech/'))
     access_letter = models.FileField(upload_to= UploadToProjectDir('files/accessletter/'))
     approved_drawing = models.FileField(upload_to=UploadToProjectDir('files/approveddrawings/'))
     final_acceptance_cert = models.FileField(upload_to=UploadToProjectDir('/files/SafaricomTeam/finalcert/'), blank=True, null=True)
