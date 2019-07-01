@@ -144,7 +144,7 @@ class ProjectProgressView(APIView):
 
         project_percentage = ((commercial_percentage + civil_percentage + procurement_percentage + installation_percentage )/4)
 
-        return Response({'progress': project_percentage})
+        return Response({'progress': project_percentage, 'project_id': pk})
 
 
 """END OF PROJECT PROGRESS"""
