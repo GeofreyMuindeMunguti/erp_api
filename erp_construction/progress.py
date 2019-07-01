@@ -144,7 +144,7 @@ class ProjectProgressView(APIView):
 
         project_percentage = ((commercial_percentage + civil_percentage + procurement_percentage + installation_percentage )/4)
 
-        return Response({'progress': project_percentage})
+        return Response({'progress': project_percentage, 'project_id': pk})
 
 
 """END OF PROJECT PROGRESS"""
@@ -660,5 +660,5 @@ class TelecomTaskProgressView(APIView):
 
 def percentage_function(no_of_complete, total_task):
     """Function to return perecentage of progress  """
-    percentage = ((no_of_complete/total_task) * 100)
+    percentage = round(((no_of_complete/total_task) * 100))
     return percentage
