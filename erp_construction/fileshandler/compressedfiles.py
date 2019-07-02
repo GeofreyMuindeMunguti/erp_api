@@ -10,7 +10,6 @@ from django.http import FileResponse
 import os
 
 
-##TODO _Code below Under research on usability/adaptability to  production enviroment /
 
 baseurl = settings.BASE_IP  # use this in production
 print(baseurl)
@@ -57,7 +56,7 @@ class UpdateCompressedFilesAndDownload(APIView,PermissionMixin,CompressionMixin)
 
     def update_compressed_files(self):
         #TODO 
-         # TO DO # rewrite below code in more  pythonic way : may be write vadidate function
+    
         ## Begin BLOCK to validate if files and images has been uploaded yet before compression and download
        
         if os.path.exists(os.path.join('media','projects','{}'.format(self.projectobject),'files')) is False:
@@ -98,7 +97,6 @@ class UpdateCompressedFilesAndDownload(APIView,PermissionMixin,CompressionMixin)
         self.projectobject = self.get_object(pk)
         cfile,cmage ,zfile,zmage  =self.update_compressed_files()
 
-            #TODO :::Resolve this issue //"http://127.0.0.1:8000/Images does not exist"
 
         #for tarfile
         compressed_project_files = baseurl+'/{}'.format(cfile)   ##Hard Coded URLs for testing/Development
@@ -106,7 +104,7 @@ class UpdateCompressedFilesAndDownload(APIView,PermissionMixin,CompressionMixin)
 
         # for ZIP file
 
-        compressed_project_files_zip = baseurl+'{}'.format(zfile)   ##Hard Coded URLs for testing/Development
+        compressed_project_files_zip = baseurl+'{}'.format(zfile) 
         compressed_project_images_zip = baseurl+'{}'.format(zmage)   
 
        # return Response({'files':compressed_project_files,'images':compressed_project_images,'files_Zip':compressed_project_files_zip,'images_Zip':compressed_project_images_zip,}) 
@@ -126,17 +124,12 @@ class DownloadExistingCompressedFiles(APIView,PermissionMixin):
             raise Http404
 
     def get_existing_compressed_files(self):
-        #TO DO 
-        #implement gZIP here instead of  TAR files
 
-               ## Begin BLOCK to validate if files and images has been uploaded yet before compression and download
-                # TO DO # rewrite below code in more  pythonic way : may be write vadidate function
 
         if os.path.exists(os.path.join('media','projects','{}'.format(self.projectobject.project_name),'files')) is False:
             efile =  'Files does not exist'
             zfile = 'Files does not exist'
 
-            #os.mkdir(os.path.join('media','projects','{}'.format(self.projectobject),'files'))/make file dir if not existing
     
             if os.path.exists(os.path.join('media','projects','{}'.format(self.projectobject.project_name),'images')) is False:
                 emage = 'Images does not exist'
@@ -172,74 +165,16 @@ class DownloadExistingCompressedFiles(APIView,PermissionMixin):
         self.projectobject = self.get_object(pk)
         efile,emage ,zfile, zmage  =self.get_existing_compressed_files()
 
-            #TO DO :::Resolve this issue //"http://127.0.0.1:8000/Images does not exist"
-        # TO DO : Find a better way to address issues// Can on DEV /Debug=True
+         
 
-        compressed_project_files = baseurl+'/{}'.format(efile)   ##Hard Coded URLs for testing/Development/ replace with production URL
-        compressed_project_images = baseurl+'/{}'.format(emage)   ##Hard Coded URLs for testing/Development
+        compressed_project_files = baseurl+'/{}'.format(efile)   
+        compressed_project_images = baseurl+'/{}'.format(emage)   
 
-        compressed_project_files_zip = baseurl+'/{}'.format(zfile)   ##Hard Coded URLs for testing/Development
-        compressed_project_images_zip = baseurl+'/{}'.format(zmage)   ##Hard Coded URLs for testing/Development
+        compressed_project_files_zip = baseurl+'/{}'.format(zfile)   #
+        compressed_project_images_zip = baseurl+'/{}'.format(zmage)   
         
         return Response({'files':compressed_project_files,'images':compressed_project_images,'files_zip':compressed_project_files_zip,'images_zip':compressed_project_images_zip,}) 
 
 
-
-
-###TODO DOWNLOAD STUFF //It seems download can only be done on frontend and not through API???
-
-'''
-##BACKEND 
-
-file_path = file_url
-FilePointer = open(file_path,"r")
-response = HttpResponse(FilePointer,content_type='application/zip')
-response['Content-Disposition'] = 'attachment; filename=NameOfFile'
-
-return response.
-
-##ANGULAR FRONTEND
-
-   $http.get("http://"+$localStorage.ip+":"+$localStorage.port+"/exportDB").success(function(response) {
-        var dataURI = 'data:application/octet-stream;base64,' + btoa(response);
-        $('<a></a>').attr({
-            download:  'db.csv',
-            href: dataURI
-        })[0].click();
-    });
-
-'''
-# import os
-# file_name = 'media/projects/Project4/files4.tar.bz2'
-
-# def download(request,file_name):
-    
-#     file_path = settings.MEDIA_ROOT +'/'+ file_name
-#     file_wrapper = FileWrapper(file(file_path,'rb'))
-#     file_mimetype = mimetypes.guess_type(file_path)
-#     response = HttpResponse(file_wrapper, content_type=file_mimetype )
-#     response['X-Sendfile'] = file_path
-#     response['Content-Length'] = os.stat(file_path).st_size
-#     response['Content-Disposition'] = 'attachment; filename=%s/' % smart_str(file_name) 
-#     return response
-
-
-#  #response = HttpResponse(mimetype='application/zip')
-# #response['Content-Disposition'] = 'filename=logs_%s.zip' % date
-
-
-
-# # filem = open('media/projects/Project1/images.tar.gz', 'rb')
-# #return FileResponse(open(filem, 'rb'))
-
-
-# #return Response({'files':compressed_project_files,'images':compressed_project_images,'files_Zip':compressed_project_files_zip,'images_Zip':compressed_project_images_zip,}) 
-
-# zip_file = open('media/projects/Project1/files.tar.gz', 'rb')
-
-# response = HttpResponse(zip_file, content_type='application/zip')
-# response['Content-Disposition'] = 'attachment; filename=files.zip'
-
-# return response
 
 
