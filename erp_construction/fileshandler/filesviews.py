@@ -1,9 +1,5 @@
 """Extract files and images per project.
 """
-
-#__author__  = "Gibeon\ (langat@adriankenya.com)"
-
-
 #---------
 # Imports
 #---------
