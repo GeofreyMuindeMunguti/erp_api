@@ -154,12 +154,7 @@ class AntennaCoaxInstallImagesView(generics.RetrieveAPIView,DefaultsMixin):
         return queryset
     serializer_class = AntennaCoaxInstallImagesSerializer
 
-# class TowerAntennaCoaxImagesView(generics.RetrieveAPIView,DefaultsMixin):
-#     #queryset = TowerAntennaCoaxImage.objects.all()
-#     def get_queryset(self):
-#         queryset = TowerErectionImage.objects.filter(project_name_id=self.kwargs["pk"])
-#         return queryset
-#     serializer_class = TowerAntennaCoaxImageSerializer
+
 
 #END
 

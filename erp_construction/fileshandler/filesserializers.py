@@ -128,12 +128,7 @@ class AntennaCoaxInstallImagesSerializer(serializers.ModelSerializer):
         model = AntennaCoaxInstallImage
         fields = ('antenna_coax_installation_image_1','antenna_coax_installation_image_2','antenna_coax_installation_image_3',)
        # read_only_fields = ('created_at', 'updated_at', 'is_active')
-# class TowerAntennaCoaxImageSerializer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = TowerAntennaCoaxImage
-#         fields = ('antenna_coax_installation_image_1','antenna_coax_installation_image_2','antenna_coax_installation_image_3',)
-#         #read_only_fields = ('created_at', 'updated_at', 'is_active')
 #END
 
 class ProjectPurchaseOrdersFileSerializer(serializers.ModelSerializer):
@@ -278,7 +273,7 @@ class ProjectFilesSerializer(serializers.ModelSerializer):
 
     cablewaysimage= CableWaysImagesSerializer(read_only=True)
     antennacoaxinstallimage =AntennaCoaxInstallImagesSerializer(read_only=True)
-    #towerantennacoaximage = TowerAntennaCoaxImageSerializer(read_only=True)
+    
     projectpurchaseorders =ProjectPurchaseOrdersFileSerializer(read_only=True)
 
     healthdocumentscivilteam =HealthDocumentsFilesCivilTeamSerializer(many = True,read_only =True)
