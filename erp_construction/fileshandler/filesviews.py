@@ -14,7 +14,7 @@ from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
 from rest_framework import status, viewsets
 from rest_framework.decorators import parser_classes
 from rest_framework.decorators import detail_route
-from .filemixin import DefaultsMixin ,PermissionMixin
+from .filemixin import DefaultsMixin 
     
 
 
@@ -40,7 +40,7 @@ class ProjectFilesView(generics.RetrieveAPIView,DefaultsMixin):
 
 class SiteClearingFilesView(generics.RetrieveAPIView,DefaultsMixin):
     #queryset = SetSiteClearingImage.objects.all()
-    def get_queryset(self)
+    def get_queryset(self):
         queryset = SetSiteClearingImage.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
     serializer_class = SiteClearingFilesSerializer

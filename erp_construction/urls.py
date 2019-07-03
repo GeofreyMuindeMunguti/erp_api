@@ -6,9 +6,9 @@ from .views import *
 from .progress import *
 from .monitoring import *
 from .scorecard import *
-from .fileshandler import filesviews ,filesserializers ,compressedfiles
-from django.conf.urls.static import static
-from django.conf import settings
+from .fileshandler import filesviews 
+
+
 
 router = DefaultRouter()
 
@@ -140,9 +140,4 @@ urlpatterns = [
     path('revenueperproject/<int:pk>', RevenueDetailView.as_view()),
     path('revenue/', RevenueListView.as_view()),
 
-
-  #  Get existing compressed files & images or Update the files and download
-     path('compressedfilesdownload/<int:pk>/', compressedfiles.UpdateCompressedFilesAndDownload.as_view()),
-     path('existingcompressedfiles/<int:pk>/', compressedfiles.DownloadExistingCompressedFiles.as_view()),
-
-]# + static(settings.STATIC_URL, document_root =settings.STATIC_ROOT)
+]
