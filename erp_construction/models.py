@@ -79,7 +79,7 @@ class Project(models.Model):
             category_id = category.id
             automatic_total_comtasks = Task.objects.filter(category_name=category_id).count()
             completed_ctasks = 0
-            project_id = pk
+            project_id = self.id
             progress_object = CommercialTeam.objects.get(project_name=project_id)
             approved_quote = progress_object.approved_quote_file
             po = progress_object.po_data
@@ -104,7 +104,6 @@ class Project(models.Model):
             commercial_percentage = percentage_function(completed_ctasks, automatic_total_comtasks)
         except Exception as e:
             commercial_percentage = 0
-            #return Response({'error': 'Commercial Team does not exist'})
 
         #PROGRESS FOR PROCUREMENTEAM
         try:
@@ -112,7 +111,7 @@ class Project(models.Model):
             category_id = category.id
             automatic_total_protasks = Task.objects.filter(category_name=category_id).count()
             completed_ptasks = 0
-            project_id = pk
+            project_id = self.id
             progress_object = ProcurementTeam.objects.get(project_name=project_id)
             po_steel = progress_object.po_steel
             po_electrical_materials = progress_object.po_electrical_materials
@@ -139,7 +138,7 @@ class Project(models.Model):
             category_id = category.id
             automatic_total_civtasks = Task.objects.filter(category_name=category_id).count()
             completed_cltasks = 0
-            project_id = pk
+            project_id = self.id
             progress_object = CivilWorksTeam.objects.get(project_name=project_id)
             foundation_and_curing_images = progress_object.foundation_and_curing_images
             bts_and_generator_slabs_images = progress_object.bts_and_generator_slabs_images
@@ -171,7 +170,7 @@ class Project(models.Model):
             category_id = category.id
             automatic_total_instasks = Task.objects.filter(category_name=category_id).count()
             completed_intasks = 0
-            project_id = pk
+            project_id = self.id
             progress_object = InstallationTeam.objects.get(project_name=project_id)
             electrical_tasks_data = progress_object.electrical_tasks_data
             telecom_tasks_data = progress_object.telecom_tasks_data
@@ -207,7 +206,7 @@ class Project(models.Model):
         except Exception as e:
             installation_percentage = 0
 
-        project_percentage = round(((commercial_percentage + civil_percentage + procurement_percentage + installation_percentage )/4))
+        project_percentage = ((commercial_percentage + civil_percentage + procurement_percentage + installation_percentage )/4)
 
         return project_percentage
 
