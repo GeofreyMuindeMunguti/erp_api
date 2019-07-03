@@ -47,7 +47,6 @@ router.register(r'towererection', views.TowerErectionImageViewSet)
 router.register(r'towerpaint', views.TowerPaintImageViewSet)
 router.register(r'cableways', views.CableWaysImageViewSet)
 router.register(r'antennacoaxinstallation', views.AntennaCoaxInstallImageViewSet)
-#router.register(r'towerantennacoax', views.TowerAntennaCoaxImageViewSet)
 
 router.register(r'kpi', views.KpiViewSet)
 router.register(r'tasks', views.TaskViewSet)
@@ -90,8 +89,7 @@ urlpatterns = [
     #PROJECT FILES # allow  GET Method only
 
     path('files/', filesviews.FilesView.as_view()), # Retrieve all projects files :: TO DO
-   # path('compressedfiles/', compressedfiles.FileCompressorDownload.as_view()), # Retrieve all projects files :: TO DO
-
+  
     path('files/<int:pk>/', filesviews.ProjectFilesView.as_view()), # main url path to retrieve files per project
     #Paths to retrieve individual files
 
@@ -115,7 +113,6 @@ urlpatterns = [
     path('files/<int:pk>/cablewaysimages/', filesviews.CableWaysImagesView.as_view()),
     path('files/<int:pk>/antennacoaxinstallimages/', filesviews.AntennaCoaxInstallImagesView.as_view()),
 
-    #path('files/<int:pk>/towerantennacoaxmages/', filesviews.TowerAntennaCoaxImagesView.as_view()),
     path('files/<int:pk>/projectpurchaseorders/', filesviews.ProjectPurchaseOrdersView.as_view()),
     path('files/<int:pk>/projectcostingfile/', filesviews.ProjectCostingFileView.as_view()),
 
