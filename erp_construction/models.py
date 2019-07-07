@@ -237,12 +237,41 @@ class SetSiteClearingImage(models.Model):
     def names_of_casuals(self):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
+    def check_cost(self):
+        now = datetime.now(timezone.utc)
+        date_diff = date_difference(self.start_date, now)
+        return date_diff
+
+    def date_casual_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            total_cost = 0
+            default_diff = 1
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                date_diff = date_difference(self.start_date, now)
+            else:
+                date_diff = date_difference(self.start_date, self.end_date)
+            while date_diff > default_diff:
+                updated_count = self.no_of_casuals_atsite.count()
+                casual_count += count
+                casual_diff = casual_count - count
+                cost = (casual_diff * casual_rate)
+                total_cost += cost
+                default_diff += 1
+            return total_cost
+        except Exception as e:
+            return e
+
     def casuals_cost(self):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -256,8 +285,9 @@ class SetSiteClearingImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -278,8 +308,9 @@ class SetSiteClearingImage(models.Model):
             casual_rate_data = Rates.objects.get(worker_type='Casual')
             engineer_rate = engineer_rate_data.rate
             casual_rate = casual_rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -359,8 +390,9 @@ class TowerBaseImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -374,8 +406,9 @@ class TowerBaseImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -454,8 +487,9 @@ class BindingImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -469,8 +503,9 @@ class BindingImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -549,8 +584,9 @@ class SteelFixFormworkImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -564,8 +600,9 @@ class SteelFixFormworkImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -644,8 +681,9 @@ class ConcretePourImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -659,8 +697,9 @@ class ConcretePourImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -739,8 +778,9 @@ class ConcreteCuringPeriodImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -754,8 +794,9 @@ class ConcreteCuringPeriodImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -901,8 +942,9 @@ class ExcavationImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -916,8 +958,9 @@ class ExcavationImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -996,8 +1039,9 @@ class BS241ConcretePourCuringPeriodImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -1011,8 +1055,9 @@ class BS241ConcretePourCuringPeriodImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -1154,8 +1199,9 @@ class FoundFootPourImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -1169,8 +1215,9 @@ class FoundFootPourImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -1249,8 +1296,9 @@ class BlockworkPanelConstImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -1264,8 +1312,9 @@ class BlockworkPanelConstImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -1344,8 +1393,9 @@ class GateInstallationImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -1359,8 +1409,9 @@ class GateInstallationImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -1439,8 +1490,9 @@ class RazorElectricFenceImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -1454,8 +1506,9 @@ class RazorElectricFenceImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -1600,8 +1653,9 @@ class TowerErectionImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -1615,8 +1669,9 @@ class TowerErectionImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Enginner')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -1695,8 +1750,9 @@ class TowerPaintImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -1710,8 +1766,9 @@ class TowerPaintImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -1790,8 +1847,9 @@ class CableWaysImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -1805,8 +1863,9 @@ class CableWaysImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -1885,8 +1944,9 @@ class AntennaCoaxInstallImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -1900,8 +1960,9 @@ class AntennaCoaxInstallImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -2298,8 +2359,9 @@ class UndergroundTasks(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -2313,8 +2375,9 @@ class UndergroundTasks(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -2393,8 +2456,9 @@ class ReticulationAPSinstallation(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -2408,8 +2472,9 @@ class ReticulationAPSinstallation(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -2488,8 +2553,9 @@ class ElectricalEarthing(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -2503,8 +2569,9 @@ class ElectricalEarthing(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Enginner')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -2587,8 +2654,9 @@ class GeneratorInstallation(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -2602,8 +2670,9 @@ class GeneratorInstallation(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -2682,8 +2751,9 @@ class KPLCSolarImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -2697,8 +2767,9 @@ class KPLCSolarImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -2809,8 +2880,7 @@ class ElectricalTasks(models.Model):
             team_id = team.id
             return team_id
         except Exception as e:
-            error = "Main team task doesnt exist"
-            return error
+            return 
 
 
 class BTSinstallationTask(models.Model):
@@ -2841,8 +2911,9 @@ class BTSinstallationTask(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -2856,8 +2927,9 @@ class BTSinstallationTask(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -2936,8 +3008,9 @@ class MWInstallationTask(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -2951,8 +3024,9 @@ class MWInstallationTask(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -3154,3 +3228,4 @@ def percentage_function(no_of_complete, total_task):
     """Function to return perecentage of progress  """
     percentage = round(((no_of_complete/total_task) * 100))
     return percentage
+    
