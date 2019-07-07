@@ -1,7 +1,12 @@
-#from django.shortcuts import render
+"""Extract files and images per project.
+"""
+#---------
+# Imports
+#---------
+
 from .filesserializers import *
 from rest_framework import generics, permissions, viewsets, serializers, permissions, filters, status
-from .models import *
+from erp_construction.models import *
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -9,19 +14,7 @@ from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
 from rest_framework import status, viewsets
 from rest_framework.decorators import parser_classes
 from rest_framework.decorators import detail_route
-
-
-class DefaultsMixin(object):
-
-    """Default settings for view authentication, permissions,filtering and pagination."""
-
-    paginate_by = 25     # Pages of API end points/URLs
-    paginate_by_param = 'page_size'
-    max_paginate_by = 100
-    filter_backends = (filters.SearchFilter,)
-
-    #authentication_classes = (authentication.BasicAuthentication,authentication.TokenAuthentication,)
-    permission_classes = (permissions.IsAuthenticated,) 
+from .filemixin import DefaultsMixin 
     
 
 
@@ -31,7 +24,7 @@ class FilesView(APIView):
 
     def get(self, request, format=None):
         "TO DO"
-        resp = "# TO DO        Gibeon working on this.. RELAX! Add id  to get files for individual project files.Is this end point necessary? NO!"
+        resp = "# TO DO        USE  erp_construction/ files/<int:pk>/  :  pk is project ID"
         return Response(resp)
 
 
@@ -161,12 +154,7 @@ class AntennaCoaxInstallImagesView(generics.RetrieveAPIView,DefaultsMixin):
         return queryset
     serializer_class = AntennaCoaxInstallImagesSerializer
 
-class TowerAntennaCoaxImagesView(generics.RetrieveAPIView,DefaultsMixin):
-    #queryset = TowerAntennaCoaxImage.objects.all()
-    def get_queryset(self):
-        queryset = TowerErectionImage.objects.filter(project_name_id=self.kwargs["pk"])
-        return queryset
-    serializer_class = TowerAntennaCoaxImageSerializer
+
 
 #END
 
@@ -267,3 +255,4 @@ class InstallationTeamFilesView(generics.RetrieveAPIView,DefaultsMixin):
         queryset = InstallationTeam.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
     serializer_class = InstallationTeamFilesSerializer
+
