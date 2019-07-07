@@ -248,15 +248,14 @@ class SetSiteClearingImage(models.Model):
             casual_rate = rate_data.rate
             now = datetime.now(timezone.utc)
             total_cost = 0
-            default_diff = 0
-            casual_count = 0
+            default_diff = 1
             now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
                 date_diff = date_difference(self.start_date, now)
             else:
                 date_diff = date_difference(self.start_date, self.end_date)
             while date_diff > default_diff:
-                count = self.no_of_casuals_atsite.count()
+                updated_count = self.no_of_casuals_atsite.count()
                 casual_count += count
                 casual_diff = casual_count - count
                 cost = (casual_diff * casual_rate)
@@ -2881,8 +2880,7 @@ class ElectricalTasks(models.Model):
             team_id = team.id
             return team_id
         except Exception as e:
-            error = "Main team task doesnt exist"
-            return error
+            return 
 
 
 class BTSinstallationTask(models.Model):
