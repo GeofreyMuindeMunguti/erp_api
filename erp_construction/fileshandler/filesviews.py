@@ -76,6 +76,14 @@ class ConcretePourImagesView(generics.RetrieveAPIView,DefaultsMixin):
         return queryset
     serializer_class = ConcretePourImagesSerializer
 
+
+class ConcreteCuringImagesView(generics.RetrieveAPIView,DefaultsMixin):
+
+    def get_queryset(self):
+        queryset = ConcreteCuringPeriodImage.objects.filter(project_name_id=self.kwargs["pk"])
+        return queryset
+    serializer_class = ConcreteCuringImagesSerializer
+
 #GENERATOR FOUNDATION
 
 class ExcavationImagesView(generics.RetrieveAPIView,DefaultsMixin):
@@ -199,8 +207,25 @@ class AccessApprovalFileCivilView(generics.RetrieveAPIView,DefaultsMixin):
         return queryset
     serializer_class = AccessApprovalFileCivilSerializer
 
+
+class HealthDocumentsFilesInstallationTeamView(generics.RetrieveAPIView,DefaultsMixin):
+
+    def get_queryset(self):
+        queryset = HealthDocumentsInstallationTeam.objects.filter(project_name_id=self.kwargs["pk"])
+        return queryset
+    serializer_class = HealthDocumentsFilesInstallationTeamSerializer
+
+
+class AccessApprovalFileInstallationView(generics.RetrieveAPIView,DefaultsMixin):
+
+    def get_queryset(self):
+        queryset = AccessApprovalInstallation.objects.filter(project_name_id=self.kwargs["pk"])
+        return queryset
+    serializer_class = AccessApprovalFileInstallationSerializer
+
+
 class UndergroundTasksFilesView(generics.RetrieveAPIView,DefaultsMixin):
-    #queryset = UndergroundTasks.objects.all()
+
     def get_queryset(self):
         queryset = UndergroundTasks.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
@@ -254,3 +279,11 @@ class InstallationTeamFilesView(generics.RetrieveAPIView,DefaultsMixin):
         queryset = InstallationTeam.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
     serializer_class = InstallationTeamFilesSerializer
+
+
+class IssueImageView(generics.RetrieveAPIView,DefaultsMixin):
+
+    def get_queryset(self):
+        queryset = Issues.objects.filter(project_name_id=self.kwargs["pk"])
+        return queryset
+    serializer_class = IssueImageSerializer
