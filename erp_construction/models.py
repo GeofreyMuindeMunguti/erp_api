@@ -2880,7 +2880,7 @@ class ElectricalTasks(models.Model):
             team_id = team.id
             return team_id
         except Exception as e:
-            return 
+            return
 
 
 class BTSinstallationTask(models.Model):
@@ -2989,7 +2989,7 @@ class MWInstallationTask(models.Model):
     MWinstallation_image_3 = models.ImageField(upload_to='images/InstallationTeam/Telecom/MWinstallation/%Y/%m/%d/', blank=True, null=True)
     MWinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
     start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
+    end_date = models.DateTimeField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)

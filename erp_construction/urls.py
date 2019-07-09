@@ -1,12 +1,12 @@
 from rest_framework.routers import DefaultRouter
 from rest_framework.urlpatterns import format_suffix_patterns
-from . import views 
+from . import views
 from django.urls import path, include
 from .views import *
 from .progress import *
 from .monitoring import *
 from .scorecard import *
-from .fileshandler import filesviews 
+from .fileshandler import filesviews
 
 
 
@@ -43,10 +43,12 @@ router.register(r'gateinstallation', views.GateInstallationImageViewSet)
 router.register(r'razorelectricfence', views.RazorElectricFenceImageViewSet)
 router.register(r'boundarywall', views.BoundaryWallImageViewSet)
 
+router.register(r'towerantennacoax', views.TowerAntennaCoaxImageViewSet)
 router.register(r'towererection', views.TowerErectionImageViewSet)
 router.register(r'towerpaint', views.TowerPaintImageViewSet)
 router.register(r'cableways', views.CableWaysImageViewSet)
 router.register(r'antennacoaxinstallation', views.AntennaCoaxInstallImageViewSet)
+
 
 router.register(r'kpi', views.KpiViewSet)
 router.register(r'tasks', views.TaskViewSet)
@@ -89,7 +91,7 @@ urlpatterns = [
     #PROJECT FILES # allow  GET Method only
 
     path('files/', filesviews.FilesView.as_view()), # Retrieve all projects files :: TO DO
-  
+
     path('files/<int:pk>/', filesviews.ProjectFilesView.as_view()), # main url path to retrieve files per project
     #Paths to retrieve individual files
 
