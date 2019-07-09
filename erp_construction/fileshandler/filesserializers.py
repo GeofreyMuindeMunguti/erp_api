@@ -64,7 +64,7 @@ class ConcreteCuringPeriodImagesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BS241ConcretePourCuringPeriodImage
-        fields = ('concrete_pour_curing_image_1','concrete_pour_curing_image_2','concrete_pour_curing_image_1',)
+        fields = ('bs241_concrete_pour_curing_period_image_1','bs241_concrete_pour_curing_period_image_2','bs241_concrete_pour_curing_period_image_3',)
        # read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
