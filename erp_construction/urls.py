@@ -41,11 +41,12 @@ router.register(r'gateinstallation', views.GateInstallationImageViewSet)
 router.register(r'razorelectricfence', views.RazorElectricFenceImageViewSet)
 router.register(r'boundarywall', views.BoundaryWallImageViewSet)
 
+router.register(r'towerantennacoax', views.TowerAntennaCoaxImageViewSet)
 router.register(r'towererection', views.TowerErectionImageViewSet)
 router.register(r'towerpaint', views.TowerPaintImageViewSet)
 router.register(r'cableways', views.CableWaysImageViewSet)
 router.register(r'antennacoaxinstallation', views.AntennaCoaxInstallImageViewSet)
-router.register(r'towerantennacoax', views.TowerAntennaCoaxImageViewSet)
+
 
 router.register(r'kpi', views.KpiViewSet)
 router.register(r'tasks', views.TaskViewSet)
