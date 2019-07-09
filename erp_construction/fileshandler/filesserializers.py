@@ -63,12 +63,12 @@ class ExcavationImagesSerializer(serializers.ModelSerializer):
 class ConcreteCuringPeriodImagesSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = ConcreteCuringPeriodImage
+        model = BS241ConcretePourCuringPeriodImage
         fields = ('concrete_pour_curing_image_1','concrete_pour_curing_image_2','concrete_pour_curing_image_1',)
        # read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-#  BOUNDARY WALL 
+#  BOUNDARY WALL
 
 class FoundFootPourImagesSerializer(serializers.ModelSerializer):
 
@@ -99,11 +99,11 @@ class RazorElectricFenceImagesSerializer(serializers.ModelSerializer):
        # read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-#TOWER & ANTENNA_COAXs 
+#TOWER & ANTENNA_COAXs
 
 class TowerErectionImagesSerializer(serializers.ModelSerializer):
 
-    class Meta:   
+    class Meta:
         model = TowerErectionImage
         fields = ('tower_erection_image_1','tower_erection_image_2','tower_erection_image_3',)
         #read_only_fields = ('created_at', 'updated_at', 'is_active')
@@ -244,14 +244,14 @@ class InstallationTeamFilesSerializer(serializers.ModelSerializer):
 
 class ProjectFilesSerializer(serializers.ModelSerializer):
 
-    ''' 
-    Main Serializer class : to access all serializers classes above 
+    '''
+    Main Serializer class : to access all serializers classes above
     :: facilitate serialization of all images and files per project
-    :: Files that need not to be serialized can be commented out  
-     e.g 
-       # setsiteclearingimage = SiteClearingFilesSerializer ( read_only =True)  
-    :: More field can be added from the excluded one by removing from exlude variable 
-     
+    :: Files that need not to be serialized can be commented out
+     e.g
+       # setsiteclearingimage = SiteClearingFilesSerializer ( read_only =True)
+    :: More field can be added from the excluded one by removing from exlude variable
+
       '''
 
     setsiteclearingimage = SiteClearingFilesSerializer ( read_only =True)
@@ -273,7 +273,7 @@ class ProjectFilesSerializer(serializers.ModelSerializer):
 
     cablewaysimage= CableWaysImagesSerializer(read_only=True)
     antennacoaxinstallimage =AntennaCoaxInstallImagesSerializer(read_only=True)
-    
+
     projectpurchaseorders =ProjectPurchaseOrdersFileSerializer(read_only=True)
 
     healthdocumentscivilteam =HealthDocumentsFilesCivilTeamSerializer(many = True,read_only =True)
