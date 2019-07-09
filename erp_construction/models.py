@@ -3228,3 +3228,4 @@ def percentage_function(no_of_complete, total_task):
     """Function to return perecentage of progress  """
     percentage = round(((no_of_complete/total_task) * 100))
     return percentage
+    

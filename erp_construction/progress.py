@@ -77,7 +77,7 @@ class ProjectProgressView(APIView):
             project_id = pk
             progress_object = CivilWorksTeam.objects.get(project_name=project_id)
             foundation_and_curing_images = progress_object.foundation_and_curing_images
-            bts_and_generator_slabs_images = progress_object.bts_and_generator_slabs_images
+            bts_and_generator_slabs_images = progress_object.bs241_and_generator_slabs_images
             site_walling_images_field = progress_object.site_walling_images_field
             tower_field = progress_object.tower_data
             if bool(foundation_and_curing_images) is False:
@@ -144,7 +144,7 @@ class ProjectProgressView(APIView):
 
         project_percentage = ((commercial_percentage + civil_percentage + procurement_percentage + installation_percentage )/4)
 
-        return Response({'progress': project_percentage})
+        return Response({'progress': project_percentage, 'project_id': pk})
 
 
 """END OF PROJECT PROGRESS"""
@@ -263,7 +263,7 @@ class CivilProgressView(APIView):
         except Exception as e:
             return Response({'error': 'Task not started', 'no_of_tasks': automatic_total_tasks,})
         foundation_and_curing_images = progress_object.foundation_and_curing_images
-        bts_and_generator_slabs_images = progress_object.bts_and_generator_slabs_images
+        bts_and_generator_slabs_images = progress_object.bs241_and_generator_slabs_images
         site_walling_images_field = progress_object.site_walling_images_field
         tower_field = progress_object.tower_data
         if bool(foundation_and_curing_images) is False:
@@ -387,8 +387,8 @@ class FoundationTaskProgressView(APIView):
         excavation = progress_object.excavation_tower_base
         binding = progress_object.binding
         steel_fix = progress_object.steel_fix_formwork
-        concrete_pour_curing = progress_object.concrete_pour_curing
-        concrete_curing = progress_object.concrete_pour_period
+        concrete_pour_curing = progress_object.concrete_pour_curing_period
+        concrete_curing = progress_object.concrete_curing_period
         if bool(setting_site) is False:
             setting_site_status = "Not uploaded"
         else:
