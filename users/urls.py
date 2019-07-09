@@ -16,6 +16,7 @@ router.register(r'enginners', views.EngineerViewSet)
 router.register(r'rates', views.RatesViewSet)
 
 router.register(r'permissions', views.PermissionMapViewSet)
+router.register(r'contenttype', views.ContentTypeViewSet)
 
 
 urlpatterns = [
