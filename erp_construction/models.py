@@ -30,7 +30,7 @@ class ProjectIcons(models.Model):
 
 
 class Project(models.Model):
-    project_name = models.CharField(max_length=100, unique=True)
+    project_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
     site_number = models.CharField(max_length=100, unique=True, blank=True, null=True)
     BTS_type = models.CharField(max_length=100, blank=True, null=True)
     site_owner = models.CharField(max_length=100, blank=True, null=True)
