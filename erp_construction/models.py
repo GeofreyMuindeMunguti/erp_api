@@ -49,11 +49,11 @@ class Project(models.Model):
     def __str__(self):
         return self.project_name
 
-    def delete(self, *args, **kwargs):
-        if self.is_active == False:
-            return "Item already deleted"
-        else:
-            self.is_active is False
+    # def delete(self, *args, **kwargs):
+    #     if self.is_active is False:
+    #         return "Item already deleted"
+    #     else:
+    #         self.is_active = False
 
     def status(self):
         try:
