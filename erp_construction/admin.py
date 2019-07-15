@@ -91,8 +91,7 @@ admin.site.register(CommercialTeam, CommercialTeamAdmin)
 
 
 class ProcurementTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'po_steel', 'po_steel_quantity', 'po_electrical_materials', 'po_electrical_materials_quantity',
-                    'po_subcontractors', 'po_subcontractors_amount', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'po_steel', 'po_electrical_materials', 'po_subcontractors', 'po_subcontractors_amount', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
