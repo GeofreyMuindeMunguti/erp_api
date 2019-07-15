@@ -2209,30 +2209,40 @@ class ProcurementTeam(models.Model):
         return str(self.project_name)
 
 ############################ PROCURMENT PO COST  ###################################################################################################################################
-    def po_steel_cost(self):
-        try:
-            steel_cost_data = ProcurementCostTeam.objects.get(item='Po Steel Cost')
-            steel_cost = steel_cost_data.unit_price
-            total_steel_cost = float(self.po_steel_quantity * steel_cost)
-            return total_steel_cost
-        except Exception as e:
-            error = "Cost Does Not Exist"
-            return error
-
-    def po_electrical_material_cost(self):
-        try:
-            electrial_cost_data = ProcurementCostTeam.objects.get(item='Po Electrical Material Cost')
-            elec_material_cost = electrial_cost_data.unit_price
-            material_elec_cost = float(self.po_electrical_materials_quantity * elec_material_cost)
-            return material_elec_cost
-        except Exception as e:
-            error = "Cost Does Not Exist"
-            return error
-
-    def total_procurpocost(self):
-        """Function to return total procurement PO cost"""
-        total_procur_cost = float(self.po_steel_cost() + self.po_electrical_material_cost() + self.po_subcontractors_amount)
-        return total_procur_cost
+    # def po_steel_cost(self):
+    #     try:
+    #         steel_cost_data = ProcurementCostTeam.objects.get(item='Po Steel Cost')
+    #         steel_cost = steel_cost_data.unit_price
+    #         total_steel_cost = self.po_steel_quantity * steel_cost
+    #         return total_steel_cost
+    #     except Exception as e:
+    #         error = "Cost Does Not Exist"
+    #         return error
+    #
+    # def po_electrical_material_cost(self):
+    #     try:
+    #         electrial_cost_data = ProcurementCostTeam.objects.get(item='Po Electrical Material Cost')
+    #         elec_material_cost = electrial_cost_data.unit_price
+    #         if bool(self.po_electrical_materials_quantity) is False:
+    #             return
+    #         else:
+    #             material_elec_cost = self.po_electrical_materials_quantity * elec_material_cost
+    #         return material_elec_cost
+    #     except Exception as e:
+    #         error = "Cost Does Not Exist"
+    #         return error
+    #
+    # def total_procurpocost(self):
+    #     """Function to return total procurement PO cost"""
+    #     po_cost = self.po_steel_cost()
+    #     electrical_po = self.po_electrical_material_cost()
+    #     if bool(self.po_subcontractors_amount) is False:
+    #         contractor_cost = 0
+    #     else:
+    #         contractor_cost = self.po_subcontractors_amount()
+    #     total_procur_cost = po_cost + electrical_po + contractor_cost
+    #     #total_procur_cost = float(self.po_steel_cost() + self.po_electrical_material_cost() + self.po_subcontractors_amount)
+    #     return total_procur_cost
 
 ######################################## END #######################################################################################################################################
 

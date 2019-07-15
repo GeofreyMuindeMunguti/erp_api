@@ -21,7 +21,7 @@ class TowerBaseImagesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TowerBaseImage
-        fields = ('towerbase_image_1','towerbase_image_1','towerbase_image_1',)
+        fields = ('towerbase_image_1', 'towerbase_image_2', 'towerbase_image_3',)
 
 
 class BindingImagesSerializer(serializers.ModelSerializer):
