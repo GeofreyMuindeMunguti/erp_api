@@ -22,5 +22,4 @@ router.register(r'contenttype', views.ContentTypeViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('rest-auth/', include('rest_auth.urls')),
-    path('login/', view=ObtainJWTView.as_view(), name='login')
 ]

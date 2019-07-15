@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models import Sum, F
 from django.contrib.auth.models import User
 from users.models import *
-from inventory.models import *
+# from inventory.models import *
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime, timezone, timedelta
 
@@ -2128,7 +2128,6 @@ class SubTask(models.Model):
     def __str__(self):
         return str(self.subtask_name)
 
-
 ######################################## END #######################################################################################################################################
 
 ####################################### INSTALLATION ###########################################################################################################################
@@ -2194,9 +2193,9 @@ class CommercialTeam(models.Model):
 class ProcurementTeam(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     po_steel = models.FileField(upload_to='files/ProcurementTeam/posteel/%Y/%m/%d/', blank=True, null=True)
-    po_steel_quantity = models.IntegerField(blank=True, null=True)
+    # po_steel_quantity = models.IntegerField(blank=True, null=True)
     po_electrical_materials = models.FileField(upload_to='files/ProcurementTeam/poelectrical/%Y/%m/%d/', blank=True, null=True)
-    po_electrical_materials_quantity = models.IntegerField(blank=True, null=True)
+    # po_electrical_materials_quantity = models.IntegerField(blank=True, null=True)
     po_subcontractors = models.FileField(upload_to='files/ProcurementTeam/posubcontractor/%Y/%m/%d/', blank=True, null=True)
     po_subcontractors_amount = models.IntegerField(blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
@@ -2207,42 +2206,6 @@ class ProcurementTeam(models.Model):
 
     def __str__(self):
         return str(self.project_name)
-
-############################ PROCURMENT PO COST  ###################################################################################################################################
-    # def po_steel_cost(self):
-    #     try:
-    #         steel_cost_data = ProcurementCostTeam.objects.get(item='Po Steel Cost')
-    #         steel_cost = steel_cost_data.unit_price
-    #         total_steel_cost = self.po_steel_quantity * steel_cost
-    #         return total_steel_cost
-    #     except Exception as e:
-    #         error = "Cost Does Not Exist"
-    #         return error
-    #
-    # def po_electrical_material_cost(self):
-    #     try:
-    #         electrial_cost_data = ProcurementCostTeam.objects.get(item='Po Electrical Material Cost')
-    #         elec_material_cost = electrial_cost_data.unit_price
-    #         if bool(self.po_electrical_materials_quantity) is False:
-    #             return
-    #         else:
-    #             material_elec_cost = self.po_electrical_materials_quantity * elec_material_cost
-    #         return material_elec_cost
-    #     except Exception as e:
-    #         error = "Cost Does Not Exist"
-    #         return error
-    #
-    # def total_procurpocost(self):
-    #     """Function to return total procurement PO cost"""
-    #     po_cost = self.po_steel_cost()
-    #     electrical_po = self.po_electrical_material_cost()
-    #     if bool(self.po_subcontractors_amount) is False:
-    #         contractor_cost = 0
-    #     else:
-    #         contractor_cost = self.po_subcontractors_amount()
-    #     total_procur_cost = po_cost + electrical_po + contractor_cost
-    #     #total_procur_cost = float(self.po_steel_cost() + self.po_electrical_material_cost() + self.po_subcontractors_amount)
-    #     return total_procur_cost
 
 ######################################## END #######################################################################################################################################
 
