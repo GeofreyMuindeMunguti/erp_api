@@ -876,7 +876,7 @@ class FoundationImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data =Task.objects.get(task_name='Tower Foundation & Curing')
+            kpi_data =Task.objects.get(task_name='Tower Foundation and Curing')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
