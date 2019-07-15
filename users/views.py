@@ -11,6 +11,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
 from .serializers import JWTSerializer
+from django.contrib.contenttypes.models import ContentType
 
 
 # Create your views here.
@@ -88,3 +89,10 @@ class RatesViewSet(viewsets.ModelViewSet):
 
     search_fields = ('id', )
     ordering_fields = ('updated_at', 'engineers_rate', )
+
+
+class ContentTypeViewSet(viewsets.ModelViewSet):
+    queryset = ContentType.objects.all()
+    serializer_class = ContentTypeSerializer
+
+    search_fields = ('id', )

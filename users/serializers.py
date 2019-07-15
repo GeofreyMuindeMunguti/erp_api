@@ -7,6 +7,7 @@ from rest_framework import serializers, exceptions
 from rest_framework.validators import UniqueValidator
 from rest_framework.authtoken.models import Token
 from rest_framework_jwt.serializers import JSONWebTokenSerializer, jwt_payload_handler, jwt_encode_handler
+from django.contrib.contenttypes.models import ContentType
 
 
 class JWTSerializer(JSONWebTokenSerializer):
@@ -136,3 +137,9 @@ class RatesSerializer(serializers.ModelSerializer):
         model = Rates
         fields = ('__all__')
         read_only_fields = ('created_at','updated_at','is_active')
+
+
+class ContentTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContentType
+        fields = ('__all__')

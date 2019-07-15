@@ -91,8 +91,8 @@ admin.site.register(CommercialTeam, CommercialTeamAdmin)
 
 
 class ProcurementTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'po_steel', 'po_steel_quantity','po_steel_cost', 'po_electrical_materials', 'po_electrical_materials_quantity','po_electrical_material_cost',
-                    'po_subcontractors', 'po_subcontractors_amount','total_procurpocost','posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'po_steel', 'po_steel_quantity', 'po_electrical_materials', 'po_electrical_materials_quantity',
+                    'po_subcontractors', 'po_subcontractors_amount', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -166,7 +166,7 @@ class FoundationImageAdmin(admin.ModelAdmin):
 admin.site.register(FoundationImage, FoundationImageAdmin)
 
 class SetSiteClearingImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','task_id', 'setting_site_clearing_image_1', 'setting_site_clearing_image_2', 'setting_site_clearing_image_3', 'setting_site_clearing_comment', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name','task_id', 'setting_site_clearing_image_1', 'setting_site_clearing_image_2', 'setting_site_clearing_image_3', 'setting_site_clearing_comment', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )

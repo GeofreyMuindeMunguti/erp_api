@@ -30,15 +30,15 @@ class ProjectIcons(models.Model):
 
 
 class Project(models.Model):
-    project_name = models.CharField(max_length=100, unique=True)
-    site_number = models.CharField(max_length=100, unique=True)
-    BTS_type = models.CharField(max_length=100)
-    site_owner = models.CharField(max_length=100)
+    project_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
+    site_number = models.CharField(max_length=100, unique=True, blank=True, null=True)
+    BTS_type = models.CharField(max_length=100, blank=True, null=True)
+    site_owner = models.CharField(max_length=100, blank=True, null=True)
     icon = models.ForeignKey(ProjectIcons, on_delete=models.DO_NOTHING, blank=True, null=True)
-    location = models.ForeignKey(Location, on_delete=models.DO_NOTHING)
-    geotech_file = models.FileField(upload_to='files/Project/geotech/%Y/%m/%d/')
-    access_letter = models.FileField(upload_to='files/Project/accessletters/%Y/%m/%d/')
-    approved_drawing = models.FileField(upload_to='files/Project/approveddrawings/%Y/%m/%d/')
+    location = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
+    geotech_file = models.FileField(upload_to='files/Project/geotech/%Y/%m/%d/', blank=True, null=True)
+    access_letter = models.FileField(upload_to='files/Project/accessletters/%Y/%m/%d/', blank=True, null=True)
+    approved_drawing = models.FileField(upload_to='files/Project/approveddrawings/%Y/%m/%d/', blank=True, null=True)
     final_acceptance_cert = models.FileField(upload_to='files/SafaricomTeam/finalcert/%Y/%m/%d/', blank=True, null=True)
     final_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
@@ -49,11 +49,11 @@ class Project(models.Model):
     def __str__(self):
         return self.project_name
 
-    def delete(self, *args, **kwargs):
-        if self.is_active == False:
-            return "Item already deleted"
-        else:
-            self.is_active is False
+    # def delete(self, *args, **kwargs):
+    #     if self.is_active is False:
+    #         return "Item already deleted"
+    #     else:
+    #         self.is_active = False
 
     def status(self):
         try:
@@ -73,13 +73,150 @@ class Project(models.Model):
             days = date_difference(self.created_at, self.updated_at)
         return days
 
+    def progress(self):
+        try:
+            category = Category.objects.get(category_name='Commercial Team')
+            category_id = category.id
+            automatic_total_comtasks = Task.objects.filter(category_name=category_id).count()
+            completed_ctasks = 0
+            project_id = self.id
+            progress_object = CommercialTeam.objects.get(project_name=project_id)
+            approved_quote = progress_object.approved_quote_file
+            po = progress_object.po_data
+            project_costing = progress_object.project_costing_data
+            initialinvoice = progress_object.initial_invoice
+            if bool(po) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            if bool(initialinvoice) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            if bool(approved_quote) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            if bool(project_costing) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            commercial_percentage = percentage_function(completed_ctasks, automatic_total_comtasks)
+        except Exception as e:
+            commercial_percentage = 0
+
+        #PROGRESS FOR PROCUREMENTEAM
+        try:
+            category = Category.objects.get(category_name='Procurement Team')
+            category_id = category.id
+            automatic_total_protasks = Task.objects.filter(category_name=category_id).count()
+            completed_ptasks = 0
+            project_id = self.id
+            progress_object = ProcurementTeam.objects.get(project_name=project_id)
+            po_steel = progress_object.po_steel
+            po_electrical_materials = progress_object.po_electrical_materials
+            po_subcontractors = progress_object.po_subcontractors
+            if bool(po_steel) is False:
+                completed_ptasks += 0
+            else:
+                completed_ptasks += 1
+            if bool(po_electrical_materials) is False:
+                completed_ptasks += 0
+            else:
+                completed_ptasks += 1
+            if bool(po_subcontractors) is False:
+                completed_ptasks += 0
+            else:
+                completed_ptasks += 1
+            procurement_percentage = percentage_function(completed_ptasks, automatic_total_protasks)
+        except Exception as e:
+            procurement_percentage = 0
+
+        #PROGRESS FOR CIVIL TEAM
+        try:
+            category = Category.objects.get(category_name='Civil Team')
+            category_id = category.id
+            automatic_total_civtasks = Task.objects.filter(category_name=category_id).count()
+            completed_cltasks = 0
+            project_id = self.id
+            progress_object = CivilWorksTeam.objects.get(project_name=project_id)
+            foundation_and_curing_images = progress_object.foundation_and_curing_images
+            bts_and_generator_slabs_images = progress_object.bts_and_generator_slabs_images
+            site_walling_images_field = progress_object.site_walling_images_field
+            tower_field = progress_object.tower_data
+            if bool(foundation_and_curing_images) is False:
+                completed_cltasks += 0
+            else:
+                completed_cltasks += 1
+            if bool(bts_and_generator_slabs_images) is False:
+                completed_cltasks += 0
+            else:
+                completed_cltasks += 1
+            if bool(site_walling_images_field) is False:
+                completed_cltasks += 0
+            else:
+                completed_cltasks += 1
+            if bool(tower_field) is False:
+                completed_cltasks += 0
+            else:
+                completed_cltasks += 1
+            civil_percentage = percentage_function(completed_cltasks, automatic_total_civtasks)
+        except Exception as e:
+            civil_percentage = 0
+
+        #PROGRESS FOR INSTALLATION TEAM
+        try:
+            category = Category.objects.get(category_name='Installation Team')
+            category_id = category.id
+            automatic_total_instasks = Task.objects.filter(category_name=category_id).count()
+            completed_intasks = 0
+            project_id = self.id
+            progress_object = InstallationTeam.objects.get(project_name=project_id)
+            electrical_tasks_data = progress_object.electrical_tasks_data
+            telecom_tasks_data = progress_object.telecom_tasks_data
+            signoff = progress_object.signoff
+            rfi_document = progress_object.rfi_document
+            integration_parameter = progress_object.integration_parameter
+            conditional_acceptance_cert = progress_object.conditional_acceptance_cert
+            if bool(electrical_tasks_data) is False:
+                completed_intasks += 0
+            else:
+                completed_intasks += 1
+            if bool(telecom_tasks_data) is False:
+                completed_intasks += 0
+            else:
+                completed_intasks += 1
+            if bool(signoff) is False:
+                completed_intasks += 0
+            else:
+                completed_intasks += 1
+            if bool(rfi_document) is False:
+                completed_intasks += 0
+            else:
+                completed_intasks += 1
+            if bool(integration_parameter) is False:
+                completed_intasks += 0
+            else:
+                completed_intasks += 1
+            if bool(conditional_acceptance_cert) is False:
+                completed_intasks += 0
+            else:
+                completed_intasks += 1
+            installation_percentage = percentage_function(completed_intasks, automatic_total_instasks)
+        except Exception as e:
+            installation_percentage = 0
+
+        project_percentage = ((commercial_percentage + civil_percentage + procurement_percentage + installation_percentage )/4)
+
+        return project_percentage
+
 
 #######################################START FOUNDATION IMAGES########################################################################################################################################
 
 
 class SetSiteClearingImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     setting_site_clearing_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/siteclearing/%Y/%m/%d/')
@@ -100,12 +237,41 @@ class SetSiteClearingImage(models.Model):
     def names_of_casuals(self):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
+    def check_cost(self):
+        now = datetime.now(timezone.utc)
+        date_diff = date_difference(self.start_date, now)
+        return date_diff
+
+    def date_casual_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            total_cost = 0
+            default_diff = 1
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                date_diff = date_difference(self.start_date, now)
+            else:
+                date_diff = date_difference(self.start_date, self.end_date)
+            while date_diff > default_diff:
+                updated_count = self.no_of_casuals_atsite.count()
+                casual_count += count
+                casual_diff = casual_count - count
+                cost = (casual_diff * casual_rate)
+                total_cost += cost
+                default_diff += 1
+            return total_cost
+        except Exception as e:
+            return e
+
     def casuals_cost(self):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -119,8 +285,9 @@ class SetSiteClearingImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -141,8 +308,9 @@ class SetSiteClearingImage(models.Model):
             casual_rate_data = Rates.objects.get(worker_type='Casual')
             engineer_rate = engineer_rate_data.rate
             casual_rate = casual_rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -197,7 +365,7 @@ class SetSiteClearingImage(models.Model):
 
 class TowerBaseImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     towerbase_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/towerbase/%Y/%m/%d/')
@@ -222,8 +390,9 @@ class TowerBaseImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -237,8 +406,9 @@ class TowerBaseImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -292,7 +462,7 @@ class TowerBaseImage(models.Model):
 
 class BindingImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     binding_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/binding/%Y/%m/%d/')
@@ -317,8 +487,9 @@ class BindingImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -332,8 +503,9 @@ class BindingImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -387,7 +559,7 @@ class BindingImage(models.Model):
 
 class SteelFixFormworkImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     steel_fix_formwork_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/steelfix/%Y/%m/%d/')
@@ -412,8 +584,9 @@ class SteelFixFormworkImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -427,8 +600,9 @@ class SteelFixFormworkImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -482,7 +656,7 @@ class SteelFixFormworkImage(models.Model):
 
 class ConcretePourImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     concrete_pour_curing_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/concretepour/%Y/%m/%d/')
@@ -507,8 +681,9 @@ class ConcretePourImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -522,8 +697,9 @@ class ConcretePourImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -577,7 +753,7 @@ class ConcretePourImage(models.Model):
 
 class ConcreteCuringPeriodImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     concrete_pour_curing_period_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
@@ -602,8 +778,9 @@ class ConcreteCuringPeriodImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -617,8 +794,9 @@ class ConcreteCuringPeriodImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -672,7 +850,7 @@ class ConcreteCuringPeriodImage(models.Model):
 
 class FoundationImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    engineers_atsite = models.ManyToManyField(Engineer)
+    engineers_atsite = models.ManyToManyField(Engineer, blank=True, null=True)
     setting_site_clearing = models.OneToOneField(SetSiteClearingImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     excavation_tower_base = models.OneToOneField(TowerBaseImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     binding = models.OneToOneField(BindingImage, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -739,7 +917,7 @@ class FoundationImage(models.Model):
 
 class ExcavationImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     excavation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
@@ -764,8 +942,9 @@ class ExcavationImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -779,8 +958,9 @@ class ExcavationImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -834,7 +1014,7 @@ class ExcavationImage(models.Model):
 
 class BS241ConcretePourCuringPeriodImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     bs241_concrete_pour_curing_period_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/BS241ConcretePourCuringPeriod/%Y/%m/%d/')
@@ -859,8 +1039,9 @@ class BS241ConcretePourCuringPeriodImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -874,8 +1055,9 @@ class BS241ConcretePourCuringPeriodImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -929,7 +1111,7 @@ class BS241ConcretePourCuringPeriodImage(models.Model):
 
 class BS241AndGeneatorSlabsImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    engineers_atsite = models.ManyToManyField(Engineer)
+    engineers_atsite = models.ManyToManyField(Engineer, blank=True, null=True)
     foundation_foot_pouring = models.OneToOneField(ExcavationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     bs241_concrete_pour_pouring_period = models.OneToOneField(BS241ConcretePourCuringPeriodImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     bs241_and_generator_slabs_comment = models.CharField(max_length=100, blank=True, null=True)
@@ -992,7 +1174,7 @@ class BS241AndGeneatorSlabsImage(models.Model):
 
 class FoundFootPourImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     foundfootpour_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
@@ -1017,8 +1199,9 @@ class FoundFootPourImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -1032,8 +1215,9 @@ class FoundFootPourImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -1087,7 +1271,7 @@ class FoundFootPourImage(models.Model):
 
 class BlockworkPanelConstImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     blockwallpanelconst_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/BlockworkPanelConst/%Y/%m/%d/')
@@ -1112,8 +1296,9 @@ class BlockworkPanelConstImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -1127,8 +1312,9 @@ class BlockworkPanelConstImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -1182,7 +1368,7 @@ class BlockworkPanelConstImage(models.Model):
 
 class GateInstallationImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     gateinstallation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/GateInstallation/%Y/%m/%d/')
@@ -1207,8 +1393,9 @@ class GateInstallationImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -1222,8 +1409,9 @@ class GateInstallationImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -1277,7 +1465,7 @@ class GateInstallationImage(models.Model):
 
 class RazorElectricFenceImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     razorelectricfance_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/RazorElectricFence/%Y/%m/%d/')
@@ -1302,8 +1490,9 @@ class RazorElectricFenceImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -1317,8 +1506,9 @@ class RazorElectricFenceImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -1372,7 +1562,7 @@ class RazorElectricFenceImage(models.Model):
 
 class BoundaryWallImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    engineers_atsite = models.ManyToManyField(Engineer)
+    engineers_atsite = models.ManyToManyField(Engineer, blank=True, null=True)
     foundation_foot_pouring = models.OneToOneField(FoundFootPourImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     block_construction = models.OneToOneField(BlockworkPanelConstImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     gate_installation = models.OneToOneField(GateInstallationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -1438,7 +1628,7 @@ class BoundaryWallImage(models.Model):
 
 class TowerErectionImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     tower_erection_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/towererection/%Y/%m/%d/')
@@ -1463,8 +1653,9 @@ class TowerErectionImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -1478,8 +1669,9 @@ class TowerErectionImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Enginner')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -1533,7 +1725,7 @@ class TowerErectionImage(models.Model):
 
 class TowerPaintImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     tower_painting_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/towerpainting/%Y/%m/%d/')
@@ -1558,8 +1750,9 @@ class TowerPaintImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -1573,8 +1766,9 @@ class TowerPaintImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -1628,7 +1822,7 @@ class TowerPaintImage(models.Model):
 
 class CableWaysImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     cable_ways_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/cableways/%Y/%m/%d/')
@@ -1653,8 +1847,9 @@ class CableWaysImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -1668,8 +1863,9 @@ class CableWaysImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -1723,7 +1919,7 @@ class CableWaysImage(models.Model):
 
 class AntennaCoaxInstallImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     antenna_coax_installation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/antennacoaxinstallation/%Y/%m/%d/')
@@ -1748,8 +1944,9 @@ class AntennaCoaxInstallImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -1763,8 +1960,9 @@ class AntennaCoaxInstallImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -1818,7 +2016,7 @@ class AntennaCoaxInstallImage(models.Model):
 
 class TowerAntennaCoaxImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    engineers_atsite = models.ManyToManyField(Engineer)
+    engineers_atsite = models.ManyToManyField(Engineer, blank=True, null=True)
     tower_erection = models.OneToOneField(TowerErectionImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     tower_painting = models.OneToOneField(TowerPaintImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     cable_ways = models.OneToOneField(CableWaysImage, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -2010,30 +2208,40 @@ class ProcurementTeam(models.Model):
         return str(self.project_name)
 
 ############################ PROCURMENT PO COST  ###################################################################################################################################
-    def po_steel_cost(self):
-        try:
-            steel_cost_data = ProcurementCostTeam.objects.get(item='Po Steel Cost')
-            steel_cost = steel_cost_data.unit_price
-            total_steel_cost = float(self.po_steel_quantity * steel_cost)
-            return total_steel_cost
-        except Exception as e:
-            error = "Cost Does Not Exist"
-            return error
-
-    def po_electrical_material_cost(self):
-        try:
-            electrial_cost_data = ProcurementCostTeam.objects.get(item='Po Electrical Material Cost')
-            elec_material_cost = electrial_cost_data.unit_price
-            material_elec_cost = float(self.po_electrical_materials_quantity * elec_material_cost)
-            return material_elec_cost
-        except Exception as e:
-            error = "Cost Does Not Exist"
-            return error
-
-    def total_procurpocost(self):
-        """Function to return total procurement PO cost"""
-        total_procur_cost = float(self.po_steel_cost() + self.po_electrical_material_cost() + self.po_subcontractors_amount)
-        return total_procur_cost
+    # def po_steel_cost(self):
+    #     try:
+    #         steel_cost_data = ProcurementCostTeam.objects.get(item='Po Steel Cost')
+    #         steel_cost = steel_cost_data.unit_price
+    #         total_steel_cost = self.po_steel_quantity * steel_cost
+    #         return total_steel_cost
+    #     except Exception as e:
+    #         error = "Cost Does Not Exist"
+    #         return error
+    #
+    # def po_electrical_material_cost(self):
+    #     try:
+    #         electrial_cost_data = ProcurementCostTeam.objects.get(item='Po Electrical Material Cost')
+    #         elec_material_cost = electrial_cost_data.unit_price
+    #         if bool(self.po_electrical_materials_quantity) is False:
+    #             return
+    #         else:
+    #             material_elec_cost = self.po_electrical_materials_quantity * elec_material_cost
+    #         return material_elec_cost
+    #     except Exception as e:
+    #         error = "Cost Does Not Exist"
+    #         return error
+    #
+    # def total_procurpocost(self):
+    #     """Function to return total procurement PO cost"""
+    #     po_cost = self.po_steel_cost()
+    #     electrical_po = self.po_electrical_material_cost()
+    #     if bool(self.po_subcontractors_amount) is False:
+    #         contractor_cost = 0
+    #     else:
+    #         contractor_cost = self.po_subcontractors_amount()
+    #     total_procur_cost = po_cost + electrical_po + contractor_cost
+    #     #total_procur_cost = float(self.po_steel_cost() + self.po_electrical_material_cost() + self.po_subcontractors_amount)
+    #     return total_procur_cost
 
 ######################################## END #######################################################################################################################################
 
@@ -2075,7 +2283,7 @@ class HealthDocumentsCivilTeam(models.Model):
 
 class CivilWorksTeam(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    health_documents = models.ManyToManyField(HealthDocumentsCivilTeam)
+    health_documents = models.ManyToManyField(HealthDocumentsCivilTeam, blank=True, null=True)
     foundation_and_curing_images = models.OneToOneField(FoundationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     bs241_and_generator_slabs_images = models.OneToOneField(BS241AndGeneatorSlabsImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     site_walling_images_field = models.OneToOneField(BoundaryWallImage, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -2135,7 +2343,7 @@ class HealthDocumentsInstallationTeam(models.Model):
 
 class UndergroundTasks(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
     Underground_ducting_and_manholes_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/UndergroundTasks/%Y/%m/%d/', blank=True, null=True)
     Underground_ducting_and_manholes_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/UndergroundTasks/%Y/%m/%d/', blank=True, null=True)
     Underground_ducting_and_manholes_image_3 = models.ImageField(upload_to='images/InstallationTeam/Electrical/UndergroundTasks/%Y/%m/%d/', blank=True, null=True)
@@ -2160,8 +2368,9 @@ class UndergroundTasks(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -2175,8 +2384,9 @@ class UndergroundTasks(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -2230,7 +2440,7 @@ class UndergroundTasks(models.Model):
 
 class ReticulationAPSinstallation(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
     Electricalreticulation_APSInstallation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ReticulationAPSinstallation/%Y/%m/%d/', blank=True, null=True)
     Electricalreticulation_APSInstallation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ReticulationAPSinstallation/%Y/%m/%d/', blank=True, null=True)
     Electricalreticulation_APSInstallation_image_3 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ReticulationAPSinstallation/%Y/%m/%d/', blank=True, null=True)
@@ -2255,8 +2465,9 @@ class ReticulationAPSinstallation(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -2270,8 +2481,9 @@ class ReticulationAPSinstallation(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -2325,7 +2537,7 @@ class ReticulationAPSinstallation(models.Model):
 
 class ElectricalEarthing(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
     Earthing_connections_and_testing_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
     Earthing_connections_and_testing_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
     Earthing_connections_and_testing_image_3 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
@@ -2350,8 +2562,9 @@ class ElectricalEarthing(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -2365,8 +2578,9 @@ class ElectricalEarthing(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Enginner')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -2420,7 +2634,7 @@ class ElectricalEarthing(models.Model):
 
 class GeneratorInstallation(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
     Generator_and_Fuel_Tank_Installation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
     Generator_and_Fuel_Tank_Installation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
     Generator_and_Fuel_Tank_Installation_image_3 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
@@ -2449,8 +2663,9 @@ class GeneratorInstallation(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -2464,8 +2679,9 @@ class GeneratorInstallation(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -2519,7 +2735,7 @@ class GeneratorInstallation(models.Model):
 
 class KPLCSolarImage(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
     kplc_solar_installation_image_1 = models.ImageField(upload_to='images/InstallationTeam/KPLCSolar/%Y/%m/%d/', blank=True, null=True)
     kplc_solar_installation_image_2 = models.ImageField(upload_to='images/InstallationTeam/KPLCSolar/%Y/%m/%d/', blank=True, null=True)
     kplc_solar_installation_image_3 = models.ImageField(upload_to='images/InstallationTeam/KPLCSolar/%Y/%m/%d/', blank=True, null=True)
@@ -2544,8 +2760,9 @@ class KPLCSolarImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -2559,8 +2776,9 @@ class KPLCSolarImage(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -2614,7 +2832,7 @@ class KPLCSolarImage(models.Model):
 
 class ElectricalTasks(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    engineers_atsite = models.ManyToManyField(Engineer)
+    engineers_atsite = models.ManyToManyField(Engineer, blank=True, null=True)
     Underground_ducting_and_manholes = models.OneToOneField(UndergroundTasks, on_delete=models.CASCADE, blank=True, null=True)
     Electricalreticulation_APSInstallation = models.OneToOneField(ReticulationAPSinstallation, on_delete=models.CASCADE, blank=True, null=True)
     Earthing_connections_and_testing = models.OneToOneField(ElectricalEarthing, on_delete=models.CASCADE, blank=True, null=True)
@@ -2671,13 +2889,12 @@ class ElectricalTasks(models.Model):
             team_id = team.id
             return team_id
         except Exception as e:
-            error = "Main team task doesnt exist"
-            return error
+            return
 
 
 class BTSinstallationTask(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
     start_date = models.DateTimeField()
     BTSinstallation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Telecom/BTSinstallation/%Y/%m/%d/', blank=True, null=True)
     BTSinstallation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Telecom/BTSinstallation/%Y/%m/%d/', blank=True, null=True)
@@ -2703,8 +2920,9 @@ class BTSinstallationTask(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -2718,8 +2936,9 @@ class BTSinstallationTask(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -2773,13 +2992,13 @@ class BTSinstallationTask(models.Model):
 
 class MWInstallationTask(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
     MWinstallation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Telecom/MWinstallation/%Y/%m/%d/', blank=True, null=True)
     MWinstallation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Telecom/MWinstallation/%Y/%m/%d/', blank=True, null=True)
     MWinstallation_image_3 = models.ImageField(upload_to='images/InstallationTeam/Telecom/MWinstallation/%Y/%m/%d/', blank=True, null=True)
     MWinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
     start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
+    end_date = models.DateTimeField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
@@ -2798,8 +3017,9 @@ class MWInstallationTask(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Casual')
             casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             count = self.no_of_casuals_atsite.count()
@@ -2813,8 +3033,9 @@ class MWInstallationTask(models.Model):
         try:
             rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, self.updated_at)
+                days_spent = date_difference(self.start_date, now)
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
@@ -2868,7 +3089,7 @@ class MWInstallationTask(models.Model):
 
 class TelecomTasks(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    engineers_atsite = models.ManyToManyField(Engineer)
+    engineers_atsite = models.ManyToManyField(Engineer, blank=True, null=True)
     Installation_of_BTS = models.OneToOneField(BTSinstallationTask, on_delete=models.CASCADE, blank=True, null=True)
     Installation_of_MW_links = models.OneToOneField(MWInstallationTask, on_delete=models.CASCADE, blank=True, null=True)
     link_commissioning = models.BooleanField(default=False);
@@ -2943,7 +3164,7 @@ class Issues(models.Model):
 
 class InstallationTeam(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    health_documents = models.ManyToManyField(HealthDocumentsInstallationTeam)
+    health_documents = models.ManyToManyField(HealthDocumentsInstallationTeam, blank=True, null=True)
     electrical_tasks_data = models.OneToOneField(ElectricalTasks, on_delete=models.DO_NOTHING, blank=True, null=True)
     telecom_tasks_data = models.OneToOneField(TelecomTasks, on_delete=models.DO_NOTHING, blank=True, null=True)
     as_built = models.FileField(upload_to='files/SafaricomTeam/as_built/%Y/%m/%d/', blank=True, null=True)
@@ -3011,3 +3232,8 @@ class TestCetificate(models.Model):
 
     def __str__(self):
         return str(self.project_name)
+
+def percentage_function(no_of_complete, total_task):
+    """Function to return perecentage of progress  """
+    percentage = round(((no_of_complete/total_task) * 100))
+    return percentage
