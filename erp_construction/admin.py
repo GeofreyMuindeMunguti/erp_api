@@ -143,7 +143,7 @@ admin.site.register(Task, TaskAdmin)
 ####################################### SUBTASKS ###############################################################################################################################
 
 class SubTaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'task_name', 'subtask_name', 'kpi', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'task_name', 'subtask_name', 'kpi','posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('subtask_name', )
     list_filter = ('task_name',)
     search_fields = ('subtask_name', )

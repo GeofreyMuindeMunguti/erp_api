@@ -698,7 +698,7 @@ class FoundationImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data =Task.objects.get(task_name='Tower foundation and curing.')
+            kpi_data =Task.objects.get(task_name='Tower Foundation & Curing')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -1930,7 +1930,6 @@ class SubTask(models.Model):
     def __str__(self):
         return str(self.subtask_name)
 
-
 ######################################## END #######################################################################################################################################
 
 ####################################### INSTALLATION ###########################################################################################################################
@@ -1996,9 +1995,9 @@ class CommercialTeam(models.Model):
 class ProcurementTeam(models.Model):
     project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
     po_steel = models.FileField(upload_to='files/ProcurementTeam/posteel/%Y/%m/%d/', blank=True, null=True)
-    po_steel_quantity = models.IntegerField(blank=True, null=True)
+    # po_steel_quantity = models.IntegerField(blank=True, null=True)
     po_electrical_materials = models.FileField(upload_to='files/ProcurementTeam/poelectrical/%Y/%m/%d/', blank=True, null=True)
-    po_electrical_materials_quantity = models.IntegerField(blank=True, null=True)
+    # po_electrical_materials_quantity = models.IntegerField(blank=True, null=True)
     po_subcontractors = models.FileField(upload_to='files/ProcurementTeam/posubcontractor/%Y/%m/%d/', blank=True, null=True)
     po_subcontractors_amount = models.IntegerField(blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
