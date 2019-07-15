@@ -94,6 +94,10 @@ urlpatterns = [
 
     path('files/<int:pk>/', filesviews.ProjectFilesView.as_view()), # main url path to retrieve files per project
     #Paths to retrieve individual files
+    path('files/<int:pk>/commercialteamfiles/', filesviews.CommercialTeamFilesView.as_view()),
+    path('files/<int:pk>/procurementteamfiles/', filesviews.ProcurementTeamFilesView.as_view()),
+    path('files/<int:pk>/projectpurchaseorders/', filesviews.ProjectPurchaseOrdersView.as_view()),
+    path('files/<int:pk>/projectcostingfile/', filesviews.ProjectCostingFileView.as_view()),
 
     path('files/<int:pk>/siteclearingimages/', filesviews.SiteClearingFilesView.as_view()),
     path('files/<int:pk>/towerbaseimages/', filesviews.TowerBaseImagesView.as_view()),
@@ -114,11 +118,6 @@ urlpatterns = [
     path('files/<int:pk>/towerpaintimages/', filesviews.TowerPaintImagesView.as_view()),
     path('files/<int:pk>/cablewaysimages/', filesviews.CableWaysImagesView.as_view()),
     path('files/<int:pk>/antennacoaxinstallimages/', filesviews.AntennaCoaxInstallImagesView.as_view()),
-
-    path('files/<int:pk>/commercialteamfiles/', filesviews.CommercialTeamFilesView.as_view()),
-    path('files/<int:pk>/procurementteamfiles/', filesviews.ProcurementTeamFilesView.as_view()),
-    path('files/<int:pk>/projectpurchaseorders/', filesviews.ProjectPurchaseOrdersView.as_view()),
-    path('files/<int:pk>/projectcostingfile/', filesviews.ProjectCostingFileView.as_view()),
 
     path('files/<int:pk>/healthdocumentsfilescivilteam/', filesviews.HealthDocumentsFilesCivilTeamView.as_view()),
     path('files/<int:pk>/accessapprovalfilecivil/', filesviews.AccessApprovalFileCivilView.as_view()),
