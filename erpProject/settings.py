@@ -46,6 +46,10 @@ INSTALLED_APPS = [
     'erp_core',
     'erp_fibre',
     'erp_ms',
+    'commercial',
+    'procurement',
+    'civil',
+
     
 ]
 
