@@ -16,7 +16,6 @@ class FTTSProject(CreateProject):
         return self.project_name
 
 
-
 #################### FTTH MODELS ####################
 
 class FTTHProject(CreateProject):
