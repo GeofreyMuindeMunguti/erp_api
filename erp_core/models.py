@@ -6,10 +6,9 @@ from users.models import CustomUser
 
 
 class CreateProject(models.Model):
-    project_name = models.CharField(max_length=100,unique=True, )
+    project_name = models.CharField(max_length=100,unique=True, blank=True, null=True)
     description =  models.CharField(max_length=100, blank=True, null=True)
 
-    created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)

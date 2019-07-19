@@ -1,7 +1,7 @@
 from django.db import models
 from erp_core.models import CreateProject
 from erp_construction.models import Project
-
+from users.models import CustomUser
 
 ################### FTTS BLOCK  #####################
 
@@ -21,6 +21,7 @@ class FTTSProject(CreateProject):
 
 class FTTHProject(CreateProject):
     initial_kmz = models.FileField(upload_to='files/FTTHProject/Initial_kmz_file/%Y/%m/%d/', blank=True, null=True)
+    created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_acknowledged = models.BooleanField(default=False)
 
     class Meta:

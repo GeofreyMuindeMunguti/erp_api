@@ -21,7 +21,7 @@ from users.urls import router
 from inventory.urls import router
 from django.conf import settings
 from django.conf.urls.static import static
-
+from erp_fibre.urls import router
 from users.views import ObtainJWTView
 
 urlpatterns = [
@@ -30,4 +30,5 @@ urlpatterns = [
     path('erp_construction/', include('erp_construction.urls')),
     path('', include('users.urls')),
     path('inventory/', include('inventory.urls')),
+    path('erp_fibre/', include('erp_fibre.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
