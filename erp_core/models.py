@@ -18,6 +18,7 @@ class CreateProject(models.Model):
         abstract = True
 
 class ProcurementCore(models.Model):
+      # TODO
     po = models.CharField(max_length=100)
     description =  models.CharField(max_length=100, blank=True, null=True)
     

@@ -5,7 +5,7 @@ from users.models import *
 # from inventory.models import *
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime, timezone, timedelta
-
+from erp_core.models import CreateProject
 
 class Category(models.Model):
     category_name = models.CharField(max_length=100, unique=True)
@@ -29,8 +29,8 @@ class ProjectIcons(models.Model):
         return self.site_owner
 
 
-class Project(models.Model):
-    project_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
+class Project(CreateProject):
+    #project_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
     site_number = models.CharField(max_length=100, unique=True, blank=True, null=True)
     BTS_type = models.CharField(max_length=100, blank=True, null=True)
     site_owner = models.CharField(max_length=100, blank=True, null=True)
@@ -41,10 +41,10 @@ class Project(models.Model):
     approved_drawing = models.FileField(upload_to='files/Project/approveddrawings/%Y/%m/%d/', blank=True, null=True)
     final_acceptance_cert = models.FileField(upload_to='files/SafaricomTeam/finalcert/%Y/%m/%d/', blank=True, null=True)
     final_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
+    # created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    # created_at = models.DateTimeField(auto_now_add=True)
+    # updated_at = models.DateTimeField(auto_now=True)
+    # is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.project_name
