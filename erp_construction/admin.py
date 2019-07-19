@@ -91,8 +91,7 @@ admin.site.register(CommercialTeam, CommercialTeamAdmin)
 
 
 class ProcurementTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'po_steel', 'po_steel_quantity','po_steel_cost', 'po_electrical_materials', 'po_electrical_materials_quantity','po_electrical_material_cost',
-                    'po_subcontractors', 'po_subcontractors_amount','total_procurpocost','posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'po_steel', 'po_electrical_materials', 'po_subcontractors', 'po_subcontractors_amount', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -143,7 +142,7 @@ admin.site.register(Task, TaskAdmin)
 ####################################### SUBTASKS ###############################################################################################################################
 
 class SubTaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'task_name', 'subtask_name', 'kpi', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'task_name', 'subtask_name', 'kpi','posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('subtask_name', )
     list_filter = ('task_name',)
     search_fields = ('subtask_name', )

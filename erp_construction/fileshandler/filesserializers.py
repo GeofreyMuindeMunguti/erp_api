@@ -21,7 +21,7 @@ class TowerBaseImagesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TowerBaseImage
-        fields = ('towerbase_image_1','towerbase_image_1','towerbase_image_1',)
+        fields = ('towerbase_image_1', 'towerbase_image_2', 'towerbase_image_3',)
 
 
 class BindingImagesSerializer(serializers.ModelSerializer):
@@ -287,8 +287,8 @@ class ProjectFilesSerializer(serializers.ModelSerializer):
 
     projectpurchaseorders = ProjectPurchaseOrdersFileSerializer(read_only=True)
     projectcosting = ProjectCostingFileSerializer(read_only=True)
-    commercialfiles = CommercialTeamFilesSerializer(read_only=True)
-    procurementfiles = ProcurementTeamFilesSerializer(read_only=True)
+    commercialteam = CommercialTeamFilesSerializer(read_only=True)
+    procurementteam = ProcurementTeamFilesSerializer(read_only=True)
 
     healthdocumentscivilteam = HealthDocumentsFilesCivilTeamSerializer(many = True,read_only =True)
     accessapprovalcivil = AccessApprovalFileCivilSerializer(many = True,read_only=True)

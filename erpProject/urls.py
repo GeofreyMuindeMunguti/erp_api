@@ -22,8 +22,11 @@ from inventory.urls import router
 from django.conf import settings
 from django.conf.urls.static import static
 
+from users.views import ObtainJWTView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('login/', view=ObtainJWTView.as_view(), name='login'),
     path('erp_construction/', include('erp_construction.urls')),
     path('', include('users.urls')),
     path('inventory/', include('inventory.urls')),
