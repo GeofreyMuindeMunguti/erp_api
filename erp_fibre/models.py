@@ -8,7 +8,7 @@ from erp_construction.models import Project
 
 class FTTSProject(CreateProject):
     #sites = models.ForeignKey(Project, on_delete=models.DO_NOTHING, blank=True, null=True)
-    sites = models.ManyToManyField('FTTSProject', blank=True)#, null=True)
+    sites = models.ManyToManyField(Project, blank=True)#, null=True)
 
         # Below are Fields from Absrtact class as addition to above sites field # NOTE  can be overriden
 
