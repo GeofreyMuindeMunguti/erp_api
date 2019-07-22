@@ -14,7 +14,7 @@ class SiteClearingFilesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SetSiteClearingImage
-        fields = ('setting_Site_clearing_image_1','setting_Site_clearing_image_2','setting_Site_clearing_image_3',)
+        fields = ('setting_site_clearing_image_1','setting_site_clearing_image_2','setting_site_clearing_image_3',)
 
 
 class TowerBaseImagesSerializer(serializers.ModelSerializer):
@@ -260,12 +260,12 @@ class ProjectFilesSerializer(serializers.ModelSerializer):
     :: facilitate serialization of all images and files per project
     :: Files that need not to be serialized can be commented out
      e.g
-       # setSiteclearingimage = SiteClearingFilesSerializer ( read_only =True)
+       # setsiteclearingimage = SiteClearingFilesSerializer ( read_only =True)
     :: More field can be added from the excluded one by removing from exlude variable
 
       '''
 
-    setSiteclearingimage = SiteClearingFilesSerializer ( read_only =True)
+    setsiteclearingimage = SiteClearingFilesSerializer ( read_only =True)
     towerbaseimage = TowerBaseImagesSerializer(read_only=True)
     bindingimage = BindingImagesSerializer(read_only=True)
     steelfixformworkimage = SteelFixFormworkImagesSerializer(read_only=True)
@@ -310,9 +310,9 @@ class ProjectFilesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
        # fields = ('__all__')
-        exclude = ("id","Site_name","Site_number","BTS_type","Site_owner","final_acceptance_cert_comment","created_at",
+        exclude = ("id","project_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
            "updated_at", "is_active","icon", "location", "created_by")
 
-        #fields = ('geotech_file','access_letter','approved_drawing','final_acceptance_cert','setSiteclearingimage',
+        #fields = ('geotech_file','access_letter','approved_drawing','final_acceptance_cert','setsiteclearingimage',
         #'towerbaseimage','bindingimage','steelfixformworkimage','concretepourcuringimage')
         #read_only_fields = ('created_at', 'updated_at', 'is_active')

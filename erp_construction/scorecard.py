@@ -36,7 +36,7 @@ class RevenueDetailView(APIView):
 
     def get(self, request, pk):
         try:
-            revenue_per_project_data = ProjectPurchaseOrders.objects.get(Site_name=pk)
+            revenue_per_project_data = ProjectPurchaseOrders.objects.get(project_name=pk)
             revenue_per_project = revenue_per_project_data.total_cost_of_po
             return Response({'revenue_per_project': revenue_per_project, })
         except Exception as e:
