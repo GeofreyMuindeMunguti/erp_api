@@ -5,8 +5,8 @@ from django.db import models
 from users.models import CustomUser
 
 
-class Project(models.Model):
-    site_name = models.CharField(max_length=100,unique=True, blank=True, null=True)
+class CreateProject(models.Model):
+    project_name = models.CharField(max_length=100,unique=True, blank=True, null=True)
     description =  models.CharField(max_length=100, blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -40,7 +40,7 @@ class ProcurementFiles(models.Model):
     material_receipt_order = models.FileField(upload_to='files/BRO/bro/%Y/%m/%d/', blank=True, null=True) #ftts
 
     description =  models.CharField(max_length=100, blank=True, null=True)
-    
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
