@@ -49,5 +49,5 @@ class procurementcostViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = ProcurementCostTeam.objects.order_by('created_at')
     serializer_class = ProcurementCostTeamSerializer
 
-    search_fields = ('Site_name', )
-    ordering_fields = ('updated_at', 'Site_name', )
+    search_fields = ('project_name', )	 
+    ordering_fields = ('updated_at', 'project_name', )
