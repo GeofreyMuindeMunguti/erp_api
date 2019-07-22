@@ -10,6 +10,7 @@ router = DefaultRouter()
 
 router.register(r'FttsSiteViewSet', views.FttsSiteViewSet)
 router.register(r'FttsCommercialTeamViewSet', views.FttsCommercialTeamViewSet)
+router.register(r'FttsProcurementTeamViewSet', views.FttsProcurementTeamViewSet)
 
 """ ENDPOINTS FOR FRONTEND"""
 

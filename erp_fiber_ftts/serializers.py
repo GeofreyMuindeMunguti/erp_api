@@ -22,3 +22,10 @@ class FttsCommercialTeamSerializer(serializers.ModelSerializer):
         model = FttsCommercialTeam
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class FttsProcurementTeamSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FttsProcurementTeam
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
