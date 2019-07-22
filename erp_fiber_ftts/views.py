@@ -45,7 +45,7 @@ class DefaultsMixin(object):
 
 
 class FttsSiteViewSet(DefaultsMixin, viewsets.ModelViewSet):
-    """API endpoint for listing and creating a project."""
+    """API endpoint for listing and creating a site."""
     queryset = FttsSite.objects.order_by('created_at')
     serializer_class = FttsSiteSerializer
 
@@ -54,9 +54,15 @@ class FttsSiteViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
 
 class FttsCommercialTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
-    """API endpoint for listing and creating a project icons."""
     queryset = FttsCommercialTeam.objects.order_by('created_at')
     serializer_class = FttsCommercialTeamSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
+class FttsProcurementTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = FttsProcurementTeam.objects.order_by('created_at')
+    serializer_class = FttsProcurementTeamSerializer
 
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
