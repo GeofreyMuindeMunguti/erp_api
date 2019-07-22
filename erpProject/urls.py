@@ -25,7 +25,7 @@ from erp_fibre.urls import router
 from users.views import ObtainJWTView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.Site.urls),
     path('login/', view=ObtainJWTView.as_view(), name='login'),
     path('erp_construction/', include('erp_construction.urls')),
     path('', include('users.urls')),

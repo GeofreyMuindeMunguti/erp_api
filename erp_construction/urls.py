@@ -99,7 +99,7 @@ urlpatterns = [
     path('files/<int:pk>/projectpurchaseorders/', filesviews.ProjectPurchaseOrdersView.as_view()),
     path('files/<int:pk>/projectcostingfile/', filesviews.ProjectCostingFileView.as_view()),
 
-    path('files/<int:pk>/siteclearingimages/', filesviews.SiteClearingFilesView.as_view()),
+    path('files/<int:pk>/Siteclearingimages/', filesviews.SiteClearingFilesView.as_view()),
     path('files/<int:pk>/towerbaseimages/', filesviews.TowerBaseImagesView.as_view()),
     path('files/<int:pk>/bindingimages/', filesviews.BindingImagesView.as_view()),
     path('files/<int:pk>/steelfixformworkimages/', filesviews.SteelFixFormworkImagesView.as_view()),

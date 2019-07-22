@@ -21,47 +21,47 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='warrantycertificate',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
             model_name='undergroundtasks',
-            name='no_of_casuals_atsite',
+            name='no_of_casuals_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Casual'),
         ),
         migrations.AddField(
             model_name='undergroundtasks',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
             model_name='towerpaintimage',
-            name='no_of_casuals_atsite',
+            name='no_of_casuals_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Casual'),
         ),
         migrations.AddField(
             model_name='towerpaintimage',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
             model_name='towererectionimage',
-            name='no_of_casuals_atsite',
+            name='no_of_casuals_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Casual'),
         ),
         migrations.AddField(
             model_name='towererectionimage',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
             model_name='towerbaseimage',
-            name='no_of_casuals_atsite',
+            name='no_of_casuals_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Casual'),
         ),
         migrations.AddField(
             model_name='towerbaseimage',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
@@ -76,12 +76,12 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='towerantennacoaximage',
-            name='engineers_atsite',
+            name='engineers_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Engineer'),
         ),
         migrations.AddField(
             model_name='towerantennacoaximage',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
@@ -101,7 +101,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='testcetificate',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
@@ -116,12 +116,12 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='telecomtasks',
-            name='engineers_atsite',
+            name='engineers_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Engineer'),
         ),
         migrations.AddField(
             model_name='telecomtasks',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
@@ -146,52 +146,52 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='steelfixformworkimage',
-            name='no_of_casuals_atsite',
+            name='no_of_casuals_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Casual'),
         ),
         migrations.AddField(
             model_name='steelfixformworkimage',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
-            model_name='setsiteclearingimage',
-            name='no_of_casuals_atsite',
+            model_name='setSiteclearingimage',
+            name='no_of_casuals_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Casual'),
         ),
         migrations.AddField(
-            model_name='setsiteclearingimage',
-            name='project_name',
+            model_name='setSiteclearingimage',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
             model_name='reticulationapsinstallation',
-            name='no_of_casuals_atsite',
+            name='no_of_casuals_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Casual'),
         ),
         migrations.AddField(
             model_name='reticulationapsinstallation',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
             model_name='razorelectricfenceimage',
-            name='no_of_casuals_atsite',
+            name='no_of_casuals_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Casual'),
         ),
         migrations.AddField(
             model_name='razorelectricfenceimage',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
             model_name='projectpurchaseorders',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
             model_name='projectcosting',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
@@ -202,7 +202,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='project',
             name='icon',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.ProjectIcons'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.SiteIcons'),
         ),
         migrations.AddField(
             model_name='project',
@@ -216,27 +216,27 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='procurementteam',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
             model_name='mwinstallationtask',
-            name='no_of_casuals_atsite',
+            name='no_of_casuals_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Casual'),
         ),
         migrations.AddField(
             model_name='mwinstallationtask',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
             model_name='kplcsolarimage',
-            name='no_of_casuals_atsite',
+            name='no_of_casuals_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Casual'),
         ),
         migrations.AddField(
             model_name='kplcsolarimage',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
@@ -251,7 +251,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='issues',
-            name='project_name',
+            name='Site_name',
             field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
@@ -276,7 +276,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='installationteam',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
@@ -296,7 +296,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='healthdocumentsinstallationteam',
-            name='project_name',
+            name='Site_name',
             field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
@@ -311,37 +311,37 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='healthdocumentscivilteam',
-            name='project_name',
+            name='Site_name',
             field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='healthdocumentscivilteam', to='erp_construction.Project'),
         ),
         migrations.AddField(
             model_name='generatorinstallation',
-            name='no_of_casuals_atsite',
+            name='no_of_casuals_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Casual'),
         ),
         migrations.AddField(
             model_name='generatorinstallation',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
             model_name='gateinstallationimage',
-            name='no_of_casuals_atsite',
+            name='no_of_casuals_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Casual'),
         ),
         migrations.AddField(
             model_name='gateinstallationimage',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
             model_name='foundfootpourimage',
-            name='no_of_casuals_atsite',
+            name='no_of_casuals_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Casual'),
         ),
         migrations.AddField(
             model_name='foundfootpourimage',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
@@ -361,7 +361,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='foundationimage',
-            name='engineers_atsite',
+            name='engineers_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Engineer'),
         ),
         migrations.AddField(
@@ -371,12 +371,12 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='foundationimage',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
             model_name='foundationimage',
-            name='setting_site_clearing',
+            name='setting_Site_clearing',
             field=models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.SetSiteClearingImage'),
         ),
         migrations.AddField(
@@ -386,12 +386,12 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='excavationimage',
-            name='no_of_casuals_atsite',
+            name='no_of_casuals_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Casual'),
         ),
         migrations.AddField(
             model_name='excavationimage',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
@@ -421,42 +421,42 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='electricaltasks',
-            name='engineers_atsite',
+            name='engineers_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Engineer'),
         ),
         migrations.AddField(
             model_name='electricaltasks',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
             model_name='electricalearthing',
-            name='no_of_casuals_atsite',
+            name='no_of_casuals_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Casual'),
         ),
         migrations.AddField(
             model_name='electricalearthing',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
             model_name='concretepourimage',
-            name='no_of_casuals_atsite',
+            name='no_of_casuals_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Casual'),
         ),
         migrations.AddField(
             model_name='concretepourimage',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
             model_name='concretecuringperiodimage',
-            name='no_of_casuals_atsite',
+            name='no_of_casuals_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Casual'),
         ),
         migrations.AddField(
             model_name='concretecuringperiodimage',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
@@ -476,7 +476,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='commercialteam',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
@@ -501,12 +501,12 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='civilworksteam',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
             model_name='civilworksteam',
-            name='site_walling_images_field',
+            name='Site_walling_images_field',
             field=models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.BoundaryWallImage'),
         ),
         migrations.AddField(
@@ -521,32 +521,32 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='cablewaysimage',
-            name='no_of_casuals_atsite',
+            name='no_of_casuals_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Casual'),
         ),
         migrations.AddField(
             model_name='cablewaysimage',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
             model_name='btsinstallationtask',
-            name='no_of_casuals_atsite',
+            name='no_of_casuals_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Casual'),
         ),
         migrations.AddField(
             model_name='btsinstallationtask',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
             model_name='bs241concretepourcuringperiodimage',
-            name='no_of_casuals_atsite',
+            name='no_of_casuals_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Casual'),
         ),
         migrations.AddField(
             model_name='bs241concretepourcuringperiodimage',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
@@ -556,7 +556,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='bs241andgeneatorslabsimage',
-            name='engineers_atsite',
+            name='engineers_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Engineer'),
         ),
         migrations.AddField(
@@ -566,7 +566,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='bs241andgeneatorslabsimage',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
@@ -576,7 +576,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='boundarywallimage',
-            name='engineers_atsite',
+            name='engineers_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Engineer'),
         ),
         migrations.AddField(
@@ -591,7 +591,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='boundarywallimage',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
@@ -601,42 +601,42 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='blockworkpanelconstimage',
-            name='no_of_casuals_atsite',
+            name='no_of_casuals_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Casual'),
         ),
         migrations.AddField(
             model_name='blockworkpanelconstimage',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
             model_name='bindingimage',
-            name='no_of_casuals_atsite',
+            name='no_of_casuals_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Casual'),
         ),
         migrations.AddField(
             model_name='bindingimage',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
             model_name='antennacoaxinstallimage',
-            name='no_of_casuals_atsite',
+            name='no_of_casuals_atSite',
             field=models.ManyToManyField(blank=True, null=True, to='users.Casual'),
         ),
         migrations.AddField(
             model_name='antennacoaxinstallimage',
-            name='project_name',
+            name='Site_name',
             field=models.OneToOneField(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
             model_name='accessapprovalinstallation',
-            name='project_name',
+            name='Site_name',
             field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.Project'),
         ),
         migrations.AddField(
             model_name='accessapprovalcivil',
-            name='project_name',
+            name='Site_name',
             field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='accessapprovalcivil', to='erp_construction.Project'),
         ),
     ]

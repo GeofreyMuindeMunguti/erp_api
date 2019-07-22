@@ -8,4 +8,4 @@ class ProcurementCostTeamAdmin(admin.ModelAdmin):
     list_display_links = ('item', )
     search_fields = ('item', )
 
-admin.site.register(ProcurementCostTeam, ProcurementCostTeamAdmin)
+admin.Site.register(ProcurementCostTeam, ProcurementCostTeamAdmin)

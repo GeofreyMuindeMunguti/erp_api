@@ -7,10 +7,10 @@ from .models import *
 from rest_framework.authtoken.models import Token
 
 
-class ProjectIconsSerializer(serializers.ModelSerializer):
+class SiteIconsSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = ProjectIcons
+        model = SiteIcons
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
