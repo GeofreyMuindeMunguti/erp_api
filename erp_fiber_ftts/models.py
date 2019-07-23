@@ -12,18 +12,17 @@ from erp_core.fileshandler.filemixin import UploadToProjectDir  # create Folders
 class FTTSProject(Project):
     site_name = models.ManyToManyField(Site, blank=True)#, null=True)
 
-
     class Meta:
         ordering = ('-created_at',)
 
     def __str__(self):
         return self.project_name
 
-class FttsCommercialTeam(models.Model):
-    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    ftts_quote = models.FileField(upload_to='files/ftts/CommercialTeam/quote/%Y/%m/%d/', blank=True, null=True)
+class FttsCommercialTeam(CommercialFiles):
+    project_name = models.OneToOneField(FTTSProject, on_delete=models.DO_NOTHING)
+   # ftts_quote = models.FileField(upload_to='files/ftts/CommercialTeam/quote/%Y/%m/%d/', blank=True, null=True)
     ftts_po_requisition = models.FileField(upload_to='files/ftts/CommercialTeam/requisition/%Y/%m/%d/', blank=True, null=True)
-    ftts_wayleave_application = models.FileField(upload_to='files/ftts/CommercialTeam/wayleaveapplication/%Y/%m/%d/', blank=True, null=True)
+   # ftts_wayleave_application = models.FileField(upload_to='files/ftts/CommercialTeam/wayleaveapplication/%Y/%m/%d/', blank=True, null=True)
     ftts_project_plan = models.FileField(upload_to='files/ftts/CommercialTeam/projectplan/%Y/%m/%d/', blank=True, null=True)
     ftts_initial_invoice = models.FileField(upload_to='files/ftts/CommercialTeam/initialinvoice/%Y/%m/%d/', blank=True, null=True)
     ftts_po_client = models.FileField(upload_to='files/ftts/CommercialTeam/poclient/%Y/%m/%d/', blank=True, null=True)

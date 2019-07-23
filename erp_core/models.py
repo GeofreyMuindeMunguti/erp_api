@@ -15,7 +15,7 @@ class Project(models.Model):
 
     class Meta:
         abstract = True
-        
+
 class TimeStampModel(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -25,17 +25,17 @@ class TimeStampModel(models.Model):
     class Meta:
         abstract = True
 
-class CommercialFiles(models.Model):
+class CommercialFiles(TimeStampModel):
       # TODO
     quote = models.FileField(upload_to=UploadToProjectDir('FTTS/files/Quote/'), blank=True, null=True)
     wayleave_application = models.FileField(upload_to=UploadToProjectDir('FTTS/files/wayleave_application/'), blank=True, null=True)
     wayleave_approval = models.FileField( upload_to=UploadToProjectDir('FTTS/files/wayleave_approval/'), blank=True, null=True)
 
-    description =  models.CharField(max_length=100, blank=True, null=True)
+    #description =  models.CharField(max_length=100, blank=True, null=True)
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
+    # created_at = models.DateTimeField(auto_now_add=True)
+    # updated_at = models.DateTimeField(auto_now=True)
+    # is_active = models.BooleanField(default=True)
 
     class Meta:
         abstract = True
