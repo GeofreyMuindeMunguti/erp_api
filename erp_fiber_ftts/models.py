@@ -10,7 +10,7 @@ from erp_core.fileshandler.filemixin import UploadToProjectDir  # create Folders
 
 # Create your models here.
 class FTTSProject(Project):
-    project_name = models.ForeignKey(Site, on_delete=models.DO_NOTHING, blank=True)#, null=True)
+    site_name = models.ManyToManyField(Site, blank=True)#, null=True)
 
 
     class Meta:

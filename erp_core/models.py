@@ -15,8 +15,15 @@ class Project(models.Model):
 
     class Meta:
         abstract = True
+        
+class TimeStampModel(models.Model):
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
 
+    class Meta:
+        abstract = True
 
 class CommercialFiles(models.Model):
       # TODO
