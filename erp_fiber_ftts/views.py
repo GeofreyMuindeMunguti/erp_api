@@ -97,3 +97,42 @@ class FttsCivilTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     ordering_fields = ('updated_at', 'site_name', )
 
 ################################################ END ##############################################################################################################################################################################################################################################################
+
+################################################ FIBER INSTALLATION TEAM ##############################################################################################################################################################################################################################################
+
+class SiteTerminalInHseViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = SiteTerminalInHse.objects.order_by('created_at')
+    serializer_class = SiteTerminalInHseSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
+class SiteInterceptionViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = SiteInterception.objects.order_by('created_at')
+    serializer_class = SiteInterceptionSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
+class SiteIntegrationViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = SiteIntegration.objects.order_by('created_at')
+    serializer_class = SiteIntegrationSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
+class SiteAsBuiltViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = SiteAsBuilt.objects.order_by('created_at')
+    serializer_class = SiteAsBuiltSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
+class FttsInstallationTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = FttsInstallationTeam.objects.order_by('created_at')
+    serializer_class = FttsInstallationTeamSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
+################################################ END ##############################################################################################################################################################################################################################################################
