@@ -20,20 +20,16 @@ class FTTSProject(Project):
 
 class FttsCommercialTeam(CommercialFiles):
     project_name = models.OneToOneField(FTTSProject, on_delete=models.DO_NOTHING)
-   # ftts_quote = models.FileField(upload_to='files/ftts/CommercialTeam/quote/%Y/%m/%d/', blank=True, null=True)
     po_requisition = models.FileField(upload_to='files/ftts/CommercialTeam/requisition/%Y/%m/%d/', blank=True, null=True)
-   # ftts_wayleave_application = models.FileField(upload_to='files/ftts/CommercialTeam/wayleaveapplication/%Y/%m/%d/', blank=True, null=True)
     project_plan = models.FileField(upload_to='files/ftts/CommercialTeam/projectplan/%Y/%m/%d/', blank=True, null=True)
     initial_invoice = models.FileField(upload_to='files/ftts/CommercialTeam/initialinvoice/%Y/%m/%d/', blank=True, null=True)
     po_client = models.FileField(upload_to='files/ftts/CommercialTeam/poclient/%Y/%m/%d/', blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
+
 
     def __str__(self):
-        return str(self.site_name)
+        return str(self.project_name)
 
 class FttsProcurementTeam(ProcurementFiles):
     project_name = models.OneToOneField(FTTSProject, on_delete=models.DO_NOTHING)
@@ -46,7 +42,7 @@ class FttsProcurementTeam(ProcurementFiles):
 
 
     def __str__(self):
-        return str(self.site_name)
+        return str(self.project_name)
 
 ######################################################## FIBER CIVIL TEAM ########################################################################################################################################################################################
 
