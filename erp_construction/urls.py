@@ -12,7 +12,7 @@ from .fileshandler import filesviews
 
 router = DefaultRouter()
 
-router.register(r'projects', views.ProjectViewSet)
+router.register(r'sites', views.SiteViewSet)
 router.register(r'category', views.CategoryViewSet)
 router.register(r'Icons', views.ProjectIconViewSet)
 router.register(r'projectcosting', views.ProjectCostingViewSet)
@@ -92,7 +92,7 @@ urlpatterns = [
 
     path('files/', filesviews.FilesView.as_view()), # Retrieve all projects files :: TO DO
 
-    path('files/<int:pk>/', filesviews.ProjectFilesView.as_view()), # main url path to retrieve files per project
+    path('files/<int:pk>/', filesviews.SiteFilesView.as_view()), # main url path to retrieve files per project
     #Paths to retrieve individual files
     path('files/<int:pk>/commercialteamfiles/', filesviews.CommercialTeamFilesView.as_view()),
     path('files/<int:pk>/procurementteamfiles/', filesviews.ProcurementTeamFilesView.as_view()),
