@@ -2,7 +2,7 @@ from rest_framework import serializers, exceptions
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from users.models import CustomUser
+from users.models import *
 from .models import *
 from rest_framework.authtoken.models import Token
 
@@ -15,13 +15,13 @@ class ProjectIconsSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class ProjectSerializer(serializers.ModelSerializer):
+class SiteSerializer(serializers.ModelSerializer):
 
     turn_around_time = serializers.IntegerField(read_only=True)
     progress = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = Project
+        model = Site
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 

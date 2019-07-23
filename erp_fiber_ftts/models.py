@@ -1,13 +1,13 @@
 from django.db import models
-from erp_core.models import CreateProject
-from erp_construction.models import Project
-from users.models import CustomUser
+from erp_core.models import *
+from erp_construction.models import *
+from users.models import *
 from erp_core.fileshandler.filemixin import UploadToProjectDir  # create Folders(Project name) with images & files per project in /media/..
 
 
 
-class FTTSProject(CreateProject):
-    site_name = models.ManyToManyField(Project, blank=True)#, null=True)
+class FTTSProject(Project):
+    project_name = models.ForeignKey(Site, on_delete=models.DO_NOTHING, blank=True)#, null=True)
 
 
     class Meta:
