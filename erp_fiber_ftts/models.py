@@ -2,8 +2,7 @@ from django.db import models
 from erp_core.models import CreateProject
 from erp_construction.models import Project
 from users.models import CustomUser
-from erp_core.fileshandler.filemixin import UploadToProjectDir # create Folders(Project name) with images & files per project in /media/..
-
+from erp_core.fileshandler.filemixin import UploadToProjectDir  # create Folders(Project name) with images & files per project in /media/..
 
 
 
