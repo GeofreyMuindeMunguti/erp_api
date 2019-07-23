@@ -13,7 +13,7 @@ class FTTSProjectAdmin(admin.ModelAdmin):
 admin.site.register(FTTSProject, FTTSProjectAdmin)
 
 class FttsCommercialTeamAdmin(admin.ModelAdmin):
-    list_display = ('id','quote', 'project_name','ftts_po_requisition','wayleave_application', 'ftts_project_plan', 'ftts_initial_invoice','ftts_po_client','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id','quote', 'project_name','po_requisition','wayleave_application', 'project_plan', 'initial_invoice','po_client','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)
@@ -23,10 +23,11 @@ admin.site.register(FttsCommercialTeam, FttsCommercialTeamAdmin)
 
 
 class FttsProcurementTeamAdmin(admin.ModelAdmin):
-    list_display = ('id','site_name', 'ftts_material_requisition','ftts_material_receipt_order', 'ftts_pr', 'ftts_pr','ftts_po_quote_service', 'ftts_po_subcontractors', 'posted_by', 'created_at', 'updated_at', 'is_active')
-    list_display_links = ('site_name', )
+    list_display = ('id','project_name', 'ftts_material_requisition','material_receipt_order', 'perchase_request','po_quote_service', 'po_subcontractors', 'posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
+    
 
 admin.site.register(FttsProcurementTeam, FttsProcurementTeamAdmin)
 
