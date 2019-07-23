@@ -135,3 +135,86 @@ class FttsCivilTeam(models.Model):
         return str(self.site_name)
 
 ######################################################## END ################################################################################################################################################################################################
+
+######################################################## FIBER INSTALLATION TEAM ########################################################################################################################################################################################
+
+class SiteTerminalInHse(models.Model):
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField(blank=True, null=True)
+    site_terminal_in_hse_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
+    site_terminal_in_hse_image_2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
+    site_terminal_in_hse_image_3 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
+    site_terminal_in_hse_comment = models.CharField(max_length=100, blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.site_name)
+
+class SiteInterception(models.Model):
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField(blank=True, null=True)
+    site_inception_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
+    site_inception_image_2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
+    site_inception_image_3 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
+    site_inception_comment = models.CharField(max_length=100, blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.site_name)
+
+class SiteIntegration(models.Model):
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField(blank=True, null=True)
+    site_integration_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
+    site_integration_image_2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
+    site_integration_image_3 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
+    site_integration_comment = models.CharField(max_length=100, blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.site_name)
+
+class SiteAsBuilt(models.Model):
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField(blank=True, null=True)
+    site_as_built_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
+    site_as_built_image_2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
+    site_as_built_image_3 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
+    site_as_built_comment = models.CharField(max_length=100, blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.site_name)
+
+class FttsInstallationTeam(models.Model):
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    ftts_terminal_in_hse = models.OneToOneField(SiteTerminalInHse, on_delete=models.DO_NOTHING, blank=True, null=True)
+    ftts_inception = models.OneToOneField(SiteInterception, on_delete=models.DO_NOTHING, blank=True, null=True)
+    ftts_integration = models.OneToOneField(SiteIntegration, on_delete=models.DO_NOTHING, blank=True, null=True)
+    ftts_as_built = models.OneToOneField(SiteAsBuilt, on_delete=models.DO_NOTHING, blank=True, null=True)
+    is_approved = models.BooleanField(default=False)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.site_name)
+
+######################################################## END ################################################################################################################################################################################################

@@ -70,3 +70,44 @@ class FttsCivilTeamAdmin(admin.ModelAdmin):
 admin.site.register(FttsCivilTeam, FttsCivilTeamAdmin)
 
 ######################################################## END ####################################################################################################################################################################################################
+
+######################################################## FIBER INSTALLATION TEAM ########################################################################################################################################################################################
+class SiteTerminalInHseAdmin(admin.ModelAdmin):
+
+    list_display = ['id','site_name','start_date','end_date','site_terminal_in_hse_image_1','site_terminal_in_hse_image_2','site_terminal_in_hse_image_3','site_terminal_in_hse_comment','posted_by', 'created_at', 'updated_at', 'is_active']
+    readonly_fields = ['created_at', 'updated_at', 'is_active']
+
+admin.site.register(SiteTerminalInHse, SiteTerminalInHseAdmin)
+
+class SiteInterceptionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'site_name','start_date','end_date','site_inception_image_1', 'site_inception_image_2','site_inception_image_3', 'site_inception_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('site_name', )
+    search_fields = ('site_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(SiteInterception, SiteInterceptionAdmin)
+
+class SiteIntegrationAdmin(admin.ModelAdmin):
+    list_display = ('id','site_name','start_date','end_date','site_integration_image_1','site_integration_image_2', 'site_integration_image_3', 'site_integration_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('site_name', )
+    search_fields = ('site_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(SiteIntegration, SiteIntegrationAdmin)
+
+class SiteAsBuiltAdmin(admin.ModelAdmin):
+
+    list_display = ['id','site_name','start_date','end_date','site_as_built_image_1','site_as_built_image_2','site_as_built_image_3','site_as_built_comment','posted_by', 'created_at', 'updated_at', 'is_active']
+    readonly_fields = ['created_at', 'updated_at', 'is_active']
+
+admin.site.register(SiteAsBuilt, SiteAsBuiltAdmin)
+
+class FttsInstallationTeamAdmin(admin.ModelAdmin):
+    list_display = ('id', 'site_name','ftts_terminal_in_hse', 'ftts_inception','ftts_integration', 'ftts_as_built','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('site_name', )
+    search_fields = ('site_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(FttsInstallationTeam, FttsInstallationTeamAdmin)
+
+######################################################## END ####################################################################################################################################################################################################
