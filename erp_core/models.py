@@ -25,6 +25,14 @@ class TimeStampModel(models.Model):
     class Meta:
         abstract = True
 
+class TimeTrackModel(models.Model):
+
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        abstract = True
+
 class CommercialFiles(TimeStampModel):
       # TODO
     quote = models.FileField(upload_to=UploadToProjectDir('FTTS/files/Quote/'), blank=True, null=True)
@@ -39,6 +47,6 @@ class ProcurementFiles(TimeStampModel):
       # TODO
     bill_of_materials = models.FileField(upload_to=UploadToProjectDir('FTTS/files/BOM/'), blank=True, null=True)
     material_receipt_order = models.FileField(upload_to=UploadToProjectDir('FTTS/files/MRO/'), blank=True, null=True)
-    
+
     class Meta:
         abstract = True
