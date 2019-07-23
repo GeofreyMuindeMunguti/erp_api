@@ -10,13 +10,13 @@ from .views import *
 
 router = DefaultRouter()
 
-router.register(r'FttsCommercialTeamViewSet', views.FttsCommercialTeamViewSet)
-router.register(r'FttsProcurementTeamViewSet', views.FttsProcurementTeamViewSet)
-router.register(r'SitePoleInstallationViewSet', views.SitePoleInstallationViewSet)
-router.register(r'SiteTrenchingViewSet', views.SiteTrenchingViewSet)
-router.register(r'SiteBackfillingViewSet', views.SiteBackfillingViewSet)
-router.register(r'SiteCableInstallationViewSet', views.SiteCableInstallationViewSet)
-router.register(r'FttsCivilTeamViewSet', views.FttsCivilTeamViewSet)
+router.register(r'FttsCommercialTeam', views.FttsCommercialTeamViewSet)
+router.register(r'FttsProcurementTeam', views.FttsProcurementTeamViewSet)
+router.register(r'SitePoleInstallation', views.SitePoleInstallationViewSet)
+router.register(r'SiteTrenching', views.SiteTrenchingViewSet)
+router.register(r'SiteBackfilling', views.SiteBackfillingViewSet)
+router.register(r'SiteCableInstallation', views.SiteCableInstallationViewSet)
+router.register(r'FttsCivilTeam', views.FttsCivilTeamViewSet)
 
 """ ENDPOINTS FOR FRONTEND"""
 
