@@ -21,10 +21,10 @@ class FTTSProject(Project):
 
 class FttsCommercialTeam(CommercialFiles):
     project_name = models.OneToOneField(FTTSProject, on_delete=models.DO_NOTHING)
-    po_requisition = models.FileField(upload_to='files/ftts/CommercialTeam/requisition/%Y/%m/%d/', blank=True, null=True)
-    project_plan = models.FileField(upload_to='files/ftts/CommercialTeam/projectplan/%Y/%m/%d/', blank=True, null=True)
-    initial_invoice = models.FileField(upload_to='files/ftts/CommercialTeam/initialinvoice/%Y/%m/%d/', blank=True, null=True)
-    po_client = models.FileField(upload_to='files/ftts/CommercialTeam/poclient/%Y/%m/%d/', blank=True, null=True)
+    po_requisition = models.FileField(upload_to=UploadToProjectDir('FTTS/files/CommercialTeam/po/%Y/%m/%d/'), blank=True, null=True)
+    project_plan = models.FileField(upload_to=UploadToProjectDir('FTTS/files/CommercialTeam/pa/%Y/%m/%d/'), blank=True, null=True)
+    initial_invoice = models.FileField(upload_to=UploadToProjectDir('FTTS/files/CommercialTeam/ii/%Y/%m/%d/'), blank=True, null=True)
+    po_client = models.FileField(upload_to=UploadToProjectDir('FTTS/files/CommercialTeam/poc/%Y/%m/%d/'), blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
@@ -34,10 +34,10 @@ class FttsCommercialTeam(CommercialFiles):
 
 class FttsProcurementTeam(ProcurementFiles):
     project_name = models.OneToOneField(FTTSProject, on_delete=models.DO_NOTHING)
-    ftts_material_requisition = models.FileField(upload_to='files/ftts/CommercialTeam/materialrequisition/%Y/%m/%d/', blank=True, null=True)
-    perchase_request = models.FileField(upload_to='files/ftts/CommercialTeam/pr/%Y/%m/%d/', blank=True, null=True)
-    po_quote_service = models.FileField(upload_to='files/ftts/CommercialTeam/quoteservice/%Y/%m/%d/', blank=True, null=True)
-    po_subcontractors = models.FileField(upload_to='files/ftts/CommercialTeam/posubcontractors/%Y/%m/%d/', blank=True, null=True)
+    ftts_material_requisition = models.FileField(upload_to='files/ftts/CommercialTeam/materialrequisition/', blank=True, null=True)
+    perchase_request = models.FileField(upload_to='files/ftts/CommercialTeam/pr/', blank=True, null=True)
+    po_quote_service = models.FileField(upload_to='files/ftts/CommercialTeam/quoteservice/', blank=True, null=True)
+    po_subcontractors = models.FileField(upload_to='files/ftts/CommercialTeam/posubcontractors/', blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
@@ -46,13 +46,24 @@ class FttsProcurementTeam(ProcurementFiles):
         return str(self.project_name)
 
 ######################################################## FIBER CIVIL TEAM ########################################################################################################################################################################################
-class SitePoleInstallationImage(TimeStampModel):
-    pole_installation_task = models.ForeignKey('SitePoleInstallation', on_delete=models.DO_NOTHING, blank=True, null=True)
+
+class SitePoleInstallation(TimeStampModel,TimeTrackModel): # change to PoleInstallationTask
+    project_name = models.OneToOneField(FTTSProject, on_delete=models.DO_NOTHING, blank=True, null=True)
+    #site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING, blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+
+class SitePoleInstallationImage(TimeStampModel): #Change to PoleInstallationImage
+    pole_installation_task = models.ForeignKey(SitePoleInstallation, on_delete=models.DO_NOTHING, blank=True, null=True)
+    site_name = models.ForeignKey(Site, on_delete=models.DO_NOTHING, blank=True, null=True)
     description =  models.CharField(max_length=100, blank=True, null=True)
 
-    site_pole_installation_image1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/poleinstallation/%Y/%m/%d/', blank=True, null=True)
-    site_pole_installation_image2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/poleinstallation/%Y/%m/%d/', blank=True, null=True)
-    site_pole_installation_image3 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/poleinstallation/%Y/%m/%d/', blank=True, null=True)
+    site_pole_installation_image1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/trenching/%Y/%m/%d/', blank=True, null=True)
+    site_pole_installation_image2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/trenching/%Y/%m/%d/', blank=True, null=True)
+    site_pole_installation_image3 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/trenching/%Y/%m/%d/', blank=True, null=True)
 
     site_pole_installation_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -60,15 +71,23 @@ class SitePoleInstallationImage(TimeStampModel):
 
 
 
-class SitePoleInstallation(TimeStampModel,TimeTrackModel): # change to PoleInstallationTask
+
+class SiteTrenching(TimeStampModel,TimeTrackModel): # Change to TrenchingTask
     project_name = models.OneToOneField(FTTSProject, on_delete=models.DO_NOTHING, blank=True, null=True)
-    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING, blank=True, null=True)
+    description =  models.CharField(max_length=100, blank=True, null=True)
+    #site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING, blank=True, null=True)
+    #trenched_distance = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, blank=True, null=True)
 
+
     def __str__(self):
-        return str(self.site_name)
+        return str(self.project_name)
+
+
 class TrenchingImage(TimeStampModel):
-    trenching_task = models.ForeignKey('SiteTrenching', on_delete=models.DO_NOTHING, blank=True, null=True)
+    trenching_task = models.ForeignKey(SiteTrenching, on_delete=models.DO_NOTHING, blank=True, null=True)
+    site_name = models.ForeignKey(Site, on_delete=models.DO_NOTHING, blank=True, null=True)
+
     description =  models.CharField(max_length=100, blank=True, null=True)
 
     site_trenching_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/trenching/%Y/%m/%d/', blank=True, null=True)
@@ -78,16 +97,6 @@ class TrenchingImage(TimeStampModel):
 
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
-
-class SiteTrenching(TimeStampModel,TimeTrackModel): # Change to TrenchingTask
-    project_name = models.OneToOneField(FTTSProject, on_delete=models.DO_NOTHING, blank=True, null=True)
-    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING, blank=True, null=True)
-    #trenched_distance = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, blank=True, null=True)
-
-
-    def __str__(self):
-        return str(self.project_name)
 
 class SiteBackfilling(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)

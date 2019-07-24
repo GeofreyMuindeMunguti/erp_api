@@ -36,29 +36,29 @@ admin.site.register(FttsProcurementTeam, FttsProcurementTeamAdmin)
 ######################################################## FIBER CIVIL TEAM ########################################################################################################################################################################################
 class SitePoleInstallationImageAdmin(admin.ModelAdmin):
 
-    list_display = ['id','site_pole_installation_image1','site_pole_installation_image2','site_pole_installation_image3','pole_installation_task','posted_by', 'created_at', 'updated_at', 'is_active']
+    list_display = ['id','site_pole_installation_image1','site_pole_installation_image2','site_pole_installation_image3','pole_installation_task','site_name','posted_by','is_approved' ,'created_at', 'updated_at', 'is_active']
     readonly_fields = ['created_at', 'updated_at', 'is_active']
 
 admin.site.register(SitePoleInstallationImage, SitePoleInstallationImageAdmin)
 
 class SitePoleInstallationAdmin(admin.ModelAdmin):
 
-    list_display = ['id','project_name','site_name','start_date','end_date','posted_by', 'created_at', 'updated_at', 'is_active']
+    list_display = ['id','project_name','start_date','end_date','posted_by', 'created_at', 'updated_at', 'is_active']
     readonly_fields = ['created_at', 'updated_at', 'is_active']
 
 admin.site.register(SitePoleInstallation, SitePoleInstallationAdmin)
 
 class TrenchingImageAdmin(admin.ModelAdmin):
 
-    list_display = ['id','site_trenching_image_1','site_trenching_image_2','site_trenching_image_3','trenching_task','posted_by', 'created_at', 'updated_at', 'is_active']
+    list_display = ['id','site_trenching_image_1','site_trenching_image_2','site_trenching_image_3','trenching_task','site_name','is_approved','posted_by', 'created_at', 'updated_at', 'is_active']
     readonly_fields = ['created_at', 'updated_at', 'is_active']
 
 admin.site.register(TrenchingImage, TrenchingImageAdmin)
 
 class SiteTrenchingAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','site_name','start_date','end_date','posted_by', 'created_at', 'updated_at', 'is_active')
-    list_display_links = ('site_name', )
-    search_fields = ('site_name', )
+    list_display = ('id', 'project_name','description','start_date','end_date','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
     list_editable = ('is_active',)
 
 admin.site.register(SiteTrenching, SiteTrenchingAdmin)
