@@ -188,12 +188,7 @@ class SiteIntegration(models.Model):
 
 class SiteAsBuilt(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
-    site_as_built_image_1 = models.ImageField(upload_to='images/ftts/InstallationTeam/asbuilt/%Y/%m/%d/')
-    site_as_built_image_2 = models.ImageField(upload_to='images/ftts/InstallationTeam/asbuilt/%Y/%m/%d/')
-    site_as_built_image_3 = models.ImageField(upload_to='images/ftts/InstallationTeam/asbuilt/%Y/%m/%d/')
-    site_as_built_comment = models.CharField(max_length=100, blank=True, null=True)
+    ftts_asbuit_received = models.BooleanField(default=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -207,7 +202,6 @@ class FttsInstallationTeam(models.Model):
     ftts_terminal_in_hse = models.OneToOneField(SiteTerminalInHse, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftts_inception = models.OneToOneField(SiteInterception, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftts_integration = models.OneToOneField(SiteIntegration, on_delete=models.DO_NOTHING, blank=True, null=True)
-    ftts_as_built = models.OneToOneField(SiteAsBuilt, on_delete=models.DO_NOTHING, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
