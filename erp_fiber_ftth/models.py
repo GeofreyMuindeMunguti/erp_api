@@ -19,6 +19,32 @@ class FTTHProject(Project):
     def __str__(self):
         return self.project_name
 
+class FtthCommercialTeam(models.Model):
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    ftth_boq = models.FileField(upload_to='files/ftth/CommercialTeam/boq/%Y/%m/%d/', blank=True, null=True)
+    ftth_quote = models.FileField(upload_to='files/ftth/CommercialTeam/quote/%Y/%m/%d/', blank=True, null=True)
+    ftth_wayleave_application = models.FileField(upload_to='files/ftth/CommercialTeam/wayleaveapplication/%Y/%m/%d/', blank=True, null=True)
+    is_approved = models.BooleanField(default=False)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.site_name)
+
+class FtthProcurementTeam(models.Model):
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    ftth_bom = models.FileField(upload_to='files/ftth/CommercialTeam/bom/%Y/%m/%d/', blank=True, null=True)
+    ftth_initial_invoice = models.FileField(upload_to='files/ftth/CommercialTeam/initialinvoice/%Y/%m/%d/', blank=True, null=True)
+    is_approved = models.BooleanField(default=False)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.site_name)
 
 ######################################################## FTTH CIVIL TEAM ########################################################################################################################################################################################
 

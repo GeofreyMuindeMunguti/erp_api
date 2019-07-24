@@ -26,6 +26,19 @@ class DefaultsMixin(object):
     max_paginate_by = 100
     filter_backends = (filters.SearchFilter,)
 
+class FtthCommercialTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = FtthCommercialTeam.objects.order_by('created_at')
+    serializer_class = FtthCommercialTeamSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
+class FtthProcurementTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = FtthProcurementTeam.objects.order_by('created_at')
+    serializer_class = FtthProcurementTeamSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
 
 ################################################ FIBER CIVIL TEAM ##############################################################################################################################################################################################################################################
 

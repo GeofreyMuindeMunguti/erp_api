@@ -7,20 +7,20 @@ from erp_construction.models import *
 from .models import *
 from rest_framework.authtoken.models import Token
 
-#
-# class FttsCommercialTeamSerializer(serializers.ModelSerializer):
-#
-#     class Meta:
-#         model = FttsCommercialTeam
-#         fields = ('__all__')
-#         read_only_fields = ('created_at', 'updated_at', 'is_active')
-#
-# class FttsProcurementTeamSerializer(serializers.ModelSerializer):
-#
-#     class Meta:
-#         model = FttsProcurementTeam
-#         fields = ('__all__')
-#         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class FtthCommercialTeamSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FtthCommercialTeam
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class FtthProcurementTeamSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FtthProcurementTeam
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 ################################################ FIBER CIVIL TEAM ##############################################################################################################################################################################################################################################
 class FtthPoleInstallationSerializer(serializers.ModelSerializer):

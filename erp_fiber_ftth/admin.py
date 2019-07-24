@@ -15,6 +15,21 @@ class FTTHProjectAdmin(admin.ModelAdmin):
 
 admin.site.register(FTTHProject, FTTHProjectAdmin)
 
+class FtthCommercialTeamAdmin(admin.ModelAdmin):
+
+    list_display = ['id','site_name','ftth_boq','ftth_quote','ftth_wayleave_application','posted_by', 'created_at', 'updated_at', 'is_active']
+    readonly_fields = ['created_at', 'updated_at', 'is_active']
+
+admin.site.register(FtthCommercialTeam, FtthCommercialTeamAdmin)
+
+class FtthProcurementTeamAdmin(admin.ModelAdmin):
+    list_display = ('id', 'site_name','ftth_bom','ftth_initial_invoice','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('site_name', )
+    search_fields = ('site_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(FtthProcurementTeam, FtthProcurementTeamAdmin)
+
 ######################################################## FTTH CIVIL TEAM ########################################################################################################################################################################################
 class FtthPoleInstallationAdmin(admin.ModelAdmin):
 
