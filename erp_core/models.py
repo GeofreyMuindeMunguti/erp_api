@@ -5,16 +5,6 @@ from django.db import models
 from users.models import *
 from .fileshandler.filemixin import UploadToProjectDir
 
-class Project(models.Model):
-    project_name = models.CharField(max_length=100,unique=True, blank=True, null=True)
-    description =  models.CharField(max_length=100, blank=True, null=True)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
-
-    class Meta:
-        abstract = True
 
 class TimeStampModel(models.Model):
 
@@ -25,6 +15,17 @@ class TimeStampModel(models.Model):
     class Meta:
         abstract = True
 
+class Project(TimeStampModel):
+    project_name = models.CharField(max_length=100,unique=True, blank=True, null=True)
+    description =  models.CharField(max_length=100, blank=True, null=True)
+    #
+    # created_at = models.DateTimeField(auto_now_add=True)
+    # updated_at = models.DateTimeField(auto_now=True)
+    # is_active = models.BooleanField(default=True)
+
+    class Meta:
+        abstract = True
+        
 class TimeTrackModel(models.Model):
 
     start_date = models.DateTimeField()
