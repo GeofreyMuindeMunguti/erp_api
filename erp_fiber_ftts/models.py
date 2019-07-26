@@ -12,7 +12,8 @@ from erp_core.fileshandler.filemixin import UploadToProjectDir  # create Folders
 class FTTSProject(Project):
     
     site_name = models.ManyToManyField(Site,related_name="fttsprojects", blank=True)
-
+    created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, blank=True, null=True)
+    
     class Meta:
         ordering = ('-created_at',)
 
