@@ -62,18 +62,26 @@ class SitePoleInstallation(TimeStampModel,TimeTrackModel):
     def __str__(self):
         return str(self.site_name)
 
+        ######### TRENCHING TIME TRACKING and IMAGES MODELS###############
+
 class ProjectTrenching(TimeStampModel,TimeTrackModel):
+    ''' Class to track Trenching timelines per FTTS Project |ALL SITES
+    :: Here One can calculate  if the Trenching works for an FTTS Project is on Track 
+    
+    '''
     project_name = models.OneToOneField(FTTSProject, on_delete=models.DO_NOTHING, blank=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return str(self.project_name)
      
-  
-              ######### TRENCHING TIME TRACKING and IMAGES MODELS###############
 
 
 class SiteTrenching(TimeStampModel,TimeTrackModel):
+    ''' Class to track Trenching timelines per SITE for EACH FTTS Project 
+      :: Here One can calculate  if the Trenching works for  A SITE per Project  is on Track 
+
+    '''
     project_trenching = models.ForeignKey(ProjectTrenching, on_delete=models.DO_NOTHING, blank=True,null =True)# Not BLANK
     site_name = models.ForeignKey(Site, on_delete=models.DO_NOTHING, blank=True, null=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
@@ -84,6 +92,7 @@ class SiteTrenching(TimeStampModel,TimeTrackModel):
 
 
 class FTTSTrenchingImage(TimeStampModel):
+    ''' Create  n*3 number of Images per FTTS Project per SITE per DAY '''
     site_trenching = models.ForeignKey(SiteTrenching, on_delete=models.DO_NOTHING, blank=True,null =True)
     trenching_day = models.DateField(blank=True, null=True)
     description =  models.CharField(max_length=100, blank=True, null=True)
