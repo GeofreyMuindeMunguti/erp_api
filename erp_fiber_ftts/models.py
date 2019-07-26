@@ -13,7 +13,14 @@ class FTTSProject(Project):
     
     site_name = models.ManyToManyField(Site,related_name="fttsprojects", blank=True
     )
-
+    PROJECT_TYPE = [
+        ('FTTS', 'FTTS'),
+        ('FTTH', 'FTTH'),
+        ('BTS-CON', 'BTS Construction'),
+    ]
+    project_type = models.CharField(
+        max_length=2,
+        choices=PROJECT_TYPE,default= 'FS',blank=True, null=True)
 
     class Meta:
         ordering = ('-created_at',)
