@@ -68,14 +68,12 @@ class ProjectTrenching(TimeStampModel,TimeTrackModel):
 
     def __str__(self):
         return str(self.project_name)
-        #return 'All Trenching work for FTTS PROJECT::{}'.format(self.project_name)
-  
+     
   
               ######### TRENCHING TIME TRACKING and IMAGES MODELS###############
 
 
 class SiteTrenching(TimeStampModel,TimeTrackModel):
-    #project_name = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING, blank=True)
     project_trenching = models.ForeignKey(ProjectTrenching, on_delete=models.DO_NOTHING, blank=True,null =True)# Not BLANK
     site_name = models.ForeignKey(Site, on_delete=models.DO_NOTHING, blank=True, null=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
@@ -86,13 +84,10 @@ class SiteTrenching(TimeStampModel,TimeTrackModel):
 
 
 class FTTSTrenchingImage(TimeStampModel):
-   # project_name = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING)
-   # site_name = models.ForeignKey(Site, on_delete=models.DO_NOTHING, blank=True, null=True)
-
+    site_trenching = models.ForeignKey(SiteTrenching, on_delete=models.DO_NOTHING, blank=True,null =True)
     trenching_day = models.DateField(blank=True, null=True)
     description =  models.CharField(max_length=100, blank=True, null=True)
     
-    site_trenching = models.ForeignKey(SiteTrenching, on_delete=models.DO_NOTHING, blank=True,null =True)
     site_trenching_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/trenching/%Y/%m/%d/')
     site_trenching_image_2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/trenching/%Y/%m/%d/')
     site_trenching_image_3 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/trenching/%Y/%m/%d/')
