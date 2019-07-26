@@ -1,5 +1,5 @@
 from django.db import models
-from erp_core.models import *
+from erp_core.base import *
 from erp_construction.models import *
 from users.models import *
 from django.contrib.postgres.fields import ArrayField
@@ -10,7 +10,7 @@ from erp_core.fileshandler.filemixin import UploadToProjectDir  # create Folders
 
 # Create your models here.
 class FTTSProject(Project):
-    project_name = models.ForeignKey(Site, on_delete=models.DO_NOTHING, blank=True)#, null=True)
+    site_name = models.ForeignKey(Site, on_delete=models.DO_NOTHING, blank=True)#, null=True)
 
 
     class Meta:
