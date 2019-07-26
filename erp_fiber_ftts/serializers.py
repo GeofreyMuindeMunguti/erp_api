@@ -7,6 +7,17 @@ from erp_construction.models import *
 from .models import *
 from rest_framework.authtoken.models import Token
 
+class FTTSProjectSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FTTSProject
+        fields = (
+            'pk', 
+            'project_name', 
+            'created_at', 
+            'updated_at', 
+            'is_active', 
+        )
 
 class FttsCommercialTeamSerializer(serializers.ModelSerializer):
 

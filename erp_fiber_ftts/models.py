@@ -10,7 +10,9 @@ from erp_core.fileshandler.filemixin import UploadToProjectDir  # create Folders
 
 # Create your models here.
 class FTTSProject(Project):
-    site_name = models.ManyToManyField(Site, blank=True)#, null=True)
+    
+    site_name = models.ManyToManyField(Site,related_name="fttsprojects", blank=True
+    )
 
 
     class Meta:
