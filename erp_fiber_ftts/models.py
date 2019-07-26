@@ -11,16 +11,7 @@ from erp_core.fileshandler.filemixin import UploadToProjectDir  # create Folders
 # Create your models here.
 class FTTSProject(Project):
     
-    site_name = models.ManyToManyField(Site,related_name="fttsprojects", blank=True
-    )
-    PROJECT_TYPE = [
-        ('FTTS', 'FTTS'),
-        ('FTTH', 'FTTH'),
-        ('BTS-CON', 'BTS Construction'),
-    ]
-    project_type = models.CharField(
-        max_length=2,
-        choices=PROJECT_TYPE,default= 'FS',blank=True, null=True)
+    site_name = models.ManyToManyField(Site,related_name="fttsprojects", blank=True)
 
     class Meta:
         ordering = ('-created_at',)
