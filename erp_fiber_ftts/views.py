@@ -26,7 +26,9 @@ class FTTSProjectViewSet(viewsets.ModelViewSet,DefaultsMixin):
 
     queryset = FTTSProject.objects.all()
     serializer_class = FTTSProjectSerializer
-
+    
+    search_fields = ('project_name','project_name' )
+    ordering_fields = ('updated_at', 'site_name', )
 
 class FttsCommercialTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = FttsCommercialTeam.objects.order_by('created_at')
