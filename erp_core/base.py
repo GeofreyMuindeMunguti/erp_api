@@ -17,7 +17,7 @@ class TimeStampModel(models.Model):
 
 class TimeTrackModel(models.Model):
 
-    start_date = models.DateTimeField()
+    start_date = models.DateTimeField(blank=True, null=True)# NOT BLANK
     end_date = models.DateTimeField(blank=True, null=True)
 
     class Meta:
