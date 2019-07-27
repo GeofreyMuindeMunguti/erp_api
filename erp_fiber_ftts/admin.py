@@ -40,17 +40,7 @@ class SitePoleInstallationAdmin(admin.ModelAdmin):
 
 admin.site.register(SitePoleInstallation, SitePoleInstallationAdmin)
 
-#########
-class FTTSTrenchingImageInline(admin.TabularInline):
-    model = FTTSTrenchingImage
 
-
-class ProjectTrenchingAdmin(admin.ModelAdmin):
-    inlines = [
-        FTTSTrenchingImageInline,
-    ]
-
-###########
 
 class ProjectTrenchingAdmin(admin.ModelAdmin):
     list_display = ('id','project_name','start_date','end_date','created_by', 'created_at', 'updated_at', 'is_active')
@@ -78,7 +68,16 @@ class FTTSTrenchingImageAdmin(admin.ModelAdmin):
 
 admin.site.register(FTTSTrenchingImage, FTTSTrenchingImageAdmin)
 
+class FTTSCasualDailyRegisterAdmin(admin.ModelAdmin):
+    list_display = ('id','site_trenching','site_name','trenching_day','created_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('id','site_trenching')
+    search_fields = ('trenching_day','site_trenching', )
+    list_filter =('site_trenching','trenching_day','site_name')
+    list_editable = ('is_active',)
 
+admin.site.register(FTTSCasualDailyRegister, FTTSCasualDailyRegisterAdmin)
+
+###########
 
 class SiteBackfillingAdmin(admin.ModelAdmin):
     list_display = ('id','site_name','project_name','start_date','end_date','site_backfilling_image_1','site_backfilling_image_2', 'site_backfilling_image_3', 'site_backfilling_comment','posted_by', 'created_at', 'updated_at', 'is_active')

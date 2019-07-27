@@ -28,11 +28,13 @@ class FTTSProjectSerializer(serializers.ModelSerializer):
     #     return rep
 
 class ProjectTrenchingSerializer(serializers.ModelSerializer):
+   # sitetrenchings = serializers.StringRelatedField(many=True)
     class Meta:
         model = ProjectTrenching
         fields = (
             'id', 
             'project_name',
+            #'sitetrenchings',
             'start_date',
             'end_date', 
             'created_by',
@@ -43,13 +45,14 @@ class ProjectTrenchingSerializer(serializers.ModelSerializer):
 
 
 class SiteTrenchingSerializer(serializers.ModelSerializer):
-
+   # fttstrenchingimages = serializers.StringRelatedField(many=True)
     class Meta:
         model = SiteTrenching
         fields = (
             'id', 
             'start_date', 
             'end_date', 
+           # 'fttstrenchingimages',
         )
 
 
@@ -59,12 +62,15 @@ class FTTSTrenchingImageSerializer(serializers.ModelSerializer):
         model = FTTSTrenchingImage
         fields = (
             'id', 
-            'trenching_day', 
+            'trenching_day',
+            'site_trenching' ,
+            'description',
             'site_trenching_image_1', 
             'site_trenching_image_2', 
             'site_trenching_image_3', 
-            'site_trenching_comment', 
-            'end_date', 
+            'site_trenching_comment',
+            'posted_by',
+            'is_approved',
             'created_at', 
             'updated_at', 
             'is_active', 
