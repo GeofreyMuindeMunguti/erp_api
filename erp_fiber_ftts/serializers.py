@@ -8,11 +8,11 @@ from .models import *
 from rest_framework.authtoken.models import Token
 
 class FTTSProjectSerializer(serializers.ModelSerializer):
-
+   # site_name = serializers.CharField(source='site_name.name')
     class Meta:
         model = FTTSProject
         fields = (
-            'pk', 
+            'id', 
             'project_name',
             'site_name',
             'project_type',
@@ -22,7 +22,53 @@ class FTTSProjectSerializer(serializers.ModelSerializer):
             'updated_at', 
             'is_active', 
         )
+    # def to_representation(self, instance):
+    #     rep = super(FTTSProjectSerializer, self).to_representation(instance)
+    #     rep['site_name'] = instance.site_name.site_name
+    #     return rep
 
+class ProjectTrenchingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProjectTrenching
+        fields = (
+            'id', 
+            'project_name',
+            'start_date',
+            'end_date', 
+            'created_by',
+            'created_at', 
+            'updated_at', 
+            'is_active', 
+        )
+
+
+class SiteTrenchingSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SiteTrenching
+        fields = (
+            'id', 
+            'start_date', 
+            'end_date', 
+        )
+
+
+class FTTSTrenchingImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FTTSTrenchingImage
+        fields = (
+            'id', 
+            'trenching_day', 
+            'site_trenching_image_1', 
+            'site_trenching_image_2', 
+            'site_trenching_image_3', 
+            'site_trenching_comment', 
+            'end_date', 
+            'created_at', 
+            'updated_at', 
+            'is_active', 
+        )
 class FttsCommercialTeamSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -45,6 +91,9 @@ class SitePoleInstallationSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+
+        # Trenching
+
 class SiteTrenchingSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -52,6 +101,9 @@ class SiteTrenchingSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+
+         # Backfilling
+ 
 class SiteBackfillingSerializer(serializers.ModelSerializer):
 
     class Meta:

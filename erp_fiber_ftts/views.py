@@ -53,12 +53,34 @@ class SitePoleInstallationViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
 
-class SiteTrenchingViewSet(DefaultsMixin, viewsets.ModelViewSet):
-    queryset = SiteTrenching.objects.order_by('created_at')
+class ProjectTrenchingViewSet(viewsets.ModelViewSet,DefaultsMixin):
+    """ViewSet for the ProjectTrenching class"""
+
+    queryset = ProjectTrenching.objects.all()
+    serializer_class = ProjectTrenchingSerializer
+
+
+class SiteTrenchingViewSet(viewsets.ModelViewSet,DefaultsMixin):
+    """ViewSet for the SiteTrenching class"""
+
+    queryset = SiteTrenching.objects.all()
     serializer_class = SiteTrenchingSerializer
 
-    search_fields = ('site_name', )
-    ordering_fields = ('updated_at', 'site_name', )
+
+class FTTSTrenchingImageViewSet(viewsets.ModelViewSet,DefaultsMixin):
+    """ViewSet for the FTTSTrenchingImage class"""
+
+    queryset = FTTSTrenchingImage.objects.all()
+    serializer_class = FTTSTrenchingImageSerializer
+    #permission_classes = [permissions.IsAuthenticated]
+
+# class SiteTrenchingViewSet(DefaultsMixin, viewsets.ModelViewSet):
+#     queryset = SiteTrenching.objects.order_by('created_at')
+#     serializer_class = SiteTrenchingSerializer
+
+#     search_fields = ('site_name', )
+#     ordering_fields = ('updated_at', 'site_name', )
+
 
 class SiteBackfillingViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = SiteBackfilling.objects.order_by('created_at')
