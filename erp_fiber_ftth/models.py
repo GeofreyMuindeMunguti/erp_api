@@ -19,6 +19,57 @@ class FTTHProject(Project):
     def __str__(self):
         return self.project_name
 
+
+##########################################SURVEY DETAILS################################################################################################################################################################33
+
+
+class InterceptionPoint(models.Model):
+    interception_point_name = models.CharField(max_length=50)
+    latitude = models.IntegerField()
+    longitude = models.IntegerField()
+    county = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return interception_point_name
+
+
+class ftthSurveyPhotos(models.Model):
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    survey_image_1 = models.ImageField(upload_to='images/ftth/survey/%Y/%m/%d/')
+    survey_image_2 = models.ImageField(upload_to='images/ftth/survey/%Y/%m/%d/', blank=True, null=True)
+    survey_image_3 = models.ImageField(upload_to='images/ftth/survey/%Y/%m/%d/', blank=True, null=True)
+    survey_images_comment = models.CharField(max_length=200)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.site_name)
+
+
+class ftthSurvey(models.Model):
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    start_date = models.DateTimeField()
+    ftth_interception_point = models.ForeignKey(InterceptionPoint, on_delete=models.DO_NOTHING, blank=True, null=True)
+    distance_from_ip = models.IntegerField(blank=True, null=True)
+    survey_photos = models.ManyToManyField(ftthSurveyPhotos)
+    high_level_design = models.FileField(upload_to='files/ftth/survey/highleveldesigns/%Y/%m/%d/', blank=True, null=True)
+    county = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.site_name)
+
+##############################################END OF FTTH SURVEY#############################################33
+
+
 class FtthCommercialTeam(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
     ftth_boq = models.FileField(upload_to='files/ftth/CommercialTeam/boq/%Y/%m/%d/', blank=True, null=True)
