@@ -1,12 +1,11 @@
-
 from django.contrib import admin
 from .models import *
-
+from erp_core.base import *
 
 
 class FTTHProjectAdmin(admin.ModelAdmin):
 
-    list_display = ['id','project_name','initial_kmz', 'is_acknowledged','created_at', 'updated_at', 'is_active']
+    list_display = ['project_id','project_name','initial_kmz', 'is_acknowledged','created_at', 'updated_at', 'is_active']
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active','is_acknowledged',)
