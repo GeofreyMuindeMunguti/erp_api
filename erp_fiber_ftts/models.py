@@ -11,7 +11,7 @@ from erp_core.fileshandler.filemixin import UploadToProjectDir  # create Folders
 # Create your models here.
 class FTTSProject(Project,TimeTrackModel):
     
-    site_name = models.ManyToManyField(Site,related_name="fttsprojects",blank=True, null=True)
+    site_name = models.ManyToManyField(Site,related_name="fttsprojects",blank=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, blank=True, null=True)
     class Meta:
         ordering = ('-created_at',)
@@ -102,43 +102,6 @@ class SiteCableInstallation(TimeStampModel,TimeTrackModel):
     def __str__(self):
         return str(self.site_name)
      
-
-
-
-class SiteBackfilling(TimeStampModel,TimeTrackModel):
-    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING,blank=True, null=True)
-    project_name = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING,blank=True, null=True)
-    site_backfilling_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/backfilling/%Y/%m/%d/',blank=True, null=True)
-    site_backfilling_image_2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/backfilling/%Y/%m/%d/',blank=True, null=True)
-    site_backfilling_image_3 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/backfilling/%Y/%m/%d/',blank=True, null=True)
-    site_backfilling_comment = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING,blank=True, null=True)
-
-    def __str__(self):
-        return str(self.site_name)
-
-class SiteCableInstallation(TimeStampModel,TimeTrackModel):
-    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING,blank=True, null=True)
-    project_name = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING,blank=True, null=True)
-    site_cable_installation_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/',blank=True, null=True)
-    site_cable_installation_image_2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/',blank=True, null=True)
-    site_cable_installation_image_3 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/',blank=True, null=True)
-    site_cable_installation_comment = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING,blank=True, null=True)
-    def __str__(self):
-        return str(self.site_name)
-
-
-class SiteCableInstallation(TimeStampModel,TimeTrackModel):
-    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING,blank=True, null=True)
-    project_name = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING,blank=True, null=True)
-    site_cable_installation_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/',blank=True, null=True)
-    site_cable_installation_image_2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/',blank=True, null=True)
-    site_cable_installation_image_3 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/',blank=True, null=True)
-    site_cable_installation_comment = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING,blank=True, null=True)
-    def __str__(self):
-        return str(self.site_name)
 
 
 class FttsCivilTeam(TimeStampModel):
