@@ -25,8 +25,8 @@ class FTTHProject(Project):
 
 class InterceptionPoint(models.Model):
     interception_point_name = models.CharField(max_length=50)
-    latitude = models.IntegerField()
-    longitude = models.IntegerField()
+    latitude = models.FloatField()
+    longitude = models.FloatField()
     county = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -64,7 +64,9 @@ class ftthSurvey(models.Model):
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     ftth_interception_point = models.ForeignKey(InterceptionPoint, on_delete=models.DO_NOTHING, blank=True, null=True)
-    distance_from_ip = models.IntegerField(blank=True, null=True)
+    site_latitude = models.FloatField()
+    site_longitude = models.FloatField()
+    distance_from_ip = models.FloatField(blank=True, null=True)
     survey_photos = models.ManyToManyField(ftthSurveyPhotos)
     high_level_design = models.FileField(upload_to='files/ftth/survey/highleveldesigns/%Y/%m/%d/', blank=True, null=True)
     county = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
