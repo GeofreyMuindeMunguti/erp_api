@@ -16,6 +16,7 @@ class FTTSProjectSerializer(serializers.ModelSerializer):
         fields = (
             'id', 
             'project_name',
+            'site_name',
             'start_date',
             'end_date', 
             'created_by',
