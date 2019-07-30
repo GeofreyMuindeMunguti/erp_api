@@ -18,17 +18,32 @@ from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
 from rest_framework import status, viewsets
 from rest_framework.decorators import parser_classes
 from rest_framework.decorators import detail_route
-from erp_core.viewspermissions import DefaultsMixin # Access controll to views
 
 
-class FTTSProjectViewSet(viewsets.ModelViewSet,DefaultsMixin):
-    """ViewSet for the FTTSProject class"""
+class DefaultsMixin(object):
 
-    queryset = FTTSProject.objects.all()
-    serializer_class = FTTSProjectSerializer
-    
-    search_fields = ('project_name','project_name' )
-    ordering_fields = ('updated_at', 'site_name', )
+    """Default settings for view authentication, permissions,filtering and pagination."""
+    """
+    #view authentication
+    #authentication_classes = (authentication.BasicAuthentication,authentication.TokenAuthentication,)
+    # view  permissions,
+    #permission_classes = (permissions.IsAuthenticated,)  # alow only authenticated user to access API End points
+    # view  pagination.
+    """
+
+    paginate_by = 25     # Pages of API end points/URLs
+    paginate_by_param = 'page_size'
+    max_paginate_by = 100
+    """
+    #view  filtering
+    #DefaultsMixin now defines the list of available filter_backends , which will enable these for all of the existing ViewSets.
+    """
+    filter_backends = (filters.SearchFilter,)
+    '''
+    We configure the SearchFilter by adding a search_fields attribute to each
+    ViewSet . We configure the OrderingFilter by adding a list of fields, which can be used
+    for ordering the ordering_fields .
+    '''
 
 class FttsCommercialTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = FttsCommercialTeam.objects.order_by('created_at')
@@ -53,34 +68,12 @@ class SitePoleInstallationViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
 
-class ProjectTrenchingViewSet(viewsets.ModelViewSet,DefaultsMixin):
-    """ViewSet for the ProjectTrenching class"""
-
-    queryset = ProjectTrenching.objects.all()
-    serializer_class = ProjectTrenchingSerializer
-
-
-class SiteTrenchingViewSet(viewsets.ModelViewSet,DefaultsMixin):
-    """ViewSet for the SiteTrenching class"""
-
-    queryset = SiteTrenching.objects.all()
+class SiteTrenchingViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = SiteTrenching.objects.order_by('created_at')
     serializer_class = SiteTrenchingSerializer
 
-
-class FTTSTrenchingImageViewSet(viewsets.ModelViewSet,DefaultsMixin):
-    """ViewSet for the FTTSTrenchingImage class"""
-
-    queryset = FTTSTrenchingImage.objects.all()
-    serializer_class = FTTSTrenchingImageSerializer
-    #permission_classes = [permissions.IsAuthenticated]
-
-# class SiteTrenchingViewSet(DefaultsMixin, viewsets.ModelViewSet):
-#     queryset = SiteTrenching.objects.order_by('created_at')
-#     serializer_class = SiteTrenchingSerializer
-
-#     search_fields = ('site_name', )
-#     ordering_fields = ('updated_at', 'site_name', )
-
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
 
 class SiteBackfillingViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = SiteBackfilling.objects.order_by('created_at')
@@ -141,5 +134,3 @@ class FttsInstallationTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
-
-################################################ END ##############################################################################################################################################################################################################################################################

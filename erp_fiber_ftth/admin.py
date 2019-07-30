@@ -40,7 +40,7 @@ admin.site.register(ftthSurveyPhotos, ftthSurveyPhotosAdmin)
 
 
 class ftthSurveyAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name', 'start_date', 'end_date', 'ftth_interception_point', 'site_latitude', 'site_longitude', 'distance_from_ip', 'survey_photos', 'high_level_design', 'county', 'posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name', 'start_date', 'end_date', 'ftth_interception_point', 'site_latitude', 'site_longitude', 'distance_from_ip', 'high_level_design', 'county', 'posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)

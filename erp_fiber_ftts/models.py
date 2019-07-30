@@ -64,71 +64,18 @@ class SitePoleInstallation(TimeStampModel,TimeTrackModel):
 
         ######### TRENCHING TIME TRACKING and IMAGES MODELS###############
 
-class ProjectTrenching(TimeStampModel,TimeTrackModel):
-    ''' Class to track Trenching timelines per FTTS Project |ALL SITES
-    :: Here One can calculate  if the Trenching works for an FTTS Project is on Track 
-    
-    '''
-    project_name = models.OneToOneField(FTTSProject, on_delete=models.DO_NOTHING, blank=True)
-    created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-
-    def __str__(self):
-        return str(self.project_name)
-     
-
-
 class SiteTrenching(TimeStampModel,TimeTrackModel):
-    ''' Class to track Trenching timelines per SITE for EACH FTTS Project 
-      :: Here One can calculate  if the Trenching works for  A SITE per Project  is on Track 
-
-    '''
-    project_trenching = models.ForeignKey(ProjectTrenching,related_name='sitetrenchings', on_delete=models.DO_NOTHING, blank=True,null =True)# Not BLANK
-    trenched_distance = models.FloatField( blank=True, null=True)
-    backfilled_distance = models.FloatField( blank=True, null=True)
-    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING, blank=True, null=True)
-    created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    
-
-    def __str__(self):
-        #return str(self.project_name)
-        return 'Site : {} of Project: {}'.format(self.site_name,self.project_trenching)
-
-
-class FTTSTrenchingImage(TimeStampModel):
-    ''' Create  n*3 number of Images per FTTS Project per SITE per DAY '''
-    site_trenching = models.ForeignKey(SiteTrenching,related_name='fttstrenchingimages', on_delete=models.DO_NOTHING, blank=True,null =True)
-    trenching_day = models.DateField(blank=True, null=True)
-    description =  models.CharField(max_length=100, blank=True, null=True)
-    
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    project_name = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING, blank=True)
     site_trenching_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/trenching/%Y/%m/%d/')
     site_trenching_image_2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/trenching/%Y/%m/%d/')
     site_trenching_image_3 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/trenching/%Y/%m/%d/')
     site_trenching_comment = models.CharField(max_length=100, blank=True, null=True)
-    
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    is_approved = models.BooleanField(default=False)
 
     def __str__(self):
-        #return str(self.project_name)
-        return 'Images for {}'.format(self.site_trenching)
+        return str(self.site_name)
      
-class FTTSCasualDailyRegister(TimeStampModel):
-    ''' Class to track Casuals per SITE for EACH FTTS Project 
-    '''
-    site_trenching = models.OneToOneField(SiteTrenching,related_name='fttscasualregisterprojectsite', on_delete=models.DO_NOTHING,blank =True ,null =True)
-    site_name = models.ForeignKey(Site, on_delete=models.DO_NOTHING, blank=True, null=True)
-    ftts_casual =models.ManyToManyField(Casual,related_name= 'fttscasualregister')
-
-    trenching_day = models.DateField(blank=True, null=True)
-    
-    created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    
-
-    def __str__(self):
-        #return str(self.project_name)
-        return 'Casual list for Site : {} of Project: {} Date : {}'.format(self.site_name,self.site_trenching,self.trenching_day)
-
-       ######### BACKFILLING TIME TRACKING and IMAGES MODELS###############
 
 
 class SiteBackfilling(TimeStampModel,TimeTrackModel):
@@ -142,6 +89,45 @@ class SiteBackfilling(TimeStampModel,TimeTrackModel):
 
     def __str__(self):
         return str(self.site_name)
+
+
+class SiteCableInstallation(TimeStampModel,TimeTrackModel):
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    project_name = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING, blank=True)
+    site_cable_installation_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
+    site_cable_installation_image_2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
+    site_cable_installation_image_3 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
+    site_cable_installation_comment = models.CharField(max_length=100, blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    def __str__(self):
+        return str(self.site_name)
+     
+
+
+
+class SiteBackfilling(TimeStampModel,TimeTrackModel):
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    project_name = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING, blank=True)
+    site_backfilling_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/backfilling/%Y/%m/%d/')
+    site_backfilling_image_2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/backfilling/%Y/%m/%d/')
+    site_backfilling_image_3 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/backfilling/%Y/%m/%d/')
+    site_backfilling_comment = models.CharField(max_length=100, blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return str(self.site_name)
+
+class SiteCableInstallation(TimeStampModel,TimeTrackModel):
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    project_name = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING, blank=True)
+    site_cable_installation_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
+    site_cable_installation_image_2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
+    site_cable_installation_image_3 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
+    site_cable_installation_comment = models.CharField(max_length=100, blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    def __str__(self):
+        return str(self.site_name)
+
 
 class SiteCableInstallation(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)

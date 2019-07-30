@@ -40,44 +40,14 @@ class SitePoleInstallationAdmin(admin.ModelAdmin):
 
 admin.site.register(SitePoleInstallation, SitePoleInstallationAdmin)
 
-
-
-class ProjectTrenchingAdmin(admin.ModelAdmin):
-    list_display = ('id','project_name','start_date','end_date','created_by', 'created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    search_fields = ('project_name', )
-    list_editable = ('is_active',)
-
-admin.site.register(ProjectTrenching, ProjectTrenchingAdmin)
 class SiteTrenchingAdmin(admin.ModelAdmin):
-    list_display = ('id','project_trenching','site_name','start_date','end_date','created_by', 'created_at', 'updated_at', 'is_active')
-    list_display_links = ('id','project_trenching','site_name',)
+    list_display = ('id', 'site_name','project_name','start_date','end_date','site_trenching_image_1', 'site_trenching_image_2','site_trenching_image_3', 'site_trenching_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('site_name', )
     search_fields = ('site_name', )
-    list_filter =('project_trenching','site_name')
     list_editable = ('is_active',)
 
 admin.site.register(SiteTrenching, SiteTrenchingAdmin)
 
-
-class FTTSTrenchingImageAdmin(admin.ModelAdmin):
-    list_display = ('id','site_trenching','description','trenching_day','site_trenching_image_1', 'site_trenching_image_2','site_trenching_image_3', 'site_trenching_comment','posted_by', 'created_at', 'updated_at', 'is_active')
-    list_display_links = ('id','site_trenching')
-    search_fields = ('trenching_day','site_trenching', )
-    list_filter =('site_trenching','trenching_day',)
-    list_editable = ('is_active',)
-
-admin.site.register(FTTSTrenchingImage, FTTSTrenchingImageAdmin)
-
-class FTTSCasualDailyRegisterAdmin(admin.ModelAdmin):
-    list_display = ('id','site_trenching','site_name','trenching_day','created_by', 'created_at', 'updated_at', 'is_active')
-    list_display_links = ('id','site_trenching')
-    search_fields = ('trenching_day','site_trenching', )
-    list_filter =('site_trenching','trenching_day','site_name')
-    list_editable = ('is_active',)
-
-admin.site.register(FTTSCasualDailyRegister, FTTSCasualDailyRegisterAdmin)
-
-###########
 
 class SiteBackfillingAdmin(admin.ModelAdmin):
     list_display = ('id','site_name','project_name','start_date','end_date','site_backfilling_image_1','site_backfilling_image_2', 'site_backfilling_image_3', 'site_backfilling_comment','posted_by', 'created_at', 'updated_at', 'is_active')
@@ -142,5 +112,4 @@ class FttsInstallationTeamAdmin(admin.ModelAdmin):
     list_editable = ('is_active',)
 
 admin.site.register(FttsInstallationTeam, FttsInstallationTeamAdmin)
-
-######################################################## END ####################################################################################################################################################################################################
+# ######################################################## END ####################################################################################################################################################################################################
