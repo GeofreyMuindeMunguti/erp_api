@@ -44,6 +44,14 @@ class DefaultsMixin(object):
     ViewSet . We configure the OrderingFilter by adding a list of fields, which can be used
     for ordering the ordering_fields .
     '''
+class FTTSProjectViewSet(viewsets.ModelViewSet):
+    """ViewSet for the FTTSProject class"""
+
+    queryset = FTTSProject.objects.order_by('created_at')
+    serializer_class = FTTSProjectSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'site_name', )
 
 class FttsCommercialTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = FttsCommercialTeam.objects.order_by('created_at')

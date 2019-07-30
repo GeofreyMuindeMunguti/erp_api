@@ -8,6 +8,25 @@ from .models import *
 from rest_framework.authtoken.models import Token
 
 
+
+class FTTSProjectSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FTTSProject
+        fields = (
+            'id', 
+            'project_name',
+            'start_date',
+            'end_date', 
+            'created_by',
+            'created_at', 
+            'updated_at', 
+            'is_active', 
+        )
+
+
+
+
 class FttsCommercialTeamSerializer(serializers.ModelSerializer):
 
     class Meta:
