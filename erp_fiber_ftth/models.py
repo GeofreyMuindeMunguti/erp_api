@@ -50,10 +50,19 @@ class ftthSurveyPhotos(models.Model):
     def __str__(self):
         return str(self.site_name)
 
+    def ftth_survey_id(self):
+        try:
+            survey = ftthSurvey.objects.get(site_name=self.site_name)
+            survey_id = survey.id
+            return survey_id
+        except Exception as e:
+            return
+
 
 class ftthSurvey(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
     start_date = models.DateTimeField()
+    end_date = models.DateTimeField(blank=True, null=True)
     ftth_interception_point = models.ForeignKey(InterceptionPoint, on_delete=models.DO_NOTHING, blank=True, null=True)
     distance_from_ip = models.IntegerField(blank=True, null=True)
     survey_photos = models.ManyToManyField(ftthSurveyPhotos)
