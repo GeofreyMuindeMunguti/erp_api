@@ -113,3 +113,22 @@ class FttsInstallationTeamAdmin(admin.ModelAdmin):
 
 admin.site.register(FttsInstallationTeam, FttsInstallationTeamAdmin)
 # ######################################################## END ####################################################################################################################################################################################################
+
+
+class DailyCivilWorkProductionAdmin(admin.ModelAdmin):
+    list_display = ('id','project_name','site_name','work_day','trenched_distance','backfilled_distance','duct_installed_length','cable_installed_length','pole_installed','manhole_installed','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('id','site_name')
+    search_fields = ('work_day','site_name', )
+    list_filter =('project_name','site_name','work_day')
+    list_editable = ('is_active',)
+
+admin.site.register(DailyCivilWorkProduction, DailyCivilWorkProductionAdmin)
+
+class FTTSCasualDailyRegisterAdmin(admin.ModelAdmin):
+    list_display = ('id','project_name','site_name','work_day','created_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('id','site_name')
+    search_fields = ('work_day','site_name', )
+    list_filter =('project_name','site_name','work_day')
+    list_editable = ('is_active',)
+
+admin.site.register(FTTSCasualDailyRegister, FTTSCasualDailyRegisterAdmin)

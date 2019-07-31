@@ -182,3 +182,55 @@ class FttsInstallationTeam(TimeStampModel):
         return str(self.site_name)
 
 ######################################################## END ################################################################################################################################################################################################
+
+
+####DAILY ACTIVITY 
+
+class DailyCivilWorkProduction(TimeStampModel):
+
+    site_name = models.ForeignKey(Site, on_delete=models.DO_NOTHING, blank=True,null=True)
+    project_name = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING)
+    work_day = models.DateField(blank=True, null=True)
+    trenched_distance = models.FloatField( blank=True, null=True)
+    backfilled_distance = models.FloatField( blank=True, null=True)
+    duct_installed_length = models.FloatField( blank=True, null=True)
+    cable_installed_length = models.FloatField( blank=True, null=True)
+    pole_installed =models.IntegerField(blank=True, null=True)
+    manhole_installed =models.IntegerField(blank=True, null=True)
+ 
+    site_dailyproduction_comment = models.CharField(max_length=100, blank=True, null=True)
+    
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    is_approved = models.BooleanField(default=False)
+
+    def __str__(self):
+        #return str(self.project_name)
+        return 'Production for {}'.format(self.work_day)
+
+
+    class Meta:
+        unique_together = (['site_name', 'work_day',])
+
+
+
+
+    ###DAILY CASUAL REGISTER
+
+
+class FTTSCasualDailyRegister(TimeStampModel):
+    ''' Class to track Casuals per SITE for EACH FTTS Project 
+    '''
+    project_name = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING, blank=True,null =True)
+    site_name = models.ForeignKey(Site, on_delete=models.DO_NOTHING, blank=True,null =True)
+    work_day = models.DateField(blank=True, null=True)
+
+    ftts_casual =models.ManyToManyField(Casual,related_name= 'fttscasualregister')
+    created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    
+
+    def __str__(self):
+        return str(self.work_day)
+        #return 'Casual list for Site : {} of Project: {} Date : {}'.format(self.work_day,self.site_trenching,self.trenching_day)
+
+    class Meta:
+        unique_together = (['site_name', 'work_day',])
