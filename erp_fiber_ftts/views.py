@@ -150,3 +150,8 @@ class DailyCivilWorkProductionViewSet(viewsets.ModelViewSet):
     queryset = DailyCivilWorkProduction.objects.all()
     serializer_class = DailyCivilWorkProductionSerializer
 
+class FTTSCasualDailyRegisterViewSet(viewsets.ModelViewSet):
+    """ViewSet for the FTTSCasualDailyRegister class"""
+
+    queryset = FTTSCasualDailyRegister.objects.all()
+    serializer_class = FTTSCasualDailyRegisterSerializer

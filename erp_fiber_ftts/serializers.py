@@ -133,3 +133,16 @@ class DailyCivilWorkProductionSerializer(serializers.ModelSerializer):
             'posted_by',
             'is_approved', 
         )
+
+
+class FTTSCasualDailyRegisterSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FTTSCasualDailyRegister
+        fields = (
+            'pk', 
+            'project_name',
+            'site_name',
+            'work_day', 
+            'ftts_casual',
+        )
