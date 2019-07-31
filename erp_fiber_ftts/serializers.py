@@ -115,3 +115,21 @@ class FttsInstallationTeamSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 ################################################ END ##############################################################################################################################################################################################################################################################
+
+class DailyCivilWorkProductionSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = DailyCivilWorkProduction
+        fields = (
+            'id', 
+            'project_name',
+            'site_name',
+            'work_day', 
+            'trenched_distance', 
+            'backfilled_distance', 
+            'duct_installed_length', 
+            'cable_installed_length', 
+            'site_dailyproduction_comment',
+            'posted_by',
+            'is_approved', 
+        )

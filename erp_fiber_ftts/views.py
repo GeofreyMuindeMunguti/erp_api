@@ -142,3 +142,11 @@ class FttsInstallationTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
+
+
+class DailyCivilWorkProductionViewSet(viewsets.ModelViewSet):
+    """ViewSet for the DailyCivilWorkProduction class"""
+
+    queryset = DailyCivilWorkProduction.objects.all()
+    serializer_class = DailyCivilWorkProductionSerializer
+
