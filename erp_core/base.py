@@ -31,8 +31,8 @@ class Project(TimeStampModel):
 
     project_name = models.CharField(max_length=100,unique=True, blank=True, null=True)
     PROJECT_TYPE = [
-        ('Ftts', 'FTTS'),
-        ('Ftth', 'FTTH'),
+        ('FTTS', 'Fiber FTTS'),
+        ('FTTH', 'Fiber FTTH'),
         ('Bts-Con', 'BTS Construction'),
     ]
 
