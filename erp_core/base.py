@@ -28,7 +28,7 @@ class TimeTrackModel(models.Model):
 
 
 class Project(TimeStampModel):
-    project_name = models.CharField(max_length=100,unique=True, blank=True, null=True)
+    project_name = models.CharField(max_length=100,unique=True)
     PROJECT_TYPE = [
         ('FTTS', 'Fiber FTTS'),
         ('FTTH', 'Fiber FTTH'),
