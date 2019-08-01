@@ -21,6 +21,12 @@ from rest_framework.decorators import detail_route
 from erp_core.fileshandler.filemixin import DefaultsMixin
 
 
+class FTTHProjectViewSet(DefaultsMixin,viewsets.ModelViewSet):
+    """ViewSet for the FTTHProject class"""
+
+    queryset = FTTHProject.objects.all()
+    serializer_class = FTTHProjectSerializer
+
 #################################FTTH VIEWSETS#################################
 
 
