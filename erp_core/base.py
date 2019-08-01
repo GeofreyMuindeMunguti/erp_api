@@ -27,7 +27,6 @@ class TimeTrackModel(models.Model):
 
 
 class Project(TimeStampModel):
-    project_id = models.AutoField(primary_key=True)
     project_name = models.CharField(max_length=100,unique=True, blank=True, null=True)
     PROJECT_TYPE = [
         ('FS', 'FTTS'),

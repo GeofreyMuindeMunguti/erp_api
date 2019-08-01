@@ -26,6 +26,15 @@ class DefaultsMixin(object):
     max_paginate_by = 100
     filter_backends = (filters.SearchFilter,)
 
+
+class FTTHProjectViewSet(DefaultsMixin,ModelViewSet):
+    """ViewSet for the FTTHProject class"""
+
+    queryset = FTTHProject.objects.all()
+    serializer_class = FTTHProjectSerializer
+
+
+
 class FtthCommercialTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = FtthCommercialTeam.objects.order_by('created_at')
     serializer_class = FtthCommercialTeamSerializer
