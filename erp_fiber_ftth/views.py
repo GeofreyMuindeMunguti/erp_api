@@ -18,13 +18,7 @@ from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
 from rest_framework import status, viewsets
 from rest_framework.decorators import parser_classes
 from rest_framework.decorators import detail_route
-
-
-class DefaultsMixin(object):
-    paginate_by = 25     # Pages of API end points/URLs
-    paginate_by_param = 'page_size'
-    max_paginate_by = 100
-    filter_backends = (filters.SearchFilter,)
+from erp_core.fileshandler.filemixin import DefaultsMixin
 
 
 #################################FTTH VIEWSETS#################################
