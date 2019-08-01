@@ -10,6 +10,10 @@ from .views import *
 
 router = DefaultRouter()
 
+router.register(r'interceptionpoints', views.InterceptionPointViewSet)
+router.register(r'ftthsurveyphotos', views.ftthSurveyPhotosViewSet)
+router.register(r'ftthsurveys', views.ftthSurveyViewSet)
+
 router.register(r'FtthPoleInstallation', views.FtthPoleInstallationViewSet)
 router.register(r'FtthTrenching', views.FtthTrenchingViewSet)
 router.register(r'FtthBackfilling', views.FtthBackfillingViewSet)
