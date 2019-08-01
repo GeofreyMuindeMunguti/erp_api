@@ -10,6 +10,7 @@ from .views import *
 
 router = DefaultRouter()
 
+router.register(r'fttsproject', views.FTTSProjectViewSet)
 router.register(r'FttsCommercialTeam', views.FttsCommercialTeamViewSet)
 router.register(r'FttsProcurementTeam', views.FttsProcurementTeamViewSet)
 
@@ -24,6 +25,9 @@ router.register(r'SiteInterception', views.SiteInterceptionViewSet)
 router.register(r'SiteIntegration', views.SiteIntegrationViewSet)
 router.register(r'SiteAsBuilt', views.SiteAsBuiltViewSet)
 router.register(r'FttsInstallationTeam', views.FttsInstallationTeamViewSet)
+router.register(r'dailycivilworkproduction', views.DailyCivilWorkProductionViewSet)
+router.register(r'fttscasualdailyregister', views.FTTSCasualDailyRegisterViewSet)
+
 
 """ ENDPOINTS FOR FRONTEND"""
 
