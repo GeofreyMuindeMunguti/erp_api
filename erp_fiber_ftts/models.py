@@ -234,3 +234,8 @@ class FTTSCasualDailyRegister(TimeStampModel):
 
     class Meta:
         unique_together = (['site_name', 'work_day',])
+
+    
+    # def get_casual_list(self):
+    #    # return "\n".join([p.ftts_casual for p in self.ftts_casual.all()])
+    #     return ",".join([str(p) for p in self.ftts_casual.all()])
