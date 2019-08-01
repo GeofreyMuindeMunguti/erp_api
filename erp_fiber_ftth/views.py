@@ -27,7 +27,7 @@ class DefaultsMixin(object):
     filter_backends = (filters.SearchFilter,)
 
 
-class FTTHProjectViewSet(DefaultsMixin,ModelViewSet):
+class FTTHProjectViewSet(DefaultsMixin,viewsets.ModelViewSet):
     """ViewSet for the FTTHProject class"""
 
     queryset = FTTHProject.objects.all()

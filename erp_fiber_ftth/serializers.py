@@ -17,6 +17,7 @@ class FTTHProjectSerializer(serializers.ModelSerializer):
             'id', 
             'project_name', 
             'project_type', 
+            'created_by',
             'initial_kmz', 
             'is_acknowledged', 
         )

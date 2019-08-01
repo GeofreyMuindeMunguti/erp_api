@@ -10,7 +10,7 @@ from erp_core.fileshandler.filemixin import UploadToProjectDir # create Folders(
 
 
 class FTTHProject(Project):
-    initial_kmz = models.FileField(upload_to='project/ftth/initialkmz/kmz/%Y/%m/%d/')
+    initial_kmz = models.FileField(upload_to='project/ftth/initialkmz/kmz/%Y/%m/%d/', blank=True, null=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_acknowledged = models.BooleanField(default=False)
 
