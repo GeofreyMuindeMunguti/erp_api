@@ -1,4 +1,5 @@
 from django.db import models
+from erp_core.models import *
 from erp_core.base import *
 from erp_construction.models import *
 from users.models import *

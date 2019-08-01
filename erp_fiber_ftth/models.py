@@ -9,6 +9,7 @@ from erp_core.fileshandler.filemixin import UploadToProjectDir # create Folders(
 
 
 class FTTHProject(Project):
+    project_name = models.ForeignKey(Site, on_delete=models.DO_NOTHING, blank=True)#, null=True)
     initial_kmz = models.FileField(upload_to=UploadToProjectDir('FTTH/files/InitialKMZ/'), blank=True, null=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_acknowledged = models.BooleanField(default=False)
@@ -17,7 +18,7 @@ class FTTHProject(Project):
         ordering = ('-created_at',)
 
     def __str__(self):
-        return self.project_name
+        return str(self.project_name)
 
 
 ##########################################SURVEY DETAILS################################################################################################################################################################33
@@ -81,102 +82,83 @@ class ftthSurvey(models.Model):
 ##############################################END OF FTTH SURVEY#############################################33
 
 
-class FtthCommercialTeam(models.Model):
+class FtthCommercialTeam(TimeStampModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_boq = models.FileField(upload_to='files/ftth/CommercialTeam/boq/%Y/%m/%d/', blank=True, null=True)
     ftth_quote = models.FileField(upload_to='files/ftth/CommercialTeam/quote/%Y/%m/%d/', blank=True, null=True)
     ftth_wayleave_application = models.FileField(upload_to='files/ftth/CommercialTeam/wayleaveapplication/%Y/%m/%d/', blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.site_name)
 
-class FtthProcurementTeam(models.Model):
+class FtthProcurementTeam(TimeStampModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_bom = models.FileField(upload_to='files/ftth/CommercialTeam/bom/%Y/%m/%d/', blank=True, null=True)
     ftth_initial_invoice = models.FileField(upload_to='files/ftth/CommercialTeam/initialinvoice/%Y/%m/%d/', blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.site_name)
 
 ######################################################## FTTH CIVIL TEAM ########################################################################################################################################################################################
 
-class FtthPoleInstallation(models.Model):
+class FtthPoleInstallation(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_pole_installation_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/poleinstallation/%Y/%m/%d/')
     ftth_pole_installation_image_2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/poleinstallation/%Y/%m/%d/')
     ftth_pole_installation_image_3 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/poleinstallation/%Y/%m/%d/')
     ftth_pole_installation_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.site_name)
 
-class FtthTrenching(models.Model):
+class FtthTrenching(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_trenching_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/trenching/%Y/%m/%d/')
     ftth_trenching_image_2 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/trenching/%Y/%m/%d/')
     ftth_trenching_image_3 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/trenching/%Y/%m/%d/')
     ftth_trenching_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.site_name)
 
-class FtthBackfilling(models.Model):
+class FtthBackfilling(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_backfilling_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/backfilling/%Y/%m/%d/')
     ftth_backfilling_image_2 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/backfilling/%Y/%m/%d/')
     ftth_backfilling_image_3 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/backfilling/%Y/%m/%d/')
     ftth_backfilling_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.site_name)
 
-class FtthCableInstallation(models.Model):
+class FtthCableInstallation(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_cable_installation_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
     ftth_cable_installation_image_2 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
     ftth_cable_installation_image_3 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
     ftth_cable_installation_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.site_name)
 
 
-class FtthCivilTeam(models.Model):
+class FtthCivilTeam(TimeStampModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_pole_installation = models.OneToOneField(FtthPoleInstallation, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftth_trenching = models.OneToOneField(FtthTrenching, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftth_backfiling = models.OneToOneField(FtthBackfilling, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -194,102 +176,81 @@ class FtthCivilTeam(models.Model):
 
 ######################################################## FTTH INSTALLATION TEAM ########################################################################################################################################################################################
 
-class FtthSplicingEnclosure(models.Model):
+class FtthSplicingEnclosure(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_splicing_encore_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingencore/%Y/%m/%d/')
     ftth_splicing_encore_image_2 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingencore/%Y/%m/%d/')
     ftth_splicing_encore_image_3 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingencore/%Y/%m/%d/')
     ftth_splicing_encore_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.site_name)
 
-class FtthSplicingFAT(models.Model):
+class FtthSplicingFAT(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_splicing_fat_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingFAT/%Y/%m/%d/')
     ftth_splicing_fat_image_2 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingFAT/%Y/%m/%d/')
     ftth_splicing_fat_image_3 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingFAT/%Y/%m/%d/')
     ftth_splicing_fat_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.site_name)
 
-class FtthSplicingFDT(models.Model):
+class FtthSplicingFDT(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_splicing_fdt_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingFDT/%Y/%m/%d/')
     ftth_splicing_fdt_image_2 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingFDT/%Y/%m/%d/')
     ftth_splicing_fdt_image_3 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingFDT/%Y/%m/%d/')
     ftth_splicing_fdt_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.site_name)
 
-class FtthSplicing(models.Model):
+class FtthSplicing(TimeStampModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_splicing_encore = models.OneToOneField(FtthSplicingEnclosure, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftth_splicing_fat = models.OneToOneField(FtthSplicingFAT, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftth_splicing_fdt = models.OneToOneField(FtthSplicingFDT, on_delete=models.DO_NOTHING, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.site_name)
 
-class FtthCoreProvision(models.Model):
+class FtthCoreProvision(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_core_provision_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/coreprovision/%Y/%m/%d/')
     ftth_core_provision_image_2 = models.ImageField(upload_to='images/ftth/InstallationTeam/coreprovision/%Y/%m/%d/')
     ftth_core_provision_image_3 = models.ImageField(upload_to='images/ftth/InstallationTeam/coreprovision/%Y/%m/%d/')
     ftth_core_provision_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.site_name)
 
-class FtthPowerLevels(models.Model):
+class FtthPowerLevels(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_power_level_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/powerlevels/%Y/%m/%d/')
     ftth_power_level_image_2 = models.ImageField(upload_to='images/ftth/InstallationTeam/powerlevels/%Y/%m/%d/')
     ftth_power_level_image_3 = models.ImageField(upload_to='images/ftth/InstallationTeam/powerlevels/%Y/%m/%d/')
     ftth_power_level_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.site_name)
 
-class FtthOTDRTraces(models.Model):
+class FtthOTDRTraces(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     ftth_otdr_traces_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/OTDRTraces/%Y/%m/%d/')
@@ -297,47 +258,38 @@ class FtthOTDRTraces(models.Model):
     ftth_otdr_traces_image_3 = models.ImageField(upload_to='images/ftth/InstallationTeam/OTDRTraces/%Y/%m/%d/')
     ftth_otdr_traces_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.site_name)
 
-class FtthAsBuilt(models.Model):
+class FtthAsBuilt(TimeStampModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_asbuit_received = models.BooleanField(default=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.site_name)
 
-class FtthSignalTesting(models.Model):
+class FtthSignalTesting(TimeStampModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_splicing_encore = models.OneToOneField(FtthCoreProvision, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftth_splicing_fat = models.OneToOneField(FtthPowerLevels, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftth_splicing_fdt = models.OneToOneField(FtthOTDRTraces, on_delete=models.DO_NOTHING, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.site_name)
 
-class FtthInstallationTeam(models.Model):
+class FtthInstallationTeam(TimeStampModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_splicing = models.OneToOneField(FtthSplicing, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftth_signal_testing = models.OneToOneField(FtthSignalTesting, on_delete=models.DO_NOTHING, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.site_name)
