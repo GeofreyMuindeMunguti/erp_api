@@ -177,6 +177,30 @@ class SiteBackfilling(TimeStampModel,TimeTrackModel):
         except Exception as e:
             return e
 
+class ManHole(TimeStampModel):
+    manhole_no = models.CharField(max_length=100, blank=True, null=True)
+    latitude =  models.CharField(max_length=100, blank=True, null=True)
+    longitude =  models.CharField(max_length=100, blank=True, null=True)
+
+    created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return str(self.manhole_No)
+
+class ManHoleInstallation(TimeStampModel,TimeTrackModel):
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING,blank=True, null=True)
+    manhole = models.OneToOneField(ManHole, on_delete=models.DO_NOTHING,blank=True, null=True)
+    project_name = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING )
+    manhole_image_1 = models.ImageField(upload_to='images/ftts/InstallationTeam/manhole/%Y/%m/%d/')
+    manhole_image_2 = models.ImageField(upload_to='images/ftts/InstallationTeam/manhole/%Y/%m/%d/')
+    manhole_image_3 = models.ImageField(upload_to='images/ftts/InstallationTeam/manhole/%Y/%m/%d/')
+    manhole_comment = models.CharField(max_length=100, blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return str(self.site_name)
+
+
 class SiteCableInstallation(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING,blank=True, null=True)
     project_name = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING )
@@ -225,6 +249,7 @@ class FttsCivilTeam(TimeStampModel):
     ftts_trenching = models.OneToOneField(SiteTrenching, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftts_backfiling = models.OneToOneField(SiteBackfilling, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftts_cable_installation = models.OneToOneField(SiteCableInstallation, on_delete=models.DO_NOTHING, blank=True, null=True)
+    ftts_manhole_installation = models.OneToOneField(ManHoleInstallation, on_delete=models.DO_NOTHING, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
@@ -276,9 +301,12 @@ class SiteTerminalInHse(TimeStampModel,TimeTrackModel):
         except Exception as e:
             return e
 
+
+
 class SiteInterception(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING,blank=True, null=True)
     project_name = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING )
+    manhole = models.ForeignKey(ManHole, on_delete=models.DO_NOTHING ,blank=True, null=True)
     site_inception_image_1 = models.ImageField(upload_to='images/ftts/InstallationTeam/inception/%Y/%m/%d/')
     site_inception_image_2 = models.ImageField(upload_to='images/ftts/InstallationTeam/inception/%Y/%m/%d/')
     site_inception_image_3 = models.ImageField(upload_to='images/ftts/InstallationTeam/inception/%Y/%m/%d/')

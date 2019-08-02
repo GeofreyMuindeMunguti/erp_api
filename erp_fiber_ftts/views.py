@@ -97,6 +97,13 @@ class SiteCableInstallationViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
 
+class SiteManHoleInstallationViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = ManHoleInstallation.objects.order_by('created_at')
+    serializer_class = SiteManHoleInstallationSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
 class FttsCivilTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = FttsCivilTeam.objects.order_by('created_at')
     serializer_class = FttsCivilTeamSerializer

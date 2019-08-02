@@ -71,6 +71,14 @@ class SiteCableInstallationSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+class SiteManHoleInstallationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ManHoleInstallation
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
 class FttsCivilTeamSerializer(serializers.ModelSerializer):
 
     class Meta:

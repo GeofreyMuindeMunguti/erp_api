@@ -64,6 +64,21 @@ class SiteCableInstallationAdmin(admin.ModelAdmin):
     readonly_fields = ['created_at', 'updated_at', 'is_active']
 
 admin.site.register(SiteCableInstallation, SiteCableInstallationAdmin)
+class ManHoleAdmin(admin.ModelAdmin):
+    list_display = ('id', 'manhole_no','latitude','longitude','created_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('manhole_no', )
+    search_fields = ('manhole_no', )
+    list_editable = ('is_active',)
+
+admin.site.register(ManHole, ManHoleAdmin)
+
+class ManHoleInstallationAdmin(admin.ModelAdmin):
+    list_display = ('id', 'site_name','project_name', 'start_date','end_date','manhole_image_1','manhole_image_2','manhole_image_3','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('site_name', )
+    search_fields = ('site_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(ManHoleInstallation, ManHoleInstallationAdmin)
 
 class FttsCivilTeamAdmin(admin.ModelAdmin):
     list_display = ('id', 'site_name','project_name','ftts_pole_installation', 'ftts_trenching','ftts_backfiling', 'ftts_cable_installation','posted_by', 'created_at', 'updated_at', 'is_active')
@@ -84,7 +99,7 @@ class SiteTerminalInHseAdmin(admin.ModelAdmin):
 admin.site.register(SiteTerminalInHse, SiteTerminalInHseAdmin)
 
 class SiteInterceptionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','project_name','start_date','end_date','site_inception_image_1', 'site_inception_image_2','site_inception_image_3', 'site_inception_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','project_name','manhole','start_date','end_date','site_inception_image_1', 'site_inception_image_2','site_inception_image_3', 'site_inception_comment','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
