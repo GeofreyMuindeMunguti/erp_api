@@ -1,5 +1,6 @@
 from django.db import models
 from erp_core.base import *
+from erp_core.models import Project as CreateProject
 from erp_construction.models import *
 from users.models import *
 from django.contrib.postgres.fields import ArrayField
@@ -8,7 +9,7 @@ from django.contrib.auth.models import User
 from erp_core.fileshandler.filemixin import UploadToProjectDir # create Folders(Project name) with images & files per project in /media/..
 
 
-class FTTHProject(Project):
+class FTTHProject(CreateProject):
     initial_kmz = models.FileField(upload_to='FTTH/files/InitialKMZ/%Y/%m/%d/', blank=True, null=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_acknowledged = models.BooleanField(default=False)

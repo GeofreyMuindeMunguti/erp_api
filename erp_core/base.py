@@ -23,15 +23,15 @@ class TimeTrackModel(models.Model):
 
 class Project(TimeStampModel):
     project_name = models.CharField(max_length=100,unique=True)
-    PROJECT_TYPE = [
-        ('FTTS', 'Fiber FTTS'),
-        ('FTTH', 'Fiber FTTH'),
-        ('Bts-Con', 'BTS Construction'),
-    ]
+    # PROJECT_TYPE = [
+    #     ('FTTS', 'Fiber FTTS'),
+    #     ('FTTH', 'Fiber FTTH'),
+    #     ('Bts-Con', 'BTS Construction'),
+    # ]
 
-    project_type = models.CharField(
-        max_length=225,choices=PROJECT_TYPE,blank=True, null=True
-     )
+    # project_type = models.CharField(
+    #     max_length=225,choices=PROJECT_TYPE,blank=True, null=True
+    #  )
     description =  models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:

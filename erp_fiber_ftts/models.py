@@ -1,5 +1,5 @@
 from django.db import models
-from erp_core.models import *
+from erp_core.models import Project as CreateProject
 from erp_core.base import *
 from erp_construction.models import *
 from users.models import *
@@ -10,9 +10,9 @@ from erp_core.fileshandler.filemixin import UploadToProjectDir  # create Folders
 
 
 # Create your models here.
-class FTTSProject(Project,TimeTrackModel):
+class FTTSProject(CreateProject,TimeTrackModel):
 
-    site_name = models.ManyToManyField(Site,related_name="fttsprojects")
+    site_name = models.ManyToManyField(Site,related_name="fttsprojects",blank = True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, blank=True, null=True)
     class Meta:
         ordering = ('-created_at',)

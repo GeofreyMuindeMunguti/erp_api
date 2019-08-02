@@ -6,6 +6,7 @@ from django.db import models
 from django.db.models import Sum, F
 from django.contrib.auth.models import User
 from users.models import *
+from erp_core.base import Project as BaseProject 
 from erp_core.base import *
 from erp_construction.models import *
 from .fileshandler.filemixin import UploadToProjectDir
@@ -13,7 +14,22 @@ from django.contrib.postgres.fields import ArrayField
 from datetime import datetime, timezone, timedelta
 
 # Create your models here.
+class Project(BaseProject):
 
+    PROJECT_TYPE = [
+        ('FTTS', 'Fiber FTTS'),
+        ('FTTH', 'Fiber FTTH'),
+        ('Bts-Con', 'BTS Construction'),
+    ]
+
+    project_type = models.CharField(
+        max_length=225,choices=PROJECT_TYPE,blank=True, null=True
+     )
+
+    #pass
+
+    def __str__(self):
+        return str(self.project_name)
 
 ####################################### KPI ###############################################################################################################################
 class Kpi(TimeStampModel):
