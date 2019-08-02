@@ -10,8 +10,8 @@ from django.db.models import Avg, Max, Min, Sum
 class TurnAroundTimeView(APIView):
 
     def get(self, request):
-        project_count = Project.objects.all().count()
-        turn_around_time_data = Project.objects.all()
+        project_count = Site.objects.all().count()
+        turn_around_time_data = Site.objects.all()
         turn_around_time = 0
         for time in turn_around_time_data:
             turn_around_time += time.turn_around_time()
@@ -36,7 +36,7 @@ class RevenueDetailView(APIView):
 
     def get(self, request, pk):
         try:
-            revenue_per_project_data = ProjectPurchaseOrders.objects.get(project_name=pk)
+            revenue_per_project_data = ProjectPurchaseOrders.objects.get(site_name=pk)
             revenue_per_project = revenue_per_project_data.total_cost_of_po
             return Response({'revenue_per_project': revenue_per_project, })
         except Exception as e:
