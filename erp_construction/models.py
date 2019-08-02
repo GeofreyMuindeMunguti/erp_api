@@ -2,20 +2,21 @@ from django.db import models
 from django.db.models import Sum, F
 from django.contrib.auth.models import User
 from users.models import *
-# from inventory.models import *
+from erp_core.models import *
+from erp_core.base import *
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime, timezone, timedelta
 
-
-class Category(models.Model):
-    category_name = models.CharField(max_length=100, unique=True)
-    created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
-
-    def __str__(self):
-        return self.category_name
+#
+# class Category(models.Model):
+#     category_name = models.CharField(max_length=100, unique=True)
+#     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+#     is_active = models.BooleanField(default=True)
+#
+#     def __str__(self):
+#         return self.category_name
 
 
 class ProjectIcons(models.Model):
@@ -29,8 +30,8 @@ class ProjectIcons(models.Model):
         return self.site_owner
 
 
-class Project(models.Model):
-    project_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
+class Site(models.Model):
+    site_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
     site_number = models.CharField(max_length=100, unique=True, blank=True, null=True)
     BTS_type = models.CharField(max_length=100, blank=True, null=True)
     site_owner = models.CharField(max_length=100, blank=True, null=True)
@@ -47,7 +48,7 @@ class Project(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.project_name
+        return self.site_name
 
     # def delete(self, *args, **kwargs):
     #     if self.is_active is False:
@@ -80,7 +81,7 @@ class Project(models.Model):
             automatic_total_comtasks = Task.objects.filter(category_name=category_id).count()
             completed_ctasks = 0
             project_id = self.id
-            progress_object = CommercialTeam.objects.get(project_name=project_id)
+            progress_object = CommercialTeam.objects.get(site_name=project_id)
             approved_quote = progress_object.approved_quote_file
             po = progress_object.po_data
             project_costing = progress_object.project_costing_data
@@ -112,7 +113,7 @@ class Project(models.Model):
             automatic_total_protasks = Task.objects.filter(category_name=category_id).count()
             completed_ptasks = 0
             project_id = self.id
-            progress_object = ProcurementTeam.objects.get(project_name=project_id)
+            progress_object = ProcurementTeam.objects.get(site_name=project_id)
             po_steel = progress_object.po_steel
             po_electrical_materials = progress_object.po_electrical_materials
             po_subcontractors = progress_object.po_subcontractors
@@ -139,7 +140,7 @@ class Project(models.Model):
             automatic_total_civtasks = Task.objects.filter(category_name=category_id).count()
             completed_cltasks = 0
             project_id = self.id
-            progress_object = CivilWorksTeam.objects.get(project_name=project_id)
+            progress_object = CivilWorksTeam.objects.get(site_name=project_id)
             foundation_and_curing_images = progress_object.foundation_and_curing_images
             bts_and_generator_slabs_images = progress_object.bts_and_generator_slabs_images
             site_walling_images_field = progress_object.site_walling_images_field
@@ -171,7 +172,7 @@ class Project(models.Model):
             automatic_total_instasks = Task.objects.filter(category_name=category_id).count()
             completed_intasks = 0
             project_id = self.id
-            progress_object = InstallationTeam.objects.get(project_name=project_id)
+            progress_object = InstallationTeam.objects.get(site_name=project_id)
             electrical_tasks_data = progress_object.electrical_tasks_data
             telecom_tasks_data = progress_object.telecom_tasks_data
             signoff = progress_object.signoff
@@ -215,8 +216,8 @@ class Project(models.Model):
 
 
 class SetSiteClearingImage(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     setting_site_clearing_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/siteclearing/%Y/%m/%d/')
@@ -228,7 +229,7 @@ class SetSiteClearingImage(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -291,7 +292,7 @@ class SetSiteClearingImage(models.Model):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = FoundationImage.objects.get(project_name=self.project_name)
+                engineer_data = FoundationImage.objects.get(site_name=self.site_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -314,7 +315,7 @@ class SetSiteClearingImage(models.Model):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = FoundationImage.objects.get(project_name=self.project_name)
+                engineer_data = FoundationImage.objects.get(site_name=self.site_name)
                 engineer_count = engineer_data.engineers_atsite.count()
                 casual_count = self.no_of_casuals_atsite.count()
                 cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
@@ -356,7 +357,7 @@ class SetSiteClearingImage(models.Model):
 
     def task_id(self):
         try:
-            task = FoundationImage.objects.get(project_name=self.project_name)
+            task = FoundationImage.objects.get(site_name=self.site_name)
             task_id = task.id
             return task_id
         except Exception as e:
@@ -364,8 +365,8 @@ class SetSiteClearingImage(models.Model):
 
 
 class TowerBaseImage(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     towerbase_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/towerbase/%Y/%m/%d/')
@@ -377,7 +378,7 @@ class TowerBaseImage(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -412,7 +413,7 @@ class TowerBaseImage(models.Model):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = FoundationImage.objects.get(project_name=self.project_name)
+                engineer_data = FoundationImage.objects.get(site_name=self.site_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -453,7 +454,7 @@ class TowerBaseImage(models.Model):
 
     def task_id(self):
         try:
-            task = FoundationImage.objects.get(project_name=self.project_name)
+            task = FoundationImage.objects.get(site_name=self.site_name)
             task_id = task.id
             return task_id
         except Exception as e:
@@ -461,8 +462,8 @@ class TowerBaseImage(models.Model):
 
 
 class BindingImage(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     binding_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/binding/%Y/%m/%d/')
@@ -474,7 +475,7 @@ class BindingImage(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -558,8 +559,8 @@ class BindingImage(models.Model):
 
 
 class SteelFixFormworkImage(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     steel_fix_formwork_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/steelfix/%Y/%m/%d/')
@@ -571,7 +572,7 @@ class SteelFixFormworkImage(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -606,7 +607,7 @@ class SteelFixFormworkImage(models.Model):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = FoundationImage.objects.get(project_name=self.project_name)
+                engineer_data = FoundationImage.objects.get(site_name=self.site_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -647,7 +648,7 @@ class SteelFixFormworkImage(models.Model):
 
     def task_id(self):
         try:
-            task = FoundationImage.objects.get(project_name=self.project_name)
+            task = FoundationImage.objects.get(site_name=self.site_name)
             task_id = task.id
             return task_id
         except Exception as e:
@@ -655,8 +656,8 @@ class SteelFixFormworkImage(models.Model):
 
 
 class ConcretePourImage(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     concrete_pour_curing_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/concretepour/%Y/%m/%d/')
@@ -668,7 +669,7 @@ class ConcretePourImage(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -703,7 +704,7 @@ class ConcretePourImage(models.Model):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = FoundationImage.objects.get(project_name=self.project_name)
+                engineer_data = FoundationImage.objects.get(site_name=self.site_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -744,7 +745,7 @@ class ConcretePourImage(models.Model):
 
     def task_id(self):
         try:
-            task = FoundationImage.objects.get(project_name=self.project_name)
+            task = FoundationImage.objects.get(site_name=self.site_name)
             task_id = task.id
             return task_id
         except Exception as e:
@@ -752,8 +753,8 @@ class ConcretePourImage(models.Model):
 
 
 class ConcreteCuringPeriodImage(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     concrete_pour_curing_period_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
@@ -765,7 +766,7 @@ class ConcreteCuringPeriodImage(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -800,7 +801,7 @@ class ConcreteCuringPeriodImage(models.Model):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = FoundationImage.objects.get(project_name=self.project_name)
+                engineer_data = FoundationImage.objects.get(site_name=self.site_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -841,7 +842,7 @@ class ConcreteCuringPeriodImage(models.Model):
 
     def task_id(self):
         try:
-            task = FoundationImage.objects.get(project_name=self.project_name)
+            task = FoundationImage.objects.get(site_name=self.site_name)
             task_id = task.id
             return task_id
         except Exception as e:
@@ -849,8 +850,8 @@ class ConcreteCuringPeriodImage(models.Model):
 
 
 class FoundationImage(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    engineers_atsite = models.ManyToManyField(Engineer, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    engineers_atsite = models.ManyToManyField(Engineer, blank=True )
     setting_site_clearing = models.OneToOneField(SetSiteClearingImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     excavation_tower_base = models.OneToOneField(TowerBaseImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     binding = models.OneToOneField(BindingImage, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -865,7 +866,7 @@ class FoundationImage(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def engineers(self):
         count = self.engineers_atsite.count()
@@ -904,7 +905,7 @@ class FoundationImage(models.Model):
 
     def team_task_id(self):
         try:
-            team = CivilWorksTeam.objects.get(project_name=self.project_name)
+            team = CivilWorksTeam.objects.get(site_name=self.site_name)
             team_id = team.id
             return team_id
         except Exception as e:
@@ -916,8 +917,8 @@ class FoundationImage(models.Model):
 
 
 class ExcavationImage(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     excavation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
@@ -929,7 +930,7 @@ class ExcavationImage(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -964,7 +965,7 @@ class ExcavationImage(models.Model):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = BS241AndGeneatorSlabsImage.objects.get(project_name=self.project_name)
+                engineer_data = BS241AndGeneatorSlabsImage.objects.get(site_name=self.site_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -1005,7 +1006,7 @@ class ExcavationImage(models.Model):
 
     def task_id(self):
         try:
-            task = BS241AndGeneatorSlabsImage.objects.get(project_name=self.project_name)
+            task = BS241AndGeneatorSlabsImage.objects.get(site_name=self.site_name)
             task_id = task.id
             return task_id
         except Exception as e:
@@ -1013,8 +1014,8 @@ class ExcavationImage(models.Model):
 
 
 class BS241ConcretePourCuringPeriodImage(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     bs241_concrete_pour_curing_period_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/BS241ConcretePourCuringPeriod/%Y/%m/%d/')
@@ -1026,7 +1027,7 @@ class BS241ConcretePourCuringPeriodImage(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -1061,7 +1062,7 @@ class BS241ConcretePourCuringPeriodImage(models.Model):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = BS241AndGeneatorSlabsImage.objects.get(project_name=self.project_name)
+                engineer_data = BS241AndGeneatorSlabsImage.objects.get(site_name=self.site_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -1102,7 +1103,7 @@ class BS241ConcretePourCuringPeriodImage(models.Model):
 
     def task_id(self):
         try:
-            task = BS241AndGeneatorSlabsImage.objects.get(project_name=self.project_name)
+            task = BS241AndGeneatorSlabsImage.objects.get(site_name=self.site_name)
             task_id = task.id
             return task_id
         except Exception as e:
@@ -1110,8 +1111,8 @@ class BS241ConcretePourCuringPeriodImage(models.Model):
 
 
 class BS241AndGeneatorSlabsImage(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    engineers_atsite = models.ManyToManyField(Engineer, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    engineers_atsite = models.ManyToManyField(Engineer, blank=True )
     foundation_foot_pouring = models.OneToOneField(ExcavationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     bs241_concrete_pour_pouring_period = models.OneToOneField(BS241ConcretePourCuringPeriodImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     bs241_and_generator_slabs_comment = models.CharField(max_length=100, blank=True, null=True)
@@ -1122,7 +1123,7 @@ class BS241AndGeneatorSlabsImage(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def engineers(self):
         count = self.engineers_atsite.count()
@@ -1161,7 +1162,7 @@ class BS241AndGeneatorSlabsImage(models.Model):
 
     def team_task_id(self):
         try:
-            team = CivilWorksTeam.objects.get(project_name=self.project_name)
+            team = CivilWorksTeam.objects.get(site_name=self.site_name)
             team_id = team.id
             return team_id
         except Exception as e:
@@ -1173,8 +1174,8 @@ class BS241AndGeneatorSlabsImage(models.Model):
 
 
 class FoundFootPourImage(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     foundfootpour_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
@@ -1186,7 +1187,7 @@ class FoundFootPourImage(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -1221,7 +1222,7 @@ class FoundFootPourImage(models.Model):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = BoundaryWallImage.objects.get(project_name=self.project_name)
+                engineer_data = BoundaryWallImage.objects.get(site_name=self.site_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -1262,7 +1263,7 @@ class FoundFootPourImage(models.Model):
 
     def task_id(self):
         try:
-            task = BoundaryWallImage.objects.get(project_name=self.project_name)
+            task = BoundaryWallImage.objects.get(site_name=self.site_name)
             task_id = task.id
             return task_id
         except Exception as e:
@@ -1270,8 +1271,8 @@ class FoundFootPourImage(models.Model):
 
 
 class BlockworkPanelConstImage(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     blockwallpanelconst_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/BlockworkPanelConst/%Y/%m/%d/')
@@ -1283,7 +1284,7 @@ class BlockworkPanelConstImage(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -1318,7 +1319,7 @@ class BlockworkPanelConstImage(models.Model):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = BoundaryWallImage.objects.get(project_name=self.project_name)
+                engineer_data = BoundaryWallImage.objects.get(site_name=self.site_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -1359,7 +1360,7 @@ class BlockworkPanelConstImage(models.Model):
 
     def task_id(self):
         try:
-            task = BoundaryWallImage.objects.get(project_name=self.project_name)
+            task = BoundaryWallImage.objects.get(site_name=self.site_name)
             task_id = task.id
             return task_id
         except Exception as e:
@@ -1367,8 +1368,8 @@ class BlockworkPanelConstImage(models.Model):
 
 
 class GateInstallationImage(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     gateinstallation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/GateInstallation/%Y/%m/%d/')
@@ -1380,7 +1381,7 @@ class GateInstallationImage(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -1415,7 +1416,7 @@ class GateInstallationImage(models.Model):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = BoundaryWallImage.objects.get(project_name=self.project_name)
+                engineer_data = BoundaryWallImage.objects.get(site_name=self.site_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -1456,7 +1457,7 @@ class GateInstallationImage(models.Model):
 
     def task_id(self):
         try:
-            task = BoundaryWallImage.objects.get(project_name=self.project_name)
+            task = BoundaryWallImage.objects.get(site_name=self.site_name)
             task_id = task.id
             return task_id
         except Exception as e:
@@ -1464,8 +1465,8 @@ class GateInstallationImage(models.Model):
 
 
 class RazorElectricFenceImage(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     razorelectricfance_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/RazorElectricFence/%Y/%m/%d/')
@@ -1477,7 +1478,7 @@ class RazorElectricFenceImage(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -1512,7 +1513,7 @@ class RazorElectricFenceImage(models.Model):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = BoundaryWallImage.objects.get(project_name=self.project_name)
+                engineer_data = BoundaryWallImage.objects.get(site_name=self.site_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -1553,7 +1554,7 @@ class RazorElectricFenceImage(models.Model):
 
     def task_id(self):
         try:
-            task = BoundaryWallImage.objects.get(project_name=self.project_name)
+            task = BoundaryWallImage.objects.get(site_name=self.site_name)
             task_id = task.id
             return task_id
         except Exception as e:
@@ -1561,8 +1562,8 @@ class RazorElectricFenceImage(models.Model):
 
 
 class BoundaryWallImage(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    engineers_atsite = models.ManyToManyField(Engineer, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    engineers_atsite = models.ManyToManyField(Engineer, blank=True )
     foundation_foot_pouring = models.OneToOneField(FoundFootPourImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     block_construction = models.OneToOneField(BlockworkPanelConstImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     gate_installation = models.OneToOneField(GateInstallationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -1575,7 +1576,7 @@ class BoundaryWallImage(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def engineers(self):
         count = self.engineers_atsite.count()
@@ -1614,7 +1615,7 @@ class BoundaryWallImage(models.Model):
 
     def team_task_id(self):
         try:
-            team = CivilWorksTeam.objects.get(project_name=self.project_name)
+            team = CivilWorksTeam.objects.get(site_name=self.site_name)
             team_id = team.id
             return team_id
         except Exception as e:
@@ -1627,8 +1628,8 @@ class BoundaryWallImage(models.Model):
 
 
 class TowerErectionImage(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     tower_erection_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/towererection/%Y/%m/%d/')
@@ -1640,7 +1641,7 @@ class TowerErectionImage(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -1675,7 +1676,7 @@ class TowerErectionImage(models.Model):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
+                engineer_data = TowerAntennaCoaxImage.objects.get(site_name=self.site_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -1716,7 +1717,7 @@ class TowerErectionImage(models.Model):
 
     def task_id(self):
         try:
-            task = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
+            task = TowerAntennaCoaxImage.objects.get(site_name=self.site_name)
             task_id = task.id
             return task_id
         except Exception as e:
@@ -1724,8 +1725,8 @@ class TowerErectionImage(models.Model):
 
 
 class TowerPaintImage(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     tower_painting_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/towerpainting/%Y/%m/%d/')
@@ -1737,7 +1738,7 @@ class TowerPaintImage(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -1772,7 +1773,7 @@ class TowerPaintImage(models.Model):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
+                engineer_data = TowerAntennaCoaxImage.objects.get(site_name=self.site_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -1813,7 +1814,7 @@ class TowerPaintImage(models.Model):
 
     def task_id(self):
         try:
-            task = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
+            task = TowerAntennaCoaxImage.objects.get(site_name=self.site_name)
             task_id = task.id
             return task_id
         except Exception as e:
@@ -1821,8 +1822,8 @@ class TowerPaintImage(models.Model):
 
 
 class CableWaysImage(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     cable_ways_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/cableways/%Y/%m/%d/')
@@ -1834,7 +1835,7 @@ class CableWaysImage(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -1869,7 +1870,7 @@ class CableWaysImage(models.Model):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
+                engineer_data = TowerAntennaCoaxImage.objects.get(site_name=self.site_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -1910,7 +1911,7 @@ class CableWaysImage(models.Model):
 
     def task_id(self):
         try:
-            task = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
+            task = TowerAntennaCoaxImage.objects.get(site_name=self.site_name)
             task_id = task.id
             return task_id
         except Exception as e:
@@ -1918,8 +1919,8 @@ class CableWaysImage(models.Model):
 
 
 class AntennaCoaxInstallImage(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     antenna_coax_installation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/antennacoaxinstallation/%Y/%m/%d/')
@@ -1931,7 +1932,7 @@ class AntennaCoaxInstallImage(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -1966,7 +1967,7 @@ class AntennaCoaxInstallImage(models.Model):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
+                engineer_data = TowerAntennaCoaxImage.objects.get(site_name=self.site_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -2007,7 +2008,7 @@ class AntennaCoaxInstallImage(models.Model):
 
     def task_id(self):
         try:
-            task = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
+            task = TowerAntennaCoaxImage.objects.get(site_name=self.site_name)
             task_id = task.id
             return task_id
         except Exception as e:
@@ -2015,8 +2016,8 @@ class AntennaCoaxInstallImage(models.Model):
 
 
 class TowerAntennaCoaxImage(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    engineers_atsite = models.ManyToManyField(Engineer, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    engineers_atsite = models.ManyToManyField(Engineer, blank=True )
     tower_erection = models.OneToOneField(TowerErectionImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     tower_painting = models.OneToOneField(TowerPaintImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     cable_ways = models.OneToOneField(CableWaysImage, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -2029,7 +2030,7 @@ class TowerAntennaCoaxImage(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def engineers(self):
         count = self.engineers_atsite.count()
@@ -2068,7 +2069,7 @@ class TowerAntennaCoaxImage(models.Model):
 
     def team_task_id(self):
         try:
-            team = CivilWorksTeam.objects.get(project_name=self.project_name)
+            team = CivilWorksTeam.objects.get(site_name=self.site_name)
             team_id = team.id
             return team_id
         except Exception as e:
@@ -2076,65 +2077,11 @@ class TowerAntennaCoaxImage(models.Model):
 
 ######################################## END #######################################################################################################################################
 
-####################################### KPI ###############################################################################################################################
-
-
-class Kpi(models.Model):
-    kpi = models.IntegerField(blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    is_approved = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
-
-    def __str__(self):
-        return str(self.kpi)
-
-######################################## END #######################################################################################################################################
-
-####################################### TASKS ###############################################################################################################################
-
-
-class Task(models.Model):
-    category_name = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
-    task_name = models.CharField(blank=True, null=True, max_length=150, unique=True)
-    kpi = models.IntegerField(blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    is_approved = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
-
-    def __str__(self):
-        return str(self.task_name)
-
-
-
-######################################## END #######################################################################################################################################
-
-####################################### SUBTASKS ###############################################################################################################################
-
-
-class SubTask(models.Model):
-    task_name = models.ForeignKey(Task, on_delete=models.DO_NOTHING)
-    subtask_name = models.CharField(blank=True, null=True, max_length=150, unique=True)
-    kpi = models.IntegerField(blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    is_approved = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
-
-    def __str__(self):
-        return str(self.subtask_name)
-
-######################################## END #######################################################################################################################################
-
 ####################################### INSTALLATION ###########################################################################################################################
 
 
 class ProjectPurchaseOrders(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
     po_file = models.FileField(upload_to='files/CommercialTeam/pofile/%Y/%m/%d/', blank=True, null=True)
     material_cost = models.IntegerField()
     labour_cost = models.IntegerField()
@@ -2145,7 +2092,7 @@ class ProjectPurchaseOrders(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def totalPOS(self):
         count = self.objects.all().count()
@@ -2153,7 +2100,7 @@ class ProjectPurchaseOrders(models.Model):
 
 
 class ProjectCosting(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    site_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
     project_costing_file = models.FileField(upload_to='files/CommercialTeam/projectcosting/%Y/%m/%d/', blank=True, null=True)
     material_cost = models.IntegerField()
     labour_cost = models.IntegerField()
@@ -2164,7 +2111,7 @@ class ProjectCosting(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def totalProjectCosts(self):
         count = self.objects.all().count()
@@ -2172,7 +2119,7 @@ class ProjectCosting(models.Model):
 
 
 class CommercialTeam(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
     approved_quote_file = models.FileField(upload_to='files/CommercialTeam/approvedquote/%Y/%m/%d/', blank=True, null=True)
     approved_quote_amount = models.IntegerField(blank=True, null=True)
     po_data = models.OneToOneField(ProjectPurchaseOrders, on_delete=models.CASCADE, blank=True, null=True)
@@ -2186,12 +2133,12 @@ class CommercialTeam(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
 
 ####################################### PROCURMENT TEAM ###########################################################################################################################
 class ProcurementTeam(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
     po_steel = models.FileField(upload_to='files/ProcurementTeam/posteel/%Y/%m/%d/', blank=True, null=True)
     # po_steel_quantity = models.IntegerField(blank=True, null=True)
     po_electrical_materials = models.FileField(upload_to='files/ProcurementTeam/poelectrical/%Y/%m/%d/', blank=True, null=True)
@@ -2205,13 +2152,13 @@ class ProcurementTeam(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
 ######################################## END #######################################################################################################################################
 
 
 class AccessApprovalCivil(models.Model):
-    project_name = models.ForeignKey(Project,related_name= 'accessapprovalcivil', on_delete=models.DO_NOTHING)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
     access_approval = models.FileField(upload_to='files/CivilWorksTeam/accessapproval/%Y/%m/%d/')
     access_approval_comment = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -2219,11 +2166,11 @@ class AccessApprovalCivil(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
 
 class HealthDocumentsCivilTeam(models.Model):
-    project_name = models.ForeignKey(Project,related_name= 'healthdocumentscivilteam' ,on_delete=models.DO_NOTHING)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
     job_hazard_form = models.FileField(upload_to='files/HealthDocumentsCivilTeam/jobhazard/%Y/%m/%d/')
     job_hazard_form_comment = models.CharField(max_length=100, blank=True, null=True)
     incident_notification_form = models.FileField(upload_to='files/HealthDocumentsCivilTeam/incident/%Y/%m/%d/')
@@ -2242,12 +2189,12 @@ class HealthDocumentsCivilTeam(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
 
 class CivilWorksTeam(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    health_documents = models.ManyToManyField(HealthDocumentsCivilTeam, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    health_documents = models.ManyToManyField(HealthDocumentsCivilTeam, blank=True )
     foundation_and_curing_images = models.OneToOneField(FoundationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     bs241_and_generator_slabs_images = models.OneToOneField(BS241AndGeneatorSlabsImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     site_walling_images_field = models.OneToOneField(BoundaryWallImage, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -2259,7 +2206,7 @@ class CivilWorksTeam(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def health_documents_civil(self):
         return [v.project_name for v in self.health_documents.all()]
@@ -2271,7 +2218,7 @@ class CivilWorksTeam(models.Model):
 
 
 class AccessApprovalInstallation(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
     access_approval = models.FileField(upload_to='files/InstallationTeam/accessapproval/%Y/%m/%d/')
     access_approval_comment = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -2279,11 +2226,11 @@ class AccessApprovalInstallation(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
 
 class HealthDocumentsInstallationTeam(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
     job_hazard_form = models.FileField(upload_to='files/HealthDocumentsInstallationTeam/jobhazard/%Y/%m/%d/')
     job_hazard_form_comment = models.CharField(max_length=100, blank=True, null=True)
     incident_notification_form = models.FileField(upload_to='files/HealthDocumentsInstallationTeam/incident/%Y/%m/%d/')
@@ -2302,12 +2249,12 @@ class HealthDocumentsInstallationTeam(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
 
 class UndergroundTasks(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     Underground_ducting_and_manholes_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/UndergroundTasks/%Y/%m/%d/', blank=True, null=True)
     Underground_ducting_and_manholes_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/UndergroundTasks/%Y/%m/%d/', blank=True, null=True)
     Underground_ducting_and_manholes_image_3 = models.ImageField(upload_to='images/InstallationTeam/Electrical/UndergroundTasks/%Y/%m/%d/', blank=True, null=True)
@@ -2319,7 +2266,7 @@ class UndergroundTasks(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -2354,7 +2301,7 @@ class UndergroundTasks(models.Model):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                engineer_data = ElectricalTasks.objects.get(site_name=self.site_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -2395,7 +2342,7 @@ class UndergroundTasks(models.Model):
 
     def task_id(self):
         try:
-            task = ElectricalTasks.objects.get(project_name=self.project_name)
+            task = ElectricalTasks.objects.get(site_name=self.site_name)
             task_id = task.id
             return task_id
         except Exception as e:
@@ -2403,8 +2350,8 @@ class UndergroundTasks(models.Model):
 
 
 class ReticulationAPSinstallation(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     Electricalreticulation_APSInstallation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ReticulationAPSinstallation/%Y/%m/%d/', blank=True, null=True)
     Electricalreticulation_APSInstallation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ReticulationAPSinstallation/%Y/%m/%d/', blank=True, null=True)
     Electricalreticulation_APSInstallation_image_3 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ReticulationAPSinstallation/%Y/%m/%d/', blank=True, null=True)
@@ -2416,7 +2363,7 @@ class ReticulationAPSinstallation(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -2451,7 +2398,7 @@ class ReticulationAPSinstallation(models.Model):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                engineer_data = ElectricalTasks.objects.get(site_name=self.site_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -2492,7 +2439,7 @@ class ReticulationAPSinstallation(models.Model):
 
     def task_id(self):
         try:
-            task = ElectricalTasks.objects.get(project_name=self.project_name)
+            task = ElectricalTasks.objects.get(project_name=self.site_name)
             task_id = task.id
             return task_id
         except Exception as e:
@@ -2500,8 +2447,8 @@ class ReticulationAPSinstallation(models.Model):
 
 
 class ElectricalEarthing(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     Earthing_connections_and_testing_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
     Earthing_connections_and_testing_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
     Earthing_connections_and_testing_image_3 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
@@ -2513,7 +2460,7 @@ class ElectricalEarthing(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -2548,7 +2495,7 @@ class ElectricalEarthing(models.Model):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                engineer_data = ElectricalTasks.objects.get(site_name=self.site_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -2589,7 +2536,7 @@ class ElectricalEarthing(models.Model):
 
     def task_id(self):
         try:
-            task = ElectricalTasks.objects.get(project_name=self.project_name)
+            task = ElectricalTasks.objects.get(site_name=self.site_name)
             task_id = task.id
             return task_id
         except Exception as e:
@@ -2597,8 +2544,8 @@ class ElectricalEarthing(models.Model):
 
 
 class GeneratorInstallation(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     Generator_and_Fuel_Tank_Installation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
     Generator_and_Fuel_Tank_Installation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
     Generator_and_Fuel_Tank_Installation_image_3 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
@@ -2614,7 +2561,7 @@ class GeneratorInstallation(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -2649,7 +2596,7 @@ class GeneratorInstallation(models.Model):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                engineer_data = ElectricalTasks.objects.get(site_name=self.site_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -2690,7 +2637,7 @@ class GeneratorInstallation(models.Model):
 
     def task_id(self):
         try:
-            task = ElectricalTasks.objects.get(project_name=self.project_name)
+            task = ElectricalTasks.objects.get(site_name=self.site_name)
             task_id = task.id
             return task_id
         except Exception as e:
@@ -2698,8 +2645,8 @@ class GeneratorInstallation(models.Model):
 
 
 class KPLCSolarImage(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     kplc_solar_installation_image_1 = models.ImageField(upload_to='images/InstallationTeam/KPLCSolar/%Y/%m/%d/', blank=True, null=True)
     kplc_solar_installation_image_2 = models.ImageField(upload_to='images/InstallationTeam/KPLCSolar/%Y/%m/%d/', blank=True, null=True)
     kplc_solar_installation_image_3 = models.ImageField(upload_to='images/InstallationTeam/KPLCSolar/%Y/%m/%d/', blank=True, null=True)
@@ -2711,7 +2658,7 @@ class KPLCSolarImage(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -2746,7 +2693,7 @@ class KPLCSolarImage(models.Model):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = ElectricalTasks.objects.get(project_name=self.project_name)
+                engineer_data = ElectricalTasks.objects.get(site_name=self.site_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -2787,7 +2734,7 @@ class KPLCSolarImage(models.Model):
 
     def task_id(self):
         try:
-            task = ElectricalTasks.objects.get(project_name=self.project_name)
+            task = ElectricalTasks.objects.get(site_name=self.site_name)
             task_id = task.id
             return task_id
         except Exception as e:
@@ -2795,8 +2742,8 @@ class KPLCSolarImage(models.Model):
 
 
 class ElectricalTasks(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    engineers_atsite = models.ManyToManyField(Engineer, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    engineers_atsite = models.ManyToManyField(Engineer, blank=True )
     Underground_ducting_and_manholes = models.OneToOneField(UndergroundTasks, on_delete=models.CASCADE, blank=True, null=True)
     Electricalreticulation_APSInstallation = models.OneToOneField(ReticulationAPSinstallation, on_delete=models.CASCADE, blank=True, null=True)
     Earthing_connections_and_testing = models.OneToOneField(ElectricalEarthing, on_delete=models.CASCADE, blank=True, null=True)
@@ -2810,7 +2757,7 @@ class ElectricalTasks(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def engineers(self):
         count = self.engineers_atsite.count()
@@ -2849,7 +2796,7 @@ class ElectricalTasks(models.Model):
 
     def team_task_id(self):
         try:
-            team = InstallationTeam.objects.get(project_name=self.project_name)
+            team = InstallationTeam.objects.get(site_name=self.site_name)
             team_id = team.id
             return team_id
         except Exception as e:
@@ -2857,8 +2804,8 @@ class ElectricalTasks(models.Model):
 
 
 class BTSinstallationTask(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     BTSinstallation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Telecom/BTSinstallation/%Y/%m/%d/', blank=True, null=True)
     BTSinstallation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Telecom/BTSinstallation/%Y/%m/%d/', blank=True, null=True)
@@ -2871,7 +2818,7 @@ class BTSinstallationTask(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -2906,7 +2853,7 @@ class BTSinstallationTask(models.Model):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = TelecomTasks.objects.get(project_name=self.project_name)
+                engineer_data = TelecomTasks.objects.get(site_name=self.site_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -2947,7 +2894,7 @@ class BTSinstallationTask(models.Model):
 
     def task_id(self):
         try:
-            task = TelecomTasks.objects.get(project_name=self.project_name)
+            task = TelecomTasks.objects.get(site_name=self.site_name)
             task_id = task.id
             return task_id
         except Exception as e:
@@ -2955,8 +2902,8 @@ class BTSinstallationTask(models.Model):
 
 
 class MWInstallationTask(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     MWinstallation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Telecom/MWinstallation/%Y/%m/%d/', blank=True, null=True)
     MWinstallation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Telecom/MWinstallation/%Y/%m/%d/', blank=True, null=True)
     MWinstallation_image_3 = models.ImageField(upload_to='images/InstallationTeam/Telecom/MWinstallation/%Y/%m/%d/', blank=True, null=True)
@@ -2968,7 +2915,7 @@ class MWInstallationTask(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -3003,7 +2950,7 @@ class MWInstallationTask(models.Model):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = TelecomTasks.objects.get(project_name=self.project_name)
+                engineer_data = TelecomTasks.objects.get(site_name=self.site_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -3044,7 +2991,7 @@ class MWInstallationTask(models.Model):
 
     def task_id(self):
         try:
-            task = TelecomTasks.objects.get(project_name=self.project_name)
+            task = TelecomTasks.objects.get(site_name=self.site_name)
             task_id = task.id
             return task_id
         except Exception as e:
@@ -3052,8 +2999,8 @@ class MWInstallationTask(models.Model):
 
 
 class TelecomTasks(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    engineers_atsite = models.ManyToManyField(Engineer, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    engineers_atsite = models.ManyToManyField(Engineer, blank=True )
     Installation_of_BTS = models.OneToOneField(BTSinstallationTask, on_delete=models.CASCADE, blank=True, null=True)
     Installation_of_MW_links = models.OneToOneField(MWInstallationTask, on_delete=models.CASCADE, blank=True, null=True)
     link_commissioning = models.BooleanField(default=False);
@@ -3065,7 +3012,7 @@ class TelecomTasks(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def engineers(self):
         count = self.engineers_atsite.count()
@@ -3104,7 +3051,7 @@ class TelecomTasks(models.Model):
 
     def team_task_id(self):
         try:
-            team = InstallationTeam.objects.get(project_name=self.project_name)
+            team = InstallationTeam.objects.get(site_name=self.site_name)
             team_id = team.id
             return team_id
         except Exception as e:
@@ -3112,7 +3059,7 @@ class TelecomTasks(models.Model):
 
 
 class Issues(models.Model):
-    project_name = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
     issue = models.CharField(max_length=100)
     issue_image = models.ImageField(upload_to='images/InstallationTeam/issues/%Y/%m/%d/', blank=True, null=True)
     issue_sorted_image = models.ImageField(upload_to='images/InstallationTeam/issues/%Y/%m/%d/', blank=True, null=True)
@@ -3127,8 +3074,8 @@ class Issues(models.Model):
 
 
 class InstallationTeam(models.Model):
-    project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
-    health_documents = models.ManyToManyField(HealthDocumentsInstallationTeam, blank=True, null=True)
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    health_documents = models.ManyToManyField(HealthDocumentsInstallationTeam, blank=True )
     electrical_tasks_data = models.OneToOneField(ElectricalTasks, on_delete=models.DO_NOTHING, blank=True, null=True)
     telecom_tasks_data = models.OneToOneField(TelecomTasks, on_delete=models.DO_NOTHING, blank=True, null=True)
     as_built = models.FileField(upload_to='files/SafaricomTeam/as_built/%Y/%m/%d/', blank=True, null=True)
@@ -3150,16 +3097,16 @@ class InstallationTeam(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
     def health_documents_installation(self):
-        return [v.project_name for v in self.health_documents.all()]
+        return [v.site_name for v in self.health_documents.all()]
 
     def access_approvals(self):
-        return [v.project_name for v in self.access_approvals_field.all()]
+        return [v.site_name for v in self.access_approvals_field.all()]
 
     def project_issues(self):
-        return [v.project_name for v in self.issues.all()]
+        return [v.site_name for v in self.issues.all()]
 
 
 def date_difference(start_date, end_date):
@@ -3169,7 +3116,7 @@ def date_difference(start_date, end_date):
 
 
 class WarrantyCertificate(models.Model):
-    project_name = project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    site_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
     civilworks_installation_certificate = models.FileField(upload_to='files/WarrantyCertificates/civilworks/%Y/%m/%d/', blank=True, null=True)
     connectors_torque_certificate = models.FileField(upload_to='files/WarrantyCertificates/connectorsTorque/%Y/%m/%d/', blank=True, null=True)
     safe_to_climb_certificate = models.FileField(upload_to='files/WarrantyCertificates/SafeToClimb/%Y/%m/%d/', blank=True, null=True)
@@ -3180,11 +3127,11 @@ class WarrantyCertificate(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
 
 class TestCetificate(models.Model):
-    project_name = project_name = models.OneToOneField(Project, on_delete=models.DO_NOTHING)
+    site_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
     cube_test_7days = models.FileField(upload_to='files/TestCertificates/cubetest7/%Y/%m/%d/', blank=True, null=True)
     cube_test_28days = models.FileField(upload_to='files/TestCertificates/cubetest28/%Y/%m/%d/', blank=True, null=True)
     earth_test = models.FileField(upload_to='files/TestCertificates/earthtest/%Y/%m/%d/', blank=True, null=True)
@@ -3195,7 +3142,7 @@ class TestCetificate(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
 def percentage_function(no_of_complete, total_task):
     """Function to return perecentage of progress  """

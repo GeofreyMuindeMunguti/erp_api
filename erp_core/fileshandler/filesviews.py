@@ -28,10 +28,10 @@ class FilesView(APIView):
         return Response(resp)
 
 
-class ProjectFilesView(generics.RetrieveAPIView,DefaultsMixin):
+class SiteFilesView(generics.RetrieveAPIView,DefaultsMixin):
     ''' Main View to return all files per project'''
 
-    queryset = Project.objects.all()
+    queryset = Site.objects.all()
     serializer_class = ProjectFilesSerializer
 
 
