@@ -36,20 +36,20 @@ class InterceptionPointSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class ftthSurveyPhotosSerializer(serializers.ModelSerializer):
+class fttsSurveyPhotosSerializer(serializers.ModelSerializer):
 
-    ftth_survey_id = serializers.IntegerField(read_only=True)
+    ftts_survey_id = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = ftthSurveyPhotos
+        model = fttsSurveyPhotos
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class ftthSurveySerializer(serializers.ModelSerializer):
+class fttsSurveySerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = ftthSurvey
+        model = fttsSurvey
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 

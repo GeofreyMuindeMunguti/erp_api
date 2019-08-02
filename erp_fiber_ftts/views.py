@@ -42,17 +42,17 @@ class InterceptionPointViewSet(DefaultsMixin, viewsets.ModelViewSet):
     ordering_fields = ('created_at', 'interception_point_name', )
 
 
-class ftthSurveyPhotosViewSet(DefaultsMixin, viewsets.ModelViewSet):
-    queryset = ftthSurveyPhotos.objects.order_by('created_at')
-    serializer_class = ftthSurveyPhotosSerializer
+class fttsSurveyPhotosViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = fttsSurveyPhotos.objects.order_by('created_at')
+    serializer_class = fttsSurveyPhotosSerializer
 
     search_fields = ('site_name', )
     ordering_fields = ('created_at', 'site_name', )
 
 
-class ftthSurveyViewSet(DefaultsMixin, viewsets.ModelViewSet):
-    queryset = ftthSurvey.objects.order_by('created_at')
-    serializer_class = ftthSurveySerializer
+class fttsSurveyViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = fttsSurvey.objects.order_by('created_at')
+    serializer_class = fttsSurveySerializer
 
     search_fields = ('site_name', )
     ordering_fields = ('created_at', 'site_name', )
