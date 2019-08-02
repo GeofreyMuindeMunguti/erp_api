@@ -23,13 +23,14 @@ from users.urls import router
 from inventory.urls import router
 from django.conf import settings
 from django.conf.urls.static import static
-
+from erp_core.urls import router
 from users.views import ObtainJWTView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', view=ObtainJWTView.as_view(), name='login'),
     path('erp_construction/', include('erp_construction.urls')),
+    path('erp_core/', include('erp_core.urls')),
     path('erp_fiber_ftts/', include('erp_fiber_ftts.urls')),
     path('erp_fiber_ftth/', include('erp_fiber_ftth.urls')),
     path('', include('users.urls')),

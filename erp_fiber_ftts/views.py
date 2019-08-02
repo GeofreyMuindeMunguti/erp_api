@@ -44,6 +44,14 @@ class DefaultsMixin(object):
     ViewSet . We configure the OrderingFilter by adding a list of fields, which can be used
     for ordering the ordering_fields .
     '''
+class FTTSProjectViewSet(viewsets.ModelViewSet):
+    """ViewSet for the FTTSProject class"""
+
+    queryset = FTTSProject.objects.order_by('created_at')
+    serializer_class = FTTSProjectSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'site_name', )
 
 class FttsCommercialTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = FttsCommercialTeam.objects.order_by('created_at')
@@ -85,6 +93,13 @@ class SiteBackfillingViewSet(DefaultsMixin, viewsets.ModelViewSet):
 class SiteCableInstallationViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = SiteCableInstallation.objects.order_by('created_at')
     serializer_class = SiteCableInstallationSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
+class SiteManHoleInstallationViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = ManHoleInstallation.objects.order_by('created_at')
+    serializer_class = SiteManHoleInstallationSerializer
 
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
@@ -135,4 +150,15 @@ class FttsInstallationTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
 
-################################################ END ##############################################################################################################################################################################################################################################################
+
+class DailyCivilWorkProductionViewSet(viewsets.ModelViewSet):
+    """ViewSet for the DailyCivilWorkProduction class"""
+
+    queryset = DailyCivilWorkProduction.objects.all()
+    serializer_class = DailyCivilWorkProductionSerializer
+
+class FTTSCasualDailyRegisterViewSet(viewsets.ModelViewSet):
+    """ViewSet for the FTTSCasualDailyRegister class"""
+
+    queryset = FTTSCasualDailyRegister.objects.all()
+    serializer_class = FTTSCasualDailyRegisterSerializer
