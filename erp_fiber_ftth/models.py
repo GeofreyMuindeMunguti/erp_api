@@ -7,7 +7,7 @@ from django.contrib.postgres.fields import ArrayField
 from datetime import datetime, timezone, timedelta
 from django.contrib.auth.models import User
 from erp_core.fileshandler.filemixin import UploadToProjectDir # create Folders(Project name) with images & files per project in /media/..
-
+from erp_fiber_ftts.models import ManHole
 
 class FTTHProject(CreateProject):
     initial_kmz = models.FileField(upload_to='FTTH/files/InitialKMZ/%Y/%m/%d/', blank=True, null=True)
@@ -25,6 +25,7 @@ class FTTHProject(CreateProject):
 
 
 class InterceptionPoint(models.Model):
+    manhole_no = models.ForeignKey(ManHole, on_delete=models.DO_NOTHING, blank=True, null=True)
     interception_point_name = models.CharField(max_length=50)
     latitude = models.FloatField()
     longitude = models.FloatField()
@@ -34,7 +35,7 @@ class InterceptionPoint(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return interception_point_name
+        return self.interception_point_name
 
 
 class ftthSurveyPhotos(models.Model):
