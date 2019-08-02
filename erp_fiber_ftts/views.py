@@ -53,6 +53,36 @@ class FTTSProjectViewSet(viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'site_name', )
 
+
+#################################FTTH VIEWSETS#################################
+
+
+class InterceptionPointViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = InterceptionPoint.objects.order_by('created_at')
+    serializer_class = InterceptionPointSerializer
+
+    search_fields = ('interception_point_name', )
+    ordering_fields = ('created_at', 'interception_point_name', )
+
+
+class ftthSurveyPhotosViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = ftthSurveyPhotos.objects.order_by('created_at')
+    serializer_class = ftthSurveyPhotosSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('created_at', 'site_name', )
+
+
+class ftthSurveyViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = ftthSurvey.objects.order_by('created_at')
+    serializer_class = ftthSurveySerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('created_at', 'site_name', )
+
+
+#################################END OF FTTH VIEWSETS##########################
+
 class FttsCommercialTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = FttsCommercialTeam.objects.order_by('created_at')
     serializer_class = FttsCommercialTeamSerializer
