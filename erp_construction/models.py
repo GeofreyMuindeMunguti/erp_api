@@ -2,20 +2,21 @@ from django.db import models
 from django.db.models import Sum, F
 from django.contrib.auth.models import User
 from users.models import *
-# from inventory.models import *
+from erp_core.models import *
+from erp_core.base import *
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime, timezone, timedelta
 
-
-class Category(models.Model):
-    category_name = models.CharField(max_length=100, unique=True)
-    created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
-
-    def __str__(self):
-        return self.category_name
+#
+# class Category(models.Model):
+#     category_name = models.CharField(max_length=100, unique=True)
+#     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+#     is_active = models.BooleanField(default=True)
+#
+#     def __str__(self):
+#         return self.category_name
 
 
 class ProjectIcons(models.Model):
@@ -216,7 +217,7 @@ class Site(models.Model):
 
 class SetSiteClearingImage(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     setting_site_clearing_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/siteclearing/%Y/%m/%d/')
@@ -365,7 +366,7 @@ class SetSiteClearingImage(models.Model):
 
 class TowerBaseImage(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     towerbase_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/towerbase/%Y/%m/%d/')
@@ -462,7 +463,7 @@ class TowerBaseImage(models.Model):
 
 class BindingImage(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     binding_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/binding/%Y/%m/%d/')
@@ -559,7 +560,7 @@ class BindingImage(models.Model):
 
 class SteelFixFormworkImage(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     steel_fix_formwork_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/steelfix/%Y/%m/%d/')
@@ -656,7 +657,7 @@ class SteelFixFormworkImage(models.Model):
 
 class ConcretePourImage(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     concrete_pour_curing_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/concretepour/%Y/%m/%d/')
@@ -753,7 +754,7 @@ class ConcretePourImage(models.Model):
 
 class ConcreteCuringPeriodImage(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     concrete_pour_curing_period_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
@@ -850,7 +851,7 @@ class ConcreteCuringPeriodImage(models.Model):
 
 class FoundationImage(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    engineers_atsite = models.ManyToManyField(Engineer, blank=True, null=True)
+    engineers_atsite = models.ManyToManyField(Engineer, blank=True )
     setting_site_clearing = models.OneToOneField(SetSiteClearingImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     excavation_tower_base = models.OneToOneField(TowerBaseImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     binding = models.OneToOneField(BindingImage, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -917,7 +918,7 @@ class FoundationImage(models.Model):
 
 class ExcavationImage(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     excavation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
@@ -1014,7 +1015,7 @@ class ExcavationImage(models.Model):
 
 class BS241ConcretePourCuringPeriodImage(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     bs241_concrete_pour_curing_period_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/BS241ConcretePourCuringPeriod/%Y/%m/%d/')
@@ -1111,7 +1112,7 @@ class BS241ConcretePourCuringPeriodImage(models.Model):
 
 class BS241AndGeneatorSlabsImage(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    engineers_atsite = models.ManyToManyField(Engineer, blank=True, null=True)
+    engineers_atsite = models.ManyToManyField(Engineer, blank=True )
     foundation_foot_pouring = models.OneToOneField(ExcavationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     bs241_concrete_pour_pouring_period = models.OneToOneField(BS241ConcretePourCuringPeriodImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     bs241_and_generator_slabs_comment = models.CharField(max_length=100, blank=True, null=True)
@@ -1174,7 +1175,7 @@ class BS241AndGeneatorSlabsImage(models.Model):
 
 class FoundFootPourImage(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     foundfootpour_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
@@ -1271,7 +1272,7 @@ class FoundFootPourImage(models.Model):
 
 class BlockworkPanelConstImage(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     blockwallpanelconst_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/BlockworkPanelConst/%Y/%m/%d/')
@@ -1368,7 +1369,7 @@ class BlockworkPanelConstImage(models.Model):
 
 class GateInstallationImage(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     gateinstallation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/GateInstallation/%Y/%m/%d/')
@@ -1465,7 +1466,7 @@ class GateInstallationImage(models.Model):
 
 class RazorElectricFenceImage(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     razorelectricfance_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/RazorElectricFence/%Y/%m/%d/')
@@ -1562,7 +1563,7 @@ class RazorElectricFenceImage(models.Model):
 
 class BoundaryWallImage(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    engineers_atsite = models.ManyToManyField(Engineer, blank=True, null=True)
+    engineers_atsite = models.ManyToManyField(Engineer, blank=True )
     foundation_foot_pouring = models.OneToOneField(FoundFootPourImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     block_construction = models.OneToOneField(BlockworkPanelConstImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     gate_installation = models.OneToOneField(GateInstallationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -1628,7 +1629,7 @@ class BoundaryWallImage(models.Model):
 
 class TowerErectionImage(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     tower_erection_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/towererection/%Y/%m/%d/')
@@ -1725,7 +1726,7 @@ class TowerErectionImage(models.Model):
 
 class TowerPaintImage(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     tower_painting_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/towerpainting/%Y/%m/%d/')
@@ -1822,7 +1823,7 @@ class TowerPaintImage(models.Model):
 
 class CableWaysImage(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     cable_ways_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/cableways/%Y/%m/%d/')
@@ -1919,7 +1920,7 @@ class CableWaysImage(models.Model):
 
 class AntennaCoaxInstallImage(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     antenna_coax_installation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/antennacoaxinstallation/%Y/%m/%d/')
@@ -2016,7 +2017,7 @@ class AntennaCoaxInstallImage(models.Model):
 
 class TowerAntennaCoaxImage(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    engineers_atsite = models.ManyToManyField(Engineer, blank=True, null=True)
+    engineers_atsite = models.ManyToManyField(Engineer, blank=True )
     tower_erection = models.OneToOneField(TowerErectionImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     tower_painting = models.OneToOneField(TowerPaintImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     cable_ways = models.OneToOneField(CableWaysImage, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -2073,60 +2074,6 @@ class TowerAntennaCoaxImage(models.Model):
             return team_id
         except Exception as e:
             return
-
-######################################## END #######################################################################################################################################
-
-####################################### KPI ###############################################################################################################################
-
-
-class Kpi(models.Model):
-    kpi = models.IntegerField(blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    is_approved = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
-
-    def __str__(self):
-        return str(self.kpi)
-
-######################################## END #######################################################################################################################################
-
-####################################### TASKS ###############################################################################################################################
-
-
-class Task(models.Model):
-    category_name = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
-    task_name = models.CharField(blank=True, null=True, max_length=150, unique=True)
-    kpi = models.IntegerField(blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    is_approved = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
-
-    def __str__(self):
-        return str(self.task_name)
-
-
-
-######################################## END #######################################################################################################################################
-
-####################################### SUBTASKS ###############################################################################################################################
-
-
-class SubTask(models.Model):
-    task_name = models.ForeignKey(Task, on_delete=models.DO_NOTHING)
-    subtask_name = models.CharField(blank=True, null=True, max_length=150, unique=True)
-    kpi = models.IntegerField(blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    is_approved = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
-
-    def __str__(self):
-        return str(self.subtask_name)
 
 ######################################## END #######################################################################################################################################
 
@@ -2247,7 +2194,7 @@ class HealthDocumentsCivilTeam(models.Model):
 
 class CivilWorksTeam(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    health_documents = models.ManyToManyField(HealthDocumentsCivilTeam, blank=True, null=True)
+    health_documents = models.ManyToManyField(HealthDocumentsCivilTeam, blank=True )
     foundation_and_curing_images = models.OneToOneField(FoundationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     bs241_and_generator_slabs_images = models.OneToOneField(BS241AndGeneatorSlabsImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     site_walling_images_field = models.OneToOneField(BoundaryWallImage, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -2307,7 +2254,7 @@ class HealthDocumentsInstallationTeam(models.Model):
 
 class UndergroundTasks(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     Underground_ducting_and_manholes_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/UndergroundTasks/%Y/%m/%d/', blank=True, null=True)
     Underground_ducting_and_manholes_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/UndergroundTasks/%Y/%m/%d/', blank=True, null=True)
     Underground_ducting_and_manholes_image_3 = models.ImageField(upload_to='images/InstallationTeam/Electrical/UndergroundTasks/%Y/%m/%d/', blank=True, null=True)
@@ -2404,7 +2351,7 @@ class UndergroundTasks(models.Model):
 
 class ReticulationAPSinstallation(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     Electricalreticulation_APSInstallation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ReticulationAPSinstallation/%Y/%m/%d/', blank=True, null=True)
     Electricalreticulation_APSInstallation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ReticulationAPSinstallation/%Y/%m/%d/', blank=True, null=True)
     Electricalreticulation_APSInstallation_image_3 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ReticulationAPSinstallation/%Y/%m/%d/', blank=True, null=True)
@@ -2501,7 +2448,7 @@ class ReticulationAPSinstallation(models.Model):
 
 class ElectricalEarthing(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     Earthing_connections_and_testing_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
     Earthing_connections_and_testing_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
     Earthing_connections_and_testing_image_3 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
@@ -2598,7 +2545,7 @@ class ElectricalEarthing(models.Model):
 
 class GeneratorInstallation(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     Generator_and_Fuel_Tank_Installation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
     Generator_and_Fuel_Tank_Installation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
     Generator_and_Fuel_Tank_Installation_image_3 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
@@ -2699,7 +2646,7 @@ class GeneratorInstallation(models.Model):
 
 class KPLCSolarImage(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     kplc_solar_installation_image_1 = models.ImageField(upload_to='images/InstallationTeam/KPLCSolar/%Y/%m/%d/', blank=True, null=True)
     kplc_solar_installation_image_2 = models.ImageField(upload_to='images/InstallationTeam/KPLCSolar/%Y/%m/%d/', blank=True, null=True)
     kplc_solar_installation_image_3 = models.ImageField(upload_to='images/InstallationTeam/KPLCSolar/%Y/%m/%d/', blank=True, null=True)
@@ -2796,7 +2743,7 @@ class KPLCSolarImage(models.Model):
 
 class ElectricalTasks(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    engineers_atsite = models.ManyToManyField(Engineer, blank=True, null=True)
+    engineers_atsite = models.ManyToManyField(Engineer, blank=True )
     Underground_ducting_and_manholes = models.OneToOneField(UndergroundTasks, on_delete=models.CASCADE, blank=True, null=True)
     Electricalreticulation_APSInstallation = models.OneToOneField(ReticulationAPSinstallation, on_delete=models.CASCADE, blank=True, null=True)
     Earthing_connections_and_testing = models.OneToOneField(ElectricalEarthing, on_delete=models.CASCADE, blank=True, null=True)
@@ -2858,7 +2805,7 @@ class ElectricalTasks(models.Model):
 
 class BTSinstallationTask(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     BTSinstallation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Telecom/BTSinstallation/%Y/%m/%d/', blank=True, null=True)
     BTSinstallation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Telecom/BTSinstallation/%Y/%m/%d/', blank=True, null=True)
@@ -2956,7 +2903,7 @@ class BTSinstallationTask(models.Model):
 
 class MWInstallationTask(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     MWinstallation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Telecom/MWinstallation/%Y/%m/%d/', blank=True, null=True)
     MWinstallation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Telecom/MWinstallation/%Y/%m/%d/', blank=True, null=True)
     MWinstallation_image_3 = models.ImageField(upload_to='images/InstallationTeam/Telecom/MWinstallation/%Y/%m/%d/', blank=True, null=True)
@@ -3053,7 +3000,7 @@ class MWInstallationTask(models.Model):
 
 class TelecomTasks(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    engineers_atsite = models.ManyToManyField(Engineer, blank=True, null=True)
+    engineers_atsite = models.ManyToManyField(Engineer, blank=True )
     Installation_of_BTS = models.OneToOneField(BTSinstallationTask, on_delete=models.CASCADE, blank=True, null=True)
     Installation_of_MW_links = models.OneToOneField(MWInstallationTask, on_delete=models.CASCADE, blank=True, null=True)
     link_commissioning = models.BooleanField(default=False);
@@ -3128,7 +3075,7 @@ class Issues(models.Model):
 
 class InstallationTeam(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
-    health_documents = models.ManyToManyField(HealthDocumentsInstallationTeam, blank=True, null=True)
+    health_documents = models.ManyToManyField(HealthDocumentsInstallationTeam, blank=True )
     electrical_tasks_data = models.OneToOneField(ElectricalTasks, on_delete=models.DO_NOTHING, blank=True, null=True)
     telecom_tasks_data = models.OneToOneField(TelecomTasks, on_delete=models.DO_NOTHING, blank=True, null=True)
     as_built = models.FileField(upload_to='files/SafaricomTeam/as_built/%Y/%m/%d/', blank=True, null=True)

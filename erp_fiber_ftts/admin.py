@@ -8,7 +8,10 @@ from users.models import *
 
 class FTTSProjectAdmin(admin.ModelAdmin):
 
-    list_display = ['project_id','project_name', 'created_at', 'updated_at', 'is_active']
+    list_display = ['id','project_name','start_date','end_date','created_at', 'updated_at', 'is_active']
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
     readonly_fields = ['created_at', 'updated_at', 'is_active']
 
 admin.site.register(FTTSProject, FTTSProjectAdmin)
@@ -61,6 +64,21 @@ class SiteCableInstallationAdmin(admin.ModelAdmin):
     readonly_fields = ['created_at', 'updated_at', 'is_active']
 
 admin.site.register(SiteCableInstallation, SiteCableInstallationAdmin)
+class ManHoleAdmin(admin.ModelAdmin):
+    list_display = ('id', 'manhole_no','latitude','longitude','created_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('manhole_no', )
+    search_fields = ('manhole_no', )
+    list_editable = ('is_active',)
+
+admin.site.register(ManHole, ManHoleAdmin)
+
+class ManHoleInstallationAdmin(admin.ModelAdmin):
+    list_display = ('id', 'site_name','project_name', 'start_date','end_date','manhole_image_1','manhole_image_2','manhole_image_3','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('site_name', )
+    search_fields = ('site_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(ManHoleInstallation, ManHoleInstallationAdmin)
 
 class FttsCivilTeamAdmin(admin.ModelAdmin):
     list_display = ('id', 'site_name','project_name','ftts_pole_installation', 'ftts_trenching','ftts_backfiling', 'ftts_cable_installation','posted_by', 'created_at', 'updated_at', 'is_active')
@@ -81,7 +99,7 @@ class SiteTerminalInHseAdmin(admin.ModelAdmin):
 admin.site.register(SiteTerminalInHse, SiteTerminalInHseAdmin)
 
 class SiteInterceptionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','project_name','start_date','end_date','site_inception_image_1', 'site_inception_image_2','site_inception_image_3', 'site_inception_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','project_name','manhole','start_date','end_date','site_inception_image_1', 'site_inception_image_2','site_inception_image_3', 'site_inception_comment','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
@@ -110,5 +128,23 @@ class FttsInstallationTeamAdmin(admin.ModelAdmin):
     list_editable = ('is_active',)
 
 admin.site.register(FttsInstallationTeam, FttsInstallationTeamAdmin)
+# ######################################################## END ####################################################################################################################################################################################################
 
-######################################################## END ####################################################################################################################################################################################################
+
+class DailyCivilWorkProductionAdmin(admin.ModelAdmin):
+    list_display = ('id','project_name','site_name','work_day','trenched_distance','backfilled_distance','duct_installed_length','cable_installed_length','pole_installed','manhole_installed','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('id','site_name')
+    search_fields = ('work_day','site_name', )
+    list_filter =('project_name','site_name','work_day')
+    list_editable = ('is_active',)
+
+admin.site.register(DailyCivilWorkProduction, DailyCivilWorkProductionAdmin)
+
+class FTTSCasualDailyRegisterAdmin(admin.ModelAdmin):
+    list_display = ('id','project_name','site_name','work_day','created_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('id','site_name',)
+    search_fields = ('work_day','site_name', )
+    list_filter =('project_name','site_name','work_day')
+    list_editable = ('is_active',)
+
+admin.site.register(FTTSCasualDailyRegister, FTTSCasualDailyRegisterAdmin)

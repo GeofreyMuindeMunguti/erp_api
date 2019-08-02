@@ -308,7 +308,7 @@ class ProjectFilesSerializer(serializers.ModelSerializer):
 
 
     class Meta:
-        model = Project
+        model = Site
        # fields = ('__all__')
         exclude = ("id","project_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
            "updated_at", "is_active","icon", "location", "created_by")
