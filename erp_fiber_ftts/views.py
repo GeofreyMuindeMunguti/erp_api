@@ -30,6 +30,36 @@ class FTTSProjectViewSet(viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'site_name', )
 
+
+#################################FTTH VIEWSETS#################################
+
+
+class InterceptionPointViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = InterceptionPoint.objects.order_by('created_at')
+    serializer_class = InterceptionPointSerializer
+
+    search_fields = ('interception_point_name', )
+    ordering_fields = ('created_at', 'interception_point_name', )
+
+
+class fttsSurveyPhotosViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = fttsSurveyPhotos.objects.order_by('created_at')
+    serializer_class = fttsSurveyPhotosSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('created_at', 'site_name', )
+
+
+class fttsSurveyViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = fttsSurvey.objects.order_by('created_at')
+    serializer_class = fttsSurveySerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('created_at', 'site_name', )
+
+
+#################################END OF FTTH VIEWSETS##########################
+
 class FttsCommercialTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = FttsCommercialTeam.objects.order_by('created_at')
     serializer_class = FttsCommercialTeamSerializer
@@ -70,6 +100,13 @@ class SiteBackfillingViewSet(DefaultsMixin, viewsets.ModelViewSet):
 class SiteCableInstallationViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = SiteCableInstallation.objects.order_by('created_at')
     serializer_class = SiteCableInstallationSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
+class SiteManHoleInstallationViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = ManHoleInstallation.objects.order_by('created_at')
+    serializer_class = SiteManHoleInstallationSerializer
 
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )

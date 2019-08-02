@@ -11,6 +11,10 @@ from .views import *
 router = DefaultRouter()
 
 router.register(r'fttsproject', views.FTTSProjectViewSet)
+router.register(r'interceptionpoints', views.InterceptionPointViewSet)
+router.register(r'fttsSurveyPhotos', views.fttsSurveyPhotosViewSet)
+router.register(r'fttssurveys', views.fttsSurveyViewSet)
+
 router.register(r'FttsCommercialTeam', views.FttsCommercialTeamViewSet)
 router.register(r'FttsProcurementTeam', views.FttsProcurementTeamViewSet)
 
@@ -18,6 +22,7 @@ router.register(r'SitePoleInstallation', views.SitePoleInstallationViewSet)
 router.register(r'SiteTrenching', views.SiteTrenchingViewSet)
 router.register(r'SiteBackfilling', views.SiteBackfillingViewSet)
 router.register(r'SiteCableInstallation', views.SiteCableInstallationViewSet)
+router.register(r'sitemanholeinstallation', views.SiteManHoleInstallationViewSet)
 router.register(r'FttsCivilTeam', views.FttsCivilTeamViewSet)
 
 router.register(r'SiteTerminalInHse', views.SiteTerminalInHseViewSet)

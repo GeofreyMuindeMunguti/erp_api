@@ -1,5 +1,5 @@
 from django.db import models
-from erp_core.models import *
+from erp_core.models import Project as CreateProject
 from erp_core.base import *
 from erp_construction.models import *
 from users.models import *
@@ -10,15 +10,77 @@ from erp_core.fileshandler.filemixin import UploadToProjectDir  # create Folders
 
 
 # Create your models here.
-class FTTSProject(Project,TimeTrackModel):
-    
-    site_name = models.ManyToManyField(Site,related_name="fttsprojects")
+class FTTSProject(CreateProject,TimeTrackModel):
+
+    site_name = models.ManyToManyField(Site,related_name="fttsprojects",blank = True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, blank=True, null=True)
     class Meta:
         ordering = ('-created_at',)
 
     def __str__(self):
         return str(self.project_name)
+
+##########################################SURVEY DETAILS################################################################################################################################################################33
+
+
+class InterceptionPoint(models.Model):
+    #manhole_no = models.ForeignKey('ManHole', on_delete=models.DO_NOTHING, blank=True, null=True)
+    interception_point_name = models.CharField(max_length=50)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    county = models.ForeignKey(Location,related_name = 'interceptionpointftts', on_delete=models.DO_NOTHING, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.interception_point_name
+
+
+class fttsSurveyPhotos(models.Model):
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    survey_image_1 = models.ImageField(upload_to='images/ftth/survey/%Y/%m/%d/')
+    survey_image_2 = models.ImageField(upload_to='images/ftth/survey/%Y/%m/%d/', blank=True, null=True)
+    survey_image_3 = models.ImageField(upload_to='images/ftth/survey/%Y/%m/%d/', blank=True, null=True)
+    survey_images_comment = models.CharField(max_length=200)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.site_name)
+
+    def ftth_survey_id(self):
+        try:
+            survey = ftthSurvey.objects.get(site_name=self.site_name)
+            survey_id = survey.id
+            return survey_id
+        except Exception as e:
+            return
+
+
+class fttsSurvey(models.Model):
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField(blank=True, null=True)
+    ftth_interception_point = models.ForeignKey(InterceptionPoint, on_delete=models.DO_NOTHING, blank=True, null=True)
+    site_latitude = models.FloatField()
+    site_longitude = models.FloatField()
+    distance_from_ip = models.FloatField(blank=True, null=True)
+    survey_photos = models.ManyToManyField(fttsSurveyPhotos)
+    high_level_design = models.FileField(upload_to='files/ftth/survey/highleveldesigns/%Y/%m/%d/', blank=True, null=True)
+    county = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.site_name)
+
+##############################################END OF FTTH SURVEY#############################################33
+
 
 class FttsCommercialTeam(TimeStampModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING,blank=True, null=True)
@@ -63,7 +125,35 @@ class SitePoleInstallation(TimeStampModel,TimeTrackModel):
     def __str__(self):
         return str(self.site_name)
 
-        ######### TRENCHING TIME TRACKING and IMAGES MODELS###############
+
+    def raise_flag(self):
+        try:
+            kpi_data = Task.objects.get(task_name='Upload Site Pole Installation Images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
 
 class SiteTrenching(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING,blank=True, null=True)
@@ -76,8 +166,37 @@ class SiteTrenching(TimeStampModel,TimeTrackModel):
 
     def __str__(self):
         return str(self.site_name)
-     
 
+
+
+
+    def raise_flag(self):
+        try:
+            kpi_data = Task.objects.get(task_name='Upload Site Trenching Images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
 
 class SiteBackfilling(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING,blank=True, null=True)
@@ -86,6 +205,58 @@ class SiteBackfilling(TimeStampModel,TimeTrackModel):
     site_backfilling_image_2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/backfilling/%Y/%m/%d/')
     site_backfilling_image_3 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/backfilling/%Y/%m/%d/')
     site_backfilling_comment = models.CharField(max_length=100, blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return str(self.site_name)
+
+
+    def raise_flag(self):
+        try:
+            kpi_data = Task.objects.get(task_name='Upload Site Backfilling Images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
+class ManHole(TimeStampModel):
+    manhole_no = models.CharField(max_length=100, blank=True, null=True)
+    latitude =  models.CharField(max_length=100, blank=True, null=True)
+    longitude =  models.CharField(max_length=100, blank=True, null=True)
+    location = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
+    created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return str(self.manhole_No)
+
+class ManHoleInstallation(TimeStampModel,TimeTrackModel):
+    site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING,blank=True, null=True)
+    manhole = models.OneToOneField(ManHole, on_delete=models.DO_NOTHING,blank=True, null=True)
+    project_name = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING )
+    manhole_image_1 = models.ImageField(upload_to='images/ftts/InstallationTeam/manhole/%Y/%m/%d/')
+    manhole_image_2 = models.ImageField(upload_to='images/ftts/InstallationTeam/manhole/%Y/%m/%d/')
+    manhole_image_3 = models.ImageField(upload_to='images/ftts/InstallationTeam/manhole/%Y/%m/%d/')
+    manhole_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
@@ -102,8 +273,36 @@ class SiteCableInstallation(TimeStampModel,TimeTrackModel):
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     def __str__(self):
         return str(self.site_name)
-     
 
+
+
+    def raise_flag(self):
+        try:
+            kpi_data = Task.objects.get(task_name='Upload Site Cable Installation Images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
 
 class FttsCivilTeam(TimeStampModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING,blank=True, null=True)
@@ -112,6 +311,7 @@ class FttsCivilTeam(TimeStampModel):
     ftts_trenching = models.OneToOneField(SiteTrenching, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftts_backfiling = models.OneToOneField(SiteBackfilling, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftts_cable_installation = models.OneToOneField(SiteCableInstallation, on_delete=models.DO_NOTHING, blank=True, null=True)
+    ftts_manhole_installation = models.OneToOneField(ManHoleInstallation, on_delete=models.DO_NOTHING, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
@@ -134,9 +334,41 @@ class SiteTerminalInHse(TimeStampModel,TimeTrackModel):
     def __str__(self):
         return str(self.site_name)
 
+
+    def raise_flag(self):
+        try:
+            kpi_data = Task.objects.get(task_name='Upload Site Terminal-In-House Images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
+
+
 class SiteInterception(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING,blank=True, null=True)
     project_name = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING )
+    manhole = models.ForeignKey(ManHole, on_delete=models.DO_NOTHING ,blank=True, null=True)
     site_inception_image_1 = models.ImageField(upload_to='images/ftts/InstallationTeam/inception/%Y/%m/%d/')
     site_inception_image_2 = models.ImageField(upload_to='images/ftts/InstallationTeam/inception/%Y/%m/%d/')
     site_inception_image_3 = models.ImageField(upload_to='images/ftts/InstallationTeam/inception/%Y/%m/%d/')
@@ -145,6 +377,35 @@ class SiteInterception(TimeStampModel,TimeTrackModel):
 
     def __str__(self):
         return str(self.site_name)
+
+
+    def raise_flag(self):
+        try:
+            kpi_data = Task.objects.get(task_name='Upload Site Interception Images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
 
 class SiteIntegration(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING,blank=True, null=True)
@@ -158,6 +419,35 @@ class SiteIntegration(TimeStampModel,TimeTrackModel):
     def __str__(self):
         return str(self.site_name)
 
+
+    def raise_flag(self):
+        try:
+            kpi_data = Task.objects.get(task_name='Upload Site Integration Images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
 class SiteAsBuilt(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING,blank=True, null=True)
     project_name = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING )
@@ -169,6 +459,35 @@ class SiteAsBuilt(TimeStampModel,TimeTrackModel):
 
     def __str__(self):
         return str(self.site_name)
+
+
+    def raise_flag(self):
+        try:
+            kpi_data = Task.objects.get(subtask_name='Check AsBuilt received')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
 
 class FttsInstallationTeam(TimeStampModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING,blank=True, null=True)
@@ -185,7 +504,7 @@ class FttsInstallationTeam(TimeStampModel):
 ######################################################## END ################################################################################################################################################################################################
 
 
-####DAILY ACTIVITY 
+####DAILY ACTIVITY
 
 class DailyCivilWorkProduction(TimeStampModel):
 
@@ -198,9 +517,9 @@ class DailyCivilWorkProduction(TimeStampModel):
     cable_installed_length = models.FloatField( blank=True, null=True)
     pole_installed =models.IntegerField(blank=True, null=True)
     manhole_installed =models.IntegerField(blank=True, null=True)
- 
+
     site_dailyproduction_comment = models.CharField(max_length=100, blank=True, null=True)
-    
+
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
 
@@ -219,7 +538,7 @@ class DailyCivilWorkProduction(TimeStampModel):
 
 
 class FTTSCasualDailyRegister(TimeStampModel):
-    ''' Class to track Casuals per SITE for EACH FTTS Project 
+    ''' Class to track Casuals per SITE for EACH FTTS Project
     '''
     project_name = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING)
     site_name = models.ForeignKey(Site, on_delete=models.DO_NOTHING )
@@ -227,7 +546,7 @@ class FTTSCasualDailyRegister(TimeStampModel):
 
     ftts_casual =models.ManyToManyField(Casual,related_name= 'fttscasualregister')
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    
+
 
     def __str__(self):
         return str(self.work_day)
@@ -235,5 +554,3 @@ class FTTSCasualDailyRegister(TimeStampModel):
 
     class Meta:
         unique_together = (['site_name', 'work_day',])
-
-    

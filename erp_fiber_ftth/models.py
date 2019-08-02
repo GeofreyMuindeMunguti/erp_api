@@ -1,14 +1,15 @@
 from django.db import models
 from erp_core.base import *
+from erp_core.models import Project as CreateProject
 from erp_construction.models import *
 from users.models import *
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime, timezone, timedelta
 from django.contrib.auth.models import User
 from erp_core.fileshandler.filemixin import UploadToProjectDir # create Folders(Project name) with images & files per project in /media/..
+from erp_fiber_ftts.models import ManHole
 
-
-class FTTHProject(Project):
+class FTTHProject(CreateProject):
     initial_kmz = models.FileField(upload_to='FTTH/files/InitialKMZ/%Y/%m/%d/', blank=True, null=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_acknowledged = models.BooleanField(default=False)
@@ -24,6 +25,7 @@ class FTTHProject(Project):
 
 
 class InterceptionPoint(models.Model):
+    #manhole_no = models.ForeignKey(ManHole, on_delete=models.DO_NOTHING, blank=True, null=True)
     interception_point_name = models.CharField(max_length=50)
     latitude = models.FloatField()
     longitude = models.FloatField()
@@ -33,7 +35,7 @@ class InterceptionPoint(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return interception_point_name
+        return self.interception_point_name
 
 
 class ftthSurveyPhotos(models.Model):
@@ -63,7 +65,7 @@ class ftthSurvey(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
-    ftth_interception_point = models.ForeignKey(InterceptionPoint, on_delete=models.DO_NOTHING, blank=True, null=True)
+    ftth_interception_point = models.ForeignKey(InterceptionPoint, on_delete=models.CASCADE, blank=True, null=True)
     site_latitude = models.FloatField()
     site_longitude = models.FloatField()
     distance_from_ip = models.FloatField(blank=True, null=True)
@@ -222,6 +224,7 @@ class FtthSplicing(TimeStampModel):
 
     def __str__(self):
         return str(self.site_name)
+"""END SPLICING"""
 
 class FtthCoreProvision(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
@@ -273,9 +276,9 @@ class FtthAsBuilt(TimeStampModel):
 class FtthSignalTesting(TimeStampModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
-    ftth_splicing_encore = models.OneToOneField(FtthCoreProvision, on_delete=models.DO_NOTHING, blank=True, null=True)
-    ftth_splicing_fat = models.OneToOneField(FtthPowerLevels, on_delete=models.DO_NOTHING, blank=True, null=True)
-    ftth_splicing_fdt = models.OneToOneField(FtthOTDRTraces, on_delete=models.DO_NOTHING, blank=True, null=True)
+    ftth_core_provision = models.OneToOneField(FtthCoreProvision, on_delete=models.DO_NOTHING, blank=True, null=True)
+    ftth_power_levels = models.OneToOneField(FtthPowerLevels, on_delete=models.DO_NOTHING, blank=True, null=True)
+    ftth_otdr_traces = models.OneToOneField(FtthOTDRTraces, on_delete=models.DO_NOTHING, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 

@@ -25,7 +25,36 @@ class FTTSProjectSerializer(serializers.ModelSerializer):
             'is_active', 
         )
 
+###############################FTTH SURVEY###################################
 
+
+class InterceptionPointSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = InterceptionPoint
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class fttsSurveyPhotosSerializer(serializers.ModelSerializer):
+
+    ftts_survey_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = fttsSurveyPhotos
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class fttsSurveySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = fttsSurvey
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+###############################END OF FTTH SURVEY############################
 
 
 class FttsCommercialTeamSerializer(serializers.ModelSerializer):
@@ -70,6 +99,14 @@ class SiteCableInstallationSerializer(serializers.ModelSerializer):
         model = SiteCableInstallation
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class SiteManHoleInstallationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ManHoleInstallation
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
 
 class FttsCivilTeamSerializer(serializers.ModelSerializer):
 
