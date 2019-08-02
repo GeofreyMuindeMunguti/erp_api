@@ -16,6 +16,44 @@ class FTTSProjectAdmin(admin.ModelAdmin):
 
 admin.site.register(FTTSProject, FTTSProjectAdmin)
 
+
+##########################FTTH SURVEY###########################################
+
+
+class InterceptionPointAdmin(admin.ModelAdmin):
+    list_display = ('id', 'interception_point_name', 'latitude', 'longitude', 'county', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('interception_point_name', )
+    search_fields = ('interception_point_name', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(InterceptionPoint, InterceptionPointAdmin)
+
+
+class fttsSurveyPhotosAdmin(admin.ModelAdmin):
+    list_display = ('id', 'site_name', 'survey_image_1', 'survey_image_2', 'survey_image_3', 'survey_images_comment', 'ftth_survey_id', 'posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('site_name', )
+    search_fields = ('site_name', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(fttsSurveyPhotos, fttsSurveyPhotosAdmin)
+
+
+class fttsSurveyAdmin(admin.ModelAdmin):
+    list_display = ('id', 'site_name', 'start_date', 'end_date', 'ftth_interception_point', 'site_latitude', 'site_longitude', 'distance_from_ip', 'high_level_design', 'county', 'posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('site_name', )
+    search_fields = ('site_name', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(fttsSurvey, fttsSurveyAdmin)
+
+
+
+##########################END OF FTTH SURVEY####################################
+
+
 class FttsCommercialTeamAdmin(admin.ModelAdmin):
     list_display = ('id', 'site_name','project_name','ftts_quote', 'ftts_po_requisition','ftts_wayleave_application', 'ftts_project_plan', 'ftts_initial_invoice','ftts_po_client','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
@@ -65,7 +103,7 @@ class SiteCableInstallationAdmin(admin.ModelAdmin):
 
 admin.site.register(SiteCableInstallation, SiteCableInstallationAdmin)
 class ManHoleAdmin(admin.ModelAdmin):
-    list_display = ('id', 'manhole_no','latitude','longitude','created_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'manhole_no','latitude','longitude','location','created_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('manhole_no', )
     search_fields = ('manhole_no', )
     list_editable = ('is_active',)
