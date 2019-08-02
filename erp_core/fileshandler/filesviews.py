@@ -32,7 +32,7 @@ class SiteFilesView(generics.RetrieveAPIView,DefaultsMixin):
     ''' Main View to return all files per project'''
 
     queryset = Site.objects.all()
-    serializer_class = ProjectFilesSerializer
+    serializer_class = SiteFilesSerializer
 
 
 

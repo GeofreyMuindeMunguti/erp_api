@@ -253,7 +253,7 @@ class IssueImageSerializer(serializers.ModelSerializer):
 
 ################### Main Project Serializer################################
 
-class ProjectFilesSerializer(serializers.ModelSerializer):
+class SiteFilesSerializer(serializers.ModelSerializer):
 
     '''
     Main Serializer class : to access all serializers classes above
@@ -310,7 +310,7 @@ class ProjectFilesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Site
        # fields = ('__all__')
-        exclude = ("id","project_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
+        exclude = ("id","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
            "updated_at", "is_active","icon", "location", "created_by")
 
         #fields = ('geotech_file','access_letter','approved_drawing','final_acceptance_cert','setsiteclearingimage',
