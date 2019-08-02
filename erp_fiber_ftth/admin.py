@@ -201,7 +201,7 @@ admin.site.register(FtthAsBuilt, FtthAsBuiltAdmin)
 
 class FtthSignalTestingAdmin(admin.ModelAdmin):
 
-    list_display = ('id', 'site_name','project_name','ftth_splicing_encore','ftth_splicing_fat','ftth_splicing_fdt', 'is_approved','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','project_name','ftth_core_provision','ftth_power_levels','ftth_otdr_traces', 'is_approved','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
