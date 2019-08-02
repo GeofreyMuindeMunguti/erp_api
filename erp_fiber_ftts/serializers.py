@@ -25,7 +25,36 @@ class FTTSProjectSerializer(serializers.ModelSerializer):
             'is_active', 
         )
 
+###############################FTTH SURVEY###################################
 
+
+class InterceptionPointSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = InterceptionPoint
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class ftthSurveyPhotosSerializer(serializers.ModelSerializer):
+
+    ftth_survey_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = ftthSurveyPhotos
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class ftthSurveySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ftthSurvey
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+###############################END OF FTTH SURVEY############################
 
 
 class FttsCommercialTeamSerializer(serializers.ModelSerializer):

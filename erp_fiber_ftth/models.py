@@ -25,7 +25,7 @@ class FTTHProject(CreateProject):
 
 
 class InterceptionPoint(models.Model):
-    manhole_no = models.ForeignKey(ManHole, on_delete=models.DO_NOTHING, blank=True, null=True)
+    #manhole_no = models.ForeignKey(ManHole, on_delete=models.DO_NOTHING, blank=True, null=True)
     interception_point_name = models.CharField(max_length=50)
     latitude = models.FloatField()
     longitude = models.FloatField()
@@ -65,7 +65,7 @@ class ftthSurvey(models.Model):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
-    ftth_interception_point = models.ForeignKey(InterceptionPoint, on_delete=models.DO_NOTHING, blank=True, null=True)
+    ftth_interception_point = models.ForeignKey(InterceptionPoint, on_delete=models.CASCADE, blank=True, null=True)
     site_latitude = models.FloatField()
     site_longitude = models.FloatField()
     distance_from_ip = models.FloatField(blank=True, null=True)
