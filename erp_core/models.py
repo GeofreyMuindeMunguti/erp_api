@@ -1,3 +1,7 @@
+
+
+# Create your models here.
+
 from django.db import models
 from django.db.models import Sum, F
 from django.contrib.auth.models import User

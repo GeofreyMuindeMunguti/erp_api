@@ -5,7 +5,7 @@ from erp_core.base import *
 
 class FTTHProjectAdmin(admin.ModelAdmin):
 
-    list_display = ['project_id','project_name','initial_kmz', 'is_acknowledged','created_at', 'updated_at', 'is_active']
+    list_display = ['id','project_name','initial_kmz','created_by','is_acknowledged','created_at', 'updated_at', 'is_active']
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active','is_acknowledged',)
@@ -13,6 +13,44 @@ class FTTHProjectAdmin(admin.ModelAdmin):
     readonly_fields = ['created_at', 'updated_at', 'is_active']
 
 admin.site.register(FTTHProject, FTTHProjectAdmin)
+
+
+##########################FTTH SURVEY###########################################
+
+
+class InterceptionPointAdmin(admin.ModelAdmin):
+    list_display = ('id', 'interception_point_name', 'latitude', 'longitude', 'county', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('interception_point_name', )
+    search_fields = ('interception_point_name', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(InterceptionPoint, InterceptionPointAdmin)
+
+
+class ftthSurveyPhotosAdmin(admin.ModelAdmin):
+    list_display = ('id', 'site_name', 'survey_image_1', 'survey_image_2', 'survey_image_3', 'survey_images_comment', 'ftth_survey_id', 'posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('site_name', )
+    search_fields = ('site_name', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(ftthSurveyPhotos, ftthSurveyPhotosAdmin)
+
+
+class ftthSurveyAdmin(admin.ModelAdmin):
+    list_display = ('id', 'site_name', 'start_date', 'end_date', 'ftth_interception_point', 'site_latitude', 'site_longitude', 'distance_from_ip', 'high_level_design', 'county', 'posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('site_name', )
+    search_fields = ('site_name', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(ftthSurvey, ftthSurveyAdmin)
+
+
+
+##########################END OF FTTH SURVEY####################################
+
 
 class FtthCommercialTeamAdmin(admin.ModelAdmin):
 
