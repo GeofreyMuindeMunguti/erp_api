@@ -162,6 +162,7 @@ class FtthSplicing(TimeStampModel):
 
     def __str__(self):
         return str(self.site_name)
+"""END SPLICING"""
 
 class FtthCoreProvision(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
@@ -213,9 +214,9 @@ class FtthAsBuilt(TimeStampModel):
 class FtthSignalTesting(TimeStampModel):
     site_name = models.OneToOneField(Site, on_delete=models.DO_NOTHING)
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
-    ftth_splicing_encore = models.OneToOneField(FtthCoreProvision, on_delete=models.DO_NOTHING, blank=True, null=True)
-    ftth_splicing_fat = models.OneToOneField(FtthPowerLevels, on_delete=models.DO_NOTHING, blank=True, null=True)
-    ftth_splicing_fdt = models.OneToOneField(FtthOTDRTraces, on_delete=models.DO_NOTHING, blank=True, null=True)
+    ftth_core_provision = models.OneToOneField(FtthCoreProvision, on_delete=models.DO_NOTHING, blank=True, null=True)
+    ftth_power_levels = models.OneToOneField(FtthPowerLevels, on_delete=models.DO_NOTHING, blank=True, null=True)
+    ftth_otdr_traces = models.OneToOneField(FtthOTDRTraces, on_delete=models.DO_NOTHING, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
