@@ -44,10 +44,10 @@ class DefaultsMixin(object):
     '''
 
 
-class ProjectViewSet(DefaultsMixin, viewsets.ModelViewSet):
+class BtsSiteViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating a project."""
-    queryset = Project.objects.order_by('created_at')
-    serializer_class = ProjectSerializer
+    queryset = BtsSite.objects.order_by('created_at')
+    serializer_class = BtsSiteSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )

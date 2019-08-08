@@ -15,13 +15,13 @@ class ProjectIconsSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class ProjectSerializer(serializers.ModelSerializer):
+class BtsSiteSerializer(serializers.ModelSerializer):
 
     turn_around_time = serializers.IntegerField(read_only=True)
     progress = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = Project
+        model = BtsSite
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
