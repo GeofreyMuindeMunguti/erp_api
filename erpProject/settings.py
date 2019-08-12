@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'erp_construction',
     'erp_core',
     'erp_ftts',
+    'erp_ftth',
     'users',
     'inventory',
     'rest_framework',
