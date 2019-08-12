@@ -18,6 +18,7 @@ from django.urls import path, include
 from django.conf.urls import url
 from erp_construction.urls import router
 from erp_core.urls import router
+from erp_ftts.urls import router
 from users.urls import router
 from inventory.urls import router
 from django.conf import settings
@@ -30,6 +31,7 @@ urlpatterns = [
     path('login/', view=ObtainJWTView.as_view(), name='login'),
     path('erp_construction/', include('erp_construction.urls')),
     path('erp_core/', include('erp_core.urls')),
+    path('erp_ftts/', include('erp_ftts.urls')),
     path('', include('users.urls')),
     path('inventory/', include('inventory.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

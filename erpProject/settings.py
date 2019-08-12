@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'erp_construction',
     'erp_core',
+    'erp_ftts',
     'users',
     'inventory',
     'rest_framework',
