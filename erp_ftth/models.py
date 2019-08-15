@@ -39,7 +39,7 @@ class InterceptionPoint(models.Model):
 
 
 class ftthSurveyPhotos(models.Model):
-    site_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING)
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     survey_image_1 = models.ImageField(upload_to='images/ftth/survey/%Y/%m/%d/')
     survey_image_2 = models.ImageField(upload_to='images/ftth/survey/%Y/%m/%d/', blank=True, null=True)
     survey_image_3 = models.ImageField(upload_to='images/ftth/survey/%Y/%m/%d/', blank=True, null=True)
@@ -62,7 +62,7 @@ class ftthSurveyPhotos(models.Model):
 
 
 class ftthSurvey(models.Model):
-    site_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING)
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
     ftth_interception_point = models.ForeignKey(InterceptionPoint, on_delete=models.CASCADE, blank=True, null=True)
@@ -84,7 +84,6 @@ class ftthSurvey(models.Model):
 
 
 class FtthCommercialTeam(TimeStampModel):
-    site_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING)
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_boq = models.FileField(upload_to='files/ftth/CommercialTeam/boq/%Y/%m/%d/', blank=True, null=True)
     ftth_quote = models.FileField(upload_to='files/ftth/CommercialTeam/quote/%Y/%m/%d/', blank=True, null=True)
@@ -96,7 +95,6 @@ class FtthCommercialTeam(TimeStampModel):
         return str(self.site_name)
 
 class FtthProcurementTeam(TimeStampModel):
-    site_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING)
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_bom = models.FileField(upload_to='files/ftth/CommercialTeam/bom/%Y/%m/%d/', blank=True, null=True)
     ftth_initial_invoice = models.FileField(upload_to='files/ftth/CommercialTeam/initialinvoice/%Y/%m/%d/', blank=True, null=True)
@@ -109,7 +107,6 @@ class FtthProcurementTeam(TimeStampModel):
 ######################################################## FTTH CIVIL TEAM ########################################################################################################################################################################################
 
 class FtthPoleInstallation(TimeStampModel,TimeTrackModel):
-    site_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING)
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_pole_installation_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/poleinstallation/%Y/%m/%d/')
     ftth_pole_installation_image_2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/poleinstallation/%Y/%m/%d/')
@@ -121,7 +118,6 @@ class FtthPoleInstallation(TimeStampModel,TimeTrackModel):
         return str(self.site_name)
 
 class FtthTrenching(TimeStampModel,TimeTrackModel):
-    site_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING)
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_trenching_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/trenching/%Y/%m/%d/')
     ftth_trenching_image_2 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/trenching/%Y/%m/%d/')
@@ -133,7 +129,6 @@ class FtthTrenching(TimeStampModel,TimeTrackModel):
         return str(self.site_name)
 
 class FtthBackfilling(TimeStampModel,TimeTrackModel):
-    site_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING)
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_backfilling_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/backfilling/%Y/%m/%d/')
     ftth_backfilling_image_2 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/backfilling/%Y/%m/%d/')
@@ -145,7 +140,6 @@ class FtthBackfilling(TimeStampModel,TimeTrackModel):
         return str(self.site_name)
 
 class FtthCableInstallation(TimeStampModel,TimeTrackModel):
-    site_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING)
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_cable_installation_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
     ftth_cable_installation_image_2 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
@@ -158,7 +152,6 @@ class FtthCableInstallation(TimeStampModel,TimeTrackModel):
 
 
 class FtthCivilTeam(TimeStampModel):
-    site_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING)
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_pole_installation = models.OneToOneField(FtthPoleInstallation, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftth_trenching = models.OneToOneField(FtthTrenching, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -179,7 +172,6 @@ class FtthCivilTeam(TimeStampModel):
 ######################################################## FTTH INSTALLATION TEAM ########################################################################################################################################################################################
 
 class FtthSplicingEnclosure(TimeStampModel,TimeTrackModel):
-    site_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING)
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_splicing_encore_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingencore/%Y/%m/%d/')
     ftth_splicing_encore_image_2 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingencore/%Y/%m/%d/')
@@ -191,7 +183,6 @@ class FtthSplicingEnclosure(TimeStampModel,TimeTrackModel):
         return str(self.site_name)
 
 class FtthSplicingFAT(TimeStampModel,TimeTrackModel):
-    site_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING)
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_splicing_fat_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingFAT/%Y/%m/%d/')
     ftth_splicing_fat_image_2 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingFAT/%Y/%m/%d/')
@@ -203,7 +194,6 @@ class FtthSplicingFAT(TimeStampModel,TimeTrackModel):
         return str(self.site_name)
 
 class FtthSplicingFDT(TimeStampModel,TimeTrackModel):
-    site_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING)
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_splicing_fdt_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingFDT/%Y/%m/%d/')
     ftth_splicing_fdt_image_2 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingFDT/%Y/%m/%d/')
@@ -215,7 +205,6 @@ class FtthSplicingFDT(TimeStampModel,TimeTrackModel):
         return str(self.site_name)
 
 class FtthSplicing(TimeStampModel):
-    site_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING)
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_splicing_encore = models.OneToOneField(FtthSplicingEnclosure, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftth_splicing_fat = models.OneToOneField(FtthSplicingFAT, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -230,7 +219,6 @@ class FtthSplicing(TimeStampModel):
 """END SPLICING"""
 
 class FtthCoreProvision(TimeStampModel,TimeTrackModel):
-    site_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING)
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_core_provision_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/coreprovision/%Y/%m/%d/')
     ftth_core_provision_image_2 = models.ImageField(upload_to='images/ftth/InstallationTeam/coreprovision/%Y/%m/%d/')
@@ -242,7 +230,6 @@ class FtthCoreProvision(TimeStampModel,TimeTrackModel):
         return str(self.site_name)
 
 class FtthPowerLevels(TimeStampModel,TimeTrackModel):
-    site_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING)
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_power_level_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/powerlevels/%Y/%m/%d/')
     ftth_power_level_image_2 = models.ImageField(upload_to='images/ftth/InstallationTeam/powerlevels/%Y/%m/%d/')
@@ -254,7 +241,6 @@ class FtthPowerLevels(TimeStampModel,TimeTrackModel):
         return str(self.site_name)
 
 class FtthOTDRTraces(TimeStampModel,TimeTrackModel):
-    site_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING)
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
@@ -268,7 +254,6 @@ class FtthOTDRTraces(TimeStampModel,TimeTrackModel):
         return str(self.site_name)
 
 class FtthAsBuilt(TimeStampModel):
-    site_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING)
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_asbuit_received = models.BooleanField(default=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
@@ -277,7 +262,6 @@ class FtthAsBuilt(TimeStampModel):
         return str(self.site_name)
 
 class FtthSignalTesting(TimeStampModel):
-    site_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING)
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_core_provision = models.OneToOneField(FtthCoreProvision, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftth_power_levels = models.OneToOneField(FtthPowerLevels, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -290,7 +274,6 @@ class FtthSignalTesting(TimeStampModel):
         return str(self.site_name)
 
 class FtthInstallationTeam(TimeStampModel):
-    site_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING)
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_splicing = models.OneToOneField(FtthSplicing, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftth_signal_testing = models.OneToOneField(FtthSignalTesting, on_delete=models.DO_NOTHING, blank=True, null=True)
