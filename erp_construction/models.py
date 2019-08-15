@@ -27,7 +27,6 @@ class ProjectIcons(models.Model):
     def __str__(self):
         return self.site_owner
 
-
 class BtsSite(models.Model):
     project_name = models.ManyToManyField(MainSite, blank=True, null=True)
     site_number = models.CharField(max_length=100, unique=True, blank=True, null=True)
@@ -208,6 +207,23 @@ class BtsSite(models.Model):
         project_percentage = ((commercial_percentage + civil_percentage + procurement_percentage + installation_percentage )/4)
 
         return project_percentage
+
+    def bts_site(self):
+        return [v.project_name for v in self.project_name.all()]
+
+class BtsProject(models.Model):
+    bts_project_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
+    bts_site = models.ManyToManyField(BtsSite,related_name="btsprojects", blank = True, null=True)
+    created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+    def __str__(self):
+        return self.bts_project_name
+
+    def bts_projects(self):
+        return [v.bts_project_name for v in self.bts_site.all()]
+
 
 
 #######################################START FOUNDATION IMAGES########################################################################################################################################

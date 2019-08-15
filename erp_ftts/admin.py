@@ -8,7 +8,7 @@ from users.models import *
 
 class FTTSProjectAdmin(admin.ModelAdmin):
 
-    list_display = ['id','project_name','start_date','end_date','created_at', 'updated_at', 'is_active']
+    list_display = ['id','project_name','ftts_final_acceptance_cert','ftts_final_acceptance_cert_comment','start_date','end_date','created_at', 'updated_at', 'is_active']
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)
@@ -152,15 +152,18 @@ class SiteIntegrationAdmin(admin.ModelAdmin):
 
 admin.site.register(SiteIntegration, SiteIntegrationAdmin)
 
-class SiteAsBuiltAdmin(admin.ModelAdmin):
+class FttsIssuesAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'ftts_issue', 'ftts_issue_image', 'ftts_issue_sorted_image', 'closed', 'posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('ftts_issue', )
+    list_filter = ('project_name',)
+    search_fields = ('ftts_issue', )
+    list_editable = ('is_active',)
 
-    list_display = ['id','site_name','project_name','ftts_asbuit_received','posted_by', 'created_at', 'updated_at', 'is_active']
-    readonly_fields = ['created_at', 'updated_at', 'is_active']
 
-admin.site.register(SiteAsBuilt, SiteAsBuiltAdmin)
+admin.site.register(FttsIssues, FttsIssuesAdmin)
 
 class FttsInstallationTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','project_name','ftts_terminal_in_hse', 'ftts_inception','ftts_integration', 'posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','project_name','ftts_terminal_in_hse', 'ftts_inception','ftts_integration','ftts_asbuit_received','snag_document','snag_document_comment','project_issues','conditional_acceptance_cert','conditional_acceptance_cert_comment', 'posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)

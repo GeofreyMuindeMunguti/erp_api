@@ -14,6 +14,12 @@ class ProjectIconsSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+class BtsProjectSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BtsProject
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class BtsSiteSerializer(serializers.ModelSerializer):
 

@@ -18,11 +18,10 @@ from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
 from rest_framework import status, viewsets
 from rest_framework.decorators import parser_classes
 from rest_framework.decorators import detail_route
-from erp_core.fileshandler.filemixin import DefaultsMixin
 
+from erp_core.viewspermissions import *
 
-
-class FTTSProjectViewSet(viewsets.ModelViewSet):
+class FTTSProjectViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """ViewSet for the FTTSProject class"""
 
     queryset = FTTSProject.objects.order_by('created_at')
@@ -144,12 +143,13 @@ class SiteIntegrationViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
 
-class SiteAsBuiltViewSet(DefaultsMixin, viewsets.ModelViewSet):
-    queryset = SiteAsBuilt.objects.order_by('created_at')
-    serializer_class = SiteAsBuiltSerializer
+class FttsIssuesViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating Issues ."""
+    queryset = FttsIssues.objects.order_by('created_at')
+    serializer_class = FttsIssuesSerializer
 
-    search_fields = ('site_name', )
-    ordering_fields = ('updated_at', 'site_name', )
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
 
 class FttsInstallationTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = FttsInstallationTeam.objects.order_by('created_at')
@@ -159,19 +159,19 @@ class FttsInstallationTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     ordering_fields = ('updated_at', 'site_name', )
 
 
-class DailyCivilWorkProductionViewSet(viewsets.ModelViewSet):
+class DailyCivilWorkProductionViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """ViewSet for the DailyCivilWorkProduction class"""
 
     queryset = DailyCivilWorkProduction.objects.all()
     serializer_class = DailyCivilWorkProductionSerializer
 
-class CasualDailyRegisterViewSet(viewsets.ModelViewSet):
+class CasualDailyRegisterViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """ViewSet for the FTTSCasualDailyRegister class"""
 
     queryset = CasualDailyRegister.objects.all()
     serializer_class = CasualDailyRegisterSerializer
 
-class FTTSCasualDailyRegisterViewSet(viewsets.ModelViewSet):
+class FTTSCasualDailyRegisterViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """ViewSet for the FTTSCasualDailyRegister class"""
 
     queryset = FTTSCasualDailyRegister.objects.all()

@@ -148,12 +148,6 @@ class FtthOTDRTracesSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
-class FtthAsBuiltSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = FtthAsBuilt
-        fields = ('__all__')
-        read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class FtthSignalTestingSerializer(serializers.ModelSerializer):
 
