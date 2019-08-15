@@ -11,6 +11,8 @@ from erp_ftts.models import ManHole
 
 class FTTHProject(CreateProject):
     initial_kmz = models.FileField(upload_to='FTTH/files/InitialKMZ/%Y/%m/%d/', blank=True, null=True)
+    ftts_final_acceptance_cert = models.FileField(upload_to='FTTH/files/SafaricomTeamftth/finalcert/%Y/%m/%d/', blank=True, null=True)
+    ftts_final_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_acknowledged = models.BooleanField(default=False)
 
@@ -253,14 +255,6 @@ class FtthOTDRTraces(TimeStampModel,TimeTrackModel):
     def __str__(self):
         return str(self.site_name)
 
-class FtthAsBuilt(TimeStampModel):
-    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
-    ftth_asbuit_received = models.BooleanField(default=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-
-    def __str__(self):
-        return str(self.site_name)
-
 class FtthSignalTesting(TimeStampModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_core_provision = models.OneToOneField(FtthCoreProvision, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -273,14 +267,36 @@ class FtthSignalTesting(TimeStampModel):
     def __str__(self):
         return str(self.site_name)
 
+class FtthIssues(TimeStampModel):
+    site_name = models.ForeignKey(MainSite, on_delete=models.DO_NOTHING)
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING )
+    ftth_issue = models.CharField(max_length=100)
+    ftth_issue_image = models.ImageField(upload_to='images/InstallationTeamFtth/issues/%Y/%m/%d/', blank=True, null=True)
+    ftth_issue_sorted_image = models.ImageField(upload_to='images/InstallationTeamFtth/issues/%Y/%m/%d/', blank=True, null=True)
+    closed = models.BooleanField(default=False)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return self.ftts_issue
+
 class FtthInstallationTeam(TimeStampModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_splicing = models.OneToOneField(FtthSplicing, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftth_signal_testing = models.OneToOneField(FtthSignalTesting, on_delete=models.DO_NOTHING, blank=True, null=True)
-    ftts_installation_team_comment = models.CharField(max_length=100, blank=True, null=True)
+    ftth_installation_team_comment = models.CharField(max_length=100, blank=True, null=True)
+    ftth_asbuit_received = models.BooleanField(default=True)
+    snag_document = models.FileField(upload_to='files/SafaricomTeamftth/snag/%Y/%m/%d/', blank=True, null=True)
+    snag_document_comment = models.CharField(max_length=100, blank=True, null=True)
+    ftth_issues = models.ManyToManyField(FtthIssues, blank=True)
+    conditional_acceptance_cert = models.FileField(upload_to='files/SafaricomTeamftth/conditionalcert/%Y/%m/%d/', blank=True, null=True)
+    conditional_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return str(self.site_name)
+
+    def project_issues(self):
+        return [v.project_name for v in self.ftth_issues.all()]
+
 ######################################################## END ################################################################################################################################################################################################

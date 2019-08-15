@@ -27,8 +27,9 @@ router.register(r'FttsCivilTeam', views.FttsCivilTeamViewSet)
 router.register(r'SiteTerminalInHse', views.SiteTerminalInHseViewSet)
 router.register(r'SiteInterception', views.SiteInterceptionViewSet)
 router.register(r'SiteIntegration', views.SiteIntegrationViewSet)
-router.register(r'SiteAsBuilt', views.SiteAsBuiltViewSet)
+router.register(r'FttsIssues', views.FttsIssuesViewSet)
 router.register(r'FttsInstallationTeam', views.FttsInstallationTeamViewSet)
+
 router.register(r'dailycivilworkproduction', views.DailyCivilWorkProductionViewSet)
 router.register(r'casualdailyregister', views.CasualDailyRegisterViewSet)
 router.register(r'fttscasualdailyregister', views.FTTSCasualDailyRegisterViewSet)
@@ -39,5 +40,4 @@ router.register(r'fttscasualdailyregister', views.FTTSCasualDailyRegisterViewSet
 
 urlpatterns = [
     path('', include(router.urls)),
-
 ]

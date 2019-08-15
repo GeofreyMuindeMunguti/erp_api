@@ -453,59 +453,18 @@ class SiteIntegration(TimeStampModel,TimeTrackModel):
 
         except Exception as e:
             return e
-#
-# class SiteAsBuilt(TimeStampModel,TimeTrackModel):
-#     site_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING,blank=True, null=True)
-#     project_name = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING )
-#     ftts_asbuit_received = models.BooleanField(default=True)
-#     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)
-#     is_active = models.BooleanField(default=True)
-#
-#     def __str__(self):
-#         return str(self.site_name)
-#
-#
-#     def raise_flag(self):
-#         try:
-#             kpi_data = Task.objects.get(subtask_name='Check AsBuilt received')
-#             kpi = kpi_data.kpi
-#             projected_end_date = self.start_date + timedelta(days=kpi)
-#             flag = ""
-#
-#             if bool(self.end_date) is False:
-#                 today = datetime.now(timezone.utc)
-#
-#                 if today < projected_end_date:
-#                     flag = "OnTrack"
-#                     return flag
-#                 else:
-#                     flag = "OffTrack"
-#                     return flag
-#
-#             else:
-#                 if self.end_date < projected_end_date:
-#                     flag = "OnTrack"
-#                     return flag
-#                 else:
-#                     flag = "OffTrack"
-#                     return flag
-#
-#         except Exception as e:
-#             return e
 
 class FttsIssues(TimeStampModel):
     site_name = models.ForeignKey(MainSite, on_delete=models.DO_NOTHING)
     project_name = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING )
-    issue = models.CharField(max_length=100)
-    issue_image = models.ImageField(upload_to='images/InstallationTeamFtts/issues/%Y/%m/%d/', blank=True, null=True)
-    issue_sorted_image = models.ImageField(upload_to='images/InstallationTeamFtts/issues/%Y/%m/%d/', blank=True, null=True)
+    ftts_issue = models.CharField(max_length=100)
+    ftts_issue_image = models.ImageField(upload_to='images/InstallationTeamFtts/issues/%Y/%m/%d/', blank=True, null=True)
+    ftts_issue_sorted_image = models.ImageField(upload_to='images/InstallationTeamFtts/issues/%Y/%m/%d/', blank=True, null=True)
     closed = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return self.issue
+        return self.ftts_issue
 
 class FttsInstallationTeam(TimeStampModel):
     site_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING,blank=True, null=True)
@@ -517,7 +476,7 @@ class FttsInstallationTeam(TimeStampModel):
     ftts_asbuit_received = models.BooleanField(default=True)
     snag_document = models.FileField(upload_to='files/SafaricomTeamftts/snag/%Y/%m/%d/', blank=True, null=True)
     snag_document_comment = models.CharField(max_length=100, blank=True, null=True)
-    issues = models.ManyToManyField(FttsIssues, blank=True)
+    ftts_issues = models.ManyToManyField(FttsIssues, blank=True)
     conditional_acceptance_cert = models.FileField(upload_to='files/SafaricomTeamftts/conditionalcert/%Y/%m/%d/', blank=True, null=True)
     conditional_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
@@ -525,6 +484,9 @@ class FttsInstallationTeam(TimeStampModel):
 
     def __str__(self):
         return str(self.site_name)
+
+    def project_issues(self):
+        return [v.project_name for v in self.ftts_issues.all()]
 
 ######################################################## END ################################################################################################################################################################################################
 

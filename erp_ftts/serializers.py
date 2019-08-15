@@ -128,10 +128,10 @@ class SiteIntegrationSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
-class SiteAsBuiltSerializer(serializers.ModelSerializer):
+class FttsIssuesSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = SiteAsBuilt
+        model = FttsIssues
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 

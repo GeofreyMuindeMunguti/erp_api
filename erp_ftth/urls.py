@@ -27,7 +27,6 @@ router.register(r'FtthSplicingFDT', views.FtthSplicingFDTViewSet)
 router.register(r'FtthSplicing', views.FtthSplicingViewSet)
 router.register(r'FtthPowerLevels', views.FtthPowerLevelsViewSet)
 router.register(r'FtthOTDRTraces', views.FtthOTDRTracesViewSet)
-router.register(r'FtthAsBuilt', views.FtthAsBuiltViewSet)
 router.register(r'FtthSignalTesting', views.FtthSignalTestingViewSet)
 router.register(r'FtthInstallationTeam', views.FtthInstallationTeamViewSet)
 

@@ -12,6 +12,7 @@ from .fileshandler import filesviews
 
 router = DefaultRouter()
 
+router.register(r'btsproject', views.BtsProjectViewSet)
 router.register(r'btssite', views.BtsSiteViewSet)
 router.register(r'category', views.CategoryViewSet)
 router.register(r'Icons', views.ProjectIconViewSet)

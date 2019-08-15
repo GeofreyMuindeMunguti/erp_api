@@ -155,12 +155,6 @@ class FtthOTDRTracesViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
 
-class FtthAsBuiltViewSet(DefaultsMixin, viewsets.ModelViewSet):
-    queryset = FtthAsBuilt.objects.order_by('created_at')
-    serializer_class = FtthAsBuiltSerializer
-
-    search_fields = ('site_name', )
-    ordering_fields = ('updated_at', 'site_name', )
 
 class FtthSignalTestingViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = FtthSignalTesting.objects.order_by('created_at')
