@@ -203,13 +203,13 @@ class SiteTrenching(TimeStampModel,TimeTrackModel):
         except Exception as e:
             return e
 
-class SiteBackfilling(TimeStampModel,TimeTrackModel):
+class SiteDuctInstallation(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING,blank=True, null=True)
     project_name = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING)
-    site_backfilling_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/backfilling/%Y/%m/%d/')
-    site_backfilling_image_2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/backfilling/%Y/%m/%d/')
-    site_backfilling_image_3 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/backfilling/%Y/%m/%d/')
-    site_backfilling_comment = models.CharField(max_length=100, blank=True, null=True)
+    site_duct_installation_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/duct/%Y/%m/%d/')
+    site_duct_installation_image_2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/duct/%Y/%m/%d/')
+    site_duct_installation_image_3 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/duct/%Y/%m/%d/')
+    site_duct_installation_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
@@ -218,7 +218,7 @@ class SiteBackfilling(TimeStampModel,TimeTrackModel):
 
     def raise_flag(self):
         try:
-            kpi_data = Task.objects.get(task_name='Upload Site Backfilling Images')
+            kpi_data = Task.objects.get(task_name='Upload Site Duct Installation Images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -312,9 +312,8 @@ class SiteCableInstallation(TimeStampModel,TimeTrackModel):
 class FttsCivilTeam(TimeStampModel):
     site_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING,blank=True, null=True)
     project_name = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING )
-    ftts_pole_installation = models.OneToOneField(SitePoleInstallation, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftts_trenching = models.OneToOneField(SiteTrenching, on_delete=models.DO_NOTHING, blank=True, null=True)
-    ftts_backfiling = models.OneToOneField(SiteBackfilling, on_delete=models.DO_NOTHING, blank=True, null=True)
+    ftts_duct_installation = models.OneToOneField(SiteDuctInstallation, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftts_cable_installation = models.OneToOneField(SiteCableInstallation, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftts_manhole_installation = models.OneToOneField(ManHoleInstallation, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftts_civil_team_comment = models.CharField(max_length=100, blank=True, null=True)

@@ -72,12 +72,6 @@ class FttsProcurementTeamAdmin(admin.ModelAdmin):
 admin.site.register(FttsProcurementTeam, FttsProcurementTeamAdmin)
 
 ######################################################## FIBER CIVIL TEAM ########################################################################################################################################################################################
-class SitePoleInstallationAdmin(admin.ModelAdmin):
-
-    list_display = ['id','site_name','project_name','start_date','end_date','site_pole_installation_image_1','site_pole_installation_image_2','site_pole_installation_image_3','site_pole_installation_comment','posted_by', 'created_at', 'updated_at', 'is_active']
-    readonly_fields = ['created_at', 'updated_at', 'is_active']
-
-admin.site.register(SitePoleInstallation, SitePoleInstallationAdmin)
 
 class SiteTrenchingAdmin(admin.ModelAdmin):
     list_display = ('id', 'site_name','project_name','start_date','end_date','site_trenching_image_1', 'site_trenching_image_2','site_trenching_image_3', 'site_trenching_comment','posted_by', 'created_at', 'updated_at', 'is_active')
@@ -88,13 +82,13 @@ class SiteTrenchingAdmin(admin.ModelAdmin):
 admin.site.register(SiteTrenching, SiteTrenchingAdmin)
 
 
-class SiteBackfillingAdmin(admin.ModelAdmin):
-    list_display = ('id','site_name','project_name','start_date','end_date','site_backfilling_image_1','site_backfilling_image_2', 'site_backfilling_image_3', 'site_backfilling_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+class SiteDuctInstallationAdmin(admin.ModelAdmin):
+    list_display = ('id','site_name','project_name','start_date','end_date','site_duct_installation_image_1','site_duct_installation_image_2', 'site_duct_installation_image_3', 'site_duct_installation_comment','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
 
-admin.site.register(SiteBackfilling, SiteBackfillingAdmin)
+admin.site.register(SiteDuctInstallation, SiteDuctInstallationAdmin)
 
 class SiteCableInstallationAdmin(admin.ModelAdmin):
 
@@ -102,6 +96,7 @@ class SiteCableInstallationAdmin(admin.ModelAdmin):
     readonly_fields = ['created_at', 'updated_at', 'is_active']
 
 admin.site.register(SiteCableInstallation, SiteCableInstallationAdmin)
+
 class ManHoleAdmin(admin.ModelAdmin):
     list_display = ('id', 'manhole_no','latitude','longitude','location','created_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('manhole_no', )
@@ -119,7 +114,7 @@ class ManHoleInstallationAdmin(admin.ModelAdmin):
 admin.site.register(ManHoleInstallation, ManHoleInstallationAdmin)
 
 class FttsCivilTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','project_name','ftts_pole_installation', 'ftts_trenching','ftts_backfiling', 'ftts_cable_installation','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','project_name','ftts_trenching','ftts_duct_installation', 'ftts_cable_installation','ftts_manhole_installation','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)

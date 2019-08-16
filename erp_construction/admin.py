@@ -13,12 +13,12 @@ class ProjectIconsAdmin(admin.ModelAdmin):
 admin.site.register(ProjectIcons, ProjectIconsAdmin)
 
 class BtsSiteAdmin(admin.ModelAdmin):
-    list_display = ('id', 'icon','bts_site', 'site_number', 'BTS_type', 'site_owner', 'geotech_file', 'access_letter', 'approved_drawing','final_acceptance_cert', 'final_acceptance_cert_comment',
+    list_display = ('id', 'icon','site_number', 'BTS_type', 'site_owner', 'geotech_file', 'access_letter', 'approved_drawing','final_acceptance_cert', 'final_acceptance_cert_comment',
                     'location', 'created_by', 'status', 'turn_around_time', 'created_at', 'updated_at', 'is_active')
-    list_display_links = ('bts_site', )
-    search_fields = ('bts_site', )
-    list_editable = ('is_active',)
-    readonly_fields = ('bts_site',)
+    # list_display_links = ('bts_site', )
+    # search_fields = ('bts_site', )
+    # list_editable = ('is_active',)
+    # readonly_fields = ('bts_site',)
 
 
 admin.site.register(BtsSite, BtsSiteAdmin)

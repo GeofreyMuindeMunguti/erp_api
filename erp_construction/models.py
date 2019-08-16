@@ -47,6 +47,9 @@ class BtsSite(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+    # def bts_site(self):
+    #     return [v.project_name for v in self.project_name.all()]
+
     # def delete(self, *args, **kwargs):
     #     if self.is_active is False:
     #         return "Item already deleted"
@@ -208,8 +211,6 @@ class BtsSite(models.Model):
 
         return project_percentage
 
-    def bts_site(self):
-        return [v.project_name for v in self.project_name.all()]
 
 class BtsProject(models.Model):
     bts_project_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
