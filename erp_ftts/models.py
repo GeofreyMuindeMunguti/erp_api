@@ -12,8 +12,10 @@ from erp_core.fileshandler.filemixin import UploadToProjectDir  # create Folders
 # Create your models here.
 class FTTSProject(CreateProject,TimeTrackModel):
     site_name = models.ManyToManyField(MainSite,related_name="fttsprojects",blank = True)
-    ftts_final_acceptance_cert = models.FileField(upload_to='files/SafaricomTeamftts/finalcert/%Y/%m/%d/', blank=True, null=True)
+    ftts_final_acceptance_cert = models.FileField(upload_to='FTTS/files/SafaricomTeamftts/finalcert/%Y/%m/%d/', blank=True, null=True)
     ftts_final_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
+    ftts_accumulated_BOM_survey = models.FileField(upload_to='FTTS/files/accumulatedBOM/%Y/%m/%d/', blank=True, null=True)
+    ftts_accumulated_BOM_survey_comment = models.CharField(max_length=100, blank=True, null=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, blank=True, null=True)
     class Meta:
         ordering = ('-created_at',)
@@ -31,30 +33,25 @@ class FTTSProject(CreateProject,TimeTrackModel):
 ##########################################SURVEY DETAILS################################################################################################################################################################33
 
 
-class InterceptionPoint(models.Model):
+class InterceptionPoint(TimeStampModel):
    # manhole_no = models.ForeignKey('ManHole', on_delete=models.DO_NOTHING, blank=True, null=True)
     interception_point_name = models.CharField(max_length=50)
     latitude = models.FloatField()
     longitude = models.FloatField()
     county = models.ForeignKey(Location,related_name = 'interceptionpointftts', on_delete=models.DO_NOTHING, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.interception_point_name
 
 
-class fttsSurveyPhotos(models.Model):
+class fttsSurveyPhotos(TimeStampModel):
     site_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING)
-    survey_image_1 = models.ImageField(upload_to='images/ftth/survey/%Y/%m/%d/')
-    survey_image_2 = models.ImageField(upload_to='images/ftth/survey/%Y/%m/%d/', blank=True, null=True)
-    survey_image_3 = models.ImageField(upload_to='images/ftth/survey/%Y/%m/%d/', blank=True, null=True)
+    survey_image_1 = models.ImageField(upload_to='images/ftts/survey/%Y/%m/%d/')
+    survey_image_2 = models.ImageField(upload_to='images/ftts/survey/%Y/%m/%d/', blank=True, null=True)
+    survey_image_3 = models.ImageField(upload_to='images/ftts/survey/%Y/%m/%d/', blank=True, null=True)
     survey_images_comment = models.CharField(max_length=200)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.site_name)
@@ -68,21 +65,16 @@ class fttsSurveyPhotos(models.Model):
             return
 
 
-class fttsSurvey(models.Model):
+class fttsSurvey(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
-    ftth_interception_point = models.ForeignKey(InterceptionPoint, on_delete=models.DO_NOTHING, blank=True, null=True)
+    ftts_interception_point = models.ForeignKey(InterceptionPoint, on_delete=models.DO_NOTHING, blank=True, null=True)
     site_latitude = models.FloatField()
     site_longitude = models.FloatField()
     distance_from_ip = models.FloatField(blank=True, null=True)
     survey_photos = models.ManyToManyField(fttsSurveyPhotos)
-    high_level_design = models.FileField(upload_to='files/ftth/survey/highleveldesigns/%Y/%m/%d/', blank=True, null=True)
+    high_level_design = models.FileField(upload_to='files/ftts/survey/highleveldesigns/%Y/%m/%d/', blank=True, null=True)
     county = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.site_name)
@@ -486,6 +478,17 @@ class FttsInstallationTeam(TimeStampModel):
 
     def project_issues(self):
         return [v.project_name for v in self.ftts_issues.all()]
+
+class FttsTeam(TimeStampModel):
+    site_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING,blank=True, null=True)
+    project_name = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING )
+    ftts_survey = models.OneToOneField(fttsSurvey, on_delete=models.DO_NOTHING, blank=True, null=True)
+    ftts_civil_team = models.OneToOneField(FttsCivilTeam, on_delete=models.DO_NOTHING, blank=True, null=True)
+    ftts_installation_team = models.OneToOneField(FttsInstallationTeam, on_delete=models.DO_NOTHING, blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return str(self.site_name)
 
 ######################################################## END ################################################################################################################################################################################################
 

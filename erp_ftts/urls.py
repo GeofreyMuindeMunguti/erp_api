@@ -28,6 +28,7 @@ router.register(r'SiteInterception', views.SiteInterceptionViewSet)
 router.register(r'SiteIntegration', views.SiteIntegrationViewSet)
 router.register(r'FttsIssues', views.FttsIssuesViewSet)
 router.register(r'FttsInstallationTeam', views.FttsInstallationTeamViewSet)
+router.register(r'FttsTeam', views.FttsTeamViewSet)
 
 router.register(r'dailycivilworkproduction', views.DailyCivilWorkProductionViewSet)
 router.register(r'casualdailyregister', views.CasualDailyRegisterViewSet)

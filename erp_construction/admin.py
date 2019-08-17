@@ -13,18 +13,17 @@ class ProjectIconsAdmin(admin.ModelAdmin):
 admin.site.register(ProjectIcons, ProjectIconsAdmin)
 
 class BtsSiteAdmin(admin.ModelAdmin):
-    list_display = ('id', 'icon','site_number', 'BTS_type', 'site_owner', 'geotech_file', 'access_letter', 'approved_drawing','final_acceptance_cert', 'final_acceptance_cert_comment',
+    list_display = ('id','site_name','project_name','site_number','BTS_type', 'site_owner', 'geotech_file', 'access_letter', 'approved_drawing','final_acceptance_cert', 'final_acceptance_cert_comment',
                     'location', 'created_by', 'status', 'turn_around_time', 'created_at', 'updated_at', 'is_active')
-    # list_display_links = ('bts_site', )
-    # search_fields = ('bts_site', )
-    # list_editable = ('is_active',)
-    # readonly_fields = ('bts_site',)
+    list_display_links = ('site_name', )
+    search_fields = ('site_name', )
+    list_editable = ('is_active',)
 
 
 admin.site.register(BtsSite, BtsSiteAdmin)
 
 class BtsProjectAdmin(admin.ModelAdmin):
-    list_display = ('id', 'bts_project_name', 'bts_projects', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'bts_project_name', 'icon', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('bts_project_name', )
     search_fields = ('bts_project_name', )
     list_editable = ('is_active',)

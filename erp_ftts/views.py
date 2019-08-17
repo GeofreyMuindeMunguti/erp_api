@@ -151,6 +151,13 @@ class FttsInstallationTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
 
+class FttsTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating Issues ."""
+    queryset = FttsTeam.objects.order_by('created_at')
+    serializer_class = FttsTeamSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
 
 class DailyCivilWorkProductionViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """ViewSet for the DailyCivilWorkProduction class"""

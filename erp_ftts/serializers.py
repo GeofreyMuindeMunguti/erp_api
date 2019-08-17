@@ -135,6 +135,13 @@ class FttsInstallationTeamSerializer(serializers.ModelSerializer):
         model = FttsInstallationTeam
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class FttsTeamSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FttsTeam
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
 ################################################ END ##############################################################################################################################################################################################################################################################
 
 class DailyCivilWorkProductionSerializer(serializers.ModelSerializer):

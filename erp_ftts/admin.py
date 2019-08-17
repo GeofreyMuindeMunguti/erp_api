@@ -8,7 +8,7 @@ from users.models import *
 
 class FTTSProjectAdmin(admin.ModelAdmin):
 
-    list_display = ['id','project_name','ftts_final_acceptance_cert','ftts_final_acceptance_cert_comment','start_date','end_date','created_at', 'updated_at', 'is_active']
+    list_display = ['id','project_name','ftts_final_acceptance_cert','ftts_final_acceptance_cert_comment','ftts_accumulated_BOM_survey','ftts_accumulated_BOM_survey_comment','start_date','end_date','created_at', 'updated_at', 'is_active']
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)
@@ -41,7 +41,7 @@ admin.site.register(fttsSurveyPhotos, fttsSurveyPhotosAdmin)
 
 
 class fttsSurveyAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name', 'start_date', 'end_date', 'ftth_interception_point', 'site_latitude', 'site_longitude', 'distance_from_ip', 'high_level_design', 'county', 'posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name', 'start_date', 'end_date', 'ftts_interception_point', 'site_latitude', 'site_longitude', 'distance_from_ip', 'high_level_design', 'county', 'posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
@@ -164,7 +164,15 @@ class FttsInstallationTeamAdmin(admin.ModelAdmin):
     list_editable = ('is_active',)
 
 admin.site.register(FttsInstallationTeam, FttsInstallationTeamAdmin)
-# ######################################################## END ####################################################################################################################################################################################################
+
+class FttsTeamAdmin(admin.ModelAdmin):
+    list_display = ('id', 'site_name','project_name','ftts_survey', 'ftts_civil_team','ftts_installation_team', 'posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('site_name', )
+    search_fields = ('site_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(FttsTeam, FttsTeamAdmin)
+######################################################### END ####################################################################################################################################################################################################
 
 
 class DailyCivilWorkProductionAdmin(admin.ModelAdmin):

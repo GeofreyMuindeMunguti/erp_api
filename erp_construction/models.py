@@ -27,12 +27,25 @@ class ProjectIcons(models.Model):
     def __str__(self):
         return self.site_owner
 
+
+class BtsProject(models.Model):
+    bts_project_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
+    icon = models.ForeignKey(ProjectIcons, on_delete=models.DO_NOTHING, blank=True, null=True)
+    created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.bts_project_name
+
+
 class BtsSite(models.Model):
-    project_name = models.ManyToManyField(MainSite, blank=True, null=True)
+    site_name = models.ForeignKey(MainSite, on_delete=models.DO_NOTHING, blank=True, null=True)
+    project_name = models.ForeignKey(BtsProject, on_delete=models.DO_NOTHING, blank=True, null=True)
     site_number = models.CharField(max_length=100, unique=True, blank=True, null=True)
     BTS_type = models.CharField(max_length=100, blank=True, null=True)
     site_owner = models.CharField(max_length=100, blank=True, null=True)
-    icon = models.ForeignKey(ProjectIcons, on_delete=models.DO_NOTHING, blank=True, null=True)
     location = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
     geotech_file = models.FileField(upload_to='files/Project/geotech/%Y/%m/%d/', blank=True, null=True)
     access_letter = models.FileField(upload_to='files/Project/accessletters/%Y/%m/%d/', blank=True, null=True)
@@ -45,10 +58,10 @@ class BtsSite(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.site_name)
 
-    # def bts_site(self):
-    #     return [v.project_name for v in self.project_name.all()]
+    class Meta:
+        unique_together = (['site_name', 'project_name',])
 
     # def delete(self, *args, **kwargs):
     #     if self.is_active is False:
@@ -210,20 +223,6 @@ class BtsSite(models.Model):
         project_percentage = ((commercial_percentage + civil_percentage + procurement_percentage + installation_percentage )/4)
 
         return project_percentage
-
-
-class BtsProject(models.Model):
-    bts_project_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
-    bts_site = models.ManyToManyField(BtsSite,related_name="btsprojects", blank = True, null=True)
-    created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
-    def __str__(self):
-        return self.bts_project_name
-
-    def bts_projects(self):
-        return [v.bts_project_name for v in self.bts_site.all()]
 
 
 

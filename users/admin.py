@@ -41,7 +41,7 @@ admin.site.register(Casual, CasualAdmin)
 
 
 class EngineerAdmin(admin.ModelAdmin):
-    list_display = ('id','user_id','engineer_phone_no','department','location_name', 'country_code', 'eng_profile_pic')
+    list_display = ('id','user_id','user','engineer_phone_no','department','location_name', 'country_code', 'eng_profile_pic')
     list_display_links = ('id', )
     search_fields = ('id', )
 
