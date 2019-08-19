@@ -10,7 +10,7 @@ class FttsSiteInline(admin.TabularInline):
 
 class FTTSProjectAdmin(admin.ModelAdmin):
 
-    list_display = ['id','project_name','ftts_final_acceptance_cert','ftts_final_acceptance_cert_comment','ftts_accumulated_BOM_survey','ftts_accumulated_BOM_survey_comment','start_date','end_date','created_at', 'updated_at', 'is_active']
+    list_display = ['id','project_name','ftts_final_acceptance_cert','ftts_final_acceptance_cert_comment','ftts_accumulated_BOM_survey','ftts_accumulated_BOM_survey_comment','ftts_sites_count','start_date','end_date','created_at', 'updated_at', 'is_active']
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)
@@ -106,14 +106,14 @@ class SiteCableInstallationAdmin(admin.ModelAdmin):
     readonly_fields = ['created_at', 'updated_at', 'is_active']
 
 admin.site.register(SiteCableInstallation, SiteCableInstallationAdmin)
-
-class ManHoleAdmin(admin.ModelAdmin):
-    list_display = ('id', 'manhole_no','latitude','longitude','location','created_by', 'created_at', 'updated_at', 'is_active')
-    list_display_links = ('manhole_no', )
-    search_fields = ('manhole_no', )
-    list_editable = ('is_active',)
-
-admin.site.register(ManHole, ManHoleAdmin)
+#
+# class ManHoleAdmin(admin.ModelAdmin):
+#     list_display = ('id', 'manhole_no','latitude','longitude','location','created_by', 'created_at', 'updated_at', 'is_active')
+#     list_display_links = ('manhole_no', )
+#     search_fields = ('manhole_no', )
+#     list_editable = ('is_active',)
+#
+# admin.site.register(ManHole, ManHoleAdmin)
 
 class ManHoleInstallationAdmin(admin.ModelAdmin):
     list_display = ('id', 'site_name','start_date','end_date','manhole_image_1','manhole_image_2','manhole_image_3','posted_by', 'created_at', 'updated_at', 'is_active')

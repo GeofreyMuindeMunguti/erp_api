@@ -18,14 +18,14 @@ admin.site.register(FTTHProject, FTTHProjectAdmin)
 ##########################FTTH SURVEY###########################################
 
 
-class InterceptionPointAdmin(admin.ModelAdmin):
+class FtthInterceptionPointAdmin(admin.ModelAdmin):
     list_display = ('id', 'interception_point_name', 'latitude', 'longitude', 'county', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('interception_point_name', )
     search_fields = ('interception_point_name', )
     list_editable = ('is_active',)
 
 
-admin.site.register(InterceptionPoint, InterceptionPointAdmin)
+admin.site.register(FtthInterceptionPoint, FtthInterceptionPointAdmin)
 
 
 class ftthSurveyPhotosAdmin(admin.ModelAdmin):

@@ -11,17 +11,17 @@ from datetime import datetime, timezone, timedelta
 
 # Create your models here.
 
-
-class MainSite(TimeStampModel):
-    site_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
-    location = models.ForeignKey(Location,on_delete=models.CASCADE, related_name="mainsites", blank=True, null=True )
-
-    class Meta:
-        ordering = ('-pk',)
-
-
-    def __str__(self):
-        return str(self.site_name)
+# 
+# class MainSite(TimeStampModel):
+#     site_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
+#     location = models.ForeignKey(Location,on_delete=models.CASCADE, related_name="mainsites", blank=True, null=True )
+#
+#     class Meta:
+#         ordering = ('-pk',)
+#
+#
+#     def __str__(self):
+#         return str(self.site_name)
 
 
 ####################################### KPI ###############################################################################################################################

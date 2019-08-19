@@ -20,11 +20,11 @@ from rest_framework.decorators import detail_route
 from erp_core.viewspermissions import *
 
 
-class MainSiteViewSet(DefaultsMixin,viewsets.ModelViewSet):
-    """ViewSet for the MainSite class"""
-
-    queryset = MainSite.objects.order_by('created_at')
-    serializer_class = MainSiteSerializer
-
-    search_fields = ('site_name', )
-    ordering_fields = ('updated_at', 'site_name', )
+# class MainSiteViewSet(DefaultsMixin,viewsets.ModelViewSet):
+#     """ViewSet for the MainSite class"""
+#
+#     queryset = MainSite.objects.order_by('created_at')
+#     serializer_class = MainSiteSerializer
+#
+#     search_fields = ('site_name', )
+#     ordering_fields = ('updated_at', 'site_name', )

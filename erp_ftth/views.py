@@ -31,9 +31,9 @@ class FTTHProjectViewSet(DefaultsMixin,viewsets.ModelViewSet):
 #################################FTTH VIEWSETS#################################
 
 
-class InterceptionPointViewSet(DefaultsMixin, viewsets.ModelViewSet):
-    queryset = InterceptionPoint.objects.order_by('created_at')
-    serializer_class = InterceptionPointSerializer
+class FtthInterceptionPointViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = FtthInterceptionPoint.objects.order_by('created_at')
+    serializer_class = FtthInterceptionPointSerializer
 
     search_fields = ('interception_point_name', )
     ordering_fields = ('created_at', 'interception_point_name', )

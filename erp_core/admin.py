@@ -5,14 +5,14 @@ from erp_core.models import *
 
 
 
-class MainSiteAdmin(admin.ModelAdmin):
-    list_display = ['site_name','location',]
-    list_display_links = ('site_name', )
-    search_fields = ('site_name', )
-   # list_editable = ('is_active',)
+# class MainSiteAdmin(admin.ModelAdmin):
+#     list_display = ['site_name','location',]
+#     list_display_links = ('site_name', )
+#     search_fields = ('site_name', )
+#    # list_editable = ('is_active',)
 
 
-admin.site.register(MainSite, MainSiteAdmin)
+# admin.site.register(MainSite, MainSiteAdmin)
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'category_name', 'created_by', 'created_at', 'updated_at', 'is_active')

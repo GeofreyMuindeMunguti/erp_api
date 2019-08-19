@@ -10,8 +10,8 @@ from erp_core.fileshandler.filemixin import UploadToProjectDir # create Folders(
 from erp_ftts.models import ManHole
 
 class FTTHProject(CreateProject):
-    initial_kmz = models.FileField(upload_to='FTTH/files/InitialKMZ/%Y/%m/%d/', blank=True, null=True)
-    ftts_final_acceptance_cert = models.FileField(upload_to='FTTH/files/SafaricomTeamftth/finalcert/%Y/%m/%d/', blank=True, null=True)
+    initial_kmz = models.FileField(upload_to='files/ftth/InitialKMZ/%Y/%m/%d/', blank=True, null=True)
+    ftts_final_acceptance_cert = models.FileField(upload_to='files/ftth/SafaricomTeamftth/finalcert/%Y/%m/%d/', blank=True, null=True)
     ftts_final_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_acknowledged = models.BooleanField(default=False)
@@ -26,30 +26,24 @@ class FTTHProject(CreateProject):
 ##########################################SURVEY DETAILS################################################################################################################################################################33
 
 
-class InterceptionPoint(models.Model):
-    #manhole_no = models.ForeignKey(ManHole, on_delete=models.DO_NOTHING, blank=True, null=True)
+class FtthInterceptionPoint(TimeStampModel):
     interception_point_name = models.CharField(max_length=50)
     latitude = models.FloatField()
     longitude = models.FloatField()
     county = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return self.interception_point_name
+        return str(self.interception_point_name)
 
 
-class ftthSurveyPhotos(models.Model):
+class ftthSurveyPhotos(TimeStampModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     survey_image_1 = models.ImageField(upload_to='images/ftth/survey/%Y/%m/%d/')
     survey_image_2 = models.ImageField(upload_to='images/ftth/survey/%Y/%m/%d/', blank=True, null=True)
     survey_image_3 = models.ImageField(upload_to='images/ftth/survey/%Y/%m/%d/', blank=True, null=True)
     survey_images_comment = models.CharField(max_length=200)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.site_name)
@@ -63,21 +57,17 @@ class ftthSurveyPhotos(models.Model):
             return
 
 
-class ftthSurvey(models.Model):
+class ftthSurvey(TimeStampModel,TimeTrackModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
-    ftth_interception_point = models.ForeignKey(InterceptionPoint, on_delete=models.CASCADE, blank=True, null=True)
+    ftth_interception_point = models.ForeignKey(FtthInterceptionPoint, on_delete=models.CASCADE, blank=True, null=True)
     site_latitude = models.FloatField()
     site_longitude = models.FloatField()
     distance_from_ip = models.FloatField(blank=True, null=True)
     survey_photos = models.ManyToManyField(ftthSurveyPhotos)
     high_level_design = models.FileField(upload_to='files/ftth/survey/highleveldesigns/%Y/%m/%d/', blank=True, null=True)
     county = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
+    ftth_survey_comment = models.CharField(max_length=200)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -268,7 +258,6 @@ class FtthSignalTesting(TimeStampModel):
         return str(self.site_name)
 
 class FtthIssues(TimeStampModel):
-    site_name = models.ForeignKey(MainSite, on_delete=models.DO_NOTHING)
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING )
     ftth_issue = models.CharField(max_length=100)
     ftth_issue_image = models.ImageField(upload_to='images/InstallationTeamFtth/issues/%Y/%m/%d/', blank=True, null=True)
