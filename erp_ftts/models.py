@@ -41,7 +41,7 @@ class FttsSite(TimeStampModel):
 
     def __str__(self):
         return '{}:{}'.format(self.site_name,self.ftts_project)
-    
+
 
     class Meta:
         unique_together = (['site_name', 'ftts_project',])
@@ -172,6 +172,8 @@ class SitePoleInstallation(TimeStampModel,TimeTrackModel):
 
 class SiteTrenching(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(FttsSite, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    casuals_list = models.FileField(upload_to='files/ftts/Casuals/poleinstallation/%Y/%m/%d/',blank=True, null=True)
     site_trenching_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/trenching/%Y/%m/%d/') #NOT blank
     site_trenching_image_2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/trenching/%Y/%m/%d/')
     site_trenching_image_3 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/trenching/%Y/%m/%d/')
@@ -211,6 +213,8 @@ class SiteTrenching(TimeStampModel,TimeTrackModel):
 
 class SiteDuctInstallation(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(FttsSite, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    casuals_list = models.FileField(upload_to='files/ftts/Casuals/poleinstallation/%Y/%m/%d/',blank=True, null=True)
     site_duct_installation_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/duct/%Y/%m/%d/')
     site_duct_installation_image_2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/duct/%Y/%m/%d/')
     site_duct_installation_image_3 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/duct/%Y/%m/%d/')
@@ -261,6 +265,8 @@ class ManHole(TimeStampModel):
 
 class ManHoleInstallation(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(FttsSite, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    casuals_list = models.FileField(upload_to='files/ftts/Casuals/poleinstallation/%Y/%m/%d/',blank=True, null=True)
     manhole_image_1 = models.ImageField(upload_to='images/ftts/InstallationTeam/manhole/%Y/%m/%d/')
     manhole_image_2 = models.ImageField(upload_to='images/ftts/InstallationTeam/manhole/%Y/%m/%d/')
     manhole_image_3 = models.ImageField(upload_to='images/ftts/InstallationTeam/manhole/%Y/%m/%d/')
@@ -273,6 +279,8 @@ class ManHoleInstallation(TimeStampModel,TimeTrackModel):
 
 class SiteCableInstallation(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(FttsSite, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    casuals_list = models.FileField(upload_to='files/ftts/Casuals/poleinstallation/%Y/%m/%d/',blank=True, null=True)
     site_cable_installation_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
     site_cable_installation_image_2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
     site_cable_installation_image_3 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
@@ -330,6 +338,8 @@ class FttsCivilTeam(TimeStampModel):
 
 class SiteTerminalInHse(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(FttsSite, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    casuals_list = models.FileField(upload_to='files/ftts/Casuals/poleinstallation/%Y/%m/%d/',blank=True, null=True)
     site_terminal_in_hse_image_1 = models.ImageField(upload_to='images/ftts/InstallationTeam/terminalinhse/%Y/%m/%d/')
     site_terminal_in_hse_image_2 = models.ImageField(upload_to='images/ftts/InstallationTeam/terminalinhse/%Y/%m/%d/')
     site_terminal_in_hse_image_3 = models.ImageField(upload_to='images/ftts/InstallationTeam/terminalinhse/%Y/%m/%d/')
@@ -372,6 +382,8 @@ class SiteTerminalInHse(TimeStampModel,TimeTrackModel):
 
 class SiteInterception(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(FttsSite, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    casuals_list = models.FileField(upload_to='files/ftts/Casuals/poleinstallation/%Y/%m/%d/',blank=True, null=True)
     manhole = models.ForeignKey(ManHole, on_delete=models.DO_NOTHING ,blank=True, null=True)
     site_inception_image_1 = models.ImageField(upload_to='images/ftts/InstallationTeam/inception/%Y/%m/%d/')
     site_inception_image_2 = models.ImageField(upload_to='images/ftts/InstallationTeam/inception/%Y/%m/%d/')
@@ -413,6 +425,8 @@ class SiteInterception(TimeStampModel,TimeTrackModel):
 
 class SiteIntegration(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(FttsSite, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    casuals_list = models.FileField(upload_to='files/ftts/Casuals/poleinstallation/%Y/%m/%d/',blank=True, null=True)
     site_integration_image_1 = models.ImageField(upload_to='images/ftts/InstallationTeam/integration/%Y/%m/%d/')
     site_integration_image_2 = models.ImageField(upload_to='images/ftts/InstallationTeam/integration/%Y/%m/%d/')
     site_integration_image_3 = models.ImageField(upload_to='images/ftts/InstallationTeam/integration/%Y/%m/%d/')
@@ -464,6 +478,8 @@ class FttsIssues(TimeStampModel):
 
 class FttsInstallationTeam(TimeStampModel):
     site_name = models.OneToOneField(FttsSite, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    casuals_list = models.FileField(upload_to='files/ftts/Casuals/poleinstallation/%Y/%m/%d/',blank=True, null=True)
     ftts_terminal_in_hse = models.OneToOneField(SiteTerminalInHse, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftts_inception = models.OneToOneField(SiteInterception, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftts_integration = models.OneToOneField(SiteIntegration, on_delete=models.DO_NOTHING, blank=True, null=True)

@@ -33,7 +33,6 @@ admin.site.register(FttsSite, FttsSiteAdmin)
 
 ##########################FTTH SURVEY###########################################
 
-
 class InterceptionPointAdmin(admin.ModelAdmin):
     list_display = ('id', 'interception_point_name', 'latitude', 'longitude', 'county', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('interception_point_name', )
@@ -63,10 +62,7 @@ class fttsSurveyAdmin(admin.ModelAdmin):
 
 admin.site.register(fttsSurvey, fttsSurveyAdmin)
 
-
-
 ##########################END OF FTTH SURVEY####################################
-
 
 class FttsCommercialTeamAdmin(admin.ModelAdmin):
     list_display = ('id', 'site_name','ftts_quote', 'ftts_po_requisition','ftts_wayleave_application', 'ftts_project_plan', 'ftts_initial_invoice','ftts_po_client','posted_by', 'created_at', 'updated_at', 'is_active')
