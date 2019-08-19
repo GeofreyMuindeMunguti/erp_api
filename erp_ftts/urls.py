@@ -10,6 +10,8 @@ from .views import *
 
 router = DefaultRouter()
 router.register(r'fttsproject', views.FTTSProjectViewSet)
+router.register(r'fttssite', views.FttsSiteViewSet)
+
 router.register(r'interceptionpoints', views.InterceptionPointViewSet)
 router.register(r'fttsSurveyPhotos', views.fttsSurveyPhotosViewSet)
 router.register(r'fttssurveys', views.fttsSurveyViewSet)
@@ -40,4 +42,5 @@ router.register(r'fttscasualdailyregister', views.FTTSCasualDailyRegisterViewSet
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('fttsproject/<int:pk>/fttssites', FttsSiteListView.as_view()),
 ]

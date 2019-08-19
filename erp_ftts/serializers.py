@@ -13,7 +13,14 @@ class FTTSProjectSerializer(serializers.ModelSerializer):
     sites_no = serializers.CharField(read_only=True)
     class Meta:
         model = FTTSProject
-        fields = '__all__'
+        fields = ('__all__')
+
+class FttsSiteSerializer(serializers.ModelSerializer):
+    sites_no = serializers.CharField(read_only=True)
+    class Meta:
+        model = FttsSite
+        fields = ('__all__')
+
 
 ###############################FTTH SURVEY###################################
 
