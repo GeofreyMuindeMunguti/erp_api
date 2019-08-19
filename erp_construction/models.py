@@ -41,8 +41,8 @@ class BtsProject(models.Model):
 
 
 class BtsSite(models.Model):
-    site_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING, blank=True, null=True)
     project_name = models.ForeignKey(BtsProject, on_delete=models.DO_NOTHING, blank=True, null=True)
+    site_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
     site_number = models.CharField(max_length=100, unique=True, blank=True, null=True)
     BTS_type = models.CharField(max_length=100, blank=True, null=True)
     site_owner = models.CharField(max_length=100, blank=True, null=True)
@@ -2112,7 +2112,7 @@ class ProjectPurchaseOrders(models.Model):
 
 
 class ProjectCosting(models.Model):
-    project_name = models.OneToOneField(MainSite, on_delete=models.DO_NOTHING)
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     project_costing_file = models.FileField(upload_to='files/CommercialTeam/projectcosting/%Y/%m/%d/', blank=True, null=True)
     material_cost = models.IntegerField()
     labour_cost = models.IntegerField()

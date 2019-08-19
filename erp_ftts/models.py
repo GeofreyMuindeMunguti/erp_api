@@ -32,7 +32,7 @@ class FTTSProject(CreateProject,TimeTrackModel):
             return e
 
 class FttsSite(TimeStampModel):
-    site_name = models.ForeignKey(MainSite,on_delete=models.DO_NOTHING,related_name="fttssite")
+    site_name = models.CharField(max_length=100, unique = True, blank=True, null=True)
     ftts_project = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING )
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, blank=True, null=True)
 
@@ -40,7 +40,7 @@ class FttsSite(TimeStampModel):
         ordering = ('-created_at',)
 
     def __str__(self):
-        return '{}:{}'.format(self.site_name,self.ftts_project)
+        return 'Site: {}, Project:{}'.format(self.site_name,self.ftts_project)
 
 
     class Meta:
@@ -49,8 +49,26 @@ class FttsSite(TimeStampModel):
 ##########################################SURVEY DETAILS################################################################################################################################################################33
 
 
+class ManHole(TimeStampModel):
+    manhole_no = models.CharField(max_length=100, blank=True, null=True)
+    location = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
+    created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return str(self.manhole_No)
+
+class Pole(TimeStampModel):
+    pole_no = models.CharField(max_length=100, blank=True, null=True)
+    location = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
+    created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return str(self.pole_no)
+
+
 class InterceptionPoint(TimeStampModel):
-   # manhole_no = models.ForeignKey('ManHole', on_delete=models.DO_NOTHING, blank=True, null=True)
+    # manhole_no = models.ForeignKey(ManHole, on_delete=models.DO_NOTHING, blank=True, null=True)
+    # pole_no = models.ForeignKey(Pole, on_delete=models.DO_NOTHING, blank=True, null=True)
     interception_point_name = models.CharField(max_length=50)
     latitude = models.FloatField()
     longitude = models.FloatField()
@@ -58,7 +76,7 @@ class InterceptionPoint(TimeStampModel):
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return self.interception_point_name
+        return str(self.interception_point_name)
 
 
 class fttsSurveyPhotos(TimeStampModel):
@@ -70,7 +88,8 @@ class fttsSurveyPhotos(TimeStampModel):
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return str(self.site_name)
+        #return str(self.site_name)
+        return 'survey for {}'.format(self.site_name)
 
     def ftth_survey_id(self):
         try:
@@ -90,6 +109,7 @@ class fttsSurvey(TimeStampModel,TimeTrackModel):
     survey_photos = models.ManyToManyField(fttsSurveyPhotos)
     high_level_design = models.FileField(upload_to='files/ftts/survey/highleveldesigns/%Y/%m/%d/', blank=True, null=True)
     county = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
+    survey_comment = models.CharField(max_length=200)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
@@ -252,16 +272,6 @@ class SiteDuctInstallation(TimeStampModel,TimeTrackModel):
 
         except Exception as e:
             return e
-
-class ManHole(TimeStampModel):
-    manhole_no = models.CharField(max_length=100, blank=True, null=True)
-    latitude =  models.CharField(max_length=100, blank=True, null=True)
-    longitude =  models.CharField(max_length=100, blank=True, null=True)
-    location = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
-    created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-
-    def __str__(self):
-        return str(self.manhole_No)
 
 class ManHoleInstallation(TimeStampModel,TimeTrackModel):
     site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING)
@@ -541,7 +551,7 @@ class CasualDailyRegister(TimeStampModel):
     ''' Class to track Casuals per SITE for EACH FTTS Project per task
     '''
     project_name = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING)
-    site_name = models.ForeignKey(MainSite, on_delete=models.DO_NOTHING )
+    site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING )
     work_day = models.DateField(blank=True, null=True)
 
 
@@ -576,7 +586,7 @@ class FTTSCasualDailyRegister(TimeStampModel):
     ''' Class to track Casuals per SITE for EACH FTTS Project
     '''
     project_name = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING)
-    site_name = models.ForeignKey(MainSite, on_delete=models.DO_NOTHING )
+    site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING )
     work_day = models.DateField(blank=True, null=True)
     ftts_casual =models.ManyToManyField(Casual,related_name= 'fttscasualregister')
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)

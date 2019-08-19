@@ -11,7 +11,7 @@ from .views import *
 router = DefaultRouter()
 router.register(r'ftthproject', views.FTTHProjectViewSet)
 
-router.register(r'interceptionpoints', views.InterceptionPointViewSet)
+router.register(r'ftthinterceptionpoints', views.FtthInterceptionPointViewSet)
 router.register(r'ftthsurveyphotos', views.ftthSurveyPhotosViewSet)
 router.register(r'ftthsurveys', views.ftthSurveyViewSet)
 
