@@ -30,6 +30,25 @@ class FTTSProjectViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'site_name', )
 
+class FttsSiteViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """ViewSet for the FTTSProject class"""
+
+    queryset = FttsSite.objects.order_by('created_at')
+    serializer_class = FttsSiteSerializer
+
+    search_fields = ('project_name','site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
+class FttsSiteListView(generics.ListCreateAPIView):
+    """ViewSet for the FTTSProject class"""
+    def get_queryset(self):
+        queryset = FttsSite.objects.filter(ftts_project_id=self.kwargs["pk"])
+        return queryset
+
+    serializer_class = FttsSiteSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
 
 #################################FTTH VIEWSETS#################################
 

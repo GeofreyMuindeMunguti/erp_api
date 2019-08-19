@@ -5,6 +5,8 @@ from erp_core.base import *
 from users.models import *
 
 
+class FttsSiteInline(admin.TabularInline):
+    model  = FttsSite
 
 class FTTSProjectAdmin(admin.ModelAdmin):
 
@@ -13,9 +15,21 @@ class FTTSProjectAdmin(admin.ModelAdmin):
     search_fields = ('project_name', )
     list_editable = ('is_active',)
     readonly_fields = ['created_at', 'updated_at', 'is_active']
+    inlines = [
+        FttsSiteInline,
+    ]
 
 admin.site.register(FTTSProject, FTTSProjectAdmin)
 
+class FttsSiteAdmin(admin.ModelAdmin):
+    list_display = ('id','site_name','created_at', 'updated_at', 'is_active')
+    list_display_links = ('site_name',)
+    search_fields = ('site_name',)
+    list_editable = ('is_active',)
+    readonly_fields = ['created_at', 'updated_at', 'is_active']
+
+
+admin.site.register(FttsSite, FttsSiteAdmin)
 
 ##########################FTTH SURVEY###########################################
 
@@ -55,7 +69,7 @@ admin.site.register(fttsSurvey, fttsSurveyAdmin)
 
 
 class FttsCommercialTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','project_name','ftts_quote', 'ftts_po_requisition','ftts_wayleave_application', 'ftts_project_plan', 'ftts_initial_invoice','ftts_po_client','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','ftts_quote', 'ftts_po_requisition','ftts_wayleave_application', 'ftts_project_plan', 'ftts_initial_invoice','ftts_po_client','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
@@ -64,7 +78,7 @@ admin.site.register(FttsCommercialTeam, FttsCommercialTeamAdmin)
 
 
 class FttsProcurementTeamAdmin(admin.ModelAdmin):
-    list_display = ('id','site_name', 'project_name','ftts_material_requisition','ftts_material_receipt_order', 'ftts_pr', 'ftts_pr','ftts_po_quote_service', 'ftts_po_subcontractors', 'posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id','site_name', 'ftts_material_requisition','ftts_material_receipt_order', 'ftts_pr', 'ftts_pr','ftts_po_quote_service', 'ftts_po_subcontractors', 'posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
@@ -74,7 +88,7 @@ admin.site.register(FttsProcurementTeam, FttsProcurementTeamAdmin)
 ######################################################## FIBER CIVIL TEAM ########################################################################################################################################################################################
 
 class SiteTrenchingAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','project_name','start_date','end_date','site_trenching_image_1', 'site_trenching_image_2','site_trenching_image_3', 'site_trenching_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','start_date','end_date','site_trenching_image_1', 'site_trenching_image_2','site_trenching_image_3', 'site_trenching_comment','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
@@ -83,7 +97,7 @@ admin.site.register(SiteTrenching, SiteTrenchingAdmin)
 
 
 class SiteDuctInstallationAdmin(admin.ModelAdmin):
-    list_display = ('id','site_name','project_name','start_date','end_date','site_duct_installation_image_1','site_duct_installation_image_2', 'site_duct_installation_image_3', 'site_duct_installation_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id','site_name','start_date','end_date','site_duct_installation_image_1','site_duct_installation_image_2', 'site_duct_installation_image_3', 'site_duct_installation_comment','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
@@ -92,7 +106,7 @@ admin.site.register(SiteDuctInstallation, SiteDuctInstallationAdmin)
 
 class SiteCableInstallationAdmin(admin.ModelAdmin):
 
-    list_display = ['id','site_name','project_name','start_date','end_date','site_cable_installation_image_1','site_cable_installation_image_2','site_cable_installation_image_3','site_cable_installation_comment','posted_by', 'created_at', 'updated_at', 'is_active']
+    list_display = ['id','site_name','start_date','end_date','site_cable_installation_image_1','site_cable_installation_image_2','site_cable_installation_image_3','site_cable_installation_comment','posted_by', 'created_at', 'updated_at', 'is_active']
     readonly_fields = ['created_at', 'updated_at', 'is_active']
 
 admin.site.register(SiteCableInstallation, SiteCableInstallationAdmin)
@@ -106,7 +120,7 @@ class ManHoleAdmin(admin.ModelAdmin):
 admin.site.register(ManHole, ManHoleAdmin)
 
 class ManHoleInstallationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','project_name', 'start_date','end_date','manhole_image_1','manhole_image_2','manhole_image_3','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','start_date','end_date','manhole_image_1','manhole_image_2','manhole_image_3','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
@@ -114,7 +128,7 @@ class ManHoleInstallationAdmin(admin.ModelAdmin):
 admin.site.register(ManHoleInstallation, ManHoleInstallationAdmin)
 
 class FttsCivilTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','project_name','ftts_trenching','ftts_duct_installation', 'ftts_cable_installation','ftts_manhole_installation','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','ftts_trenching','ftts_duct_installation', 'ftts_cable_installation','ftts_manhole_installation','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
@@ -126,13 +140,13 @@ admin.site.register(FttsCivilTeam, FttsCivilTeamAdmin)
 ######################################################## FIBER INSTALLATION TEAM ########################################################################################################################################################################################
 class SiteTerminalInHseAdmin(admin.ModelAdmin):
 
-    list_display = ['id','site_name','project_name','start_date','end_date','site_terminal_in_hse_image_1','site_terminal_in_hse_image_2','site_terminal_in_hse_image_3','site_terminal_in_hse_comment','posted_by', 'created_at', 'updated_at', 'is_active']
+    list_display = ['id','site_name','start_date','end_date','site_terminal_in_hse_image_1','site_terminal_in_hse_image_2','site_terminal_in_hse_image_3','site_terminal_in_hse_comment','posted_by', 'created_at', 'updated_at', 'is_active']
     readonly_fields = ['created_at', 'updated_at', 'is_active']
 
 admin.site.register(SiteTerminalInHse, SiteTerminalInHseAdmin)
 
 class SiteInterceptionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','project_name','manhole','start_date','end_date','site_inception_image_1', 'site_inception_image_2','site_inception_image_3', 'site_inception_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','manhole','start_date','end_date','site_inception_image_1', 'site_inception_image_2','site_inception_image_3', 'site_inception_comment','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
@@ -140,7 +154,7 @@ class SiteInterceptionAdmin(admin.ModelAdmin):
 admin.site.register(SiteInterception, SiteInterceptionAdmin)
 
 class SiteIntegrationAdmin(admin.ModelAdmin):
-    list_display = ('id','site_name','project_name','start_date','end_date','site_integration_image_1','site_integration_image_2', 'site_integration_image_3', 'site_integration_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id','site_name','start_date','end_date','site_integration_image_1','site_integration_image_2', 'site_integration_image_3', 'site_integration_comment','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
@@ -148,9 +162,9 @@ class SiteIntegrationAdmin(admin.ModelAdmin):
 admin.site.register(SiteIntegration, SiteIntegrationAdmin)
 
 class FttsIssuesAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'ftts_issue', 'ftts_issue_image', 'ftts_issue_sorted_image', 'closed', 'posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id','site_name','ftts_issue', 'ftts_issue_image', 'ftts_issue_sorted_image', 'closed', 'posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('ftts_issue', )
-    list_filter = ('project_name',)
+    list_filter = ('site_name',)
     search_fields = ('ftts_issue', )
     list_editable = ('is_active',)
 
@@ -158,7 +172,7 @@ class FttsIssuesAdmin(admin.ModelAdmin):
 admin.site.register(FttsIssues, FttsIssuesAdmin)
 
 class FttsInstallationTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','project_name','ftts_terminal_in_hse', 'ftts_inception','ftts_integration','ftts_asbuit_received','snag_document','snag_document_comment','project_issues','conditional_acceptance_cert','conditional_acceptance_cert_comment', 'posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','ftts_terminal_in_hse', 'ftts_inception','ftts_integration','ftts_asbuit_received','snag_document','snag_document_comment','project_issues','conditional_acceptance_cert','conditional_acceptance_cert_comment', 'posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
@@ -166,7 +180,7 @@ class FttsInstallationTeamAdmin(admin.ModelAdmin):
 admin.site.register(FttsInstallationTeam, FttsInstallationTeamAdmin)
 
 class FttsTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','project_name','ftts_survey', 'ftts_civil_team','ftts_installation_team', 'posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','ftts_survey', 'ftts_civil_team','ftts_installation_team', 'posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
@@ -176,29 +190,29 @@ admin.site.register(FttsTeam, FttsTeamAdmin)
 
 
 class DailyCivilWorkProductionAdmin(admin.ModelAdmin):
-    list_display = ('id','project_name','site_name','work_day','trenched_distance','backfilled_distance','duct_installed_length','cable_installed_length','pole_installed','manhole_installed','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id','site_name','work_day','trenched_distance','backfilled_distance','duct_installed_length','cable_installed_length','pole_installed','manhole_installed','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('id','site_name')
     search_fields = ('work_day','site_name', )
-    list_filter =('project_name','site_name','work_day')
+    list_filter =('site_name','work_day')
     list_editable = ('is_active',)
 
 admin.site.register(DailyCivilWorkProduction, DailyCivilWorkProductionAdmin)
 
 
 class CasualDailyRegisterAdmin(admin.ModelAdmin):
-    list_display = ('id','project_name','site_name','work_day','work_type','others','casuals_list_file','created_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id','site_name','work_day','work_type','others','casuals_list_file','created_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('id','site_name',)
     search_fields = ('work_day','site_name', )
-    list_filter =('project_name','site_name','work_day')
+    list_filter =('site_name','work_day')
     list_editable = ('is_active',)
 
 admin.site.register(CasualDailyRegister, CasualDailyRegisterAdmin)
 
 class FTTSCasualDailyRegisterAdmin(admin.ModelAdmin):
-    list_display = ('id','project_name','site_name','work_day','created_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id','site_name','work_day','created_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('id','site_name',)
     search_fields = ('work_day','site_name', )
-    list_filter =('project_name','site_name','work_day')
+    list_filter =('site_name','work_day')
     list_editable = ('is_active',)
 
 admin.site.register(FTTSCasualDailyRegister, FTTSCasualDailyRegisterAdmin)
