@@ -6,7 +6,7 @@ from .views import *
 from .progress import *
 from .monitoring import *
 from .scorecard import *
-from .fileshandler import filesviews
+from .btsfiles import filesviews
 
 
 

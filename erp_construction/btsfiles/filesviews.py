@@ -14,7 +14,7 @@ from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
 from rest_framework import status, viewsets
 from rest_framework.decorators import parser_classes
 from rest_framework.decorators import detail_route
-from .filemixin import DefaultsMixin
+from erp_core.fileshandler.filemixin import DefaultsMixin
 
 
 
