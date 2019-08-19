@@ -80,7 +80,7 @@ class ftthSurvey(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.site_name)
+        return str(self.project_name)
 
 ##############################################END OF FTTH SURVEY#############################################33
 
@@ -111,8 +111,8 @@ class FtthProcurementTeam(TimeStampModel):
 class FtthPoleInstallation(TimeStampModel,TimeTrackModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_pole_installation_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/poleinstallation/%Y/%m/%d/')
-    ftth_pole_installation_image_2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/poleinstallation/%Y/%m/%d/')
-    ftth_pole_installation_image_3 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/poleinstallation/%Y/%m/%d/')
+    ftth_pole_installation_image_2 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/poleinstallation/%Y/%m/%d/')
+    ftth_pole_installation_image_3 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/poleinstallation/%Y/%m/%d/')
     ftth_pole_installation_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
