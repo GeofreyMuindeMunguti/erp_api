@@ -16,7 +16,7 @@ class FTTSProjectSerializer(serializers.ModelSerializer):
         fields = ('__all__')
 
 class FttsSiteSerializer(serializers.ModelSerializer):
-    sites_no = serializers.CharField(read_only=True)
+    ftts_sites_count = serializers.IntegerField(read_only=True)
     class Meta:
         model = FttsSite
         fields = ('__all__')
