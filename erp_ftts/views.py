@@ -148,13 +148,6 @@ class SiteInterceptionViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
 
-class SiteIntegrationViewSet(DefaultsMixin, viewsets.ModelViewSet):
-    queryset = SiteIntegration.objects.order_by('created_at')
-    serializer_class = SiteIntegrationSerializer
-
-    search_fields = ('site_name', )
-    ordering_fields = ('updated_at', 'site_name', )
-
 class FttsIssuesViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating Issues ."""
     queryset = FttsIssues.objects.order_by('created_at')

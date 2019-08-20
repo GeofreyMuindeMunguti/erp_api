@@ -54,7 +54,7 @@ admin.site.register(fttsSurveyPhotos, fttsSurveyPhotosAdmin)
 
 
 class fttsSurveyAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name', 'start_date', 'end_date', 'ftts_interception_point', 'site_latitude', 'site_longitude', 'distance_from_ip', 'high_level_design', 'county', 'posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name', 'start_date', 'end_date', 'ftts_interception_point', 'site_latitude', 'site_longitude', 'distance_from_ip', 'high_level_design', 'county','survey_comment', 'posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
@@ -65,7 +65,7 @@ admin.site.register(fttsSurvey, fttsSurveyAdmin)
 ##########################END OF FTTH SURVEY####################################
 
 class FttsCommercialTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','ftts_quote', 'ftts_po_requisition','ftts_wayleave_application', 'ftts_project_plan', 'ftts_initial_invoice','ftts_po_client','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','ftts_quote', 'ftts_po_requisition','ftts_po_requisition_no','ffts_po_requisition_amount','ftts_wayleave_application', 'ftts_project_plan', 'ftts_initial_invoice','ftts_po_client','ftts_po_client_no','ffts_po_client_amount','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
@@ -74,7 +74,7 @@ admin.site.register(FttsCommercialTeam, FttsCommercialTeamAdmin)
 
 
 class FttsProcurementTeamAdmin(admin.ModelAdmin):
-    list_display = ('id','site_name', 'ftts_material_requisition','ftts_material_receipt_order', 'ftts_pr', 'ftts_pr','ftts_po_quote_service', 'ftts_po_subcontractors', 'posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id','site_name', 'ftts_material_requisition','ftts_po_quote_serviceno', 'ftts_po_subcontractors', 'ffts_po_quote_subconamount','ffts_po_quote_subconno','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
@@ -149,14 +149,6 @@ class SiteInterceptionAdmin(admin.ModelAdmin):
 
 admin.site.register(SiteInterception, SiteInterceptionAdmin)
 
-class SiteIntegrationAdmin(admin.ModelAdmin):
-    list_display = ('id','site_name','start_date','end_date','site_integration_image_1','site_integration_image_2', 'site_integration_image_3', 'site_integration_comment','posted_by', 'created_at', 'updated_at', 'is_active')
-    list_display_links = ('site_name', )
-    search_fields = ('site_name', )
-    list_editable = ('is_active',)
-
-admin.site.register(SiteIntegration, SiteIntegrationAdmin)
-
 class FttsIssuesAdmin(admin.ModelAdmin):
     list_display = ('id','site_name','ftts_issue', 'ftts_issue_image', 'ftts_issue_sorted_image', 'closed', 'posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('ftts_issue', )
@@ -168,7 +160,7 @@ class FttsIssuesAdmin(admin.ModelAdmin):
 admin.site.register(FttsIssues, FttsIssuesAdmin)
 
 class FttsInstallationTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','ftts_terminal_in_hse', 'ftts_inception','ftts_integration','ftts_asbuit_received','snag_document','snag_document_comment','project_issues','conditional_acceptance_cert','conditional_acceptance_cert_comment', 'posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','ftts_terminal_in_hse', 'ftts_interception','ftts_integration','ftts_asbuit_received','snag_document','snag_document_comment','project_issues','conditional_acceptance_cert','conditional_acceptance_cert_comment', 'posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
