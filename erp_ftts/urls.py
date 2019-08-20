@@ -29,7 +29,6 @@ router.register(r'FttsCivilTeam', views.FttsCivilTeamViewSet)
 
 router.register(r'SiteTerminalInHse', views.SiteTerminalInHseViewSet)
 router.register(r'SiteInterception', views.SiteInterceptionViewSet)
-router.register(r'SiteIntegration', views.SiteIntegrationViewSet)
 router.register(r'FttsIssues', views.FttsIssuesViewSet)
 router.register(r'FttsInstallationTeam', views.FttsInstallationTeamViewSet)
 router.register(r'FttsTeam', views.FttsTeamViewSet)
