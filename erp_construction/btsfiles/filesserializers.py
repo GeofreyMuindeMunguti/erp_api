@@ -62,7 +62,7 @@ class ExcavationImagesSerializer(serializers.ModelSerializer):
         fields = ('excavation_image_1','excavation_image_2','excavation_image_3',)
 
 
-class ConcreteCuringPeriodImagesSerializer(serializers.ModelSerializer):
+class BS21ConcreteCuringPeriodImagesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BS241ConcretePourCuringPeriodImage
@@ -244,7 +244,7 @@ class InstallationTeamFilesSerializer(serializers.ModelSerializer):
         fields = ('as_built', 'signoff', 'rfi_document', 'snag_document', 'conditional_acceptance_cert',)
 
 
-class IssueImageSerializer(serializers.ModelSerializer):
+class IssuesImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Issues
@@ -253,7 +253,7 @@ class IssueImageSerializer(serializers.ModelSerializer):
 
 ################### Main Project Serializer################################
 
-class SiteFilesSerializer(serializers.ModelSerializer):
+class BtsSiteFilesSerializer(serializers.ModelSerializer):
 
     '''
     Main Serializer class : to access all serializers classes above
@@ -262,6 +262,7 @@ class SiteFilesSerializer(serializers.ModelSerializer):
      e.g
        # setsiteclearingimage = SiteClearingFilesSerializer ( read_only =True)
     :: More field can be added from the excluded one by removing from exlude variable
+
       '''
 
     setsiteclearingimage = SiteClearingFilesSerializer ( read_only =True)
@@ -269,31 +270,31 @@ class SiteFilesSerializer(serializers.ModelSerializer):
     bindingimage = BindingImagesSerializer(read_only=True)
     steelfixformworkimage = SteelFixFormworkImagesSerializer(read_only=True)
     concretepourimage = ConcretePourImagesSerializer(read_only=True)
-    concretecuringimage = ConcreteCuringImagesSerializer(read_only=True)
-
+    concretecuringperiodimage = ConcreteCuringImagesSerializer(read_only=True)
+             #bs241 & generator fountation
     excavationimage = ExcavationImagesSerializer(read_only=True)
-    concretepourcuringieriodimage = ConcreteCuringPeriodImagesSerializer(read_only=True)
-
+    bs241concretepourcuringperiodimage = BS21ConcreteCuringPeriodImagesSerializer(read_only=True)
+             # Bountary Wall
     foundfootpourimage = FoundFootPourImagesSerializer(read_only=True)
     blockworkpanelconstimage = BlockworkPanelConstImagesSerializer(read_only=True)
     gateinstallationimage = GateInstallationImagesSerializer(read_only=True)
     razorelectricfenceimage = RazorElectricFenceImagesSerializer(read_only=True)
-
+             # Tower & Antenna
     towererectionimage = TowerErectionImagesSerializer(read_only=True)
     towerpaintimage = TowerPaintImagesSerializer(read_only=True)
     cablewaysimage = CableWaysImagesSerializer(read_only=True)
     antennacoaxinstallimage = AntennaCoaxInstallImagesSerializer(read_only=True)
-
+             # pos ,commercial team ,procurement 
     projectpurchaseorders = ProjectPurchaseOrdersFileSerializer(read_only=True)
     projectcosting = ProjectCostingFileSerializer(read_only=True)
     commercialteam = CommercialTeamFilesSerializer(read_only=True)
     procurementteam = ProcurementTeamFilesSerializer(read_only=True)
-
+             # health docs & access approvals
     healthdocumentscivilteam = HealthDocumentsFilesCivilTeamSerializer(many = True,read_only =True)
     accessapprovalcivil = AccessApprovalFileCivilSerializer(many = True,read_only=True)
     healthdocumentsInstallationteam = HealthDocumentsFilesInstallationTeamSerializer(many = True,read_only =True)
     accessapprovalinstallation = AccessApprovalFileInstallationSerializer(many = True,read_only=True)
-
+             # Installation
     undergroundtasks = UndergroundTasksFilesSerializer(read_only=True)
     reticulationapsinstallation = ReticulationAPSinstallationFilesSerializer(read_only=True)
     electricalearthing = ElectricalEarthingImagesSerializer(read_only =True)
@@ -303,14 +304,14 @@ class SiteFilesSerializer(serializers.ModelSerializer):
     btsinstallationtask = BTSinstallationTaskImagesSerializer(read_only=True)
     mwinstallationtask = MWInstallationTaskImagesSerializer(read_only=True)
     installationteam = InstallationTeamFilesSerializer(read_only =True)
-    issueimages = IssueImageSerializer(read_only=True)
+    issuess = IssuesImageSerializer(many = True,read_only=True)
 
 
     class Meta:
-        model = Site
+        model = BtsSite
        # fields = ('__all__')
-        exclude = ("id","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
-           "updated_at", "is_active","icon", "location", "created_by")
+        exclude = ("id","project_name","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
+           "updated_at", "is_active", "location", "created_by")
 
         #fields = ('geotech_file','access_letter','approved_drawing','final_acceptance_cert','setsiteclearingimage',
         #'towerbaseimage','bindingimage','steelfixformworkimage','concretepourcuringimage')

@@ -5,6 +5,7 @@ from erp_construction.models import *
 from users.models import *
 from django.urls import path, include
 from .views import *
+from .fttsfiles import filesviews
 
 
 
@@ -19,6 +20,7 @@ router.register(r'fttssurveys', views.fttsSurveyViewSet)
 router.register(r'FttsCommercialTeam', views.FttsCommercialTeamViewSet)
 router.register(r'FttsProcurementTeam', views.FttsProcurementTeamViewSet)
 
+router.register(r'sitepoleinstallation', views.SitePoleInstallationViewSet)
 router.register(r'SiteTrenching', views.SiteTrenchingViewSet)
 router.register(r'SiteDuctInstallation', views.SiteDuctInstallationViewSet)
 router.register(r'SiteCableInstallation', views.SiteCableInstallationViewSet)
@@ -42,4 +44,18 @@ router.register(r'fttscasualdailyregister', views.FTTSCasualDailyRegisterViewSet
 urlpatterns = [
     path('', include(router.urls)),
     path('fttsproject/<int:pk>/fttssites', FttsSiteListView.as_view()),
+
+    # FILES (PER SITE) ENDPOINTS  
+
+    path('files/<int:pk>/', filesviews.FttsSiteFilesView.as_view()),# Main
+
+    path('files/<int:pk>/commercialteamtiles/', filesviews.FttsCommercialTeamFilesView.as_view()),
+    # Civil works
+    path('files/<int:pk>/sitepoleinstallationfiles/', filesviews.SitePoleInstallationFilesView.as_view()),
+    path('files/<int:pk>/manholeinstallationfiles/', filesviews.ManHoleInstallationFilesView.as_view()),
+    path('files/<int:pk>/sitecableinstallationfiles/', filesviews.SiteCableInstallationFilesView.as_view()),
+    path('files/<int:pk>/siteterminalInHsefiles/', filesviews.SiteTerminalInHseFilesView.as_view()),
+    path('files/<int:pk>/siteinterceptionfiles/', filesviews.SiteInterceptionFilesView.as_view()),
+    path('files/<int:pk>/siteintegrationfiles/', filesviews.SiteIntegrationFilesView.as_view()),
+
 ]

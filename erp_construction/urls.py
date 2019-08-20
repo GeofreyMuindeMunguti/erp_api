@@ -6,7 +6,7 @@ from .views import *
 from .progress import *
 from .monitoring import *
 from .scorecard import *
-from .fileshandler import filesviews
+from .btsfiles import filesviews
 
 
 
@@ -108,7 +108,7 @@ urlpatterns = [
     path('files/<int:pk>/concretecuringimages/', filesviews.ConcreteCuringImagesView.as_view()),
 
     path('files/<int:pk>/excavationimages/', filesviews.ExcavationImagesView.as_view()),
-    path('files/<int:pk>/concretepourcuringperiodimages/', filesviews.ConcreteCuringPeriodImagesView.as_view()),
+    path('files/<int:pk>/concretepourcuringperiodimages/', filesviews.BS241ConcreteCuringPeriodImagesView.as_view()),
 
     path('files/<int:pk>/foundfootpourimage/', filesviews.FoundFootPourImageView.as_view()),
     path('files/<int:pk>/blockworkpanelconstimages/', filesviews.BlockworkPanelConstImagesView.as_view()),

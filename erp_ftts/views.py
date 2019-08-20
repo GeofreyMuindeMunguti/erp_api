@@ -94,6 +94,12 @@ class FttsProcurementTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     ordering_fields = ('updated_at', 'site_name', )
 
 ################################################ FIBER CIVIL TEAM ##############################################################################################################################################################################################################################################
+class SitePoleInstallationViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = SitePoleInstallation.objects.order_by('created_at')
+    serializer_class = SitePoleInstallationSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
 
 class SiteTrenchingViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = SiteTrenching.objects.order_by('created_at')
