@@ -3071,7 +3071,7 @@ class TelecomTasks(models.Model):
 
 
 class Issues(models.Model):
-    project_name = models.ForeignKey(BtsSite, on_delete=models.DO_NOTHING)
+    project_name = models.ForeignKey(BtsSite, on_delete=models.DO_NOTHING,related_name='issuess')
     issue = models.CharField(max_length=100)
     issue_image = models.ImageField(upload_to='images/InstallationTeam/issues/%Y/%m/%d/', blank=True, null=True)
     issue_sorted_image = models.ImageField(upload_to='images/InstallationTeam/issues/%Y/%m/%d/', blank=True, null=True)

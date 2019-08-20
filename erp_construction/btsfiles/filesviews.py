@@ -35,7 +35,6 @@ class BtsSiteFilesView(generics.RetrieveAPIView,DefaultsMixin):
     serializer_class = BtsSiteFilesSerializer
 
 
-
     # Views for individual files type
 
 class SiteClearingFilesView(generics.RetrieveAPIView,DefaultsMixin):
@@ -94,12 +93,12 @@ class ExcavationImagesView(generics.RetrieveAPIView,DefaultsMixin):
         return queryset
     serializer_class = ExcavationImagesSerializer
 
-class ConcreteCuringPeriodImagesView(generics.RetrieveAPIView,DefaultsMixin):
+class BS241ConcreteCuringPeriodImagesView(generics.RetrieveAPIView,DefaultsMixin):
     #queryset = ConcretePourCuringPeriodImage.objects.all()
     def get_queryset(self):
         queryset = BS241ConcretePourCuringPeriodImage.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
-    serializer_class = ConcreteCuringPeriodImagesSerializer
+    serializer_class = BS21ConcreteCuringPeriodImagesSerializer
 
 # BOUNDARY WALL
 
@@ -286,4 +285,4 @@ class IssueImageView(generics.RetrieveAPIView,DefaultsMixin):
     def get_queryset(self):
         queryset = Issues.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
-    serializer_class = IssueImageSerializer
+    serializer_class = IssuesImageSerializer

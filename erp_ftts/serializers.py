@@ -69,6 +69,12 @@ class FttsProcurementTeamSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 ################################################ FIBER CIVIL TEAM ##############################################################################################################################################################################################################################################
+class SitePoleInstallationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SitePoleInstallation
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class SiteTrenchingSerializer(serializers.ModelSerializer):
 
