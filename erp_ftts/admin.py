@@ -65,7 +65,7 @@ admin.site.register(fttsSurvey, fttsSurveyAdmin)
 ##########################END OF FTTH SURVEY#####################################
 
 class FttsCommercialTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','ftts_quote', 'ftts_po_requisition','ftts_po_requisition_no','ffts_po_requisition_amount','ftts_wayleave_application', 'ftts_project_plan', 'ftts_initial_invoice','ftts_po_client','ftts_po_client_no','ftts_po_client_amount','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','ftts_quote', 'ftts_po_requisition','ftts_po_requisition_no','ftts_po_requisition_amount','ftts_wayleave_application', 'ftts_project_plan', 'ftts_initial_invoice','ftts_po_client','ftts_po_client_no','ftts_po_client_amount','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
