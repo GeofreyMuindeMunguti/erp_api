@@ -42,7 +42,7 @@ class ftthSurveyPhotos(TimeStampModel):
     survey_image_1 = models.ImageField(upload_to='images/ftth/survey/%Y/%m/%d/')
     survey_image_2 = models.ImageField(upload_to='images/ftth/survey/%Y/%m/%d/', blank=True, null=True)
     survey_image_3 = models.ImageField(upload_to='images/ftth/survey/%Y/%m/%d/', blank=True, null=True)
-    survey_images_comment = models.CharField(max_length=200)
+    survey_images_comment = models.CharField(max_length=200, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
@@ -66,7 +66,7 @@ class ftthSurvey(TimeStampModel,TimeTrackModel):
     survey_photos = models.ManyToManyField(ftthSurveyPhotos)
     high_level_design = models.FileField(upload_to='files/ftth/survey/highleveldesigns/%Y/%m/%d/', blank=True, null=True)
     county = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
-    ftth_survey_comment = models.CharField(max_length=200)
+    ftth_survey_comment = models.CharField(max_length=200, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):

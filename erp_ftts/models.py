@@ -84,7 +84,7 @@ class fttsSurveyPhotos(TimeStampModel):
     survey_image_1 = models.ImageField(upload_to='images/ftts/survey/%Y/%m/%d/')
     survey_image_2 = models.ImageField(upload_to='images/ftts/survey/%Y/%m/%d/', blank=True, null=True)
     survey_image_3 = models.ImageField(upload_to='images/ftts/survey/%Y/%m/%d/', blank=True, null=True)
-    survey_images_comment = models.CharField(max_length=200)
+    survey_images_comment = models.CharField(max_length=200, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
@@ -109,7 +109,7 @@ class fttsSurvey(TimeStampModel,TimeTrackModel):
     survey_photos = models.ManyToManyField(fttsSurveyPhotos)
     high_level_design = models.FileField(upload_to='files/ftts/survey/highleveldesigns/%Y/%m/%d/', blank=True, null=True)
     county = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
-    survey_comment = models.CharField(max_length=200)
+    survey_comment = models.CharField(max_length=200, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
@@ -129,7 +129,7 @@ class FttsCommercialTeam(TimeStampModel):
     ftts_initial_invoice = models.FileField(upload_to='files/ftts/CommercialTeam/initialinvoice/%Y/%m/%d/', blank=True, null=True)
     ftts_po_client = models.FileField(upload_to='files/ftts/CommercialTeam/poclient/%Y/%m/%d/', blank=True, null=True)
     ftts_po_client_no = models.IntegerField()
-    ffts_po_client_amount = models.IntegerField()
+    ftts_po_client_amount = models.IntegerField()
     is_approved = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
@@ -140,10 +140,10 @@ class FttsProcurementTeam(TimeStampModel):
     site_name = models.OneToOneField(FTTSProject, on_delete=models.DO_NOTHING)
     ftts_material_requisition = models.FileField(upload_to='files/ftts/CommercialTeam/materialrequisition/%Y/%m/%d/', blank=True, null=True)
     ftts_po_quote_serviceno = models.IntegerField()
-    ffts_po_quote_serviceamount = models.IntegerField()
+    ftts_po_quote_serviceamount = models.IntegerField()
     ftts_po_subcontractors = models.FileField(upload_to='files/ftts/CommercialTeam/posubcontractors/%Y/%m/%d/', blank=True, null=True)
-    ffts_po_quote_subconamount = models.IntegerField()
-    ffts_po_quote_subconno = models.IntegerField()
+    ftts_po_quote_subconamount = models.IntegerField()
+    ftts_po_quote_subconno = models.IntegerField()
     is_approved = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
