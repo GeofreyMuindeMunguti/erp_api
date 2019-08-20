@@ -68,9 +68,3 @@ class SiteInterceptionFilesView(generics.RetrieveAPIView,DefaultsMixin):
         queryset = SiteInterception.objects.filter(site_name_id=self.kwargs["pk"])
         return queryset
     serializer_class = SiteInterceptionFilesSerializer
-
-class  SiteIntegrationFilesView(generics.RetrieveAPIView,DefaultsMixin):
-    def get_queryset(self):
-        queryset = SiteIntegration.objects.filter(site_name_id=self.kwargs["pk"])
-        return queryset
-    serializer_class = SiteIntegrationFilesSerializer

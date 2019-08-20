@@ -45,7 +45,7 @@ urlpatterns = [
     path('', include(router.urls)),
     path('fttsproject/<int:pk>/fttssites', FttsSiteListView.as_view()),
 
-    # FILES (PER SITE) ENDPOINTS  
+    # FILES (PER SITE) ENDPOINTS
 
     path('files/<int:pk>/', filesviews.FttsSiteFilesView.as_view()),# Main
 
@@ -56,6 +56,5 @@ urlpatterns = [
     path('files/<int:pk>/sitecableinstallationfiles/', filesviews.SiteCableInstallationFilesView.as_view()),
     path('files/<int:pk>/siteterminalInHsefiles/', filesviews.SiteTerminalInHseFilesView.as_view()),
     path('files/<int:pk>/siteinterceptionfiles/', filesviews.SiteInterceptionFilesView.as_view()),
-    path('files/<int:pk>/siteintegrationfiles/', filesviews.SiteIntegrationFilesView.as_view()),
 
 ]
