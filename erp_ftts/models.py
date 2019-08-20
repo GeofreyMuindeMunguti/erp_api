@@ -148,7 +148,7 @@ class FttsProcurementTeam(TimeStampModel):
 ######################################################## FIBER CIVIL TEAM ########################################################################################################################################################################################
 
 class SitePoleInstallation(TimeStampModel,TimeTrackModel):
-    site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING)
+    site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING,related_name='sitepoleinstallations')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     casuals_list = models.FileField(upload_to='files/ftts/Casuals/poleinstallation/%Y/%m/%d/',blank=True, null=True)
     site_pole_installation_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/poleinstallation/%Y/%m/%d/')
@@ -191,7 +191,7 @@ class SitePoleInstallation(TimeStampModel,TimeTrackModel):
 
 
 class SiteTrenching(TimeStampModel,TimeTrackModel):
-    site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING)
+    site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING ,related_name='sitetrenchings')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     casuals_list = models.FileField(upload_to='files/ftts/Casuals/poleinstallation/%Y/%m/%d/',blank=True, null=True)
     site_trenching_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/trenching/%Y/%m/%d/') #NOT blank
@@ -232,7 +232,7 @@ class SiteTrenching(TimeStampModel,TimeTrackModel):
             return e
 
 class SiteDuctInstallation(TimeStampModel,TimeTrackModel):
-    site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING)
+    site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING ,related_name='siteductinstallation')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     casuals_list = models.FileField(upload_to='files/ftts/Casuals/poleinstallation/%Y/%m/%d/',blank=True, null=True)
     site_duct_installation_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/duct/%Y/%m/%d/')
@@ -274,7 +274,7 @@ class SiteDuctInstallation(TimeStampModel,TimeTrackModel):
             return e
 
 class ManHoleInstallation(TimeStampModel,TimeTrackModel):
-    site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING)
+    site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING ,related_name='manholeinstallations')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     casuals_list = models.FileField(upload_to='files/ftts/Casuals/poleinstallation/%Y/%m/%d/',blank=True, null=True)
     manhole_image_1 = models.ImageField(upload_to='images/ftts/InstallationTeam/manhole/%Y/%m/%d/')
@@ -288,7 +288,7 @@ class ManHoleInstallation(TimeStampModel,TimeTrackModel):
 
 
 class SiteCableInstallation(TimeStampModel,TimeTrackModel):
-    site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING)
+    site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING ,related_name= 'sitecableinstallation')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     casuals_list = models.FileField(upload_to='files/ftts/Casuals/poleinstallation/%Y/%m/%d/',blank=True, null=True)
     site_cable_installation_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
@@ -347,7 +347,7 @@ class FttsCivilTeam(TimeStampModel):
 ######################################################## FIBER INSTALLATION TEAM ########################################################################################################################################################################################
 
 class SiteTerminalInHse(TimeStampModel,TimeTrackModel):
-    site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING)
+    site_name = models.OneToOneField(FttsSite, on_delete=models.DO_NOTHING ,related_name='siteterminalinhse')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     casuals_list = models.FileField(upload_to='files/ftts/Casuals/poleinstallation/%Y/%m/%d/',blank=True, null=True)
     site_terminal_in_hse_image_1 = models.ImageField(upload_to='images/ftts/InstallationTeam/terminalinhse/%Y/%m/%d/')
@@ -391,7 +391,7 @@ class SiteTerminalInHse(TimeStampModel,TimeTrackModel):
 
 
 class SiteInterception(TimeStampModel,TimeTrackModel):
-    site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING)
+    site_name = models.OneToOneField(FttsSite, on_delete=models.DO_NOTHING ,related_name ='siteinterception')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     casuals_list = models.FileField(upload_to='files/ftts/Casuals/poleinstallation/%Y/%m/%d/',blank=True, null=True)
     manhole = models.ForeignKey(ManHole, on_delete=models.DO_NOTHING ,blank=True, null=True)
@@ -434,7 +434,7 @@ class SiteInterception(TimeStampModel,TimeTrackModel):
             return e
 
 class SiteIntegration(TimeStampModel,TimeTrackModel):
-    site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING)
+    site_name = models.OneToOneField(FttsSite, on_delete=models.DO_NOTHING ,related_name= 'siteintegration')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     casuals_list = models.FileField(upload_to='files/ftts/Casuals/poleinstallation/%Y/%m/%d/',blank=True, null=True)
     site_integration_image_1 = models.ImageField(upload_to='images/ftts/InstallationTeam/integration/%Y/%m/%d/')

@@ -28,32 +28,73 @@ class SitePoleInstallationFilesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SitePoleInstallation
-        fields = ('site_pole_installation_image_1', 'site_pole_installation_image_2','site_pole_installation_image_3',)
+        fields = ('site_pole_installation_image_1', 'site_pole_installation_image_2','site_pole_installation_image_3','site_pole_installation_comment',)
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class SiteTrenchingFilesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SiteTrenching
-        fields = ('site_trenching_image_1', 'site_trenching_image_2','site_trenching_image_3',)
+        fields = ('site_trenching_image_1', 'site_trenching_image_2','site_trenching_image_3','site_trenching_comment',)
     
 
 class SiteDuctInstallationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SiteDuctInstallation
-        fields = ('site_duct_installation_image_1','site_duct_installation_image_2', 'site_duct_installation_image_3',)
-        #read_only_fields = ('created_at', 'updated_at', 'is_active')
+        fields = ('site_duct_installation_image_1','site_duct_installation_image_2', 'site_duct_installation_image_3','site_duct_installation_comment',)
+        
+class SiteDuctInstallationSerializer(serializers.ModelSerializer):
 
+    class Meta:
+        model = SiteDuctInstallation
+        fields = ('site_duct_installation_image_1','site_duct_installation_image_2', 'site_duct_installation_image_3','site_duct_installation_comment',)
+       
+class ManHoleInstallationFilesSerializer(serializers.ModelSerializer):
 
+    class Meta:
+        model = ManHoleInstallation
+        fields = ('site_manhole_installation_image_1','site_duct_installation_image_2', 'site_duct_installation_image_3','site_duct_installation_comment','manhole_comment',)
+       
+
+class SiteCableInstallationFilesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SiteCableInstallation
+        fields = ('site_cable_installation_image_1','site_cable_installation_image_2','site_cable_installation_image_3','site_cable_installation_comment',)
+
+class SiteTerminalInHseFilesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SiteTerminalInHse
+        fields = ('site_terminal_in_hse_image_1','site_terminal_in_hse_image_2','site_terminal_in_hse_image_3','site_terminal_in_hse_comment')
+
+class SiteInterceptionFilesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SiteInterception
+        fields = ('site_inception_image_1', 'site_inception_image_2','site_inception_image_3', 'site_inception_comment')
+    
+class SiteIntegrationFilesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SiteIntegration
+        fields = ('site_integration_image_1','site_integration_image_2', 'site_integration_image_3', 'site_integration_comment',)
 
 ################### Main Project Serializer################################
 
 class FttsSiteFilesSerializer(serializers.ModelSerializer):
-    
-    sitepoleinstallation = SitePoleInstallationFilesSerializer(many = True,read_only=True)
-    sitetrenching = SiteTrenchingFilesSerializer(many = True,read_only=True)
-    siteductinstallation = SiteDuctInstallationSerializer(many = True,read_only=True)
+    # Civil >many per site
+    sitepoleinstallations = SitePoleInstallationFilesSerializer(many = True,read_only=True)
+    sitetrenchings = SiteTrenchingFilesSerializer(many = True,read_only=True)
+    siteductinstallations = SiteDuctInstallationSerializer(many = True,read_only=True)
+    manholeinstallations = ManHoleInstallationFilesSerializer(many = True,read_only=True)
+    sitecableinstallation  = SiteCableInstallationFilesSerializer(many = True,read_only=True)
+    # Installation > Once per site
+    siteterminalinhse = SiteTerminalInHseFilesSerializer(read_only=True)
+    siteinterception  = SiteInterceptionFilesSerializer (read_only=True)
+    siteintegration = SiteIntegrationFilesSerializer (read_only=True)
+
 
     class Meta:
         model = FttsSite

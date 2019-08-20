@@ -48,9 +48,15 @@ urlpatterns = [
 
     # FILES (PER SITE) ENDPOINTS  
 
-    path('files/<int:pk>/', filesviews.FttsSiteFilesView.as_view()),
-    path('files/<int:pk>/commercialteamtiles/', filesviews.FttsCommercialTeamFilesView.as_view()),
-    path('files/<int:pk>/sitepoleinstallationfiles/', filesviews.SitePoleInstallationFilesView.as_view()),
+    path('files/<int:pk>/', filesviews.FttsSiteFilesView.as_view()),# Main
 
+    path('files/<int:pk>/commercialteamtiles/', filesviews.FttsCommercialTeamFilesView.as_view()),
+    # Civil works
+    path('files/<int:pk>/sitepoleinstallationfiles/', filesviews.SitePoleInstallationFilesView.as_view()),
+    path('files/<int:pk>/manholeinstallationfiles/', filesviews.ManHoleInstallationFilesView.as_view()),
+    path('files/<int:pk>/sitecableinstallationfiles/', filesviews.SiteCableInstallationFilesView.as_view()),
+    path('files/<int:pk>/siteterminalInHsefiles/', filesviews.SiteTerminalInHseFilesView.as_view()),
+    path('files/<int:pk>/siteinterceptionfiles/', filesviews.SiteInterceptionFilesView.as_view()),
+    path('files/<int:pk>/siteintegrationfiles/', filesviews.SiteIntegrationFilesView.as_view()),
 
 ]
