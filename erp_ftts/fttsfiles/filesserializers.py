@@ -36,26 +36,26 @@ class SiteTrenchingFilesSerializer(serializers.ModelSerializer):
     class Meta:
         model = SiteTrenching
         fields = ('site_trenching_image_1', 'site_trenching_image_2','site_trenching_image_3','site_trenching_comment',)
-    
+
 
 class SiteDuctInstallationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SiteDuctInstallation
         fields = ('site_duct_installation_image_1','site_duct_installation_image_2', 'site_duct_installation_image_3','site_duct_installation_comment',)
-        
+
 class SiteDuctInstallationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SiteDuctInstallation
         fields = ('site_duct_installation_image_1','site_duct_installation_image_2', 'site_duct_installation_image_3','site_duct_installation_comment',)
-       
+
 class ManHoleInstallationFilesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ManHoleInstallation
         fields = ('site_manhole_installation_image_1','site_duct_installation_image_2', 'site_duct_installation_image_3','site_duct_installation_comment','manhole_comment',)
-       
+
 
 class SiteCableInstallationFilesSerializer(serializers.ModelSerializer):
 
@@ -73,13 +73,7 @@ class SiteInterceptionFilesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SiteInterception
-        fields = ('site_inception_image_1', 'site_inception_image_2','site_inception_image_3', 'site_inception_comment')
-    
-class SiteIntegrationFilesSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = SiteIntegration
-        fields = ('site_integration_image_1','site_integration_image_2', 'site_integration_image_3', 'site_integration_comment',)
+        fields = ('site_interception_image_1', 'site_interception_image_2','site_interception_image_3', 'site_interception_comment')
 
 ################### Main Project Serializer################################
 
@@ -93,7 +87,6 @@ class FttsSiteFilesSerializer(serializers.ModelSerializer):
     # Installation > Once per site
     siteterminalinhse = SiteTerminalInHseFilesSerializer(read_only=True)
     siteinterception  = SiteInterceptionFilesSerializer (read_only=True)
-    siteintegration = SiteIntegrationFilesSerializer (read_only=True)
 
 
     class Meta:

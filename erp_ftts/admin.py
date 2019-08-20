@@ -81,16 +81,7 @@ class FttsProcurementTeamAdmin(admin.ModelAdmin):
 
 admin.site.register(FttsProcurementTeam, FttsProcurementTeamAdmin)
 
-
 ######################################################## FIBER CIVIL TEAM ########################################################################################################################################################################################
-
-class SitePoleInstallationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','start_date','end_date','site_pole_installation_image_1', 'site_pole_installation_image_2','site_pole_installation_image_3', 'site_pole_installation_comment','posted_by', 'created_at', 'updated_at', 'is_active')
-    list_display_links = ('site_name', )
-    search_fields = ('site_name', )
-    list_editable = ('is_active',)
-
-admin.site.register(SitePoleInstallation, SitePoleInstallationAdmin)
 
 class SiteTrenchingAdmin(admin.ModelAdmin):
     list_display = ('id', 'site_name','start_date','end_date','site_trenching_image_1', 'site_trenching_image_2','site_trenching_image_3', 'site_trenching_comment','posted_by', 'created_at', 'updated_at', 'is_active')
@@ -151,7 +142,7 @@ class SiteTerminalInHseAdmin(admin.ModelAdmin):
 admin.site.register(SiteTerminalInHse, SiteTerminalInHseAdmin)
 
 class SiteInterceptionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','manhole','start_date','end_date','site_inception_image_1', 'site_inception_image_2','site_inception_image_3', 'site_inception_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','manhole','start_date','end_date','site_interception_image_1', 'site_interception_image_2','site_interception_image_3', 'site_interception_comment','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
