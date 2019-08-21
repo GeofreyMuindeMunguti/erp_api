@@ -204,3 +204,13 @@ class FTTSCasualDailyRegisterAdmin(admin.ModelAdmin):
     list_editable = ('is_active',)
 
 admin.site.register(FTTSCasualDailyRegister, FTTSCasualDailyRegisterAdmin)
+
+
+class CivilWorkProductionAdmin(admin.ModelAdmin):
+    list_display = ('id','trenched_distance','backfilled_distance','created_at', 'updated_at', 'is_active')
+    list_display_links = ('id',)
+    search_fields = ('id', )
+    list_filter =('id',)
+    # list_editable = ('is_active',)
+
+admin.site.register(CivilWorkProduction, CivilWorkProductionAdmin)
