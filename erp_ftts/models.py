@@ -31,6 +31,14 @@ class FTTSProject(CreateProject,TimeTrackModel):
         except Exception as e:
             return e
 
+    def sites_list(self):
+        try:
+            
+            return [FttsSite.objects.get(site_name= _psite.site_name).id for _psite in FttsSite.objects.filter(ftts_project_id = self.id).all()]
+
+        except Exception as e:
+            return e
+
 class FttsSite(TimeStampModel):
     site_name = models.CharField(max_length=100, unique = True, blank=True, null=True)
     ftts_project = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING )
@@ -202,6 +210,7 @@ class SiteTrenching(TimeStampModel,TimeTrackModel):
     site_trenching_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/trenching/%Y/%m/%d/') #NOT blank
     site_trenching_image_2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/trenching/%Y/%m/%d/')
     site_trenching_image_3 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/trenching/%Y/%m/%d/')
+
     site_trenching_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
@@ -235,6 +244,7 @@ class SiteTrenching(TimeStampModel,TimeTrackModel):
 
         except Exception as e:
             return e
+
 
 class SiteDuctInstallation(TimeStampModel,TimeTrackModel):
     site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING ,related_name='siteductinstallation')
@@ -395,7 +405,7 @@ class SiteTerminalInHse(TimeStampModel,TimeTrackModel):
 
 class SiteInterception(TimeStampModel,TimeTrackModel):
     site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     casuals_list = models.FileField(upload_to='files/ftts/Casuals/poleinstallation/%Y/%m/%d/',blank=True, null=True)
     manhole = models.ForeignKey(ManHole, on_delete=models.DO_NOTHING ,blank=True, null=True)
     site_interception_image_1 = models.ImageField(upload_to='images/ftts/InstallationTeam/inception/%Y/%m/%d/')
@@ -449,8 +459,8 @@ class FttsIssues(TimeStampModel):
 
 class FttsInstallationTeam(TimeStampModel):
     site_name = models.OneToOneField(FttsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
-    casuals_list = models.FileField(upload_to='files/ftts/Casuals/poleinstallation/%Y/%m/%d/',blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
+    casuals_list = models.FileField(upload_to='files/ftts/Casuals/poleinstallation/%Y/%m/%d/',blank=True )
     ftts_terminal_in_hse = models.OneToOneField(SiteTerminalInHse, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftts_interception = models.OneToOneField(SiteInterception, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftts_integration = models.BooleanField(default=False)
@@ -458,7 +468,7 @@ class FttsInstallationTeam(TimeStampModel):
     ftts_asbuit_received = models.BooleanField(default=True)
     snag_document = models.FileField(upload_to='files/SafaricomTeamftts/snag/%Y/%m/%d/', blank=True, null=True)
     snag_document_comment = models.CharField(max_length=100, blank=True, null=True)
-    ftts_issues = models.ManyToManyField(FttsIssues, blank=True, null=True)
+    ftts_issues = models.ManyToManyField(FttsIssues, blank=True )
     conditional_acceptance_cert = models.FileField(upload_to='files/SafaricomTeamftts/conditionalcert/%Y/%m/%d/', blank=True, null=True)
     conditional_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
@@ -511,7 +521,7 @@ class DailyCivilWorkProduction(TimeStampModel):
 class CasualDailyRegister(TimeStampModel):
     ''' Class to track Casuals per SITE for EACH FTTS Project per task
     '''
-    project_name = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING)
+  
     site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING )
     work_day = models.DateField(blank=True, null=True)
 
@@ -546,7 +556,7 @@ class CasualDailyRegister(TimeStampModel):
 class FTTSCasualDailyRegister(TimeStampModel):
     ''' Class to track Casuals per SITE for EACH FTTS Project
     '''
-    project_name = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING)
+
     site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING )
     work_day = models.DateField(blank=True, null=True)
     ftts_casual =models.ManyToManyField(Casual,related_name= 'fttscasualregister')
@@ -559,3 +569,7 @@ class FTTSCasualDailyRegister(TimeStampModel):
 
     class Meta:
         unique_together = (['site_name', 'work_day',])
+
+
+
+

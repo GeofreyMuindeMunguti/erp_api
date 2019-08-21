@@ -11,6 +11,7 @@ from rest_framework.authtoken.models import Token
 
 class FTTSProjectSerializer(serializers.ModelSerializer):
     sites_no = serializers.IntegerField(read_only=True)
+    sites_list = serializers.ListField(read_only =True)
     class Meta:
         model = FTTSProject
         fields = ('__all__')
