@@ -181,13 +181,17 @@ class FoundationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
-class SetSiteClearingImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    # SubTask (1)://///////////Site-Clearing Subtask //////////////////
+    
+class SiteClearingSubTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
-    queryset = SetSiteClearingImage.objects.order_by('created_at')
-    serializer_class = SiteClearingSerializer
+    queryset = SiteClearingSubTask.objects.order_by('created_at')
+    serializer_class = SiteClearingSubTaskSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
+
+    # SubTask (1)://///////////Tower-Base Subtask //////////////////
 
 class TowerBaseImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""

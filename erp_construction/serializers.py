@@ -137,17 +137,19 @@ class FoundationImageSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+    # SubTask (1)://///////////Site-Clearing Subtask //////////////////
 
-class SiteClearingSerializer(serializers.ModelSerializer):
+class SiteClearingSubTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = SetSiteClearingImage
+        model = SiteClearingSubTask
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
-
+    # SubTask (1)://///////////Tower-Base Subtask ////////////////////
+    
 class TowerBaseImageSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)

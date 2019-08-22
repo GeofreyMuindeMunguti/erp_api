@@ -13,7 +13,7 @@ from erp_construction.models import *
 class SiteClearingFilesSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = SetSiteClearingImage
+        model = SiteClearingSubTask
         fields = ('setting_site_clearing_image_1','setting_site_clearing_image_2','setting_site_clearing_image_3',)
 
 

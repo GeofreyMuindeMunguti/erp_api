@@ -25,7 +25,10 @@ router.register(r'accessapprovalscivil', views.AccessApprovalCivilViewSet)
 router.register(r'civilteamtasks', views.CivilTeamViewSet)
 
 router.register(r'foundationimages', views.FoundationImageViewSet)
-router.register(r'setclearingimages', views.SetSiteClearingImageViewSet)
+
+# SubTask (1)://///////////Site-Clearing Subtask //////////////////
+router.register(r'setclearingimages', views.SiteClearingSubTaskViewSet)
+# SubTask (1)://///////////Tower -Base Subtask //////////////////
 router.register(r'towerbaseimages', views.TowerBaseImageViewSet)
 router.register(r'bindingimages', views.BindingImageViewSet)
 router.register(r'steelfixformworkimages', views.SteelFixFormworkImageViewSet)

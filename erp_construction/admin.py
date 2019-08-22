@@ -126,18 +126,20 @@ admin.site.register(BtsProject, BtsProjectAdmin)
 
 
 
-#SITE-CLEARING//////////////////////////////////////////////////////////////
-class SiteClearingAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','task_id', 'setting_site_clearing_image_1', 'setting_site_clearing_image_2', 'setting_site_clearing_image_3', 'setting_site_clearing_comment', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    # SubTask (1)://///////////Site-Clearing Subtask //////////////////
+
+class SiteClearingSubTaskAdmin(admin.ModelAdmin):
+    #list_display = ('id', 'project_name','task_id', 'setting_site_clearing_image_1', 'setting_site_clearing_image_2', 'setting_site_clearing_image_3', 'setting_site_clearing_comment', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name','task_id', 'setting_site_clearing_image_1', 'setting_site_clearing_image_2', 'setting_site_clearing_image_3', 'setting_site_clearing_comment', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
     list_editable = ('is_active',)
 
 
-admin.site.register(SiteClearing, SiteClearingAdmin)
+admin.site.register(SiteClearingSubTask, SiteClearingSubTaskAdmin)
 
-class SiteClearingDailyTaskAdmin(admin.ModelAdmin):
+class DailySiteClearingSubTaskAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name','date','casuals_list', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name','date')
@@ -145,10 +147,10 @@ class SiteClearingDailyTaskAdmin(admin.ModelAdmin):
     list_editable = ('is_active',)
 
 
-admin.site.register(SiteClearingDailyTask, SiteClearingDailyTaskAdmin)
+admin.site.register(DailySiteClearingSubTask, DailySiteClearingSubTaskAdmin)
 
 
-class SetSiteClearingImageAdmin(admin.ModelAdmin):
+class DailySiteClearingSubTaskImageAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'setting_site_clearing_image',  'setting_site_clearing_comment', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -156,10 +158,11 @@ class SetSiteClearingImageAdmin(admin.ModelAdmin):
     list_editable = ('is_active',)
 
 
-admin.site.register(SetSiteClearingImage, SetSiteClearingImageAdmin)
+admin.site.register(DailySiteClearingSubTaskImage, DailySiteClearingSubTaskImageAdmin)
+
+    # SubTask (1)://///////////Tower-Base Subtask //////////////////
 
 
-# TOWER-BASE/////////////////////////////////////////////////////////////////////////////
 
 # class TowerBaseImageAdmin(admin.ModelAdmin):
 #     list_display = ('id', 'project_name','task_id', 'towerbase_image_1', 'towerbase_image_2', 'towerbase_image_3', 'tower_base_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')

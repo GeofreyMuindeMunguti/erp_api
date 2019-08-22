@@ -52,7 +52,7 @@ class BtsSite(TimeStampModel):
 
     def __str__(self):
         #return str(self.site_name)
-        return 'SITE: {} of PROJECT: {}'.format(self.site_name,self.project_name)
+        return '{}:{}'.format(self.site_name,self.project_name)
 
     # def delete(self, *args, **kwargs):
     #     if self.is_active is False:
@@ -216,14 +216,13 @@ class BtsSite(TimeStampModel):
         return project_percentage
 
 
+# TASK [1]: FOUNDATION CREATION TASK ########################################################################################################################################
 
-###########START FOUNDATION IMAGES########################################################################################################################################
-
-#////////////////////////////////////////Site-Clearing Subtask /////////////////////////////////////
+    # SubTask (1)://///////////Site-Clearing Subtask //////////////////
 
 
-class SetSiteClearingImage(TimeStampModel):
-    project_name = models.OneToOneField('SiteClearingDailyTask', on_delete=models.DO_NOTHING)
+class DailySiteClearingSubTaskImage(TimeStampModel):
+    project_name = models.OneToOneField('DailySiteClearingSubTask', on_delete=models.DO_NOTHING)
 
     # DailyPhotos
     setting_site_clearing_image = models.ImageField(upload_to='images/CivilWorksTeam/siteclearing/%Y/%m/%d/',blank=True, null=True)
@@ -231,24 +230,25 @@ class SetSiteClearingImage(TimeStampModel):
 
 
     def __str__(self):
-        #return str(self.project_name)
-        return 'Image for {}'.format(self.project_name)
+        return str(self.project_name)
+        #return 'Image for {}'.format(self.project_name)
 
-class SiteClearingDailyTask(TimeStampModel):
-    project_name = models.ForeignKey('SiteClearing', on_delete=models.DO_NOTHING)
+class DailySiteClearingSubTask(TimeStampModel):
+    project_name = models.ForeignKey('SiteClearingSubTask', on_delete=models.DO_NOTHING)
     date =  models.DateField(blank=True, null=True)
     # Casuals
     casuals_list = models.FileField(upload_to='files/bts/Casuals/SetSiteClearing/%Y/%m/%d/',blank=True, null=True)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
 
     def __str__(self):
-        #return str(self.project_name)
-        return '{}  for date: {}'.format(self.project_name ,self.date)
+        return str(self.project_name)
+        #return '{}  for date: {}'.format(self.project_name ,self.date)
 
    
 
-class SiteClearing(TimeTrackModel,TimeStampModel):
+class SiteClearingSubTask(TimeTrackModel,TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+   # no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
 
         # Sammary Photos
     setting_site_clearing_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/siteclearing/%Y/%m/%d/',blank=True, null=True)
@@ -259,104 +259,104 @@ class SiteClearing(TimeTrackModel,TimeStampModel):
 
 
     def __str__(self):
-        #return str(self.project_name)
-        return 'Siteclearing  : {}'.format(self.project_name)
+        return str(self.project_name)
+        #return 'Siteclearing  : {}'.format(self.project_name)
 
-    def no_of_casuals(self):
-        count = self.no_of_casuals_atsite.count()
-        return "\n , ".join(str(count))
+    # def no_of_casuals(self):
+    #     count = self.no_of_casuals_atsite.count()
+    #     return "\n , ".join(str(count))
 
-    def names_of_casuals(self):
-        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+    # def names_of_casuals(self):
+    #     return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
-    def check_cost(self):
-        now = datetime.now(timezone.utc)
-        date_diff = date_difference(self.start_date, now)
-        return date_diff
+    # def check_cost(self):
+    #     now = datetime.now(timezone.utc)
+    #     date_diff = date_difference(self.start_date, now)
+    #     return date_diff
 
-    def date_casual_cost(self):
-        try:
-            rate_data = Rates.objects.get(worker_type='Casual')
-            casual_rate = rate_data.rate
-            now = datetime.now(timezone.utc)
-            total_cost = 0
-            default_diff = 1
-            now = datetime.now(timezone.utc)
-            if bool(self.end_date) is False:
-                date_diff = date_difference(self.start_date, now)
-            else:
-                date_diff = date_difference(self.start_date, self.end_date)
-            while date_diff > default_diff:
-                updated_count = self.no_of_casuals_atsite.count()
-                casual_count += count
-                casual_diff = casual_count - count
-                cost = (casual_diff * casual_rate)
-                total_cost += cost
-                default_diff += 1
-            return total_cost
-        except Exception as e:
-            return e
+    # def date_casual_cost(self):
+    #     try:
+    #         rate_data = Rates.objects.get(worker_type='Casual')
+    #         casual_rate = rate_data.rate
+    #         now = datetime.now(timezone.utc)
+    #         total_cost = 0
+    #         default_diff = 1
+    #         now = datetime.now(timezone.utc)
+    #         if bool(self.end_date) is False:
+    #             date_diff = date_difference(self.start_date, now)
+    #         else:
+    #             date_diff = date_difference(self.start_date, self.end_date)
+    #         while date_diff > default_diff:
+    #             updated_count = self.no_of_casuals_atsite.count()
+    #             casual_count += count
+    #             casual_diff = casual_count - count
+    #             cost = (casual_diff * casual_rate)
+    #             total_cost += cost
+    #             default_diff += 1
+    #         return total_cost
+    #     except Exception as e:
+    #         return e
 
-    def casuals_cost(self):
-        try:
-            rate_data = Rates.objects.get(worker_type='Casual')
-            casual_rate = rate_data.rate
-            now = datetime.now(timezone.utc)
-            if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, now)
-            else:
-                days_spent = date_difference(self.start_date, self.end_date)
-            count = self.no_of_casuals_atsite.count()
-            cost = (count * casual_rate * days_spent)
-            return cost
-        except Exception as e:
-            error = "Rates does not exist"
-            return error
+    # def casuals_cost(self):
+    #     try:
+    #         rate_data = Rates.objects.get(worker_type='Casual')
+    #         casual_rate = rate_data.rate
+    #         now = datetime.now(timezone.utc)
+    #         if bool(self.end_date) is False:
+    #             days_spent = date_difference(self.start_date, now)
+    #         else:
+    #             days_spent = date_difference(self.start_date, self.end_date)
+    #         count = self.no_of_casuals_atsite.count()
+    #         cost = (count * casual_rate * days_spent)
+    #         return cost
+    #     except Exception as e:
+    #         error = "Rates does not exist"
+    #         return error
 
-    def engineers_cost(self):
-        try:
-            rate_data = Rates.objects.get(worker_type='Engineer')
-            engineer_rate = rate_data.rate
-            now = datetime.now(timezone.utc)
-            if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, now)
-            else:
-                days_spent = date_difference(self.start_date, self.end_date)
-            try:
-                engineer_data = FoundationImage.objects.get(project_name=self.project_name)
-                count = engineer_data.engineers_atsite.count()
-                cost = (count * engineer_rate * days_spent)
-                return cost
-            except Exception as e:
-                error = "No engineers assigned to project"
-                return error
-        except Exception as e:
-            error = "Rates does not exist"
-            return error
+    # def engineers_cost(self):
+    #     try:
+    #         rate_data = Rates.objects.get(worker_type='Engineer')
+    #         engineer_rate = rate_data.rate
+    #         now = datetime.now(timezone.utc)
+    #         if bool(self.end_date) is False:
+    #             days_spent = date_difference(self.start_date, now)
+    #         else:
+    #             days_spent = date_difference(self.start_date, self.end_date)
+    #         try:
+    #             engineer_data = FoundationImage.objects.get(project_name=self.project_name)
+    #             count = engineer_data.engineers_atsite.count()
+    #             cost = (count * engineer_rate * days_spent)
+    #             return cost
+    #         except Exception as e:
+    #             error = "No engineers assigned to project"
+    #             return error
+    #     except Exception as e:
+    #         error = "Rates does not exist"
+    #         return error
 
-    def labour_cost(self):
-        try:
-            engineer_rate_data = Rates.objects.get(worker_type='Engineer')
-            casual_rate_data = Rates.objects.get(worker_type='Casual')
-            engineer_rate = engineer_rate_data.rate
-            casual_rate = casual_rate_data.rate
-            now = datetime.now(timezone.utc)
-            if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, now)
-            else:
-                days_spent = date_difference(self.start_date, self.end_date)
-            try:
-                engineer_data = FoundationImage.objects.get(project_name=self.project_name)
-                engineer_count = engineer_data.engineers_atsite.count()
-                casual_count = self.no_of_casuals_atsite.count()
-                cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
-                return cost
-            except Exception as e:
-                error = "No engineers assigned to project"
-                return error
-        except Exception as e:
-            error = "Rates does not exist"
-            return error
+    # def labour_cost(self):
+    #     try:
+    #         engineer_rate_data = Rates.objects.get(worker_type='Engineer')
+    #         casual_rate_data = Rates.objects.get(worker_type='Casual')
+    #         engineer_rate = engineer_rate_data.rate
+    #         casual_rate = casual_rate_data.rate
+    #         now = datetime.now(timezone.utc)
+    #         if bool(self.end_date) is False:
+    #             days_spent = date_difference(self.start_date, now)
+    #         else:
+    #             days_spent = date_difference(self.start_date, self.end_date)
+    #         try:
+    #             engineer_data = FoundationImage.objects.get(project_name=self.project_name)
+    #             engineer_count = engineer_data.engineers_atsite.count()
+    #             casual_count = self.no_of_casuals_atsite.count()
+    #             cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
+    #             return cost
+    #         except Exception as e:
+    #             error = "No engineers assigned to project"
+    #             return error
+    #     except Exception as e:
+    #         error = "Rates does not exist"
+    #         return error
 
     def raise_flag(self):
         try:
@@ -394,17 +394,34 @@ class SiteClearing(TimeTrackModel,TimeStampModel):
         except Exception as e:
             return
 
+    # SubTask (2)://///////////Site-TowerBase Images Subtask //////////////////
+
 
 class TowerBaseImage(TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    work_day = models.DateField(blank=True ,null=True )
+
+    towerbase_image = models.ImageField(upload_to='images/CivilWorksTeam/towerbase/%Y/%m/%d/')
+
+    tower_base_comment = models.CharField(max_length=100, blank=True, null=True)
+
+class DailyTowerBase(TimeStampModel,):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     towerbase_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/towerbase/%Y/%m/%d/')
     towerbase_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/towerbase/%Y/%m/%d/')
     towerbase_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/towerbase/%Y/%m/%d/')
     tower_base_comment = models.CharField(max_length=100, blank=True, null=True)
 
+
+class TowerBaseSubTask(TimeStampModel,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    #no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
+ 
+    towerbase_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/towerbase/%Y/%m/%d/')
+    towerbase_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/towerbase/%Y/%m/%d/')
+    towerbase_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/towerbase/%Y/%m/%d/')
+    tower_base_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -873,7 +890,7 @@ class ConcreteCuringPeriodImage(TimeStampModel):
 class FoundationImage(TimeTrackModel,TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     engineers_atsite = models.ManyToManyField(Engineer, blank=True )
-    setting_site_clearing = models.OneToOneField(SetSiteClearingImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    setting_site_clearing = models.OneToOneField(SiteClearingSubTask, on_delete=models.DO_NOTHING, blank=True, null=True)
     excavation_tower_base = models.OneToOneField(TowerBaseImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     binding = models.OneToOneField(BindingImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     steel_fix_formwork = models.OneToOneField(SteelFixFormworkImage, on_delete=models.DO_NOTHING, blank=True, null=True)
