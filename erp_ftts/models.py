@@ -201,15 +201,45 @@ class SitePoleInstallation(TimeStampModel,TimeTrackModel):
 
         except Exception as e:
             return e
+#TRENCHING
+class TrenchingImage(TimeStampModel,TimeTrackModel):
+    site_name = models.ForeignKey('DailyTrenching', on_delete=models.DO_NOTHING ,related_name='trenchingimage')
+   
+    site_trenching_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/trenching/%Y/%m/%d/') #NOT blank
+    site_trenching_comment = models.CharField(max_length=100, blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return str(self.site_name)
+        return('Image for {}'.format(self.site_name))
+
+class DailyTrenching(TimeStampModel,TimeTrackModel):
+    site_name = models.ForeignKey('SiteTrenching', on_delete=models.DO_NOTHING ,related_name='dailytrenchings')
+    date = models.DateField(unique =True)
+
+    distance_trenched = models.FloatField(blank=True ,null= True)
+
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
+    casuals_list = models.FileField(upload_to='files/ftts/Casuals/trenching/%Y/%m/%d/',blank=True, null=True)
+
+    site_trenching_comment = models.CharField(max_length=100, blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+       #return str(self.site_name)
+       return 'Trenching for : {} date: {}'.format(self.site_name ,self.date)
+
 
 
 class SiteTrenching(TimeStampModel,TimeTrackModel):
-    site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING ,related_name='sitetrenchings')
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-    casuals_list = models.FileField(upload_to='files/ftts/Casuals/poleinstallation/%Y/%m/%d/',blank=True, null=True)
+    site_name = models.OneToOneField(FttsSite, on_delete=models.DO_NOTHING ,related_name='sitetrenchings')
+    # no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
+    # casuals_list = models.FileField(upload_to='files/ftts/Casuals/poleinstallation/%Y/%m/%d/',blank=True, null=True)
     site_trenching_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/trenching/%Y/%m/%d/') #NOT blank
     site_trenching_image_2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/trenching/%Y/%m/%d/')
     site_trenching_image_3 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/trenching/%Y/%m/%d/')
+
+    site_trenched_distance  = models.FloatField(default=0)
 
     site_trenching_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)

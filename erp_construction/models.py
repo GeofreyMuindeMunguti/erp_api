@@ -7,15 +7,7 @@ from django.contrib.postgres.fields import ArrayField
 from datetime import datetime, timezone, timedelta
 
 
-# class Category(models.Model):
-#     category_name = models.CharField(max_length=100, unique=True)
-#     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)
-#     is_active = models.BooleanField(default=True)
-#
-#     def __str__(self):
-#         return self.category_name
+
 
 class ProjectIcons(models.Model):
     icon = models.ImageField(upload_to='images/Project/Icons/%Y/%m/%d/')
@@ -223,6 +215,34 @@ class BtsSite(models.Model):
         return project_percentage
 
 
+#"""DAILY TASKS"""
+
+class BtsImage(TimeStampModel):
+    site_name = models.ForeignKey(BtsSite, on_delete=models.DO_NOTHING)
+    daily_image = models.ImageField(upload_to='images/ftts/dailytasks/%Y/%m/%d/', blank=True, null=True)
+
+    task_date = models.DateTimeField(blank=True, null=True)
+    task_distance = models.FloatField(blank=True, null=True)
+    daily_task_comment = models.CharField(max_length=100, blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    
+    def __str__(self):
+        return str(self.site_name)
+
+class BtsDailyTask(TimeStampModel):
+    site_name = models.ForeignKey(BtsSite, on_delete=models.DO_NOTHING)
+    task_date = models.DateField(blank=True, null=True)
+     # Sammary Photos
+    # daily_image_1 = models.ImageField(upload_to='images/ftts/dailytasks/%Y/%m/%d/', blank=True, null=True)
+    # daily_image_2 = models.ImageField(upload_to='images/ftts/dailytasks/%Y/%m/%d/', blank=True, null=True)
+    # daily_image_3 = models.ImageField(upload_to='images/ftts/dailytasks/%Y/%m/%d/', blank=True, null=True)
+
+    task_distance = models.FloatField(blank=True, null=True)
+    daily_task_comment = models.CharField(max_length=100, blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return str(self.site_name)
 
 #######################################START FOUNDATION IMAGES########################################################################################################################################
 
@@ -232,6 +252,7 @@ class SetSiteClearingImage(models.Model):
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
+    # Sammary Photos
     setting_site_clearing_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/siteclearing/%Y/%m/%d/')
     setting_site_clearing_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/siteclearing/%Y/%m/%d/')
     setting_site_clearing_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/siteclearing/%Y/%m/%d/')

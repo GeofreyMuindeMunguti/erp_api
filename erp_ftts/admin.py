@@ -82,6 +82,8 @@ class FttsProcurementTeamAdmin(admin.ModelAdmin):
 admin.site.register(FttsProcurementTeam, FttsProcurementTeamAdmin)
 
 ######################################################## FIBER CIVIL TEAM ########################################################################################################################################################################################
+#TRENCHING
+
 
 class SiteTrenchingAdmin(admin.ModelAdmin):
     list_display = ('id', 'site_name','start_date','end_date','site_trenching_image_1', 'site_trenching_image_2','site_trenching_image_3', 'site_trenching_comment','posted_by', 'created_at', 'updated_at', 'is_active')
