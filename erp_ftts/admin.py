@@ -86,7 +86,7 @@ admin.site.register(FttsProcurementTeam, FttsProcurementTeamAdmin)
 
 
 class SiteTrenchingAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','start_date','end_date','site_trenching_image_1', 'site_trenching_image_2','site_trenching_image_3', 'site_trenching_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','start_date','end_date','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)

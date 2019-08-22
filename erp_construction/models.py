@@ -32,26 +32,27 @@ class BtsProject(models.Model):
         return self.bts_project_name
 
 
-class BtsSite(models.Model):
+class BtsSite(TimeStampModel):
+    ''' Create site and associate with project'''
     project_name = models.ForeignKey(BtsProject, on_delete=models.DO_NOTHING, blank=True, null=True)
     site_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
+     # Site details
     site_number = models.CharField(max_length=100, unique=True, blank=True, null=True)
     BTS_type = models.CharField(max_length=100, blank=True, null=True)
     site_owner = models.CharField(max_length=100, blank=True, null=True)
     location = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
+     # Site Docs
     geotech_file = models.FileField(upload_to='files/Project/geotech/%Y/%m/%d/', blank=True, null=True)
     access_letter = models.FileField(upload_to='files/Project/accessletters/%Y/%m/%d/', blank=True, null=True)
     approved_drawing = models.FileField(upload_to='files/Project/approveddrawings/%Y/%m/%d/', blank=True, null=True)
     final_acceptance_cert = models.FileField(upload_to='files/SafaricomTeam/finalcert/%Y/%m/%d/', blank=True, null=True)
     final_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
+
 
     def __str__(self):
-        return str(self.site_name)
-
+        #return str(self.site_name)
+        return 'SITE: {} of PROJECT: {}'.format(self.site_name,self.project_name)
 
     # def delete(self, *args, **kwargs):
     #     if self.is_active is False:
@@ -215,54 +216,51 @@ class BtsSite(models.Model):
         return project_percentage
 
 
-#"""DAILY TASKS"""
 
-class BtsImage(TimeStampModel):
-    site_name = models.ForeignKey(BtsSite, on_delete=models.DO_NOTHING)
-    daily_image = models.ImageField(upload_to='images/ftts/dailytasks/%Y/%m/%d/', blank=True, null=True)
+###########START FOUNDATION IMAGES########################################################################################################################################
 
-    task_date = models.DateTimeField(blank=True, null=True)
-    task_distance = models.FloatField(blank=True, null=True)
-    daily_task_comment = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    
-    def __str__(self):
-        return str(self.site_name)
-
-class BtsDailyTask(TimeStampModel):
-    site_name = models.ForeignKey(BtsSite, on_delete=models.DO_NOTHING)
-    task_date = models.DateField(blank=True, null=True)
-     # Sammary Photos
-    # daily_image_1 = models.ImageField(upload_to='images/ftts/dailytasks/%Y/%m/%d/', blank=True, null=True)
-    # daily_image_2 = models.ImageField(upload_to='images/ftts/dailytasks/%Y/%m/%d/', blank=True, null=True)
-    # daily_image_3 = models.ImageField(upload_to='images/ftts/dailytasks/%Y/%m/%d/', blank=True, null=True)
-
-    task_distance = models.FloatField(blank=True, null=True)
-    daily_task_comment = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-
-    def __str__(self):
-        return str(self.site_name)
-
-#######################################START FOUNDATION IMAGES########################################################################################################################################
+#////////////////////////////////////////Site-Clearing Subtask /////////////////////////////////////
 
 
-class SetSiteClearingImage(models.Model):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
-    # Sammary Photos
-    setting_site_clearing_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/siteclearing/%Y/%m/%d/')
-    setting_site_clearing_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/siteclearing/%Y/%m/%d/')
-    setting_site_clearing_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/siteclearing/%Y/%m/%d/')
+class SetSiteClearingImage(TimeStampModel):
+    project_name = models.OneToOneField('SiteClearingDailyTask', on_delete=models.DO_NOTHING)
+
+    # DailyPhotos
+    setting_site_clearing_image = models.ImageField(upload_to='images/CivilWorksTeam/siteclearing/%Y/%m/%d/',blank=True, null=True)
     setting_site_clearing_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
+
 
     def __str__(self):
-        return str(self.project_name)
+        #return str(self.project_name)
+        return 'Image for {}'.format(self.project_name)
+
+class SiteClearingDailyTask(TimeStampModel):
+    project_name = models.ForeignKey('SiteClearing', on_delete=models.DO_NOTHING)
+    date =  models.DateField(blank=True, null=True)
+    # Casuals
+    casuals_list = models.FileField(upload_to='files/bts/Casuals/SetSiteClearing/%Y/%m/%d/',blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
+
+    def __str__(self):
+        #return str(self.project_name)
+        return '{}  for date: {}'.format(self.project_name ,self.date)
+
+   
+
+class SiteClearing(TimeTrackModel,TimeStampModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+
+        # Sammary Photos
+    setting_site_clearing_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/siteclearing/%Y/%m/%d/',blank=True, null=True)
+    setting_site_clearing_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/siteclearing/%Y/%m/%d/',blank=True, null=True)
+    setting_site_clearing_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/siteclearing/%Y/%m/%d/',blank=True, null=True)
+
+    setting_site_clearing_comment = models.CharField(max_length=100, blank=True, null=True)
+
+
+    def __str__(self):
+        #return str(self.project_name)
+        return 'Siteclearing  : {}'.format(self.project_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -362,7 +360,7 @@ class SetSiteClearingImage(models.Model):
 
     def raise_flag(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name='Upload site clearing and setting images')
+            kpi_data = SubTask.objects.get(subtask_name='Site Clearing')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -397,7 +395,7 @@ class SetSiteClearingImage(models.Model):
             return
 
 
-class TowerBaseImage(models.Model):
+class TowerBaseImage(TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     start_date = models.DateTimeField()
@@ -406,9 +404,7 @@ class TowerBaseImage(models.Model):
     towerbase_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/towerbase/%Y/%m/%d/')
     towerbase_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/towerbase/%Y/%m/%d/')
     tower_base_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
+
 
     def __str__(self):
         return str(self.project_name)
@@ -494,7 +490,7 @@ class TowerBaseImage(models.Model):
             return
 
 
-class BindingImage(models.Model):
+class BindingImage(TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     start_date = models.DateTimeField()
@@ -503,9 +499,7 @@ class BindingImage(models.Model):
     binding_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/binding/%Y/%m/%d/')
     binding_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/binding/%Y/%m/%d/')
     binding_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
+
 
     def __str__(self):
         return str(self.project_name)
@@ -591,7 +585,7 @@ class BindingImage(models.Model):
             return
 
 
-class SteelFixFormworkImage(models.Model):
+class SteelFixFormworkImage(TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     start_date = models.DateTimeField()
@@ -600,9 +594,7 @@ class SteelFixFormworkImage(models.Model):
     steel_fix_formwork_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/steelfix/%Y/%m/%d/')
     steel_fix_formwork_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/steelfix/%Y/%m/%d/')
     steel_fix_formwork_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
+
 
     def __str__(self):
         return str(self.project_name)
@@ -688,7 +680,7 @@ class SteelFixFormworkImage(models.Model):
             return
 
 
-class ConcretePourImage(models.Model):
+class ConcretePourImage(TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     start_date = models.DateTimeField()
@@ -697,9 +689,7 @@ class ConcretePourImage(models.Model):
     concrete_pour_curing_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/concretepour/%Y/%m/%d/')
     concrete_pour_curing_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/concretepour/%Y/%m/%d/')
     concrete_pour_curing_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
+
 
     def __str__(self):
         return str(self.project_name)
@@ -785,7 +775,7 @@ class ConcretePourImage(models.Model):
             return
 
 
-class ConcreteCuringPeriodImage(models.Model):
+class ConcreteCuringPeriodImage(TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     start_date = models.DateTimeField()
@@ -794,9 +784,7 @@ class ConcreteCuringPeriodImage(models.Model):
     concrete_pour_curing_period_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
     concrete_pour_curing_period_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
     concrete_pour_curing_period_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
+
 
     def __str__(self):
         return str(self.project_name)
@@ -882,7 +870,7 @@ class ConcreteCuringPeriodImage(models.Model):
             return
 
 
-class FoundationImage(models.Model):
+class FoundationImage(TimeTrackModel,TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     engineers_atsite = models.ManyToManyField(Engineer, blank=True )
     setting_site_clearing = models.OneToOneField(SetSiteClearingImage, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -892,11 +880,6 @@ class FoundationImage(models.Model):
     concrete_pour_curing_period = models.OneToOneField(ConcretePourImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     concrete_curing_period = models.OneToOneField(ConcreteCuringPeriodImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     foundation_and_curing_comment = models.CharField(max_length=100, blank=True, null=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -1046,7 +1029,7 @@ class ExcavationImage(models.Model):
             return
 
 
-class BS241ConcretePourCuringPeriodImage(models.Model):
+class BS241ConcretePourCuringPeriodImage(TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     start_date = models.DateTimeField()
@@ -1055,9 +1038,7 @@ class BS241ConcretePourCuringPeriodImage(models.Model):
     bs241_concrete_pour_curing_period_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/BS241ConcretePourCuringPeriod/%Y/%m/%d/')
     bs241_concrete_pour_curing_period_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/BS241ConcretePourCuringPeriod/%Y/%m/%d/')
     bs241_concrete_pour_curing_period_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
+
 
     def __str__(self):
         return str(self.project_name)
