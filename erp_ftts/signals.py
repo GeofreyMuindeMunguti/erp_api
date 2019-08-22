@@ -1,4 +1,4 @@
-from .models import SiteTrenching ,CivilWorkProduction
+from .models import SiteTrenching 
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 
