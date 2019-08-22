@@ -305,24 +305,3 @@ class FtthInstallationTeam(TimeStampModel):
         return [v.project_name for v in self.ftth_issues.all()]
 
 ######################################################## END ################################################################################################################################################################################################
-
-
-# class FtthCluster(TimeStampModel,TimeTrackModel):
-#     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING )
-
-#     initial_kmz = models.FileField(upload_to='files/ftth/InitialKMZ/%Y/%m/%d/', blank=True, null=True)
-#     no_of_homes = models.IntegerField(blank=True ,null=True)
-
-#     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-#     is_acknowledged = models.BooleanField(default=False)
-#     closed = models.BooleanField(default=False)
-
-#     def __str__(self):
-#         return self.ftts_issue
-
-
-
-# class Production(TimeStampModel):
-
-#     project_name = models.OneToOneField(FtthCluster, on_delete=models.DO_NOTHING )
-#     home_passed = models.IntegerField(blank=True ,null=True)
