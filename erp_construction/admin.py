@@ -3,14 +3,14 @@ from .models import *
 
 
 # Register your models here.
-class ProjectIconsAdmin(admin.ModelAdmin):
+class ProjectIconAdmin(admin.ModelAdmin):
     list_display = ('id', 'icon', 'site_owner', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_owner', )
     search_fields = ('site_owner', )
     list_editable = ('is_active',)
 
 
-admin.site.register(ProjectIcons, ProjectIconsAdmin)
+admin.site.register(ProjectIcon, ProjectIconAdmin)
 
 class BtsSiteAdmin(admin.ModelAdmin):
     list_display = ('id','site_name','project_name','site_number','BTS_type', 'site_owner', 'geotech_file', 'access_letter', 'approved_drawing','final_acceptance_cert', 'final_acceptance_cert_comment',
@@ -112,21 +112,21 @@ admin.site.register(BtsProject, BtsProjectAdmin)
 
 # admin.site.register(HealthDocumentsCivilTeam, HealthDocumentsCivilTeamAdmin)
 
-# #######################################START FOUNDATION IMAGES########################################################################################################################################
-# class FoundationImageAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'team_task_id', 'setting_site_clearing', 'excavation_tower_base', 'binding', 'steel_fix_formwork','concrete_pour_curing_period', 'concrete_curing_period','foundation_and_curing_comment','engineers', 'names_of_engineers','start_date','end_date', 'raise_flag','created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+#######################################START FOUNDATION IMAGES########################################################################################################################################
+class FoundationCreationTaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'team_task_id', 'setting_site_clearing', 'excavation_tower_base', 'blinding', 'steel_fix_formwork','concrete_pour_curing_period', 'concrete_curing_period','foundation_and_curing_comment','engineers', 'names_of_engineers','start_date','end_date', 'raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
 
 
-# admin.site.register(FoundationImage, FoundationImageAdmin)
+admin.site.register(FoundationCreationTask, FoundationCreationTaskAdmin)
 
 
 
 
-    # SubTask (1)://///////////Site-Clearing Subtask //////////////////
+    # SubTask (1): Site-Clearing Subtask //////////////////
 
 class SiteClearingSubTaskAdmin(admin.ModelAdmin):
     #list_display = ('id', 'project_name','task_id', 'setting_site_clearing_image_1', 'setting_site_clearing_image_2', 'setting_site_clearing_image_3', 'setting_site_clearing_comment', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
@@ -139,86 +139,186 @@ class SiteClearingSubTaskAdmin(admin.ModelAdmin):
 
 admin.site.register(SiteClearingSubTask, SiteClearingSubTaskAdmin)
 
-class DailySiteClearingSubTaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','date','casuals_list', 'created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    list_filter = ('project_name','date')
-    search_fields = ('project_name', )
+class SiteClearingDateAdmin(admin.ModelAdmin):
+    list_display = ('id', 'site_clearing_subtask','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('site_clearing_subtask', )
+    list_filter = ('site_clearing_subtask','work_day')
+    search_fields = ('site_clearing_subtask', )
     list_editable = ('is_active',)
 
 
-admin.site.register(DailySiteClearingSubTask, DailySiteClearingSubTaskAdmin)
+admin.site.register(SiteClearingDate, SiteClearingDateAdmin)
 
 
-class DailySiteClearingSubTaskImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'setting_site_clearing_image',  'setting_site_clearing_comment', 'created_at', 'updated_at', 'is_active')
+class SiteClearingImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'daily_site_clearing', 'setting_site_clearing_image',  'setting_site_clearing_comment', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('daily_site_clearing', )
+    list_filter = ('daily_site_clearing',)
+    search_fields = ('daily_site_clearing', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(SiteClearingImage, SiteClearingImageAdmin)
+
+    # SubTask (2): Tower-Base Subtask //////////////////
+
+class TowerBaseSubTaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name','task_id', 'towerbase_image_1', 'towerbase_image_2', 'towerbase_image_3', 'tower_base_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+    
+admin.site.register(TowerBaseSubTask, TowerBaseSubTaskAdmin)
+
+class TowerBaseDateAdmin(admin.ModelAdmin):
+    list_display = ('id', 'tower_base_subtask','work_day', 'tower_base_comment','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('tower_base_subtask', )
+    list_filter = ('tower_base_subtask',)
+    search_fields = ('tower_base_subtask', )
+    list_editable = ('is_active',)
+
+admin.site.register(TowerBaseDate,TowerBaseDateAdmin)
+
+class TowerBaseImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'daily_tower_base','towerbase_image','tower_base_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('daily_tower_base', )
+    list_filter = ('daily_tower_base',)
+    search_fields = ('daily_tower_base', )
+    list_editable = ('is_active',)
+
+admin.site.register(TowerBaseImage, TowerBaseImageAdmin)
+    # SubTask (3):Blinding Subtask //////////////////
+
+class BlindingSubTaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'binding_image_1', 'binding_image_2', 'binding_image_3', 'binding_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
     list_editable = ('is_active',)
 
 
-admin.site.register(DailySiteClearingSubTaskImage, DailySiteClearingSubTaskImageAdmin)
-
-    # SubTask (1)://///////////Tower-Base Subtask //////////////////
+admin.site.register(BlindingSubTask, BlindingSubTaskAdmin)
 
 
-
-# class TowerBaseImageAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name','task_id', 'towerbase_image_1', 'towerbase_image_2', 'towerbase_image_3', 'tower_base_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
-
-
-# admin.site.register(TowerBaseImage, TowerBaseImageAdmin)
+class BlindingDateAdmin(admin.ModelAdmin):
+    list_display = ('id', 'blinding_sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('blinding_sub_task', )
+    list_filter = ('blinding_sub_task','work_day')
+    search_fields = ('blinding_sub_task', )
+    list_editable = ('is_active',)
 
 
-# class BindingImageAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'task_id', 'binding_image_1', 'binding_image_2', 'binding_image_3', 'binding_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+admin.site.register(BlindingDate, BlindingDateAdmin)
+
+class BlindingImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'blinding_date','blinding_image', 'blinding_image_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('blinding_date', )
+    list_filter = ('blinding_date',)
+    search_fields = ('blinding_date', )
+    list_editable = ('is_active',)
 
 
-# admin.site.register(BindingImage, BindingImageAdmin)
+admin.site.register(BlindingImage, BlindingImageAdmin)
 
 
-# class SteelFixFormworkImageAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'task_id', 'steel_fix_formwork_image_1', 'steel_fix_formwork_image_2', 'steel_fix_formwork_image_3', 'steel_fix_formwork_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+    # SubTask (4): SteelFixFormwork Subtask //////////////////
+
+class SteelFixFormworkSubTaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'steel_fix_formwork_image_1', 'steel_fix_formwork_image_2', 'steel_fix_formwork_image_3', 'steel_fix_formwork_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
 
 
-# admin.site.register(SteelFixFormworkImage, SteelFixFormworkImageAdmin)
+admin.site.register(SteelFixFormworkSubTask, SteelFixFormworkSubTaskAdmin)
 
 
-# class ConcretePourImageAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'task_id', 'concrete_pour_curing_image_1', 'concrete_pour_curing_image_2', 'concrete_pour_curing_image_3', 'concrete_pour_curing_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+class SteelFixFormworkDateAdmin(admin.ModelAdmin):
+    list_display = ('id', 'subtask','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('subtask', )
+    list_filter = ('subtask','work_day')
+    search_fields = ('subtask', )
+    list_editable = ('is_active',)
 
 
-# admin.site.register(ConcretePourImage, ConcretePourImageAdmin)
+admin.site.register(SteelFixFormworkDate, SteelFixFormworkDateAdmin)
+
+class SteelFixFormworkImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'image_date','steel_fixformwork_image', 'steel_fixformwork_image_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('image_date', )
+    list_filter = ('image_date',)
+    search_fields = ('image_date', )
+    list_editable = ('is_active',)
+
+admin.site.register(SteelFixFormworkImage, SteelFixFormworkImageAdmin)
+
+    # SubTask (5): ConcretePour Subtask //////////////////
 
 
-# class ConcreteCuringPeriodImageAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'task_id', 'concrete_pour_curing_period_image_1', 'concrete_pour_curing_period_image_2', 'concrete_pour_curing_period_image_3', 'concrete_pour_curing_period_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+class ConcretePourSubTaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'concrete_pour_curing_image_1', 'concrete_pour_curing_image_2', 'concrete_pour_curing_image_3', 'concrete_pour_curing_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
 
 
-# admin.site.register(ConcreteCuringPeriodImage, ConcreteCuringPeriodImageAdmin)
+admin.site.register(ConcretePourSubTask, ConcretePourSubTaskAdmin)
+
+class ConcretePourDateAdmin(admin.ModelAdmin):
+    list_display = ('id', 'subtask','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('subtask', )
+    list_filter = ('subtask','work_day')
+    search_fields = ('subtask', )
+    list_editable = ('is_active',)
 
 
+admin.site.register(ConcretePourDate, ConcretePourDateAdmin)
+
+class ConcretePourImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'image_date','concrete_pour_curing_image', 'concrete_pour_curing_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('image_date', )
+    list_filter = ('image_date',)
+    search_fields = ('image_date', )
+    list_editable = ('is_active',)
+
+admin.site.register(ConcretePourImage, ConcretePourImageAdmin)
+
+
+
+    # SubTask (5): ConcretePourCuring Period Subtask //////////////////
+
+class ConcreteCuringPeriodSubTaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'concrete_pour_curing_period_image_1', 'concrete_pour_curing_period_image_2', 'concrete_pour_curing_period_image_3', 'concrete_pour_curing_period_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(ConcreteCuringPeriodSubTask, ConcreteCuringPeriodSubTaskAdmin)
+
+class ConcreteCuringPeriodDateAdmin(admin.ModelAdmin):
+    list_display = ('id', 'subtask','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('subtask', )
+    list_filter = ('subtask','work_day')
+    search_fields = ('subtask', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(ConcreteCuringPeriodDate, ConcreteCuringPeriodDateAdmin)
+
+class ConcreteCuringPeriodImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'image_date', 'concrete_curing_period_image', 'concrete_curing_period_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('image_date', )
+    list_filter = ('image_date',)
+    search_fields = ('image_date', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(ConcreteCuringPeriodImage, ConcreteCuringPeriodImageAdmin)
 # ######################################## END #######################################################################################################################################
 
 # #######################################BS241 & GENERATOR FOUNDATION ###########################################################################################################################
