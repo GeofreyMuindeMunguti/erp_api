@@ -128,7 +128,7 @@ urlpatterns = [
     # path('files/<int:pk>/projectcostingfile/', filesviews.ProjectCostingFileView.as_view()),
 
     path('files/<int:pk>/siteclearingimages/', filesviews.SiteClearingSubTaskFilesView.as_view()),
-    # path('files/<int:pk>/towerbaseimages/', filesviews.TowerBaseImagesView.as_view()),
+    path('files/<int:pk>/towerbaseimages/', filesviews.TowerBaseSubTaskFilesView.as_view()),
     # path('files/<int:pk>/bindingimages/', filesviews.BindingImagesView.as_view()),
     # path('files/<int:pk>/steelfixformworkimages/', filesviews.SteelFixFormworkImagesView.as_view()),
     # path('files/<int:pk>/concretepourimages/', filesviews.ConcretePourImagesView.as_view()),
@@ -172,8 +172,59 @@ urlpatterns = [
     path('revenue/', RevenueListView.as_view()),
 
 
+
+
+
     # Daily Subtask Images  # TO DO > Better Url paths
-    path('setclearingsubtasks/<int:pk>/setclearingday/', views.DailySiteClearingList.as_view()),
+    # path('setclearingsubtasks/<int:pk>/setclearingday/', views.DailySiteClearingList.as_view()),
     # path('setclearingsubtasks/<int:pk>/setclearingday/<int:day_pk>/seteclearingimage/', views.SiteClearingImageView.as_view()),
+
+
+        #PROJECT FILES # allow  GET Method only
+
+    # path('files/', filesviews.FilesView.as_view()), # Retrieve all projects files :: TO DO
+
+    # path('files/<int:pk>/', filesviews.BtsSiteFilesView.as_view()), # main url path to retrieve files per project
+    #Paths to retrieve individual files
+    # path('files/<int:pk>/commercialteamfiles/', filesviews.CommercialTeamFilesView.as_view()),
+    # path('files/<int:pk>/procurementteamfiles/', filesviews.ProcurementTeamFilesView.as_view()),
+    # path('files/<int:pk>/projectpurchaseorders/', filesviews.ProjectPurchaseOrdersView.as_view()),
+    # path('files/<int:pk>/projectcostingfile/', filesviews.ProjectCostingFileView.as_view()),
+
+    # path('files/<int:pk>/siteclearingimages/', filesviews.SiteClearingSubTaskFilesView.as_view()),
+    # path('files/<int:pk>/towerbaseimages/', filesviews.TowerBaseSubTaskView.as_view()),
+    # path('files/<int:pk>/bindingimages/', filesviews.BindingImagesView.as_view()),
+    # path('files/<int:pk>/steelfixformworkimages/', filesviews.SteelFixFormworkImagesView.as_view()),
+    # path('files/<int:pk>/concretepourimages/', filesviews.ConcretePourImagesView.as_view()),
+    # path('files/<int:pk>/concretecuringimages/', filesviews.ConcreteCuringImagesView.as_view()),
+
+    # path('files/<int:pk>/excavationimages/', filesviews.ExcavationImagesView.as_view()),
+    # path('files/<int:pk>/concretepourcuringperiodimages/', filesviews.BS241ConcreteCuringPeriodImagesView.as_view()),
+
+    # path('files/<int:pk>/foundfootpourimage/', filesviews.FoundFootPourImageView.as_view()),
+    # path('files/<int:pk>/blockworkpanelconstimages/', filesviews.BlockworkPanelConstImagesView.as_view()),
+    # path('files/<int:pk>/gateinstallationimages/', filesviews.GateInstallationImagesView.as_view()),
+    # path('files/<int:pk>/razorelectricfenceimages/', filesviews.RazorElectricFenceImagesView.as_view()),
+
+    # path('files/<int:pk>/towererectionimages/', filesviews.TowerErectionImagesView.as_view()),
+    # path('files/<int:pk>/towerpaintimages/', filesviews.TowerPaintImagesView.as_view()),
+    # path('files/<int:pk>/cablewaysimages/', filesviews.CableWaysImagesView.as_view()),
+    # path('files/<int:pk>/antennacoaxinstallimages/', filesviews.AntennaCoaxInstallImagesView.as_view()),
+
+    # path('files/<int:pk>/healthdocumentsfilescivilteam/', filesviews.HealthDocumentsFilesCivilTeamView.as_view()),
+    # path('files/<int:pk>/accessapprovalfilecivil/', filesviews.AccessApprovalFileCivilView.as_view()),
+    # path('files/<int:pk>/healthdocumentsfilesinstallationteam/', filesviews.HealthDocumentsFilesInstallationTeamView.as_view()),
+    # path('files/<int:pk>/accessapprovalfileinstallation/', filesviews.AccessApprovalFileInstallationView.as_view()),
+
+    # path('files/<int:pk>/undergroundtasks/', filesviews.UndergroundTasksFilesView.as_view()),
+    # path('files/<int:pk>/reticulationapsinstallationfiles/', filesviews.ReticulationAPSinstallationFilesView.as_view()),
+    # path('files/<int:pk>/electricalearthingimages/', filesviews.ElectricalEarthingImagesView.as_view()),
+    # path('files/<int:pk>/generatorinstallationimages/', filesviews.GeneratorInstallationImagesView.as_view()),
+    # path('files/<int:pk>/kplcsolar/', filesviews.KPLCSolarImagesView.as_view()),
+
+    # path('files/<int:pk>/btsinstallationtaskimages/', filesviews.BTSinstallationTaskImagesView.as_view()),
+    # path('files/<int:pk>/mwinstallationtaskimages/', filesviews.MWInstallationTaskImagesView.as_view()),
+    # path('files/<int:pk>/installationteamfiles/', filesviews.InstallationTeamFilesView.as_view()),
+    # path('files/<int:pk>/issueimages/', filesviews.IssueImageView.as_view()),
 
 ]

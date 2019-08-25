@@ -38,18 +38,19 @@ class BtsSiteFilesView(generics.RetrieveAPIView,DefaultsMixin):
     # Views for individual files type
 
 class SiteClearingSubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
-    #queryset = SetSiteClearingImage.objects.all()
-    def get_queryset(self):
-        queryset = SiteClearingSubTask.objects.filter(project_name_id=self.kwargs["pk"])
-        return queryset
-    serializer_class = SiteClearingSubTaskFilesSerializer
+    queryset = BtsSite.objects.all()
+    # def get_queryset(self):
+        # queryset = SiteClearingSubTask.objects.filter(project_name_id=self.kwargs["pk"])
+        # return queryset
+    serializer_class = SiteClearingSubTaskAFilesSerializer
 
-# class TowerBaseImagesView(generics.RetrieveAPIView,DefaultsMixin):
-#    # queryset = TowerBaseImage.objects.all()
-#     def get_queryset(self):
-#         queryset = TowerBaseImage.objects.filter(project_name_id=self.kwargs["pk"])
-#         return queryset
-#     serializer_class = TowerBaseImagesSerializer
+class TowerBaseSubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    queryset = BtsSite.objects.all()
+    # def get_queryset(self):
+
+    #     queryset = BtsSite.objects.filter(project_name_id=self.kwargs["pk"])
+    #     return queryset
+    serializer_class = TowerBaseSubTaskAFilesSerializer
 
 # class BindingImagesView(generics.RetrieveAPIView,DefaultsMixin):
 #     #queryset = BindingImage.objects.all()
@@ -57,6 +58,7 @@ class SiteClearingSubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
 #         queryset = BindingImage.objects.filter(project_name_id=self.kwargs["pk"])
 #         return queryset
 #     serializer_class = BindingImagesSerializer
+
 
 # class SteelFixFormworkImagesView(generics.RetrieveAPIView,DefaultsMixin):
 

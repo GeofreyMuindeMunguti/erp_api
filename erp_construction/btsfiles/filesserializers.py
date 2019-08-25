@@ -29,19 +29,45 @@ class SiteClearingSubTaskFilesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SiteClearingSubTask
-        fields = ('setting_site_clearing_image_1','setting_site_clearing_image_2','setting_site_clearing_image_3','setting_site_clearing_comment','siteclearingdates',)
+        fields = ('id','project_name_id','setting_site_clearing_image_1','setting_site_clearing_image_2','setting_site_clearing_image_3','setting_site_clearing_comment','siteclearingdates',)
 
+class SiteClearingSubTaskAFilesSerializer(serializers.ModelSerializer):
+    siteclearingsubtask = SiteClearingSubTaskFilesSerializer(read_only =True)
 
+    class Meta:
+        model = BtsSite
+        exclude = ("project_name","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
+           "updated_at", "is_active", "location", "created_by",'geotech_file','access_letter','approved_drawing','final_acceptance_cert')
 # TowerBaseSubTask  Files Serializers///////////////
 
-class TowerBaseSubTaskSerializer(serializers.ModelSerializer):
+class TowerBaseImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TowerBaseImage
+        fields = ('towerbase_image','tower_base_comment')
+
+
+class TowerBaseDateFilesSerializer(serializers.ModelSerializer):
+    towerbaseimages = TowerBaseImagesSerializer(read_only=True)
+
+    class Meta:
+        model = TowerBaseDate
+        fields = ('work_day','casuals_list','towerbaseimages',)
+
+class TowerBaseSubTaskFilesSerializer(serializers.ModelSerializer):
+    towerbasedates =TowerBaseDateFilesSerializer(many = True,read_only =True)
 
     class Meta:
         model = TowerBaseSubTask
-        fields = ('towerbase_image_1', 'towerbase_image_2', 'towerbase_image_3',)
+        fields = ('towerbase_image_1', 'towerbase_image_2', 'towerbase_image_3', 'tower_base_comment','towerbasedates',)
 
+class TowerBaseSubTaskAFilesSerializer(serializers.ModelSerializer):
+    towerbasesubtask = TowerBaseSubTaskFilesSerializer(read_only =True)
 
-
+    class Meta:
+        model = BtsSite
+        exclude = ("id","project_name","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
+           "updated_at", "is_active", "location", "created_by",'geotech_file','access_letter','approved_drawing','final_acceptance_cert')
 # BlindingSubTask  Files Serializers///////////////
 
 class BlindingImagesSerializer(serializers.ModelSerializer):
@@ -286,7 +312,7 @@ class BtsSiteFilesSerializer(serializers.ModelSerializer):
       '''
 
     siteclearingsubtask = SiteClearingSubTaskFilesSerializer ( read_only =True)
-    towerbasesubtask = TowerBaseSubTaskSerializer(read_only=True)
+    towerbasesubtask = TowerBaseSubTaskFilesSerializer(read_only=True)
     blindingsubtask = BlindingImagesSerializer(read_only=True)
     steelfixformworksubtask = SteelFixFormworkImagesSerializer(read_only=True)
     # concretepourimage = ConcretePourImagesSerializer(read_only=True)

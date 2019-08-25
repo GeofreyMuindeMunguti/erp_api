@@ -159,22 +159,6 @@ class FoundationCreationTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     # SubTask (1)://///////////Site-Clearing Subtask //////////////////
 
-class SiteClearingImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
-    """API endpoint for listing and creating foundation images for civil team."""
-    queryset = SiteClearingImage.objects.order_by('created_at')
-    serializer_class = SiteClearingImageSerializer
-
-    search_fields = ('project_name', )
-    ordering_fields = ('updated_at', 'project_name', )
-
-class SiteClearingDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
-    """API endpoint for listing and creating DailySiteClearingfor civil team."""
-    queryset = SiteClearingDate.objects.order_by('created_at')
-    serializer_class = SiteClearingDateSerializer
-
-    search_fields = ('site_clearing_subtask', )
-    ordering_fields = ('updated_at', 'site_clearing_subtask', )
-
 class SiteClearingSubTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = SiteClearingSubTask.objects.order_by('created_at')
@@ -184,8 +168,23 @@ class SiteClearingSubTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     ordering_fields = ('updated_at', 'project_name', )
 
 
+class SiteClearingDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating DailySiteClearingfor civil team."""
+    queryset = SiteClearingDate.objects.order_by('created_at')
+    serializer_class = SiteClearingDateSerializer
 
-#Imple
+    search_fields = ('work_day', )
+    ordering_fields = ('updated_at', 'work_day', )
+
+class SiteClearingImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = SiteClearingImage.objects.order_by('created_at')
+    serializer_class = SiteClearingImageSerializer
+
+    search_fields = ('day_image', )
+    ordering_fields = ('updated_at', 'day_image', )
+
+#Better VIEWS Implementation  # TO DO
 
 class DailySiteClearingList(generics.ListCreateAPIView):
     def get_queryset(self):
@@ -200,23 +199,7 @@ class DailySiteClearingList(generics.ListCreateAPIView):
 #     serializer_class = SiteClearingImageSerializer
     
 
-    # SubTask (1)://///////////Tower-Base Subtask //////////////////
-
-class TowerBaseImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
-    """API endpoint for listing and creating tower base daily  images for civil team."""
-    queryset = TowerBaseImage.objects.order_by('created_at')
-    serializer_class = TowerBaseImageSerializer
-
-    search_fields = ('project_name', )
-    ordering_fields = ('updated_at', 'project_name', )
-    
-class TowerBaseDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
-    """API endpoint for listing and creating towerbase work day  for civil team."""
-    queryset = TowerBaseDate.objects.order_by('created_at')
-    serializer_class = TowerBaseDateSerializer
-
-    search_fields = ('project_name', )
-    ordering_fields = ('updated_at', 'project_name', )
+    # SubTask (2)://///////////Tower-Base Subtask //////////////////
 
 class TowerBaseSubTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating tower base  subtasks for civil team."""
@@ -226,8 +209,25 @@ class TowerBaseSubTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
-    # SubTask (1)://///////////Tower-Base Subtask //////////////////
+class TowerBaseDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating towerbase work day  for civil team."""
+    queryset = TowerBaseDate.objects.order_by('created_at')
+    serializer_class = TowerBaseDateSerializer
 
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
+class TowerBaseImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating tower base daily  images for civil team."""
+    queryset = TowerBaseImage.objects.order_by('created_at')
+    serializer_class = TowerBaseImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
+    # SubTask (3)://///////////BlindingSubTask Subtask //////////////////
 
 class BlindingSubTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating site blindingsubtask for civil team."""
@@ -242,18 +242,18 @@ class BlindingDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = BlindingImage.objects.order_by('created_at')
     serializer_class = BlindingDateSerializer
 
-    search_fields = ('sub_task', )
-    ordering_fields = ('updated_at', 'project_name', )
+    search_fields = ('work_day', )
+    ordering_fields = ('updated_at', 'work_day', )
 
 class BlindingImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = BlindingImage.objects.order_by('created_at')
     serializer_class = BlindingImageSerializer
 
-    search_fields = ('image_date', )
-    ordering_fields = ('updated_at', 'image_date', )
+    search_fields = ('day_image', )
+    ordering_fields = ('updated_at', 'day_image', )
 
-  # SubTask (1):///////////// SteelFixFormwork Subtask //////////////////
+  # SubTask (4):///////////// SteelFixFormwork Subtask //////////////////
 
 class SteelFixFormworkSubtaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
@@ -262,24 +262,25 @@ class SteelFixFormworkSubtaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
+    
 class SteelFixFormworkDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating f oundation images for civil team."""
     queryset = SteelFixFormworkDate.objects.order_by('created_at')
     serializer_class = SteelFixFormworkDateSerializer
 
-    search_fields = ('project_name', )
-    ordering_fields = ('updated_at', 'project_name', )
+    search_fields = ('work_day', )
+    ordering_fields = ('updated_at', 'work_day', )
 
 class SteelFixFormworkImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = SteelFixFormworkImage.objects.order_by('created_at')
     serializer_class = SteelFixFormworkImageSerializer
 
-    search_fields = ('project_name', )
-    ordering_fields = ('updated_at', 'project_name', )
+    search_fields = ('day_image', )
+    ordering_fields = ('updated_at', 'image_day', )
 
     
-# SubTask (1)://///////////ConcretePour Subtask //////////////////
+# SubTask (5)://///////////ConcretePour Subtask //////////////////
 
 class ConcretePourSubTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
@@ -295,7 +296,7 @@ class ConcretePourDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
     serializer_class = ConcretePourDateSerializer
 
     search_fields = ('sub_task', )
-    ordering_fields = ('updated_at', 'project_name',)
+    ordering_fields = ('updated_at', 'sub_task',)
 
 class ConcretePourImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
@@ -303,16 +304,16 @@ class ConcretePourImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     serializer_class = ConcretePourImageSerializer
 
     search_fields = ('image_day', )
-    ordering_fields = ('updated_at', 'project_name',)
+    ordering_fields = ('updated_at', 'image_day',)
 
-    # SubTask (1)://///////////ConcreteCuringPeriod Subtask //////////////////
+    # SubTask (6)://///////////ConcreteCuringPeriod Subtask //////////////////
 
 class ConcreteCuringPeriodSubTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = ConcreteCuringPeriodSubTask.objects.order_by('created_at')
     serializer_class = ConcreteCuringPeriodSubTaskSerializer
 
-    search_fields = ('image_day', )
+    search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
 class ConcreteCuringPeriodDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
@@ -320,16 +321,17 @@ class ConcreteCuringPeriodDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = ConcreteCuringPeriodDate.objects.order_by('created_at')
     serializer_class = ConcreteCuringPeriodDateSerializer
 
-    search_fields = ('work_day', )
-    ordering_fields = ('updated_at', 'project_name', )
+    search_fields = ('work_day','sub_task', )
+    ordering_fields = ('updated_at', 'work_day', )
 
 class ConcreteCuringPeriodImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
-    queryset = ConcreteCuringPeriodSubTask.objects.order_by('created_at')
-    serializer_class = ConcreteCuringPeriodSubTaskSerializer
+    queryset = ConcreteCuringPeriodImage.objects.order_by('created_at')
+    serializer_class = ConcreteCuringPeriodImageSerializer
 
-    search_fields = ('work_day', )
-    ordering_fields = ('updated_at', 'project_name', )
+    search_fields = ('day_image', )
+    ordering_fields = ('updated_at', 'day_image', )
+
 
 ######################################## END #######################################################################################################################################
 

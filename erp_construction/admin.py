@@ -140,10 +140,10 @@ class SiteClearingSubTaskAdmin(admin.ModelAdmin):
 admin.site.register(SiteClearingSubTask, SiteClearingSubTaskAdmin)
 
 class SiteClearingDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_clearing_subtask','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
-    list_display_links = ('site_clearing_subtask', )
-    list_filter = ('site_clearing_subtask','work_day')
-    search_fields = ('site_clearing_subtask', )
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    list_filter = ('sub_task','work_day')
+    search_fields = ('sub_task', )
     list_editable = ('is_active',)
 
 
@@ -151,10 +151,10 @@ admin.site.register(SiteClearingDate, SiteClearingDateAdmin)
 
 
 class SiteClearingImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'daily_site_clearing', 'setting_site_clearing_image',  'setting_site_clearing_comment', 'created_at', 'updated_at', 'is_active')
-    list_display_links = ('daily_site_clearing', )
-    list_filter = ('daily_site_clearing',)
-    search_fields = ('daily_site_clearing', )
+    list_display = ('id', 'day_image', 'setting_site_clearing_image',  'setting_site_clearing_comment', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    list_filter = ('day_image',)
+    search_fields = ('day_image', )
     list_editable = ('is_active',)
 
 
@@ -172,19 +172,19 @@ class TowerBaseSubTaskAdmin(admin.ModelAdmin):
 admin.site.register(TowerBaseSubTask, TowerBaseSubTaskAdmin)
 
 class TowerBaseDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'tower_base_subtask','work_day', 'tower_base_comment','casuals_list', 'created_at', 'updated_at', 'is_active')
-    list_display_links = ('tower_base_subtask', )
-    list_filter = ('tower_base_subtask',)
-    search_fields = ('tower_base_subtask', )
+    list_display = ('id', 'sub_task','work_day', 'tower_base_comment','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    list_filter = ('sub_task',)
+    search_fields = ('sub_task', )
     list_editable = ('is_active',)
 
 admin.site.register(TowerBaseDate,TowerBaseDateAdmin)
 
 class TowerBaseImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'daily_tower_base','towerbase_image','tower_base_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('daily_tower_base', )
-    list_filter = ('daily_tower_base',)
-    search_fields = ('daily_tower_base', )
+    list_display = ('id', 'day_image','towerbase_image','tower_base_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    list_filter = ('day_image',)
+    search_fields = ('day_image', )
     list_editable = ('is_active',)
 
 admin.site.register(TowerBaseImage, TowerBaseImageAdmin)
@@ -202,20 +202,20 @@ admin.site.register(BlindingSubTask, BlindingSubTaskAdmin)
 
 
 class BlindingDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'blinding_sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
-    list_display_links = ('blinding_sub_task', )
-    list_filter = ('blinding_sub_task','work_day')
-    search_fields = ('blinding_sub_task', )
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    list_filter = ('sub_task','work_day')
+    search_fields = ('sub_task', )
     list_editable = ('is_active',)
 
 
 admin.site.register(BlindingDate, BlindingDateAdmin)
 
 class BlindingImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'blinding_date','blinding_image', 'blinding_image_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('blinding_date', )
-    list_filter = ('blinding_date',)
-    search_fields = ('blinding_date', )
+    list_display = ('id', 'day_image','blinding_image', 'blinding_image_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    list_filter = ('day_image',)
+    search_fields = ('day_image', )
     list_editable = ('is_active',)
 
 
@@ -236,20 +236,20 @@ admin.site.register(SteelFixFormworkSubTask, SteelFixFormworkSubTaskAdmin)
 
 
 class SteelFixFormworkDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'subtask','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
-    list_display_links = ('subtask', )
-    list_filter = ('subtask','work_day')
-    search_fields = ('subtask', )
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    list_filter = ('sub_task','work_day')
+    search_fields = ('sub_task', )
     list_editable = ('is_active',)
 
 
 admin.site.register(SteelFixFormworkDate, SteelFixFormworkDateAdmin)
 
 class SteelFixFormworkImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'image_date','steel_fixformwork_image', 'steel_fixformwork_image_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('image_date', )
-    list_filter = ('image_date',)
-    search_fields = ('image_date', )
+    list_display = ('id', 'day_image','steel_fixformwork_image', 'steel_fixformwork_image_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    list_filter = ('day_image',)
+    search_fields = ('day_image', )
     list_editable = ('is_active',)
 
 admin.site.register(SteelFixFormworkImage, SteelFixFormworkImageAdmin)
@@ -268,20 +268,20 @@ class ConcretePourSubTaskAdmin(admin.ModelAdmin):
 admin.site.register(ConcretePourSubTask, ConcretePourSubTaskAdmin)
 
 class ConcretePourDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'subtask','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
-    list_display_links = ('subtask', )
-    list_filter = ('subtask','work_day')
-    search_fields = ('subtask', )
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    list_filter = ('sub_task','work_day')
+    search_fields = ('sub_task', )
     list_editable = ('is_active',)
 
 
 admin.site.register(ConcretePourDate, ConcretePourDateAdmin)
 
 class ConcretePourImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'image_date','concrete_pour_curing_image', 'concrete_pour_curing_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('image_date', )
-    list_filter = ('image_date',)
-    search_fields = ('image_date', )
+    list_display = ('id', 'day_image','concrete_pour_curing_image', 'concrete_pour_curing_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    list_filter = ('day_image',)
+    search_fields = ('day_image', )
     list_editable = ('is_active',)
 
 admin.site.register(ConcretePourImage, ConcretePourImageAdmin)
@@ -301,20 +301,20 @@ class ConcreteCuringPeriodSubTaskAdmin(admin.ModelAdmin):
 admin.site.register(ConcreteCuringPeriodSubTask, ConcreteCuringPeriodSubTaskAdmin)
 
 class ConcreteCuringPeriodDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'subtask','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
-    list_display_links = ('subtask', )
-    list_filter = ('subtask','work_day')
-    search_fields = ('subtask', )
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    list_filter = ('sub_task','work_day')
+    search_fields = ('sub_task', )
     list_editable = ('is_active',)
 
 
 admin.site.register(ConcreteCuringPeriodDate, ConcreteCuringPeriodDateAdmin)
 
 class ConcreteCuringPeriodImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'image_date', 'concrete_curing_period_image', 'concrete_curing_period_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('image_date', )
-    list_filter = ('image_date',)
-    search_fields = ('image_date', )
+    list_display = ('id', 'day_image', 'concrete_curing_period_image', 'concrete_curing_period_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    list_filter = ('day_image',)
+    search_fields = ('day_image', )
     list_editable = ('is_active',)
 
 

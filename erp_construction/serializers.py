@@ -284,13 +284,12 @@ class ConcreteCuringPeriodDateSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class ConcreteCuringPeriodImageSerializer(serializers.ModelSerializer):
-    raise_flag = serializers.CharField(read_only=True)
-    task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = ConcreteCuringPeriodImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+        
 ######################################## END #######################################################################################################################################
 
 #######################################BS241 & GENERATOR FOUNDATION ###########################################################################################################################
