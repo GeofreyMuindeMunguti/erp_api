@@ -348,12 +348,12 @@ class BS241ConcretePourCuringPeriodImageSerializer(serializers.ModelSerializer):
 
   # SubTask (5):////////////BS241AndGeneatorSlabs Subtask //////////////////
 
-class BS241AndGeneatorSlabTaskSerializer(serializers.ModelSerializer):
+class BS241AndGeneratorSlabTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     team_task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = BS241AndGeneatorSlabTask
+        model = BS241AndGeneratorSlabTask
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 

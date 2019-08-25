@@ -390,7 +390,7 @@ admin.site.register(BS241ConcretePourCuringPeriodSubtask, BS241ConcretePourCurin
 
     # TASK [2]: BS241AndGeneatorSlab Subtask //////////////////
 
-class BS241AndGeneatorSlabTaskAdmin(admin.ModelAdmin):
+class BS241AndGeneratorSlabTaskAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'team_task_id', 'foundation_foot_pouring', 'bs241_concrete_pour_pouring_period','bs241_and_generator_slabs_comment','engineers', 'names_of_engineers', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -398,22 +398,46 @@ class BS241AndGeneatorSlabTaskAdmin(admin.ModelAdmin):
     list_editable = ('is_active',)
 
 
-admin.site.register(BS241AndGeneatorSlabTask, BS241AndGeneatorSlabTaskAdmin)
+admin.site.register(BS241AndGeneratorSlabTask, BS241AndGeneratorSlabTaskAdmin)
 
 # ######################################## END #######################################################################################################################################
 
 # ####################################### BOUNDARY WALL ###########################################################################################################################
+   
+    # SubTasl  [1]: FoundFootPour Subtask //////////////////
+class FoundFootPourImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'day_image', 'foundfootpour_image', 'foundfootpour_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    list_filter = ('day_image',)
+    search_fields = ('day_image', )
+    list_editable = ('is_active',)
 
-# class FoundFootPourImageAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'task_id', 'foundfootpour_image_1', 'foundfootpour_image_2', 'foundfootpour_image_3', 'foundfootpour_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+
+admin.site.register(FoundFootPourImage, FoundFootPourImageAdmin)
 
 
-# admin.site.register(FoundFootPourImage, FoundFootPourImageAdmin)
+class FoundFootPourDateAdmin(admin.ModelAdmin):
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    list_filter = ('sub_task','work_day')
+    search_fields = ('sub_task', )
+    list_editable = ('is_active',)
 
+
+admin.site.register(FoundFootPourDate, FoundFootPourDateAdmin)
+
+class FoundFootPourSubTaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'foundfootpour_image_1', 'foundfootpour_image_2', 'foundfootpour_image_3', 'foundfootpour_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(FoundFootPourSubTask, FoundFootPourSubTaskAdmin)
+
+    # SubTasl  [2]: BlockworkPanelConst Subtask //////////////////
+    
 # class BlockworkPanelConstImageAdmin(admin.ModelAdmin):
 #     list_display = ('id', 'project_name', 'task_id', 'blockwallpanelconst_image_1', 'blockwallpanelconst_image_2', 'blockwallpanelconst_image_3', 'blockwallpanelconst_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
 #     list_display_links = ('project_name', )

@@ -1012,6 +1012,8 @@ class FoundationCreationTask(TimeTrackModel,TimeStampModel):
     def __str__(self):
         #return str(self.project_name)
         return 'Foundation Creation for {}'.format(self.project_name)
+    class Meta:
+        verbose_name = 'FOUNDATION CREATION TASK'
 
     def engineers(self):
         count = self.engineers_atsite.count()
@@ -1303,7 +1305,7 @@ class BS241ConcretePourCuringPeriodSubtask(TimeStampModel,TimeTrackModel):
 
 # TASK [2] 
 
-class BS241AndGeneatorSlabTask(TimeStampModel ,TimeTrackModel):
+class BS241AndGeneratorSlabTask(TimeStampModel ,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     engineers_atsite = models.ManyToManyField(Engineer, blank=True )
     #Sub Tasks
@@ -1314,6 +1316,8 @@ class BS241AndGeneatorSlabTask(TimeStampModel ,TimeTrackModel):
 
     def __str__(self):
         return str(self.project_name)
+    class Meta:
+        verbose_name = 'BS241 and GENERATOR SLAB TASK'
 
     def engineers(self):
         count = self.engineers_atsite.count()
@@ -1362,19 +1366,42 @@ class BS241AndGeneatorSlabTask(TimeStampModel ,TimeTrackModel):
 
 ####################################### BOUNDARY WALL ###########################################################################################################################
 
+    # SubTask (1)://///////////FoundFootPour Subtask //////////////////
 
-class FoundFootPourImage(models.Model):
+
+class FoundFootPourImage(TimeStampModel):
+    day_image = models.OneToOneField('FoundFootPourDate', on_delete=models.CASCADE,blank=True, null=True)
+
+    # DailyPhotos
+    foundfootpour_image = models.ImageField(upload_to=UploadToProjectDirImage('images/CivilWorksTeam/FoundFootPour/'),max_length = 250,blank=True, null=True)
+    foundfootpour_comment = models.CharField(max_length=100, blank=True, null=True)
+
+
+
+    def __str__(self):
+        #return str(self.project_name)
+        return 'Image for {}'.format(self.day_image)
+
+class FoundFootPourDate(TimeStampModel):
+    sub_task = models.ForeignKey('FoundFootPourSubTask', on_delete=models.CASCADE)
+    work_day =  models.DateField(blank=True, null=True)
+    # Casuals
+    casuals_list = models.FileField(upload_to=UploadToProjectDirDate('files/Casuals/FoundFootPour/'),blank=True, null=True)
+    casuals_atsite = models.ManyToManyField(Casual, blank=True )
+
+    def __str__(self):
+        #return str(self.project_name)
+        return '{} :Date: {}'.format(self.sub_task,self.work_day)
+
+class FoundFootPourSubTask(TimeStampModel ,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
-    foundfootpour_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
-    foundfootpour_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
-    foundfootpour_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
+
+    foundfootpour_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/CivilWorksTeam/FoundFootPour/'),blank=True, null=True)
+    foundfootpour_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/CivilWorksTeam/FoundFootPour/'),blank=True, null=True)
+    foundfootpour_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/CivilWorksTeam/FoundFootPour/'),blank=True, null=True)
     foundfootpour_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
+
 
     def __str__(self):
         return str(self.project_name)
@@ -2386,7 +2413,7 @@ class CivilWorksTeam(models.Model):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     health_documents = models.ManyToManyField(HealthDocumentsCivilTeam, blank=True )
     foundation_and_curing_images = models.OneToOneField(FoundationCreationTask, on_delete=models.CASCADE, blank=True, null=True)
-    bs241_and_generator_slabs_images = models.OneToOneField(BS241AndGeneatorSlabTask, on_delete=models.CASCADE, blank=True, null=True)
+    bs241_and_generator_slabs_images = models.OneToOneField(BS241AndGeneratorSlabTask, on_delete=models.CASCADE, blank=True, null=True)
     site_walling_images_field = models.OneToOneField(BoundaryWallImage, on_delete=models.CASCADE, blank=True, null=True)
     tower_data = models.OneToOneField(TowerAntennaCoaxImage, on_delete=models.CASCADE, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
