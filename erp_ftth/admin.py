@@ -5,7 +5,7 @@ from erp_core.base import *
 
 class FTTHProjectAdmin(admin.ModelAdmin):
 
-    list_display = ['id','project_name','initial_kmz','ftts_final_acceptance_cert','ftts_final_acceptance_cert_comment','created_by','is_acknowledged','created_at', 'updated_at', 'is_active']
+    list_display = ['id','project_name','initial_kmz','signed_operation_acceptance','ftts_final_acceptance_cert','ftts_final_acceptance_cert_comment','created_by','is_acknowledged','created_at', 'updated_at', 'is_active']
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active','is_acknowledged',)
@@ -200,9 +200,20 @@ class FtthSignalTestingAdmin(admin.ModelAdmin):
 
 admin.site.register(FtthSignalTesting, FtthSignalTestingAdmin)
 
+
+class FtthIssuesAdmin(admin.ModelAdmin):
+    list_display = ('id','project_name','ftth_issue', 'ftth_issue_image', 'ftth_issue_sorted_image', 'closed', 'posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('ftth_issue', )
+    list_filter = ('project_name',)
+    search_fields = ('ftth_issue', )
+    list_editable = ('is_active',)
+
+admin.site.register(FtthIssues, FtthIssuesAdmin)
+
 class FtthInstallationTeamAdmin(admin.ModelAdmin):
 
-    list_display = ('id','project_name','ftth_splicing','ftth_signal_testing','ftth_installation_team_comment','ftth_asbuit_received','snag_document','snag_document_comment','project_issues','conditional_acceptance_cert','conditional_acceptance_cert_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id','project_name','ftth_splicing','ftth_signal_testing','project_issues','ftth_crq_document','ftth_homepass_report','ftth_operation_acceptance','ftth_asbuit_received','ftts_asbuilt_comment',
+    'ftth_network_activation','ftts_network_activation_comment','snag_document','snag_document_comment','conditional_acceptance_cert','conditional_acceptance_cert_comment','ftth_installation_team_comment','is_approved','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)
@@ -210,4 +221,13 @@ class FtthInstallationTeamAdmin(admin.ModelAdmin):
     readonly_fields = ['created_at', 'updated_at', 'is_active']
 
 admin.site.register(FtthInstallationTeam, FtthInstallationTeamAdmin)
+
+
+class FtthTeamAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name','ftth_survey', 'ftth_civil_team','ftth_installation_team', 'posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(FtthTeam, FtthTeamAdmin)
 ######################################################## END ################################################################################################################################################################################################

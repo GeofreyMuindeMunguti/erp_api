@@ -156,10 +156,25 @@ class FtthSignalTestingSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+class FtthIssuesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FtthIssues
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
 class FtthInstallationTeamSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FtthInstallationTeam
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class FtthTeamSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FtthTeam
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 ################################################ END ##############################################################################################################################################################################################################################################################

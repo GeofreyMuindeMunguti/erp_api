@@ -28,7 +28,9 @@ router.register(r'FtthSplicing', views.FtthSplicingViewSet)
 router.register(r'FtthPowerLevels', views.FtthPowerLevelsViewSet)
 router.register(r'FtthOTDRTraces', views.FtthOTDRTracesViewSet)
 router.register(r'FtthSignalTesting', views.FtthSignalTestingViewSet)
+router.register(r'FtthIssues', views.FtthIssuesViewSet)
 router.register(r'FtthInstallationTeam', views.FtthInstallationTeamViewSet)
+router.register(r'FtthTeam', views.FtthTeamViewSet)
 
 """ ENDPOINTS FOR FRONTEND"""
 

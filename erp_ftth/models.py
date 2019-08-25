@@ -11,6 +11,7 @@ from erp_ftts.models import ManHole
 
 class FTTHProject(CreateProject):
     initial_kmz = models.FileField(upload_to='files/ftth/InitialKMZ/%Y/%m/%d/', blank=True, null=True)
+    signed_operation_acceptance = models.BooleanField(default=False, blank=True, null=True)
     ftts_final_acceptance_cert = models.FileField(upload_to='files/ftth/SafaricomTeamftth/finalcert/%Y/%m/%d/', blank=True, null=True)
     ftts_final_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
@@ -46,7 +47,7 @@ class ftthSurveyPhotos(TimeStampModel):
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return str(self.site_name)
+        return str(self.project_name)
 
     def ftth_survey_id(self):
         try:
@@ -84,7 +85,7 @@ class FtthCommercialTeam(TimeStampModel):
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return str(self.site_name)
+        return str(self.project_name)
 
 class FtthProcurementTeam(TimeStampModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
@@ -94,7 +95,7 @@ class FtthProcurementTeam(TimeStampModel):
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return str(self.site_name)
+        return str(self.project_name)
 
 ######################################################## FTTH CIVIL TEAM ########################################################################################################################################################################################
 
@@ -107,7 +108,7 @@ class FtthPoleInstallation(TimeStampModel,TimeTrackModel):
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return str(self.site_name)
+        return str(self.project_name)
 
 class FtthTrenching(TimeStampModel,TimeTrackModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
@@ -118,7 +119,7 @@ class FtthTrenching(TimeStampModel,TimeTrackModel):
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return str(self.site_name)
+        return str(self.project_name)
 
 class FtthBackfilling(TimeStampModel,TimeTrackModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
@@ -129,7 +130,7 @@ class FtthBackfilling(TimeStampModel,TimeTrackModel):
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return str(self.site_name)
+        return str(self.project_name)
 
 class FtthCableInstallation(TimeStampModel,TimeTrackModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
@@ -140,7 +141,7 @@ class FtthCableInstallation(TimeStampModel,TimeTrackModel):
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return str(self.site_name)
+        return str(self.project_name)
 
 
 class FtthCivilTeam(TimeStampModel):
@@ -157,7 +158,7 @@ class FtthCivilTeam(TimeStampModel):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.site_name)
+        return str(self.project_name)
 
 ######################################################## END ################################################################################################################################################################################################
 
@@ -172,7 +173,7 @@ class FtthSplicingEnclosure(TimeStampModel,TimeTrackModel):
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return str(self.site_name)
+        return str(self.project_name)
 
 class FtthSplicingFAT(TimeStampModel,TimeTrackModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
@@ -183,7 +184,7 @@ class FtthSplicingFAT(TimeStampModel,TimeTrackModel):
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return str(self.site_name)
+        return str(self.project_name)
 
 class FtthSplicingFDT(TimeStampModel,TimeTrackModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
@@ -194,7 +195,7 @@ class FtthSplicingFDT(TimeStampModel,TimeTrackModel):
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return str(self.site_name)
+        return str(self.project_name)
 
 class FtthSplicing(TimeStampModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
@@ -206,7 +207,7 @@ class FtthSplicing(TimeStampModel):
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return str(self.site_name)
+        return str(self.project_name)
 
 """END SPLICING"""
 
@@ -219,7 +220,7 @@ class FtthCoreProvision(TimeStampModel,TimeTrackModel):
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return str(self.site_name)
+        return str(self.project_name)
 
 class FtthPowerLevels(TimeStampModel,TimeTrackModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
@@ -230,7 +231,7 @@ class FtthPowerLevels(TimeStampModel,TimeTrackModel):
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return str(self.site_name)
+        return str(self.project_name)
 
 class FtthOTDRTraces(TimeStampModel,TimeTrackModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
@@ -243,7 +244,7 @@ class FtthOTDRTraces(TimeStampModel,TimeTrackModel):
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return str(self.site_name)
+        return str(self.project_name)
 
 class FtthSignalTesting(TimeStampModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
@@ -255,37 +256,55 @@ class FtthSignalTesting(TimeStampModel):
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return str(self.site_name)
+        return str(self.project_name)
+
+"""END SIGNAL TESTING"""
 
 class FtthIssues(TimeStampModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING )
-    ftth_issue = models.CharField(max_length=100)
+    ftth_issue = models.CharField(max_length=200)
     ftth_issue_image = models.ImageField(upload_to='images/InstallationTeamFtth/issues/%Y/%m/%d/', blank=True, null=True)
     ftth_issue_sorted_image = models.ImageField(upload_to='images/InstallationTeamFtth/issues/%Y/%m/%d/', blank=True, null=True)
     closed = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return self.ftts_issue
+        return str(self.ftts_issue)
 
 class FtthInstallationTeam(TimeStampModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_splicing = models.OneToOneField(FtthSplicing, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftth_signal_testing = models.OneToOneField(FtthSignalTesting, on_delete=models.DO_NOTHING, blank=True, null=True)
-    ftth_installation_team_comment = models.CharField(max_length=100, blank=True, null=True)
-    ftth_asbuit_received = models.BooleanField(default=True)
-    snag_document = models.FileField(upload_to='files/SafaricomTeamftth/snag/%Y/%m/%d/', blank=True, null=True)
-    snag_document_comment = models.CharField(max_length=100, blank=True, null=True)
     ftth_issues = models.ManyToManyField(FtthIssues, blank=True)
+    ftth_crq_document = models.IntegerField(blank=True, null=True)
+    ftth_homepass_report = models.FileField(upload_to='files/SafaricomTeamftth/homepass/%Y/%m/%d/', blank=True, null=True)
+    ftth_operation_acceptance = models.FileField(upload_to='files/SafaricomTeamftth/OA/%Y/%m/%d/', blank=True, null=True)
+    ftth_asbuit_received = models.BooleanField(default=False)
+    ftts_asbuilt_comment = models.CharField(max_length=200, blank=True, null=True)
+    ftth_network_activation = models.BooleanField(default=False)
+    ftts_network_activation_comment = models.CharField(max_length=200, blank=True, null=True)
+    snag_document = models.FileField(upload_to='files/SafaricomTeamftth/snag/%Y/%m/%d/', blank=True, null=True)
+    snag_document_comment = models.CharField(max_length=200, blank=True, null=True)
     conditional_acceptance_cert = models.FileField(upload_to='files/SafaricomTeamftth/conditionalcert/%Y/%m/%d/', blank=True, null=True)
     conditional_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
+    ftth_installation_team_comment = models.CharField(max_length=200, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return str(self.site_name)
+        return str(self.project_name)
 
     def project_issues(self):
         return [v.project_name for v in self.ftth_issues.all()]
+
+class FtthTeam(TimeStampModel):
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
+    ftth_survey = models.OneToOneField(ftthSurvey, on_delete=models.DO_NOTHING, blank=True, null=True)
+    ftth_civil_team = models.OneToOneField(FtthCivilTeam, on_delete=models.DO_NOTHING, blank=True, null=True)
+    ftth_installation_team = models.OneToOneField(FtthInstallationTeam, on_delete=models.DO_NOTHING, blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return str(self.project_name)
 
 ######################################################## END ################################################################################################################################################################################################

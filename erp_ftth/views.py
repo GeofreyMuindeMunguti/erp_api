@@ -163,10 +163,30 @@ class FtthSignalTestingViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
 
+
+class FtthIssuesViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating Issues ."""
+    queryset = FtthIssues.objects.order_by('created_at')
+    serializer_class = FtthIssuesSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
 class FtthInstallationTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = FtthInstallationTeam.objects.order_by('created_at')
     serializer_class = FtthInstallationTeamSerializer
 
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
+
+
+class FtthTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating Issues ."""
+    queryset = FtthTeam.objects.order_by('created_at')
+    serializer_class = FtthTeamSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
 ################################################ END ##############################################################################################################################################################################################################################################################

@@ -50,6 +50,7 @@ class FttsSiteListView(generics.ListCreateAPIView):
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
 
+
 #################################FTTH VIEWSETS#################################
 
 
@@ -94,9 +95,16 @@ class FttsProcurementTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     ordering_fields = ('updated_at', 'site_name', )
 
 ################################################ FIBER CIVIL TEAM ##############################################################################################################################################################################################################################################
-class SitePoleInstallationViewSet(DefaultsMixin, viewsets.ModelViewSet):
-    queryset = SitePoleInstallation.objects.order_by('created_at')
-    serializer_class = SitePoleInstallationSerializer
+class SiteTrenchingImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = SiteTrenchingImage.objects.order_by('created_at')
+    serializer_class = SiteTrenchingImageSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
+class DailySiteTrenchingViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = DailySiteTrenching.objects.order_by('created_at')
+    serializer_class = DailySiteTrenchingSerializer
 
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
@@ -108,9 +116,58 @@ class SiteTrenchingViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
 
+class SiteDuctInstallationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = SiteDuctInstallationImage.objects.order_by('created_at')
+    serializer_class = SiteDuctInstallationImageSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
+class DailySiteDuctInstallationViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = DailySiteDuctInstallation.objects.order_by('created_at')
+    serializer_class = DailySiteDuctInstallationSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
 class SiteDuctInstallationViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = SiteDuctInstallation.objects.order_by('created_at')
     serializer_class = SiteDuctInstallationSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
+class ManHoleInstallationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = ManHoleInstallationImage.objects.order_by('created_at')
+    serializer_class = ManHoleInstallationImageSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
+class DailyManHoleInstallationViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = DailyManHoleInstallation.objects.order_by('created_at')
+    serializer_class = DailyManHoleInstallationSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
+class SiteManHoleInstallationViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = ManHoleInstallation.objects.order_by('created_at')
+    serializer_class = SiteManHoleInstallationSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
+class SiteCableInstallationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = SiteCableInstallationImage.objects.order_by('created_at')
+    serializer_class = SiteCableInstallationImageSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
+class DailySiteCableInstallationViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = DailySiteCableInstallation.objects.order_by('created_at')
+    serializer_class = DailySiteCableInstallationSerializer
 
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
@@ -122,9 +179,18 @@ class SiteCableInstallationViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
 
-class SiteManHoleInstallationViewSet(DefaultsMixin, viewsets.ModelViewSet):
-    queryset = ManHoleInstallation.objects.order_by('created_at')
-    serializer_class = SiteManHoleInstallationSerializer
+class FttsAccessApprovalCivilViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating health docs for civil team."""
+    queryset = FttsAccessApprovalCivil.objects.order_by('created_at')
+    serializer_class = FttsAccessApprovalCivilSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
+class FttsHealthDocumentsCivilTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating access approval docs for civil team."""
+    queryset = FttsHealthDocumentsCivilTeam.objects.order_by('created_at')
+    serializer_class = FttsHealthDocumentsCivilTeamSerializer
 
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
@@ -140,9 +206,37 @@ class FttsCivilTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
 ################################################ FIBER INSTALLATION TEAM ##############################################################################################################################################################################################################################################
 
+class SiteTerminalInHseImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = SiteTerminalInHseImage.objects.order_by('created_at')
+    serializer_class = SiteTerminalInHseImageSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
+class DailySiteTerminalInHseViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = DailySiteTerminalInHse.objects.order_by('created_at')
+    serializer_class = DailySiteTerminalInHseSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
 class SiteTerminalInHseViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = SiteTerminalInHse.objects.order_by('created_at')
     serializer_class = SiteTerminalInHseSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
+class SiteInterceptionImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = SiteInterceptionImage.objects.order_by('created_at')
+    serializer_class = SiteInterceptionImageSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
+class DailySiteInterceptionViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = DailySiteInterception.objects.order_by('created_at')
+    serializer_class = DailySiteInterceptionSerializer
 
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
@@ -154,13 +248,29 @@ class SiteInterceptionViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
 
+class FttsAccessApprovalInstallationViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating health docs for civil team."""
+    queryset = FttsAccessApprovalInstallation.objects.order_by('created_at')
+    serializer_class = FttsAccessApprovalInstallationSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
+class FttsHealthDocsInstallationTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating access approval docs for civil team."""
+    queryset = FttsHealthDocsInstallationTeam.objects.order_by('created_at')
+    serializer_class = FttsHealthDocsInstallationTeamSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
 class FttsIssuesViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating Issues ."""
     queryset = FttsIssues.objects.order_by('created_at')
     serializer_class = FttsIssuesSerializer
 
-    search_fields = ('project_name', )
-    ordering_fields = ('updated_at', 'project_name', )
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
 
 class FttsInstallationTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = FttsInstallationTeam.objects.order_by('created_at')
@@ -174,9 +284,10 @@ class FttsTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = FttsTeam.objects.order_by('created_at')
     serializer_class = FttsTeamSerializer
 
-    search_fields = ('project_name', )
-    ordering_fields = ('updated_at', 'project_name', )
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
 
+"""CASUALS"""
 class DailyCivilWorkProductionViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """ViewSet for the DailyCivilWorkProduction class"""
 
