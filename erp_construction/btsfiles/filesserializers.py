@@ -414,7 +414,7 @@ class BtsSiteFilesSerializer(serializers.ModelSerializer):
     blindingsubtask = BlindingSubTaskFilesSerializer(read_only =True)
     steelfixformworksubtask = SteelFixFormworkSubTaskFilesSerializer(read_only=True)
     concretepoursubtask = ConcretePourSubTaskFilesSerializer(read_only=True)
-    # concretecuringperiodimage = ConcreteCuringImagesSerializer(read_only=True)
+    concretecuringperiodsubtask = ConcreteCuringPeriodSubTaskFilesSerializer(read_only=True)
     #          #bs241 & generator fountation
     # excavationimage = ExcavationImagesSerializer(read_only=True)
     # bs241concretepourcuringperiodimage = BS21ConcreteCuringPeriodImagesSerializer(read_only=True)

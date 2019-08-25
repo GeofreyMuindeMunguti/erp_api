@@ -391,8 +391,8 @@ class Bs241ConcretePourCuringPeriodImageViewSet(DefaultsMixin, viewsets.ModelVie
     # SubTask (6)://///////////ConcreteCuringPeriod Subtask //////////////////
 class BS241AndGeneatorSlabTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
-    queryset = BS241AndGeneatorSlabTask.objects.order_by('created_at')
-    serializer_class = BS241AndGeneatorSlabTaskSerializer
+    queryset = BS241AndGeneratorSlabTask.objects.order_by('created_at')
+    serializer_class = BS241AndGeneratorSlabTaskSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )

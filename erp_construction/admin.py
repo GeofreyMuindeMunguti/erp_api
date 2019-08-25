@@ -390,7 +390,7 @@ admin.site.register(BS241ConcretePourCuringPeriodSubtask, BS241ConcretePourCurin
 
     # TASK [2]: BS241AndGeneatorSlab Subtask //////////////////
 
-class BS241AndGeneatorSlabTaskAdmin(admin.ModelAdmin):
+class BS241AndGeneratorSlabTaskAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'team_task_id', 'foundation_foot_pouring', 'bs241_concrete_pour_pouring_period','bs241_and_generator_slabs_comment','engineers', 'names_of_engineers', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -398,7 +398,7 @@ class BS241AndGeneatorSlabTaskAdmin(admin.ModelAdmin):
     list_editable = ('is_active',)
 
 
-admin.site.register(BS241AndGeneatorSlabTask, BS241AndGeneatorSlabTaskAdmin)
+admin.site.register(BS241AndGeneratorSlabTask, BS241AndGeneratorSlabTaskAdmin)
 
 # ######################################## END #######################################################################################################################################
 

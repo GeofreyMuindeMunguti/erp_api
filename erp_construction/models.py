@@ -1012,6 +1012,8 @@ class FoundationCreationTask(TimeTrackModel,TimeStampModel):
     def __str__(self):
         #return str(self.project_name)
         return 'Foundation Creation for {}'.format(self.project_name)
+    class Meta:
+        verbose_name = 'FOUNDATION CREATION TASK'
 
     def engineers(self):
         count = self.engineers_atsite.count()
@@ -1303,7 +1305,7 @@ class BS241ConcretePourCuringPeriodSubtask(TimeStampModel,TimeTrackModel):
 
 # TASK [2] 
 
-class BS241AndGeneatorSlabTask(TimeStampModel ,TimeTrackModel):
+class BS241AndGeneratorSlabTask(TimeStampModel ,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     engineers_atsite = models.ManyToManyField(Engineer, blank=True )
     #Sub Tasks
@@ -1314,6 +1316,8 @@ class BS241AndGeneatorSlabTask(TimeStampModel ,TimeTrackModel):
 
     def __str__(self):
         return str(self.project_name)
+    class Meta:
+        verbose_name = 'BS241 and GENERATOR SLAB TASK'
 
     def engineers(self):
         count = self.engineers_atsite.count()
@@ -2386,7 +2390,7 @@ class CivilWorksTeam(models.Model):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     health_documents = models.ManyToManyField(HealthDocumentsCivilTeam, blank=True )
     foundation_and_curing_images = models.OneToOneField(FoundationCreationTask, on_delete=models.CASCADE, blank=True, null=True)
-    bs241_and_generator_slabs_images = models.OneToOneField(BS241AndGeneatorSlabTask, on_delete=models.CASCADE, blank=True, null=True)
+    bs241_and_generator_slabs_images = models.OneToOneField(BS241AndGeneratorSlabTask, on_delete=models.CASCADE, blank=True, null=True)
     site_walling_images_field = models.OneToOneField(BoundaryWallImage, on_delete=models.CASCADE, blank=True, null=True)
     tower_data = models.OneToOneField(TowerAntennaCoaxImage, on_delete=models.CASCADE, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
