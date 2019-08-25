@@ -305,6 +305,21 @@ class ExcavationSubTaskSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+class ExcavationDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ExcavationDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class ExcavationImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ExcavationImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
   # SubTask (5)://///////////BS241ConcretePourCuringPeriodSubTask Subtask //////////////////
 
 class ConcretePourCuringPeriodSubTaskSerializer(serializers.ModelSerializer):
@@ -315,6 +330,21 @@ class ConcretePourCuringPeriodSubTaskSerializer(serializers.ModelSerializer):
         model = BS241ConcretePourCuringPeriodSubtask
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class BS241ConcretePourCuringPeriodDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BS241ConcretePourCuringPeriodDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class BS241ConcretePourCuringPeriodImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BS241ConcretePourCuringPeriodImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
 
   # SubTask (5):////////////BS241AndGeneatorSlabs Subtask //////////////////
 

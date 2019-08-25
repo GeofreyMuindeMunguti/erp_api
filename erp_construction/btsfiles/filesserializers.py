@@ -68,35 +68,133 @@ class TowerBaseSubTaskAFilesSerializer(serializers.ModelSerializer):
         model = BtsSite
         exclude = ("id","project_name","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
            "updated_at", "is_active", "location", "created_by",'geotech_file','access_letter','approved_drawing','final_acceptance_cert')
+
 # BlindingSubTask  Files Serializers///////////////
 
 class BlindingImagesSerializer(serializers.ModelSerializer):
 
     class Meta:
+        model = BlindingImage
+        fields = ('blinding_image','blinding_image_comment',)
+
+
+class BlindingDateFilesSerializer(serializers.ModelSerializer):
+    blindingimages = BlindingImagesSerializer(read_only=True)
+
+    class Meta:
+        model = BlindingDate
+        fields = ('work_day','casuals_list','blindingimages',)
+
+class BlindingSubTaskFilesSerializer(serializers.ModelSerializer):
+    blindingdates =BlindingDateFilesSerializer(many = True,read_only =True)
+
+    class Meta:
         model = BlindingSubtask
-        fields = ('binding_image_1','binding_image_2','binding_image_3',)
+        fields = ('blinding_image_1', 'blinding_image_2', 'blinding_image_3', 'blinding_comment','blindingdates',)
 
+class BlindingSubTaskAFilesSerializer(serializers.ModelSerializer):
+    blindingsubtask = BlindingSubTaskFilesSerializer(read_only =True)
 
+    class Meta:
+        model = BtsSite
+        exclude = ("id","project_name","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
+           "updated_at", "is_active", "location", "created_by",'geotech_file','access_letter','approved_drawing','final_acceptance_cert')
+           
+ #CON          
+# SteelFixFormwork  Files Serializers///////////////
 class SteelFixFormworkImagesSerializer(serializers.ModelSerializer):
 
     class Meta:
+        model = SteelFixFormworkImage
+        fields = ('steel_fixformwork_image','steel_fixformwork_comment')
+
+
+class SteelFixFormworkDateFilesSerializer(serializers.ModelSerializer):
+    steelfixformworkimages = SteelFixFormworkImagesSerializer(read_only=True)
+
+    class Meta:
+        model = SteelFixFormworkDate
+        fields = ('work_day','casuals_list','steelfixformworkimages',)
+
+class SteelFixFormworkSubTaskFilesSerializer(serializers.ModelSerializer):
+    steelfixformworkdates =SteelFixFormworkDateFilesSerializer(many = True,read_only =True)
+
+    class Meta:
         model = SteelFixFormworkSubtask
-        fields = ('steel_fix_formwork_image_1','steel_fix_formwork_image_2','steel_fix_formwork_image_3','steel_fix_formwork_comment')
+        fields = ('steel_fix_formwork_image_1', 'steel_fix_formwork_image_2', 'steel_fix_formwork_image_3', 'steel_fix_formwork_comment','steelfixformworkdates',)
+
+class SteelFixFormworkSubTaskAFilesSerializer(serializers.ModelSerializer):
+    steelfixformworksubtask = SteelFixFormworkSubTaskFilesSerializer(read_only =True)
+
+    class Meta:
+        model = BtsSite
+        exclude = ("id","project_name","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
+           "updated_at", "is_active", "location", "created_by",'geotech_file','access_letter','approved_drawing','final_acceptance_cert')
+           
+        
+# ConcretePour Files Serializers///////////////
+
+class ConcretePourImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ConcretePourImage
+        fields = ('concrete_pour_curing_image','concrete_pour_curing_comment',)
 
 
-# class ConcretePourImagesSerializer(serializers.ModelSerializer):
+class ConcretePourDateFilesSerializer(serializers.ModelSerializer):
+    concretepourimages = ConcretePourImagesSerializer(read_only=True)
 
-#     class Meta:
-#         model = ConcretePourImage
-#         fields = ('concrete_pour_curing_image_1','concrete_pour_curing_image_2','concrete_pour_curing_image_3',)
+    class Meta:
+        model = ConcretePourDate
+        fields = ('work_day','casuals_list','concretepourimages',)
+
+class ConcretePourSubTaskFilesSerializer(serializers.ModelSerializer):
+    concretepourdates = ConcretePourDateFilesSerializer(many = True,read_only =True)
+
+    class Meta:
+        model = ConcretePourSubtask
+        fields = ('concrete_pour_curing_image_1', 'concrete_pour_curing_image_2', 'concrete_pour_curing_image_3', 'concrete_pour_curing_comment','concretepourdates',)
+
+class ConcretePourSubTaskAFilesSerializer(serializers.ModelSerializer):
+    concretepoursubtask = ConcretePourSubTaskFilesSerializer(read_only =True)
+
+    class Meta:
+        model = BtsSite
+        exclude = ("id","project_name","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
+           "updated_at", "is_active", "location", "created_by",'geotech_file','access_letter','approved_drawing','final_acceptance_cert')
+           
+           
+# SteelFixFormwork  Files Serializers///////////////
+
+class ConcreteCuringImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ConcreteCuringPeriodImage
+        fields = ('concrete_curing_period_image','concrete_curing_period_comment',)
 
 
-# class ConcreteCuringImagesSerializer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = ConcreteCuringPeriodImage
-#         fields = ('concrete_pour_curing_period_image_1','concrete_pour_curing_period_image_2','concrete_pour_curing_period_image_3',)
+class ConcreteCuringPeriodDateFilesSerializer(serializers.ModelSerializer):
+    concretecuringperiodimages = ConcreteCuringImagesSerializer(read_only=True)
 
+    class Meta:
+        model = ConcreteCuringPeriodDate
+        fields = ('work_day','casuals_list','concretecuringperiodimages',)
+
+class ConcreteCuringPeriodSubTaskFilesSerializer(serializers.ModelSerializer):
+    concretecuringperioddates = ConcreteCuringPeriodDateFilesSerializer(many = True,read_only =True)
+
+    class Meta:
+        model = ConcreteCuringPeriodSubtask
+        fields = ('concrete_pour_curing_period_image_1', 'concrete_pour_curing_period_image_2', 'concrete_pour_curing_period_image_3', 'concrete_pour_curing_period_comment','concretecuringperioddates',)
+
+class ConcreteCuringPeriodSubTaskAFilesSerializer(serializers.ModelSerializer):
+    concretecuringperiodsubtask = ConcreteCuringPeriodSubTaskFilesSerializer(read_only =True)
+
+    class Meta:
+        model = BtsSite
+        exclude = ("id","project_name","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
+           "updated_at", "is_active", "location", "created_by",'geotech_file','access_letter','approved_drawing','final_acceptance_cert')
 
 # #GENERATOR FOUNDATION
 
@@ -313,9 +411,9 @@ class BtsSiteFilesSerializer(serializers.ModelSerializer):
 
     siteclearingsubtask = SiteClearingSubTaskFilesSerializer ( read_only =True)
     towerbasesubtask = TowerBaseSubTaskFilesSerializer(read_only=True)
-    blindingsubtask = BlindingImagesSerializer(read_only=True)
-    steelfixformworksubtask = SteelFixFormworkImagesSerializer(read_only=True)
-    # concretepourimage = ConcretePourImagesSerializer(read_only=True)
+    blindingsubtask = BlindingSubTaskFilesSerializer(read_only =True)
+    steelfixformworksubtask = SteelFixFormworkSubTaskFilesSerializer(read_only=True)
+    concretepoursubtask = ConcretePourSubTaskFilesSerializer(read_only=True)
     # concretecuringperiodimage = ConcreteCuringImagesSerializer(read_only=True)
     #          #bs241 & generator fountation
     # excavationimage = ExcavationImagesSerializer(read_only=True)

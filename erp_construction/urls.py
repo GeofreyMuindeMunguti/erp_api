@@ -59,9 +59,17 @@ router.register(r'concretecuringperiodimage', views.ConcreteCuringPeriodImageVie
 
 
 # TASK[2] : Excavation & Generator
-
+         # SubTask (1): excavation Subtask
 router.register(r'excavation', views.ExcavationSubTaskViewSet)
-router.register(r'bs241concretepourcuringperiod', views.Bs241ConcretePourCuringPeriodImageViewSet)
+router.register(r'excavationdates', views.ExcavationDateViewSet)
+router.register(r'excavationimages', views.ExcavationImageViewSet)
+
+         # SubTask (2): concretepourcuringperiodsubtask
+router.register(r'bs241concretepourcuringperiodsubtask', views.Bs241ConcretePourCuringPeriodSubTaskViewSet)
+router.register(r'bs241concretepourcuringperioddates', views.BS241ConcretePourCuringPeriodDateViewSet)
+router.register(r'bs241concretepourcuringperiodimages', views.Bs241ConcretePourCuringPeriodImageViewSet)
+
+ # TASK(2): BS241AndGeneatorSlabTask
 router.register(r'bs241generatorslabs', views.BS241AndGeneatorSlabTaskViewSet)
 
 
@@ -129,10 +137,10 @@ urlpatterns = [
 
     path('files/<int:pk>/siteclearingimages/', filesviews.SiteClearingSubTaskFilesView.as_view()),
     path('files/<int:pk>/towerbaseimages/', filesviews.TowerBaseSubTaskFilesView.as_view()),
-    # path('files/<int:pk>/bindingimages/', filesviews.BindingImagesView.as_view()),
-    # path('files/<int:pk>/steelfixformworkimages/', filesviews.SteelFixFormworkImagesView.as_view()),
-    # path('files/<int:pk>/concretepourimages/', filesviews.ConcretePourImagesView.as_view()),
-    # path('files/<int:pk>/concretecuringimages/', filesviews.ConcreteCuringImagesView.as_view()),
+    path('files/<int:pk>/bindingimages/', filesviews.BlindingSubTaskView.as_view()),
+    path('files/<int:pk>/steelfixformworkimages/', filesviews.SteelFixFormworkFilesView.as_view()),
+    path('files/<int:pk>/concretepourimages/', filesviews.ConcretePourFilesView.as_view()),
+    path('files/<int:pk>/concretecuringimages/', filesviews.ConcreteCuringPeriodFilesView.as_view()),
 
     # path('files/<int:pk>/excavationimages/', filesviews.ExcavationImagesView.as_view()),
     # path('files/<int:pk>/concretepourcuringperiodimages/', filesviews.BS241ConcreteCuringPeriodImagesView.as_view()),

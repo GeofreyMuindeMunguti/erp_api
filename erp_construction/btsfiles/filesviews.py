@@ -39,17 +39,17 @@ class BtsSiteFilesView(generics.RetrieveAPIView,DefaultsMixin):
 
 class SiteClearingSubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
     queryset = BtsSite.objects.all()
-    # def get_queryset(self):
-        # queryset = SiteClearingSubTask.objects.filter(project_name_id=self.kwargs["pk"])
-        # return queryset
     serializer_class = SiteClearingSubTaskAFilesSerializer
+
+# class TowerBaseSubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
+#     queryset = BtsSite.objects.all()
+#     # def get_queryset(self):
+#     #     queryset = TowerBaseSubtask.objects.filter(project_name_id=self.kwargs["pk"])
+#     #     return queryset
+#     serializer_class = TowerBaseSubTaskAFilesSerializer
 
 class TowerBaseSubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
     queryset = BtsSite.objects.all()
-    # def get_queryset(self):
-
-    #     queryset = BtsSite.objects.filter(project_name_id=self.kwargs["pk"])
-    #     return queryset
     serializer_class = TowerBaseSubTaskAFilesSerializer
 
 # class BindingImagesView(generics.RetrieveAPIView,DefaultsMixin):
@@ -59,6 +59,9 @@ class TowerBaseSubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
 #         return queryset
 #     serializer_class = BindingImagesSerializer
 
+class BlindingSubTaskView(generics.RetrieveAPIView,DefaultsMixin):
+    queryset = BtsSite.objects.all()
+    serializer_class = BlindingSubTaskAFilesSerializer
 
 # class SteelFixFormworkImagesView(generics.RetrieveAPIView,DefaultsMixin):
 
@@ -69,6 +72,10 @@ class TowerBaseSubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
 #         return queryset
 #     serializer_class = SteelFixFormworkImagesSerializer
 
+class SteelFixFormworkFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    queryset = BtsSite.objects.all()
+    serializer_class = SteelFixFormworkSubTaskAFilesSerializer
+
 # class ConcretePourImagesView(generics.RetrieveAPIView,DefaultsMixin):
 #     #queryset = ConcretePourImage.objects.all()
 
@@ -76,7 +83,9 @@ class TowerBaseSubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
 #         queryset = ConcretePourImage.objects.filter(project_name_id=self.kwargs["pk"])
 #         return queryset
 #     serializer_class = ConcretePourImagesSerializer
-
+class ConcretePourFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    queryset = BtsSite.objects.all()
+    serializer_class = ConcretePourSubTaskAFilesSerializer
 
 # class ConcreteCuringImagesView(generics.RetrieveAPIView,DefaultsMixin):
 
@@ -84,6 +93,11 @@ class TowerBaseSubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
 #         queryset = ConcreteCuringPeriodImage.objects.filter(project_name_id=self.kwargs["pk"])
 #         return queryset
 #     serializer_class = ConcreteCuringImagesSerializer
+
+class ConcreteCuringPeriodFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    queryset = BtsSite.objects.all()
+    serializer_class = ConcreteCuringPeriodSubTaskAFilesSerializer
+
 
 # #GENERATOR FOUNDATION
 

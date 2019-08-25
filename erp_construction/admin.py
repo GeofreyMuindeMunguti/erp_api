@@ -191,7 +191,7 @@ admin.site.register(TowerBaseImage, TowerBaseImageAdmin)
     # SubTask (3):Blinding Subtask //////////////////
 
 class BlindingSubtaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'task_id', 'binding_image_1', 'binding_image_2', 'binding_image_3', 'binding_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'task_id', 'blinding_image_1', 'blinding_image_2', 'blinding_image_3', 'blinding_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -246,7 +246,7 @@ class SteelFixFormworkDateAdmin(admin.ModelAdmin):
 admin.site.register(SteelFixFormworkDate, SteelFixFormworkDateAdmin)
 
 class SteelFixFormworkImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'day_image','steel_fixformwork_image', 'steel_fixformwork_image_comment','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'day_image','steel_fixformwork_image', 'steel_fixformwork_comment','created_at', 'updated_at', 'is_active')
     list_display_links = ('day_image', )
     list_filter = ('day_image',)
     search_fields = ('day_image', )
