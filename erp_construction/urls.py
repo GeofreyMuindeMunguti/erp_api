@@ -60,9 +60,9 @@ router.register(r'concretecuringperiodimage', views.ConcreteCuringPeriodImageVie
 
 # TASK[2] : Excavation & Generator
 
-# router.register(r'excavation', views.ExcavationImageViewSet)
-# router.register(r'bs241concretepourcuringperiod', views.bs241ConcretePourCuringPeriodImageViewSet)
-# router.register(r'bs241generatorslabs', views.BS241AndGeneatorSlabsImageViewSet)
+router.register(r'excavation', views.ExcavationSubTaskViewSet)
+router.register(r'bs241concretepourcuringperiod', views.Bs241ConcretePourCuringPeriodImageViewSet)
+router.register(r'bs241generatorslabs', views.BS241AndGeneatorSlabTaskViewSet)
 
 
 # router.register(r'foundationfootpour', views.FoundFootPourImageViewSet)

@@ -157,7 +157,7 @@ class SiteClearingSubTaskSerializer(serializers.ModelSerializer):
     task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = SiteClearingSubTask
+        model = SiteClearingSubtask
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
@@ -180,7 +180,7 @@ class TowerBaseSubTaskSerializer(serializers.ModelSerializer):
     task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = TowerBaseSubTask
+        model = TowerBaseSubtask
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
@@ -191,7 +191,7 @@ class BlindingSubTaskSerializer(serializers.ModelSerializer):
     task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = BlindingSubTask
+        model = BlindingSubtask
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
@@ -216,7 +216,7 @@ class SteelFixFormworkSubTaskSerializer(serializers.ModelSerializer):
     task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = SteelFixFormworkSubTask
+        model = SteelFixFormworkSubtask
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
    # SubTask (5)://///////////SteelFixFormwork Subtask //////////////////
@@ -245,7 +245,7 @@ class ConcretePourSubTaskSerializer(serializers.ModelSerializer):
     task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = ConcretePourSubTask
+        model = ConcretePourSubtask
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
@@ -271,7 +271,7 @@ class ConcreteCuringPeriodSubTaskSerializer(serializers.ModelSerializer):
     task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = ConcreteCuringPeriodSubTask
+        model = ConcreteCuringPeriodSubtask
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
@@ -294,35 +294,39 @@ class ConcreteCuringPeriodImageSerializer(serializers.ModelSerializer):
 
 #######################################BS241 & GENERATOR FOUNDATION ###########################################################################################################################
 
+  # SubTask (5):///////////ExcavationSubTask Subtask //////////////////
 
-class ExcavationImageerializer(serializers.ModelSerializer):
+class ExcavationSubTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = ExcavationImage
+        model = ExcavationSubtask
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+  # SubTask (5)://///////////BS241ConcretePourCuringPeriodSubTask Subtask //////////////////
 
-class ConcretePourCuringPeriodImageSerializer(serializers.ModelSerializer):
+class ConcretePourCuringPeriodSubTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = BS241ConcretePourCuringPeriodImage
+        model = BS241ConcretePourCuringPeriodSubtask
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+  # SubTask (5):////////////BS241AndGeneatorSlabs Subtask //////////////////
 
-class BS241AndGeneatorSlabsImageSerializer(serializers.ModelSerializer):
+class BS241AndGeneatorSlabTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     team_task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = BS241AndGeneatorSlabsImage
+        model = BS241AndGeneatorSlabTask
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
 ######################################## END #######################################################################################################################################
 
 ######################################  BOUNDARY WALL ###########################################################################################################################

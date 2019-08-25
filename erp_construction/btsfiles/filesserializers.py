@@ -28,7 +28,7 @@ class SiteClearingSubTaskFilesSerializer(serializers.ModelSerializer):
     siteclearingdates =SiteClearingDateFilesSerializer(many = True,read_only =True)
 
     class Meta:
-        model = SiteClearingSubTask
+        model = SiteClearingSubtask
         fields = ('id','project_name_id','setting_site_clearing_image_1','setting_site_clearing_image_2','setting_site_clearing_image_3','setting_site_clearing_comment','siteclearingdates',)
 
 class SiteClearingSubTaskAFilesSerializer(serializers.ModelSerializer):
@@ -58,7 +58,7 @@ class TowerBaseSubTaskFilesSerializer(serializers.ModelSerializer):
     towerbasedates =TowerBaseDateFilesSerializer(many = True,read_only =True)
 
     class Meta:
-        model = TowerBaseSubTask
+        model = TowerBaseSubtask
         fields = ('towerbase_image_1', 'towerbase_image_2', 'towerbase_image_3', 'tower_base_comment','towerbasedates',)
 
 class TowerBaseSubTaskAFilesSerializer(serializers.ModelSerializer):
@@ -73,14 +73,14 @@ class TowerBaseSubTaskAFilesSerializer(serializers.ModelSerializer):
 class BlindingImagesSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = BlindingSubTask
+        model = BlindingSubtask
         fields = ('binding_image_1','binding_image_2','binding_image_3',)
 
 
 class SteelFixFormworkImagesSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = SteelFixFormworkSubTask
+        model = SteelFixFormworkSubtask
         fields = ('steel_fix_formwork_image_1','steel_fix_formwork_image_2','steel_fix_formwork_image_3','steel_fix_formwork_comment')
 
 

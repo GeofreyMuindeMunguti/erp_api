@@ -128,7 +128,7 @@ admin.site.register(FoundationCreationTask, FoundationCreationTaskAdmin)
 
     # SubTask (1): Site-Clearing Subtask //////////////////
 
-class SiteClearingSubTaskAdmin(admin.ModelAdmin):
+class SiteClearingSubtaskAdmin(admin.ModelAdmin):
     #list_display = ('id', 'project_name','task_id', 'setting_site_clearing_image_1', 'setting_site_clearing_image_2', 'setting_site_clearing_image_3', 'setting_site_clearing_comment', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display = ('id', 'project_name','task_id', 'setting_site_clearing_image_1', 'setting_site_clearing_image_2', 'setting_site_clearing_image_3', 'setting_site_clearing_comment', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
@@ -137,7 +137,7 @@ class SiteClearingSubTaskAdmin(admin.ModelAdmin):
     list_editable = ('is_active',)
 
 
-admin.site.register(SiteClearingSubTask, SiteClearingSubTaskAdmin)
+admin.site.register(SiteClearingSubtask, SiteClearingSubtaskAdmin)
 
 class SiteClearingDateAdmin(admin.ModelAdmin):
     list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
@@ -162,14 +162,14 @@ admin.site.register(SiteClearingImage, SiteClearingImageAdmin)
 
     # SubTask (2): Tower-Base Subtask //////////////////
 
-class TowerBaseSubTaskAdmin(admin.ModelAdmin):
+class TowerBaseSubtaskAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name','task_id', 'towerbase_image_1', 'towerbase_image_2', 'towerbase_image_3', 'tower_base_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
     list_editable = ('is_active',)
     
-admin.site.register(TowerBaseSubTask, TowerBaseSubTaskAdmin)
+admin.site.register(TowerBaseSubtask, TowerBaseSubtaskAdmin)
 
 class TowerBaseDateAdmin(admin.ModelAdmin):
     list_display = ('id', 'sub_task','work_day', 'tower_base_comment','casuals_list', 'created_at', 'updated_at', 'is_active')
@@ -190,7 +190,7 @@ class TowerBaseImageAdmin(admin.ModelAdmin):
 admin.site.register(TowerBaseImage, TowerBaseImageAdmin)
     # SubTask (3):Blinding Subtask //////////////////
 
-class BlindingSubTaskAdmin(admin.ModelAdmin):
+class BlindingSubtaskAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'task_id', 'binding_image_1', 'binding_image_2', 'binding_image_3', 'binding_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -198,7 +198,7 @@ class BlindingSubTaskAdmin(admin.ModelAdmin):
     list_editable = ('is_active',)
 
 
-admin.site.register(BlindingSubTask, BlindingSubTaskAdmin)
+admin.site.register(BlindingSubtask, BlindingSubtaskAdmin)
 
 
 class BlindingDateAdmin(admin.ModelAdmin):
@@ -224,7 +224,7 @@ admin.site.register(BlindingImage, BlindingImageAdmin)
 
     # SubTask (4): SteelFixFormwork Subtask //////////////////
 
-class SteelFixFormworkSubTaskAdmin(admin.ModelAdmin):
+class SteelFixFormworkSubtaskAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'task_id', 'steel_fix_formwork_image_1', 'steel_fix_formwork_image_2', 'steel_fix_formwork_image_3', 'steel_fix_formwork_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -232,7 +232,7 @@ class SteelFixFormworkSubTaskAdmin(admin.ModelAdmin):
     list_editable = ('is_active',)
 
 
-admin.site.register(SteelFixFormworkSubTask, SteelFixFormworkSubTaskAdmin)
+admin.site.register(SteelFixFormworkSubtask, SteelFixFormworkSubtaskAdmin)
 
 
 class SteelFixFormworkDateAdmin(admin.ModelAdmin):
@@ -257,7 +257,7 @@ admin.site.register(SteelFixFormworkImage, SteelFixFormworkImageAdmin)
     # SubTask (5): ConcretePour Subtask //////////////////
 
 
-class ConcretePourSubTaskAdmin(admin.ModelAdmin):
+class ConcretePourSubtaskAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'task_id', 'concrete_pour_curing_image_1', 'concrete_pour_curing_image_2', 'concrete_pour_curing_image_3', 'concrete_pour_curing_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -265,7 +265,7 @@ class ConcretePourSubTaskAdmin(admin.ModelAdmin):
     list_editable = ('is_active',)
 
 
-admin.site.register(ConcretePourSubTask, ConcretePourSubTaskAdmin)
+admin.site.register(ConcretePourSubtask, ConcretePourSubtaskAdmin)
 
 class ConcretePourDateAdmin(admin.ModelAdmin):
     list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
@@ -290,7 +290,7 @@ admin.site.register(ConcretePourImage, ConcretePourImageAdmin)
 
     # SubTask (5): ConcretePourCuring Period Subtask //////////////////
 
-class ConcreteCuringPeriodSubTaskAdmin(admin.ModelAdmin):
+class ConcreteCuringPeriodSubtaskAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'task_id', 'concrete_pour_curing_period_image_1', 'concrete_pour_curing_period_image_2', 'concrete_pour_curing_period_image_3', 'concrete_pour_curing_period_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -298,7 +298,7 @@ class ConcreteCuringPeriodSubTaskAdmin(admin.ModelAdmin):
     list_editable = ('is_active',)
 
 
-admin.site.register(ConcreteCuringPeriodSubTask, ConcreteCuringPeriodSubTaskAdmin)
+admin.site.register(ConcreteCuringPeriodSubtask, ConcreteCuringPeriodSubtaskAdmin)
 
 class ConcreteCuringPeriodDateAdmin(admin.ModelAdmin):
     list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
@@ -319,39 +319,86 @@ class ConcreteCuringPeriodImageAdmin(admin.ModelAdmin):
 
 
 admin.site.register(ConcreteCuringPeriodImage, ConcreteCuringPeriodImageAdmin)
+
 # ######################################## END #######################################################################################################################################
 
 # #######################################BS241 & GENERATOR FOUNDATION ###########################################################################################################################
-
-# class ExcavationImageAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'task_id', 'excavation_image_1', 'excavation_image_2', 'excavation_image_3', 'excavation_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'raise_flag','start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
-
-
-# admin.site.register(ExcavationImage, ExcavationImageAdmin)
-
-# class BS241ConcretePourCuringPeriodImageAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'task_id', 'bs241_concrete_pour_curing_period_image_1', 'bs241_concrete_pour_curing_period_image_2','bs241_concrete_pour_curing_period_image_3', 'bs241_concrete_pour_curing_period_comment', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+    # SubTask (1): ConcretePourCuring Period Subtask //////////////////
+class ExcavationImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'excavation_image_1', 'excavation_image_2', 'excavation_image_3', 'excavation_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'raise_flag','start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
 
 
-# admin.site.register(BS241ConcretePourCuringPeriodImage, BS241ConcretePourCuringPeriodImageAdmin)
-
-# class BS241AndGeneatorSlabsImageAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'team_task_id', 'foundation_foot_pouring', 'bs241_concrete_pour_pouring_period','bs241_and_generator_slabs_comment','engineers', 'names_of_engineers', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+admin.site.register(ExcavationSubtask, ExcavationImageAdmin)
 
 
-# admin.site.register(BS241AndGeneatorSlabsImage, BS241AndGeneatorSlabsImageAdmin)
+class ExcavationDateAdmin(admin.ModelAdmin):
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    list_filter = ('sub_task','work_day')
+    search_fields = ('sub_task', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(ExcavationDate, ExcavationDateAdmin)
+
+class ExcavationImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'day_image', 'excavation_image', 'excavation_image_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    list_filter = ('day_image',)
+    search_fields = ('day_image', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(ExcavationImage, ExcavationImageAdmin)
+
+
+    # SubTask (2): BS241ConcretePourCuringPeriodI Subtask //////////////////
+class BS241ConcretePourCuringPeriodImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'day_image', 'bs241_concrete_pour_curing_period_image', 'bs241_concrete_pour_curing_period_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    list_filter = ('day_image',)
+    search_fields = ('day_image', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(BS241ConcretePourCuringPeriodImage, BS241ConcretePourCuringPeriodImageAdmin)
+
+
+class BS241ConcretePourCuringPeriodDateAdmin(admin.ModelAdmin):
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    list_filter = ('sub_task','work_day')
+    search_fields = ('sub_task', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(BS241ConcretePourCuringPeriodDate, BS241ConcretePourCuringPeriodDateAdmin)
+
+class BS241ConcretePourCuringPeriodSubtaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'bs241_concrete_pour_curing_period_image_1', 'bs241_concrete_pour_curing_period_image_2','bs241_concrete_pour_curing_period_image_3', 'bs241_concrete_pour_curing_period_comment', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(BS241ConcretePourCuringPeriodSubtask, BS241ConcretePourCuringPeriodSubtaskAdmin)
+
+    # TASK [2]: BS241AndGeneatorSlab Subtask //////////////////
+
+class BS241AndGeneatorSlabTaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'team_task_id', 'foundation_foot_pouring', 'bs241_concrete_pour_pouring_period','bs241_and_generator_slabs_comment','engineers', 'names_of_engineers', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(BS241AndGeneatorSlabTask, BS241AndGeneatorSlabTaskAdmin)
 
 # ######################################## END #######################################################################################################################################
 
