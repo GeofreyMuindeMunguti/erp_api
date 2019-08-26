@@ -389,7 +389,7 @@ class FoundFootPourImageSerializer(serializers.ModelSerializer):
 
   # SubTask (2):///////////BlockworkPanelConst Subtask //////////////////
 
-class BlockworkPanelConstImageSerializer(serializers.ModelSerializer):
+class BlockworkPanelConstSubtaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
 
@@ -398,16 +398,44 @@ class BlockworkPanelConstImageSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+class BlockworkPanelConstDateSerializer(serializers.ModelSerializer):
 
-class GateInstallationImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BlockworkPanelConstDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class BlockworkPanelConstImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BlockworkPanelConstImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+  # SubTask (1)://///////////GateInstallation  Subtask //////////////////
+class GateInstallationSubtaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = GateInstallationSubtask
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class GateInstallationDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = GateInstallationDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class GateInstallationImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = GateInstallationImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
-
 
 
   # SubTask (4)://///////////RazorElectricFenceSubtask //////////////////

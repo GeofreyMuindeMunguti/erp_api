@@ -79,14 +79,19 @@ router.register(r'foundationfootpourdate', views.FoundFootPourDateViewSet)
 router.register(r'foundationfootpourimage', views.FoundFootPourImageViewSet)
 
          # SubTask (2): gateinstallation subtask
-# router.register(r'blockworkpanelconstruct', views.BlockworkPanelConstImageViewSet)
+router.register(r'blockworkpanelconstruct', views.BlockworkPanelConstSubtaskViewSet)
+router.register(r'blockworkpanelconstructdates', views.BlockworkPanelConstDateViewSet)
+router.register(r'blockworkpanelconstructimages', views.BlockworkPanelConstImageViewSet)
 
          # SubTask (3): gateinstallation subtask
-# router.register(r'gateinstallation', views.GateInstallationImageViewSet)
+router.register(r'gateinstallation', views.GateInstallationSubtaskViewSet)
+router.register(r'gateinstallationdates', views.GateInstallationDateViewSet)
+router.register(r'gateinstallationimages', views.GateInstallationImageViewSet)
 
          # SubTask (4): RazorElectricFence subtask
-# router.register(r'razorelectricfence', views.RazorElectricFenceImageViewSet)
-
+router.register(r'razorelectricfence', views.RazorElectricFenceSubtaskViewSet)
+router.register(r'razorelectricfencedates', views.RazorElectricFenceDateViewSet)
+router.register(r'razorelectricfenceimages', views.RazorElectricFenceImageViewSet)
 
  # TASK(3): BoundaryWall Task
 router.register(r'boundarywall', views.BoundaryWallTaskViewSet)
@@ -154,8 +159,8 @@ urlpatterns = [
     path('files/<int:pk>/concretepourimages/', filesviews.ConcretePourFilesView.as_view()),
     path('files/<int:pk>/concretecuringimages/', filesviews.ConcreteCuringPeriodFilesView.as_view()),
 
-    # path('files/<int:pk>/excavationimages/', filesviews.ExcavationImagesView.as_view()),
-    # path('files/<int:pk>/concretepourcuringperiodimages/', filesviews.BS241ConcreteCuringPeriodImagesView.as_view()),
+    path('files/<int:pk>/excavationimages/', filesviews.ExcavationFilesView.as_view()),
+    path('files/<int:pk>/concretepourcuringperiodimages/', filesviews.BS241ConcretePourCuringPeriodFilesView.as_view()),
 
     # path('files/<int:pk>/foundfootpourimage/', filesviews.FoundFootPourImageView.as_view()),
     # path('files/<int:pk>/blockworkpanelconstimages/', filesviews.BlockworkPanelConstImagesView.as_view()),

@@ -198,21 +198,70 @@ class ConcreteCuringPeriodSubTaskAFilesSerializer(serializers.ModelSerializer):
 
 # #GENERATOR FOUNDATION
 
+#SteelFixFormwork  Files Serializers///////////////
 
-# class ExcavationImagesSerializer(serializers.ModelSerializer):
+class ExcavationImagesSerializer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = ExcavationImage
-#         fields = ('excavation_image_1','excavation_image_2','excavation_image_3',)
-
-
-# class BS21ConcreteCuringPeriodImagesSerializer(serializers.ModelSerializer):
-
-#     class Meta:
-#         model = BS241ConcretePourCuringPeriodImage
-#         fields = ('bs241_concrete_pour_curing_period_image_1','bs241_concrete_pour_curing_period_image_2','bs241_concrete_pour_curing_period_image_3',)
+    class Meta:
+        model = ExcavationImage
+        fields = ('excavation_image','excavation_image_comment',)
 
 
+
+class ExcavationDateFilesSerializer(serializers.ModelSerializer):
+    excavationimages = ExcavationImagesSerializer(read_only=True)
+
+    class Meta:
+        model = ExcavationDate
+        fields = ('work_day','casuals_list','excavationimages',)
+
+class ExcavationSubTaskFilesSerializer(serializers.ModelSerializer):
+    excavationdates = ExcavationDateFilesSerializer(many = True,read_only =True)
+
+    class Meta:
+        model = ExcavationSubtask
+        fields = ('excavation_image_1', 'excavation_image_2', 'excavation_image_3','excavationdates',)
+
+class ExcavationSubTaskAFilesSerializer(serializers.ModelSerializer):
+    excavationsubtask = ExcavationSubTaskFilesSerializer(read_only =True)
+
+    class Meta:
+        model = BtsSite
+        exclude = ("id","project_name","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
+           "updated_at", "is_active", "location", "created_by",'geotech_file','access_letter','approved_drawing','final_acceptance_cert')
+
+#BS21ConcreteCuringPeriodI  Files Serializers///////////////
+
+
+class BS241ConcretePourCuringPeriodImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BS241ConcretePourCuringPeriodImage
+        fields = ('bs241_concrete_pour_curing_period_image','bs241_concrete_pour_curing_period_comment',)
+
+
+
+class BS241ConcretePourCuringPeriodDateFilesSerializer(serializers.ModelSerializer):
+    bs241Concretepourcuringperiodimages = BS241ConcretePourCuringPeriodImagesSerializer(read_only=True)
+
+    class Meta:
+        model = BS241ConcretePourCuringPeriodDate
+        fields = ('work_day','casuals_list','bs241Concretepourcuringperiodimages',)
+
+class BS241ConcretePourCuringPeriodSubTaskFilesSerializer(serializers.ModelSerializer):
+    bs241Concretepourcuringperioddates = BS241ConcretePourCuringPeriodDateFilesSerializer(many = True,read_only =True)
+
+    class Meta:
+        model = BS241ConcretePourCuringPeriodSubtask
+        fields = ('bs241_concrete_pour_curing_period_image_1', 'bs241_concrete_pour_curing_period_image_2','bs241_concrete_pour_curing_period_image_3', 'bs241_concrete_pour_curing_period_comment','bs241Concretepourcuringperioddates',)
+
+class BS241ConcretePourCuringPeriodSubTaskAFilesSerializer(serializers.ModelSerializer):
+    bs241concretepourcuringperiodsubtask = BS241ConcretePourCuringPeriodSubTaskFilesSerializer(read_only =True)
+
+    class Meta:
+        model = BtsSite
+        exclude = ("id","project_name","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
+           "updated_at", "is_active", "location", "created_by",'geotech_file','access_letter','approved_drawing','final_acceptance_cert')
 # #  BOUNDARY WALL
 
 # class FoundFootPourImagesSerializer(serializers.ModelSerializer):
@@ -416,8 +465,8 @@ class BtsSiteFilesSerializer(serializers.ModelSerializer):
     concretepoursubtask = ConcretePourSubTaskFilesSerializer(read_only=True)
     concretecuringperiodsubtask = ConcreteCuringPeriodSubTaskFilesSerializer(read_only=True)
     #          #bs241 & generator fountation
-    # excavationimage = ExcavationImagesSerializer(read_only=True)
-    # bs241concretepourcuringperiodimage = BS21ConcreteCuringPeriodImagesSerializer(read_only=True)
+    excavationsubtask = ExcavationSubTaskFilesSerializer(read_only=True)
+    bs241concretepourcuringperiodsubtask = BS241ConcretePourCuringPeriodSubTaskFilesSerializer(read_only=True)
     #          # Bountary Wall
     # foundfootpourimage = FoundFootPourImagesSerializer(read_only=True)
     # blockworkpanelconstimage = BlockworkPanelConstImagesSerializer(read_only=True)

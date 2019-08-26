@@ -1066,7 +1066,7 @@ class FoundationCreationTask(TimeTrackModel,TimeStampModel):
 
 
 class ExcavationImage(TimeStampModel):
-    day_image = models.OneToOneField('ExcavationDate', on_delete=models.CASCADE,blank=True, null=True)
+    day_image = models.OneToOneField('ExcavationDate', on_delete=models.CASCADE,related_name ='excavationimages',blank=True, null=True)
 
     # DailyPhotos
     excavation_image = models.ImageField(upload_to=UploadToProjectDirImage('images/CivilWorksTeam/FoundFootPour/'),blank=True, null=True)
@@ -1078,7 +1078,7 @@ class ExcavationImage(TimeStampModel):
         return 'Image for {}'.format(self.day_image)
 
 class ExcavationDate(TimeStampModel):
-    sub_task = models.ForeignKey('ExcavationSubTask', on_delete=models.CASCADE)
+    sub_task = models.ForeignKey('ExcavationSubTask', on_delete=models.CASCADE,related_name= 'excavationdates')
     work_day =  models.DateField(blank=True, null=True)
     # Casuals
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate('files/Casuals/FoundFootPour/'),blank=True, null=True)
@@ -1187,7 +1187,7 @@ class ExcavationSubtask(TimeStampModel ,TimeTrackModel):
 
 
 class BS241ConcretePourCuringPeriodImage(TimeStampModel):
-    day_image = models.OneToOneField('BS241ConcretePourCuringPeriodDate', on_delete=models.CASCADE,blank=True, null=True)
+    day_image = models.OneToOneField('BS241ConcretePourCuringPeriodDate', on_delete=models.CASCADE,related_name ='bs241Concretepourcuringperiodimages',blank=True, null=True)
 
     # DailyPhotos
     bs241_concrete_pour_curing_period_image = models.ImageField(upload_to=UploadToProjectDirImage('images/CivilWorksTeam/BS241ConcretePourCuringPeriod/'),max_length = 250,blank=True, null=True)
@@ -1199,7 +1199,7 @@ class BS241ConcretePourCuringPeriodImage(TimeStampModel):
         return 'Image for {}'.format(self.day_image)
 
 class BS241ConcretePourCuringPeriodDate(TimeStampModel):
-    sub_task = models.ForeignKey('BS241ConcretePourCuringPeriodSubTask', on_delete=models.CASCADE)
+    sub_task = models.ForeignKey('BS241ConcretePourCuringPeriodSubTask', on_delete=models.CASCADE,related_name= 'bs241Concretepourcuringperioddates')
     work_day =  models.DateField(blank=True, null=True)
     # Casuals
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate('files/Casuals/BS241ConcretePourCuringPeriod/'),blank=True, null=True)

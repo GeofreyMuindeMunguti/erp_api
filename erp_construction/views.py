@@ -430,29 +430,86 @@ class FoundFootPourImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     
     # SubTask (2)://///////////ConcreteCuringPeriod Subtask //////////////////
+class BlockworkPanelConstSubtaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = BlockworkPanelConstSubtask.objects.order_by('created_at')
+    serializer_class = BlockworkPanelConstSubtaskSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+class BlockworkPanelConstDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = BlockworkPanelConstDate.objects.order_by('created_at')
+    serializer_class = BlockworkPanelConstDateSerializer
+
+    search_fields = ('work_day','sub_task', )
+    ordering_fields = ('updated_at', 'work_day', )
+
 class BlockworkPanelConstImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = BlockworkPanelConstImage.objects.order_by('created_at')
     serializer_class = BlockworkPanelConstImageSerializer
 
+    search_fields = ('day_image', )
+    ordering_fields = ('updated_at', 'day_image', )
+
+
+    # SubTask (3)://///////////GateInstallation Subtask //////////////////
+
+class GateInstallationSubtaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = GateInstallationSubtask.objects.order_by('created_at')
+    serializer_class = GateInstallationSubtaskSerializer
+
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
+
+
+class GateInstallationDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = GateInstallationDate.objects.order_by('created_at')
+    serializer_class = GateInstallationDateSerializer
+
+    search_fields = ('work_day','sub_task', )
+    ordering_fields = ('updated_at', 'work_day', )
 
 class GateInstallationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = GateInstallationImage.objects.order_by('created_at')
     serializer_class = GateInstallationImageSerializer
 
+    search_fields = ('day_image', )
+    ordering_fields = ('updated_at', 'day_image', )
+
+
+    # SubTask (3)://///////////RazorElectricFence Subtask //////////////////
+class RazorElectricFenceSubtaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = RazorElectricFenceSubtask.objects.order_by('created_at')
+    serializer_class = RazorElectricFenceSubtaskSerializer
+
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
+
+class RazorElectricFenceDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = RazorElectricFenceDate.objects.order_by('created_at')
+    serializer_class = RazorElectricFenceDateSerializer
+
+    search_fields = ('work_day','sub_task', )
+    ordering_fields = ('updated_at', 'work_day', )
 
 class RazorElectricFenceImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = RazorElectricFenceImage.objects.order_by('created_at')
     serializer_class = RazorElectricFenceImageSerializer
 
-    search_fields = ('project_name', )
-    ordering_fields = ('updated_at', 'project_name', )
+    search_fields = ('day_image', )
+    ordering_fields = ('updated_at', 'day_image', )
+
+
+   # TASK (3):BoundaryWall TASK
 
 class BoundaryWallTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
