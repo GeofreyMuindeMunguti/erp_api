@@ -247,7 +247,7 @@ class SiteClearingDate(TimeStampModel):
 
 class SiteClearingSubtask(TimeTrackModel,TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-   # no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
 
         # Sammary Photos
     setting_site_clearing_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/CivilWorksTeam/siteclearing/'), blank=True, null=True)
@@ -261,101 +261,101 @@ class SiteClearingSubtask(TimeTrackModel,TimeStampModel):
        # return str(self.project_name)
         return 'SiteClearingSubTask: {}'.format(self.project_name)
 
-    # def no_of_casuals(self):
-    #     count = self.no_of_casuals_atsite.count()
-    #     return "\n , ".join(str(count))
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
+        return "\n , ".join(str(count))
 
-    # def names_of_casuals(self):
-    #     return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+    def names_of_casuals(self):
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
-    # def check_cost(self):
-    #     now = datetime.now(timezone.utc)
-    #     date_diff = date_difference(self.start_date, now)
-    #     return date_diff
+    def check_cost(self):
+        now = datetime.now(timezone.utc)
+        date_diff = date_difference(self.start_date, now)
+        return date_diff
 
-    # def date_casual_cost(self):
-    #     try:
-    #         rate_data = Rates.objects.get(worker_type='Casual')
-    #         casual_rate = rate_data.rate
-    #         now = datetime.now(timezone.utc)
-    #         total_cost = 0
-    #         default_diff = 1
-    #         now = datetime.now(timezone.utc)
-    #         if bool(self.end_date) is False:
-    #             date_diff = date_difference(self.start_date, now)
-    #         else:
-    #             date_diff = date_difference(self.start_date, self.end_date)
-    #         while date_diff > default_diff:
-    #             updated_count = self.no_of_casuals_atsite.count()
-    #             casual_count += count
-    #             casual_diff = casual_count - count
-    #             cost = (casual_diff * casual_rate)
-    #             total_cost += cost
-    #             default_diff += 1
-    #         return total_cost
-    #     except Exception as e:
-    #         return e
+    def date_casual_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            total_cost = 0
+            default_diff = 1
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                date_diff = date_difference(self.start_date, now)
+            else:
+                date_diff = date_difference(self.start_date, self.end_date)
+            while date_diff > default_diff:
+                updated_count = self.no_of_casuals_atsite.count()
+                casual_count += count
+                casual_diff = casual_count - count
+                cost = (casual_diff * casual_rate)
+                total_cost += cost
+                default_diff += 1
+            return total_cost
+        except Exception as e:
+            return e
 
-    # def casuals_cost(self):
-    #     try:
-    #         rate_data = Rates.objects.get(worker_type='Casual')
-    #         casual_rate = rate_data.rate
-    #         now = datetime.now(timezone.utc)
-    #         if bool(self.end_date) is False:
-    #             days_spent = date_difference(self.start_date, now)
-    #         else:
-    #             days_spent = date_difference(self.start_date, self.end_date)
-    #         count = self.no_of_casuals_atsite.count()
-    #         cost = (count * casual_rate * days_spent)
-    #         return cost
-    #     except Exception as e:
-    #         error = "Rates does not exist"
-    #         return error
+    def casuals_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate * days_spent)
+            return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
 
-    # def engineers_cost(self):
-    #     try:
-    #         rate_data = Rates.objects.get(worker_type='Engineer')
-    #         engineer_rate = rate_data.rate
-    #         now = datetime.now(timezone.utc)
-    #         if bool(self.end_date) is False:
-    #             days_spent = date_difference(self.start_date, now)
-    #         else:
-    #             days_spent = date_difference(self.start_date, self.end_date)
-    #         try:
-    #             engineer_data = FoundationCreationTask.objects.get(project_name=self.project_name)
-    #             count = engineer_data.engineers_atsite.count()
-    #             cost = (count * engineer_rate * days_spent)
-    #             return cost
-    #         except Exception as e:
-    #             error = "No engineers assigned to project"
-    #             return error
-    #     except Exception as e:
-    #         error = "Rates does not exist"
-    #         return error
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Engineer')
+            engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = FoundationCreationTask.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
 
-    # def labour_cost(self):
-    #     try:
-    #         engineer_rate_data = Rates.objects.get(worker_type='Engineer')
-    #         casual_rate_data = Rates.objects.get(worker_type='Casual')
-    #         engineer_rate = engineer_rate_data.rate
-    #         casual_rate = casual_rate_data.rate
-    #         now = datetime.now(timezone.utc)
-    #         if bool(self.end_date) is False:
-    #             days_spent = date_difference(self.start_date, now)
-    #         else:
-    #             days_spent = date_difference(self.start_date, self.end_date)
-    #         try:
-    #             engineer_data = FoundationCreationTask.objects.get(project_name=self.project_name)
-    #             engineer_count = engineer_data.engineers_atsite.count()
-    #             casual_count = self.no_of_casuals_atsite.count()
-    #             cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
-    #             return cost
-    #         except Exception as e:
-    #             error = "No engineers assigned to project"
-    #             return error
-    #     except Exception as e:
-    #         error = "Rates does not exist"
-    #         return error
+    def labour_cost(self):
+        try:
+            engineer_rate_data = Rates.objects.get(worker_type='Engineer')
+            casual_rate_data = Rates.objects.get(worker_type='Casual')
+            engineer_rate = engineer_rate_data.rate
+            casual_rate = casual_rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = FoundationCreationTask.objects.get(project_name=self.project_name)
+                engineer_count = engineer_data.engineers_atsite.count()
+                casual_count = self.no_of_casuals_atsite.count()
+                cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
 
     def raise_flag(self):
         try:

@@ -167,7 +167,7 @@ class SiteTrenchingImage(TimeStampModel):
 
 class DailySiteTrenching(TimeStampModel):
     site_name = models.ForeignKey('SiteTrenching', on_delete=models.DO_NOTHING ,related_name='dailytrenchings')
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     casuals_list = models.FileField(upload_to='files/ftts/Casuals/trenching/%Y/%m/%d/',blank=True, null=True)
     trenching_date = models.DateField(unique =True, blank=True, null=True)
     distance_trenched = models.FloatField(blank=True, null=True)
@@ -241,7 +241,7 @@ class SiteDuctInstallationImage(TimeStampModel):
 
 class DailySiteDuctInstallation(TimeStampModel):
     site_name = models.ForeignKey('SiteDuctInstallation', on_delete=models.DO_NOTHING ,related_name='dailyduct')
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     casuals_list = models.FileField(upload_to='files/ftts/Casuals/duct/%Y/%m/%d/',blank=True, null=True)
     duct_date = models.DateField(unique =True, blank=True, null=True)
     distance_duct = models.FloatField(blank=True, null=True)
@@ -315,7 +315,7 @@ class ManHoleInstallationImage(TimeStampModel):
 
 class DailyManHoleInstallation(TimeStampModel):
     site_name = models.ForeignKey('ManHoleInstallation', on_delete=models.DO_NOTHING ,related_name='manhole')
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     casuals_list = models.FileField(upload_to='files/ftts/Casuals/manhole/%Y/%m/%d/',blank=True, null=True)
     manhole_date = models.DateField(unique =True, blank=True, null=True)
     distance_manhole = models.FloatField(blank=True, null=True)
@@ -389,7 +389,7 @@ class SiteCableInstallationImage(TimeStampModel):
 
 class DailySiteCableInstallation(TimeStampModel):
     site_name = models.ForeignKey('SiteCableInstallation', on_delete=models.DO_NOTHING ,related_name='cable')
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     casuals_list = models.FileField(upload_to='files/ftts/Casuals/cable/%Y/%m/%d/',blank=True, null=True)
     cable_date = models.DateField(unique =True, blank=True, null=True)
     distance_cable = models.FloatField(blank=True, null=True)
@@ -549,7 +549,7 @@ class SiteTerminalInHseImage(TimeStampModel):
 
 class DailySiteTerminalInHse(TimeStampModel):
     site_name = models.ForeignKey('SiteTerminalInHse', on_delete=models.DO_NOTHING ,related_name='terminalinhse')
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     casuals_list = models.FileField(upload_to='files/ftts/Casuals/terminalinhse/%Y/%m/%d/',blank=True, null=True)
     terminal_date = models.DateField(unique =True, blank=True, null=True)
     distance_terminal = models.FloatField(blank=True, null=True)
@@ -623,7 +623,7 @@ class SiteInterceptionImage(TimeStampModel):
 
 class DailySiteInterception(TimeStampModel):
     site_name = models.ForeignKey('SiteInterception', on_delete=models.DO_NOTHING ,related_name='interception')
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     casuals_list = models.FileField(upload_to='files/ftts/Casuals/interception/%Y/%m/%d/',blank=True, null=True)
     interception_date = models.DateField(unique =True, blank=True, null=True)
     distance_interception = models.FloatField(blank=True, null=True)
@@ -728,7 +728,7 @@ class FttsIssues(TimeStampModel):
 
 class FttsInstallationTeam(TimeStampModel):
     site_name = models.OneToOneField(FttsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     casuals_list = models.FileField(upload_to='files/ftts/Casuals/installationteam/%Y/%m/%d/',blank=True, null=True)
     ftts_terminal_in_hse = models.OneToOneField(SiteTerminalInHse, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftts_interception = models.OneToOneField(SiteInterception, on_delete=models.DO_NOTHING, blank=True, null=True)
