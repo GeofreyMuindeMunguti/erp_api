@@ -295,56 +295,223 @@ class FoundFootPourSubTaskAFilesSerializer(serializers.ModelSerializer):
         exclude = ("id","project_name","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
            "updated_at", "is_active", "location", "created_by",'geotech_file','access_letter','approved_drawing','final_acceptance_cert')
 
+# class BlockworkPanelConst  Files Serializers///////////////
 
-# class BlockworkPanelConstImagesSerializer(serializers.ModelSerializer):
+class BlockworkPanelConstImagesSerializer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = BlockworkPanelConstImage
-#         fields = ('blockwallpanelconst_image_1','blockwallpanelconst_image_2','blockwallpanelconst_image_3',)
-
-
-# class GateInstallationImagesSerializer(serializers.ModelSerializer):
-
-#     class Meta:
-#         model = GateInstallationImage
-#         fields = ('gateinstallation_image_1','gateinstallation_image_2','gateinstallation_image_3',)
+    class Meta:
+        model = BlockworkPanelConstImage
+        fields = ('blockwallpanelconst_image','blockwallpanelconst_comment',)
 
 
-# class RazorElectricFenceImagesSerializer(serializers.ModelSerializer):
+class BlockworkPanelConstDateFilesSerializer(serializers.ModelSerializer):
+    blockworkpanelconstimages = BlockworkPanelConstImagesSerializer(read_only=True)
 
-#     class Meta:
-#         model = RazorElectricFenceImage
-#         fields = ('razorelectricfance_image_1','razorelectricfance_image_2','razorelectricfance_image_3')
+    class Meta:
+        model = BlockworkPanelConstDate
+        fields = ('work_day','casuals_list','blockworkpanelconstimages',)
+
+class BlockworkPanelConstSubTaskFilesSerializer(serializers.ModelSerializer):
+    blockworkpanelconstdates = BlockworkPanelConstDateFilesSerializer(many = True,read_only =True)
+
+    class Meta:
+        model = BlockworkPanelConstSubtask
+        fields = ('blockwallpanelconst_image_1', 'blockwallpanelconst_image_2', 'blockwallpanelconst_image_3', 'blockwallpanelconst_comment','blockworkpanelconstdates',)
+
+class BlockworkPanelConstSubTaskAFilesSerializer(serializers.ModelSerializer):
+    blockworkpanelconstsubtask = BlockworkPanelConstSubTaskFilesSerializer(read_only =True)
+
+    class Meta:
+        model = BtsSite
+        exclude = ("id","project_name","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
+           "updated_at", "is_active", "location", "created_by",'geotech_file','access_letter','approved_drawing','final_acceptance_cert')
+
+
+# class GateInstallation  Files Serializers///////////////
+class GateInstallationImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = GateInstallationImage
+        fields = ('gateinstallation_image','gateinstallation_comment',)
+
+class GateInstallationDateFilesSerializer(serializers.ModelSerializer):
+    gateinstallationimages = GateInstallationImagesSerializer(read_only=True)
+
+    class Meta:
+        model = GateInstallationDate
+        fields = ('work_day','casuals_list','gateinstallationimages',)
+
+class GateInstallationSubTaskFilesSerializer(serializers.ModelSerializer):
+    gateinstallationdates = GateInstallationDateFilesSerializer(many = True,read_only =True)
+
+    class Meta:
+        model = GateInstallationSubtask
+        fields = ('gateinstallation_image_1', 'gateinstallation_image_2', 'gateinstallation_image_3','gateinstallation_comment','gateinstallationdates',)
+
+class GateInstallationSubTaskAFilesSerializer(serializers.ModelSerializer):
+    gateinstallationsubtask = GateInstallationSubTaskFilesSerializer(read_only =True)
+
+    class Meta:
+        model = BtsSite
+        exclude = ("id","project_name","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
+           "updated_at", "is_active", "location", "created_by",'geotech_file','access_letter','approved_drawing','final_acceptance_cert')
+
+
+# RazorElectric  Files Serializers///////////////
+
+class RazorElectricFenceImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = RazorElectricFenceImage
+        fields = ('razorelectricfance_image','razorelectricfance_comment')
+
+
+class RazorElectricFenceDateFilesSerializer(serializers.ModelSerializer):
+    razorelectricfenceimages = RazorElectricFenceImagesSerializer(read_only=True)
+
+    class Meta:
+        model = RazorElectricFenceDate
+        fields = ('work_day','casuals_list','razorelectricfenceimages',)
+
+class RazorElectricFenceSubTaskFilesSerializer(serializers.ModelSerializer):
+    razorelectricfencedates = RazorElectricFenceDateFilesSerializer(many = True,read_only =True)
+
+    class Meta:
+        model = RazorElectricFenceSubtask
+        fields = ('razorelectricfance_image_1', 'razorelectricfance_image_2', 'razorelectricfance_image_3', 'razorelectricfance_comment','razorelectricfencedates',)
+
+class RazorElectricFenceSubTaskAFilesSerializer(serializers.ModelSerializer):
+    razorelectricfencesubtask = RazorElectricFenceSubTaskFilesSerializer(read_only =True)
+
+    class Meta:
+        model = BtsSite
+        exclude = ("id","project_name","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
+           "updated_at", "is_active", "location", "created_by",'geotech_file','access_letter','approved_drawing','final_acceptance_cert')
 
 
 # #TOWER & ANTENNA_COAXs
+# class TowerErection Files Serializers///////////////
 
-# class TowerErectionImagesSerializer(serializers.ModelSerializer):
+class TowerErectionImagesSerializer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = TowerErectionImage
-#         fields = ('tower_erection_image_1','tower_erection_image_2','tower_erection_image_3',)
-
-
-# class TowerPaintImagesSerializer(serializers.ModelSerializer):
-
-#     class Meta:
-#         model = TowerPaintImage
-#         fields = ('tower_painting_image_1','tower_painting_image_2','tower_painting_image_3',)
+    class Meta:
+        model = TowerErectionImage
+        fields = ('tower_erection_image','tower_erection_comment',)
 
 
-# class CableWaysImagesSerializer(serializers.ModelSerializer):
+class TowerErectionDateFilesSerializer(serializers.ModelSerializer):
+    towererectionimages = TowerErectionImagesSerializer(read_only=True)
 
-#     class Meta:
-#         model = CableWaysImage
-#         fields = ('cable_ways_image_1','cable_ways_image_2','cable_ways_image_3',)
+    class Meta:
+        model = TowerErectionDate
+        fields = ('work_day','casuals_list','gateinstallationimages',)
+
+class TowerErectionSubTaskFilesSerializer(serializers.ModelSerializer):
+    towererectiondates = TowerErectionDateFilesSerializer(many = True,read_only =True)
+
+    class Meta:
+        model = TowerErectionSubtask
+        fields = ('tower_erection_image_1', 'tower_erection_image_2', 'tower_erection_image_3', 'tower_erection_comment','towererectiondates',)
+
+class TowerErectionSubTaskAFilesSerializer(serializers.ModelSerializer):
+    towererectionsubtask = TowerErectionSubTaskFilesSerializer(read_only =True)
+
+    class Meta:
+        model = BtsSite
+        exclude = ("id","project_name","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
+           "updated_at", "is_active", "location", "created_by",'geotech_file','access_letter','approved_drawing','final_acceptance_cert')
+
+# class TowerPaintImage  Files Serializers///////////////
+class TowerPaintImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TowerPaintImage
+        fields = ('tower_painting_image','tower_painting_comment',)
 
 
-# class AntennaCoaxInstallImagesSerializer(serializers.ModelSerializer):
+class TowerPaintDateFilesSerializer(serializers.ModelSerializer):
+    towerpaintimages = TowerPaintImagesSerializer(read_only=True)
 
-#     class Meta:
-#         model = AntennaCoaxInstallImage
-#         fields = ('antenna_coax_installation_image_1','antenna_coax_installation_image_2','antenna_coax_installation_image_3',)
+    class Meta:
+        model = TowerPaintDate
+        fields = ('work_day','casuals_list','towerpaintimages',)
+
+class TowerPaintSubTaskFilesSerializer(serializers.ModelSerializer):
+    towerpaintdates = TowerPaintDateFilesSerializer(many = True,read_only =True)
+
+    class Meta:
+        model = TowerPaintSubtask
+        fields = ('tower_painting_image_1', 'tower_painting_image_2', 'tower_painting_image_3', 'tower_painting_comment','towerpaintdates',)
+
+class TowerPaintSubTaskAFilesSerializer(serializers.ModelSerializer):
+    towerpaintsubtask = TowerPaintSubTaskFilesSerializer(read_only =True)
+
+    class Meta:
+        model = BtsSite
+        exclude = ("id","project_name","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
+           "updated_at", "is_active", "location", "created_by",'geotech_file','access_letter','approved_drawing','final_acceptance_cert')
+
+# class CableWays  Files Serializers///////////////
+
+class CableWaysImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CableWaysImage
+        fields = ('cable_ways_image_1','cable_ways_image_2','cable_ways_image_3',)
+
+
+class CableWaysDateFilesSerializer(serializers.ModelSerializer):
+    cablewaysimages = CableWaysImagesSerializer(read_only=True)
+
+    class Meta:
+        model = CableWaysDate
+        fields = ('work_day','casuals_list','cablewaysimages',)
+
+class CableWaysSubTaskFilesSerializer(serializers.ModelSerializer):
+    cablewaysdates = CableWaysDateFilesSerializer(many = True,read_only =True)
+
+    class Meta:
+        model = CableWaysSubtask
+        fields = ('cable_ways_image_1', 'cable_ways_image_2', 'cable_ways_image_3','cable_ways_comment','cablewaysdates',)
+
+class CableWaysSubTaskAFilesSerializer(serializers.ModelSerializer):
+    cablewayssubtask = CableWaysSubTaskFilesSerializer(read_only =True)
+
+    class Meta:
+        model = BtsSite
+        exclude = ("id","project_name","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
+           "updated_at", "is_active", "location", "created_by",'geotech_file','access_letter','approved_drawing','final_acceptance_cert')
+
+#  GateInstallation  Files Serializers///////////////
+class AntennaCoaxInstallImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = AntennaCoaxInstallImage
+        fields = ('antenna_coax_installation_image','antenna_coax_installation_comment',)
+
+
+class AntennaCoaxInstallDateFilesSerializer(serializers.ModelSerializer):
+    antennacoaxinstallimages = AntennaCoaxInstallImagesSerializer(read_only=True)
+
+    class Meta:
+        model = AntennaCoaxInstallDate
+        fields = ('work_day','casuals_list','antennacoaxinstallimages',)
+
+class AntennaCoaxInstallSubTaskFilesSerializer(serializers.ModelSerializer):
+    antennacoaxinstalldates = AntennaCoaxInstallDateFilesSerializer(many = True,read_only =True)
+
+    class Meta:
+        model = AntennaCoaxInstallSubtask
+        fields = ('antenna_coax_installation_image_1', 'antenna_coax_installation_image_2', 'antenna_coax_installation_image_3','antenna_coax_installation_comment','antennacoaxinstalldates',)
+
+class AntennaCoaxInstallSubTaskAFilesSerializer(serializers.ModelSerializer):
+    antennacoaxinstallsubtask = AntennaCoaxInstallSubTaskFilesSerializer(read_only =True)
+
+    class Meta:
+        model = BtsSite
+        exclude = ("id","project_name","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
+           "updated_at", "is_active", "location", "created_by",'geotech_file','access_letter','approved_drawing','final_acceptance_cert')
+
 
 # #END
 
@@ -493,15 +660,15 @@ class BtsSiteFilesSerializer(serializers.ModelSerializer):
     excavationsubtask = ExcavationSubTaskFilesSerializer(read_only=True)
     bs241concretepourcuringperiodsubtask = BS241ConcretePourCuringPeriodSubTaskFilesSerializer(read_only=True)
     #          # Bountary Wall
-    # foundfootpourimage = FoundFootPourImagesSerializer(read_only=True)
-    # blockworkpanelconstimage = BlockworkPanelConstImagesSerializer(read_only=True)
-    # gateinstallationimage = GateInstallationImagesSerializer(read_only=True)
-    # razorelectricfenceimage = RazorElectricFenceImagesSerializer(read_only=True)
+    foundfootpoursubtask = FoundFootPourSubTaskFilesSerializer(read_only=True)
+    blockworkpanelconstsubtask = BlockworkPanelConstSubTaskFilesSerializer(read_only=True)
+    gateinstallationsubtask = GateInstallationSubTaskFilesSerializer(read_only =True)
+    razorelectricfencesubtask = RazorElectricFenceSubTaskFilesSerializer(read_only =True)
     #          # Tower & Antenna
-    # towererectionimage = TowerErectionImagesSerializer(read_only=True)
-    # towerpaintimage = TowerPaintImagesSerializer(read_only=True)
-    # cablewaysimage = CableWaysImagesSerializer(read_only=True)
-    # antennacoaxinstallimage = AntennaCoaxInstallImagesSerializer(read_only=True)
+    towererectionsubtask = TowerErectionSubTaskFilesSerializer(read_only =True)
+    towerpaintsubtask = TowerPaintSubTaskFilesSerializer(read_only =True)
+    cablewayssubtask = CableWaysSubTaskFilesSerializer(read_only =True)
+    antennacoaxinstallsubtask = AntennaCoaxInstallSubTaskFilesSerializer(read_only =True)
 
     #          # pos ,commercial team ,procurement 
     # projectpurchaseorders = ProjectPurchaseOrdersFileSerializer(read_only=True)

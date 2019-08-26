@@ -182,14 +182,14 @@ urlpatterns = [
     path('files/<int:pk>/concretepourcuringperiodimages/', filesviews.BS241ConcretePourCuringPeriodFilesView.as_view()),
 
     path('files/<int:pk>/foundfootpourimage/', filesviews.FoundFootPourFilesView.as_view()),
-    # path('files/<int:pk>/blockworkpanelconstimages/', filesviews.BlockworkPanelConstImagesView.as_view()),
-    # path('files/<int:pk>/gateinstallationimages/', filesviews.GateInstallationImagesView.as_view()),
-    # path('files/<int:pk>/razorelectricfenceimages/', filesviews.RazorElectricFenceImagesView.as_view()),
+    path('files/<int:pk>/blockworkpanelconstimages/', filesviews.BlockworkPanelConstFilesView.as_view()),
+    path('files/<int:pk>/gateinstallationimages/', filesviews.GateInstallationFilesView.as_view()),
+    path('files/<int:pk>/razorelectricfenceimages/', filesviews.RazorElectricFenceFilesView.as_view()),
 
-    # path('files/<int:pk>/towererectionimages/', filesviews.TowerErectionImagesView.as_view()),
-    # path('files/<int:pk>/towerpaintimages/', filesviews.TowerPaintImagesView.as_view()),
-    # path('files/<int:pk>/cablewaysimages/', filesviews.CableWaysImagesView.as_view()),
-    # path('files/<int:pk>/antennacoaxinstallimages/', filesviews.AntennaCoaxInstallImagesView.as_view()),
+    path('files/<int:pk>/towererectionimages/', filesviews.TowerErectionFilesView.as_view()),
+    path('files/<int:pk>/towerpaintimages/', filesviews.TowerPaintFilesView.as_view()),
+    path('files/<int:pk>/cablewaysimages/', filesviews.CableWaysFilesView.as_view()),
+    path('files/<int:pk>/antennacoaxinstallimages/', filesviews.AntennaCoaxInstallFilesView.as_view()),
 
     # path('files/<int:pk>/healthdocumentsfilescivilteam/', filesviews.HealthDocumentsFilesCivilTeamView.as_view()),
     # path('files/<int:pk>/accessapprovalfilecivil/', filesviews.AccessApprovalFileCivilView.as_view()),
