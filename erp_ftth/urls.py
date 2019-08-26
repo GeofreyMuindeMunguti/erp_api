@@ -15,20 +15,54 @@ router.register(r'ftthinterceptionpoints', views.FtthInterceptionPointViewSet)
 router.register(r'ftthsurveyphotos', views.ftthSurveyPhotosViewSet)
 router.register(r'ftthsurveys', views.ftthSurveyViewSet)
 
+router.register(r'FtthCommercialTeam', views.FtthCommercialTeamViewSet)
+router.register(r'FtthProcurementTeam', views.FtthProcurementTeamViewSet)
+
+router.register(r'FtthPoleInstallationImage', views.FtthPoleInstallationImageViewSet)
+router.register(r'DailyFtthPoleInstallation', views.DailyFtthPoleInstallationViewSet)
 router.register(r'FtthPoleInstallation', views.FtthPoleInstallationViewSet)
+
+router.register(r'FtthTrenchingImage', views.FtthTrenchingImageViewSet)
+router.register(r'DailyFtthTrenching', views.DailyFtthTrenchingViewSet)
 router.register(r'FtthTrenching', views.FtthTrenchingViewSet)
+
+router.register(r'FtthBackfillingImage', views.FtthBackfillingImageViewSet)
+router.register(r'DailyFtthBackfilling', views.DailyFtthBackfillingViewSet)
 router.register(r'FtthBackfilling', views.FtthBackfillingViewSet)
+
+router.register(r'FtthCableInstallationImage', views.FtthCableInstallationImageViewSet)
+router.register(r'DailyFtthCableInstallation', views.DailyFtthCableInstallationViewSet)
 router.register(r'FtthCableInstallation', views.FtthCableInstallationViewSet)
+
 router.register(r'FtthCivilTeam', views.FtthCivilTeamViewSet)
 
+router.register(r'FtthSplicingEnclosureImage', views.FtthSplicingEnclosureImageViewSet)
+router.register(r'DailyFtthSplicingEnclosure', views.DailyFtthSplicingEnclosureViewSet)
 router.register(r'FtthSplicingEnclosure', views.FtthSplicingEnclosureViewSet)
+
+router.register(r'FtthSplicingFATImage', views.FtthSplicingFATImageViewSet)
+router.register(r'DailyFtthSplicingFAT', views.DailyFtthSplicingFATViewSet)
 router.register(r'FtthSplicingFAT', views.FtthSplicingFATViewSet)
+
+router.register(r'FtthSplicingFDTImage', views.FtthSplicingFDTImageViewSet)
+router.register(r'DailyFtthSplicingFDT', views.DailyFtthSplicingFDTViewSet)
 router.register(r'FtthSplicingFDT', views.FtthSplicingFDTViewSet)
+
 router.register(r'FtthSplicing', views.FtthSplicingViewSet)
+
+router.register(r'FtthPowerLevelsImage', views.FtthPowerLevelsImageViewSet)
+router.register(r'DailyFtthPowerLevels', views.DailyFtthPowerLevelsViewSet)
 router.register(r'FtthPowerLevels', views.FtthPowerLevelsViewSet)
+
+router.register(r'FtthOTDRTracesImage', views.FtthOTDRTracesImageViewSet)
+router.register(r'DailyFtthOTDRTraces', views.DailyFtthOTDRTracesViewSet)
 router.register(r'FtthOTDRTraces', views.FtthOTDRTracesViewSet)
+
 router.register(r'FtthSignalTesting', views.FtthSignalTestingViewSet)
+
+router.register(r'FtthIssues', views.FtthIssuesViewSet)
 router.register(r'FtthInstallationTeam', views.FtthInstallationTeamViewSet)
+router.register(r'FtthTeam', views.FtthTeamViewSet)
 
 """ ENDPOINTS FOR FRONTEND"""
 

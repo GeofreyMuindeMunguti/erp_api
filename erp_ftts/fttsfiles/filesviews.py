@@ -38,12 +38,6 @@ class FttsCommercialTeamFilesView(generics.RetrieveAPIView):
     serializer_class = FttsCommercialTeamFilesSerializer
 
 
-class SitePoleInstallationFilesView(generics.RetrieveAPIView,DefaultsMixin):
-    def get_queryset(self):
-        queryset = SitePoleInstallation.objects.filter(site_name_id=self.kwargs["pk"])
-        return queryset
-    serializer_class = SitePoleInstallation
-
 class ManHoleInstallationFilesView(generics.RetrieveAPIView,DefaultsMixin):
     def get_queryset(self):
         queryset = ManHoleInstallation.objects.filter(site_name_id=self.kwargs["pk"])

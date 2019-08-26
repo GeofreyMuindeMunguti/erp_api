@@ -10,8 +10,8 @@ from rest_framework.authtoken.models import Token
 
 
 class FTTSProjectSerializer(serializers.ModelSerializer):
-    sites_no = serializers.IntegerField(read_only=True)
-    sites_list = serializers.ListField(read_only =True)
+    ftts_sites_count = serializers.IntegerField(read_only=True)
+    sites_list = serializers.ListField(read_only=True)
     class Meta:
         model = FTTSProject
         fields = ('__all__')
@@ -22,9 +22,7 @@ class FttsSiteSerializer(serializers.ModelSerializer):
         model = FttsSite
         fields = ('__all__')
 
-
 ###############################FTTH SURVEY###################################
-
 
 class InterceptionPointSerializer(serializers.ModelSerializer):
 
@@ -32,7 +30,6 @@ class InterceptionPointSerializer(serializers.ModelSerializer):
         model = InterceptionPoint
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
-
 
 class fttsSurveyPhotosSerializer(serializers.ModelSerializer):
 
@@ -43,7 +40,6 @@ class fttsSurveyPhotosSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
-
 class fttsSurveySerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -51,9 +47,7 @@ class fttsSurveySerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
-
 ###############################END OF FTTH SURVEY############################
-
 
 class FttsCommercialTeamSerializer(serializers.ModelSerializer):
 
@@ -70,17 +64,40 @@ class FttsProcurementTeamSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 ################################################ FIBER CIVIL TEAM ##############################################################################################################################################################################################################################################
-class SitePoleInstallationSerializer(serializers.ModelSerializer):
+
+class SiteTrenchingImageSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = SitePoleInstallation
+        model = SiteTrenchingImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class DailySiteTrenchingSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = DailySiteTrenching
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class SiteTrenchingSerializer(serializers.ModelSerializer):
+    task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = SiteTrenching
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class SiteDuctInstallationImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SiteDuctInstallationImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class DailySiteDuctInstallationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = DailySiteDuctInstallation
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
@@ -91,10 +108,17 @@ class SiteDuctInstallationSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
-class SiteCableInstallationSerializer(serializers.ModelSerializer):
+class ManHoleInstallationImageSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = SiteCableInstallation
+        model = ManHoleInstallationImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class DailyManHoleInstallationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = DailyManHoleInstallation
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
@@ -105,6 +129,42 @@ class SiteManHoleInstallationSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+class SiteCableInstallationImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SiteCableInstallationImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class DailySiteCableInstallationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = DailySiteCableInstallation
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class SiteCableInstallationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SiteCableInstallation
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class FttsAccessApprovalCivilSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FttsAccessApprovalCivil
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class FttsHealthDocumentsCivilTeamSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FttsHealthDocumentsCivilTeam
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class FttsCivilTeamSerializer(serializers.ModelSerializer):
 
@@ -115,6 +175,21 @@ class FttsCivilTeamSerializer(serializers.ModelSerializer):
 ################################################ END ##############################################################################################################################################################################################################################################################
 
 ################################################ FIBER INSTALLATION TEAM ##############################################################################################################################################################################################################################################
+
+class SiteTerminalInHseImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SiteTerminalInHseImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class DailySiteTerminalInHseSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = DailySiteTerminalInHse
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
 class SiteTerminalInHseSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -122,10 +197,39 @@ class SiteTerminalInHseSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+class SiteInterceptionImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SiteInterceptionImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class DailySiteInterceptionSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = DailySiteInterception
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
 class SiteInterceptionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SiteInterception
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class FttsAccessApprovalInstallationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FttsAccessApprovalInstallation
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class FttsHealthDocsInstallationTeamSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FttsHealthDocsInstallationTeam
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 

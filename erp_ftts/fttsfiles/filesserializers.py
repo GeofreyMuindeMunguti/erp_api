@@ -22,14 +22,6 @@ class FttsCommercialTeamFilesSerializer(serializers.ModelSerializer):
         fields = ('ftts_quote', 'ftts_po_requisition','ftts_wayleave_application', 'ftts_project_plan', 'ftts_initial_invoice','ftts_po_client',)
        # read_only_fields = ('created_at', 'updated_at', 'is_active')
 
-
-class SitePoleInstallationFilesSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = SitePoleInstallation
-        fields = ('site_pole_installation_image_1', 'site_pole_installation_image_2','site_pole_installation_image_3','site_pole_installation_comment',)
-        read_only_fields = ('created_at', 'updated_at', 'is_active')
-
 class SiteTrenchingFilesSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -78,7 +70,6 @@ class SiteInterceptionFilesSerializer(serializers.ModelSerializer):
 
 class FttsSiteFilesSerializer(serializers.ModelSerializer):
     # Civil >many per site
-    sitepoleinstallations = SitePoleInstallationFilesSerializer(many = True,read_only=True)
     sitetrenchings = SiteTrenchingFilesSerializer(many = True,read_only=True)
     siteductinstallations = SiteDuctInstallationSerializer(many = True,read_only=True)
     manholeinstallations = ManHoleInstallationFilesSerializer(many = True,read_only=True)

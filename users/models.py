@@ -4,6 +4,8 @@ from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Permission
+# from erp_ftts.models import *
+# from erp_core.models import *
 
 
 class CustomUser(models.Model):
@@ -30,7 +32,6 @@ class CustomUser(models.Model):
     def get_permissions(self):
         perm_tuple = [(x.id, x.name) for x in Permission.objects.filter(group__user=self.user)]
         return perm_tuple
-
 
 class PermissionMap(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, related_name='authpermission')
@@ -137,6 +138,9 @@ class Engineer(models.Model):
         single_engineer = Engineer.objects.get(engineer=engineer_id)
         return single_engineer
 
+# class ProjectManager(CreateProject,TimeTrackModel):
+#     engineer_name = models.ForeignKey(Engineer,on_delete=models.CASCADE, related_name='fiberengineerprofile')
+#     ftts_project_name = models.ForeignKey(FTTSProject,on_delete=models.CASCADE, related_name='fiberengineerprofile')
 
 class Rates(models.Model):
     worker_type = models.CharField(max_length=100, unique=True)
