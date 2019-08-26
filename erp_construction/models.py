@@ -1612,7 +1612,7 @@ class BlockworkPanelConstSubtask(TimeStampModel,TimeTrackModel):
 
 
 class GateInstallationImage(TimeStampModel):
-    day_image = models.OneToOneField('GateInstallationDate', on_delete=models.CASCADE,blank=True, null=True)
+    day_image = models.OneToOneField('GateInstallationDate', on_delete=models.CASCADE,related_name ='gateinstallationimages',blank=True, null=True)
 
     # DailyPhotos
     gateinstallation_image = models.ImageField(upload_to=UploadToProjectDirImage('images/CivilWorksTeam/GateInstallation/'),max_length = 250,blank=True, null=True)
@@ -1624,7 +1624,7 @@ class GateInstallationImage(TimeStampModel):
         return 'Image for {}'.format(self.day_image)
 
 class GateInstallationDate(TimeStampModel):
-    sub_task = models.ForeignKey('GateInstallationSubtask', on_delete=models.CASCADE)
+    sub_task = models.ForeignKey('GateInstallationSubtask', on_delete=models.CASCADE,related_name= 'gateinstallationdates')
     work_day =  models.DateField(blank=True, null=True)
     # Casuals
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate('files/Casuals/GateInstallation/'),blank=True, null=True)

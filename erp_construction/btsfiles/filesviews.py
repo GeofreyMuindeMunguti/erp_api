@@ -144,12 +144,19 @@ class FoundFootPourFilesView(generics.RetrieveAPIView,DefaultsMixin):
 #         return queryset
 #     serializer_class = BlockworkPanelConstImagesSerializer
 
+class BlockworkPanelConstFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    queryset = BtsSite.objects.all()
+    serializer_class =  BlockworkPanelConstSubTaskAFilesSerializer
+
 # class GateInstallationImagesView(generics.RetrieveAPIView,DefaultsMixin):
 #     #queryset = GateInstallationImage.objects.all()
 #     def get_queryset(self):
 #         queryset = GateInstallationImage.objects.filter(project_name_id=self.kwargs["pk"])
 #         return queryset
 #     serializer_class = GateInstallationImagesSerializer
+class GateInstallationFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    queryset = BtsSite.objects.all()
+    serializer_class =  GateInstallationSubTaskAFilesSerializer
 
 # class RazorElectricFenceImagesView(generics.RetrieveAPIView,DefaultsMixin):
 #     #queryset = RazorElectricFenceImage.objects.all()
@@ -181,6 +188,10 @@ class FoundFootPourFilesView(generics.RetrieveAPIView,DefaultsMixin):
 #         return queryset
 #     serializer_class = CableWaysImagesSerializer
 
+class CableWaysFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    queryset = BtsSite.objects.all()
+    serializer_class =  CableWaysSubTaskAFilesSerializer
+
 # class AntennaCoaxInstallImagesView(generics.RetrieveAPIView,DefaultsMixin):
 #     #queryset = AntennaCoaxInstallImage.objects.all()
 #     def get_queryset(self):
@@ -188,7 +199,9 @@ class FoundFootPourFilesView(generics.RetrieveAPIView,DefaultsMixin):
 #         return queryset
 #     serializer_class = AntennaCoaxInstallImagesSerializer
 
-
+class AntennaCoaxInstallFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    queryset = BtsSite.objects.all()
+    serializer_class =  AntennaCoaxInstallSubTaskAFilesSerializer
 
 # #END
 
