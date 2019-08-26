@@ -15,6 +15,9 @@ router.register(r'ftthinterceptionpoints', views.FtthInterceptionPointViewSet)
 router.register(r'ftthsurveyphotos', views.ftthSurveyPhotosViewSet)
 router.register(r'ftthsurveys', views.ftthSurveyViewSet)
 
+router.register(r'FtthCommercialTeam', views.FtthCommercialTeamViewSet)
+router.register(r'FtthProcurementTeam', views.FtthProcurementTeamViewSet)
+
 router.register(r'FtthPoleInstallationImage', views.FtthPoleInstallationImageViewSet)
 router.register(r'DailyFtthPoleInstallation', views.DailyFtthPoleInstallationViewSet)
 router.register(r'FtthPoleInstallation', views.FtthPoleInstallationViewSet)
