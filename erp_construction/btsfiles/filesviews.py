@@ -133,6 +133,10 @@ class BS241ConcretePourCuringPeriodFilesView(generics.RetrieveAPIView,DefaultsMi
 #         return queryset
 #     serializer_class = FoundFootPourImagesSerializer
 
+class FoundFootPourFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    queryset = BtsSite.objects.all()
+    serializer_class =  FoundFootPourSubTaskAFilesSerializer
+
 # class BlockworkPanelConstImagesView(generics.RetrieveAPIView,DefaultsMixin):
 #     #queryset = BlockworkPanelConstImage.objects.all()
 #     def get_queryset(self):

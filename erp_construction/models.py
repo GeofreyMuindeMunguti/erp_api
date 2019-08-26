@@ -1069,7 +1069,7 @@ class ExcavationImage(TimeStampModel):
     day_image = models.OneToOneField('ExcavationDate', on_delete=models.CASCADE,related_name ='excavationimages',blank=True, null=True)
 
     # DailyPhotos
-    excavation_image = models.ImageField(upload_to=UploadToProjectDirImage('images/CivilWorksTeam/FoundFootPour/'),blank=True, null=True)
+    excavation_image = models.ImageField(upload_to=UploadToProjectDirImage('images/CivilWorksTeam/Excavation/'),blank=True, null=True)
     excavation_image_comment = models.CharField(max_length=100, blank=True, null=True)
 
 
@@ -1081,7 +1081,7 @@ class ExcavationDate(TimeStampModel):
     sub_task = models.ForeignKey('ExcavationSubTask', on_delete=models.CASCADE,related_name= 'excavationdates')
     work_day =  models.DateField(blank=True, null=True)
     # Casuals
-    casuals_list = models.FileField(upload_to=UploadToProjectDirDate('files/Casuals/FoundFootPour/'),blank=True, null=True)
+    casuals_list = models.FileField(upload_to=UploadToProjectDirDate('files/Casuals/Excavation/'),blank=True, null=True)
     casuals_atsite = models.ManyToManyField(Casual, blank=True )
 
     def __str__(self):
@@ -1093,9 +1093,9 @@ class ExcavationSubtask(TimeStampModel ,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
 
-    excavation_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/CivilWorksTeam/FoundFootPour/'),blank=True, null=True)
-    excavation_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/CivilWorksTeam/FoundFootPour/'),blank=True, null=True)
-    excavation_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/CivilWorksTeam/FoundFootPour/'),blank=True, null=True)
+    excavation_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/CivilWorksTeam/Excavation/'),blank=True, null=True)
+    excavation_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/CivilWorksTeam/Excavation/'),blank=True, null=True)
+    excavation_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/CivilWorksTeam/Excavation/'),blank=True, null=True)
     excavation_comment = models.CharField(max_length=100, blank=True, null=True)
 
 
@@ -1316,6 +1316,7 @@ class BS241AndGeneratorSlabTask(TimeStampModel ,TimeTrackModel):
 
     def __str__(self):
         return str(self.project_name)
+        return 'BS241 & Generator Slab Task :{}'.format(self.project_name)
     class Meta:
         verbose_name_plural = 'BS241 and Generator Slab TASKS'
 
@@ -1370,7 +1371,7 @@ class BS241AndGeneratorSlabTask(TimeStampModel ,TimeTrackModel):
 
 
 class FoundFootPourImage(TimeStampModel):
-    day_image = models.OneToOneField('FoundFootPourDate', on_delete=models.CASCADE,blank=True, null=True)
+    day_image = models.OneToOneField('FoundFootPourDate', on_delete=models.CASCADE,related_name ='foundfootpourimages',blank=True, null=True)
 
     # DailyPhotos
     foundfootpour_image = models.ImageField(upload_to=UploadToProjectDirImage('images/CivilWorksTeam/FoundFootPour/'),max_length = 250,blank=True, null=True)
@@ -1383,7 +1384,7 @@ class FoundFootPourImage(TimeStampModel):
         return 'Image for {}'.format(self.day_image)
 
 class FoundFootPourDate(TimeStampModel):
-    sub_task = models.ForeignKey('FoundFootPourSubtask', on_delete=models.CASCADE)
+    sub_task = models.ForeignKey('FoundFootPourSubtask', on_delete=models.CASCADE,related_name= 'foundfootpourdates')
     work_day =  models.DateField(blank=True, null=True)
     # Casuals
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate('files/Casuals/FoundFootPour/'),blank=True, null=True)
@@ -1860,7 +1861,10 @@ class BoundaryWallTask(TimeStampModel,TimeTrackModel):
     boundary_wall_comment = models.CharField(max_length=100, blank=True, null=True)
  
     def __str__(self):
-        return str(self.project_name)
+        #return str(self.project_name)
+        return 'BoundaryWall Task :{}'.format(self.project_name)
+    class Meta:
+        verbose_name_plural ='Boundary Wall TASKS'
 
     def engineers(self):
         count = self.engineers_atsite.count()
@@ -1912,22 +1916,45 @@ class BoundaryWallTask(TimeStampModel,TimeTrackModel):
 ####################################### TOWER & ANTENNA_COAX ###########################################################################################################################
 
 # START 
+    # SubTask (1)://///////////RazorElectricFence Subtask //////////////////
 
-class TowerErectionImage(models.Model):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
-    tower_erection_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/towererection/%Y/%m/%d/')
-    tower_erection_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/towererection/%Y/%m/%d/')
-    tower_erection_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/towererection/%Y/%m/%d/')
+
+class TowerErectionImage(TimeStampModel):
+    day_image = models.OneToOneField('TowerErectionDate', on_delete=models.CASCADE,related_name ='towererectionimages',blank=True, null=True)
+
+    # DailyPhotos
+    tower_erection_image = models.ImageField(upload_to= UploadToProjectDirImage('images/CivilWorksTeam/towererection/'),max_length = 250,blank=True, null=True)
     tower_erection_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
+
 
     def __str__(self):
-        return str(self.project_name)
+        #return str(self.project_name)
+        return 'Image for {}'.format(self.day_image)
+
+class TowerErectionDate(TimeStampModel):
+    sub_task = models.ForeignKey('TowerErectionSubtask', on_delete=models.CASCADE,related_name= 'towererectiondates')
+    work_day =  models.DateField(blank=True, null=True)
+    # Casuals
+    casuals_list = models.FileField(upload_to=UploadToProjectDirDate('files/Casuals/Towererection/'),blank=True, null=True)
+    casuals_atsite = models.ManyToManyField(Casual, blank=True )
+
+    def __str__(self):
+        #return str(self.project_name)
+        return '{} :Date: {}'.format(self.sub_task,self.work_day)
+
+class TowerErectionSubtask(TimeStampModel ,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
+
+    tower_erection_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/CivilWorksTeam/towererection/'),blank=True, null=True)
+    tower_erection_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/CivilWorksTeam/towererection/'),blank=True, null=True)
+    tower_erection_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/CivilWorksTeam/towererection/'),blank=True, null=True)
+    tower_erection_comment = models.CharField(max_length=100, blank=True, null=True)
+
+
+    def __str__(self):
+       # return str(self.project_name)
+        return 'TowerErectionSubtask :{}'.format(self.project_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -1962,7 +1989,7 @@ class TowerErectionImage(models.Model):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
+                engineer_data = TowerAntennaCoaxTask.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -2003,28 +2030,51 @@ class TowerErectionImage(models.Model):
 
     def task_id(self):
         try:
-            task = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
+            task = TowerAntennaCoaxTask.objects.get(project_name=self.project_name)
             task_id = task.id
             return task_id
         except Exception as e:
             return
 
+    # SubTask (1)://///////////TowerPaint Subtask //////////////////
 
-class TowerPaintImage(models.Model):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
-    tower_painting_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/towerpainting/%Y/%m/%d/')
-    tower_painting_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/towerpainting/%Y/%m/%d/')
-    tower_painting_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/towerpainting/%Y/%m/%d/')
+
+class TowerPaintImage(TimeStampModel):
+    day_image = models.OneToOneField('TowerPaintDate', on_delete=models.CASCADE,related_name ='towerpaintimages',blank=True, null=True)
+
+    # DailyPhotos
+    tower_painting_image = models.ImageField(upload_to= UploadToProjectDirImage('images/CivilWorksTeam/towerpainting/'),max_length = 250,blank=True, null=True)
     tower_painting_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
+
 
     def __str__(self):
-        return str(self.project_name)
+        #return str(self.project_name)
+        return 'Image for {}'.format(self.day_image)
+
+class TowerPaintDate(TimeStampModel):
+    sub_task = models.ForeignKey('TowerPaintSubtask', on_delete=models.CASCADE,related_name= 'towerpaintdates')
+    work_day =  models.DateField(blank=True, null=True)
+    # Casuals
+    casuals_list = models.FileField(upload_to=UploadToProjectDirDate('files/Casuals/Towerpainting/'),blank=True, null=True)
+    casuals_atsite = models.ManyToManyField(Casual, blank=True )
+
+    def __str__(self):
+        #return str(self.project_name)
+        return '{} :Date: {}'.format(self.sub_task,self.work_day)
+
+class TowerPaintSubtask(TimeStampModel,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
+
+    tower_painting_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/CivilWorksTeam/towerpainting/'),blank=True,null=True)
+    tower_painting_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/CivilWorksTeam/towerpainting/'),blank=True,null=True)
+    tower_painting_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/CivilWorksTeam/towerpainting/'),blank=True,null=True)
+    tower_painting_comment = models.CharField(max_length=100, blank=True, null=True)
+
+
+    def __str__(self):
+        #return str(self.project_name)
+        return 'TowerPaintSubtask :{}'.format(self.project_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -2059,7 +2109,7 @@ class TowerPaintImage(models.Model):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
+                engineer_data = TowerAntennaCoaxTask.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -2100,28 +2150,51 @@ class TowerPaintImage(models.Model):
 
     def task_id(self):
         try:
-            task = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
+            task = TowerAntennaCoaxTask.objects.get(project_name=self.project_name)
             task_id = task.id
             return task_id
         except Exception as e:
             return
 
+    # SubTask (1)://///////////CableWays Subtask //////////////////
 
-class CableWaysImage(models.Model):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
-    cable_ways_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/cableways/%Y/%m/%d/')
-    cable_ways_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/cableways/%Y/%m/%d/')
-    cable_ways_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/cableways/%Y/%m/%d/')
+
+class CableWaysImage(TimeStampModel):
+    day_image = models.OneToOneField('CableWaysDate', on_delete=models.CASCADE,related_name ='cablewaysimages',blank=True, null=True)
+
+    # DailyPhotos
+    cable_ways_image = models.ImageField(upload_to= UploadToProjectDirImage('images/CivilWorksTeam/cableways/'),max_length = 250,blank=True, null=True)
     cable_ways_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
+
 
     def __str__(self):
-        return str(self.project_name)
+        #return str(self.project_name)
+        return 'Image for {}'.format(self.day_image)
+
+class CableWaysDate(TimeStampModel):
+    sub_task = models.ForeignKey('CableWaysSubtask', on_delete=models.CASCADE,related_name= 'cablewaysdates')
+    work_day =  models.DateField(blank=True, null=True)
+    # Casuals
+    casuals_list = models.FileField(upload_to=UploadToProjectDirDate('files/Casuals/Cableways/'),blank=True, null=True)
+    casuals_atsite = models.ManyToManyField(Casual, blank=True )
+
+    def __str__(self):
+        #return str(self.project_name)
+        return '{} :Date: {}'.format(self.sub_task,self.work_day)
+
+class CableWaysSubtask(TimeStampModel ,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
+
+    cable_ways_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/CivilWorksTeam/cableways/'),blank =True,null =True)
+    cable_ways_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/CivilWorksTeam/cableways/'),blank =True,null =True)
+    cable_ways_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/CivilWorksTeam/cableways/'),blank =True,null =True)
+    cable_ways_comment = models.CharField(max_length=100, blank=True, null=True)
+
+
+    def __str__(self):
+        #return str(self.project_name)
+        return 'CableWaysSubtask :{}'.format(self.project_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -2156,7 +2229,7 @@ class CableWaysImage(models.Model):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
+                engineer_data = TowerAntennaCoaxTask.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -2197,28 +2270,51 @@ class CableWaysImage(models.Model):
 
     def task_id(self):
         try:
-            task = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
+            task = TowerAntennaCoaxTask.objects.get(project_name=self.project_name)
             task_id = task.id
             return task_id
         except Exception as e:
             return
 
+    # SubTask (1)://///////////AntennaCoaxInstall Subtask //////////////////
 
-class AntennaCoaxInstallImage(models.Model):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
-    antenna_coax_installation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/antennacoaxinstallation/%Y/%m/%d/')
-    antenna_coax_installation_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/antennacoaxinstallation/%Y/%m/%d/')
-    antenna_coax_installation_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/antennacoaxinstallation/%Y/%m/%d/')
+
+class AntennaCoaxInstallImage(TimeStampModel):
+    day_image = models.OneToOneField('AntennaCoaxInstallDate', on_delete=models.CASCADE,related_name ='antennacoaxinstallimages',blank=True, null=True)
+
+    # DailyPhotos
+    antenna_coax_installation_image = models.ImageField(upload_to= UploadToProjectDirImage('images/CivilWorksTeam/antennacoaxinstallation/'),max_length = 250,blank=True, null=True)
     antenna_coax_installation_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
+
 
     def __str__(self):
-        return str(self.project_name)
+        #return str(self.project_name)
+        return 'Image for {}'.format(self.day_image)
+
+class AntennaCoaxInstallDate(TimeStampModel):
+    sub_task = models.ForeignKey('AntennaCoaxInstallSubtask', on_delete=models.CASCADE,related_name= 'antennacoaxinstalldates')
+    work_day =  models.DateField(blank=True, null=True)
+    # Casuals
+    casuals_list = models.FileField(upload_to=UploadToProjectDirDate('files/Casuals/Antennacoaxinstallation/'),blank=True, null=True)
+    casuals_atsite = models.ManyToManyField(Casual, blank=True )
+
+    def __str__(self):
+        #return str(self.project_name)
+        return '{} :Date: {}'.format(self.sub_task,self.work_day)
+
+
+class AntennaCoaxInstallSubtask(TimeStampModel ,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
+
+    antenna_coax_installation_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/CivilWorksTeam/antennacoaxinstallation/%Y/'),blank =True ,null=True)
+    antenna_coax_installation_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/CivilWorksTeam/antennacoaxinstallation/%Y/'),blank =True ,null=True)
+    antenna_coax_installation_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/CivilWorksTeam/antennacoaxinstallation/%Y/'),blank =True ,null=True)
+    antenna_coax_installation_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        #return str(self.project_name)
+        return 'AntenaCoaxInstallSubtask :{}'.format(self.project_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -2253,7 +2349,7 @@ class AntennaCoaxInstallImage(models.Model):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
+                engineer_data = TowerAntennaCoaxTask.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -2294,29 +2390,29 @@ class AntennaCoaxInstallImage(models.Model):
 
     def task_id(self):
         try:
-            task = TowerAntennaCoaxImage.objects.get(project_name=self.project_name)
+            task = TowerAntennaCoaxTask.objects.get(project_name=self.project_name)
             task_id = task.id
             return task_id
         except Exception as e:
             return
 
+# TASK [4]  
 
-class TowerAntennaCoaxImage(models.Model):
+class TowerAntennaCoaxTask(TimeStampModel ,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     engineers_atsite = models.ManyToManyField(Engineer, blank=True )
-    tower_erection = models.OneToOneField(TowerErectionImage, on_delete=models.CASCADE, blank=True, null=True)
-    tower_painting = models.OneToOneField(TowerPaintImage, on_delete=models.CASCADE, blank=True, null=True)
-    cable_ways = models.OneToOneField(CableWaysImage, on_delete=models.CASCADE, blank=True, null=True)
-    antenna_coax_installation = models.OneToOneField(AntennaCoaxInstallImage, on_delete=models.CASCADE, blank=True, null=True)
+    #Subtasks
+    tower_erection = models.OneToOneField(TowerErectionSubtask, on_delete=models.DO_NOTHING, blank=True, null=True)
+    tower_painting = models.OneToOneField(TowerPaintSubtask, on_delete=models.DO_NOTHING, blank=True, null=True)
+    cable_ways = models.OneToOneField(CableWaysSubtask, on_delete=models.DO_NOTHING, blank=True, null=True)
+    antenna_coax_installation = models.OneToOneField(AntennaCoaxInstallSubtask, on_delete=models.DO_NOTHING, blank=True, null=True)
     tower_antenna_coax_comment = models.CharField(max_length=100, blank=True, null=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
+
+    class Meta:
+        verbose_name_plural ='Tower Antenna Coax TASKS'
 
     def engineers(self):
         count = self.engineers_atsite.count()
@@ -2455,7 +2551,7 @@ class AccessApprovalCivil(models.Model):
         return str(self.project_name)
 
 
-class HealthDocumentsCivilTeam(models.Model):
+class HealthDocumentsCivilTeam(TimeStampModel):
     project_name = models.ForeignKey(BtsSite,related_name= 'healthdocumentscivilteam' ,on_delete=models.DO_NOTHING)
     job_hazard_form = models.FileField(upload_to='files/HealthDocumentsCivilTeam/jobhazard/%Y/%m/%d/')
     job_hazard_form_comment = models.CharField(max_length=100, blank=True, null=True)
@@ -2470,26 +2566,24 @@ class HealthDocumentsCivilTeam(models.Model):
     safety_picture = models.ImageField(upload_to='images/HealthDocumentsCivilTeam/%Y/%m/%d/', blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
+
 
     def __str__(self):
         return str(self.project_name)
 
 
-class CivilWorksTeam(models.Model):
+class CivilWorksTeam(TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     health_documents = models.ManyToManyField(HealthDocumentsCivilTeam, blank=True )
+
+    #TASKS
     foundation_and_curing_images = models.OneToOneField(FoundationCreationTask, on_delete=models.CASCADE, blank=True, null=True)
     bs241_and_generator_slabs_images = models.OneToOneField(BS241AndGeneratorSlabTask, on_delete=models.CASCADE, blank=True, null=True)
     site_walling_images_field = models.OneToOneField(BoundaryWallTask, on_delete=models.CASCADE, blank=True, null=True)
-    tower_data = models.OneToOneField(TowerAntennaCoaxImage, on_delete=models.CASCADE, blank=True, null=True)
+    tower_data = models.OneToOneField(TowerAntennaCoaxTask, on_delete=models.CASCADE, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
+
 
     def __str__(self):
         return str(self.project_name)

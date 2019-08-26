@@ -480,20 +480,48 @@ class BoundaryWallTaskSerializer(serializers.ModelSerializer):
 
 ####################################### TOWER & ANTENNA_COAXs ###########################################################################################################################
 
-
-class TowerErectionImageSerializer(serializers.ModelSerializer):
+  # SubTask (4)://///////////RazorElectricFenceSubtask //////////////////
+class TowerErectionSubtaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = TowerErectionSubtask
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class TowerErectionDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TowerErectionDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class TowerErectionImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TowerErectionImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
-
-class TowerPaintImageSerializer(serializers.ModelSerializer):
+  # SubTask (4)://///////////RazorElectricFenceSubtask //////////////////
+class TowerPaintSubtaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = TowerPaintSubtask
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class TowerPaintDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TowerPaintDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class TowerPaintImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TowerPaintImage
@@ -501,34 +529,66 @@ class TowerPaintImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class CableWaysImageSerializer(serializers.ModelSerializer):
+  # SubTask (4)://///////////CableWays Subtask //////////////////
+class CableWaysSubtaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = CableWaysSubtask
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class CableWaysDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CableWaysDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class CableWaysImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CableWaysImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
-
-class AntennaCoaxInstallImageSerializer(serializers.ModelSerializer):
+  # SubTask (4)://///////////AntennaCoaxInstall Subtask //////////////////
+class AntennaCoaxInstallSubtaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = AntennaCoaxInstallSubtask
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class AntennaCoaxInstallDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = AntennaCoaxInstallDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class AntennaCoaxInstallImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AntennaCoaxInstallImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
-
-class TowerAntennaCoaxImageSerializer(serializers.ModelSerializer):
+  # SubTask (4)://////////TowerAntennaCoax Subtask //////////////////
+class TowerAntennaCoaxTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     team_task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = TowerAntennaCoaxImage
+        model = TowerAntennaCoaxTask
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
 ######################################## END #######################################################################################################################################
 
 

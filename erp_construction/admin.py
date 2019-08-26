@@ -532,70 +532,146 @@ admin.site.register(RazorElectricFenceImage, RazorElectricFenceImageAdmin)
 
 
 
-# class BoundaryWallImageAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'team_task_id', 'foundation_foot_pouring', 'block_construction', 'gate_installation', 'razor_electric_fence','boundary_wall_comment','engineers', 'names_of_engineers', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+class BoundaryWallTaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'team_task_id', 'foundation_foot_pouring', 'block_construction', 'gate_installation', 'razor_electric_fence','boundary_wall_comment','engineers', 'names_of_engineers', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
 
 
-# admin.site.register(BoundaryWallImage, BoundaryWallImageAdmin)
+admin.site.register(BoundaryWallTask, BoundaryWallTaskAdmin)
 # ####################################### END###########################################################################################################################
 
 
 # #######################################  TOWER & ANTENNA_COAX ###########################################################################################################################
 
-# class TowerErectionImageAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'task_id', 'tower_erection_image_1', 'tower_erection_image_2', 'tower_erection_image_3', 'tower_erection_comment', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+class TowerErectionSubtaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'tower_erection_image_1', 'tower_erection_image_2', 'tower_erection_image_3', 'tower_erection_comment', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
 
 
-# admin.site.register(TowerErectionImage, TowerErectionImageAdmin)
+admin.site.register(TowerErectionSubtask, TowerErectionSubtaskAdmin)
 
-# class TowerPaintImageAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'task_id', 'tower_painting_image_1', 'tower_painting_image_2', 'tower_painting_image_3', 'tower_painting_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost','engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+class TowerErectionDateAdmin(admin.ModelAdmin):
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    list_filter = ('sub_task','work_day')
+    search_fields = ('sub_task', )
+    list_editable = ('is_active',)
 
+admin.site.register(TowerErectionDate, TowerErectionDateAdmin)
 
-# admin.site.register(TowerPaintImage, TowerPaintImageAdmin)
+class TowerErectionImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'day_image', 'tower_erection_image', 'tower_erection_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    list_filter = ('day_image',)
+    search_fields = ('day_image', )
+    list_editable = ('is_active',)
 
-# class CableWaysImageAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'task_id', 'cable_ways_image_1', 'cable_ways_image_2', 'cable_ways_image_3','cable_ways_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost','engineers_cost', 'start_date','end_date','created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+admin.site.register(TowerErectionImage, TowerErectionImageAdmin)
 
-
-# admin.site.register(CableWaysImage, CableWaysImageAdmin)
-
-
-# class AntennaCoaxInstallImageAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'task_id', 'antenna_coax_installation_image_1', 'antenna_coax_installation_image_2', 'antenna_coax_installation_image_3', 'antenna_coax_installation_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost','engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+####
+class TowerPaintSubtaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'tower_painting_image_1', 'tower_painting_image_2', 'tower_painting_image_3', 'tower_painting_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost','engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
 
 
-# admin.site.register(AntennaCoaxInstallImage, AntennaCoaxInstallImageAdmin)
+admin.site.register(TowerPaintSubtask, TowerPaintSubtaskAdmin)
 
-# class TowerAntennaCoaxImageAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'team_task_id', 'tower_erection', 'tower_painting', 'cable_ways', 'antenna_coax_installation','tower_antenna_coax_comment','engineers', 'names_of_engineers', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+class TowerPaintDateAdmin(admin.ModelAdmin):
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    list_filter = ('sub_task','work_day')
+    search_fields = ('sub_task', )
+    list_editable = ('is_active',)
+
+admin.site.register(TowerPaintDate, TowerPaintDateAdmin)
+
+class TowerPaintImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'day_image', 'tower_painting_image', 'tower_painting_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    list_filter = ('day_image',)
+    search_fields = ('day_image', )
+    list_editable = ('is_active',)
+
+admin.site.register(TowerPaintImage, TowerPaintImageAdmin)
+#####
+
+class CableWaysSubtaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'cable_ways_image_1', 'cable_ways_image_2', 'cable_ways_image_3','cable_ways_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost','engineers_cost', 'start_date','end_date','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
 
 
-# admin.site.register(TowerAntennaCoaxImage, TowerAntennaCoaxImageAdmin)
+admin.site.register(CableWaysSubtask, CableWaysSubtaskAdmin)
+
+class CableWaysDateAdmin(admin.ModelAdmin):
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    list_filter = ('sub_task','work_day')
+    search_fields = ('sub_task', )
+    list_editable = ('is_active',)
+
+admin.site.register(CableWaysDate, CableWaysDateAdmin)
+
+class CableWaysImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'day_image', 'cable_ways_image', 'cable_ways_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    list_filter = ('day_image',)
+    search_fields = ('day_image', )
+    list_editable = ('is_active',)
+
+admin.site.register(CableWaysImage, CableWaysImageAdmin)
+
+class AntennaCoaxInstallSubtaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'antenna_coax_installation_image_1', 'antenna_coax_installation_image_2', 'antenna_coax_installation_image_3', 'antenna_coax_installation_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost','engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(AntennaCoaxInstallSubtask, AntennaCoaxInstallSubtaskAdmin)
+
+class AntennaCoaxInstallDateAdmin(admin.ModelAdmin):
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    list_filter = ('sub_task','work_day')
+    search_fields = ('sub_task', )
+    list_editable = ('is_active',)
+
+admin.site.register(AntennaCoaxInstallDate, AntennaCoaxInstallDateAdmin)
+
+class AntennaCoaxInstallImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'day_image', 'antenna_coax_installation_image', 'antenna_coax_installation_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    list_filter = ('day_image',)
+    search_fields = ('day_image', )
+    list_editable = ('is_active',)
+
+admin.site.register(AntennaCoaxInstallImage,AntennaCoaxInstallImageAdmin)
+
+
+# TASK
+class TowerAntennaCoaxTaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'team_task_id', 'tower_erection', 'tower_painting', 'cable_ways', 'antenna_coax_installation','tower_antenna_coax_comment','engineers', 'names_of_engineers', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(TowerAntennaCoaxTask, TowerAntennaCoaxTaskAdmin)
+
 # ####################################### END###########################################################################################################################
 
 # class BTSinstallationTaskAdmin(admin.ModelAdmin):
@@ -705,16 +781,16 @@ admin.site.register(RazorElectricFenceImage, RazorElectricFenceImageAdmin)
 # admin.site.register(ElectricalTasks, ElectricalTasksAdmin)
 
 
-# class CivilWorksTeamAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'health_documents_civil', 'foundation_and_curing_images',
-#                     'bs241_and_generator_slabs_images', 'site_walling_images_field', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+class CivilWorksTeamAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'health_documents_civil', 'foundation_and_curing_images',
+                    'bs241_and_generator_slabs_images', 'site_walling_images_field', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
 
 
-# admin.site.register(CivilWorksTeam, CivilWorksTeamAdmin)
+admin.site.register(CivilWorksTeam, CivilWorksTeamAdmin)
 
 
 # class HealthDocumentsInstallationTeamAdmin(admin.ModelAdmin):

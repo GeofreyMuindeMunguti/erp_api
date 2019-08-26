@@ -264,11 +264,36 @@ class BS241ConcretePourCuringPeriodSubTaskAFilesSerializer(serializers.ModelSeri
            "updated_at", "is_active", "location", "created_by",'geotech_file','access_letter','approved_drawing','final_acceptance_cert')
 # #  BOUNDARY WALL
 
-# class FoundFootPourImagesSerializer(serializers.ModelSerializer):
+#FoundFootPour  Files Serializers///////////////
+class FoundFootPourImagesSerializer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = FoundFootPourImage
-#         fields = ('foundfootpour_image_1','foundfootpour_image_2','foundfootpour_image_3',)
+    class Meta:
+        model = FoundFootPourImage
+        fields = ('foundfootpour_image','foundfootpour_comment',)
+
+
+
+class FoundFootPourDateFilesSerializer(serializers.ModelSerializer):
+    foundfootpourimages = FoundFootPourImagesSerializer(read_only=True)
+
+    class Meta:
+        model = FoundFootPourDate
+        fields = ('work_day','casuals_list','foundfootpourimages',)
+
+class FoundFootPourSubTaskFilesSerializer(serializers.ModelSerializer):
+    foundfootpourdates = FoundFootPourDateFilesSerializer(many = True,read_only =True)
+
+    class Meta:
+        model = FoundFootPourSubtask
+        fields = ('foundfootpour_image_1', 'foundfootpour_image_2','foundfootpour_image_3', 'foundfootpour_comment','foundfootpourdates',)
+
+class FoundFootPourSubTaskAFilesSerializer(serializers.ModelSerializer):
+    foundfootpoursubtask = FoundFootPourSubTaskFilesSerializer(read_only =True)
+
+    class Meta:
+        model = BtsSite
+        exclude = ("id","project_name","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
+           "updated_at", "is_active", "location", "created_by",'geotech_file','access_letter','approved_drawing','final_acceptance_cert')
 
 
 # class BlockworkPanelConstImagesSerializer(serializers.ModelSerializer):
@@ -477,6 +502,7 @@ class BtsSiteFilesSerializer(serializers.ModelSerializer):
     # towerpaintimage = TowerPaintImagesSerializer(read_only=True)
     # cablewaysimage = CableWaysImagesSerializer(read_only=True)
     # antennacoaxinstallimage = AntennaCoaxInstallImagesSerializer(read_only=True)
+
     #          # pos ,commercial team ,procurement 
     # projectpurchaseorders = ProjectPurchaseOrdersFileSerializer(read_only=True)
     # projectcosting = ProjectCostingFileSerializer(read_only=True)

@@ -96,11 +96,30 @@ router.register(r'razorelectricfenceimages', views.RazorElectricFenceImageViewSe
  # TASK(3): BoundaryWall Task
 router.register(r'boundarywall', views.BoundaryWallTaskViewSet)
 
-# router.register(r'towerantennacoax', views.TowerAntennaCoaxImageViewSet)
-# router.register(r'towererection', views.TowerErectionImageViewSet)
-# router.register(r'towerpaint', views.TowerPaintImageViewSet)
-# router.register(r'cableways', views.CableWaysImageViewSet)
-# router.register(r'antennacoaxinstallation', views.AntennaCoaxInstallImageViewSet)
+# TASK[5] (1): TowerAntennaCoax
+
+
+router.register(r'towerantennacoax', views.TowerAntennaCoaxTaskViewSet)
+
+         # SubTask (1): RazorElectricFence subtask
+router.register(r'towererection', views.TowerErectionSubtaskViewSet)
+router.register(r'towererectiondates', views.TowerErectionDateViewSet)
+router.register(r'towererectionimages', views.TowerErectionImageViewSet)
+
+         # SubTask (2): RazorElectricFence subtask
+router.register(r'towerpaint', views.TowerPaintSubtaskViewSet)
+router.register(r'towerpaintdates', views.TowerPaintDateViewSet)
+router.register(r'towerpaintimages', views.TowerPaintImageViewSet)
+
+         # SubTask (3): RazorElectricFence subtask
+router.register(r'cableways', views.CableWaysSubtaskViewSet)
+router.register(r'cablewaysdates', views.CableWaysDateViewSet)
+router.register(r'cablewaysimages', views.CableWaysImageViewSet)
+
+         # SubTask (4): RazorElectricFence subtask
+router.register(r'antennacoaxinstallation', views.AntennaCoaxInstallSubtaskViewSet)
+router.register(r'antennacoaxinstallation', views.AntennaCoaxInstallDateViewSet)
+router.register(r'antennacoaxinstallation', views.AntennaCoaxInstallImageViewSet)
 
 
 # router.register(r'kpi', views.KpiViewSet)
@@ -162,7 +181,7 @@ urlpatterns = [
     path('files/<int:pk>/excavationimages/', filesviews.ExcavationFilesView.as_view()),
     path('files/<int:pk>/concretepourcuringperiodimages/', filesviews.BS241ConcretePourCuringPeriodFilesView.as_view()),
 
-    # path('files/<int:pk>/foundfootpourimage/', filesviews.FoundFootPourImageView.as_view()),
+    path('files/<int:pk>/foundfootpourimage/', filesviews.FoundFootPourFilesView.as_view()),
     # path('files/<int:pk>/blockworkpanelconstimages/', filesviews.BlockworkPanelConstImagesView.as_view()),
     # path('files/<int:pk>/gateinstallationimages/', filesviews.GateInstallationImagesView.as_view()),
     # path('files/<int:pk>/razorelectricfenceimages/', filesviews.RazorElectricFenceImagesView.as_view()),
