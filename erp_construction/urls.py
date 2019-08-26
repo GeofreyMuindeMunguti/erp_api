@@ -73,11 +73,23 @@ router.register(r'bs241concretepourcuringperiodimages', views.Bs241ConcretePourC
 router.register(r'bs241generatorslabs', views.BS241AndGeneatorSlabTaskViewSet)
 
 
-# router.register(r'foundationfootpour', views.FoundFootPourImageViewSet)
+         # SubTask (1): foundationfootpour subtask
+router.register(r'foundationfootpour', views.FoundFootPourSubtaskViewSet)
+router.register(r'foundationfootpourdate', views.FoundFootPourDateViewSet)
+router.register(r'foundationfootpourimage', views.FoundFootPourImageViewSet)
+
+         # SubTask (2): gateinstallation subtask
 # router.register(r'blockworkpanelconstruct', views.BlockworkPanelConstImageViewSet)
+
+         # SubTask (3): gateinstallation subtask
 # router.register(r'gateinstallation', views.GateInstallationImageViewSet)
+
+         # SubTask (4): RazorElectricFence subtask
 # router.register(r'razorelectricfence', views.RazorElectricFenceImageViewSet)
-# router.register(r'boundarywall', views.BoundaryWallImageViewSet)
+
+
+ # TASK(3): BoundaryWall Task
+router.register(r'boundarywall', views.BoundaryWallTaskViewSet)
 
 # router.register(r'towerantennacoax', views.TowerAntennaCoaxImageViewSet)
 # router.register(r'towererection', views.TowerErectionImageViewSet)

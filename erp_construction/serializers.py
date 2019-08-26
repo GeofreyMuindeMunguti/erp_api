@@ -361,16 +361,33 @@ class BS241AndGeneratorSlabTaskSerializer(serializers.ModelSerializer):
 
 ######################################  BOUNDARY WALL ###########################################################################################################################
 
+  # SubTask (1)://///////////FoundFootPourubTask Subtask //////////////////
 
-class FoundFootPourImageSerializer(serializers.ModelSerializer):
+class FoundFootPourSubtaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = FoundFootPourSubtask
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class FoundFootPourDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FoundFootPourDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class FoundFootPourImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FoundFootPourImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+
+  # SubTask (2):///////////BlockworkPanelConst Subtask //////////////////
 
 class BlockworkPanelConstImageSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
@@ -422,12 +439,12 @@ class RazorElectricFenceImageSerializer(serializers.ModelSerializer):
 
   # Task (4): BoundaryWall //////////////////
 
-class BoundaryWallImageSerializer(serializers.ModelSerializer):
+class BoundaryWallTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     team_task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = BoundaryWallImage
+        model = BoundaryWallTask
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 

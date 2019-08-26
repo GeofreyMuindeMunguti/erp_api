@@ -400,15 +400,36 @@ class BS241AndGeneatorSlabTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
 ######################################## END #######################################################################################################################################
 
 ####################################### BOUNDARY WALL ###########################################################################################################################
+    
+    # SubTask (6)://///////////FoundFootPour Subtask //////////////////
+class FoundFootPourSubtaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = FoundFootPourSubtask.objects.order_by('created_at')
+    serializer_class = FoundFootPourSubtaskSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+
+class FoundFootPourDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = FoundFootPourDate.objects.order_by('created_at')
+    serializer_class = FoundFootPourDateSerializer
+
+    search_fields = ('work_day','sub_task', )
+    ordering_fields = ('updated_at', 'work_day', )
 
 class FoundFootPourImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = FoundFootPourImage.objects.order_by('created_at')
     serializer_class = FoundFootPourImageSerializer
 
-    search_fields = ('project_name', )
-    ordering_fields = ('updated_at', 'project_name', )
+    search_fields = ('day_image', )
+    ordering_fields = ('updated_at', 'day_image', )
+    
 
+    
+    # SubTask (2)://///////////ConcreteCuringPeriod Subtask //////////////////
 class BlockworkPanelConstImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = BlockworkPanelConstImage.objects.order_by('created_at')
@@ -433,10 +454,10 @@ class RazorElectricFenceImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
-class BoundaryWallImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+class BoundaryWallTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
-    queryset = BoundaryWallImage.objects.order_by('created_at')
-    serializer_class = BoundaryWallImageSerializer
+    queryset = BoundaryWallTask.objects.order_by('created_at')
+    serializer_class = BoundaryWallTaskSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
