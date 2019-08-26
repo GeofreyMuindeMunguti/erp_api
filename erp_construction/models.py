@@ -231,7 +231,7 @@ class SiteClearingImage(TimeStampModel):
 
     def __str__(self):
         #return str(self.project_name)
-        return 'Image for {}'.format(self.image_day)
+        return 'Image for {}'.format(self.day_image)
 
 class SiteClearingDate(TimeStampModel):
     sub_task = models.ForeignKey('SiteClearingSubTask', on_delete=models.CASCADE,related_name='siteclearingdates')
@@ -1404,7 +1404,8 @@ class FoundFootPourSubTask(TimeStampModel ,TimeTrackModel):
 
 
     def __str__(self):
-        return str(self.project_name)
+        #return str(self.project_name)
+        return 'FoundFootPourSubTask :{}'.format(self.project_name) 
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -1487,21 +1488,45 @@ class FoundFootPourSubTask(TimeStampModel ,TimeTrackModel):
             return
 
 
-class BlockworkPanelConstImage(models.Model):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
-    blockwallpanelconst_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/BlockworkPanelConst/%Y/%m/%d/')
-    blockwallpanelconst_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/BlockworkPanelConst/%Y/%m/%d/')
-    blockwallpanelconst_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/BlockworkPanelConst/%Y/%m/%d/')
+    # SubTask (1)://///////////FoundFootPour Subtask //////////////////
+
+
+class BlockworkPanelConstImage(TimeStampModel):
+    day_image = models.OneToOneField('BlockworkPanelConstDate', on_delete=models.CASCADE,blank=True, null=True)
+
+    # DailyPhotos
+    blockwallpanelconst_image = models.ImageField(upload_to=UploadToProjectDirImage('images/CivilWorksTeam/BlockworkPanelConst//'),max_length = 250,blank=True, null=True)
     blockwallpanelconst_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
+
 
     def __str__(self):
-        return str(self.project_name)
+        #return str(self.project_name)
+        return 'Image for {}'.format(self.day_image)
+
+class BlockworkPanelConstDate(TimeStampModel):
+    sub_task = models.ForeignKey('BlockworkPanelConstSubTask', on_delete=models.CASCADE)
+    work_day =  models.DateField(blank=True, null=True)
+    # Casuals
+    casuals_list = models.FileField(upload_to=UploadToProjectDirDate('files/Casuals/BlockworkPanelConst/'),blank=True, null=True)
+    casuals_atsite = models.ManyToManyField(Casual, blank=True )
+
+    def __str__(self):
+        #return str(self.project_name)
+        return '{} :Date: {}'.format(self.sub_task,self.work_day)
+
+class BlockworkPanelConstSubTask(TimeStampModel,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
+
+    blockwallpanelconst_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/CivilWorksTeam/BlockworkPanelConst/') ,blank=True, null=True)
+    blockwallpanelconst_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/CivilWorksTeam/BlockworkPanelConst/') ,blank=True, null=True)
+    blockwallpanelconst_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/CivilWorksTeam/BlockworkPanelConst/') ,blank=True, null=True)
+    blockwallpanelconst_comment = models.CharField(max_length=100 ,blank=True, null=True)
+
+
+    def __str__(self):
+        #return str(self.project_name)
+        return 'BlockworkPanelConstSubTask :{}'.format(self.project_name) 
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -1582,23 +1607,44 @@ class BlockworkPanelConstImage(models.Model):
             return task_id
         except Exception as e:
             return
+    # SubTask (1)://///////////GateInstallation Subtask //////////////////
 
 
-class GateInstallationImage(models.Model):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
-    gateinstallation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/GateInstallation/%Y/%m/%d/')
-    gateinstallation_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/GateInstallation/%Y/%m/%d/')
-    gateinstallation_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/GateInstallation/%Y/%m/%d/')
+class GateInstallationImage(TimeStampModel):
+    day_image = models.OneToOneField('GateInstallationDate', on_delete=models.CASCADE,blank=True, null=True)
+
+    # DailyPhotos
+    gateinstallation_image = models.ImageField(upload_to=UploadToProjectDirImage('images/CivilWorksTeam/GateInstallation/'),max_length = 250,blank=True, null=True)
     gateinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
+
 
     def __str__(self):
-        return str(self.project_name)
+        #return str(self.project_name)
+        return 'Image for {}'.format(self.day_image)
+
+class GateInstallationDate(TimeStampModel):
+    sub_task = models.ForeignKey('GateInstallationSubtask', on_delete=models.CASCADE)
+    work_day =  models.DateField(blank=True, null=True)
+    # Casuals
+    casuals_list = models.FileField(upload_to=UploadToProjectDirDate('files/Casuals/GateInstallation/'),blank=True, null=True)
+    casuals_atsite = models.ManyToManyField(Casual, blank=True )
+
+    def __str__(self):
+        #return str(self.project_name)
+        return '{} :Date: {}'.format(self.sub_task,self.work_day)
+
+class GateInstallationSubtask(TimeStampModel,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
+  
+    gateinstallation_image_1 = models.ImageField(upload_to= UploadToProjectDirSubTask('images/CivilWorksTeam/GateInstallation/'),blank=True, null=True)
+    gateinstallation_image_2 = models.ImageField(upload_to= UploadToProjectDirSubTask('images/CivilWorksTeam/GateInstallation/'),blank=True, null=True)
+    gateinstallation_image_3 = models.ImageField(upload_to= UploadToProjectDirSubTask('images/CivilWorksTeam/GateInstallation/'),blank=True, null=True)
+    gateinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        #return str(self.project_name)
+        return 'GateInstallationSubtask :{}'.format(self.project_name) 
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -1680,8 +1726,34 @@ class GateInstallationImage(models.Model):
         except Exception as e:
             return
 
+    # SubTask (1)://///////////RazorElectricFence Subtask //////////////////
 
-class RazorElectricFenceImage(models.Model):
+
+class RazorElectricFenceImage(TimeStampModel):
+    day_image = models.OneToOneField('RazorElectricFenceDate', on_delete=models.CASCADE,blank=True, null=True)
+
+    # DailyPhotos
+    razorelectricfance_image = models.ImageField(upload_to=UploadToProjectDirImage('images/CivilWorksTeam/GateInstallation/'),max_length = 250,blank=True, null=True)
+    razorelectricfance_comment = models.CharField(max_length=100, blank=True, null=True)
+
+
+    def __str__(self):
+        #return str(self.project_name)
+        return 'Image for {}'.format(self.day_image)
+
+class RazorElectricFenceDate(TimeStampModel):
+    sub_task = models.ForeignKey('RazorElectricFenceSubtask', on_delete=models.CASCADE)
+    work_day =  models.DateField(blank=True, null=True)
+    # Casuals
+    casuals_list = models.FileField(upload_to=UploadToProjectDirDate('files/Casuals/GateInstallation/'),blank=True, null=True)
+    casuals_atsite = models.ManyToManyField(Casual, blank=True )
+
+    def __str__(self):
+        #return str(self.project_name)
+        return '{} :Date: {}'.format(self.sub_task,self.work_day)
+
+
+class RazorElectricFenceSubtask(models.Model):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     start_date = models.DateTimeField()
@@ -1695,7 +1767,8 @@ class RazorElectricFenceImage(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.project_name)
+        #return str(self.project_name)
+        return 'RazorElectricFenceSubtask :{}'.format(self.project_name)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -1778,20 +1851,15 @@ class RazorElectricFenceImage(models.Model):
             return
 
 
-class BoundaryWallImage(models.Model):
+class BoundaryWallImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     engineers_atsite = models.ManyToManyField(Engineer, blank=True )
-    foundation_foot_pouring = models.OneToOneField(FoundFootPourImage, on_delete=models.CASCADE, blank=True, null=True)
-    block_construction = models.OneToOneField(BlockworkPanelConstImage, on_delete=models.CASCADE, blank=True, null=True)
-    gate_installation = models.OneToOneField(GateInstallationImage, on_delete=models.CASCADE, blank=True, null=True)
-    razor_electric_fence = models.OneToOneField(RazorElectricFenceImage, on_delete=models.CASCADE, blank=True, null=True)
+    foundation_foot_pouring = models.OneToOneField(FoundFootPourImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    block_construction = models.OneToOneField(BlockworkPanelConstImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    gate_installation = models.OneToOneField(GateInstallationSubtask, on_delete=models.DO_NOTHING, blank=True, null=True)
+    razor_electric_fence = models.OneToOneField(RazorElectricFenceSubtask, on_delete=models.DO_NOTHING, blank=True, null=True)
     boundary_wall_comment = models.CharField(max_length=100, blank=True, null=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
-
+ 
     def __str__(self):
         return str(self.project_name)
 

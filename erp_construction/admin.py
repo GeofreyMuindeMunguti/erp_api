@@ -438,25 +438,64 @@ admin.site.register(FoundFootPourSubTask, FoundFootPourSubTaskAdmin)
 
     # SubTasl  [2]: BlockworkPanelConst Subtask //////////////////
     
-# class BlockworkPanelConstImageAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'task_id', 'blockwallpanelconst_image_1', 'blockwallpanelconst_image_2', 'blockwallpanelconst_image_3', 'blockwallpanelconst_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+class BlockworkPanelConstSubTaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'blockwallpanelconst_image_1', 'blockwallpanelconst_image_2', 'blockwallpanelconst_image_3', 'blockwallpanelconst_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
 
 
-# admin.site.register(BlockworkPanelConstImage, BlockworkPanelConstImageAdmin)
-
-# class GateInstallationImageAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'task_id', 'gateinstallation_image_1', 'gateinstallation_image_2', 'gateinstallation_image_3','gateinstallation_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+admin.site.register(BlockworkPanelConstSubTask, BlockworkPanelConstSubTaskAdmin)
 
 
-# admin.site.register(GateInstallationImage, GateInstallationImageAdmin)
+class BlockworkPanelConstDateAdmin(admin.ModelAdmin):
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    list_filter = ('sub_task','work_day')
+    search_fields = ('sub_task', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(BlockworkPanelConstDate, BlockworkPanelConstDateAdmin)
+
+class BlockworkPanelConstImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'day_image', 'blockwallpanelconst_image', 'blockwallpanelconst_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    list_filter = ('day_image',)
+    search_fields = ('day_image', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(BlockworkPanelConstImage, BlockworkPanelConstImageAdmin)
+
+    # SubTasl  [3]: GateInstallation Subtask //////////////////
+
+class GateInstallationSubtaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'gateinstallation_image_1', 'gateinstallation_image_2', 'gateinstallation_image_3','gateinstallation_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+admin.site.register(GateInstallationSubtask, GateInstallationSubtaskAdmin)
+
+class GateInstallationDateAdmin(admin.ModelAdmin):
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    list_filter = ('sub_task','work_day')
+    search_fields = ('sub_task', )
+    list_editable = ('is_active',)
+
+admin.site.register(GateInstallationDate, GateInstallationDateAdmin)
+
+class GateInstallationImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'day_image', 'gateinstallation_image', 'gateinstallation_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    list_filter = ('day_image',)
+    search_fields = ('day_image', )
+    list_editable = ('is_active',)
+
+admin.site.register(GateInstallationImage, GateInstallationImageAdmin)
 
 
 # class RazorElectricFenceImageAdmin(admin.ModelAdmin):

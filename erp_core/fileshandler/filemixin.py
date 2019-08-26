@@ -107,7 +107,7 @@ class UploadToProjectDirImage(object):
             
         except:
 
-            return self.path.format('FILES', self.sub_path, filename)
+            return self.path.format('FILES', self.sub_path,date_path,  filename)
 
 
 

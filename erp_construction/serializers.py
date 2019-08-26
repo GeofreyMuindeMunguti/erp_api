@@ -392,15 +392,35 @@ class GateInstallationImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class RazorElectricFenceImageSerializer(serializers.ModelSerializer):
+
+  # SubTask (4)://///////////RazorElectricFenceSubtask //////////////////
+
+class RazorElectricFenceSubtaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = RazorElectricFenceSubtask
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class RazorElectricFenceDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = RazorElectricFenceDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class RazorElectricFenceImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RazorElectricFenceImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+
+  # Task (4): BoundaryWall //////////////////
 
 class BoundaryWallImageSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
