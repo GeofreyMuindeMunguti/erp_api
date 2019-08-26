@@ -196,7 +196,7 @@ urlpatterns = [
     # path('files/<int:pk>/healthdocumentsfilesinstallationteam/', filesviews.HealthDocumentsFilesInstallationTeamView.as_view()),
     # path('files/<int:pk>/accessapprovalfileinstallation/', filesviews.AccessApprovalFileInstallationView.as_view()),
 
-    # path('files/<int:pk>/undergroundtasks/', filesviews.UndergroundTasksFilesView.as_view()),
+    # path('files/<int:pk>/undergroundtasks/', filesviews.UndergroundTaskFilesView.as_view()),
     # path('files/<int:pk>/reticulationapsinstallationfiles/', filesviews.ReticulationAPSinstallationFilesView.as_view()),
     # path('files/<int:pk>/electricalearthingimages/', filesviews.ElectricalEarthingImagesView.as_view()),
     # path('files/<int:pk>/generatorinstallationimages/', filesviews.GeneratorInstallationImagesView.as_view()),

@@ -66,51 +66,51 @@ admin.site.register(BtsProject, BtsProjectAdmin)
 # admin.site.register(ProjectCosting, ProjectCostingAdmin)
 
 
-# class ProjectPurchaseOrdersAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'po_file', 'material_cost',
-#                     'labour_cost', 'total_cost_of_po', 'is_approved',
-#                     'created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active', 'is_approved')
+class ProjectPurchaseOrderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'po_file', 'material_cost',
+                    'labour_cost', 'total_cost_of_po', 'is_approved',
+                    'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+    list_editable = ('is_active', 'is_approved')
 
 
-# admin.site.register(ProjectPurchaseOrders, ProjectPurchaseOrdersAdmin)
+admin.site.register(ProjectPurchaseOrder, ProjectPurchaseOrderAdmin)
 
 
-# class CommercialTeamAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'approved_quote_file', 'approved_quote_amount', 'po_data',
-#                     'project_costing_data', 'initial_invoice', 'initial_invoice_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active', 'is_approved')
+class CommercialTeamAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'approved_quote_file', 'approved_quote_amount', 'po_data',
+                    'project_costing_data', 'initial_invoice', 'initial_invoice_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active', 'is_approved')
 
 
-# admin.site.register(CommercialTeam, CommercialTeamAdmin)
+admin.site.register(CommercialTeam, CommercialTeamAdmin)
 
 
-# class ProcurementTeamAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'po_steel', 'po_electrical_materials', 'po_subcontractors', 'po_subcontractors_amount', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active', 'is_approved')
+class ProcurementTeamAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'po_steel', 'po_electrical_materials', 'po_subcontractors', 'po_subcontractors_amount', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active', 'is_approved')
 
 
-# admin.site.register(ProcurementTeam, ProcurementTeamAdmin)
+admin.site.register(ProcurementTeam, ProcurementTeamAdmin)
 
 
-# class HealthDocumentsCivilTeamAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'job_hazard_form', 'job_hazard_form_comment', 'incident_notification_form', 'incident_notification_form_comment', 'toolbox_meeting_form',
-#                     'toolbox_meeting_form_comment', 'communication_plan_form', 'communication_plan_form_comment', 'health_documents_comment','access_approval', 'safety_picture','posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active', 'is_approved')
+class HealthDocumentsCivilTeamAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'job_hazard_form', 'job_hazard_form_comment', 'incident_notification_form', 'incident_notification_form_comment', 'toolbox_meeting_form',
+                    'toolbox_meeting_form_comment', 'communication_plan_form', 'communication_plan_form_comment', 'health_documents_comment','access_approval', 'safety_picture','posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active', 'is_approved')
 
 
-# admin.site.register(HealthDocumentsCivilTeam, HealthDocumentsCivilTeamAdmin)
+admin.site.register(HealthDocumentsCivilTeam, HealthDocumentsCivilTeamAdmin)
 
 #######################################START FOUNDATION IMAGES########################################################################################################################################
 class FoundationCreationTaskAdmin(admin.ModelAdmin):
@@ -709,76 +709,168 @@ admin.site.register(TowerAntennaCoaxTask, TowerAntennaCoaxTaskAdmin)
 # admin.site.register(TelecomTasks, TelecomTasksAdmin)
 
 
-# class UndergroundTasksAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'task_id', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost',  'start_date', 'Underground_ducting_and_manholes_image_1', 'Underground_ducting_and_manholes_image_2', 'Underground_ducting_and_manholes_image_3', 'Underground_ducting_and_manholes_images_comment',
-#                      'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+class UndergroundTaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost',  'start_date', 'underground_ducting_and_manholes_image_1', 'underground_ducting_and_manholes_image_2', 'underground_ducting_and_manholes_image_3', 'underground_ducting_and_manholes_images_comment',
+                     'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
 
 
-# admin.site.register(UndergroundTasks, UndergroundTasksAdmin)
+admin.site.register(UndergroundTask, UndergroundTaskAdmin)
+
+class UndergroundTaskDateAdmin(admin.ModelAdmin):
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    list_filter = ('sub_task','work_day')
+    search_fields = ('sub_task', )
+    list_editable = ('is_active',)
+
+admin.site.register(UndergroundTaskDate, UndergroundTaskDateAdmin)
+
+class UndergroundTaskImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'day_image',  'underground_ducting_and_manholes_image', 'underground_ducting_and_manholes_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    list_filter = ('day_image',)
+    search_fields = ('day_image', )
+    list_editable = ('is_active',)
+
+admin.site.register(UndergroundTaskImage,UndergroundTaskImageAdmin)
+
+#Reticulation
+
+class ReticulationAPSinstallationAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost',  'start_date', 'electricalreticulation_APSInstallation_image_1', 'electricalreticulation_APSInstallation_image_2', 'electricalreticulation_APSInstallation_image_3', 'electricalreticulation_APSInstallation_images_comment',
+                     'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(ReticulationAPSinstallation, ReticulationAPSinstallationAdmin)
+
+class ReticulationAPSinstallationDateAdmin(admin.ModelAdmin):
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    list_filter = ('sub_task','work_day')
+    search_fields = ('sub_task', )
+    list_editable = ('is_active',)
+
+admin.site.register(ReticulationAPSinstallationDate, ReticulationAPSinstallationDateAdmin)
+
+class ReticulationAPSinstallationImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'day_image',  'electricalreticulation_APSInstallation_image', 'electricalreticulation_APSInstallation_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    list_filter = ('day_image',)
+    search_fields = ('day_image', )
+    list_editable = ('is_active',)
+
+admin.site.register(ReticulationAPSinstallationImage,ReticulationAPSinstallationImageAdmin)
+
+# ELECTRICAL E
+class ElectricalEarthingAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date', 'earthing_connections_and_testing_image_1', 'earthing_connections_and_testing_image_2', 'earthing_connections_and_testing_image_3', 'earthing_connections_and_testing_images_comment',
+                     'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
 
 
-# class ReticulationAPSinstallationAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'task_id', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost',  'start_date', 'Electricalreticulation_APSInstallation_image_1', 'Electricalreticulation_APSInstallation_image_2', 'Electricalreticulation_APSInstallation_image_3', 'Electricalreticulation_APSInstallation_images_comment',
-#                      'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+admin.site.register(ElectricalEarthing, ElectricalEarthingAdmin)
+
+class ElectricalEarthingDateAdmin(admin.ModelAdmin):
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    list_filter = ('sub_task','work_day')
+    search_fields = ('sub_task', )
+    list_editable = ('is_active',)
+
+admin.site.register(ElectricalEarthingDate, ElectricalEarthingDateAdmin)
+
+class ElectricalEarthingImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'day_image',  'earthing_connections_and_testing_image', 'earthing_connections_and_testing_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    list_filter = ('day_image',)
+    search_fields = ('day_image', )
+    list_editable = ('is_active',)
+
+admin.site.register(ElectricalEarthingImage,ElectricalEarthingImageAdmin)
+
+## Generator
+
+class GeneratorInstallationAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost',  'start_date', 'Generator_and_Fuel_Tank_Installation_image_1', 'Generator_and_Fuel_Tank_Installation_image_2', 'Generator_and_Fuel_Tank_Installation_image_3', 'before_fuel_image_1',
+                    'before_fuel_image_2', 'after_fuel_image_1', 'after_fuel_image_2', 'Generator_and_Fuel_Tank_Installation_comment', 'start_date','end_date','raise_flag', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
 
 
-# admin.site.register(ReticulationAPSinstallation, ReticulationAPSinstallationAdmin)
+admin.site.register(GeneratorInstallation, GeneratorInstallationAdmin)
+
+class GeneratorInstallationDateAdmin(admin.ModelAdmin):
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    list_filter = ('sub_task','work_day')
+    search_fields = ('sub_task', )
+    list_editable = ('is_active',)
+
+admin.site.register(GeneratorInstallationDate, GeneratorInstallationDateAdmin)
+
+class GeneratorInstallationImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'day_image', 'generator_image', 'generator_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    list_filter = ('day_image',)
+    search_fields = ('day_image', )
+    list_editable = ('is_active',)
+
+admin.site.register(GeneratorInstallationImage,GeneratorInstallationImageAdmin)
 
 
-# class ElectricalEarthingAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'task_id', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date', 'Earthing_connections_and_testing_image_1', 'Earthing_connections_and_testing_image_2', 'Earthing_connections_and_testing_image_3', 'Earthing_connections_and_testing_images_comment',
-#                      'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+# KPLC Subtask
+class KPLCSolarSubtaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost',  'start_date', 'kplc_solar_installation_image_1', 'kplc_solar_installation_image_2', 'kplc_solar_installation_image_3', 'kplc_solar_installation_comment',
+                     'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
 
 
-# admin.site.register(ElectricalEarthing, ElectricalEarthingAdmin)
+admin.site.register(KPLCSolarSubtask, KPLCSolarSubtaskAdmin)
+
+class KPLCSolarDateAdmin(admin.ModelAdmin):
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    list_filter = ('sub_task','work_day')
+    search_fields = ('sub_task', )
+    list_editable = ('is_active',)
+
+admin.site.register(KPLCSolarDate, KPLCSolarDateAdmin)
+
+class KPLCSolarImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'day_image', 'kplc_solar_installation_image', 'kplc_solar_installation_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    list_filter = ('day_image',)
+    search_fields = ('day_image', )
+    list_editable = ('is_active',)
+
+admin.site.register(KPLCSolarImage,KPLCSolarImageAdmin)
 
 
-# class GeneratorInstallationAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'task_id', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost',  'start_date', 'Generator_and_Fuel_Tank_Installation_image_1', 'Generator_and_Fuel_Tank_Installation_image_2', 'Generator_and_Fuel_Tank_Installation_image_3', 'before_fuel_image_1',
-#                     'before_fuel_image_2', 'after_fuel_image_1', 'after_fuel_image_2', 'Generator_and_Fuel_Tank_Installation_comment', 'start_date','end_date','raise_flag', 'created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+class ElectricalTaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'team_task_id', 'engineers', 'names_of_engineers', 'underground_ducting_and_manholes', 'electricalreticulation_APSInstallation', 'earthing_connections_and_testing', 'generator_and_Fuel_Tank_Installation', 'kPLC_solar_installation',
+                    'is_approved',  'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active', 'is_approved')
 
 
-# admin.site.register(GeneratorInstallation, GeneratorInstallationAdmin)
-
-
-# class KPLCSolarImageAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'task_id', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost',  'start_date', 'kplc_solar_installation_image_1', 'kplc_solar_installation_image_2', 'kplc_solar_installation_image_3', 'kplc_solar_installation_comment',
-#                      'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
-
-
-# admin.site.register(KPLCSolarImage, KPLCSolarImageAdmin)
-
-
-# class ElectricalTasksAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'team_task_id', 'engineers', 'names_of_engineers', 'Underground_ducting_and_manholes', 'Electricalreticulation_APSInstallation', 'Earthing_connections_and_testing', 'Generator_and_Fuel_Tank_Installation', 'KPLC_solar_installation',
-#                     'is_approved',  'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active', 'is_approved')
-
-
-# admin.site.register(ElectricalTasks, ElectricalTasksAdmin)
+admin.site.register(ElectricalTask, ElectricalTaskAdmin)
 
 
 class CivilWorksTeamAdmin(admin.ModelAdmin):
@@ -793,27 +885,27 @@ class CivilWorksTeamAdmin(admin.ModelAdmin):
 admin.site.register(CivilWorksTeam, CivilWorksTeamAdmin)
 
 
-# class HealthDocumentsInstallationTeamAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'job_hazard_form', 'job_hazard_form_comment', 'incident_notification_form', 'incident_notification_form_comment', 'toolbox_meeting_form',
-#                     'toolbox_meeting_form_comment', 'communication_plan_form', 'communication_plan_form_comment', 'health_documents_comment', 'access_approval', 'safety_picture', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+class HealthDocumentsInstallationTeamAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'job_hazard_form', 'job_hazard_form_comment', 'incident_notification_form', 'incident_notification_form_comment', 'toolbox_meeting_form',
+                    'toolbox_meeting_form_comment', 'communication_plan_form', 'communication_plan_form_comment', 'health_documents_comment', 'access_approval', 'safety_picture', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
 
 
-# admin.site.register(HealthDocumentsInstallationTeam, HealthDocumentsInstallationTeamAdmin)
+admin.site.register(HealthDocumentsInstallationTeam, HealthDocumentsInstallationTeamAdmin)
 
 
-# class IssuesAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'issue', 'issue_image', 'issue_sorted_image', 'closed', 'posted_by', 'created_at', 'updated_at', 'is_active')
-#     list_display_links = ('issue', )
-#     list_filter = ('project_name',)
-#     search_fields = ('issue', )
-#     list_editable = ('is_active',)
+class IssueAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'issue', 'issue_image', 'issue_sorted_image', 'closed', 'posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('issue', )
+    list_filter = ('project_name',)
+    search_fields = ('issue', )
+    list_editable = ('is_active',)
 
 
-# admin.site.register(Issues, IssuesAdmin)
+admin.site.register(Issue, IssueAdmin)
 
 
 # class InstallationTeamAdmin(admin.ModelAdmin):
@@ -829,21 +921,21 @@ admin.site.register(CivilWorksTeam, CivilWorksTeamAdmin)
 # admin.site.register(InstallationTeam, InstallationTeamAdmin)
 
 
-# class WarrantyCertificateAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'civilworks_installation_certificate', 'connectors_torque_certificate', 'safe_to_climb_certificate', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active', 'is_approved')
+class WarrantyCertificateAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'civilworks_installation_certificate', 'connectors_torque_certificate', 'safe_to_climb_certificate', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+    list_editable = ('is_active', 'is_approved')
 
 
-# admin.site.register(WarrantyCertificate, WarrantyCertificateAdmin)
+admin.site.register(WarrantyCertificate, WarrantyCertificateAdmin)
 
 
-# class TestCetificateAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'cube_test_7days', 'cube_test_28days', 'earth_test', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active', 'is_approved')
+class TestCetificateAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'cube_test_7days', 'cube_test_28days', 'earth_test', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+    list_editable = ('is_active', 'is_approved')
 
 
-# admin.site.register(TestCetificate, TestCetificateAdmin)
+admin.site.register(TestCetificate, TestCetificateAdmin)

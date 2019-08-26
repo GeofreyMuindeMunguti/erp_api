@@ -57,10 +57,10 @@ class ProjectCostingSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class ProjectPurchaseOrdersSerializer(serializers.ModelSerializer):
+class ProjectPurchaseOrderSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = ProjectPurchaseOrders
+        model = ProjectPurchaseOrder
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
@@ -631,12 +631,12 @@ class TelecomTasksSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class UndergroundTasksSerializer(serializers.ModelSerializer):
+class UndergroundTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = UndergroundTasks
+        model = UndergroundTask
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
@@ -671,12 +671,12 @@ class GeneratorInstallationSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class ElectricalTasksSerializer(serializers.ModelSerializer):
+class ElectricalTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     team_task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = ElectricalTasks
+        model = ElectricalTask
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
@@ -730,9 +730,9 @@ class TestCetificateSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class IssuesSerializer(serializers.ModelSerializer):
+class IssueSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Issues
+        model = Issue
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')

@@ -78,8 +78,8 @@ class ProjectCostingViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
 class ProjectPOSViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating project costing."""
-    queryset = ProjectPurchaseOrders.objects.order_by('created_at')
-    serializer_class = ProjectPurchaseOrdersSerializer
+    queryset = ProjectPurchaseOrder.objects.order_by('created_at')
+    serializer_class = ProjectPurchaseOrderSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
@@ -655,10 +655,10 @@ class InstallationTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     ordering_fields = ('updated_at', 'project_name', )
 
 
-class ElectricalTasksViewSet(DefaultsMixin, viewsets.ModelViewSet):
+class ElectricalTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating Electrical Tasks."""
-    queryset = ElectricalTasks.objects.order_by('created_at')
-    serializer_class = ElectricalTasksSerializer
+    queryset = ElectricalTask.objects.order_by('created_at')
+    serializer_class = ElectricalTaskSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
@@ -691,10 +691,10 @@ class ReticulationAPSViewSet(DefaultsMixin, viewsets.ModelViewSet):
     ordering_fields = ('updated_at', 'project_name', )
 
 
-class UndergroundTasksViewSet(DefaultsMixin, viewsets.ModelViewSet):
+class UndergroundTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating aps and reticulation tasks."""
-    queryset = UndergroundTasks.objects.order_by('created_at')
-    serializer_class = UndergroundTasksSerializer
+    queryset = UndergroundTask.objects.order_by('created_at')
+    serializer_class = UndergroundTaskSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
@@ -772,10 +772,11 @@ class TestCetificateViewSet(DefaultsMixin, viewsets.ModelViewSet):
     ordering_fields = ('updated_at', 'project_name', )
 
 
-class IssuesViewSet(DefaultsMixin, viewsets.ModelViewSet):
+class IssueViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating Issues ."""
-    queryset = Issues.objects.order_by('created_at')
-    serializer_class = IssuesSerializer
+    queryset = Issue.objects.order_by('created_at')
+    serializer_class = IssueSerializer
+
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
