@@ -191,7 +191,8 @@ class FttsAccessApprovalCivilAdmin(admin.ModelAdmin):
 admin.site.register(FttsAccessApprovalCivil, FttsAccessApprovalCivilAdmin)
 
 class FttsHealthDocumentsCivilTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name', 'health_documents_comment','access_approval', 'safety_picture','posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','project_safety_comm_plan', 'project_safety_comm_plan_comment','hazard_analysis_form','hazard_analysis_form_comment','attendance_form','attendance_form_comment',
+                    'health_documents_comment','access_approval','posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     list_filter = ('site_name',)
     search_fields = ('site_name', )
@@ -271,7 +272,8 @@ class FttsAccessApprovalInstallationAdmin(admin.ModelAdmin):
 admin.site.register(FttsAccessApprovalInstallation, FttsAccessApprovalInstallationAdmin)
 
 class FttsHealthDocsInstallationTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name', 'health_documents_comment','access_approval', 'safety_picture','posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','project_safety_comm_plan', 'project_safety_comm_plan_comment','hazard_analysis_form','hazard_analysis_form_comment','attendance_form','attendance_form_comment',
+                    'health_documents_comment','access_approval','posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     list_filter = ('site_name',)
     search_fields = ('site_name', )

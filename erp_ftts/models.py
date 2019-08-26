@@ -465,9 +465,14 @@ class FttsAccessApprovalCivil(TimeStampModel):
 
 class FttsHealthDocumentsCivilTeam(TimeStampModel):
     site_name = models.OneToOneField(FttsSite,related_name= 'civilhealthdocuments' , on_delete=models.DO_NOTHING)
+    project_safety_comm_plan = models.FileField(upload_to='files/ftts/CivilWorksTeam/projectsafety/%Y/%m/%d/')
+    project_safety_comm_plan_comment = models.CharField(max_length=100, blank=True, null=True)
+    hazard_analysis_form = models.FileField(upload_to='files/ftts/CivilWorksTeam/hazardanalysis/%Y/%m/%d/')
+    hazard_analysis_form_comment = models.CharField(max_length=100, blank=True, null=True)
+    attendance_form = models.FileField(upload_to='files/ftts/CivilWorksTeam/attendanceform/%Y/%m/%d/')
+    attendance_form_comment = models.CharField(max_length=100, blank=True, null=True)
     health_documents_comment = models.CharField(max_length=100, blank=True, null=True)
     access_approval = models.OneToOneField(FttsAccessApprovalCivil, on_delete=models.CASCADE, blank=True, null=True)
-    safety_picture = models.ImageField(upload_to='images/ftts/HealthDocumentsCivilTeam/%Y/%m/%d/', blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
@@ -695,10 +700,15 @@ class FttsAccessApprovalInstallation(TimeStampModel):
 """END"""
 
 class FttsHealthDocsInstallationTeam(TimeStampModel):
-    site_name = models.OneToOneField(FttsSite,related_name= 'healthdocumentscivilteam' , on_delete=models.DO_NOTHING)
+    site_name = models.OneToOneField(FttsSite,related_name= 'installationhealthdocuments' , on_delete=models.DO_NOTHING)
+    project_safety_comm_plan = models.FileField(upload_to='files/ftts/InstallationTeamFtts/projectsafety/%Y/%m/%d/')
+    project_safety_comm_plan_comment = models.CharField(max_length=100, blank=True, null=True)
+    hazard_analysis_form = models.FileField(upload_to='files/ftts/InstallationTeamFtts/hazardanalysis/%Y/%m/%d/')
+    hazard_analysis_form_comment = models.CharField(max_length=100, blank=True, null=True)
+    attendance_form = models.FileField(upload_to='files/ftts/InstallationTeamFtts/attendanceform/%Y/%m/%d/')
+    attendance_form_comment = models.CharField(max_length=100, blank=True, null=True)
     health_documents_comment = models.CharField(max_length=100, blank=True, null=True)
     access_approval = models.OneToOneField(FttsAccessApprovalCivil, on_delete=models.CASCADE, blank=True, null=True)
-    safety_picture = models.ImageField(upload_to='images/ftts/InstallationTeamFtts/%Y/%m/%d/', blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
