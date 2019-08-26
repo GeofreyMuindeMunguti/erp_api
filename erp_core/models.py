@@ -11,20 +11,8 @@ from datetime import datetime, timezone, timedelta
 
 # Create your models here.
 
-# 
-# class MainSite(TimeStampModel):
-#     site_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
-#     location = models.ForeignKey(Location,on_delete=models.CASCADE, related_name="mainsites", blank=True, null=True )
-#
-#     class Meta:
-#         ordering = ('-pk',)
-#
-#
-#     def __str__(self):
-#         return str(self.site_name)
-
-
-####################################### KPI ###############################################################################################################################
+"""BTS"""
+####################################### BTS KPI ###############################################################################################################################
 class Kpi(TimeStampModel):
     kpi = models.IntegerField(blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
@@ -35,7 +23,7 @@ class Kpi(TimeStampModel):
 
 ######################################## END #######################################################################################################################################
 
-####################################### TASKS ###############################################################################################################################
+####################################### BTS TASKS ###############################################################################################################################
 class Task(TimeStampModel):
     category_name = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
     task_name = models.CharField(blank=True, null=True, max_length=150, unique=True)
@@ -48,7 +36,7 @@ class Task(TimeStampModel):
 
 ######################################## END #######################################################################################################################################
 
-####################################### SUBTASKS ###############################################################################################################################
+####################################### BTS SUBTASKS ###############################################################################################################################
 class SubTask(TimeStampModel):
     task_name = models.ForeignKey(Task, on_delete=models.DO_NOTHING)
     subtask_name = models.CharField(blank=True, null=True, max_length=150, unique=True)
@@ -60,3 +48,43 @@ class SubTask(TimeStampModel):
         return str(self.subtask_name)
 
 ######################################## END #######################################################################################################################################
+"""END"""
+
+"""FIBER"""
+####################################### FIBER KPI ###############################################################################################################################
+class FiberKpi(TimeStampModel):
+    kpi = models.IntegerField(blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    is_approved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.kpi)
+
+######################################## END #######################################################################################################################################
+
+####################################### TASKS ###############################################################################################################################
+class FiberTask(TimeStampModel):
+    category_name = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    task_name = models.CharField(blank=True, null=True, max_length=150, unique=True)
+    kpi = models.IntegerField(blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    is_approved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.task_name)
+
+######################################## END #######################################################################################################################################
+
+####################################### SUBTASKS ###############################################################################################################################
+class FiberSubTask(TimeStampModel):
+    task_name = models.ForeignKey(FiberTask, on_delete=models.DO_NOTHING)
+    subtask_name = models.CharField(blank=True, null=True, max_length=150, unique=True)
+    kpi = models.IntegerField(blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    is_approved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.subtask_name)
+
+######################################## END #######################################################################################################################################
+"""END"""
