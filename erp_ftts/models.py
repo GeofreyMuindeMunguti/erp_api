@@ -493,6 +493,44 @@ class FttsCivilTeam(TimeStampModel):
 
     def access_approvals(self):
         return [v.site_name for v in self.access_approvals_field.all()]
+
+
+    def raise_flag(self):
+        try:
+            kpi_data =FiberTask.objects.get(task_name='Civil Team')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
+    def team_task_id(self):
+        try:
+            team = CivilWorksTeam.objects.get(project_name=self.project_name)
+            team_id = team.id
+            return team_id
+        except Exception as e:
+            return
+
 ######################################################## END ################################################################################################################################################################################################
 
 ######################################################## FIBER INSTALLATION TEAM ########################################################################################################################################################################################

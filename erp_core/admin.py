@@ -59,3 +59,40 @@ class SubTaskAdmin(admin.ModelAdmin):
 admin.site.register(SubTask, SubTaskAdmin)
 
 ######################################## END #######################################################################################################################################
+"""FIBER"""
+####################################### KPI ###############################################################################################################################
+class FiberKpiAdmin(admin.ModelAdmin):
+    list_display = ('id', 'kpi', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('kpi', )
+    search_fields = ('kpi', )
+    list_editable = ('is_active', 'is_approved')
+
+
+admin.site.register(FiberKpi, FiberKpiAdmin)
+
+######################################## END #######################################################################################################################################
+
+####################################### TASKS ################################################################################################################################
+class FiberTaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'category_name','task_name', 'kpi', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('task_name', )
+    list_filter = ('category_name',)
+    search_fields = ('task_name', )
+    list_editable = ('is_active', 'is_approved')
+
+
+admin.site.register(FiberTask, FiberTaskAdmin)
+######################################## END #######################################################################################################################################
+
+####################################### SUBTASKS ###############################################################################################################################
+class FiberSubTaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'task_name', 'subtask_name', 'kpi','posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('subtask_name', )
+    list_filter = ('task_name',)
+    search_fields = ('subtask_name', )
+    list_editable = ('is_active', 'is_approved')
+
+
+admin.site.register(FiberSubTask, FiberSubTaskAdmin)
+
+######################################## END #######################################################################################################################################
