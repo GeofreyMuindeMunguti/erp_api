@@ -1,12 +1,42 @@
 from django.contrib import admin
 from .models import *
+from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+
+
+# class CustomUserInline(admin.StackedInline):
+#     model = CustomUser
+#     can_delete = False
 
 
 # Register your models here.
+# @admin.register(User)
+# class CustomUserAdmin(BaseUserAdmin):
+#     fieldsets = (
+#         (None, {'fields': ('email', 'password')}),
+#         (_('Personal info'), {'fields': ('first_name', 'last_name')}),
+#         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
+#                                        'groups', 'user_permissions')}),
+#         (_('Important dates'), {'fields': ('last_login', 'last_logout','date_joined')}),
+#     )
+#     add_fieldsets = (
+#         (None, {
+#             'classes': ('wide',),
+#             'fields': ('email', 'password1', 'password2'),
+#         }),
+#     )
+#     list_display = ('email', 'first_name', 'last_name', 'is_staff')
+#     search_fields = ('email', 'first_name', 'last_name')
+#     ordering = ('email',)
+#     inlines = (CustomUserInline, )
+
+# admin.site.register(CustomUser, CustomUserAdmin)
+
 class CustomUserAdmin(admin.ModelAdmin):
     list_display = ('user', 'customuser_phone_no','customuser_profile_pic', 'team', 'position','get_permissions')
     list_display_links = ('user', )
     search_fields = ('user', )
+    ordering = ('user',)
 
 admin.site.register(CustomUser, CustomUserAdmin)
 

@@ -33,6 +33,20 @@ class CustomUser(models.Model):
         perm_tuple = [(x.id, x.name) for x in Permission.objects.filter(group__user=self.user)]
         return perm_tuple
 
+    def last_seen(self):
+        return cache.get('last_seen_%s % self.user.username')
+
+    def online(self):
+        if self.last_seen():
+            now = datetime.datetime.now()
+            if now > (self.last_seen() + datetime.timedelta(seconds=settings.USER_ONLINE_TIMEOUT)):
+                return False
+            else:
+                return True
+        else:
+            return False
+
+
 class PermissionMap(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, related_name='authpermission')
     position = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='role')

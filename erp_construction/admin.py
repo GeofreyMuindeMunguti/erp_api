@@ -31,6 +31,14 @@ class BtsProjectAdmin(admin.ModelAdmin):
 
 admin.site.register(BtsProject, BtsProjectAdmin)
 
+class BtsBudgetAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'beneficiary_name','description', 'date','phoneNumber','quantity', 'rate','unit','amount','is_approved','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(BtsBudget, BtsBudgetAdmin)
 
 class AccessApprovalCivilAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'access_approval', 'access_approval_comment',

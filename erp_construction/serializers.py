@@ -39,6 +39,13 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+class BtsBudgetSerializer(serializers.ModelSerializer):
+    amount = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = BtsBudget
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class ProcurementTeamSerializer(serializers.ModelSerializer):
     total_material_cost = serializers.IntegerField(read_only=True)

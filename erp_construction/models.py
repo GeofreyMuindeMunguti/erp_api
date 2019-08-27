@@ -5,17 +5,8 @@ from users.models import *
 from erp_core.models import *
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime, timezone, timedelta
+import math
 
-
-# class Category(models.Model):
-#     category_name = models.CharField(max_length=100, unique=True)
-#     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)
-#     is_active = models.BooleanField(default=True)
-#
-#     def __str__(self):
-#         return self.category_name
 
 class ProjectIcons(models.Model):
     icon = models.ImageField(upload_to='images/Project/Icons/%Y/%m/%d/')
@@ -46,6 +37,7 @@ class BtsSite(models.Model):
     site_number = models.CharField(max_length=100, unique=True, blank=True, null=True)
     BTS_type = models.CharField(max_length=100, blank=True, null=True)
     site_owner = models.CharField(max_length=100, blank=True, null=True)
+    icon = models.ForeignKey(ProjectIcons, on_delete=models.DO_NOTHING, blank=True, null=True)
     location = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
     geotech_file = models.FileField(upload_to='files/Project/geotech/%Y/%m/%d/', blank=True, null=True)
     access_letter = models.FileField(upload_to='files/Project/accessletters/%Y/%m/%d/', blank=True, null=True)
@@ -222,7 +214,28 @@ class BtsSite(models.Model):
 
         return project_percentage
 
+####################################### BUDGET ########################################################################################################################################
 
+class BtsBudget(models.Model):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    beneficiary_name = models.CharField(max_length=100, blank=True, null=True)
+    description = models.CharField(max_length=350, blank=True, null=True)
+    date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    phoneNumber = models.CharField(max_length=100, blank=True, null=True)
+    quantity = models.IntegerField(blank=True, null=True)
+    rate = models.IntegerField(blank=True, null=True)
+    unit = models.IntegerField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+    is_approved = models.BooleanField(default=False, blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.beneficiary_name)
+
+    def amount(self):
+        return float(self.quantity * self.rate)
+####################################### END ########################################################################################################################################
 
 #######################################START FOUNDATION IMAGES########################################################################################################################################
 
