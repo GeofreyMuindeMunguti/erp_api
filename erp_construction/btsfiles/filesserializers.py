@@ -617,65 +617,66 @@ class AntennaCoaxInstallSubTaskAFilesSerializer(serializers.ModelSerializer):
            "updated_at", "is_active", "location", "created_by",'geotech_file','access_letter','approved_drawing','final_acceptance_cert')
 
 
-# #END
+# *END
 
-# class ProjectPurchaseOrdersFileSerializer(serializers.ModelSerializer):
+class ProjectPurchaseOrdersFileSerializer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = ProjectPurchaseOrders
-#         fields = ('po_file',)
-
-
-# class ProjectCostingFileSerializer(serializers.ModelSerializer):
-
-#     class Meta:
-#         model = ProjectCosting
-#         fields = ('project_costing_file',)
+    class Meta:
+        model = ProjectPurchaseOrder
+        fields = ('po_file',)
 
 
-# class CommercialTeamFilesSerializer(serializers.ModelSerializer):
+class ProjectCostingFileSerializer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = CommercialTeam
-#         fields = ('approved_quote_file','initial_invoice',)
-
-
-# class ProcurementTeamFilesSerializer(serializers.ModelSerializer):
-
-#     class Meta:
-#         model = ProcurementTeam
-#         fields = ('po_steel', 'po_subcontractors', 'po_electrical_materials')
+    class Meta:
+        model = ProjectCosting
+        fields = ('project_costing_file',)
 
 
-# class HealthDocumentsFilesCivilTeamSerializer(serializers.ModelSerializer):
+class CommercialTeamFilesSerializer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = HealthDocumentsCivilTeam
-#         fields = ('job_hazard_form', 'incident_notification_form', 'toolbox_meeting_form', 'communication_plan_form', 'safety_picture')
-
-
-# class AccessApprovalFileCivilSerializer(serializers.ModelSerializer):
-
-#     class Meta:
-#         model = AccessApprovalCivil
-#         fields = ('access_approval',)
+    class Meta:
+        model = CommercialTeam
+        fields = ('approved_quote_file','initial_invoice',)
 
 
-# class HealthDocumentsFilesInstallationTeamSerializer(serializers.ModelSerializer):
+class ProcurementTeamFilesSerializer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = HealthDocumentsInstallationTeam
-#         fields = ('job_hazard_form', 'incident_notification_form', 'toolbox_meeting_form', 'communication_plan_form', 'safety_picture')
-#         read_only_fields = ('created_at', 'updated_at', 'is_active')
+    class Meta:
+        model = ProcurementTeam
+        fields = ('po_steel', 'po_subcontractors', 'po_electrical_materials')
 
 
-# class AccessApprovalFileInstallationSerializer(serializers.ModelSerializer):
+class HealthDocumentsFilesCivilTeamSerializer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = AccessApprovalInstallation
-#         fields = ('access_approval',)
-#         read_only_fields = ('created_at', 'updated_at', 'is_active')
+    class Meta:
+        model = HealthDocumentsCivilTeam
+        fields = ('job_hazard_form', 'incident_notification_form', 'toolbox_meeting_form', 'communication_plan_form', 'safety_picture')
 
+
+class AccessApprovalFileCivilSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = AccessApprovalCivil
+        fields = ('access_approval',)
+
+
+class HealthDocumentsFilesInstallationTeamSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = HealthDocumentsInstallationTeam
+        fields = ('job_hazard_form', 'incident_notification_form', 'toolbox_meeting_form', 'communication_plan_form', 'safety_picture')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class AccessApprovalFileInstallationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = AccessApprovalInstallation
+        fields = ('access_approval',)
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+#*END
 
 # class UndergroundTasksFilesSerializer(serializers.ModelSerializer):
 
@@ -733,11 +734,11 @@ class AntennaCoaxInstallSubTaskAFilesSerializer(serializers.ModelSerializer):
 #         fields = ('as_built', 'signoff', 'rfi_document', 'snag_document', 'conditional_acceptance_cert',)
 
 
-# class IssuesImageSerializer(serializers.ModelSerializer):
+class IssuesImageSerializer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = Issues
-#         fields = ('issue_image', 'issue_sorted_image',)
+    class Meta:
+        model = Issue
+        fields = ('issue_image', 'issue_sorted_image',)
 
 
 ################### Main Project Serializer################################
@@ -775,15 +776,15 @@ class BtsSiteFilesSerializer(serializers.ModelSerializer):
     antennacoaxinstallsubtask = AntennaCoaxInstallSubTaskFilesSerializer(read_only =True)
 
     #          # pos ,commercial team ,procurement 
-    # projectpurchaseorders = ProjectPurchaseOrdersFileSerializer(read_only=True)
-    # projectcosting = ProjectCostingFileSerializer(read_only=True)
-    # commercialteam = CommercialTeamFilesSerializer(read_only=True)
-    # procurementteam = ProcurementTeamFilesSerializer(read_only=True)
+    projectpurchaseorders = ProjectPurchaseOrdersFileSerializer(read_only=True)
+    projectcosting = ProjectCostingFileSerializer(read_only=True)
+    commercialteam = CommercialTeamFilesSerializer(read_only=True)
+    procurementteam = ProcurementTeamFilesSerializer(read_only=True)
     #          # health docs & access approvals
-    # healthdocumentscivilteam = HealthDocumentsFilesCivilTeamSerializer(many = True,read_only =True)
-    # accessapprovalcivil = AccessApprovalFileCivilSerializer(many = True,read_only=True)
-    # healthdocumentsInstallationteam = HealthDocumentsFilesInstallationTeamSerializer(many = True,read_only =True)
-    # accessapprovalinstallation = AccessApprovalFileInstallationSerializer(many = True,read_only=True)
+    healthdocumentscivilteam = HealthDocumentsFilesCivilTeamSerializer(many = True,read_only =True)
+    accessapprovalcivil = AccessApprovalFileCivilSerializer(many = True,read_only=True)
+    healthdocumentsInstallationteam = HealthDocumentsFilesInstallationTeamSerializer(many = True,read_only =True)
+    accessapprovalinstallation = AccessApprovalFileInstallationSerializer(many = True,read_only=True)
     #          # Installation
     # undergroundtasks = UndergroundTasksFilesSerializer(read_only=True)
     # reticulationapsinstallation = ReticulationAPSinstallationFilesSerializer(read_only=True)
@@ -794,7 +795,7 @@ class BtsSiteFilesSerializer(serializers.ModelSerializer):
     # btsinstallationtask = BTSinstallationTaskImagesSerializer(read_only=True)
     # mwinstallationtask = MWInstallationTaskImagesSerializer(read_only=True)
     # installationteam = InstallationTeamFilesSerializer(read_only =True)
-    # issuess = IssuesImageSerializer(many = True,read_only=True)
+    issues = IssuesImageSerializer(many = True,read_only=True)
 
 
     class Meta:
