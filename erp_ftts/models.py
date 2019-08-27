@@ -8,7 +8,7 @@ from django.contrib.postgres.fields import ArrayField
 from datetime import datetime, timezone, timedelta
 from django.contrib.auth.models import User
 from erp_core.fileshandler.filemixin import UploadToProjectDir
-
+file_path = 'FTTSProjects'
 
 # Create your models here.
 class FTTSProject(CreateProject,TimeTrackModel):

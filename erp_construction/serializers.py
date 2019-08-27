@@ -581,6 +581,7 @@ class AntennaCoaxInstallImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
   # SubTask (4)://////////TowerAntennaCoax Subtask //////////////////
+
 class TowerAntennaCoaxTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     team_task_id = serializers.IntegerField(read_only=True)
@@ -637,6 +638,34 @@ class MWInstallationTaskSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+class MWInstallationTaskDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = MWInstallationTaskDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class MWInstallationTaskImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = MWInstallationTaskImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class BTSinstallationTaskDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BTSinstallationTaskDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class BTSinstallationTaskImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BTSinstallationTaskImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
 
 class TelecomTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
@@ -657,8 +686,22 @@ class UndergroundTaskSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+class UndergroundTaskDateSerializer(serializers.ModelSerializer):
 
-class ReticulationAPSinstallationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UndergroundTaskDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class UndergroundTaskImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = UndergroundTaskImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class ReticulationAPSSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
 
@@ -667,6 +710,19 @@ class ReticulationAPSinstallationSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+class ReticulationAPSDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ReticulationAPSinstallationDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class ReticulationAPSImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ReticulationAPSinstallationImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class ElectricalEarthingSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
@@ -677,6 +733,19 @@ class ElectricalEarthingSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+class ElectricalEarthingDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ElectricalEarthingDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class ElectricalEarthingImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ElectricalEarthingImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class GeneratorInstallationSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
