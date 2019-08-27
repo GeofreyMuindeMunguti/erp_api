@@ -357,6 +357,52 @@ class GateInstallationSubTaskAFilesSerializer(serializers.ModelSerializer):
            "updated_at", "is_active", "location", "created_by",'geotech_file','access_letter','approved_drawing','final_acceptance_cert')
 
 
+class BlockworkPanelConstSubTaskFilesSerializer(serializers.ModelSerializer):
+    blockworkpanelconstdates = BlockworkPanelConstDateFilesSerializer(many = True,read_only =True)
+
+    class Meta:
+        model = BlockworkPanelConstSubtask
+        fields = ('blockwallpanelconst_image_1', 'blockwallpanelconst_image_2', 'blockwallpanelconst_image_3', 'blockwallpanelconst_comment','blockworkpanelconstdates',)
+
+class BlockworkPanelConstSubTaskAFilesSerializer(serializers.ModelSerializer):
+    blockworkpanelconstsubtask = BlockworkPanelConstSubTaskFilesSerializer(read_only =True)
+
+    class Meta:
+        model = BtsSite
+        exclude = ("id","project_name","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
+           "updated_at", "is_active", "location", "created_by",'geotech_file','access_letter','approved_drawing','final_acceptance_cert')
+
+
+# class GateInstallation  Files Serializers///////////////
+class GateInstallationImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = GateInstallationImage
+        fields = ('gateinstallation_image','gateinstallation_comment',)
+
+class GateInstallationDateFilesSerializer(serializers.ModelSerializer):
+    gateinstallationimages = GateInstallationImagesSerializer(read_only=True)
+
+    class Meta:
+        model = GateInstallationDate
+        fields = ('work_day','casuals_list','gateinstallationimages',)
+
+class GateInstallationSubTaskFilesSerializer(serializers.ModelSerializer):
+    gateinstallationdates = GateInstallationDateFilesSerializer(many = True,read_only =True)
+
+    class Meta:
+        model = GateInstallationSubtask
+        fields = ('gateinstallation_image_1', 'gateinstallation_image_2', 'gateinstallation_image_3','gateinstallation_comment','gateinstallationdates',)
+
+class GateInstallationSubTaskAFilesSerializer(serializers.ModelSerializer):
+    gateinstallationsubtask = GateInstallationSubTaskFilesSerializer(read_only =True)
+
+    class Meta:
+        model = BtsSite
+        exclude = ("id","project_name","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
+           "updated_at", "is_active", "location", "created_by",'geotech_file','access_letter','approved_drawing','final_acceptance_cert')
+
+
 # RazorElectric  Files Serializers///////////////
 
 class RazorElectricFenceImagesSerializer(serializers.ModelSerializer):
@@ -388,6 +434,35 @@ class RazorElectricFenceSubTaskAFilesSerializer(serializers.ModelSerializer):
         exclude = ("id","project_name","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
            "updated_at", "is_active", "location", "created_by",'geotech_file','access_letter','approved_drawing','final_acceptance_cert')
 
+# class GateInstallation  Files Serializers///////////////
+class GateInstallationImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = GateInstallationImage
+        fields = ('gateinstallation_image','gateinstallation_comment',)
+
+class GateInstallationDateFilesSerializer(serializers.ModelSerializer):
+    gateinstallationimages = GateInstallationImagesSerializer(read_only=True)
+
+    class Meta:
+        model = GateInstallationDate
+        fields = ('work_day','casuals_list','gateinstallationimages',)
+
+class GateInstallationSubTaskFilesSerializer(serializers.ModelSerializer):
+    gateinstallationdates = GateInstallationDateFilesSerializer(many = True,read_only =True)
+
+    class Meta:
+        model = GateInstallationSubtask
+        fields = ('gateinstallation_image_1', 'gateinstallation_image_2', 'gateinstallation_image_3','gateinstallation_comment','gateinstallationdates',)
+
+class GateInstallationSubTaskAFilesSerializer(serializers.ModelSerializer):
+    gateinstallationsubtask = GateInstallationSubTaskFilesSerializer(read_only =True)
+
+    class Meta:
+        model = BtsSite
+        exclude = ("id","project_name","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
+           "updated_at", "is_active", "location", "created_by",'geotech_file','access_letter','approved_drawing','final_acceptance_cert')
+
 
 # #TOWER & ANTENNA_COAXs
 # class TowerErection Files Serializers///////////////
@@ -397,6 +472,35 @@ class TowerErectionImagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = TowerErectionImage
         fields = ('tower_erection_image','tower_erection_comment',)
+
+# class GateInstallation  Files Serializers///////////////
+class GateInstallationImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = GateInstallationImage
+        fields = ('gateinstallation_image','gateinstallation_comment',)
+
+class GateInstallationDateFilesSerializer(serializers.ModelSerializer):
+    gateinstallationimages = GateInstallationImagesSerializer(read_only=True)
+
+    class Meta:
+        model = GateInstallationDate
+        fields = ('work_day','casuals_list','gateinstallationimages',)
+
+class GateInstallationSubTaskFilesSerializer(serializers.ModelSerializer):
+    gateinstallationdates = GateInstallationDateFilesSerializer(many = True,read_only =True)
+
+    class Meta:
+        model = GateInstallationSubtask
+        fields = ('gateinstallation_image_1', 'gateinstallation_image_2', 'gateinstallation_image_3','gateinstallation_comment','gateinstallationdates',)
+
+class GateInstallationSubTaskAFilesSerializer(serializers.ModelSerializer):
+    gateinstallationsubtask = GateInstallationSubTaskFilesSerializer(read_only =True)
+
+    class Meta:
+        model = BtsSite
+        exclude = ("id","project_name","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
+           "updated_at", "is_active", "location", "created_by",'geotech_file','access_letter','approved_drawing','final_acceptance_cert')
 
 
 class TowerErectionDateFilesSerializer(serializers.ModelSerializer):

@@ -62,7 +62,7 @@ class ManHole(TimeStampModel):
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return str(self.manhole_No)
+        return str(self.manhole_no)
 
 class Pole(TimeStampModel):
     pole_no = models.CharField(max_length=100, blank=True, null=True)
