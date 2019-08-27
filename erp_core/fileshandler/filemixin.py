@@ -81,6 +81,7 @@ class UploadToProjectDirDate(object):
         try:
 
             project_path = str(instance.sub_task).split(':')[2].strip()
+            
     
             return self.path.format(project_path, self.sub_path,instance.work_day, filename)
 

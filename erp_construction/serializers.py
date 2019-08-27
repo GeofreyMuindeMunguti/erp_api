@@ -139,6 +139,7 @@ class FoundationCreationTaskSerializer(serializers.ModelSerializer):
 
     # SubTask (1)://///////////Site-Clearing Subtask //////////////////
 class SiteClearingImageSerializer(serializers.ModelSerializer):
+    bts_site_id = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = SiteClearingImage
@@ -146,7 +147,7 @@ class SiteClearingImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class SiteClearingDateSerializer(serializers.ModelSerializer):
-
+    image_list = serializers.ListField(read_only=True)
     class Meta:
         model = SiteClearingDate
         fields = ('__all__')
@@ -155,7 +156,7 @@ class SiteClearingDateSerializer(serializers.ModelSerializer):
 class SiteClearingSubTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
-
+    days_list = serializers.ListField(read_only=True)
     class Meta:
         model = SiteClearingSubtask
         fields = ('__all__')
@@ -164,6 +165,7 @@ class SiteClearingSubTaskSerializer(serializers.ModelSerializer):
     # SubTask (2):Tower-Base Subtask ////////////////////
 
 class TowerBaseImageSerializer(serializers.ModelSerializer):
+    bts_site_id = serializers.IntegerField(read_only=True)
     class Meta:
         model = TowerBaseImage
         fields = ('__all__')
@@ -203,7 +205,7 @@ class BlindingDateSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class BlindingImageSerializer(serializers.ModelSerializer):
-
+    bts_site_id = serializers.IntegerField(read_only=True)
     class Meta:
         model = BlindingImage
         fields = ('__all__')
@@ -231,7 +233,7 @@ class SteelFixFormworkDateSerializer(serializers.ModelSerializer):
 
 
 class SteelFixFormworkImageSerializer(serializers.ModelSerializer):
-
+    bts_site_id = serializers.IntegerField(read_only=True)
     class Meta:
         model = SteelFixFormworkImage
         fields = ('__all__')
@@ -611,6 +613,21 @@ class BTSinstallationTaskSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
+class BTSinstallationTaskDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BTSinstallationTaskDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class BTSinstallationTaskImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BTSinstallationTaskImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
 class MWInstallationTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
@@ -621,12 +638,12 @@ class MWInstallationTaskSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class TelecomTasksSerializer(serializers.ModelSerializer):
+class TelecomTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     team_task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = TelecomTasks
+        model = TelecomTask
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
@@ -671,6 +688,22 @@ class GeneratorInstallationSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
+class GeneratorInstallationDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = GeneratorInstallationDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class GeneratorInstallationImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = GeneratorInstallationImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+  # SubTask (4)://////////ElectricalTask Subtask //////////////////
+
 class ElectricalTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     team_task_id = serializers.IntegerField(read_only=True)
@@ -705,13 +738,29 @@ class AccessApprovalInstallationSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class KPLCSolarImageSerializer(serializers.ModelSerializer):
+class KPLCSolarSubtaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
+
+    class Meta:
+        model = KPLCSolarSubtask
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class KPLCSolarDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = KPLCSolarDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class KPLCSolarImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = KPLCSolarImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+  # SubTask (4)://////////ElectricalTask Subtask //////////////////
 
 
 class WarrantyCertificateSerializer(serializers.ModelSerializer):

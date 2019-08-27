@@ -122,25 +122,35 @@ router.register(r'antennacoaxinstallation', views.AntennaCoaxInstallDateViewSet)
 router.register(r'antennacoaxinstallation', views.AntennaCoaxInstallImageViewSet)
 
 
-# router.register(r'kpi', views.KpiViewSet)
-# router.register(r'tasks', views.TaskViewSet)
-# router.register(r'subtasks', views.SubTaskViewSet)
+router.register(r'kpi', views.KpiViewSet)
+router.register(r'tasks', views.TaskViewSet)
+router.register(r'subtasks', views.SubTaskViewSet)
 
-# router.register(r'issues', views.IssuesViewSet)
-# router.register(r'installationteams', views.InstallationTeamViewSet)
-# router.register(r'electricaltasks', views.ElectricalTasksViewSet)
-# router.register(r'generatortasks', views.GeneratorInstallationViewSet)
+router.register(r'issues', views.IssueViewSet)
+
+router.register(r'installationteams', views.InstallationTeamViewSet)
+router.register(r'electricaltasks', views.ElectricalTaskViewSet)
+
+         # SubTask (3): ElectricalTask subtask
+router.register(r'generatortasks', views.GeneratorInstallationViewSet)
+router.register(r'generatortasksdates', views.GeneratorInstallationDateViewSet)
+router.register(r'generatortasksimages', views.GeneratorInstallationImageViewSet)
+
 # router.register(r'earthingtasks', views.EarthingViewSet)
 # router.register(r'reticulationtasks', views.ReticulationAPSViewSet)
 # router.register(r'undergroundtasks', views.UndergroundTasksViewSet)
-# router.register(r'telecomtasks', views.TelecomTasksViewSet)
+
+router.register(r'telecomtasks', views.TelecomTaskViewSet)
+
 # router.register(r'mwinstallationtasks', views.MWInstallationTasksViewSet)
 # router.register(r'btsinstallationtasks', views.BTSInstallationTasksViewSet)
-# router.register(r'healthdocumentsinstallationteams', views.HealthDocumentsInstallationTeamViewset)
-# router.register(r'accessapprovalinstallations', views.AccessApprovalInstallationViewSet)
 # router.register(r'kplcsolarsmages', views.KPLCSolarImageViewSet)
-# router.register(r'warrantyCertificates', views.WarrantyCertificateViewSet)
-# router.register(r'testCetificates', views.TestCetificateViewSet)
+
+
+router.register(r'healthdocumentsinstallationteams', views.HealthDocumentsInstallationTeamViewset)
+router.register(r'accessapprovalinstallations', views.AccessApprovalInstallationViewSet)
+router.register(r'warrantyCertificates', views.WarrantyCertificateViewSet)
+router.register(r'testCetificates', views.TestCetificateViewSet)
 
 """ ENDPOINTS FOR FRONTEND"""
 

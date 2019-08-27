@@ -674,39 +674,58 @@ admin.site.register(TowerAntennaCoaxTask, TowerAntennaCoaxTaskAdmin)
 
 # ####################################### END###########################################################################################################################
 
-# class BTSinstallationTaskAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'task_id', 'no_of_casuals', 'names_of_casuals', 'casuals_cost','engineers_cost',  'start_date', 'BTSinstallation_image_1', 'BTSinstallation_image_2', 'BTSinstallation_image_3', 'BTSinstallation_comment',
-#                      'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+class BTSinstallationTaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'no_of_casuals', 'names_of_casuals', 'casuals_cost','engineers_cost',  'start_date', 'BTSinstallation_image_1', 'BTSinstallation_image_2', 'BTSinstallation_image_3', 'BTSinstallation_comment',
+                     'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
 
-# admin.site.register(BTSinstallationTask, BTSinstallationTaskAdmin)
-
-
-# class MWInstallationTaskAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'task_id', 'no_of_casuals', 'names_of_casuals', 'casuals_cost','engineers_cost',  'start_date','MWinstallation_image_1', 'MWinstallation_image_2', 'MWinstallation_image_3', 'MWinstallation_comment',
-#                      'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+admin.site.register(BTSinstallationTask, BTSinstallationTaskAdmin)
 
 
-# admin.site.register(MWInstallationTask, MWInstallationTaskAdmin)
+class MWInstallationTaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'no_of_casuals', 'names_of_casuals', 'casuals_cost','engineers_cost',  'start_date','mWinstallation_image_1', 'mWinstallation_image_2', 'mWinstallation_image_3', 'mWinstallation_comment',
+                     'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(MWInstallationTask, MWInstallationTaskAdmin)
+
+class MWInstallationTaskDateAdmin(admin.ModelAdmin):
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    list_filter = ('sub_task','work_day')
+    search_fields = ('sub_task', )
+    list_editable = ('is_active',)
+
+admin.site.register(MWInstallationTaskDate,MWInstallationTaskDateAdmin)
+
+class MWInstallationTaskImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'day_image', 'mWinstallation_image', 'mWinstallation_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    list_filter = ('day_image',)
+    search_fields = ('day_image', )
+    list_editable = ('is_active',)
+
+admin.site.register(MWInstallationTaskImage,MWInstallationTaskImageAdmin)
 
 
-# class TelecomTasksAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'team_task_id', 'engineers', 'names_of_engineers', 'Installation_of_BTS', 'Installation_of_MW_links', 'link_commissioning', 'is_approved',
-#                      'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active', 'is_approved')
 
 
-# admin.site.register(TelecomTasks, TelecomTasksAdmin)
+class TelecomTaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'team_task_id', 'engineers', 'names_of_engineers', 'Installation_of_BTS', 'Installation_of_MW_links', 'link_commissioning', 'is_approved',
+                     'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active', 'is_approved')
+
+
+admin.site.register(TelecomTask, TelecomTaskAdmin)
 
 
 class UndergroundTaskAdmin(admin.ModelAdmin):
