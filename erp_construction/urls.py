@@ -136,14 +136,35 @@ router.register(r'generatortasks', views.GeneratorInstallationViewSet)
 router.register(r'generatortasksdates', views.GeneratorInstallationDateViewSet)
 router.register(r'generatortasksimages', views.GeneratorInstallationImageViewSet)
 
-# router.register(r'earthingtasks', views.EarthingViewSet)
-# router.register(r'reticulationtasks', views.ReticulationAPSViewSet)
-# router.register(r'undergroundtasks', views.UndergroundTasksViewSet)
+         # SubTask (3): EarthingTask subtask
+router.register(r'earthingtasks', views.EarthingSubtaskViewSet)
+router.register(r'earthingtaskdates', views.EarthingDatesViewSet)
+router.register(r'earthingtaskimages', views.EarthingImagesViewSet)
+
+         # SubTask (3): ReticulationAPS subtask
+router.register(r'reticulationtasks', views.ReticulationAPSViewSet)
+router.register(r'reticulationtaskdates', views.ReticulationAPSDatesViewSet)
+router.register(r'reticulationtaskimages', views.ReticulationAPSImagesViewSet)
+
+         # SubTask (3): EarthingTask subtask
+router.register(r'undergroundtasks', views.UndergroundTasksViewSet)
+router.register(r'undergroundtaskdates', views.UndergroundTaskDatesViewSet)
+router.register(r'undergroundtaskimages', views.UndergroundTaskImagesViewSet)
 
 router.register(r'telecomtasks', views.TelecomTaskViewSet)
 
-# router.register(r'mwinstallationtasks', views.MWInstallationTasksViewSet)
-# router.register(r'btsinstallationtasks', views.BTSInstallationTasksViewSet)
+         # SubTask (3): MWInstallationTask subtask
+
+router.register(r'mwinstallationtasks', views.MWInstallationTasksViewSet)
+router.register(r'mwinstallationtaskdates', views.MWInstallationTaskDatesViewSet)
+router.register(r'mwinstallationtaskimages', views.MWInstallationTaskImagesViewSet)
+
+         # SubTask (3): BTSInstallationTask subtask
+
+router.register(r'btsinstallationtasks', views.BTSInstallationTasksViewSet)
+router.register(r'btsinstallationtaskdates', views.BTSInstallationTaskDatesViewSet)
+router.register(r'btsinstallationtaskimages', views.BTSInstallationTaskImagesViewSet)
+
 # router.register(r'kplcsolarsmages', views.KPLCSolarImageViewSet)
 
 

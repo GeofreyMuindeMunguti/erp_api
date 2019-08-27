@@ -2583,9 +2583,9 @@ class ProcurementTeam(TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     po_steel = models.FileField(upload_to='files/ProcurementTeam/posteel/%Y/%m/%d/', blank=True, null=True)
     # po_steel_quantity = models.IntegerField(blank=True, null=True)
-    po_electrical_materials = models.FileField(upload_to='files/ProcurementTeam/poelectrical/%Y/%m/%d/', blank=True, null=True)
+    po_electrical_materials = models.FileField(upload_to=UploadToProjectDir('files/ProcurementTeam/poelectrical/'), blank=True, null=True)
     # po_electrical_materials_quantity = models.IntegerField(blank=True, null=True)
-    po_subcontractors = models.FileField(upload_to='files/ProcurementTeam/posubcontractor/%Y/%m/%d/', blank=True, null=True)
+    po_subcontractors = models.FileField(upload_to=UploadToProjectDir('files/ProcurementTeam/posubcontractor/'), blank=True, null=True)
     po_subcontractors_amount = models.IntegerField(blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
@@ -2599,7 +2599,7 @@ class ProcurementTeam(TimeStampModel):
 
 class AccessApprovalCivil(TimeStampModel):
     project_name = models.ForeignKey(BtsSite,related_name= 'accessapprovalcivil', on_delete=models.DO_NOTHING)
-    access_approval = models.FileField(upload_to='files/CivilWorksTeam/accessapproval/%Y/%m/%d/')
+    access_approval = models.FileField(upload_to=UploadToProjectDir('files/CivilWorksTeam/accessapproval/'))
     access_approval_comment = models.CharField(max_length=100, blank=True, null=True)
 
 
@@ -2609,17 +2609,17 @@ class AccessApprovalCivil(TimeStampModel):
 
 class HealthDocumentsCivilTeam(TimeStampModel):
     project_name = models.ForeignKey(BtsSite,related_name= 'healthdocumentscivilteam' ,on_delete=models.DO_NOTHING)
-    job_hazard_form = models.FileField(upload_to='files/HealthDocumentsCivilTeam/jobhazard/%Y/%m/%d/')
+    job_hazard_form = models.FileField(upload_to=UploadToProjectDir('files/HealthDocumentsCivilTeam/jobhazard/'))
     job_hazard_form_comment = models.CharField(max_length=100, blank=True, null=True)
-    incident_notification_form = models.FileField(upload_to='files/HealthDocumentsCivilTeam/incident/%Y/%m/%d/')
+    incident_notification_form = models.FileField(upload_to=UploadToProjectDir('files/HealthDocumentsCivilTeam/incident/'))
     incident_notification_form_comment = models.CharField(max_length=100, blank=True, null=True)
-    toolbox_meeting_form = models.FileField(upload_to='files/HealthDocumentsCivilTeam/toolbox/%Y/%m/%d/')
+    toolbox_meeting_form = models.FileField(upload_to=UploadToProjectDir('files/HealthDocumentsCivilTeam/toolbox/'))
     toolbox_meeting_form_comment = models.CharField(max_length=100, blank=True, null=True)
-    communication_plan_form = models.FileField(upload_to='files/HealthDocumentsCivilTeam/communication/%Y/%m/%d/')
+    communication_plan_form = models.FileField(upload_to=UploadToProjectDir('files/HealthDocumentsCivilTeam/communication/'))
     communication_plan_form_comment = models.CharField(max_length=100, blank=True, null=True)
     health_documents_comment = models.CharField(max_length=100, blank=True, null=True)
-    access_approval = models.OneToOneField(AccessApprovalCivil, on_delete=models.CASCADE, blank=True, null=True)
-    safety_picture = models.ImageField(upload_to='images/HealthDocumentsCivilTeam/%Y/%m/%d/', blank=True, null=True)
+    access_approval = models.OneToOneField(AccessApprovalCivil, on_delete=models.DO_NOTHING, blank=True, null=True)
+    safety_picture = models.ImageField(upload_to=UploadToProjectDir('images/HealthDocumentsCivilTeam/'), blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
 
@@ -2658,7 +2658,7 @@ class CivilWorksTeam(TimeStampModel):
 
 class AccessApprovalInstallation(TimeStampModel):
     project_name = models.ForeignKey(BtsSite, on_delete=models.DO_NOTHING)
-    access_approval = models.FileField(upload_to='files/InstallationTeam/accessapproval/%Y/%m/%d/')
+    access_approval = models.FileField(upload_to=UploadToProjectDir('files/InstallationTeam/accessapproval/'))
     access_approval_comment = models.CharField(max_length=100, blank=True, null=True)
   
     def __str__(self):
@@ -2667,17 +2667,17 @@ class AccessApprovalInstallation(TimeStampModel):
 
 class HealthDocumentsInstallationTeam(TimeStampModel):
     project_name = models.ForeignKey(BtsSite, on_delete=models.DO_NOTHING)
-    job_hazard_form = models.FileField(upload_to='files/HealthDocumentsInstallationTeam/jobhazard/%Y/%m/%d/')
+    job_hazard_form = models.FileField(upload_to=UploadToProjectDir('files/HealthDocumentsInstallationTeam/jobhazard/'))
     job_hazard_form_comment = models.CharField(max_length=100, blank=True, null=True)
-    incident_notification_form = models.FileField(upload_to='files/HealthDocumentsInstallationTeam/incident/%Y/%m/%d/')
+    incident_notification_form = models.FileField(upload_to=UploadToProjectDir('files/HealthDocumentsInstallationTeam/incident/'))
     incident_notification_form_comment = models.CharField(max_length=100, blank=True, null=True)
-    toolbox_meeting_form = models.FileField(upload_to='files/HealthDocumentsInstallationTeam/toolbox/%Y/%m/%d/')
+    toolbox_meeting_form = models.FileField(upload_to=UploadToProjectDir('files/HealthDocumentsInstallationTeam/toolbox/'))
     toolbox_meeting_form_comment = models.CharField(max_length=100, blank=True, null=True)
-    communication_plan_form = models.FileField(upload_to='files/HealthDocumentsInstallationTeam/communication/%Y/%m/%d/')
+    communication_plan_form = models.FileField(upload_to=UploadToProjectDir('files/HealthDocumentsInstallationTeam/communication/'))
     communication_plan_form_comment = models.CharField(max_length=100, blank=True, null=True)
     health_documents_comment = models.CharField(max_length=100, blank=True, null=True)
     access_approval = models.OneToOneField(AccessApprovalInstallation, on_delete=models.CASCADE, blank=True, null=True)
-    safety_picture = models.ImageField(upload_to='images/HealthDocumentsInstallationTeam/%Y/%m/%d/', blank=True, null=True)
+    safety_picture = models.ImageField(upload_to=UploadToProjectDir('images/HealthDocumentsInstallationTeam/'), blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
 
@@ -3293,11 +3293,12 @@ class KPLCSolarSubtask(TimeStampModel ,TimeTrackModel):
 class ElectricalTask(TimeStampModel ,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     engineers_atsite = models.ManyToManyField(Engineer, blank=True )
-    underground_ducting_and_manholes = models.OneToOneField(UndergroundTask, on_delete=models.CASCADE, blank=True, null=True)
-    electricalreticulation_APSInstallation = models.OneToOneField(ReticulationAPSinstallation, on_delete=models.CASCADE, blank=True, null=True)
-    earthing_connections_and_testing = models.OneToOneField(ElectricalEarthing, on_delete=models.CASCADE, blank=True, null=True)
-    generator_and_Fuel_Tank_Installation = models.OneToOneField(GeneratorInstallation, on_delete=models.CASCADE, blank=True, null=True)
-    kPLC_solar_installation = models.OneToOneField(KPLCSolarImage, on_delete=models.CASCADE, blank=True, null=True)
+
+    underground_ducting_and_manholes = models.OneToOneField(UndergroundTask, on_delete=models.DO_NOTHING, blank=True, null=True)
+    electricalreticulation_APSInstallation = models.OneToOneField(ReticulationAPSinstallation, on_delete=models.DO_NOTHING, blank=True, null=True)
+    earthing_connections_and_testing = models.OneToOneField(ElectricalEarthing, on_delete=models.DO_NOTHING, blank=True, null=True)
+    generator_and_Fuel_Tank_Installation = models.OneToOneField(GeneratorInstallation, on_delete=models.DO_NOTHING, blank=True, null=True)
+    kPLC_solar_installation = models.OneToOneField(KPLCSolarImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
 
     def __str__(self):
@@ -3375,10 +3376,10 @@ class BTSinstallationTaskDate(TimeStampModel):
 class BTSinstallationTask(TimeStampModel ,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-    start_date = models.DateTimeField()
-    BTSinstallation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Telecom/BTSinstallation/%Y/%m/%d/', blank=True, null=True)
-    BTSinstallation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Telecom/BTSinstallation/%Y/%m/%d/', blank=True, null=True)
-    BTSinstallation_image_3 = models.ImageField(upload_to='images/InstallationTeam/Telecom/BTSinstallation/%Y/%m/%d/', blank=True, null=True)
+    
+    BTSinstallation_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/InstallationTeam/Telecom/BTSinstallation/'), blank=True, null=True)
+    BTSinstallation_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/InstallationTeam/Telecom/BTSinstallation/'), blank=True, null=True)
+    BTSinstallation_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask('images/InstallationTeam/Telecom/BTSinstallation/'), blank=True, null=True)
     BTSinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
   
 
@@ -3590,9 +3591,9 @@ class MWInstallationTask(TimeStampModel,TimeTrackModel):
 class TelecomTask(TimeStampModel ,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     engineers_atsite = models.ManyToManyField(Engineer, blank=True )
-    Installation_of_BTS = models.OneToOneField(BTSinstallationTask, on_delete=models.CASCADE, blank=True, null=True)
-    Installation_of_MW_links = models.OneToOneField(MWInstallationTask, on_delete=models.CASCADE, blank=True, null=True)
-    link_commissioning = models.BooleanField(default=False);
+    Installation_of_BTS = models.OneToOneField(BTSinstallationTask, on_delete=models.DO_NOTHING, blank=True, null=True)
+    Installation_of_MW_links = models.OneToOneField(MWInstallationTask, on_delete=models.DO_NOTHING, blank=True, null=True)
+    link_commissioning = models.BooleanField(default=False)
     is_approved = models.BooleanField(default=False)
 
 
@@ -3644,10 +3645,10 @@ class TelecomTask(TimeStampModel ,TimeTrackModel):
 
 
 class Issue(TimeStampModel):
-    project_name = models.ForeignKey(BtsSite, on_delete=models.CASCADE,related_name='issues')
+    project_name = models.ForeignKey(BtsSite, on_delete=models.DO_NOTHING,related_name='issues')
     issue = models.CharField(max_length=100)
-    issue_image = models.ImageField(upload_to='images/InstallationTeam/issue/%Y/%m/%d/', blank=True, null=True)
-    issue_sorted_image = models.ImageField(upload_to='images/InstallationTeam/issue/%Y/%m/%d/', blank=True, null=True)
+    issue_image = models.ImageField(upload_to=UploadToProjectDir('images/InstallationTeam/issue/'), blank=True, null=True)
+    issue_sorted_image = models.ImageField(upload_to=UploadToProjectDir('images/InstallationTeam/issue/%Y/%m/%d/'), blank=True, null=True)
     closed = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
@@ -3658,19 +3659,19 @@ class Issue(TimeStampModel):
 class InstallationTeam(TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     health_documents = models.ManyToManyField(HealthDocumentsInstallationTeam ,blank=True)
-    electrical_tasks_data = models.OneToOneField(ElectricalTask, on_delete=models.CASCADE, blank=True, null=True)
-    telecom_tasks_data = models.OneToOneField(TelecomTask, on_delete=models.CASCADE, blank=True, null=True)
-    as_built = models.FileField(upload_to='files/SafaricomTeam/as_built/%Y/%m/%d/', blank=True, null=True)
-    signoff = models.FileField(upload_to='files/SafaricomTeam/signoff/%Y/%m/%d/', blank=True, null=True)
+    electrical_tasks_data = models.OneToOneField(ElectricalTask, on_delete=models.DO_NOTHING, blank=True, null=True)
+    telecom_tasks_data = models.OneToOneField(TelecomTask, on_delete=models.DO_NOTHING, blank=True, null=True)
+    as_built = models.FileField(upload_to=UploadToProjectDir('files/SafaricomTeam/as_built/'), blank=True, null=True)
+    signoff = models.FileField(upload_to=UploadToProjectDir('files/SafaricomTeam/signoff/'), blank=True, null=True)
     signoff_comment = models.CharField(max_length=100, blank=True, null=True)
-    rfi_document = models.FileField(upload_to='files/SafaricomTeam/rf/%Y/%m/%d/', blank=True, null=True)
+    rfi_document = models.FileField(upload_to=UploadToProjectDir('files/SafaricomTeam/rf/'), blank=True, null=True)
     rfi_document_comment = models.CharField(max_length=100, blank=True, null=True)
     integration_parameter = models.BooleanField(default=False)
     integration_parameter_comment = models.CharField(max_length=100, blank=True, null=True)
-    snag_document = models.FileField(upload_to='files/SafaricomTeam/snag/%Y/%m/%d/', blank=True, null=True)
+    snag_document = models.FileField(upload_to=UploadToProjectDir('files/SafaricomTeam/snag/'), blank=True, null=True)
     snag_document_comment = models.CharField(max_length=100, blank=True, null=True)
     issue = models.ManyToManyField(Issue, blank=True)
-    conditional_acceptance_cert = models.FileField(upload_to='files/SafaricomTeam/conditionalcert/%Y/%m/%d/', blank=True, null=True)
+    conditional_acceptance_cert = models.FileField(upload_to=UploadToProjectDir('files/SafaricomTeam/conditionalcert/'), blank=True, null=True)
     conditional_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
@@ -3697,9 +3698,9 @@ def date_difference(start_date, end_date):
 
 class WarrantyCertificate(TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    civilworks_installation_certificate = models.FileField(upload_to='files/WarrantyCertificates/civilworks/%Y/%m/%d/', blank=True, null=True)
-    connectors_torque_certificate = models.FileField(upload_to='files/WarrantyCertificates/connectorsTorque/%Y/%m/%d/', blank=True, null=True)
-    safe_to_climb_certificate = models.FileField(upload_to='files/WarrantyCertificates/SafeToClimb/%Y/%m/%d/', blank=True, null=True)
+    civilworks_installation_certificate = models.FileField(upload_to=UploadToProjectDir('files/WarrantyCertificates/civilworks/'), blank=True, null=True)
+    connectors_torque_certificate = models.FileField(upload_to=UploadToProjectDir('files/WarrantyCertificates/connectorsTorque/'), blank=True, null=True)
+    safe_to_climb_certificate = models.FileField(upload_to=UploadToProjectDir('files/WarrantyCertificates/SafeToClimb/'), blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
 
@@ -3710,9 +3711,9 @@ class WarrantyCertificate(TimeStampModel):
 
 class TestCetificate(TimeStampModel):
     project_name =models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    cube_test_7days = models.FileField(upload_to='files/TestCertificates/cubetest7/%Y/%m/%d/', blank=True, null=True)
-    cube_test_28days = models.FileField(upload_to='files/TestCertificates/cubetest28/%Y/%m/%d/', blank=True, null=True)
-    earth_test = models.FileField(upload_to='files/TestCertificates/earthtest/%Y/%m/%d/', blank=True, null=True)
+    cube_test_7days = models.FileField(upload_to=UploadToProjectDir('files/TestCertificates/cubetest7/'), blank=True, null=True)
+    cube_test_28days = models.FileField(upload_to=UploadToProjectDir('files/TestCertificates/cubetest28/%Y/'), blank=True, null=True)
+    earth_test = models.FileField(upload_to=UploadToProjectDir('files/TestCertificates/earthtest/'), blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
 
