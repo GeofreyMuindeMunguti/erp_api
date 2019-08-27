@@ -680,21 +680,21 @@ class TelecomTaskSerializer(serializers.ModelSerializer):
 class UndergroundTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
-
+    days_list = serializers.ListField(read_only=True)
     class Meta:
         model = UndergroundTask
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class UndergroundTaskDateSerializer(serializers.ModelSerializer):
-
+    image_list = serializers.ListField(read_only=True)
     class Meta:
         model = UndergroundTaskDate
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class UndergroundTaskImageSerializer(serializers.ModelSerializer):
-
+    
     class Meta:
         model = UndergroundTaskImage
         fields = ('__all__')

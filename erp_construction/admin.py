@@ -729,7 +729,7 @@ admin.site.register(TelecomTask, TelecomTaskAdmin)
 
 
 class UndergroundTaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'task_id', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost',  'start_date', 'underground_ducting_and_manholes_image_1', 'underground_ducting_and_manholes_image_2', 'underground_ducting_and_manholes_image_3', 'underground_ducting_and_manholes_images_comment',
+    list_display = ('id', 'project_name', 'task_id', 'days_list','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost',  'start_date', 'underground_ducting_and_manholes_image_1', 'underground_ducting_and_manholes_image_2', 'underground_ducting_and_manholes_image_3', 'underground_ducting_and_manholes_images_comment',
                      'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -740,7 +740,7 @@ class UndergroundTaskAdmin(admin.ModelAdmin):
 admin.site.register(UndergroundTask, UndergroundTaskAdmin)
 
 class UndergroundTaskDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','work_day','image_list','casuals_list', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     list_filter = ('sub_task','work_day')
     search_fields = ('sub_task', )
