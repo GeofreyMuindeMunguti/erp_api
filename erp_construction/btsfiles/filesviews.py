@@ -278,6 +278,10 @@ class AntennaCoaxInstallFilesView(generics.RetrieveAPIView,DefaultsMixin):
 #         return queryset
 #     serializer_class = UndergroundTasksFilesSerializer
 
+class UndergroundTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    queryset = BtsSite.objects.all()
+    serializer_class =  UndergroundTaskSubTaskAFilesSerializer
+
 # class ReticulationAPSinstallationFilesView(generics.RetrieveAPIView,DefaultsMixin):
 #     #queryset = ReticulationAPSinstallation.objects.all()
 #     def get_queryset(self):

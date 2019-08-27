@@ -225,7 +225,7 @@ class BtsSite(TimeStampModel):
 
 
 class SiteClearingImage(TimeStampModel):
-    day_image = models.ForeignKey('SiteClearingDate', on_delete=models.CASCADE )
+    day_image = models.ForeignKey('SiteClearingDate', on_delete=models.CASCADE ,related_name= 'siteclearingimages' )
 
     # DailyPhotos
     setting_site_clearing_image = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/siteclearing/') ,max_length=250,blank=True, null=True)
@@ -2715,18 +2715,32 @@ class UndergroundTaskDate(TimeStampModel):
         #return str(self.project_name)
         return '{} :Date: {}'.format(self.sub_task,self.work_day)
 
+    def image_list(self):
+        try:
+            return [UndergroundTaskImage.objects.get(underground_ducting_and_manholes_image = _dimage.underground_ducting_and_manholes_image).id for _dimage in UndergroundTaskImage.objects.filter(day_image_id = self.id).all()]
+
+        except Exception as e:
+            return e
+
 class UndergroundTask(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-    underground_ducting_and_manholes_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/UndergroundTask/%Y/%m/%d/', blank=True, null=True)
-    underground_ducting_and_manholes_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/UndergroundTask/%Y/%m/%d/', blank=True, null=True)
-    underground_ducting_and_manholes_image_3 = models.ImageField(upload_to='images/InstallationTeam/Electrical/UndergroundTask/%Y/%m/%d/', blank=True, null=True)
+    underground_ducting_and_manholes_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/UndergroundTask/'), blank=True, null=True)
+    underground_ducting_and_manholes_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/UndergroundTask/'), blank=True, null=True)
+    underground_ducting_and_manholes_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/UndergroundTask/'), blank=True, null=True)
     underground_ducting_and_manholes_images_comment = models.CharField(max_length=100, blank=True, null=True)
 
 
     def __str__(self):
         #return str(self.project_name)
         return 'UndergroundSubtask :{}'.format(self.project_name)
+
+    def days_list(self):
+        try:
+            return [UndergroundTaskDate.objects.get(work_day= _pday.work_day).id for _pday in UndergroundTaskDate.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -2837,9 +2851,9 @@ class ReticulationAPSinstallationDate(TimeStampModel):
 class ReticulationAPSinstallation(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-    electricalreticulation_APSInstallation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ReticulationAPSinstallation/%Y/%m/%d/', blank=True, null=True)
-    electricalreticulation_APSInstallation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ReticulationAPSinstallation/%Y/%m/%d/', blank=True, null=True)
-    electricalreticulation_APSInstallation_image_3 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ReticulationAPSinstallation/%Y/%m/%d/', blank=True, null=True)
+    electricalreticulation_APSInstallation_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/ReticulationAPSinstallation/'), blank=True, null=True)
+    electricalreticulation_APSInstallation_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/ReticulationAPSinstallation/'), blank=True, null=True)
+    electricalreticulation_APSInstallation_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/ReticulationAPSinstallation/'), blank=True, null=True)
     electricalreticulation_APSInstallation_images_comment = models.CharField(max_length=100, blank=True, null=True)
  
 

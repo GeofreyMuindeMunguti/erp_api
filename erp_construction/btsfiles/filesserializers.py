@@ -18,7 +18,7 @@ class SiteClearingImagesSerializer(serializers.ModelSerializer):
 
 
 class SiteClearingDateFilesSerializer(serializers.ModelSerializer):
-    siteclearingimage = SiteClearingImagesSerializer(read_only=True)
+    siteclearingimages = SiteClearingImagesSerializer(read_only=True)
 
     class Meta:
         model = SiteClearingDate
@@ -678,12 +678,35 @@ class AccessApprovalFileInstallationSerializer(serializers.ModelSerializer):
 
 #*END
 
-# class UndergroundTasksFilesSerializer(serializers.ModelSerializer):
+#  GateInstallation  Files Serializers///////////////
 
-#     class Meta:
-#         model = UndergroundTasks
-#         fields = ('Underground_ducting_and_manholes_image_1','Underground_ducting_and_manholes_image_2','Underground_ducting_and_manholes_image_3',)
+class UndergroundTasksFilesSerializer(serializers.ModelSerializer):
 
+    class Meta:
+        model = UndergroundTaskImage
+        fields = ('underground_ducting_and_manholes_image', 'underground_ducting_and_manholes_comment',)
+
+class UndergroundTaskDateFilesSerializer(serializers.ModelSerializer):
+    undergroundtaskimages = UndergroundTasksFilesSerializer(read_only=True)
+
+    class Meta:
+        model = UndergroundTaskDate
+        fields = ('work_day','casuals_list','undergroundtaskimages',)
+
+class UndergroundTaskSubTaskFilesSerializer(serializers.ModelSerializer):
+    undergroundtaskdates = UndergroundTaskDateFilesSerializer(many = True,read_only =True)
+
+    class Meta:
+        model = UndergroundTask
+        fields = ( 'underground_ducting_and_manholes_image_1', 'underground_ducting_and_manholes_image_2', 'underground_ducting_and_manholes_image_3', 'underground_ducting_and_manholes_images_comment','undergroundtaskdates',)
+
+class UndergroundTaskSubTaskAFilesSerializer(serializers.ModelSerializer):
+    undergroundtask = UndergroundTaskSubTaskFilesSerializer(read_only =True)
+
+    class Meta:
+        model = BtsSite
+        exclude = ("id","project_name","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
+           "updated_at", "is_active", "location", "created_by",'geotech_file','access_letter','approved_drawing','final_acceptance_cert')
 
 # class ReticulationAPSinstallationFilesSerializer(serializers.ModelSerializer):
 
@@ -786,7 +809,7 @@ class BtsSiteFilesSerializer(serializers.ModelSerializer):
     healthdocumentsInstallationteam = HealthDocumentsFilesInstallationTeamSerializer(many = True,read_only =True)
     accessapprovalinstallation = AccessApprovalFileInstallationSerializer(many = True,read_only=True)
     #          # Installation
-    # undergroundtasks = UndergroundTasksFilesSerializer(read_only=True)
+    undergroundtask = UndergroundTaskSubTaskFilesSerializer(read_only =True)
     # reticulationapsinstallation = ReticulationAPSinstallationFilesSerializer(read_only=True)
     # electricalearthing = ElectricalEarthingImagesSerializer(read_only =True)
     # generatorinstallation = GeneratorInstallationImagesSerializer(read_only=True)

@@ -32,38 +32,38 @@ class BtsProjectAdmin(admin.ModelAdmin):
 admin.site.register(BtsProject, BtsProjectAdmin)
 
 
-# class AccessApprovalCivilAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'access_approval', 'access_approval_comment',
-#                     'created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+class AccessApprovalCivilAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'access_approval', 'access_approval_comment',
+                    'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
 
 
-# admin.site.register(AccessApprovalCivil, AccessApprovalCivilAdmin)
+admin.site.register(AccessApprovalCivil, AccessApprovalCivilAdmin)
 
 
-# class AccessApprovalInstallationAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'access_approval', 'access_approval_comment',
-#                     'created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+class AccessApprovalInstallationAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'access_approval', 'access_approval_comment',
+                    'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
 
 
-# admin.site.register(AccessApprovalInstallation, AccessApprovalInstallationAdmin)
+admin.site.register(AccessApprovalInstallation, AccessApprovalInstallationAdmin)
 
 
-# class ProjectCostingAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'project_costing_file', 'material_cost',
-#                     'labour_cost', 'total_projected_cost', 'is_approved',
-#                     'created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active', 'is_approved')
+class ProjectCostingAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'project_costing_file', 'material_cost',
+                    'labour_cost', 'total_projected_cost', 'is_approved',
+                    'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+    list_editable = ('is_active', 'is_approved')
 
 
-# admin.site.register(ProjectCosting, ProjectCostingAdmin)
+admin.site.register(ProjectCosting, ProjectCostingAdmin)
 
 
 class ProjectPurchaseOrderAdmin(admin.ModelAdmin):
@@ -729,7 +729,7 @@ admin.site.register(TelecomTask, TelecomTaskAdmin)
 
 
 class UndergroundTaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'task_id', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost',  'start_date', 'underground_ducting_and_manholes_image_1', 'underground_ducting_and_manholes_image_2', 'underground_ducting_and_manholes_image_3', 'underground_ducting_and_manholes_images_comment',
+    list_display = ('id', 'project_name', 'task_id', 'days_list','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost',  'start_date', 'underground_ducting_and_manholes_image_1', 'underground_ducting_and_manholes_image_2', 'underground_ducting_and_manholes_image_3', 'underground_ducting_and_manholes_images_comment',
                      'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -740,7 +740,7 @@ class UndergroundTaskAdmin(admin.ModelAdmin):
 admin.site.register(UndergroundTask, UndergroundTaskAdmin)
 
 class UndergroundTaskDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','work_day','image_list','casuals_list', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     list_filter = ('sub_task','work_day')
     search_fields = ('sub_task', )
@@ -927,17 +927,17 @@ class IssueAdmin(admin.ModelAdmin):
 admin.site.register(Issue, IssueAdmin)
 
 
-# class InstallationTeamAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'health_documents_installation', 'electrical_tasks_data',
-#                     'telecom_tasks_data', 'as_built', 'signoff', 'signoff_comment','rfi_document','rfi_document_comment', 'integration_parameter', 'integration_parameter_comment', 'snag_document', 'snag_document_comment',
-#                     'project_issues', 'conditional_acceptance_cert', 'conditional_acceptance_cert_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+class InstallationTeamAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'health_documents_installation', 'electrical_tasks_data',
+                    'telecom_tasks_data', 'as_built', 'signoff', 'signoff_comment','rfi_document','rfi_document_comment', 'integration_parameter', 'integration_parameter_comment', 'snag_document', 'snag_document_comment',
+                    'project_issue', 'conditional_acceptance_cert', 'conditional_acceptance_cert_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
 
 
-# admin.site.register(InstallationTeam, InstallationTeamAdmin)
+admin.site.register(InstallationTeam, InstallationTeamAdmin)
 
 
 class WarrantyCertificateAdmin(admin.ModelAdmin):
