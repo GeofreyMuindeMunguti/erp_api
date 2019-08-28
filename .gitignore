@@ -247,3 +247,4 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+migrations
