@@ -3,6 +3,7 @@ from .models import *
 from erp_construction.models import *
 from erp_core.base import *
 from users.models import *
+from erp_core.models import *
 
 
 class FttsSiteInline(admin.TabularInline):
@@ -10,7 +11,7 @@ class FttsSiteInline(admin.TabularInline):
 
 class FTTSProjectAdmin(admin.ModelAdmin):
 
-    list_display = ['id','project_name','ftts_activation','ftts_activation_comment','ftts_final_acceptance_cert','ftts_final_acceptance_cert_comment','ftts_accumulated_BOM_survey','ftts_accumulated_BOM_survey_comment',
+    list_display = ['id','project_name','ftts_activation','ftts_activation_comment','ftts_final_acceptance_cert','ftts_final_acceptance_cert_comment',
                     'ftts_sites_count','sites_list','start_date','end_date','posted_by', 'created_at', 'updated_at', 'is_active']
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
@@ -66,7 +67,8 @@ admin.site.register(fttsSurvey, fttsSurveyAdmin)
 ##########################END OF FTTH SURVEY#####################################
 
 class FttsCommercialTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','ftts_quote', 'ftts_po_requisition','ftts_po_requisition_no','ftts_po_requisition_amount','ftts_wayleave_application', 'ftts_project_plan', 'ftts_initial_invoice','ftts_po_client','ftts_po_client_no','ftts_po_client_amount','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','ftts_quote', 'ftts_po_requisition','ftts_po_requisition_no','ftts_po_requisition_amount','ftts_wayleave_application', 'ftts_project_plan', 'ftts_initial_invoice','ftts_po_client','ftts_po_client_no',
+                    'ftts_po_client_amount','ftts_accumulated_BOM_survey','ftts_accumulated_BOM_survey_comment','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
@@ -84,17 +86,17 @@ admin.site.register(FttsProcurementTeam, FttsProcurementTeamAdmin)
 
 ######################################################## FIBER CIVIL TEAM ########################################################################################################################################################################################
 class SiteTrenchingImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','site_trenching_image_1', 'site_trenching_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('site_name', )
-    search_fields = ('site_name', )
+    list_display = ('id', 'day_image','site_trenching_image_1', 'site_trenching_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    search_fields = ('day_image', )
     list_editable = ('is_active',)
 
 admin.site.register(SiteTrenchingImage, SiteTrenchingImageAdmin)
 
 class DailySiteTrenchingAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','no_of_casuals', 'casuals_list','trenching_date','distance_trenched', 'site_trenching_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('site_name', )
-    search_fields = ('site_name', )
+    list_display = ('id', 'sub_task','no_of_casuals', 'casuals_list','work_day','distance_trenched', 'site_trenching_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    search_fields = ('sub_task', )
     list_editable = ('is_active',)
 
 admin.site.register(DailySiteTrenching, DailySiteTrenchingAdmin)
@@ -108,17 +110,17 @@ class SiteTrenchingAdmin(admin.ModelAdmin):
 admin.site.register(SiteTrenching, SiteTrenchingAdmin)
 """END"""
 class SiteDuctInstallationImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','site_duct_image_1', 'site_duct_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('site_name', )
-    search_fields = ('site_name', )
+    list_display = ('id', 'day_image','site_duct_image_1', 'site_duct_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    search_fields = ('day_image', )
     list_editable = ('is_active',)
 
 admin.site.register(SiteDuctInstallationImage, SiteDuctInstallationImageAdmin)
 
 class DailySiteDuctInstallationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','no_of_casuals', 'casuals_list','duct_date','distance_duct', 'site_duct_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('site_name', )
-    search_fields = ('site_name', )
+    list_display = ('id', 'sub_task','no_of_casuals', 'casuals_list','work_day','distance_duct', 'site_duct_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    search_fields = ('sub_task', )
     list_editable = ('is_active',)
 
 admin.site.register(DailySiteDuctInstallation, DailySiteDuctInstallationAdmin)
@@ -133,17 +135,17 @@ admin.site.register(SiteDuctInstallation, SiteDuctInstallationAdmin)
 """END"""
 
 class ManHoleInstallationImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','manhole_image_1', 'manhole_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('site_name', )
-    search_fields = ('site_name', )
+    list_display = ('id', 'day_image','manhole_image_1', 'manhole_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    search_fields = ('day_image', )
     list_editable = ('is_active',)
 
 admin.site.register(ManHoleInstallationImage, ManHoleInstallationImageAdmin)
 
 class DailyManHoleInstallationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','no_of_casuals', 'casuals_list','manhole_date','distance_manhole', 'manhole_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('site_name', )
-    search_fields = ('site_name', )
+    list_display = ('id', 'sub_task','no_of_casuals', 'casuals_list','work_day','distance_manhole', 'manhole_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    search_fields = ('sub_task', )
     list_editable = ('is_active',)
 
 admin.site.register(DailyManHoleInstallation, DailyManHoleInstallationAdmin)
@@ -158,17 +160,17 @@ admin.site.register(ManHoleInstallation, ManHoleInstallationAdmin)
 """END"""
 
 class SiteCableInstallationImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','cable_image_1', 'cable_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('site_name', )
-    search_fields = ('site_name', )
+    list_display = ('id', 'day_image','cable_image_1', 'cable_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    search_fields = ('day_image', )
     list_editable = ('is_active',)
 
 admin.site.register(SiteCableInstallationImage, SiteCableInstallationImageAdmin)
 
 class DailySiteCableInstallationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','no_of_casuals', 'casuals_list','cable_date','distance_cable', 'cable_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('site_name', )
-    search_fields = ('site_name', )
+    list_display = ('id', 'sub_task','no_of_casuals', 'casuals_list','work_day','distance_cable', 'cable_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    search_fields = ('sub_task', )
     list_editable = ('is_active',)
 
 admin.site.register(DailySiteCableInstallation, DailySiteCableInstallationAdmin)
@@ -214,17 +216,17 @@ admin.site.register(FttsCivilTeam, FttsCivilTeamAdmin)
 ######################################################## FIBER INSTALLATION TEAM ########################################################################################################################################################################################
 
 class SiteTerminalInHseImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','terminal_image_1', 'terminal_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('site_name', )
-    search_fields = ('site_name', )
+    list_display = ('id', 'day_image','terminal_image_1', 'terminal_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    search_fields = ('day_image', )
     list_editable = ('is_active',)
 
 admin.site.register(SiteTerminalInHseImage, SiteTerminalInHseImageAdmin)
 
 class DailySiteTerminalInHseAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','no_of_casuals', 'casuals_list','terminal_date','distance_terminal', 'terminal_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('site_name', )
-    search_fields = ('site_name', )
+    list_display = ('id', 'sub_task','no_of_casuals', 'casuals_list','work_day','distance_terminal', 'terminal_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    search_fields = ('sub_task', )
     list_editable = ('is_active',)
 
 admin.site.register(DailySiteTerminalInHse, DailySiteTerminalInHseAdmin)
@@ -238,17 +240,17 @@ admin.site.register(SiteTerminalInHse, SiteTerminalInHseAdmin)
 """END"""
 
 class SiteInterceptionImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','interception_image_1', 'interception_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('site_name', )
-    search_fields = ('site_name', )
+    list_display = ('id', 'day_image','interception_image_1', 'interception_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    search_fields = ('day_image', )
     list_editable = ('is_active',)
 
 admin.site.register(SiteInterceptionImage, SiteInterceptionImageAdmin)
 
 class DailySiteInterceptionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','no_of_casuals', 'casuals_list','interception_date','distance_interception', 'interception_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('site_name', )
-    search_fields = ('site_name', )
+    list_display = ('id', 'sub_task','no_of_casuals', 'casuals_list','work_day','distance_interception', 'interception_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    search_fields = ('sub_task', )
     list_editable = ('is_active',)
 
 admin.site.register(DailySiteInterception, DailySiteInterceptionAdmin)
@@ -337,3 +339,4 @@ class FTTSCasualDailyRegisterAdmin(admin.ModelAdmin):
     list_editable = ('is_active',)
 
 admin.site.register(FTTSCasualDailyRegister, FTTSCasualDailyRegisterAdmin)
+

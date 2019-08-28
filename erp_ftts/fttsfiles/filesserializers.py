@@ -5,7 +5,6 @@
 #---------
 from rest_framework import serializers  #, exceptions
 from erp_ftts.models import *
-from erp_construction.models import SetSiteClearingImage
 
 
 ############################ PROJECT FILES SERIALIZERS ###############################################

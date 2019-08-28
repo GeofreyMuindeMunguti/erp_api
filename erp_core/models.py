@@ -8,6 +8,8 @@ from erp_construction.models import *
 from .fileshandler.filemixin import UploadToProjectDir
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime, timezone, timedelta
+from erp_ftts.models import *
+from erp_ftth.models import *
 
 # Create your models here.
 
@@ -51,6 +53,29 @@ class SubTask(TimeStampModel):
 """END"""
 
 """FIBER"""
+####################################### BUDGET ########################################################################################################################################
+
+class FiberBudget(TimeStampModel):
+    site_name = models.OneToOneField(FttsSite, on_delete=models.DO_NOTHING, blank=True, null=True)
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True, null=True)
+    beneficiary_name = models.CharField(max_length=100, blank=True, null=True)
+    description = models.CharField(max_length=350, blank=True, null=True)
+    date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    phoneNumber = models.CharField(max_length=100, blank=True, null=True)
+    quantity = models.IntegerField(blank=True, null=True)
+    rate = models.IntegerField(blank=True, null=True)
+    unit = models.IntegerField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+    is_approved = models.BooleanField(default=False, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.beneficiary_name)
+
+    def amount(self):
+        return float(self.quantity * self.rate)
+####################################### END ########################################################################################################################################
+
 ####################################### FIBER KPI ###############################################################################################################################
 class FiberKpi(TimeStampModel):
     kpi = models.IntegerField(blank=True, null=True)
