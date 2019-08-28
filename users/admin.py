@@ -1,14 +1,49 @@
 from django.contrib import admin
 from .models import *
+from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 
-# Register your models here.
 class CustomUserAdmin(admin.ModelAdmin):
-    list_display = ('user', 'customuser_phone_no','customuser_profile_pic', 'team', 'position','get_permissions')
+    list_display = ('user', 'customuser_phone_no','customuser_profile_pic', 'team', 'position','last_seen','online')
     list_display_links = ('user', )
     search_fields = ('user', )
+    ordering = ('user',)
 
 admin.site.register(CustomUser, CustomUserAdmin)
+
+class LogAdmin(admin.ModelAdmin):
+    list_display = ('user', 'action','timestamp')
+    list_display_links = ('user', )
+    search_fields = ('user', )
+    ordering = ('user',)
+
+admin.site.register(Log, LogAdmin)
+
+"""MESSAGING"""
+
+"""CHAT"""
+class MessageAdmin(admin.ModelAdmin):
+    list_display = ('sender','receiver','message','timestamp','is_read')
+    list_display_links = ('sender', )
+    search_fields = ('sender', )
+
+admin.site.register(Message, MessageAdmin)
+
+class SentEmailAdmin(admin.ModelAdmin):
+    list_display = ('sender','receiver','subject','message','timestamp','attachment','is_read')
+    list_display_links = ('sender', )
+    search_fields = ('sender', )
+
+admin.site.register(SentEmail, SentEmailAdmin)
+
+class EmailConfigAdmin(admin.ModelAdmin):
+    list_display = ('email_host','sender_port','email_host_user','email_host_password','email_use_ssl','email_use_tls')
+    list_display_links = ('email_host', )
+    search_fields = ('email_host', )
+
+admin.site.register(EmailConfig, EmailConfigAdmin)
+"""END"""
 
 class PermissionMapAdmin(admin.ModelAdmin):
     list_display = ('position','content_type','view','edit','create','approver','is_superuser', 'created_at', 'updated_at', 'is_active')

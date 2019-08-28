@@ -20,11 +20,11 @@ from rest_framework.decorators import detail_route
 from erp_core.viewspermissions import *
 
 
-# class MainSiteViewSet(DefaultsMixin,viewsets.ModelViewSet):
-#     """ViewSet for the MainSite class"""
-#
-#     queryset = MainSite.objects.order_by('created_at')
-#     serializer_class = MainSiteSerializer
-#
-#     search_fields = ('site_name', )
-#     ordering_fields = ('updated_at', 'site_name', )
+
+class FiberBudgetViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating a project."""
+    queryset = FiberBudget.objects.order_by('created_at')
+    serializer_class = FiberBudgetSerializer
+
+    search_fields = ('beneficiary_name', )
+    ordering_fields = ('updated_at', 'beneficiary_name', )

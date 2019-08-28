@@ -1,6 +1,9 @@
 from django.contrib import admin
 from .models import *
+from erp_construction.models import *
 from erp_core.base import *
+from users.models import *
+from erp_core.models import *
 
 
 class FTTHProjectAdmin(admin.ModelAdmin):
@@ -16,8 +19,6 @@ admin.site.register(FTTHProject, FTTHProjectAdmin)
 
 
 ##########################FTTH SURVEY###########################################
-
-
 class FtthInterceptionPointAdmin(admin.ModelAdmin):
     list_display = ('id', 'interception_point_name', 'latitude', 'longitude', 'county', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('interception_point_name', )
@@ -47,20 +48,19 @@ class ftthSurveyAdmin(admin.ModelAdmin):
 
 admin.site.register(ftthSurvey, ftthSurveyAdmin)
 
-
-
 ##########################END OF FTTH SURVEY####################################
-
 
 class FtthCommercialTeamAdmin(admin.ModelAdmin):
 
-    list_display = ['id','project_name','ftth_boq','ftth_quote','ftth_wayleave_application','posted_by', 'created_at', 'updated_at', 'is_active']
-    readonly_fields = ['created_at', 'updated_at', 'is_active']
+    list_display = ('id','project_name','ftth_po','ftts_po_no','ftts_po_amount','ftth_boq','ftth_quote','ftth_wayleave_application','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
 
 admin.site.register(FtthCommercialTeam, FtthCommercialTeamAdmin)
 
 class FtthProcurementTeamAdmin(admin.ModelAdmin):
-    list_display = ('id','project_name','ftth_bom','ftth_initial_invoice','ftth_budget','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id','project_name','ftth_bom','ftth_initial_invoice','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)
