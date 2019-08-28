@@ -32,38 +32,38 @@ class BtsProjectAdmin(admin.ModelAdmin):
 admin.site.register(BtsProject, BtsProjectAdmin)
 
 
-# class AccessApprovalCivilAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'access_approval', 'access_approval_comment',
-#                     'created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+class AccessApprovalCivilAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'access_approval', 'access_approval_comment',
+                    'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
 
 
-# admin.site.register(AccessApprovalCivil, AccessApprovalCivilAdmin)
+admin.site.register(AccessApprovalCivil, AccessApprovalCivilAdmin)
 
 
-# class AccessApprovalInstallationAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'access_approval', 'access_approval_comment',
-#                     'created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+class AccessApprovalInstallationAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'access_approval', 'access_approval_comment',
+                    'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
 
 
-# admin.site.register(AccessApprovalInstallation, AccessApprovalInstallationAdmin)
+admin.site.register(AccessApprovalInstallation, AccessApprovalInstallationAdmin)
 
 
-# class ProjectCostingAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'project_costing_file', 'material_cost',
-#                     'labour_cost', 'total_projected_cost', 'is_approved',
-#                     'created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active', 'is_approved')
+class ProjectCostingAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'project_costing_file', 'material_cost',
+                    'labour_cost', 'total_projected_cost', 'is_approved',
+                    'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+    list_editable = ('is_active', 'is_approved')
 
 
-# admin.site.register(ProjectCosting, ProjectCostingAdmin)
+admin.site.register(ProjectCosting, ProjectCostingAdmin)
 
 
 class ProjectPurchaseOrderAdmin(admin.ModelAdmin):
