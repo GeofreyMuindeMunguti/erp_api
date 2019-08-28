@@ -10,7 +10,7 @@ from rest_framework.authtoken.models import Token
 
 class FiberBudgetSerializer(serializers.ModelSerializer):
     amount = serializers.IntegerField(read_only=True)
-    
+
     class Meta:
         model = FiberBudget
         fields = ('__all__')
