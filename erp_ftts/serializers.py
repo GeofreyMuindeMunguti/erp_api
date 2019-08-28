@@ -73,7 +73,7 @@ class SiteTrenchingImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class DailySiteTrenchingSerializer(serializers.ModelSerializer):
-
+    image_list = serializers.ListField(read_only=True)
     class Meta:
         model = DailySiteTrenching
         fields = ('__all__')
@@ -81,7 +81,7 @@ class DailySiteTrenchingSerializer(serializers.ModelSerializer):
 
 class SiteTrenchingSerializer(serializers.ModelSerializer):
     task_id = serializers.IntegerField(read_only=True)
-
+    days_list = serializers.ListField(read_only=True)
     class Meta:
         model = SiteTrenching
         fields = ('__all__')
@@ -95,14 +95,14 @@ class SiteDuctInstallationImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class DailySiteDuctInstallationSerializer(serializers.ModelSerializer):
-
+    image_list = serializers.ListField(read_only=True)
     class Meta:
         model = DailySiteDuctInstallation
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class SiteDuctInstallationSerializer(serializers.ModelSerializer):
-
+    days_list = serializers.ListField(read_only=True)
     class Meta:
         model = SiteDuctInstallation
         fields = ('__all__')
@@ -116,14 +116,14 @@ class ManHoleInstallationImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class DailyManHoleInstallationSerializer(serializers.ModelSerializer):
-
+    image_list = serializers.ListField(read_only=True)
     class Meta:
         model = DailyManHoleInstallation
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class SiteManHoleInstallationSerializer(serializers.ModelSerializer):
-
+    days_list = serializers.ListField(read_only=True)
     class Meta:
         model = ManHoleInstallation
         fields = ('__all__')
@@ -137,14 +137,14 @@ class SiteCableInstallationImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class DailySiteCableInstallationSerializer(serializers.ModelSerializer):
-
+    image_list = serializers.ListField(read_only=True)
     class Meta:
         model = DailySiteCableInstallation
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class SiteCableInstallationSerializer(serializers.ModelSerializer):
-
+    days_list = serializers.ListField(read_only=True)
     class Meta:
         model = SiteCableInstallation
         fields = ('__all__')
@@ -184,14 +184,14 @@ class SiteTerminalInHseImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class DailySiteTerminalInHseSerializer(serializers.ModelSerializer):
-
+    image_list = serializers.ListField(read_only=True)
     class Meta:
         model = DailySiteTerminalInHse
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class SiteTerminalInHseSerializer(serializers.ModelSerializer):
-
+    days_list = serializers.ListField(read_only=True)
     class Meta:
         model = SiteTerminalInHse
         fields = ('__all__')
@@ -205,14 +205,14 @@ class SiteInterceptionImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class DailySiteInterceptionSerializer(serializers.ModelSerializer):
-
+    image_list = serializers.ListField(read_only=True)
     class Meta:
         model = DailySiteInterception
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class SiteInterceptionSerializer(serializers.ModelSerializer):
-
+    days_list = serializers.ListField(read_only=True)
     class Meta:
         model = SiteInterception
         fields = ('__all__')
@@ -256,7 +256,7 @@ class FttsTeamSerializer(serializers.ModelSerializer):
 ################################################ END ##############################################################################################################################################################################################################################################################
 
 class DailyCivilWorkProductionSerializer(serializers.ModelSerializer):
-
+    #image_list = serializers.ListField(read_only=True)
     class Meta:
         model = DailyCivilWorkProduction
         fields = ('__all__')
