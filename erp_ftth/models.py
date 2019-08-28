@@ -127,9 +127,6 @@ class DailyFtthPoleInstallation(TimeStampModel):
 class FtthPoleInstallation(TimeStampModel,TimeTrackModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
 
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-    casuals_list = models.FileField(upload_to='files/ftth/Casuals/poleinstallation/%Y/%m/%d/',blank=True, null=True)
-
     ftth_pole_installation_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/poleinstallation/%Y/%m/%d/')
     ftth_pole_installation_image_2 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/poleinstallation/%Y/%m/%d/')
     ftth_pole_installation_image_3 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/poleinstallation/%Y/%m/%d/')
@@ -166,9 +163,6 @@ class DailyFtthTrenching(TimeStampModel):
 
 class FtthTrenching(TimeStampModel,TimeTrackModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
-
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-    casuals_list = models.FileField(upload_to='files/ftth/Casuals/FtthTrenching/%Y/%m/%d/',blank=True, null=True)
 
     ftth_trenching_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/trenching/%Y/%m/%d/')
     ftth_trenching_image_2 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/trenching/%Y/%m/%d/')
@@ -207,9 +201,6 @@ class DailyFtthBackfilling(TimeStampModel):
 class FtthBackfilling(TimeStampModel,TimeTrackModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
 
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-    casuals_list = models.FileField(upload_to='files/ftth/Casuals/FtthBackfilling/%Y/%m/%d/',blank=True, null=True)
-    
     ftth_backfilling_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/backfilling/%Y/%m/%d/')
     ftth_backfilling_image_2 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/backfilling/%Y/%m/%d/')
     ftth_backfilling_image_3 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/backfilling/%Y/%m/%d/')
@@ -247,9 +238,6 @@ class DailyFtthCableInstallation(TimeStampModel):
 class FtthCableInstallation(TimeStampModel,TimeTrackModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-    casuals_list = models.FileField(upload_to='files/ftth/Casuals/CableInstallation/%Y/%m/%d/',blank=True, null=True)
-
     ftth_cable_installation_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
     ftth_cable_installation_image_2 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
     ftth_cable_installation_image_3 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
