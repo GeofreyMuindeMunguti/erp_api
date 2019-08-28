@@ -337,3 +337,4 @@ class FTTSCasualDailyRegisterAdmin(admin.ModelAdmin):
     list_editable = ('is_active',)
 
 admin.site.register(FTTSCasualDailyRegister, FTTSCasualDailyRegisterAdmin)
+

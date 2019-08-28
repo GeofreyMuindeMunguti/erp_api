@@ -7,10 +7,10 @@ from .models import *
 from rest_framework.authtoken.models import Token
 
 
-class ProjectIconsSerializer(serializers.ModelSerializer):
+class ProjectIconSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = ProjectIcons
+        model = ProjectIcon
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
@@ -57,10 +57,10 @@ class ProjectCostingSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class ProjectPurchaseOrdersSerializer(serializers.ModelSerializer):
+class ProjectPurchaseOrderSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = ProjectPurchaseOrders
+        model = ProjectPurchaseOrder
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
@@ -128,59 +128,137 @@ class SubTaskSerializer(serializers.ModelSerializer):
 ####################################### START FOUNDATION IMAGES ###########################################################################################################################
 
 
-class FoundationImageSerializer(serializers.ModelSerializer):
+class FoundationCreationTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     team_task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = FoundationImage
+        model = FoundationCreationTask
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
-
-class SiteClearingSerializer(serializers.ModelSerializer):
-    raise_flag = serializers.CharField(read_only=True)
-    task_id = serializers.IntegerField(read_only=True)
+    # SubTask (1)://///////////Site-Clearing Subtask //////////////////
+class SiteClearingImageSerializer(serializers.ModelSerializer):
+    bts_site_id = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = SetSiteClearingImage
+        model = SiteClearingImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+class SiteClearingDateSerializer(serializers.ModelSerializer):
+    image_list = serializers.ListField(read_only=True)
+    class Meta:
+        model = SiteClearingDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
 
-class TowerBaseImageSerializer(serializers.ModelSerializer):
+class SiteClearingSubTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
+    days_list = serializers.ListField(read_only=True)
+    class Meta:
+        model = SiteClearingSubtask
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+    # SubTask (2):Tower-Base Subtask ////////////////////
+
+class TowerBaseImageSerializer(serializers.ModelSerializer):
+    bts_site_id = serializers.IntegerField(read_only=True)
     class Meta:
         model = TowerBaseImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
-
-class BindingImageSerializer(serializers.ModelSerializer):
+class TowerBaseDateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TowerBaseDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active') 
+  
+class TowerBaseSubTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = BindingImage
+        model = TowerBaseSubtask
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+    # SubTask (3)://///////////SiteBlindingSubTask Subtask //////////////////
+
+class BlindingSubTaskSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
+    task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = BlindingSubtask
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class BlindingDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BlindingDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class BlindingImageSerializer(serializers.ModelSerializer):
+    bts_site_id = serializers.IntegerField(read_only=True)
+    class Meta:
+        model = BlindingImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+    # SubTask (4)://///////////SteelFixFormwork Subtask //////////////////
+    #        
+class SteelFixFormworkSubTaskSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
+    task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = SteelFixFormworkSubtask
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+   # SubTask (5)://///////////SteelFixFormwork Subtask //////////////////
+
+
+class SteelFixFormworkDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SteelFixFormworkDate
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
 class SteelFixFormworkImageSerializer(serializers.ModelSerializer):
-    raise_flag = serializers.CharField(read_only=True)
-    task_id = serializers.IntegerField(read_only=True)
-
+    bts_site_id = serializers.IntegerField(read_only=True)
     class Meta:
         model = SteelFixFormworkImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+   # SubTask (5)://///////////ConcretePour Subtask //////////////////
 
-class ConcretePourImageSerializer(serializers.ModelSerializer):
+
+class ConcretePourSubTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = ConcretePourSubtask
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class ConcretePourDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ConcretePourDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class ConcretePourImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ConcretePourImage
@@ -188,23 +266,55 @@ class ConcretePourImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class ConcreteCuringPeriodImageSerializer(serializers.ModelSerializer):
+   # SubTask (5)://///////////ConcreteCuringPeriod Subtask //////////////////
+
+class ConcreteCuringPeriodSubTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = ConcreteCuringPeriodSubtask
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class ConcreteCuringPeriodDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ConcreteCuringPeriodDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class ConcreteCuringPeriodImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ConcreteCuringPeriodImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
-
+        
 ######################################## END #######################################################################################################################################
 
 #######################################BS241 & GENERATOR FOUNDATION ###########################################################################################################################
 
+  # SubTask (5):///////////ExcavationSubTask Subtask //////////////////
 
-class ExcavationImageerializer(serializers.ModelSerializer):
+class ExcavationSubTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = ExcavationSubtask
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class ExcavationDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ExcavationDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class ExcavationImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ExcavationImage
@@ -212,9 +322,25 @@ class ExcavationImageerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class ConcretePourCuringPeriodImageSerializer(serializers.ModelSerializer):
+  # SubTask (5)://///////////BS241ConcretePourCuringPeriodSubTask Subtask //////////////////
+
+class ConcretePourCuringPeriodSubTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = BS241ConcretePourCuringPeriodSubtask
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class BS241ConcretePourCuringPeriodDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BS241ConcretePourCuringPeriodDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class BS241ConcretePourCuringPeriodImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BS241ConcretePourCuringPeriodImage
@@ -222,22 +348,40 @@ class ConcretePourCuringPeriodImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class BS241AndGeneatorSlabsImageSerializer(serializers.ModelSerializer):
+  # SubTask (5):////////////BS241AndGeneatorSlabs Subtask //////////////////
+
+class BS241AndGeneratorSlabTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     team_task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = BS241AndGeneatorSlabsImage
+        model = BS241AndGeneratorSlabTask
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
 ######################################## END #######################################################################################################################################
 
 ######################################  BOUNDARY WALL ###########################################################################################################################
 
+  # SubTask (1)://///////////FoundFootPourubTask Subtask //////////////////
 
-class FoundFootPourImageSerializer(serializers.ModelSerializer):
+class FoundFootPourSubtaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = FoundFootPourSubtask
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class FoundFootPourDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FoundFootPourDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class FoundFootPourImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FoundFootPourImage
@@ -245,7 +389,9 @@ class FoundFootPourImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class BlockworkPanelConstImageSerializer(serializers.ModelSerializer):
+  # SubTask (2):///////////BlockworkPanelConst Subtask //////////////////
+
+class BlockworkPanelConstSubtaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
 
@@ -254,10 +400,39 @@ class BlockworkPanelConstImageSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+class BlockworkPanelConstDateSerializer(serializers.ModelSerializer):
 
-class GateInstallationImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BlockworkPanelConstDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class BlockworkPanelConstImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BlockworkPanelConstImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+  # SubTask (1)://///////////GateInstallation  Subtask //////////////////
+class GateInstallationSubtaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = GateInstallationSubtask
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class GateInstallationDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = GateInstallationDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class GateInstallationImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = GateInstallationImage
@@ -265,9 +440,26 @@ class GateInstallationImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class RazorElectricFenceImageSerializer(serializers.ModelSerializer):
+  # SubTask (4)://///////////RazorElectricFenceSubtask //////////////////
+
+class RazorElectricFenceSubtaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = RazorElectricFenceSubtask
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class RazorElectricFenceDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = RazorElectricFenceDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class RazorElectricFenceImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RazorElectricFenceImage
@@ -275,12 +467,14 @@ class RazorElectricFenceImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class BoundaryWallImageSerializer(serializers.ModelSerializer):
+  # Task (4): BoundaryWall //////////////////
+
+class BoundaryWallTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     team_task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = BoundaryWallImage
+        model = BoundaryWallTask
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
@@ -288,20 +482,48 @@ class BoundaryWallImageSerializer(serializers.ModelSerializer):
 
 ####################################### TOWER & ANTENNA_COAXs ###########################################################################################################################
 
-
-class TowerErectionImageSerializer(serializers.ModelSerializer):
+  # SubTask (4)://///////////RazorElectricFenceSubtask //////////////////
+class TowerErectionSubtaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = TowerErectionSubtask
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class TowerErectionDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TowerErectionDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class TowerErectionImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TowerErectionImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
-
-class TowerPaintImageSerializer(serializers.ModelSerializer):
+  # SubTask (4)://///////////RazorElectricFenceSubtask //////////////////
+class TowerPaintSubtaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = TowerPaintSubtask
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class TowerPaintDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TowerPaintDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class TowerPaintImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TowerPaintImage
@@ -309,34 +531,67 @@ class TowerPaintImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class CableWaysImageSerializer(serializers.ModelSerializer):
+  # SubTask (4)://///////////CableWays Subtask //////////////////
+class CableWaysSubtaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = CableWaysSubtask
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class CableWaysDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CableWaysDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class CableWaysImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CableWaysImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
-
-class AntennaCoaxInstallImageSerializer(serializers.ModelSerializer):
+  # SubTask (4)://///////////AntennaCoaxInstall Subtask //////////////////
+class AntennaCoaxInstallSubtaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = AntennaCoaxInstallSubtask
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class AntennaCoaxInstallDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = AntennaCoaxInstallDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class AntennaCoaxInstallImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AntennaCoaxInstallImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+  # SubTask (4)://////////TowerAntennaCoax Subtask //////////////////
 
-class TowerAntennaCoaxImageSerializer(serializers.ModelSerializer):
+class TowerAntennaCoaxTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     team_task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = TowerAntennaCoaxImage
+        model = TowerAntennaCoaxTask
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
 ######################################## END #######################################################################################################################################
 
 
@@ -359,6 +614,21 @@ class BTSinstallationTaskSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
+class BTSinstallationTaskDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BTSinstallationTaskDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class BTSinstallationTaskImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BTSinstallationTaskImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
 class MWInstallationTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
@@ -368,28 +638,70 @@ class MWInstallationTaskSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+class MWInstallationTaskDateSerializer(serializers.ModelSerializer):
 
-class TelecomTasksSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MWInstallationTaskDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class MWInstallationTaskImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = MWInstallationTaskImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class BTSinstallationTaskDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BTSinstallationTaskDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class BTSinstallationTaskImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BTSinstallationTaskImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class TelecomTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     team_task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = TelecomTasks
+        model = TelecomTask
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class UndergroundTasksSerializer(serializers.ModelSerializer):
+class UndergroundTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
-
+    days_list = serializers.ListField(read_only=True)
     class Meta:
-        model = UndergroundTasks
+        model = UndergroundTask
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class UndergroundTaskDateSerializer(serializers.ModelSerializer):
+    image_list = serializers.ListField(read_only=True)
+    class Meta:
+        model = UndergroundTaskDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class UndergroundTaskImageSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = UndergroundTaskImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class ReticulationAPSinstallationSerializer(serializers.ModelSerializer):
+class ReticulationAPSSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
 
@@ -398,6 +710,19 @@ class ReticulationAPSinstallationSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+class ReticulationAPSDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ReticulationAPSinstallationDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class ReticulationAPSImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ReticulationAPSinstallationImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class ElectricalEarthingSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
@@ -408,6 +733,19 @@ class ElectricalEarthingSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+class ElectricalEarthingDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ElectricalEarthingDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class ElectricalEarthingImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ElectricalEarthingImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class GeneratorInstallationSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
@@ -419,12 +757,28 @@ class GeneratorInstallationSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class ElectricalTasksSerializer(serializers.ModelSerializer):
+class GeneratorInstallationDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = GeneratorInstallationDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class GeneratorInstallationImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = GeneratorInstallationImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+  # SubTask (4)://////////ElectricalTask Subtask //////////////////
+
+class ElectricalTaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     team_task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = ElectricalTasks
+        model = ElectricalTask
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
@@ -453,13 +807,29 @@ class AccessApprovalInstallationSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class KPLCSolarImageSerializer(serializers.ModelSerializer):
+class KPLCSolarSubtaskSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
+
+    class Meta:
+        model = KPLCSolarSubtask
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class KPLCSolarDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = KPLCSolarDate
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class KPLCSolarImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = KPLCSolarImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+  # SubTask (4)://////////ElectricalTask Subtask //////////////////
 
 
 class WarrantyCertificateSerializer(serializers.ModelSerializer):
@@ -478,9 +848,9 @@ class TestCetificateSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class IssuesSerializer(serializers.ModelSerializer):
+class IssueSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Issues
+        model = Issue
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')

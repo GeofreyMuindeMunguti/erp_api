@@ -86,7 +86,7 @@ admin.site.register(DailyFtthPoleInstallation, DailyFtthPoleInstallationAdmin)
 
 class FtthPoleInstallationAdmin(admin.ModelAdmin):
 
-    list_display = ['id','project_name','start_date','end_date','ftth_pole_installation_image_1','ftth_pole_installation_image_2','ftth_pole_installation_image_3','ftth_pole_installation_comment','posted_by', 'created_at', 'updated_at', 'is_active']
+    list_display = ['id','project_name','casuals_list','start_date','end_date','ftth_pole_installation_image_1','ftth_pole_installation_image_2','ftth_pole_installation_image_3','ftth_pole_installation_comment','posted_by', 'created_at', 'updated_at', 'is_active']
     readonly_fields = ['created_at', 'updated_at', 'is_active']
 
 admin.site.register(FtthPoleInstallation, FtthPoleInstallationAdmin)
@@ -108,7 +108,7 @@ class DailyFtthTrenchingAdmin(admin.ModelAdmin):
 admin.site.register(DailyFtthTrenching, DailyFtthTrenchingAdmin)
 
 class FtthTrenchingAdmin(admin.ModelAdmin):
-    list_display = ('id','project_name','start_date','end_date','ftth_trenching_image_1', 'ftth_trenching_image_2','ftth_trenching_image_3', 'ftth_trenching_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id','project_name','casuals_list','start_date','end_date','ftth_trenching_image_1', 'ftth_trenching_image_2','ftth_trenching_image_3', 'ftth_trenching_comment','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)
@@ -132,7 +132,7 @@ class DailyFtthBackfillingAdmin(admin.ModelAdmin):
 admin.site.register(DailyFtthBackfilling, DailyFtthBackfillingAdmin)
 
 class FtthBackfillingAdmin(admin.ModelAdmin):
-    list_display = ('id','project_name','start_date','end_date','ftth_backfilling_image_1','ftth_backfilling_image_2', 'ftth_backfilling_image_3', 'ftth_backfilling_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id','project_name','casuals_list','start_date','end_date','ftth_backfilling_image_1','ftth_backfilling_image_2', 'ftth_backfilling_image_3', 'ftth_backfilling_comment','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)
@@ -157,7 +157,7 @@ admin.site.register(DailyFtthCableInstallation, DailyFtthCableInstallationAdmin)
 
 class FtthCableInstallationAdmin(admin.ModelAdmin):
 
-    list_display = ['id','project_name','start_date','end_date','ftth_cable_installation_image_1','ftth_cable_installation_image_2','ftth_cable_installation_image_3','ftth_cable_installation_comment','posted_by', 'created_at', 'updated_at', 'is_active']
+    list_display = ['id','project_name','casuals_list','start_date','end_date','ftth_cable_installation_image_1','ftth_cable_installation_image_2','ftth_cable_installation_image_3','ftth_cable_installation_comment','posted_by', 'created_at', 'updated_at', 'is_active']
     readonly_fields = ['created_at', 'updated_at', 'is_active']
 
 admin.site.register(FtthCableInstallation, FtthCableInstallationAdmin)
