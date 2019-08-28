@@ -36,7 +36,6 @@ class BtsSiteViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
-
 class ProjectIconViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating a project icons."""
     queryset = ProjectIcon.objects.order_by('created_at')
@@ -45,7 +44,6 @@ class ProjectIconViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('site_owner', )
     ordering_fields = ('updated_at', 'project_name', )
 
-
 class CategoryViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating a project."""
     queryset = Category.objects.order_by('created_at')
@@ -53,6 +51,14 @@ class CategoryViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('category_name', )
     ordering_fields = ('updated_at', 'category_name', )
+
+class BtsBudgetViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating a project."""
+    queryset = BtsBudget.objects.order_by('created_at')
+    serializer_class = BtsBudgetSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
 
 
 ####################################### PROCUREMENT TEAM ###########################################################################################################################

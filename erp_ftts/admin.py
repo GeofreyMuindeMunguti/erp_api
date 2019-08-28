@@ -3,6 +3,7 @@ from .models import *
 from erp_construction.models import *
 from erp_core.base import *
 from users.models import *
+from erp_core.models import *
 
 
 class FttsSiteInline(admin.TabularInline):
@@ -10,7 +11,7 @@ class FttsSiteInline(admin.TabularInline):
 
 class FTTSProjectAdmin(admin.ModelAdmin):
 
-    list_display = ['id','project_name','ftts_activation','ftts_activation_comment','ftts_final_acceptance_cert','ftts_final_acceptance_cert_comment','ftts_accumulated_BOM_survey','ftts_accumulated_BOM_survey_comment',
+    list_display = ['id','project_name','ftts_activation','ftts_activation_comment','ftts_final_acceptance_cert','ftts_final_acceptance_cert_comment',
                     'ftts_sites_count','sites_list','start_date','end_date','posted_by', 'created_at', 'updated_at', 'is_active']
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
@@ -66,7 +67,8 @@ admin.site.register(fttsSurvey, fttsSurveyAdmin)
 ##########################END OF FTTH SURVEY#####################################
 
 class FttsCommercialTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','ftts_quote', 'ftts_po_requisition','ftts_po_requisition_no','ftts_po_requisition_amount','ftts_wayleave_application', 'ftts_project_plan', 'ftts_initial_invoice','ftts_po_client','ftts_po_client_no','ftts_po_client_amount','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','ftts_quote', 'ftts_po_requisition','ftts_po_requisition_no','ftts_po_requisition_amount','ftts_wayleave_application', 'ftts_project_plan', 'ftts_initial_invoice','ftts_po_client','ftts_po_client_no',
+                    'ftts_po_client_amount','ftts_accumulated_BOM_survey','ftts_accumulated_BOM_survey_comment','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)

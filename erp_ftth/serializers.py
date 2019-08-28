@@ -229,6 +229,7 @@ class FtthSplicingSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 """END"""
+
 class FtthCoreProvisionImageSerializer(serializers.ModelSerializer):
 
     class Meta:

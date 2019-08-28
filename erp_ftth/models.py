@@ -3,11 +3,12 @@ from erp_core.base import *
 from erp_core.base import Project as CreateProject
 from erp_construction.models import *
 from users.models import *
+from erp_core.models import *
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime, timezone, timedelta
 from django.contrib.auth.models import User
 from erp_core.fileshandler.filemixin import UploadToProjectDir # create Folders(Project name) with images & files per project in /media/..
-from erp_ftts.models import ManHole
+from erp_ftts.models import *
 
 class FTTHProject(CreateProject):
     initial_kmz = models.FileField(upload_to='files/ftth/InitialKMZ/%Y/%m/%d/', blank=True, null=True)
@@ -74,10 +75,11 @@ class ftthSurvey(TimeStampModel,TimeTrackModel):
         return str(self.project_name)
 
 ##############################################END OF FTTH SURVEY#############################################33
-
-
 class FtthCommercialTeam(TimeStampModel):
-    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
+    project_name = models.OneToOneField(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
+    ftth_po = models.FileField(upload_to='files/ftth/CommercialTeam/po/%Y/%m/%d/', blank=True, null=True)
+    ftts_po_no = models.IntegerField(blank=True, null=True)
+    ftts_po_amount = models.IntegerField(blank=True, null=True)
     ftth_boq = models.FileField(upload_to='files/ftth/CommercialTeam/boq/%Y/%m/%d/', blank=True, null=True)
     ftth_quote = models.FileField(upload_to='files/ftth/CommercialTeam/quote/%Y/%m/%d/', blank=True, null=True)
     ftth_wayleave_application = models.FileField(upload_to='files/ftth/CommercialTeam/wayleaveapplication/%Y/%m/%d/', blank=True, null=True)
@@ -88,10 +90,10 @@ class FtthCommercialTeam(TimeStampModel):
         return str(self.project_name)
 
 class FtthProcurementTeam(TimeStampModel):
-    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
+    project_name = models.OneToOneField(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_bom = models.FileField(upload_to='files/ftth/ProcurementTeam/bom/%Y/%m/%d/', blank=True, null=True)
     ftth_initial_invoice = models.FileField(upload_to='files/ftth/ProcurementTeam/initialinvoice/%Y/%m/%d/', blank=True, null=True)
-    ftth_budget = models.FileField(upload_to='files/ftth/ProcurementTeam/budget/%Y/%m/%d/', blank=True, null=True)
+    # ftth_budget = models.FileField(upload_to='files/ftth/ProcurementTeam/budget/%Y/%m/%d/', blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
