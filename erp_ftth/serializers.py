@@ -16,15 +16,12 @@ class FTTHProjectSerializer(serializers.ModelSerializer):
         fields = ('__all__')
 
 ###############################FTTH SURVEY###################################
-
-
 class FtthInterceptionPointSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FtthInterceptionPoint
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
-
 
 class ftthSurveyPhotosSerializer(serializers.ModelSerializer):
 
@@ -35,7 +32,6 @@ class ftthSurveyPhotosSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
-
 class ftthSurveySerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -43,10 +39,7 @@ class ftthSurveySerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
-
 ###############################END OF FTTH SURVEY############################
-
-
 class FtthCommercialTeamSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -71,13 +64,15 @@ class FtthPoleInstallationImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class DailyFtthPoleInstallationSerializer(serializers.ModelSerializer):
-
+    image_list = serializers.ListField(read_only=True)
     class Meta:
         model = DailyFtthPoleInstallation
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class FtthPoleInstallationSerializer(serializers.ModelSerializer):
+    ftth_task_id = serializers.IntegerField(read_only=True)
+    days_list = serializers.ListField(read_only=True)
 
     class Meta:
         model = FtthPoleInstallation
@@ -93,7 +88,7 @@ class FtthTrenchingImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class DailyFtthTrenchingSerializer(serializers.ModelSerializer):
-
+    image_list = serializers.ListField(read_only=True)
     class Meta:
         model = DailyFtthTrenching
         fields = ('__all__')
@@ -115,14 +110,15 @@ class FtthBackfillingImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class DailyFtthBackfillingSerializer(serializers.ModelSerializer):
-
+    image_list = serializers.ListField(read_only=True)
     class Meta:
         model = DailyFtthBackfilling
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class FtthBackfillingSerializer(serializers.ModelSerializer):
-
+    ftth_task_id = serializers.IntegerField(read_only=True)
+    days_list = serializers.ListField(read_only=True)
     class Meta:
         model = FtthBackfilling
         fields = ('__all__')
@@ -137,14 +133,15 @@ class FtthCableInstallationImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class DailyFtthCableInstallationSerializer(serializers.ModelSerializer):
-
+    image_list = serializers.ListField(read_only=True)
     class Meta:
         model = DailyFtthCableInstallation
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class FtthCableInstallationSerializer(serializers.ModelSerializer):
-
+    ftth_task_id = serializers.IntegerField(read_only=True)
+    days_list = serializers.ListField(read_only=True)
     class Meta:
         model = FtthCableInstallation
         fields = ('__all__')
@@ -167,14 +164,15 @@ class FtthSplicingEnclosureImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class DailyFtthSplicingEnclosureSerializer(serializers.ModelSerializer):
-
+    image_list = serializers.ListField(read_only=True)
     class Meta:
         model = DailyFtthSplicingEnclosure
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class FtthSplicingEnclosureSerializer(serializers.ModelSerializer):
-
+    ftth_task_id = serializers.IntegerField(read_only=True)
+    days_list = serializers.ListField(read_only=True)
     class Meta:
         model = FtthSplicingEnclosure
         fields = ('__all__')
@@ -188,14 +186,15 @@ class FtthSplicingFATImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class DailyFtthSplicingFATSerializer(serializers.ModelSerializer):
-
+    image_list = serializers.ListField(read_only=True)
     class Meta:
         model = DailyFtthSplicingFAT
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class FtthSplicingFATSerializer(serializers.ModelSerializer):
-
+    ftth_task_id = serializers.IntegerField(read_only=True)
+    days_list = serializers.ListField(read_only=True)
     class Meta:
         model = FtthSplicingFAT
         fields = ('__all__')
@@ -209,14 +208,15 @@ class FtthSplicingFDTImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class DailyFtthSplicingFDTSerializer(serializers.ModelSerializer):
-
+    image_list = serializers.ListField(read_only=True)
     class Meta:
         model = DailyFtthSplicingFDT
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class FtthSplicingFDTSerializer(serializers.ModelSerializer):
-
+    ftth_task_id = serializers.IntegerField(read_only=True)
+    days_list = serializers.ListField(read_only=True)
     class Meta:
         model = FtthSplicingFDT
         fields = ('__all__')
@@ -238,14 +238,15 @@ class FtthCoreProvisionImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class DailyFtthCoreProvisionSerializer(serializers.ModelSerializer):
-
+    image_list = serializers.ListField(read_only=True)
     class Meta:
         model = DailyFtthCoreProvision
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class FtthCoreProvisionSerializer(serializers.ModelSerializer):
-
+    ftth_task_id = serializers.IntegerField(read_only=True)
+    days_list = serializers.ListField(read_only=True)
     class Meta:
         model = FtthCoreProvision
         fields = ('__all__')
@@ -259,14 +260,15 @@ class FtthPowerLevelsImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class DailyFtthPowerLevelsSerializer(serializers.ModelSerializer):
-
+    image_list = serializers.ListField(read_only=True)
     class Meta:
         model = DailyFtthPowerLevels
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class FtthPowerLevelsSerializer(serializers.ModelSerializer):
-
+    ftth_task_id = serializers.IntegerField(read_only=True)
+    days_list = serializers.ListField(read_only=True)
     class Meta:
         model = FtthPowerLevels
         fields = ('__all__')
@@ -280,14 +282,15 @@ class FtthOTDRTracesImageSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class DailyFtthOTDRTracesSerializer(serializers.ModelSerializer):
-
+    image_list = serializers.ListField(read_only=True)
     class Meta:
         model = DailyFtthOTDRTraces
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class FtthOTDRTracesSerializer(serializers.ModelSerializer):
-
+    ftth_task_id = serializers.IntegerField(read_only=True)
+    days_list = serializers.ListField(read_only=True)
     class Meta:
         model = FtthOTDRTraces
         fields = ('__all__')
@@ -309,6 +312,7 @@ class FtthIssuesSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class FtthInstallationTeamSerializer(serializers.ModelSerializer):
+    team_task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = FtthInstallationTeam

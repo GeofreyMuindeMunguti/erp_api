@@ -80,7 +80,7 @@ class DailySiteTrenchingSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class SiteTrenchingSerializer(serializers.ModelSerializer):
-    task_id = serializers.IntegerField(read_only=True)
+    ftts_task_id = serializers.IntegerField(read_only=True)
     days_list = serializers.ListField(read_only=True)
     class Meta:
         model = SiteTrenching
@@ -102,6 +102,7 @@ class DailySiteDuctInstallationSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class SiteDuctInstallationSerializer(serializers.ModelSerializer):
+    ftts_task_id = serializers.IntegerField(read_only=True)
     days_list = serializers.ListField(read_only=True)
     class Meta:
         model = SiteDuctInstallation
@@ -123,6 +124,7 @@ class DailyManHoleInstallationSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class SiteManHoleInstallationSerializer(serializers.ModelSerializer):
+    ftts_task_id = serializers.IntegerField(read_only=True)
     days_list = serializers.ListField(read_only=True)
     class Meta:
         model = ManHoleInstallation
@@ -144,6 +146,7 @@ class DailySiteCableInstallationSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class SiteCableInstallationSerializer(serializers.ModelSerializer):
+    ftts_task_id = serializers.IntegerField(read_only=True)
     days_list = serializers.ListField(read_only=True)
     class Meta:
         model = SiteCableInstallation
@@ -191,6 +194,7 @@ class DailySiteTerminalInHseSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class SiteTerminalInHseSerializer(serializers.ModelSerializer):
+    ftts_task_id = serializers.IntegerField(read_only=True)
     days_list = serializers.ListField(read_only=True)
     class Meta:
         model = SiteTerminalInHse
@@ -212,6 +216,7 @@ class DailySiteInterceptionSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class SiteInterceptionSerializer(serializers.ModelSerializer):
+    ftts_task_id = serializers.IntegerField(read_only=True)
     days_list = serializers.ListField(read_only=True)
     class Meta:
         model = SiteInterception
@@ -241,7 +246,7 @@ class FttsIssuesSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class FttsInstallationTeamSerializer(serializers.ModelSerializer):
-
+    team_task_id = serializers.IntegerField(read_only=True)
     class Meta:
         model = FttsInstallationTeam
         fields = ('__all__')
