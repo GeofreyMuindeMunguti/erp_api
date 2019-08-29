@@ -50,7 +50,7 @@ class FttsSite(TimeStampModel):
         ordering = ('-created_at',)
 
     def __str__(self):
-        return 'Site: {}, Project:{}'.format(self.site_name,self.ftts_project)
+        return '{}:{}'.format(self.site_name,self.ftts_project)
 
     class Meta:
         unique_together = (['site_name', 'ftts_project',])
@@ -59,7 +59,7 @@ class FttsSite(TimeStampModel):
 class ManHole(TimeStampModel):
     manhole_no = models.CharField(max_length=100, blank=True, null=True)
     location = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return str(self.manhole_no)
@@ -67,7 +67,7 @@ class ManHole(TimeStampModel):
 class Pole(TimeStampModel):
     pole_no = models.CharField(max_length=100, blank=True, null=True)
     location = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return str(self.pole_no)
@@ -80,7 +80,7 @@ class InterceptionPoint(TimeStampModel):
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
     county = models.ForeignKey(Location,related_name = 'interceptionpointftts', on_delete=models.DO_NOTHING, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return str(self.interception_point_name)
@@ -92,7 +92,7 @@ class fttsSurveyPhotos(TimeStampModel):
     survey_image_2 = models.ImageField(upload_to='images/ftts/survey/%Y/%m/%d/', blank=True, null=True)
     survey_image_3 = models.ImageField(upload_to='images/ftts/survey/%Y/%m/%d/', blank=True, null=True)
     survey_images_comment = models.CharField(max_length=200, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
     def __str__(self):
         #return str(self.site_name)
@@ -116,7 +116,7 @@ class fttsSurvey(TimeStampModel,TimeTrackModel):
     high_level_design = models.FileField(upload_to='files/ftts/survey/highleveldesigns/%Y/%m/%d/', blank=True, null=True)
     county = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
     survey_comment = models.CharField(max_length=200, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return str(self.site_name)
@@ -137,7 +137,7 @@ class FttsCommercialTeam(TimeStampModel):
     ftts_po_client_no = models.IntegerField(blank=True, null=True)
     ftts_po_client_amount = models.IntegerField(blank=True, null=True)
     is_approved = models.BooleanField(default=False)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return str(self.site_name)
@@ -151,7 +151,7 @@ class FttsProcurementTeam(TimeStampModel):
     ftts_po_quote_subconamount = models.IntegerField(blank=True, null=True)
     ftts_po_quote_subconno = models.IntegerField(blank=True, null=True)
     is_approved = models.BooleanField(default=False)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return str(self.site_name)
@@ -474,7 +474,7 @@ class FttsHealthDocumentsCivilTeam(TimeStampModel):
     health_documents_comment = models.CharField(max_length=100, blank=True, null=True)
     access_approval = models.OneToOneField(FttsAccessApprovalCivil, on_delete=models.CASCADE, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return str(self.site_name)
@@ -488,7 +488,7 @@ class FttsCivilTeam(TimeStampModel):
     health_documents = models.ManyToManyField(FttsHealthDocumentsCivilTeam, blank=True )
     ftts_civil_team_comment = models.CharField(max_length=100, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return str(self.site_name)
@@ -710,7 +710,7 @@ class FttsHealthDocsInstallationTeam(TimeStampModel):
     health_documents_comment = models.CharField(max_length=100, blank=True, null=True)
     access_approval = models.OneToOneField(FttsAccessApprovalCivil, on_delete=models.CASCADE, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return str(self.site_name)
@@ -721,7 +721,7 @@ class FttsIssues(TimeStampModel):
     ftts_issue_image = models.ImageField(upload_to='images/InstallationTeamFtts/issues/%Y/%m/%d/', blank=True, null=True)
     ftts_issue_sorted_image = models.ImageField(upload_to='images/InstallationTeamFtts/issues/%Y/%m/%d/', blank=True, null=True)
     closed = models.BooleanField(default=False)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.ftts_issue
@@ -744,7 +744,7 @@ class FttsInstallationTeam(TimeStampModel):
     conditional_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
     health_documents = models.ManyToManyField(FttsHealthDocsInstallationTeam, blank=True )
     is_approved = models.BooleanField(default=False)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return str(self.site_name)
@@ -763,7 +763,7 @@ class FttsTeam(TimeStampModel):
     ftts_survey = models.OneToOneField(fttsSurvey, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftts_civil_team = models.OneToOneField(FttsCivilTeam, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftts_installation_team = models.OneToOneField(FttsInstallationTeam, on_delete=models.DO_NOTHING, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return str(self.site_name)
@@ -783,7 +783,7 @@ class DailyCivilWorkProduction(TimeStampModel):
     manhole_installed =models.IntegerField(blank=True, null=True)
     site_dailyproduction_comment = models.CharField(max_length=100, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
     def __str__(self):
         #return str(self.project_name)
@@ -802,7 +802,7 @@ class CasualDailyRegister(TimeStampModel):
   
     site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING )
     work_day = models.DateField(blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
 
     WORKS_TYPE = [
@@ -838,7 +838,7 @@ class FTTSCasualDailyRegister(TimeStampModel):
     site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING )
     work_day = models.DateField(blank=True, null=True)
     ftts_casual =models.ManyToManyField(Casual,related_name= 'fttscasualregister')
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
 
     def __str__(self):

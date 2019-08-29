@@ -249,4 +249,4 @@ venv.bak/
 .mypy_cache/
 
 # migrations
-migrations
+#migrations
