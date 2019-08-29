@@ -24,9 +24,7 @@ class FTTHProject(CreateProject):
     def __str__(self):
         return str(self.project_name)
 
-
 ##########################################SURVEY DETAILS################################################################################################################################################################33
-
 
 class FtthInterceptionPoint(TimeStampModel):
     interception_point_name = models.CharField(max_length=50)
@@ -37,7 +35,6 @@ class FtthInterceptionPoint(TimeStampModel):
 
     def __str__(self):
         return str(self.interception_point_name)
-
 
 class ftthSurveyPhotos(TimeStampModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
@@ -102,22 +99,30 @@ class FtthProcurementTeam(TimeStampModel):
 
 ######################################################## FTTH CIVIL TEAM ########################################################################################################################################################################################
 class FtthPoleInstallationImage(TimeStampModel):
-    project_name = models.ForeignKey('DailyFtthPoleInstallation', on_delete=models.DO_NOTHING ,related_name='poleinstallationimage')
+    day_image = models.ForeignKey('DailyFtthPoleInstallation', on_delete=models.DO_NOTHING ,related_name='poleinstallationimage')
     poleinstallation_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/poleinstallation/%Y/%m/%d/')
     poleinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.day_image)
 
 class DailyFtthPoleInstallation(TimeStampModel):
-    project_name = models.ForeignKey('FtthPoleInstallation', on_delete=models.DO_NOTHING ,related_name='poleinstallation')
+    sub_task = models.ForeignKey('FtthPoleInstallation', on_delete=models.DO_NOTHING ,related_name='poleinstallation')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     casuals_list = models.FileField(upload_to='files/ftth/Casuals/poleinstallation/%Y/%m/%d/',blank=True, null=True)
+    work_day = models.DateField(unique =True, blank=True, null=True)
     poleinstallation_date = models.DateField(unique =True, blank=True, null=True)
     poleinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.sub_task)
+
+    def image_list(self):
+        try:
+            return [FtthPoleInstallationImage.objects.get(poleinstallation_image_1 = _dimage.poleinstallation_image_1).id for _dimage in FtthPoleInstallationImage.objects.filter(day_image_id = self.id).all()]
+
+        except Exception as e:
+            return e
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -128,7 +133,6 @@ class DailyFtthPoleInstallation(TimeStampModel):
 
 class FtthPoleInstallation(TimeStampModel,TimeTrackModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
-
     ftth_pole_installation_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/poleinstallation/%Y/%m/%d/')
     ftth_pole_installation_image_2 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/poleinstallation/%Y/%m/%d/')
     ftth_pole_installation_image_3 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/poleinstallation/%Y/%m/%d/')
@@ -137,35 +141,59 @@ class FtthPoleInstallation(TimeStampModel,TimeTrackModel):
 
     def __str__(self):
         return str(self.project_name)
+
+    def days_list(self):
+        try:
+            return [DailyFtthPoleInstallation.objects.get(work_day= _pday.work_day).id for _pday in DailyFtthPoleInstallation.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
+
+    def ftth_task_id(self):
+        try:
+            task = FtthCivilTeam.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
+
 """END"""
 class FtthTrenchingImage(TimeStampModel):
-    project_name = models.ForeignKey('DailyFtthTrenching', on_delete=models.DO_NOTHING ,related_name='trenchingimage')
+    day_image = models.ForeignKey('DailyFtthTrenching', on_delete=models.DO_NOTHING ,related_name='trenchingimage')
     trenching_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/trenching/%Y/%m/%d/')
     trenching_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.day_image)
 
 class DailyFtthTrenching(TimeStampModel):
-    project_name = models.ForeignKey('FtthTrenching', on_delete=models.DO_NOTHING ,related_name='trenching')
+    sub_task = models.ForeignKey('FtthTrenching', on_delete=models.DO_NOTHING ,related_name='trenching')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     casuals_list = models.FileField(upload_to='files/ftth/Casuals/trenching/%Y/%m/%d/',blank=True, null=True)
+    work_day = models.DateField(unique =True, blank=True, null=True)
     trenching_date = models.DateField(unique =True, blank=True, null=True)
     trenching_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.sub_task)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
         return "\n , ".join(str(count))
+
+    def image_list(self):
+        try:
+            return [FtthTrenchingImage.objects.get(trenching_image_1 = _dimage.trenching_image_1).id for _dimage in FtthTrenchingImage.objects.filter(day_image_id = self.id).all()]
+
+        except Exception as e:
+            return e
 
     def names_of_casuals(self):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
 class FtthTrenching(TimeStampModel,TimeTrackModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
-
     ftth_trenching_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/trenching/%Y/%m/%d/')
     ftth_trenching_image_2 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/trenching/%Y/%m/%d/')
     ftth_trenching_image_3 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/trenching/%Y/%m/%d/')
@@ -174,24 +202,48 @@ class FtthTrenching(TimeStampModel,TimeTrackModel):
 
     def __str__(self):
         return str(self.project_name)
+
+    def days_list(self):
+        try:
+            return [DailyFtthTrenching.objects.get(work_day= _pday.work_day).id for _pday in DailyFtthTrenching.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
+
+    def ftth_task_id(self):
+        try:
+            task = FtthCivilTeam.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
 """END"""
 class FtthBackfillingImage(TimeStampModel):
-    project_name = models.ForeignKey('DailyFtthBackfilling', on_delete=models.DO_NOTHING ,related_name='backfillingimage')
+    day_image = models.ForeignKey('DailyFtthBackfilling', on_delete=models.DO_NOTHING ,related_name='backfillingimage')
     backfilling_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/backfilling/%Y/%m/%d/')
     backfilling_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.day_image)
 
 class DailyFtthBackfilling(TimeStampModel):
-    project_name = models.ForeignKey('FtthBackfilling', on_delete=models.DO_NOTHING ,related_name='backfilling')
+    sub_task = models.ForeignKey('FtthBackfilling', on_delete=models.DO_NOTHING ,related_name='backfilling')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     casuals_list = models.FileField(upload_to='files/ftth/Casuals/backfilling/%Y/%m/%d/',blank=True, null=True)
+    work_day = models.DateField(unique =True, blank=True, null=True)
     backfilling_date = models.DateField(unique =True, blank=True, null=True)
     backfilling_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.sub_task)
+
+    def image_list(self):
+        try:
+            return [FtthBackfillingImage.objects.get(backfilling_image_1 = _dimage.backfilling_image_1).id for _dimage in FtthBackfillingImage.objects.filter(day_image_id = self.id).all()]
+
+        except Exception as e:
+            return e
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -202,7 +254,6 @@ class DailyFtthBackfilling(TimeStampModel):
 
 class FtthBackfilling(TimeStampModel,TimeTrackModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
-
     ftth_backfilling_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/backfilling/%Y/%m/%d/')
     ftth_backfilling_image_2 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/backfilling/%Y/%m/%d/')
     ftth_backfilling_image_3 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/backfilling/%Y/%m/%d/')
@@ -211,24 +262,48 @@ class FtthBackfilling(TimeStampModel,TimeTrackModel):
 
     def __str__(self):
         return str(self.project_name)
+
+    def days_list(self):
+        try:
+            return [DailyFtthBackfilling.objects.get(work_day= _pday.work_day).id for _pday in DailyFtthBackfilling.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
+
+    def ftth_task_id(self):
+        try:
+            task = FtthCivilTeam.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
 """END"""
 class FtthCableInstallationImage(TimeStampModel):
-    project_name = models.ForeignKey('DailyFtthCableInstallation', on_delete=models.DO_NOTHING ,related_name='cableinstallationimage')
+    day_image = models.ForeignKey('DailyFtthCableInstallation', on_delete=models.DO_NOTHING ,related_name='cableinstallationimage')
     cableinstallation_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
     cableinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.day_image)
 
 class DailyFtthCableInstallation(TimeStampModel):
-    project_name = models.ForeignKey('FtthCableInstallation', on_delete=models.DO_NOTHING ,related_name='cableinstallation')
+    sub_task = models.ForeignKey('FtthCableInstallation', on_delete=models.DO_NOTHING ,related_name='cableinstallation')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     casuals_list = models.FileField(upload_to='files/ftth/Casuals/cableinstallation/%Y/%m/%d/',blank=True, null=True)
+    work_day = models.DateField(unique =True, blank=True, null=True)
     cableinstallation_date = models.DateField(unique =True, blank=True, null=True)
     cableinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.sub_task)
+
+    def image_list(self):
+        try:
+            return [FtthCableInstallationImage.objects.get(cableinstallation_image_1 = _dimage.cableinstallation_image_1).id for _dimage in FtthCableInstallationImage.objects.filter(day_image_id = self.id).all()]
+
+        except Exception as e:
+            return e
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -239,7 +314,6 @@ class DailyFtthCableInstallation(TimeStampModel):
 
 class FtthCableInstallation(TimeStampModel,TimeTrackModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
-    
     ftth_cable_installation_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
     ftth_cable_installation_image_2 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
     ftth_cable_installation_image_3 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
@@ -249,6 +323,20 @@ class FtthCableInstallation(TimeStampModel,TimeTrackModel):
     def __str__(self):
         return str(self.project_name)
 
+    def days_list(self):
+        try:
+            return [DailyFtthCableInstallation.objects.get(work_day= _pday.work_day).id for _pday in DailyFtthCableInstallation.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
+
+    def ftth_task_id(self):
+        try:
+            task = FtthCivilTeam.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
 
 class FtthCivilTeam(TimeStampModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
@@ -266,26 +354,42 @@ class FtthCivilTeam(TimeStampModel):
     def __str__(self):
         return str(self.project_name)
 
+    def team_task_id(self):
+        try:
+            team = FtthCivilTeam.objects.get(project_name=self.project_name)
+            team_id = team.id
+            return team_id
+        except Exception as e:
+            return
+
 ######################################################## END ################################################################################################################################################################################################
 
 ######################################################## FTTH INSTALLATION TEAM ########################################################################################################################################################################################
 class FtthSplicingEnclosureImage(TimeStampModel):
-    project_name = models.ForeignKey('DailyFtthSplicingEnclosure', on_delete=models.DO_NOTHING ,related_name='splicingencoreimage')
+    day_image = models.ForeignKey('DailyFtthSplicingEnclosure', on_delete=models.DO_NOTHING ,related_name='splicingencoreimage')
     splicingencore_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingencore/%Y/%m/%d/')
     splicingencore_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.day_image)
 
 class DailyFtthSplicingEnclosure(TimeStampModel):
-    project_name = models.ForeignKey('FtthSplicingEnclosure', on_delete=models.DO_NOTHING ,related_name='splicingencore')
+    sub_task = models.ForeignKey('FtthSplicingEnclosure', on_delete=models.DO_NOTHING ,related_name='splicingencore')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     casuals_list = models.FileField(upload_to='files/ftth/Casuals/splicingencore/%Y/%m/%d/',blank=True, null=True)
+    work_day = models.DateField(unique =True, blank=True, null=True)
     splicingencore_date = models.DateField(unique =True, blank=True, null=True)
     splicingencore_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.sub_task)
+
+    def image_list(self):
+        try:
+            return [FtthSplicingEnclosureImage.objects.get(splicingencore_image_1 = _dimage.splicingencore_image_1).id for _dimage in FtthSplicingEnclosureImage.objects.filter(day_image_id = self.id).all()]
+
+        except Exception as e:
+            return e
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -304,25 +408,49 @@ class FtthSplicingEnclosure(TimeStampModel,TimeTrackModel):
 
     def __str__(self):
         return str(self.project_name)
+
+    def days_list(self):
+        try:
+            return [DailyFtthSplicingEnclosure.objects.get(work_day= _pday.work_day).id for _pday in DailyFtthSplicingEnclosure.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
+
+    def ftth_task_id(self):
+        try:
+            task = FtthSplicing.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
 """END"""
 
 class FtthSplicingFATImage(TimeStampModel):
-    project_name = models.ForeignKey('DailyFtthSplicingFAT', on_delete=models.DO_NOTHING ,related_name='splicingFATimage')
+    day_image = models.ForeignKey('DailyFtthSplicingFAT', on_delete=models.DO_NOTHING ,related_name='splicingFATimage')
     splicingFAT_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingFAT/%Y/%m/%d/')
     splicingFAT_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.day_image)
 
 class DailyFtthSplicingFAT(TimeStampModel):
-    project_name = models.ForeignKey('FtthSplicingFAT', on_delete=models.DO_NOTHING ,related_name='splicingFAT')
+    sub_task = models.ForeignKey('FtthSplicingFAT', on_delete=models.DO_NOTHING ,related_name='splicingFAT')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     casuals_list = models.FileField(upload_to='files/ftth/Casuals/splicingFAT/%Y/%m/%d/',blank=True, null=True)
+    work_day = models.DateField(unique =True, blank=True, null=True)
     splicingFAT_date = models.DateField(unique =True, blank=True, null=True)
     splicingFAT_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.sub_task)
+
+    def image_list(self):
+        try:
+            return [FtthSplicingFATImage.objects.get(splicingFAT_image_1 = _dimage.splicingFAT_image_1).id for _dimage in FtthSplicingFATImage.objects.filter(day_image_id = self.id).all()]
+
+        except Exception as e:
+            return e
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -341,25 +469,49 @@ class FtthSplicingFAT(TimeStampModel,TimeTrackModel):
 
     def __str__(self):
         return str(self.project_name)
+
+    def days_list(self):
+        try:
+            return [DailyFtthSplicingFAT.objects.get(work_day= _pday.work_day).id for _pday in DailyFtthSplicingFAT.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
+
+    def ftth_task_id(self):
+        try:
+            task = FtthSplicing.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
 """END"""
 
 class FtthSplicingFDTImage(TimeStampModel):
-    project_name = models.ForeignKey('DailyFtthSplicingFDT', on_delete=models.DO_NOTHING ,related_name='splicingFDTimage')
+    day_image = models.ForeignKey('DailyFtthSplicingFDT', on_delete=models.DO_NOTHING ,related_name='splicingFDTimage')
     splicingFDT_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingFDT/%Y/%m/%d/')
     splicingFDT_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.day_image)
 
 class DailyFtthSplicingFDT(TimeStampModel):
-    project_name = models.ForeignKey('FtthSplicingFDT', on_delete=models.DO_NOTHING ,related_name='splicingFDT')
+    sub_task = models.ForeignKey('FtthSplicingFDT', on_delete=models.DO_NOTHING ,related_name='splicingFDT')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     casuals_list = models.FileField(upload_to='files/ftth/Casuals/splicingFDT/%Y/%m/%d/',blank=True, null=True)
+    work_day = models.DateField(unique =True, blank=True, null=True)
     splicingFDT_date = models.DateField(unique =True, blank=True, null=True)
     splicingFDT_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.sub_task)
+
+    def image_list(self):
+        try:
+            return [FtthSplicingFDTImage.objects.get(splicingFDT_image_1 = _dimage.splicingFDT_image_1).id for _dimage in FtthSplicingFDTImage.objects.filter(day_image_id = self.id).all()]
+
+        except Exception as e:
+            return e
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -378,6 +530,22 @@ class FtthSplicingFDT(TimeStampModel,TimeTrackModel):
 
     def __str__(self):
         return str(self.project_name)
+
+    def days_list(self):
+        try:
+            return [DailyFtthSplicingFDT.objects.get(work_day= _pday.work_day).id for _pday in DailyFtthSplicingFDT.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
+
+    def ftth_task_id(self):
+        try:
+            task = FtthSplicing.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
 """END"""
 class FtthSplicing(TimeStampModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
@@ -391,25 +559,41 @@ class FtthSplicing(TimeStampModel):
     def __str__(self):
         return str(self.project_name)
 
+    def team_task_id(self):
+        try:
+            team = FtthSplicing.objects.get(project_name=self.project_name)
+            team_id = team.id
+            return team_id
+        except Exception as e:
+            return
+
 """END SPLICING"""
 
 class FtthCoreProvisionImage(TimeStampModel):
-    project_name = models.ForeignKey('DailyFtthCoreProvision', on_delete=models.DO_NOTHING ,related_name='coreprovisionimage')
+    day_image = models.ForeignKey('DailyFtthCoreProvision', on_delete=models.DO_NOTHING ,related_name='coreprovisionimage')
     coreprovision_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/coreprovision/%Y/%m/%d/')
     coreprovision_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.day_image)
 
 class DailyFtthCoreProvision(TimeStampModel):
-    project_name = models.ForeignKey('FtthCoreProvision', on_delete=models.DO_NOTHING ,related_name='coreprovision')
+    sub_task = models.ForeignKey('FtthCoreProvision', on_delete=models.DO_NOTHING ,related_name='coreprovision')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     casuals_list = models.FileField(upload_to='files/ftth/Casuals/coreprovision/%Y/%m/%d/',blank=True, null=True)
+    work_day = models.DateField(unique =True, blank=True, null=True)
     coreprovision_date = models.DateField(unique =True, blank=True, null=True)
     coreprovision_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.sub_task)
+
+    def image_list(self):
+        try:
+            return [FtthCoreProvisionImage.objects.get(coreprovision_image_1 = _dimage.coreprovision_image_1).id for _dimage in FtthCoreProvisionImage.objects.filter(day_image_id = self.id).all()]
+
+        except Exception as e:
+            return e
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -428,25 +612,49 @@ class FtthCoreProvision(TimeStampModel,TimeTrackModel):
 
     def __str__(self):
         return str(self.project_name)
+
+    def days_list(self):
+        try:
+            return [DailyFtthCoreProvision.objects.get(work_day= _pday.work_day).id for _pday in DailyFtthCoreProvision.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
+
+    def ftth_task_id(self):
+        try:
+            task = FtthSignalTesting.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
 """END"""
 
 class FtthPowerLevelsImage(TimeStampModel):
-    project_name = models.ForeignKey('DailyFtthPowerLevels', on_delete=models.DO_NOTHING ,related_name='powerlevelsimage')
+    day_image = models.ForeignKey('DailyFtthPowerLevels', on_delete=models.DO_NOTHING ,related_name='powerlevelsimage')
     powerlevels_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/powerlevels/%Y/%m/%d/')
     powerlevels_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.day_image)
 
 class DailyFtthPowerLevels(TimeStampModel):
-    project_name = models.ForeignKey('FtthPowerLevels', on_delete=models.DO_NOTHING ,related_name='powerlevels')
+    sub_task = models.ForeignKey('FtthPowerLevels', on_delete=models.DO_NOTHING ,related_name='powerlevels')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     casuals_list = models.FileField(upload_to='files/ftth/Casuals/powerlevels/%Y/%m/%d/',blank=True, null=True)
+    work_day = models.DateField(unique =True, blank=True, null=True)
     powerlevels_date = models.DateField(unique =True, blank=True, null=True)
     powerlevels_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.sub_task)
+
+    def image_list(self):
+        try:
+            return [FtthPowerLevelsImage.objects.get(powerlevels_image_1 = _dimage.powerlevels_image_1).id for _dimage in FtthPowerLevelsImage.objects.filter(day_image_id = self.id).all()]
+
+        except Exception as e:
+            return e
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -465,25 +673,49 @@ class FtthPowerLevels(TimeStampModel,TimeTrackModel):
 
     def __str__(self):
         return str(self.project_name)
+
+    def days_list(self):
+        try:
+            return [DailyFtthPowerLevels.objects.get(work_day= _pday.work_day).id for _pday in DailyFtthPowerLevels.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
+
+    def ftth_task_id(self):
+        try:
+            task = FtthSignalTesting.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
 """END"""
 
 class FtthOTDRTracesImage(TimeStampModel):
-    project_name = models.ForeignKey('DailyFtthOTDRTraces', on_delete=models.DO_NOTHING ,related_name='OTDRTracesimage')
+    day_image = models.ForeignKey('DailyFtthOTDRTraces', on_delete=models.DO_NOTHING ,related_name='OTDRTracesimage')
     OTDRTraces_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/OTDRTraces/%Y/%m/%d/')
     OTDRTraces_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.day_image)
 
 class DailyFtthOTDRTraces(TimeStampModel):
-    project_name = models.ForeignKey('FtthOTDRTraces', on_delete=models.DO_NOTHING ,related_name='OTDRTraces')
+    sub_task = models.ForeignKey('FtthOTDRTraces', on_delete=models.DO_NOTHING ,related_name='OTDRTraces')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     casuals_list = models.FileField(upload_to='files/ftth/Casuals/OTDRTraces/%Y/%m/%d/',blank=True, null=True)
+    work_day = models.DateField(unique =True, blank=True, null=True)
     OTDRTraces_date = models.DateField(unique =True, blank=True, null=True)
     OTDRTraces_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.project_name)
+        return str(self.sub_task)
+
+    def image_list(self):
+        try:
+            return [FtthOTDRTracesImage.objects.get(OTDRTraces_image_1 = _dimage.OTDRTraces_image_1).id for _dimage in FtthOTDRTracesImage.objects.filter(day_image_id = self.id).all()]
+
+        except Exception as e:
+            return e
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -503,6 +735,21 @@ class FtthOTDRTraces(TimeStampModel,TimeTrackModel):
     def __str__(self):
         return str(self.project_name)
 
+    def days_list(self):
+        try:
+            return [DailyFtthOTDRTraces.objects.get(work_day= _pday.work_day).id for _pday in DailyFtthOTDRTraces.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
+
+    def ftth_task_id(self):
+        try:
+            task = FtthSignalTesting.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
 class FtthSignalTesting(TimeStampModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
     ftth_core_provision = models.OneToOneField(FtthCoreProvision, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -514,6 +761,14 @@ class FtthSignalTesting(TimeStampModel):
 
     def __str__(self):
         return str(self.project_name)
+
+    def team_task_id(self):
+        try:
+            team = FtthSignalTesting.objects.get(project_name=self.project_name)
+            team_id = team.id
+            return team_id
+        except Exception as e:
+            return
 
 """END SIGNAL TESTING"""
 
@@ -553,6 +808,14 @@ class FtthInstallationTeam(TimeStampModel):
 
     def project_issues(self):
         return [v.project_name for v in self.ftth_issues.all()]
+
+    def team_task_id(self):
+        try:
+            team = FtthInstallationTeam.objects.get(project_name=self.project_name)
+            team_id = team.id
+            return team_id
+        except Exception as e:
+            return
 
 class FtthTeam(TimeStampModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
