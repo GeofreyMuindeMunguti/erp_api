@@ -203,14 +203,12 @@ class SiteTrenching(TimeStampModel,TimeTrackModel):
     def __str__(self):
         return str(self.site_name)
 
-
     def days_list(self):
         try:
             return [DailySiteTrenching.objects.get(work_day= _pday.work_day).id for _pday in DailySiteTrenching.objects.filter(sub_task_id = self.id).all()]
 
         except Exception as e:
             return e
-
 
     def ftts_task_id(self):
         try:
@@ -850,6 +848,14 @@ class FttsInstallationTeam(TimeStampModel):
 
     def access_approvals(self):
         return [v.site_name for v in self.access_approvals_field.all()]
+
+    def team_task_id(self):
+        try:
+            team = FttsInstallationTeam.objects.get(project_name=self.site_name)
+            team_id = team.id
+            return team_id
+        except Exception as e:
+            return
 
 class FttsTeam(TimeStampModel):
     site_name = models.OneToOneField(FttsSite, on_delete=models.DO_NOTHING)
