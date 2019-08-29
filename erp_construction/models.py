@@ -6,6 +6,7 @@ from erp_core.models import *
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime, timezone, timedelta
 from erp_core.fileshandler.filemixin import *# UploadToProjectDir ,UploadToProjectDirDate ,UploadToProjectDirSubTask ,UploadToProjectDirImage
+
 file_path = 'BTSProjects'
 
 
@@ -469,6 +470,14 @@ class TowerBaseSubtask(TimeStampModel,TimeTrackModel):
        # return str(self.project_name)
         return 'TowerBaseSubTask  : {}'.format(self.project_name)
 
+    def days_list(self):
+        try:
+            return [TowerBaseDate.objects.get(work_day= _pday.work_day).id for _pday in TowerBaseDate.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
+
+
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -599,6 +608,13 @@ class BlindingSubtask(TimeStampModel ,TimeTrackModel):
         #return str(self.project_name)
         return 'BlindingSubTask  : {}'.format(self.project_name)
 
+    def days_list(self):
+        try:
+            return [BlindingDate.objects.get(work_day= _pday.work_day).id for _pday in BlindingDate.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
+
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
         return "\n , ".join(str(count))
@@ -728,6 +744,13 @@ class SteelFixFormworkSubtask(TimeStampModel,TimeTrackModel):
     def __str__(self):
         #return str(self.project_name)
         return 'SteelFixFormworkSubTask : {}'.format(self.project_name)
+
+    def days_list(self):
+        try:
+            return [SteelFixFormworkDate.objects.get(work_day= _pday.work_day).id for _pday in SteelFixFormworkDate.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -860,6 +883,13 @@ class ConcretePourSubtask(TimeStampModel,TimeTrackModel):
         #return str(self.project_name)
         return 'ConcretePourSubTask : {}'.format(self.project_name)
 
+    def days_list(self):
+        try:
+            return [ConcretePourDate.objects.get(work_day= _pday.work_day).id for _pday in ConcretePourDate.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
+
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
         return "\n , ".join(str(count))
@@ -979,6 +1009,13 @@ class ConcreteCuringPeriodSubtask(TimeStampModel,TimeTrackModel):
     def __str__(self):
         #return str(self.project_name)
         return 'ConcreteCuringPeriodSubTask :{}'.format(self.project_name)
+
+    def days_list(self):
+        try:
+            return [ConcreteCuringPeriodDate.objects.get(work_day= _pday.work_day).id for _pday in ConcreteCuringPeriodDate.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -1171,6 +1208,13 @@ class ExcavationSubtask(TimeStampModel ,TimeTrackModel):
         #return str(self.project_name)
         return 'ExcavationSubTask :{}'.format(self.project_name)
 
+    def days_list(self):
+        try:
+            return [ExcavationDate.objects.get(work_day= _pday.work_day).id for _pday in ExcavationDate.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
+
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
         return "\n , ".join(str(count))
@@ -1290,6 +1334,13 @@ class BS241ConcretePourCuringPeriodSubtask(TimeStampModel,TimeTrackModel):
     def __str__(self):
        # return str(self.project_name)
         return 'BS241ConcretePourCuringPeriodSubTask :{}'.format(self.project_name)
+
+    def days_list(self):
+        try:
+            return [BS241ConcretePourCuringPeriodDate.objects.get(work_day= _pday.work_day).id for _pday in BS241ConcretePourCuringPeriodDate.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -1476,6 +1527,13 @@ class FoundFootPourSubtask(TimeStampModel ,TimeTrackModel):
         #return str(self.project_name)
         return 'FoundFootPourSubtask :{}'.format(self.project_name) 
 
+    def days_list(self):
+        try:
+            return [FoundFootPourDate.objects.get(work_day= _pday.work_day).id for _pday in FoundFootPourDate.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
+
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
         return "\n , ".join(str(count))
@@ -1597,6 +1655,13 @@ class BlockworkPanelConstSubtask(TimeStampModel,TimeTrackModel):
         #return str(self.project_name)
         return 'BlockworkPanelConstSubtask :{}'.format(self.project_name) 
 
+    def days_list(self):
+        try:
+            return [BlockworkPanelConstDate.objects.get(work_day= _pday.work_day).id for _pday in BlockworkPanelConstDate.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
+
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
         return "\n , ".join(str(count))
@@ -1714,6 +1779,13 @@ class GateInstallationSubtask(TimeStampModel,TimeTrackModel):
     def __str__(self):
         #return str(self.project_name)
         return 'GateInstallationSubtask :{}'.format(self.project_name) 
+
+    def days_list(self):
+        try:
+            return [GateInstallationDate.objects.get(work_day= _pday.work_day).id for _pday in GateInstallationDate.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -1835,6 +1907,13 @@ class RazorElectricFenceSubtask(TimeStampModel ,TimeTrackModel):
     def __str__(self):
         #return str(self.project_name)
         return 'RazorElectricFenceSubtask :{}'.format(self.project_name)
+
+    def days_list(self):
+        try:
+            return [RazorElectricFenceDate.objects.get(work_day= _pday.work_day).id for _pday in RazorElectricFenceDate.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
