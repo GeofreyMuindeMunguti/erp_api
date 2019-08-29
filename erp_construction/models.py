@@ -23,7 +23,7 @@ class ProjectIcon(models.Model):
 class BtsProject(models.Model):
     bts_project_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
     icon = models.ForeignKey(ProjectIcon, on_delete=models.DO_NOTHING, blank=True, null=True)
-    created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    created_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
@@ -51,7 +51,7 @@ class BtsSite(TimeStampModel):
     approved_drawing = models.FileField(upload_to= UploadToProjectDir(file_path,'files/Project/approveddrawings/'), blank=True, null=True)
     final_acceptance_cert = models.FileField(upload_to=UploadToProjectDir(file_path,'files/SafaricomTeam/finalcert/'), blank=True, null=True)
     final_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    created_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
 
     def __str__(self):
@@ -2572,7 +2572,7 @@ class CommercialTeam(TimeStampModel):
     project_costing_data = models.OneToOneField(ProjectCosting, on_delete=models.CASCADE, blank=True, null=True)
     initial_invoice = models.FileField(upload_to='files/CommercialTeam/initialinvoice/%Y/%m/%d/', blank=True, null=True)
     initial_invoice_comment = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
 
 
@@ -2589,7 +2589,7 @@ class ProcurementTeam(TimeStampModel):
     # po_electrical_materials_quantity = models.IntegerField(blank=True, null=True)
     po_subcontractors = models.FileField(upload_to=UploadToProjectDir(file_path,'files/ProcurementTeam/posubcontractor/'), blank=True, null=True)
     po_subcontractors_amount = models.IntegerField(blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
 
 
@@ -2622,7 +2622,7 @@ class HealthDocumentsCivilTeam(TimeStampModel):
     health_documents_comment = models.CharField(max_length=100, blank=True, null=True)
     access_approval = models.OneToOneField(AccessApprovalCivil, on_delete=models.DO_NOTHING, blank=True, null=True)
     safety_picture = models.ImageField(upload_to=UploadToProjectDir(file_path,'images/HealthDocumentsCivilTeam/'), blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
 
 
@@ -2639,7 +2639,7 @@ class CivilWorksTeam(TimeStampModel):
     bs241_and_generator_slabs_images = models.OneToOneField(BS241AndGeneratorSlabTask, on_delete=models.DO_NOTHING, blank=True, null=True)
     site_walling_images_field = models.OneToOneField(BoundaryWallTask, on_delete=models.DO_NOTHING, blank=True, null=True)
     tower_data = models.OneToOneField(TowerAntennaCoaxTask, on_delete=models.DO_NOTHING, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
 
 
@@ -2680,7 +2680,7 @@ class HealthDocumentsInstallationTeam(TimeStampModel):
     health_documents_comment = models.CharField(max_length=100, blank=True, null=True)
     access_approval = models.OneToOneField(AccessApprovalInstallation, on_delete=models.CASCADE, blank=True, null=True)
     safety_picture = models.ImageField(upload_to=UploadToProjectDir(file_path,'images/HealthDocumentsInstallationTeam/'), blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
 
 
@@ -3666,7 +3666,7 @@ class Issue(TimeStampModel):
     issue_image = models.ImageField(upload_to=UploadToProjectDir(file_path,'images/InstallationTeam/issue/'), blank=True, null=True)
     issue_sorted_image = models.ImageField(upload_to=UploadToProjectDir(file_path,'images/InstallationTeam/issue/%Y/%m/%d/'), blank=True, null=True)
     closed = models.BooleanField(default=False)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.issue
@@ -3689,7 +3689,7 @@ class InstallationTeam(TimeStampModel):
     issue = models.ManyToManyField(Issue, blank=True)
     conditional_acceptance_cert = models.FileField(upload_to=UploadToProjectDir(file_path,'files/SafaricomTeam/conditionalcert/'), blank=True, null=True)
     conditional_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
  
 
@@ -3717,7 +3717,7 @@ class WarrantyCertificate(TimeStampModel):
     civilworks_installation_certificate = models.FileField(upload_to=UploadToProjectDir(file_path,'files/WarrantyCertificates/civilworks/'), blank=True, null=True)
     connectors_torque_certificate = models.FileField(upload_to=UploadToProjectDir(file_path,'files/WarrantyCertificates/connectorsTorque/'), blank=True, null=True)
     safe_to_climb_certificate = models.FileField(upload_to=UploadToProjectDir(file_path,'files/WarrantyCertificates/SafeToClimb/'), blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
 
 
@@ -3730,7 +3730,7 @@ class TestCetificate(TimeStampModel):
     cube_test_7days = models.FileField(upload_to=UploadToProjectDir(file_path,'files/TestCertificates/cubetest7/'), blank=True, null=True)
     cube_test_28days = models.FileField(upload_to=UploadToProjectDir(file_path,'files/TestCertificates/cubetest28/%Y/'), blank=True, null=True)
     earth_test = models.FileField(upload_to=UploadToProjectDir(file_path,'files/TestCertificates/earthtest/'), blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
 
     def __str__(self):
