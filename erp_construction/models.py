@@ -597,12 +597,12 @@ class BlindingDate(TimeStampModel):
 class BlindingSubtask(TimeStampModel ,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING,blank=True, null=True)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True ) # RM
+
     # Summary Photos
     blinding_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/binding/'),blank=True, null=True)
     blinding_image_2 = models.ImageField(upload_to= UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/binding/'),blank=True, null=True)
     blinding_image_3 = models.ImageField(upload_to= UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/binding/'),blank=True, null=True)
     blinding_comment = models.CharField(max_length=100, blank=True, null=True)
-
 
     def __str__(self):
         #return str(self.project_name)

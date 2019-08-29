@@ -75,11 +75,14 @@ urlpatterns = [
 
     path('files/<int:pk>/', filesviews.FttsSiteFilesView.as_view()),# Main
 
-    path('files/<int:pk>/commercialteamtiles/', filesviews.FttsCommercialTeamFilesView.as_view()),
+    # path('files/<int:pk>/commercialteamtiles/', filesviews.FttsCommercialTeamFilesView.as_view()),
     # Civil works
-    path('files/<int:pk>/manholeinstallationfiles/', filesviews.ManHoleInstallationFilesView.as_view()),
-    path('files/<int:pk>/sitecableinstallationfiles/', filesviews.SiteCableInstallationFilesView.as_view()),
-    path('files/<int:pk>/siteterminalInHsefiles/', filesviews.SiteTerminalInHseFilesView.as_view()),
-    path('files/<int:pk>/siteinterceptionfiles/', filesviews.SiteInterceptionFilesView.as_view()),
+    path('files/<int:pk>/sitetrenchings/', filesviews.SiteTrenchingFilesFilesView.as_view()),
+    path('files/<int:pk>/siteductinstall/', filesviews.SiteDuctInstallationFilesView.as_view()),
+    path('files/<int:pk>/sitemanholeinstall/', filesviews.ManHoleInstallationFilesView.as_view()),
+
+    path('files/<int:pk>/sitecableinstallation/', filesviews.SiteCableInstallationFilesView.as_view()),
+    path('files/<int:pk>/siteterminalinhse/', filesviews.SiteTerminalInHseFilesView.as_view()),
+    path('files/<int:pk>/siteinterception/', filesviews.SiteInterceptionFilesView.as_view()),
 
 ]

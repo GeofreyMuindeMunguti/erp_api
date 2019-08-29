@@ -141,7 +141,7 @@ class ManHoleInstallationImageAdmin(admin.ModelAdmin):
 admin.site.register(ManHoleInstallationImage, ManHoleInstallationImageAdmin)
 
 class DailyManHoleInstallationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','no_of_casuals', 'casuals_list','work_day','distance_manhole', 'manhole_comment','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','no_of_casuals', 'casuals_list','work_day','manhole_installed', 'manhole_comment','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     search_fields = ('sub_task', )
     list_editable = ('is_active',)
@@ -149,7 +149,7 @@ class DailyManHoleInstallationAdmin(admin.ModelAdmin):
 admin.site.register(DailyManHoleInstallation, DailyManHoleInstallationAdmin)
 
 class ManHoleInstallationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','ftts_task_id','start_date','end_date','site_manhole_distance','manhole_image_1','manhole_image_2','manhole_image_3','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','ftts_task_id','start_date','end_date','site_manhole_installed','manhole_image_1','manhole_image_2','manhole_image_3','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
@@ -222,7 +222,7 @@ class SiteTerminalInHseImageAdmin(admin.ModelAdmin):
 admin.site.register(SiteTerminalInHseImage, SiteTerminalInHseImageAdmin)
 
 class DailySiteTerminalInHseAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','no_of_casuals', 'casuals_list','work_day','distance_terminal', 'terminal_comment','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','no_of_casuals', 'casuals_list','work_day','terminal_odf_no', 'terminal_comment','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     search_fields = ('sub_task', )
     list_editable = ('is_active',)
@@ -235,6 +235,7 @@ class SiteTerminalInHseAdmin(admin.ModelAdmin):
     readonly_fields = ['created_at', 'updated_at', 'is_active']
 
 admin.site.register(SiteTerminalInHse, SiteTerminalInHseAdmin)
+
 """END"""
 
 class SiteInterceptionImageAdmin(admin.ModelAdmin):

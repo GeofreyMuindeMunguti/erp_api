@@ -7,16 +7,17 @@ from users.models import *
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime, timezone, timedelta
 from django.contrib.auth.models import User
-from erp_core.fileshandler.filemixin import UploadToProjectDir
+from erp_core.fileshandler.filemixin import UploadToProjectDirImage ,UploadToProjectDirSubTask
+
 file_path = 'FTTSProjects'
 
 # Create your models here.
 class FTTSProject(CreateProject,TimeTrackModel):
     ftts_activation = models.BooleanField(default=False)
     ftts_activation_comment = models.CharField(max_length=100, blank=True, null=True)
-    ftts_final_acceptance_cert = models.FileField(upload_to='FTTS/files/SafaricomTeamftts/finalcert/%Y/%m/%d/', blank=True, null=True)
+    ftts_final_acceptance_cert = models.FileField(upload_to=UploadToProjectDir(file_path ,'files/SafaricomTeamftts/finalcert/'), blank=True, null=True)
     ftts_final_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
-    ftts_accumulated_BOM_survey = models.FileField(upload_to='FTTS/files/accumulatedBOM/%Y/%m/%d/', blank=True, null=True)
+    ftts_accumulated_BOM_survey = models.FileField(upload_to=UploadToProjectDir(file_path ,'files/accumulatedBOM/'), blank=True, null=True)
     ftts_accumulated_BOM_survey_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
@@ -43,7 +44,7 @@ class FTTSProject(CreateProject,TimeTrackModel):
 class FttsSite(TimeStampModel):
     site_name = models.CharField(max_length=100, unique = True, blank=True, null=True)
     ftts_project = models.ForeignKey(FTTSProject, on_delete=models.DO_NOTHING )
-    location = models.ForeignKey(Location,on_delete=models.CASCADE,blank=True, null=True )
+    location = models.ForeignKey('users.Location',on_delete=models.CASCADE,blank=True, null=True )
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
     class Meta:
@@ -58,7 +59,7 @@ class FttsSite(TimeStampModel):
 ##########################################SURVEY DETAILS################################################################################################################################################################33
 class ManHole(TimeStampModel):
     manhole_no = models.CharField(max_length=100, blank=True, null=True)
-    location = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
+    location = models.ForeignKey('users.Location', on_delete=models.DO_NOTHING, blank=True, null=True)
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
     def __str__(self):
@@ -66,7 +67,7 @@ class ManHole(TimeStampModel):
 
 class Pole(TimeStampModel):
     pole_no = models.CharField(max_length=100, blank=True, null=True)
-    location = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
+    location = models.ForeignKey('users.Location', on_delete=models.DO_NOTHING, blank=True, null=True)
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
     def __str__(self):
@@ -79,7 +80,7 @@ class InterceptionPoint(TimeStampModel):
     interception_point_name = models.CharField(max_length=50)
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
-    county = models.ForeignKey(Location,related_name = 'interceptionpointftts', on_delete=models.DO_NOTHING, blank=True, null=True)
+    county = models.ForeignKey('users.Location',related_name = 'interceptionpointftts', on_delete=models.DO_NOTHING, blank=True, null=True)
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
     def __str__(self):
@@ -88,15 +89,15 @@ class InterceptionPoint(TimeStampModel):
 
 class fttsSurveyPhotos(TimeStampModel):
     site_name = models.OneToOneField(FttsSite, on_delete=models.DO_NOTHING)
-    survey_image_1 = models.ImageField(upload_to='images/ftts/survey/%Y/%m/%d/')
-    survey_image_2 = models.ImageField(upload_to='images/ftts/survey/%Y/%m/%d/', blank=True, null=True)
-    survey_image_3 = models.ImageField(upload_to='images/ftts/survey/%Y/%m/%d/', blank=True, null=True)
+    survey_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftts/survey/'), blank=True, null=True)
+    survey_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftts/survey/'), blank=True, null=True)
+    survey_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftts/survey/'), blank=True, null=True)
     survey_images_comment = models.CharField(max_length=200, blank=True, null=True)
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
     def __str__(self):
         #return str(self.site_name)
-        return 'survey for {}'.format(self.site_name)
+        return 'FTTSSurveyPhotos  : {}'.format(self.site_name)
 
     def ftts_survey_id(self):
         try:
@@ -113,27 +114,28 @@ class fttsSurvey(TimeStampModel,TimeTrackModel):
     site_longitude = models.FloatField(blank=True, null=True)
     distance_from_ip = models.FloatField(blank=True, null=True)
     survey_photos = models.ManyToManyField(fttsSurveyPhotos)
-    high_level_design = models.FileField(upload_to='files/ftts/survey/highleveldesigns/%Y/%m/%d/', blank=True, null=True)
-    county = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
+    high_level_design = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/ftts/survey/highleveldesigns/'), blank=True, null=True)
+    county = models.ForeignKey('users.Location', on_delete=models.DO_NOTHING, blank=True, null=True)
     survey_comment = models.CharField(max_length=200, blank=True, null=True)
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return str(self.site_name)
+        #return str(self.site_name)
+        return 'FTTSSurvey  : {}'.format(self.site_name)
 
 ##############################################END OF FTTH SURVEY#############################################33
 
 
 class FttsCommercialTeam(TimeStampModel):
     site_name = models.OneToOneField(FTTSProject, on_delete=models.DO_NOTHING)
-    ftts_quote = models.FileField(upload_to='files/ftts/CommercialTeam/quote/%Y/%m/%d/', blank=True, null=True)
-    ftts_po_requisition = models.FileField(upload_to='files/ftts/CommercialTeam/requisition/%Y/%m/%d/', blank=True, null=True)
+    ftts_quote = models.FileField(upload_to=UploadToProjectDir(file_path ,'files/ftts/CommercialTeam/quote/'), blank=True, null=True)
+    ftts_po_requisition = models.FileField(upload_to=UploadToProjectDir(file_path,'files/ftts/CommercialTeam/requisition/'), blank=True, null=True)
     ftts_po_requisition_no = models.IntegerField(blank=True, null=True)
     ftts_po_requisition_amount = models.IntegerField(blank=True, null=True)
-    ftts_wayleave_application = models.FileField(upload_to='files/ftts/CommercialTeam/wayleaveapplication/%Y/%m/%d/', blank=True, null=True)
-    ftts_project_plan = models.FileField(upload_to='files/ftts/CommercialTeam/projectplan/%Y/%m/%d/', blank=True, null=True)
-    ftts_initial_invoice = models.FileField(upload_to='files/ftts/CommercialTeam/initialinvoice/%Y/%m/%d/', blank=True, null=True)
-    ftts_po_client = models.FileField(upload_to='files/ftts/CommercialTeam/poclient/%Y/%m/%d/', blank=True, null=True)
+    ftts_wayleave_application = models.FileField(upload_to=UploadToProjectDir(file_path,'files/ftts/CommercialTeam/wayleaveapplication/'), blank=True, null=True)
+    ftts_project_plan = models.FileField(upload_to=UploadToProjectDir(file_path,'files/ftts/CommercialTeam/projectplan/'), blank=True, null=True)
+    ftts_initial_invoice = models.FileField(upload_to=UploadToProjectDir(file_path,'files/ftts/CommercialTeam/initialinvoice/'), blank=True, null=True)
+    ftts_po_client = models.FileField(upload_to=UploadToProjectDir(file_path,'files/ftts/CommercialTeam/poclient/'), blank=True, null=True)
     ftts_po_client_no = models.IntegerField(blank=True, null=True)
     ftts_po_client_amount = models.IntegerField(blank=True, null=True)
     is_approved = models.BooleanField(default=False)
@@ -144,10 +146,10 @@ class FttsCommercialTeam(TimeStampModel):
 
 class FttsProcurementTeam(TimeStampModel):
     site_name = models.OneToOneField(FTTSProject, on_delete=models.DO_NOTHING)
-    ftts_material_requisition = models.FileField(upload_to='files/ftts/CommercialTeam/materialrequisition/%Y/%m/%d/', blank=True, null=True)
+    ftts_material_requisition = models.FileField(upload_to=UploadToProjectDir(file_path,'files/ftts/CommercialTeam/materialrequisition/'), blank=True, null=True)
     ftts_po_quote_serviceno = models.IntegerField(blank=True, null=True)
     ftts_po_quote_serviceamount = models.IntegerField(blank=True, null=True)
-    ftts_po_subcontractors = models.FileField(upload_to='files/ftts/CommercialTeam/posubcontractors/%Y/%m/%d/', blank=True, null=True)
+    ftts_po_subcontractors = models.FileField(upload_to=UploadToProjectDir(file_path,'files/ftts/CommercialTeam/posubcontractors/'), blank=True, null=True)
     ftts_po_quote_subconamount = models.IntegerField(blank=True, null=True)
     ftts_po_quote_subconno = models.IntegerField(blank=True, null=True)
     is_approved = models.BooleanField(default=False)
@@ -158,23 +160,26 @@ class FttsProcurementTeam(TimeStampModel):
 
 ######################################################## FIBER CIVIL TEAM ########################################################################################################################################################################################
 class SiteTrenchingImage(TimeStampModel):
-    day_image = models.ForeignKey('DailySiteTrenching', on_delete=models.DO_NOTHING ,related_name='trenchingimage')
-    site_trenching_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/trenching/%Y/%m/%d/')
+    day_image = models.ForeignKey('DailySiteTrenching', on_delete=models.CASCADE ,related_name='sitetrenchingimages')
+    site_trenching_image_1 = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/trenching/'),max_length = 250)
     site_trenching_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.day_image)
+        #return str(self.day_image)
+        return 'Image for {}'.format(self.day_image)
+
 
 class DailySiteTrenching(TimeStampModel):
-    sub_task = models.ForeignKey('SiteTrenching', on_delete=models.DO_NOTHING ,related_name='dailytrenchings')
+    sub_task = models.ForeignKey('SiteTrenching', on_delete=models.CASCADE ,related_name='dailysitetrenchings')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    casuals_list = models.FileField(upload_to='files/ftts/Casuals/trenching/%Y/%m/%d/',blank=True, null=True)
+    casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path ,'files/Casuals/trenching/'),blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
     distance_trenched = models.FloatField(blank=True, null=True)
     site_trenching_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.sub_task)
+        #return str(self.sub_task)
+        return '{} :Date: {}'.format(self.sub_task,self.work_day)
 
     def image_list(self):
         try:
@@ -192,15 +197,16 @@ class DailySiteTrenching(TimeStampModel):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
 class SiteTrenching(TimeStampModel,TimeTrackModel):
-    site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING ,related_name='sitetrenchings')
+    site_name = models.OneToOneField(FttsSite, on_delete=models.DO_NOTHING,related_name='sitetrenching')
     site_trenched_distance  = models.FloatField(default=0)
-    site_trenching_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/trenching/%Y/%m/%d/')
-    site_trenching_image_2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/trenching/%Y/%m/%d/')
-    site_trenching_image_3 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/trenching/%Y/%m/%d/')
+    site_trenching_image_1 = models.ImageField(upload_to= UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/trenching/'), blank=True, null=True)
+    site_trenching_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/trenching/'), blank=True, null=True)
+    site_trenching_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/trenching/'), blank=True, null=True)
     site_trenching_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.site_name)
+        #return str(self.site_name)
+        return 'SiteTrenching  : {}'.format(self.site_name)
 
 
     def days_list(self):
@@ -249,23 +255,26 @@ class SiteTrenching(TimeStampModel,TimeTrackModel):
 """END"""
 
 class SiteDuctInstallationImage(TimeStampModel):
-    day_image = models.ForeignKey('DailySiteDuctInstallation', on_delete=models.DO_NOTHING ,related_name='ductimage')
-    site_duct_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/duct/%Y/%m/%d/')
+    day_image = models.ForeignKey('DailySiteDuctInstallation', on_delete=models.DO_NOTHING ,related_name='ductimages')
+    site_duct_image_1 = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/ftts/CivilWorksTeam/duct/'),max_length = 250)
     site_duct_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.day_image)
+        #return str(self.day_image)
+        return 'Image for {}'.format(self.day_image)
+
 
 class DailySiteDuctInstallation(TimeStampModel):
     sub_task = models.ForeignKey('SiteDuctInstallation', on_delete=models.DO_NOTHING ,related_name='dailyduct')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    casuals_list = models.FileField(upload_to='files/ftts/Casuals/duct/%Y/%m/%d/',blank=True, null=True)
+    casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path ,'files/ftts/Casuals/duct/'),blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
     distance_duct = models.FloatField(blank=True, null=True)
     site_duct_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.sub_task)
+        #return str(self.sub_task)
+        return '{} :Date: {}'.format(self.sub_task,self.work_day)
 
     def image_list(self):
         try:
@@ -283,15 +292,16 @@ class DailySiteDuctInstallation(TimeStampModel):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
 class SiteDuctInstallation(TimeStampModel,TimeTrackModel):
-    site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING ,related_name='siteductinstallation')
+    site_name = models.OneToOneField(FttsSite, on_delete=models.DO_NOTHING ,related_name='siteductinstallation')
     site_duct_distance  = models.FloatField(default=0)
-    site_duct_installation_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/duct/%Y/%m/%d/')
-    site_duct_installation_image_2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/duct/%Y/%m/%d/')
-    site_duct_installation_image_3 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/duct/%Y/%m/%d/')
+    site_duct_installation_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftts/CivilWorksTeam/duct/'),blank=True,null=True)
+    site_duct_installation_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftts/CivilWorksTeam/duct/'),blank=True,null=True)
+    site_duct_installation_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftts/CivilWorksTeam/duct/'),blank=True,null=True)
     site_duct_installation_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.site_name)
+        #return str(self.site_name)
+        return 'SiteDuctInstallation  : {}'.format(self.site_name)
 
     def days_list(self):
         try:
@@ -338,23 +348,26 @@ class SiteDuctInstallation(TimeStampModel,TimeTrackModel):
 """END"""
 
 class ManHoleInstallationImage(TimeStampModel):
-    day_image = models.ForeignKey('DailyManHoleInstallation', on_delete=models.DO_NOTHING ,related_name='manholeimage')
-    manhole_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/manhole/%Y/%m/%d/')
+    day_image = models.ForeignKey('DailyManHoleInstallation', on_delete=models.DO_NOTHING ,related_name='manholeimages')
+    manhole_image_1 = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/ftts/CivilWorksTeam/manhole/'))
     manhole_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.day_image)
+        #return str(self.day_image)
+        return 'Image for {}'.format(self.day_image)
+
 
 class DailyManHoleInstallation(TimeStampModel):
-    sub_task = models.ForeignKey('ManHoleInstallation', on_delete=models.DO_NOTHING ,related_name='manhole')
+    sub_task = models.ForeignKey('ManHoleInstallation', on_delete=models.DO_NOTHING ,related_name='manholeinstalldays')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    casuals_list = models.FileField(upload_to='files/ftts/Casuals/manhole/%Y/%m/%d/',blank=True, null=True)
+    casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/ftts/Casuals/manhole/'),blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
-    distance_manhole = models.FloatField(blank=True, null=True)
+    manhole_installed = models.IntegerField(blank=True, null=True)
     manhole_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.sub_task)
+        #return str(self.sub_task) 
+        return '{} :Date: {}'.format(self.sub_task,self.work_day)
 
     def image_list(self):
         try:
@@ -372,15 +385,16 @@ class DailyManHoleInstallation(TimeStampModel):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
 class ManHoleInstallation(TimeStampModel,TimeTrackModel):
-    site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING ,related_name='manholeinstallations')
-    site_manhole_distance  = models.FloatField(default=0)
-    manhole_image_1 = models.ImageField(upload_to='images/ftts/InstallationTeam/manhole/%Y/%m/%d/')
-    manhole_image_2 = models.ImageField(upload_to='images/ftts/InstallationTeam/manhole/%Y/%m/%d/')
-    manhole_image_3 = models.ImageField(upload_to='images/ftts/InstallationTeam/manhole/%Y/%m/%d/')
+    site_name = models.OneToOneField(FttsSite, on_delete=models.DO_NOTHING ,related_name='manholeinstallations')
+    site_manhole_installed = models.IntegerField(default=0)
+    manhole_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftts/InstallationTeam/manhole/'),blank =True ,null =True)
+    manhole_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftts/InstallationTeam/manhole/'),blank =True ,null =True)
+    manhole_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftts/InstallationTeam/manhole/'),blank =True ,null =True)
     manhole_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.site_name)
+        #return str(self.site_name)
+        return 'ManHoleInstallation  : {}'.format(self.site_name)
 
     def days_list(self):
         try:
@@ -427,23 +441,26 @@ class ManHoleInstallation(TimeStampModel,TimeTrackModel):
 """END"""
 
 class SiteCableInstallationImage(TimeStampModel):
-    day_image = models.ForeignKey('DailySiteCableInstallation', on_delete=models.DO_NOTHING ,related_name='cableimage')
-    cable_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cable/%Y/%m/%d/')
+    day_image = models.ForeignKey('DailySiteCableInstallation', on_delete=models.DO_NOTHING ,related_name='cableimages')
+    cable_image_1 = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/ftts/CivilWorksTeam/cable/'))
     cable_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.day_image)
+        #return str(self.day_image)
+        return 'Image for {}'.format(self.day_image)
+
 
 class DailySiteCableInstallation(TimeStampModel):
-    sub_task = models.ForeignKey('SiteCableInstallation', on_delete=models.DO_NOTHING ,related_name='cable')
+    sub_task = models.ForeignKey('SiteCableInstallation', on_delete=models.DO_NOTHING ,related_name='cableinstalldays')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    casuals_list = models.FileField(upload_to='files/ftts/Casuals/cable/%Y/%m/%d/',blank=True, null=True)
+    casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/ftts/Casuals/cable/'),blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
     distance_cable = models.FloatField(blank=True, null=True)
     cable_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.sub_task)
+        #return str(self.sub_task)
+        return '{} :Date: {}'.format(self.sub_task,self.work_day)
 
     def image_list(self):
         try:
@@ -461,15 +478,16 @@ class DailySiteCableInstallation(TimeStampModel):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
 class SiteCableInstallation(TimeStampModel,TimeTrackModel):
-    site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING ,related_name= 'sitecableinstallation')
+    site_name = models.OneToOneField(FttsSite, on_delete=models.DO_NOTHING ,related_name= 'sitecableinstallation')
     site_cable_distance  = models.FloatField(default=0)
-    site_cable_installation_image_1 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
-    site_cable_installation_image_2 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
-    site_cable_installation_image_3 = models.ImageField(upload_to='images/ftts/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
+    site_cable_installation_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftts/CivilWorksTeam/cableinstallation/'),blank =True,null =True)
+    site_cable_installation_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftts/CivilWorksTeam/cableinstallation/'),blank =True,null =True)
+    site_cable_installation_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftts/CivilWorksTeam/cableinstallation/'),blank =True,null =True)
     site_cable_installation_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.site_name)
+        #return str(self.site_name)
+        return 'SiteCableInstallation  : {}'.format(self.site_name)
 
     def days_list(self):
         try:
@@ -527,11 +545,11 @@ class FttsAccessApprovalCivil(TimeStampModel):
 
 class FttsHealthDocumentsCivilTeam(TimeStampModel):
     site_name = models.OneToOneField(FttsSite,related_name= 'civilhealthdocuments' , on_delete=models.DO_NOTHING)
-    project_safety_comm_plan = models.FileField(upload_to='files/ftts/CivilWorksTeam/projectsafety/%Y/%m/%d/')
+    project_safety_comm_plan = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/ftts/CivilWorksTeam/projectsafety/'))
     project_safety_comm_plan_comment = models.CharField(max_length=100, blank=True, null=True)
-    hazard_analysis_form = models.FileField(upload_to='files/ftts/CivilWorksTeam/hazardanalysis/%Y/%m/%d/')
+    hazard_analysis_form = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/ftts/CivilWorksTeam/hazardanalysis/'))
     hazard_analysis_form_comment = models.CharField(max_length=100, blank=True, null=True)
-    attendance_form = models.FileField(upload_to='files/ftts/CivilWorksTeam/attendanceform/%Y/%m/%d/')
+    attendance_form = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/ftts/CivilWorksTeam/attendanceform/'))
     attendance_form_comment = models.CharField(max_length=100, blank=True, null=True)
     health_documents_comment = models.CharField(max_length=100, blank=True, null=True)
     access_approval = models.OneToOneField(FttsAccessApprovalCivil, on_delete=models.CASCADE, blank=True, null=True)
@@ -603,22 +621,25 @@ class FttsCivilTeam(TimeStampModel):
 ######################################################## FIBER INSTALLATION TEAM ########################################################################################################################################################################################
 class SiteTerminalInHseImage(TimeStampModel):
     day_image = models.ForeignKey('DailySiteTerminalInHse', on_delete=models.DO_NOTHING ,related_name='terminalinhseimage')
-    terminal_image_1 = models.ImageField(upload_to='images/ftts/InstallationTeam/terminalinhse/%Y/%m/%d/')
+    terminal_image_1 = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/ftts/InstallationTeam/terminalinhse/'))
     terminal_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.day_image)
+        #return str(self.day_image)
+        return 'Image for {}'.format(self.day_image)
+
 
 class DailySiteTerminalInHse(TimeStampModel):
-    sub_task = models.ForeignKey('SiteTerminalInHse', on_delete=models.DO_NOTHING ,related_name='terminalinhse')
+    sub_task = models.ForeignKey('SiteTerminalInHse', on_delete=models.DO_NOTHING ,related_name='terminalinhsedays')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    casuals_list = models.FileField(upload_to='files/ftts/Casuals/terminalinhse/%Y/%m/%d/',blank=True, null=True)
+    casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/ftts/Casuals/terminalinhse/'),blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
-    distance_terminal = models.FloatField(blank=True, null=True)
+    terminal_odf_no = models.IntegerField(default= 0)
     terminal_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.sub_task)
+        #return str(self.sub_task)
+        return '{} :Date: {}'.format(self.sub_task,self.work_day)
 
 
     def image_list(self):
@@ -639,13 +660,14 @@ class DailySiteTerminalInHse(TimeStampModel):
 class SiteTerminalInHse(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(FttsSite, on_delete=models.DO_NOTHING ,related_name='siteterminalinhse')
     site_terminal_in_hse_distance = models.FloatField(default=0)
-    site_terminal_in_hse_image_1 = models.ImageField(upload_to='images/ftts/InstallationTeam/terminalinhse/%Y/%m/%d/')
-    site_terminal_in_hse_image_2 = models.ImageField(upload_to='images/ftts/InstallationTeam/terminalinhse/%Y/%m/%d/')
-    site_terminal_in_hse_image_3 = models.ImageField(upload_to='images/ftts/InstallationTeam/terminalinhse/%Y/%m/%d/')
+    site_terminal_in_hse_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftts/InstallationTeam/terminalinhse/'),blank =True ,null=True)
+    site_terminal_in_hse_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftts/InstallationTeam/terminalinhse/'),blank =True ,null=True)
+    site_terminal_in_hse_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftts/InstallationTeam/terminalinhse/'),blank =True ,null=True)
     site_terminal_in_hse_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.site_name)
+        #return str(self.site_name)
+        return 'SiteTerminalInHse  : {}'.format(self.site_name)
 
     def days_list(self):
         try:
@@ -692,23 +714,27 @@ class SiteTerminalInHse(TimeStampModel,TimeTrackModel):
 """END"""
 
 class SiteInterceptionImage(TimeStampModel):
-    day_image = models.ForeignKey('DailySiteInterception', on_delete=models.DO_NOTHING ,related_name='interceptionimage')
-    interception_image_1 = models.ImageField(upload_to='images/ftts/InstallationTeam/interception/%Y/%m/%d/')
+    day_image = models.ForeignKey('DailySiteInterception', on_delete=models.DO_NOTHING ,related_name='interceptionimages')
+    interception_image_1 = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/ftts/InstallationTeam/interception/'),blank=True ,null =True)
     interception_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.day_image)
+        #return str(self.day_image)
+        return 'Image for {}'.format(self.day_image)
+
 
 class DailySiteInterception(TimeStampModel):
-    sub_task = models.ForeignKey('SiteInterception', on_delete=models.DO_NOTHING ,related_name='interception')
+    sub_task = models.ForeignKey('SiteInterception', on_delete=models.DO_NOTHING ,related_name='interceptiondays')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    casuals_list = models.FileField(upload_to='files/ftts/Casuals/interception/%Y/%m/%d/',blank=True, null=True)
+    casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/ftts/Casuals/interception/'),blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
     distance_interception = models.FloatField(blank=True, null=True)
+
     interception_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.sub_task)
+        #return str(self.sub_task)
+        return '{} :Date: {}'.format(self.sub_task,self.work_day)
 
     def image_list(self):
         try:
@@ -725,16 +751,17 @@ class DailySiteInterception(TimeStampModel):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
 class SiteInterception(TimeStampModel,TimeTrackModel):
-    site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING)
+    site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING,related_name='siteinterception')
     site_interception_distance = models.FloatField(default=0)
     manhole = models.ForeignKey(ManHole, on_delete=models.DO_NOTHING ,blank=True, null=True)
-    site_interception_image_1 = models.ImageField(upload_to='images/ftts/InstallationTeam/interception/%Y/%m/%d/')
-    site_interception_image_2 = models.ImageField(upload_to='images/ftts/InstallationTeam/interception/%Y/%m/%d/')
-    site_interception_image_3 = models.ImageField(upload_to='images/ftts/InstallationTeam/interception/%Y/%m/%d/')
+    site_interception_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftts/InstallationTeam/interception/'),blank=True ,null =True)
+    site_interception_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftts/InstallationTeam/interception/'),blank=True ,null =True)
+    site_interception_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftts/InstallationTeam/interception/'),blank=True ,null =True)
     site_interception_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.site_name)
+        #return str(self.site_name)
+        return 'BlindingSubTask  : {}'.format(self.site_name)
 
     def days_list(self):
         try:
@@ -793,11 +820,11 @@ class FttsAccessApprovalInstallation(TimeStampModel):
 
 class FttsHealthDocsInstallationTeam(TimeStampModel):
     site_name = models.OneToOneField(FttsSite,related_name= 'installationhealthdocuments' , on_delete=models.DO_NOTHING)
-    project_safety_comm_plan = models.FileField(upload_to='files/ftts/InstallationTeamFtts/projectsafety/%Y/%m/%d/')
+    project_safety_comm_plan = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/ftts/InstallationTeamFtts/projectsafety/'))
     project_safety_comm_plan_comment = models.CharField(max_length=100, blank=True, null=True)
-    hazard_analysis_form = models.FileField(upload_to='files/ftts/InstallationTeamFtts/hazardanalysis/%Y/%m/%d/')
+    hazard_analysis_form = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/ftts/InstallationTeamFtts/hazardanalysis/'))
     hazard_analysis_form_comment = models.CharField(max_length=100, blank=True, null=True)
-    attendance_form = models.FileField(upload_to='files/ftts/InstallationTeamFtts/attendanceform/%Y/%m/%d/')
+    attendance_form = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/ftts/InstallationTeamFtts/attendanceform/'))
     attendance_form_comment = models.CharField(max_length=100, blank=True, null=True)
     health_documents_comment = models.CharField(max_length=100, blank=True, null=True)
     access_approval = models.OneToOneField(FttsAccessApprovalCivil, on_delete=models.CASCADE, blank=True, null=True)
@@ -810,8 +837,8 @@ class FttsHealthDocsInstallationTeam(TimeStampModel):
 class FttsIssues(TimeStampModel):
     site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING)
     ftts_issue = models.CharField(max_length=100)
-    ftts_issue_image = models.ImageField(upload_to='images/InstallationTeamFtts/issues/%Y/%m/%d/', blank=True, null=True)
-    ftts_issue_sorted_image = models.ImageField(upload_to='images/InstallationTeamFtts/issues/%Y/%m/%d/', blank=True, null=True)
+    ftts_issue_image = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeamFtts/issues/'), blank=True, null=True)
+    ftts_issue_sorted_image = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeamFtts/issues/'), blank=True, null=True)
     closed = models.BooleanField(default=False)
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
@@ -821,7 +848,7 @@ class FttsIssues(TimeStampModel):
 class FttsInstallationTeam(TimeStampModel):
     site_name = models.OneToOneField(FttsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    casuals_list = models.FileField(upload_to='files/ftts/Casuals/installationteam/%Y/%m/%d/',blank=True, null=True)
+    casuals_list = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/ftts/Casuals/installationteam/'),blank=True, null=True)
     ftts_terminal_in_hse = models.OneToOneField(SiteTerminalInHse, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftts_interception = models.OneToOneField(SiteInterception, on_delete=models.DO_NOTHING, blank=True, null=True)
     ftts_integration = models.BooleanField(default=False)
@@ -829,10 +856,10 @@ class FttsInstallationTeam(TimeStampModel):
     ftts_installation_team_comment = models.CharField(max_length=100, blank=True, null=True)
     ftts_asbuit_received = models.BooleanField(default=True)
     ftts_asbuilt_comment = models.CharField(max_length=100, blank=True, null=True)
-    snag_document = models.FileField(upload_to='files/SafaricomTeamftts/snag/%Y/%m/%d/', blank=True, null=True)
+    snag_document = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/SafaricomTeamftts/snag/'), blank=True, null=True)
     snag_document_comment = models.CharField(max_length=100, blank=True, null=True)
     ftts_issues = models.ManyToManyField(FttsIssues, blank=True )
-    conditional_acceptance_cert = models.FileField(upload_to='files/SafaricomTeamftts/conditionalcert/%Y/%m/%d/', blank=True, null=True)
+    conditional_acceptance_cert = models.FileField(upload_to=UploadToProjectDirSubTask(file_path ,'files/SafaricomTeamftts/conditionalcert/'), blank=True, null=True)
     conditional_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
     health_documents = models.ManyToManyField(FttsHealthDocsInstallationTeam, blank=True )
     is_approved = models.BooleanField(default=False)
