@@ -163,7 +163,7 @@ class FtthCivilTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
-################################################ END ##############################################################################################################################################################################################################################################################
+############################################### END ##############################################################################################################################################################################################################################################################
 
 ################################################ FIBER INSTALLATION TEAM ##############################################################################################################################################################################################################################################
 class FtthSplicingEnclosureImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
@@ -235,6 +235,28 @@ class FtthSplicingViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
+"""END"""
+class FtthCoreProvisionImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = FtthCoreProvisionImage.objects.order_by('created_at')
+    serializer_class = FtthCoreProvisionImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+class DailyFtthCoreProvisionViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = DailyFtthCoreProvision.objects.order_by('created_at')
+    serializer_class = DailyFtthCoreProvisionSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+class FtthCoreProvisionViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = FtthCoreProvision.objects.order_by('created_at')
+    serializer_class = FtthCoreProvisionSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
 """END"""
 class FtthPowerLevelsImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = FtthPowerLevelsImage.objects.order_by('created_at')

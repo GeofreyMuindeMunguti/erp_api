@@ -50,6 +50,10 @@ router.register(r'FtthSplicingFDT', views.FtthSplicingFDTViewSet)
 
 router.register(r'FtthSplicing', views.FtthSplicingViewSet)
 
+router.register(r'FtthCoreProvisionImage', views.FtthCoreProvisionImageViewSet)
+router.register(r'DailyFtthCoreProvision', views.DailyFtthCoreProvisionViewSet)
+router.register(r'FtthCoreProvision', views.FtthCoreProvisionViewSet)
+
 router.register(r'FtthPowerLevelsImage', views.FtthPowerLevelsImageViewSet)
 router.register(r'DailyFtthPowerLevels', views.DailyFtthPowerLevelsViewSet)
 router.register(r'FtthPowerLevels', views.FtthPowerLevelsViewSet)
