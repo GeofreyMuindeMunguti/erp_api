@@ -27,8 +27,7 @@ router.register(r'healthdocscivil', views.HealthDocCivilViewSet)
 router.register(r'accessapprovalscivil', views.AccessApprovalCivilViewSet)
 router.register(r'civilteamtasks', views.CivilTeamViewSet)
 
-# router.register(r'foundationimages', views.FoundationCreationTaskViewSet)
-# router.register(r'setclearingimages', views.SetSiteClearingImageViewSet)
+
 router.register(r'category', views.CategoryViewSet)
 router.register(r'Icons', views.ProjectIconViewSet)
 router.register(r'projectcosting', views.ProjectCostingViewSet)
