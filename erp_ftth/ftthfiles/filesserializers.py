@@ -4,48 +4,106 @@
 # Imports
 #---------
 from rest_framework import serializers  #, exceptions
-from erp_ftts.models import *
+from erp_ftth.models import *
 
 
 ############################ PROJECT FILES SERIALIZERS ###############################################
 
 
-class SiteClearingFilesSerializer(serializers.ModelSerializer):
+class FTTHProjectFilesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FTTHProject
+       # fields = ('ftts_final_acceptance_cert','ftts_accumulated_BOM_survey')
+# Site TRENCHING  Files Serializers///////////////
+
+
+class FtthPoleInstallationImagesSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = SetSiteClearingImage
-        fields = ('setting_site_clearing_image_1','setting_site_clearing_image_2','setting_site_clearing_image_3',)
+        model = FtthPoleInstallationImage
+        fields = ('poleinstallation_image_1', 'poleinstallation_comment',)
 
 
-
-class AccessApprovalFileInstallationSerializer(serializers.ModelSerializer):
+class FtthPoleInstallationDateFilesSerializer(serializers.ModelSerializer):
+    poleinstallationimages = FtthPoleInstallationImagesSerializer(many = True ,read_only=True)
 
     class Meta:
-        model = AccessApprovalInstallation
-        fields = ('access_approval',)
-        read_only_fields = ('created_at', 'updated_at', 'is_active')
+        model = DailyFtthPoleInstallation
+        fields = ('work_day','casuals_list','poleinstallationimages',)
+
+class FtthPoleInstallationSubTaskFilesSerializer(serializers.ModelSerializer):
+    poleinstallationdays =FtthPoleInstallationDateFilesSerializer(many = True,read_only =True)
+
+    class Meta:
+        model = FtthPoleInstallation
+        fields = ('ftth_pole_installation_image_1','ftth_pole_installation_image_2','ftth_pole_installation_image_3','ftth_pole_installation_comment','poleinstallationdays',)
+
+class FtthTrenchingImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FtthTrenchingImage
+        fields = ('trenching_image_1', 'trenching_comment',)
+
+
+class FtthTrenchingDateFilesSerializer(serializers.ModelSerializer):
+    ftthtrenchingimages = FtthTrenchingImagesSerializer(many = True ,read_only=True)
+
+    class Meta:
+        model = DailyFtthTrenching
+        fields = ('work_day','casuals_list','ftthtrenchingimages',)
+
+class FtthTrenchingSubTaskFilesSerializer(serializers.ModelSerializer):
+    ftthtrenchingdays =FtthTrenchingDateFilesSerializer(many = True,read_only =True)
+
+    class Meta:
+        model = FtthTrenching
+        fields = ('ftth_trenching_image_2','ftth_trenching_image_3', 'ftth_trenching_comment','ftthtrenchingdays',)
+
+
+
+class FtthBackfillingImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FtthBackfillingImage
+        fields = ('backfilling_image_1', 'backfilling_comment',)
+
+
+class FtthBackfillingDateFilesSerializer(serializers.ModelSerializer):
+    ftthbackfillingimages = FtthBackfillingImagesSerializer(many = True ,read_only=True)
+
+    class Meta:
+        model = DailyFtthBackfilling
+        fields = ('work_day','casuals_list','ftthbackfillingimages',)
+
+class FtthBackfillingSubTaskFilesSerializer(serializers.ModelSerializer):
+    ftthbackfillingdays =FtthBackfillingDateFilesSerializer(many = True,read_only =True)
+
+    class Meta:
+        model = FtthBackfilling
+        fields = ('ftth_backfilling_image_1','ftth_backfilling_image_2', 'ftth_backfilling_image_3', 'ftth_backfilling_comment','ftthbackfillingdays',)
+
+
 
 
 
 
 ################### Main Project Serializer################################
 
-class BtsSiteFilesSerializer(serializers.ModelSerializer):
+class FTTHProjectFilesSerializer(serializers.ModelSerializer):
+    # Civil >One per site
+    #ftthpoleinstallation = FtthPoleInstallationSubTaskFilesSerializer(read_only =True)
+    # sitetrenching = SiteTrenchingSubTaskFilesSerializer(read_only =True)
+    # siteductinstallation = SiteDuctInstallationSubTaskFilesSerializer(read_only =True)
+    # manHoleinstallation = ManHoleInstallationSubTaskFilesSerializer(read_only =True)
+    # siteterminalinhse =  SiteTerminalInHseSubTaskFilesSerializer(read_only =True)
 
+    # siteinterception  = SiteInterceptionSubTaskFilesSerializer(read_only=True)
 
-
-    setsiteclearingimage = SiteClearingFilesSerializer ( read_only =True)
-  
-    accessapprovalinstallation = AccessApprovalFileInstallationSerializer(many = True,read_only=True)
-
- 
 
     class Meta:
-        model = FttsSite
-       # fields = ('__all__')
-        exclude = ("id","project_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
-           "updated_at", "is_active", "location", "created_by")
+        model = FTTHProject
+        #fields = ('__all__')
+       # fields = ('sitetrenching','siteductinstallation','fttscommercialteam','site_name')
 
-        #fields = ('geotech_file','access_letter','approved_drawing','final_acceptance_cert','setsiteclearingimage',
-        #'towerbaseimage','bindingimage','steelfixformworkimage','concretepourcuringimage')
-        #read_only_fields = ('created_at', 'updated_at', 'is_active')
+        exclude = ("id","signed_operation_acceptance","created_at",
+           "updated_at", "is_active",)

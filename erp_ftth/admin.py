@@ -77,7 +77,7 @@ class FtthPoleInstallationImageAdmin(admin.ModelAdmin):
 admin.site.register(FtthPoleInstallationImage, FtthPoleInstallationImageAdmin)
 
 class DailyFtthPoleInstallationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','poleinstallation_date','poleinstallation_comment','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','poleinstallation_comment','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     search_fields = ('sub_task', )
     list_editable = ('is_active',)
@@ -100,7 +100,7 @@ class FtthTrenchingImageAdmin(admin.ModelAdmin):
 admin.site.register(FtthTrenchingImage, FtthTrenchingImageAdmin)
 
 class DailyFtthTrenchingAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','trenching_date','trenching_comment','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','trenching_comment','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     search_fields = ('sub_task', )
     list_editable = ('is_active',)
@@ -124,7 +124,7 @@ class FtthBackfillingImageAdmin(admin.ModelAdmin):
 admin.site.register(FtthBackfillingImage, FtthBackfillingImageAdmin)
 
 class DailyFtthBackfillingAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','backfilling_date','backfilling_comment','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','backfilling_comment','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     search_fields = ('sub_task', )
     list_editable = ('is_active',)
