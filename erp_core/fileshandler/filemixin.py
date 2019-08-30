@@ -62,8 +62,12 @@ class UploadToProjectDirSubTask(object):
     def __call__(self, instance, filename):
         #Create  Project_name/Filename(self.sun_path)  Dir Structure
         try:
-            project_path = str(instance.project_name).split(':')[1].strip()
-            return self.path.format(self.main_path ,project_path, self.sub_path, filename)
+            try:
+                project_path = str(instance.project_name).split(':')[1].strip()
+                return self.path.format(self.main_path ,project_path, self.sub_path, filename)
+            except:
+                project_path = str(instance.site_name).split(':')[1].strip()
+                return self.path.format(self.main_path ,project_path, self.sub_path, filename)
 
         except:
             return self.path.format(self.main_path ,'FILES', self.sub_path, filename)
@@ -113,6 +117,7 @@ class UploadToProjectDirImage(object):
         except:
 
             return self.path.format(self.main_path ,'FILES', self.sub_path,date_path,  filename)
+
 
 
 

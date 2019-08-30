@@ -18,11 +18,11 @@ class SiteClearingImagesSerializer(serializers.ModelSerializer):
 
 
 class SiteClearingDateFilesSerializer(serializers.ModelSerializer):
-    siteclearingimages = SiteClearingImagesSerializer(read_only=True)
+    siteclearingimages = SiteClearingImagesSerializer(many =True ,read_only=True)
 
     class Meta:
         model = SiteClearingDate
-        fields = ('work_day','casuals_list','siteclearingimage',)
+        fields = ('work_day','casuals_list','siteclearingimages',)
 
 class SiteClearingSubTaskFilesSerializer(serializers.ModelSerializer):
     siteclearingdates =SiteClearingDateFilesSerializer(many = True,read_only =True)
@@ -48,7 +48,7 @@ class TowerBaseImagesSerializer(serializers.ModelSerializer):
 
 
 class TowerBaseDateFilesSerializer(serializers.ModelSerializer):
-    towerbaseimages = TowerBaseImagesSerializer(read_only=True)
+    towerbaseimages = TowerBaseImagesSerializer(many =True ,read_only=True)
 
     class Meta:
         model = TowerBaseDate
@@ -79,7 +79,7 @@ class BlindingImagesSerializer(serializers.ModelSerializer):
 
 
 class BlindingDateFilesSerializer(serializers.ModelSerializer):
-    blindingimages = BlindingImagesSerializer(read_only=True)
+    blindingimages = BlindingImagesSerializer(many =True ,read_only=True)
 
     class Meta:
         model = BlindingDate
@@ -110,7 +110,7 @@ class SteelFixFormworkImagesSerializer(serializers.ModelSerializer):
 
 
 class SteelFixFormworkDateFilesSerializer(serializers.ModelSerializer):
-    steelfixformworkimages = SteelFixFormworkImagesSerializer(read_only=True)
+    steelfixformworkimages = SteelFixFormworkImagesSerializer(many =True ,read_only=True)
 
     class Meta:
         model = SteelFixFormworkDate
@@ -142,7 +142,7 @@ class ConcretePourImagesSerializer(serializers.ModelSerializer):
 
 
 class ConcretePourDateFilesSerializer(serializers.ModelSerializer):
-    concretepourimages = ConcretePourImagesSerializer(read_only=True)
+    concretepourimages = ConcretePourImagesSerializer(many =True ,read_only=True)
 
     class Meta:
         model = ConcretePourDate
@@ -175,7 +175,7 @@ class ConcreteCuringImagesSerializer(serializers.ModelSerializer):
 
 
 class ConcreteCuringPeriodDateFilesSerializer(serializers.ModelSerializer):
-    concretecuringperiodimages = ConcreteCuringImagesSerializer(read_only=True)
+    concretecuringperiodimages = ConcreteCuringImagesSerializer(many =True ,read_only=True)
 
     class Meta:
         model = ConcreteCuringPeriodDate
@@ -209,7 +209,7 @@ class ExcavationImagesSerializer(serializers.ModelSerializer):
 
 
 class ExcavationDateFilesSerializer(serializers.ModelSerializer):
-    excavationimages = ExcavationImagesSerializer(read_only=True)
+    excavationimages = ExcavationImagesSerializer(many =True ,read_only=True)
 
     class Meta:
         model = ExcavationDate
@@ -242,7 +242,7 @@ class BS241ConcretePourCuringPeriodImagesSerializer(serializers.ModelSerializer)
 
 
 class BS241ConcretePourCuringPeriodDateFilesSerializer(serializers.ModelSerializer):
-    bs241Concretepourcuringperiodimages = BS241ConcretePourCuringPeriodImagesSerializer(read_only=True)
+    bs241Concretepourcuringperiodimages = BS241ConcretePourCuringPeriodImagesSerializer(many =True ,read_only=True)
 
     class Meta:
         model = BS241ConcretePourCuringPeriodDate
@@ -274,7 +274,7 @@ class FoundFootPourImagesSerializer(serializers.ModelSerializer):
 
 
 class FoundFootPourDateFilesSerializer(serializers.ModelSerializer):
-    foundfootpourimages = FoundFootPourImagesSerializer(read_only=True)
+    foundfootpourimages = FoundFootPourImagesSerializer(many =True ,read_only=True)
 
     class Meta:
         model = FoundFootPourDate
@@ -305,7 +305,7 @@ class BlockworkPanelConstImagesSerializer(serializers.ModelSerializer):
 
 
 class BlockworkPanelConstDateFilesSerializer(serializers.ModelSerializer):
-    blockworkpanelconstimages = BlockworkPanelConstImagesSerializer(read_only=True)
+    blockworkpanelconstimages = BlockworkPanelConstImagesSerializer(many =True ,read_only=True)
 
     class Meta:
         model = BlockworkPanelConstDate
@@ -335,7 +335,7 @@ class GateInstallationImagesSerializer(serializers.ModelSerializer):
         fields = ('gateinstallation_image','gateinstallation_comment',)
 
 class GateInstallationDateFilesSerializer(serializers.ModelSerializer):
-    gateinstallationimages = GateInstallationImagesSerializer(read_only=True)
+    gateinstallationimages = GateInstallationImagesSerializer(many =True ,read_only=True)
 
     class Meta:
         model = GateInstallationDate
@@ -381,7 +381,7 @@ class GateInstallationImagesSerializer(serializers.ModelSerializer):
         fields = ('gateinstallation_image','gateinstallation_comment',)
 
 class GateInstallationDateFilesSerializer(serializers.ModelSerializer):
-    gateinstallationimages = GateInstallationImagesSerializer(read_only=True)
+    gateinstallationimages = GateInstallationImagesSerializer(many =True ,read_only=True)
 
     class Meta:
         model = GateInstallationDate
@@ -413,7 +413,7 @@ class RazorElectricFenceImagesSerializer(serializers.ModelSerializer):
 
 
 class RazorElectricFenceDateFilesSerializer(serializers.ModelSerializer):
-    razorelectricfenceimages = RazorElectricFenceImagesSerializer(read_only=True)
+    razorelectricfenceimages = RazorElectricFenceImagesSerializer(many =True ,read_only=True)
 
     class Meta:
         model = RazorElectricFenceDate
@@ -442,7 +442,7 @@ class GateInstallationImagesSerializer(serializers.ModelSerializer):
         fields = ('gateinstallation_image','gateinstallation_comment',)
 
 class GateInstallationDateFilesSerializer(serializers.ModelSerializer):
-    gateinstallationimages = GateInstallationImagesSerializer(read_only=True)
+    gateinstallationimages = GateInstallationImagesSerializer(many =True ,read_only=True)
 
     class Meta:
         model = GateInstallationDate
@@ -481,7 +481,7 @@ class GateInstallationImagesSerializer(serializers.ModelSerializer):
         fields = ('gateinstallation_image','gateinstallation_comment',)
 
 class GateInstallationDateFilesSerializer(serializers.ModelSerializer):
-    gateinstallationimages = GateInstallationImagesSerializer(read_only=True)
+    gateinstallationimages = GateInstallationImagesSerializer(many =True ,read_only=True)
 
     class Meta:
         model = GateInstallationDate
@@ -504,7 +504,7 @@ class GateInstallationSubTaskAFilesSerializer(serializers.ModelSerializer):
 
 
 class TowerErectionDateFilesSerializer(serializers.ModelSerializer):
-    towererectionimages = TowerErectionImagesSerializer(read_only=True)
+    towererectionimages = TowerErectionImagesSerializer(many =True ,read_only=True)
 
     class Meta:
         model = TowerErectionDate
@@ -534,7 +534,7 @@ class TowerPaintImagesSerializer(serializers.ModelSerializer):
 
 
 class TowerPaintDateFilesSerializer(serializers.ModelSerializer):
-    towerpaintimages = TowerPaintImagesSerializer(read_only=True)
+    towerpaintimages = TowerPaintImagesSerializer(many =True ,read_only=True)
 
     class Meta:
         model = TowerPaintDate
@@ -565,7 +565,7 @@ class CableWaysImagesSerializer(serializers.ModelSerializer):
 
 
 class CableWaysDateFilesSerializer(serializers.ModelSerializer):
-    cablewaysimages = CableWaysImagesSerializer(read_only=True)
+    cablewaysimages = CableWaysImagesSerializer(many =True ,read_only=True)
 
     class Meta:
         model = CableWaysDate
@@ -595,7 +595,7 @@ class AntennaCoaxInstallImagesSerializer(serializers.ModelSerializer):
 
 
 class AntennaCoaxInstallDateFilesSerializer(serializers.ModelSerializer):
-    antennacoaxinstallimages = AntennaCoaxInstallImagesSerializer(read_only=True)
+    antennacoaxinstallimages = AntennaCoaxInstallImagesSerializer(many =True ,read_only=True)
 
     class Meta:
         model = AntennaCoaxInstallDate
@@ -812,11 +812,11 @@ class BtsSiteFilesSerializer(serializers.ModelSerializer):
     undergroundtask = UndergroundTaskSubTaskFilesSerializer(read_only =True)
     # reticulationapsinstallation = ReticulationAPSinstallationFilesSerializer(read_only=True)
     # electricalearthing = ElectricalEarthingImagesSerializer(read_only =True)
-    # generatorinstallation = GeneratorInstallationImagesSerializer(read_only=True)
-    # kplcsolarimage = KPLCSolarImagesSerializer(read_only=True)
+    # generatorinstallation = GeneratorInstallationImagesSerializer(many =True ,read_only=True)
+    # kplcsolarimage = KPLCSolarImagesSerializer(many =True ,read_only=True)
 
-    # btsinstallationtask = BTSinstallationTaskImagesSerializer(read_only=True)
-    # mwinstallationtask = MWInstallationTaskImagesSerializer(read_only=True)
+    # btsinstallationtask = BTSinstallationTaskImagesSerializer(many =True ,read_only=True)
+    # mwinstallationtask = MWInstallationTaskImagesSerializer(many =True ,read_only=True)
     # installationteam = InstallationTeamFilesSerializer(read_only =True)
     issues = IssuesImageSerializer(many = True,read_only=True)
 

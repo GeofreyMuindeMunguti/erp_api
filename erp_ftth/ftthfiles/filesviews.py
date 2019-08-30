@@ -6,55 +6,48 @@
 
 from .filesserializers import *
 from rest_framework import generics, permissions, viewsets, serializers, permissions, filters, status
-from erp_ftth.models import *
-
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
+from erp_ftts.models import *
 from rest_framework import status, viewsets
-from rest_framework.decorators import parser_classes
-from rest_framework.decorators import detail_route
 from erp_core.fileshandler.filemixin import DefaultsMixin
 
 
 
 #################################FILES  HANDLING VIEWS   BLOCK#####################################################
 
-class FilesView(APIView):
 
-    def get(self, request, format=None):
-        "TO DO"
-        resp = "# TO DO        USE  erp_construction/ files/<int:pk>/  :  pk is project ID"
-        return Response(resp)
-
-
-class BtsSiteFilesView(generics.RetrieveAPIView,DefaultsMixin):
+class FTTHProjectGetView(generics.RetrieveAPIView,DefaultsMixin):
     ''' Main View to return all files per project'''
 
-    queryset = BtsSite.objects.all()
-    serializer_class = BtsSiteFilesSerializer
+    queryset = FTTHProject.objects.all()
+    serializer_class = FTTHProjectFilesSerializer
+
+
+# class FttsSiteFilesView(generics.RetrieveAPIView):
+#     ''' Main View to return all files per project'''
+
+#     queryset = FttsSite.objects.all()
+#     serializer_class = FttsSiteFilesSerializer
 
 
 
-    # Views for individual files type
+# #     # Views for individual files type
 
-class SiteClearingFilesView(generics.RetrieveAPIView,DefaultsMixin):
-    #queryset = SetSiteClearingImage.objects.all()
+class FtthPoleInstallationilesView(generics.RetrieveAPIView):
     def get_queryset(self):
-        queryset = SetSiteClearingImage.objects.filter(project_name_id=self.kwargs["pk"])
+        queryset = FtthPoleInstallation.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
-    serializer_class = SiteClearingFilesSerializer
+    serializer_class = FtthPoleInstallationSubTaskFilesSerializer
 
 
-
-
-
-class AccessApprovalFileCivilView(generics.RetrieveAPIView,DefaultsMixin):
-    #queryset = AccessApprovalCivil.objects.all()
+class FtthTrenchingSubTaskFilesView(generics.RetrieveAPIView):
     def get_queryset(self):
-        queryset = AccessApprovalCivil.objects.filter(project_name_id=self.kwargs["pk"])
+        queryset =  FtthTrenching.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
-    serializer_class = AccessApprovalFileCivilSerializer
+    serializer_class = FtthTrenchingSubTaskFilesSerializer
 
 
-
+class FtthBackfillingSubTaskFilesView(generics.RetrieveAPIView):
+    def get_queryset(self):
+        queryset =  FtthBackfilling.objects.filter(project_name_id=self.kwargs["pk"])
+        return queryset
+    serializer_class = FtthBackfillingSubTaskFilesSerializer

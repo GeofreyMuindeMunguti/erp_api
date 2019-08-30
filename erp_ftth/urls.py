@@ -1,11 +1,11 @@
 from rest_framework.routers import DefaultRouter
 from rest_framework.urlpatterns import format_suffix_patterns
 from . import views
-from erp_construction.models import *
+from erp_ftth.models import *
 from users.models import *
 from django.urls import path, include
 from .views import *
-
+from .ftthfiles import filesviews
 
 
 router = DefaultRouter()
@@ -50,6 +50,10 @@ router.register(r'FtthSplicingFDT', views.FtthSplicingFDTViewSet)
 
 router.register(r'FtthSplicing', views.FtthSplicingViewSet)
 
+router.register(r'FtthCoreProvisionImage', views.FtthCoreProvisionImageViewSet)
+router.register(r'DailyFtthCoreProvision', views.DailyFtthCoreProvisionViewSet)
+router.register(r'FtthCoreProvision', views.FtthCoreProvisionViewSet)
+
 router.register(r'FtthPowerLevelsImage', views.FtthPowerLevelsImageViewSet)
 router.register(r'DailyFtthPowerLevels', views.DailyFtthPowerLevelsViewSet)
 router.register(r'FtthPowerLevels', views.FtthPowerLevelsViewSet)
@@ -69,5 +73,18 @@ router.register(r'FtthTeam', views.FtthTeamViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+
+      # FILES (PER SITE) ENDPOINTS
+
+    path('files/<int:pk>/', filesviews.FTTHProjectGetView.as_view()),# Main
+
+    # path('files/<int:pk>/commercialteamtiles/', filesviews.FttsCommercialTeamFilesView.as_view()),
+    # Civil works
+    path('files/<int:pk>/poleinstallation/', filesviews. FtthPoleInstallationilesView.as_view()),
+    path('files/<int:pk>/trenching/', filesviews.FtthTrenchingSubTaskFilesView.as_view()),
+    
+    path('files/<int:pk>/backfilling/', filesviews.FtthBackfillingSubTaskFilesView.as_view()),
+    # path('files/<int:pk>/sitemanholeinstall/', filesviews.ManHoleInstallationFilesView.as_view()),
+
 
 ]

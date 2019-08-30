@@ -3,18 +3,18 @@ from django.contrib.auth.models import User
 from users.serializers import *
 from datetime import datetime
 
-from rest_framework import generics, permissions, viewsets, serializers, permissions, filters, status
+from rest_framework import generics,viewsets, serializers, filters, status
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework_jwt.views import ObtainJSONWebToken
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
+# from rest_framework.permissions import AllowAny
 
 from .serializers import JWTSerializer
 from django.contrib.contenttypes.models import ContentType
 
-from users.permissions import IsLoggedInUserOrAdmin, IsAdminUser
+# from users.permissions import IsLoggedInUserOrAdmin, IsAdminUser
 
 # Create your views here.
 # API
@@ -53,15 +53,15 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-    def get_permissions(self):
-        permission_classes = []
-        if self.action == 'create':
-            permission_classes = [AllowAny]
-        elif self.action == 'retrieve' or self.action == 'update' or self.action == 'partial_update':
-            permission_classes = [IsLoggedInUserOrAdmin]
-        elif self.action == 'list' or self.action == 'destroy':
-            permission_classes = [IsAdminUser]
-        return [permission() for permission in permission_classes]
+    # def get_permissions(self):
+    #     permission_classes = []
+    #     if self.action == 'create':
+    #         permission_classes = [AllowAny]
+    #     elif self.action == 'retrieve' or self.action == 'update' or self.action == 'partial_update':
+    #         permission_classes = [IsLoggedInUserOrAdmin]
+    #     elif self.action == 'list' or self.action == 'destroy':
+    #         permission_classes = [IsAdminUser]
+    #         return [permission() for permission in permission_classes]
 
 class LogViewSet(viewsets.ModelViewSet):
     queryset = Log.objects.all()

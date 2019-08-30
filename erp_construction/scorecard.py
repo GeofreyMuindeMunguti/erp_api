@@ -10,8 +10,8 @@ from django.db.models import Avg, Max, Min, Sum
 class TurnAroundTimeView(APIView):
 
     def get(self, request):
-        project_count = Project.objects.all().count()
-        turn_around_time_data = Project.objects.all()
+        project_count = BtsSite.objects.all().count()
+        turn_around_time_data = BtsSite.objects.all()
         turn_around_time = 0
         for time in turn_around_time_data:
             turn_around_time += time.turn_around_time()
@@ -25,7 +25,7 @@ class TurnAroundTimeView(APIView):
 class TotalPurchaseOrdersView(APIView):
 
     def get(self, request):
-        purchase_order_data = ProjectPurchaseOrders.objects.all().count()
+        purchase_order_data = ProjectPurchaseOrder.objects.all().count()
         return Response({'total_purchase_orders': purchase_order_data, })
 
 
@@ -36,7 +36,7 @@ class RevenueDetailView(APIView):
 
     def get(self, request, pk):
         try:
-            revenue_per_project_data = ProjectPurchaseOrders.objects.get(project_name=pk)
+            revenue_per_project_data = ProjectPurchaseOrder.objects.get(project_name=pk)
             revenue_per_project = revenue_per_project_data.total_cost_of_po
             return Response({'revenue_per_project': revenue_per_project, })
         except Exception as e:
@@ -49,5 +49,5 @@ class RevenueDetailView(APIView):
 class RevenueListView(APIView):
 
     def get(self, request):
-        revenue_project_wide = ProjectPurchaseOrders.objects.all().aggregate(Sum('total_cost_of_po'))
+        revenue_project_wide = ProjectPurchaseOrder.objects.all().aggregate(Sum('total_cost_of_po'))
         return Response({'revenue_project_wide': revenue_project_wide, })

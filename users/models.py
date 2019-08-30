@@ -29,9 +29,9 @@ class CustomUser(models.Model):
         single_emp = CustomUser.objects.get(employee=username)
         return single_emp
 
-    # def get_permissions(self):
-    #     perm_tuple = [(x.id, x.name) for x in Permission.objects.filter(group__user=self.user)]
-    #     return perm_tuple
+    def get_permissions(self):
+        perm_tuple = [(x.id, x.name) for x in Permission.objects.filter(group__user=self.user)]
+        return perm_tuple
 
     def last_seen(self):
         try:
