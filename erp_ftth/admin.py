@@ -77,7 +77,7 @@ class FtthPoleInstallationImageAdmin(admin.ModelAdmin):
 admin.site.register(FtthPoleInstallationImage, FtthPoleInstallationImageAdmin)
 
 class DailyFtthPoleInstallationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','poleinstallation_date','poleinstallation_comment','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','poleinstallation_comment','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     search_fields = ('sub_task', )
     list_editable = ('is_active',)

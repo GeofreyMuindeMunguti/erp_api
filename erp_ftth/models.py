@@ -107,11 +107,10 @@ class FtthPoleInstallationImage(TimeStampModel):
         return str(self.day_image)
 
 class DailyFtthPoleInstallation(TimeStampModel):
-    sub_task = models.ForeignKey('FtthPoleInstallation', on_delete=models.DO_NOTHING ,related_name='poleinstallation')
+    sub_task = models.ForeignKey('FtthPoleInstallation', on_delete=models.DO_NOTHING ,related_name='poleinstallationdays')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     casuals_list = models.FileField(upload_to='files/ftth/Casuals/poleinstallation/%Y/%m/%d/',blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
-    poleinstallation_date = models.DateField(unique =True, blank=True, null=True)
     poleinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
@@ -132,7 +131,7 @@ class DailyFtthPoleInstallation(TimeStampModel):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
 class FtthPoleInstallation(TimeStampModel,TimeTrackModel):
-    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING,related_name='ftthpoleinstallation', blank=True,null =True)
     ftth_pole_installation_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/poleinstallation/%Y/%m/%d/')
     ftth_pole_installation_image_2 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/poleinstallation/%Y/%m/%d/')
     ftth_pole_installation_image_3 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/poleinstallation/%Y/%m/%d/')
