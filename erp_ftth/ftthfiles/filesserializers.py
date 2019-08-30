@@ -38,13 +38,60 @@ class FtthPoleInstallationSubTaskFilesSerializer(serializers.ModelSerializer):
         model = FtthPoleInstallation
         fields = ('ftth_pole_installation_image_1','ftth_pole_installation_image_2','ftth_pole_installation_image_3','ftth_pole_installation_comment','poleinstallationdays',)
 
+class FtthTrenchingImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FtthTrenchingImage
+        fields = ('trenching_image_1', 'trenching_comment',)
+
+
+class FtthTrenchingDateFilesSerializer(serializers.ModelSerializer):
+    ftthtrenchingimages = FtthTrenchingImagesSerializer(many = True ,read_only=True)
+
+    class Meta:
+        model = DailyFtthTrenching
+        fields = ('work_day','casuals_list','ftthtrenchingimages',)
+
+class FtthTrenchingSubTaskFilesSerializer(serializers.ModelSerializer):
+    ftthtrenchingdays =FtthTrenchingDateFilesSerializer(many = True,read_only =True)
+
+    class Meta:
+        model = FtthTrenching
+        fields = ('ftth_trenching_image_2','ftth_trenching_image_3', 'ftth_trenching_comment','ftthtrenchingdays',)
+
+
+
+class FtthBackfillingImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FtthBackfillingImage
+        fields = ('backfilling_image_1', 'backfilling_comment',)
+
+
+class FtthBackfillingDateFilesSerializer(serializers.ModelSerializer):
+    ftthbackfillingimages = FtthBackfillingImagesSerializer(many = True ,read_only=True)
+
+    class Meta:
+        model = DailyFtthBackfilling
+        fields = ('work_day','casuals_list','ftthbackfillingimages',)
+
+class FtthBackfillingSubTaskFilesSerializer(serializers.ModelSerializer):
+    ftthbackfillingdays =FtthBackfillingDateFilesSerializer(many = True,read_only =True)
+
+    class Meta:
+        model = FtthBackfilling
+        fields = ('ftth_backfilling_image_1','ftth_backfilling_image_2', 'ftth_backfilling_image_3', 'ftth_backfilling_comment','ftthbackfillingdays',)
+
+
+
+
 
 
 ################### Main Project Serializer################################
 
 class FTTHProjectFilesSerializer(serializers.ModelSerializer):
     # Civil >One per site
-    ftthpoleinstallation = FtthPoleInstallationSubTaskFilesSerializer(read_only =True)
+    #ftthpoleinstallation = FtthPoleInstallationSubTaskFilesSerializer(read_only =True)
     # sitetrenching = SiteTrenchingSubTaskFilesSerializer(read_only =True)
     # siteductinstallation = SiteDuctInstallationSubTaskFilesSerializer(read_only =True)
     # manHoleinstallation = ManHoleInstallationSubTaskFilesSerializer(read_only =True)

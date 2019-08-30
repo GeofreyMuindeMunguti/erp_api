@@ -159,7 +159,7 @@ class FtthPoleInstallation(TimeStampModel,TimeTrackModel):
 
 """END"""
 class FtthTrenchingImage(TimeStampModel):
-    day_image = models.ForeignKey('DailyFtthTrenching', on_delete=models.DO_NOTHING ,related_name='trenchingimage')
+    day_image = models.ForeignKey('DailyFtthTrenching', on_delete=models.DO_NOTHING ,related_name='ftthtrenchingimages')
     trenching_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/trenching/%Y/%m/%d/')
     trenching_comment = models.CharField(max_length=100, blank=True, null=True)
 
@@ -167,11 +167,10 @@ class FtthTrenchingImage(TimeStampModel):
         return str(self.day_image)
 
 class DailyFtthTrenching(TimeStampModel):
-    sub_task = models.ForeignKey('FtthTrenching', on_delete=models.DO_NOTHING ,related_name='trenching')
+    sub_task = models.ForeignKey('FtthTrenching', on_delete=models.DO_NOTHING ,related_name='ftthtrenchingdays')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     casuals_list = models.FileField(upload_to='files/ftth/Casuals/trenching/%Y/%m/%d/',blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
-    trenching_date = models.DateField(unique =True, blank=True, null=True)
     trenching_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
@@ -192,7 +191,7 @@ class DailyFtthTrenching(TimeStampModel):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
 class FtthTrenching(TimeStampModel,TimeTrackModel):
-    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING,related_name= 'ftthtrenchings', blank=True,null =True)
     ftth_trenching_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/trenching/%Y/%m/%d/')
     ftth_trenching_image_2 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/trenching/%Y/%m/%d/')
     ftth_trenching_image_3 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/trenching/%Y/%m/%d/')
@@ -219,7 +218,7 @@ class FtthTrenching(TimeStampModel,TimeTrackModel):
 
 """END"""
 class FtthBackfillingImage(TimeStampModel):
-    day_image = models.ForeignKey('DailyFtthBackfilling', on_delete=models.DO_NOTHING ,related_name='backfillingimage')
+    day_image = models.ForeignKey('DailyFtthBackfilling', on_delete=models.DO_NOTHING ,related_name='ftthbackfillingimages')
     backfilling_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/backfilling/%Y/%m/%d/')
     backfilling_comment = models.CharField(max_length=100, blank=True, null=True)
 
@@ -227,11 +226,10 @@ class FtthBackfillingImage(TimeStampModel):
         return str(self.day_image)
 
 class DailyFtthBackfilling(TimeStampModel):
-    sub_task = models.ForeignKey('FtthBackfilling', on_delete=models.DO_NOTHING ,related_name='backfilling')
+    sub_task = models.ForeignKey('FtthBackfilling', on_delete=models.DO_NOTHING ,related_name='ftthbackfillingdays')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     casuals_list = models.FileField(upload_to='files/ftth/Casuals/backfilling/%Y/%m/%d/',blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
-    backfilling_date = models.DateField(unique =True, blank=True, null=True)
     backfilling_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
@@ -252,7 +250,7 @@ class DailyFtthBackfilling(TimeStampModel):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
 class FtthBackfilling(TimeStampModel,TimeTrackModel):
-    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True)
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING,related_query_name='ftthbackfilling', blank=True,null =True)
     ftth_backfilling_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/backfilling/%Y/%m/%d/')
     ftth_backfilling_image_2 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/backfilling/%Y/%m/%d/')
     ftth_backfilling_image_3 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/backfilling/%Y/%m/%d/')
