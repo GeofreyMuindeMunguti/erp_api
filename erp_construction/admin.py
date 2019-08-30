@@ -935,17 +935,17 @@ class IssueAdmin(admin.ModelAdmin):
 admin.site.register(Issue, IssueAdmin)
 
 
-# class InstallationTeamAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'health_documents_installation', 'electrical_tasks_data',
-#                     'telecom_tasks_data', 'as_built', 'signoff', 'signoff_comment','rfi_document','rfi_document_comment', 'integration_parameter', 'integration_parameter_comment', 'snag_document', 'snag_document_comment',
-#                     'project_issues', 'conditional_acceptance_cert', 'conditional_acceptance_cert_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+class InstallationTeamAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'health_documents_installation', 'electrical_tasks_data',
+                    'telecom_tasks_data', 'as_built', 'signoff', 'signoff_comment','rfi_document','rfi_document_comment', 'integration_parameter', 'integration_parameter_comment', 'snag_document', 'snag_document_comment',
+                    'project_issue', 'conditional_acceptance_cert', 'conditional_acceptance_cert_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
 
 
-# admin.site.register(InstallationTeam, InstallationTeamAdmin)
+admin.site.register(InstallationTeam, InstallationTeamAdmin)
 
 
 class WarrantyCertificateAdmin(admin.ModelAdmin):
