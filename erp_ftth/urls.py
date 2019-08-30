@@ -76,11 +76,17 @@ urlpatterns = [
 
     # path('files/<int:pk>/commercialteamtiles/', filesviews.FttsCommercialTeamFilesView.as_view()),
     # Civil works
-    path('files/<int:pk>/poleinstallation/', filesviews. FtthPoleInstallationilesView.as_view()),
-    path('files/<int:pk>/trenching/', filesviews.FtthTrenchingSubTaskFilesView.as_view()),
-    
-    path('files/<int:pk>/backfilling/', filesviews.FtthBackfillingSubTaskFilesView.as_view()),
-    # path('files/<int:pk>/sitemanholeinstall/', filesviews.ManHoleInstallationFilesView.as_view()),
+    path('files/<int:pk>/poleinstallation/', filesviews.FtthPoleInstallationASubTaskFilesView.as_view()),
+    path('files/<int:pk>/trenching/', filesviews.FtthTrenchingASubTaskFilesView.as_view()),
+    path('files/<int:pk>/backfilling/', filesviews.FtthBackfillingASubTaskFilesView.as_view()),
+    path('files/<int:pk>/cableinstalinstall/', filesviews.FtthCableInstallationASubTaskFilesView.as_view()),
+    path('files/<int:pk>/splicingenclosure/', filesviews.FtthSplicingEnclosureASubTaskFilesView.as_view()),
+    path('files/<int:pk>/sitesplicingfat/', filesviews.FtthSplicingFATASubTaskFilesView.as_view()),
+    path('files/<int:pk>/sitesplicingfdt/', filesviews.FtthSplicingFDTASubTaskFilesView.as_view()),
+    path('files/<int:pk>/coreprovisioning/', filesviews.FtthCoreProvisionASubTaskFilesView.as_view()),
+    path('files/<int:pk>/powerleves/', filesviews.FtthPowerLevelsASubTaskFilesView.as_view()),
+    path('files/<int:pk>/otdrtraces/', filesviews.FtthOTDRTracesASubTaskFilesView.as_view()),
+    # path('files/<int:pk>/powerleves/', filesviews.FtthPowerLevelsASubTaskFilesView.as_view()),
 
 
 ]
