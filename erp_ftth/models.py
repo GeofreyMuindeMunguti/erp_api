@@ -171,7 +171,6 @@ class DailyFtthTrenching(TimeStampModel):
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     casuals_list = models.FileField(upload_to='files/ftth/Casuals/trenching/%Y/%m/%d/',blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
-    trenching_date = models.DateField(unique =True, blank=True, null=True)
     trenching_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):

@@ -100,7 +100,7 @@ class FtthTrenchingImageAdmin(admin.ModelAdmin):
 admin.site.register(FtthTrenchingImage, FtthTrenchingImageAdmin)
 
 class DailyFtthTrenchingAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','trenching_date','trenching_comment','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','trenching_comment','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     search_fields = ('sub_task', )
     list_editable = ('is_active',)
