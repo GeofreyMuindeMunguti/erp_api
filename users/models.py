@@ -4,17 +4,17 @@ from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Permission
-# from erp_ftts.models import *
-# from erp_core.models import *
+from django.core.cache import cache
+import datetime
+from django.conf import settings
 
 
 class CustomUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    # customuser_phone_no = PhoneNumberField(blank=True, help_text='Phone Number')
     customuser_phone_no = models.CharField(max_length=10, blank=True, null=True)
     customuser_profile_pic = models.ImageField(upload_to='ProfilePictures/Employee', blank=True, null=True)
     team = models.CharField(max_length=150)
-    position = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='group')
+    position = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='group', blank=True, null=True)
 
     def __str__(self):
         return self.user.username
@@ -29,9 +29,83 @@ class CustomUser(models.Model):
         single_emp = CustomUser.objects.get(employee=username)
         return single_emp
 
-    def get_permissions(self):
-        perm_tuple = [(x.id, x.name) for x in Permission.objects.filter(group__user=self.user)]
-        return perm_tuple
+    # def get_permissions(self):
+    #     perm_tuple = [(x.id, x.name) for x in Permission.objects.filter(group__user=self.user)]
+    #     return perm_tuple
+
+    def last_seen(self):
+        try:
+            return cache.get('last_seen_%s' % self.user.username)
+        except Exception as e:
+            return e
+
+    def online(self):
+        try:
+            if self.last_seen():
+                now = datetime.datetime.now()
+                if now > (self.last_seen() + datetime.timedelta(seconds=settings.USER_ONLINE_TIMEOUT)):
+                    return False
+                else:
+                    return True
+            else:
+                return False
+        except Exception as e:
+            return e
+
+class Log(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='log')
+    action = models.CharField(max_length= 200)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.user)
+
+"""MESSAGING"""
+
+"""CHAT"""
+class Message(models.Model):
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='receiver')
+    message = models.CharField(max_length=1200)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)
+
+
+    def __str__(self):
+        return self.message
+
+    class Meta:
+        ordering = ('timestamp',)
+
+class SentEmail(models.Model):
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='email_sender')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='email_receiver')
+    subject = models.CharField(max_length=255,default="No Subject")
+    message = models.CharField(max_length=5000,default="No Message")
+    timestamp = models.DateTimeField(auto_now_add=True)
+    attachment = models.FileField(upload_to='uploads',blank=True, null=True)
+    is_read = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.message
+
+
+    class Meta:
+        ordering = ('timestamp',)
+
+class EmailConfig(models.Model):
+    email_host = models.CharField(max_length=1200)
+    sender_port = models.IntegerField()
+    email_host_user = models.CharField(max_length=1200)
+    email_host_password = models.CharField(max_length=1200)
+    email_use_ssl =models.BooleanField(default=False)
+    email_use_tls = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.email_host
+
+"""END"""
+
 
 class PermissionMap(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, related_name='authpermission')
@@ -137,10 +211,6 @@ class Engineer(models.Model):
     def get_single_engineer(cls, engineer_id):
         single_engineer = Engineer.objects.get(engineer=engineer_id)
         return single_engineer
-
-# class ProjectManager(CreateProject,TimeTrackModel):
-#     engineer_name = models.ForeignKey(Engineer,on_delete=models.CASCADE, related_name='fiberengineerprofile')
-#     ftts_project_name = models.ForeignKey(FTTSProject,on_delete=models.CASCADE, related_name='fiberengineerprofile')
 
 class Rates(models.Model):
     worker_type = models.CharField(max_length=100, unique=True)

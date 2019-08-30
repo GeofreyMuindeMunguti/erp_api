@@ -231,7 +231,7 @@ class FtthSplicingFDTViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
 class FtthSplicingViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = FtthSplicing.objects.order_by('created_at')
-    serializer_class = FtthCoreProvisionSerializer
+    serializer_class = FtthSplicingSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )

@@ -7,7 +7,8 @@ from users.models import *
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime, timezone, timedelta
 from django.contrib.auth.models import User
-from erp_core.fileshandler.filemixin import UploadToProjectDirImage ,UploadToProjectDirSubTask
+from erp_core.fileshandler.filemixin import *
+from erp_ftth.models import *
 
 file_path = 'FTTSProjects'
 
@@ -17,8 +18,6 @@ class FTTSProject(CreateProject,TimeTrackModel):
     ftts_activation_comment = models.CharField(max_length=100, blank=True, null=True)
     ftts_final_acceptance_cert = models.FileField(upload_to=UploadToProjectDir(file_path ,'files/SafaricomTeamftts/finalcert/'), blank=True, null=True)
     ftts_final_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
-    ftts_accumulated_BOM_survey = models.FileField(upload_to=UploadToProjectDir(file_path ,'files/accumulatedBOM/'), blank=True, null=True)
-    ftts_accumulated_BOM_survey_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
     class Meta:
@@ -125,7 +124,6 @@ class fttsSurvey(TimeStampModel,TimeTrackModel):
 
 ##############################################END OF FTTH SURVEY#############################################33
 
-
 class FttsCommercialTeam(TimeStampModel):
     site_name = models.OneToOneField(FTTSProject, on_delete=models.DO_NOTHING)
     ftts_quote = models.FileField(upload_to=UploadToProjectDir(file_path ,'files/CommercialTeam/quote/'), blank=True, null=True)
@@ -138,6 +136,8 @@ class FttsCommercialTeam(TimeStampModel):
     ftts_po_client = models.FileField(upload_to=UploadToProjectDir(file_path,'files/CommercialTeam/poclient/'), blank=True, null=True)
     ftts_po_client_no = models.IntegerField(blank=True, null=True)
     ftts_po_client_amount = models.IntegerField(blank=True, null=True)
+    ftts_accumulated_BOM_survey = models.FileField(upload_to='FTTS/files/accumulatedBOM/%Y/%m/%d/', blank=True, null=True)
+    ftts_accumulated_BOM_survey_comment = models.CharField(max_length=100, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
 
@@ -208,14 +208,12 @@ class SiteTrenching(TimeStampModel,TimeTrackModel):
         #return str(self.site_name)
         return 'SiteTrenching  : {}'.format(self.site_name)
 
-
     def days_list(self):
         try:
             return [DailySiteTrenching.objects.get(work_day= _pday.work_day).id for _pday in DailySiteTrenching.objects.filter(sub_task_id = self.id).all()]
 
         except Exception as e:
             return e
-
 
     def ftts_task_id(self):
         try:
@@ -877,6 +875,14 @@ class FttsInstallationTeam(TimeStampModel):
     def access_approvals(self):
         return [v.site_name for v in self.access_approvals_field.all()]
 
+    def team_task_id(self):
+        try:
+            team = FttsInstallationTeam.objects.get(project_name=self.site_name)
+            team_id = team.id
+            return team_id
+        except Exception as e:
+            return
+
 class FttsTeam(TimeStampModel):
     site_name = models.OneToOneField(FttsSite, on_delete=models.DO_NOTHING)
     ftts_survey = models.OneToOneField(fttsSurvey, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -918,7 +924,7 @@ class DailyCivilWorkProduction(TimeStampModel):
 class CasualDailyRegister(TimeStampModel):
     ''' Class to track Casuals per SITE for EACH FTTS Project per task
     '''
-  
+
     site_name = models.ForeignKey(FttsSite, on_delete=models.DO_NOTHING )
     work_day = models.DateField(blank=True, null=True)
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
@@ -966,7 +972,3 @@ class FTTSCasualDailyRegister(TimeStampModel):
 
     class Meta:
         unique_together = (['site_name', 'work_day',])
-
-
-
-
