@@ -61,6 +61,31 @@ class FtthTrenchingSubTaskFilesSerializer(serializers.ModelSerializer):
 
 
 
+class FtthBackfillingImagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FtthBackfillingImage
+        fields = ('backfilling_image_1', 'backfilling_comment',)
+
+
+class FtthBackfillingDateFilesSerializer(serializers.ModelSerializer):
+    ftthbackfillingimages = FtthBackfillingImagesSerializer(many = True ,read_only=True)
+
+    class Meta:
+        model = DailyFtthBackfilling
+        fields = ('work_day','casuals_list','ftthbackfillingimages',)
+
+class FtthBackfillingSubTaskFilesSerializer(serializers.ModelSerializer):
+    ftthbackfillingdays =FtthBackfillingDateFilesSerializer(many = True,read_only =True)
+
+    class Meta:
+        model = FtthBackfilling
+        fields = ('ftth_backfilling_image_1','ftth_backfilling_image_2', 'ftth_backfilling_image_3', 'ftth_backfilling_comment','ftthbackfillingdays',)
+
+
+
+
+
 
 ################### Main Project Serializer################################
 
