@@ -1,6 +1,9 @@
 from django.contrib import admin
 from .models import *
+from erp_construction.models import *
 from erp_core.base import *
+from users.models import *
+from erp_core.models import *
 
 
 class FTTHProjectAdmin(admin.ModelAdmin):
@@ -16,8 +19,6 @@ admin.site.register(FTTHProject, FTTHProjectAdmin)
 
 
 ##########################FTTH SURVEY###########################################
-
-
 class FtthInterceptionPointAdmin(admin.ModelAdmin):
     list_display = ('id', 'interception_point_name', 'latitude', 'longitude', 'county', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('interception_point_name', )
@@ -47,20 +48,19 @@ class ftthSurveyAdmin(admin.ModelAdmin):
 
 admin.site.register(ftthSurvey, ftthSurveyAdmin)
 
-
-
 ##########################END OF FTTH SURVEY####################################
-
 
 class FtthCommercialTeamAdmin(admin.ModelAdmin):
 
-    list_display = ['id','project_name','ftth_boq','ftth_quote','ftth_wayleave_application','posted_by', 'created_at', 'updated_at', 'is_active']
-    readonly_fields = ['created_at', 'updated_at', 'is_active']
+    list_display = ('id','project_name','ftth_po','ftts_po_no','ftts_po_amount','ftth_boq','ftth_quote','ftth_wayleave_application','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
 
 admin.site.register(FtthCommercialTeam, FtthCommercialTeamAdmin)
 
 class FtthProcurementTeamAdmin(admin.ModelAdmin):
-    list_display = ('id','project_name','ftth_bom','ftth_initial_invoice','ftth_budget','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id','project_name','ftth_bom','ftth_initial_invoice','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)
@@ -69,46 +69,46 @@ admin.site.register(FtthProcurementTeam, FtthProcurementTeamAdmin)
 
 ######################################################## FTTH CIVIL TEAM ########################################################################################################################################################################################
 class FtthPoleInstallationImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','poleinstallation_image_1', 'poleinstallation_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    search_fields = ('project_name', )
+    list_display = ('id', 'day_image','poleinstallation_image_1', 'poleinstallation_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    search_fields = ('day_image', )
     list_editable = ('is_active',)
 
 admin.site.register(FtthPoleInstallationImage, FtthPoleInstallationImageAdmin)
 
 class DailyFtthPoleInstallationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','no_of_casuals', 'casuals_list','poleinstallation_date','poleinstallation_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    search_fields = ('project_name', )
+    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','poleinstallation_date','poleinstallation_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    search_fields = ('sub_task', )
     list_editable = ('is_active',)
 
 admin.site.register(DailyFtthPoleInstallation, DailyFtthPoleInstallationAdmin)
 
 class FtthPoleInstallationAdmin(admin.ModelAdmin):
 
-    list_display = ['id','project_name','start_date','end_date','ftth_pole_installation_image_1','ftth_pole_installation_image_2','ftth_pole_installation_image_3','ftth_pole_installation_comment','posted_by', 'created_at', 'updated_at', 'is_active']
+    list_display = ['id','project_name','days_list','start_date','end_date','ftth_pole_installation_image_1','ftth_pole_installation_image_2','ftth_pole_installation_image_3','ftth_pole_installation_comment','posted_by', 'created_at', 'updated_at', 'is_active']
     readonly_fields = ['created_at', 'updated_at', 'is_active']
 
 admin.site.register(FtthPoleInstallation, FtthPoleInstallationAdmin)
 """END"""
 class FtthTrenchingImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','trenching_image_1', 'trenching_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    search_fields = ('project_name', )
+    list_display = ('id', 'day_image','trenching_image_1', 'trenching_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    search_fields = ('day_image', )
     list_editable = ('is_active',)
 
 admin.site.register(FtthTrenchingImage, FtthTrenchingImageAdmin)
 
 class DailyFtthTrenchingAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','no_of_casuals', 'casuals_list','trenching_date','trenching_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    search_fields = ('project_name', )
+    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','trenching_date','trenching_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    search_fields = ('sub_task', )
     list_editable = ('is_active',)
 
 admin.site.register(DailyFtthTrenching, DailyFtthTrenchingAdmin)
 
 class FtthTrenchingAdmin(admin.ModelAdmin):
-    list_display = ('id','project_name','start_date','end_date','ftth_trenching_image_1', 'ftth_trenching_image_2','ftth_trenching_image_3', 'ftth_trenching_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id','project_name','days_list','start_date','end_date','ftth_trenching_image_1', 'ftth_trenching_image_2','ftth_trenching_image_3', 'ftth_trenching_comment','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)
@@ -116,23 +116,23 @@ class FtthTrenchingAdmin(admin.ModelAdmin):
 admin.site.register(FtthTrenching, FtthTrenchingAdmin)
 """END"""
 class FtthBackfillingImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','backfilling_image_1', 'backfilling_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    search_fields = ('project_name', )
+    list_display = ('id', 'day_image','backfilling_image_1', 'backfilling_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    search_fields = ('day_image', )
     list_editable = ('is_active',)
 
 admin.site.register(FtthBackfillingImage, FtthBackfillingImageAdmin)
 
 class DailyFtthBackfillingAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','no_of_casuals', 'casuals_list','backfilling_date','backfilling_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    search_fields = ('project_name', )
+    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','backfilling_date','backfilling_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    search_fields = ('sub_task', )
     list_editable = ('is_active',)
 
 admin.site.register(DailyFtthBackfilling, DailyFtthBackfillingAdmin)
 
 class FtthBackfillingAdmin(admin.ModelAdmin):
-    list_display = ('id','project_name','start_date','end_date','ftth_backfilling_image_1','ftth_backfilling_image_2', 'ftth_backfilling_image_3', 'ftth_backfilling_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id','project_name','days_list','start_date','end_date','ftth_backfilling_image_1','ftth_backfilling_image_2', 'ftth_backfilling_image_3', 'ftth_backfilling_comment','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)
@@ -140,24 +140,24 @@ class FtthBackfillingAdmin(admin.ModelAdmin):
 admin.site.register(FtthBackfilling, FtthBackfillingAdmin)
 """END"""
 class FtthCableInstallationImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','cableinstallation_image_1', 'cableinstallation_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    search_fields = ('project_name', )
+    list_display = ('id', 'day_image','cableinstallation_image_1', 'cableinstallation_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    search_fields = ('day_image', )
     list_editable = ('is_active',)
 
 admin.site.register(FtthCableInstallationImage, FtthCableInstallationImageAdmin)
 
 class DailyFtthCableInstallationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','no_of_casuals', 'casuals_list','cableinstallation_date','cableinstallation_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    search_fields = ('project_name', )
+    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','cableinstallation_date','cableinstallation_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    search_fields = ('sub_task', )
     list_editable = ('is_active',)
 
 admin.site.register(DailyFtthCableInstallation, DailyFtthCableInstallationAdmin)
 
 class FtthCableInstallationAdmin(admin.ModelAdmin):
 
-    list_display = ['id','project_name','start_date','end_date','ftth_cable_installation_image_1','ftth_cable_installation_image_2','ftth_cable_installation_image_3','ftth_cable_installation_comment','posted_by', 'created_at', 'updated_at', 'is_active']
+    list_display = ['id','project_name','days_list','start_date','end_date','ftth_cable_installation_image_1','ftth_cable_installation_image_2','ftth_cable_installation_image_3','ftth_cable_installation_comment','posted_by', 'created_at', 'updated_at', 'is_active']
     readonly_fields = ['created_at', 'updated_at', 'is_active']
 
 admin.site.register(FtthCableInstallation, FtthCableInstallationAdmin)
@@ -174,24 +174,24 @@ admin.site.register(FtthCivilTeam, FtthCivilTeamAdmin)
 
 ######################################################## FTTH INSTALLATION TEAM ########################################################################################################################################################################################
 class FtthSplicingEnclosureImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','splicingencore_image_1', 'splicingencore_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    search_fields = ('project_name', )
+    list_display = ('id', 'day_image','splicingencore_image_1', 'splicingencore_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    search_fields = ('day_image', )
     list_editable = ('is_active',)
 
 admin.site.register(FtthSplicingEnclosureImage, FtthSplicingEnclosureImageAdmin)
 
 class DailyFtthSplicingEnclosureAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','no_of_casuals', 'casuals_list','splicingencore_date','splicingencore_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    search_fields = ('project_name', )
+    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','splicingencore_date','splicingencore_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    search_fields = ('sub_task', )
     list_editable = ('is_active',)
 
 admin.site.register(DailyFtthSplicingEnclosure, DailyFtthSplicingEnclosureAdmin)
 
 class FtthSplicingEnclosureAdmin(admin.ModelAdmin):
 
-    list_display = ('id','project_name','start_date','end_date','ftth_splicing_encore_image_1', 'ftth_splicing_encore_image_2','ftth_splicing_encore_image_3', 'ftth_splicing_encore_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id','project_name','days_list','start_date','end_date','ftth_splicing_encore_image_1', 'ftth_splicing_encore_image_2','ftth_splicing_encore_image_3', 'ftth_splicing_encore_comment','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)
@@ -201,24 +201,24 @@ class FtthSplicingEnclosureAdmin(admin.ModelAdmin):
 admin.site.register(FtthSplicingEnclosure, FtthSplicingEnclosureAdmin)
 """END"""
 class FtthSplicingFATImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','splicingFAT_image_1', 'splicingFAT_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    search_fields = ('project_name', )
+    list_display = ('id', 'day_image','splicingFAT_image_1', 'splicingFAT_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    search_fields = ('day_image', )
     list_editable = ('is_active',)
 
 admin.site.register(FtthSplicingFATImage, FtthSplicingFATImageAdmin)
 
 class DailyFtthSplicingFATAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','no_of_casuals', 'casuals_list','splicingFAT_date','splicingFAT_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    search_fields = ('project_name', )
+    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','splicingFAT_date','splicingFAT_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    search_fields = ('sub_task', )
     list_editable = ('is_active',)
 
 admin.site.register(DailyFtthSplicingFAT, DailyFtthSplicingFATAdmin)
 
 class FtthSplicingFATAdmin(admin.ModelAdmin):
 
-    list_display = ('id','project_name','start_date','end_date','ftth_splicing_fat_image_1', 'ftth_splicing_fat_image_2','ftth_splicing_fat_image_3', 'ftth_splicing_fat_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id','project_name','days_list','start_date','end_date','ftth_splicing_fat_image_1', 'ftth_splicing_fat_image_2','ftth_splicing_fat_image_3', 'ftth_splicing_fat_comment','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)
@@ -228,24 +228,24 @@ class FtthSplicingFATAdmin(admin.ModelAdmin):
 admin.site.register(FtthSplicingFAT, FtthSplicingFATAdmin)
 """END"""
 class FtthSplicingFDTImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','splicingFDT_image_1', 'splicingFDT_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    search_fields = ('project_name', )
+    list_display = ('id', 'day_image','splicingFDT_image_1', 'splicingFDT_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    search_fields = ('day_image', )
     list_editable = ('is_active',)
 
 admin.site.register(FtthSplicingFDTImage, FtthSplicingFDTImageAdmin)
 
 class DailyFtthSplicingFDTAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','no_of_casuals', 'casuals_list','splicingFDT_date','splicingFDT_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    search_fields = ('project_name', )
+    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','splicingFDT_date','splicingFDT_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    search_fields = ('sub_task', )
     list_editable = ('is_active',)
 
 admin.site.register(DailyFtthSplicingFDT, DailyFtthSplicingFDTAdmin)
 
 class FtthSplicingFDTAdmin(admin.ModelAdmin):
 
-    list_display = ('id','project_name','start_date','end_date','ftth_splicing_fdt_image_1', 'ftth_splicing_fdt_image_2','ftth_splicing_fdt_image_3', 'ftth_splicing_fdt_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id','project_name','days_list','start_date','end_date','ftth_splicing_fdt_image_1', 'ftth_splicing_fdt_image_2','ftth_splicing_fdt_image_3', 'ftth_splicing_fdt_comment','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)
@@ -267,24 +267,24 @@ admin.site.register(FtthSplicing, FtthSplicingAdmin)
 """END"""
 
 class FtthCoreProvisionImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','coreprovision_image_1', 'coreprovision_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    search_fields = ('project_name', )
+    list_display = ('id', 'day_image','coreprovision_image_1', 'coreprovision_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    search_fields = ('day_image', )
     list_editable = ('is_active',)
 
 admin.site.register(FtthCoreProvisionImage, FtthCoreProvisionImageAdmin)
 
 class DailyFtthCoreProvisionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','no_of_casuals', 'casuals_list','coreprovision_date','coreprovision_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    search_fields = ('project_name', )
+    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','coreprovision_date','coreprovision_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    search_fields = ('sub_task', )
     list_editable = ('is_active',)
 
 admin.site.register(DailyFtthCoreProvision, DailyFtthCoreProvisionAdmin)
 
 class FtthCoreProvisionAdmin(admin.ModelAdmin):
 
-    list_display = ('id','project_name','start_date','end_date','ftth_core_provision_image_1', 'ftth_core_provision_image_2','ftth_core_provision_image_3', 'ftth_core_provision_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id','project_name','days_list','start_date','end_date','ftth_core_provision_image_1', 'ftth_core_provision_image_2','ftth_core_provision_image_3', 'ftth_core_provision_comment','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)
@@ -295,24 +295,24 @@ admin.site.register(FtthCoreProvision, FtthCoreProvisionAdmin)
 """END"""
 
 class FtthPowerLevelsImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','powerlevels_image_1', 'powerlevels_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    search_fields = ('project_name', )
+    list_display = ('id', 'day_image','powerlevels_image_1', 'powerlevels_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    search_fields = ('day_image', )
     list_editable = ('is_active',)
 
 admin.site.register(FtthPowerLevelsImage, FtthPowerLevelsImageAdmin)
 
 class DailyFtthPowerLevelsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','no_of_casuals', 'casuals_list','powerlevels_date','powerlevels_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    search_fields = ('project_name', )
+    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','powerlevels_date','powerlevels_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    search_fields = ('sub_task', )
     list_editable = ('is_active',)
 
 admin.site.register(DailyFtthPowerLevels, DailyFtthPowerLevelsAdmin)
 
 class FtthPowerLevelsAdmin(admin.ModelAdmin):
 
-    list_display = ('id','project_name','start_date','end_date','ftth_power_level_image_1', 'ftth_power_level_image_2','ftth_power_level_image_3', 'ftth_power_level_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id','project_name','days_list','start_date','end_date','ftth_power_level_image_1', 'ftth_power_level_image_2','ftth_power_level_image_3', 'ftth_power_level_comment','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)
@@ -323,24 +323,24 @@ admin.site.register(FtthPowerLevels, FtthPowerLevelsAdmin)
 """END"""
 
 class FtthOTDRTracesImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','OTDRTraces_image_1', 'OTDRTraces_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    search_fields = ('project_name', )
+    list_display = ('id', 'day_image','OTDRTraces_image_1', 'OTDRTraces_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('day_image', )
+    search_fields = ('day_image', )
     list_editable = ('is_active',)
 
 admin.site.register(FtthOTDRTracesImage, FtthOTDRTracesImageAdmin)
 
 class DailyFtthOTDRTracesAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','no_of_casuals', 'casuals_list','OTDRTraces_date','OTDRTraces_comment','created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    search_fields = ('project_name', )
+    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','OTDRTraces_date','OTDRTraces_comment','created_at', 'updated_at', 'is_active')
+    list_display_links = ('sub_task', )
+    search_fields = ('sub_task', )
     list_editable = ('is_active',)
 
 admin.site.register(DailyFtthOTDRTraces, DailyFtthOTDRTracesAdmin)
 
 class FtthOTDRTracesAdmin(admin.ModelAdmin):
 
-    list_display = ('id','project_name','start_date','end_date','ftth_otdr_traces_image_1', 'ftth_otdr_traces_image_2','ftth_otdr_traces_image_3', 'ftth_otdr_traces_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id','project_name','days_list','start_date','end_date','ftth_otdr_traces_image_1', 'ftth_otdr_traces_image_2','ftth_otdr_traces_image_3', 'ftth_otdr_traces_comment','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)

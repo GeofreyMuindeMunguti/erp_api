@@ -14,20 +14,35 @@ router = DefaultRouter()
 
 router.register(r'btsproject', views.BtsProjectViewSet)
 router.register(r'btssite', views.BtsSiteViewSet)
-# router.register(r'category', views.CategoryViewSet)
-# router.register(r'Icons', views.ProjectIconViewSet)
-# router.register(r'projectcosting', views.ProjectCostingViewSet)
-# router.register(r'projectpos', views.ProjectPOSViewSet)
-# router.register(r'commercialteamtasks', views.CommercialTeamViewSet)
-# router.register(r'procurementteamtasks', views.ProcurementTeamViewSet)
-# router.register(r'healthdocscivil', views.HealthDocCivilViewSet)
-# router.register(r'accessapprovalscivil', views.AccessApprovalCivilViewSet)
-# router.register(r'civilteamtasks', views.CivilTeamViewSet)
+router.register(r'category', views.CategoryViewSet)
+router.register(r'Icons', views.ProjectIconViewSet)
+router.register(r'projectcosting', views.ProjectCostingViewSet)
+router.register(r'projectpos', views.ProjectPOSViewSet)
+router.register(r'BtsBudget',views.BtsBudgetViewSet)
+
+router.register(r'commercialteamtasks', views.CommercialTeamViewSet)
+router.register(r'procurementteamtasks', views.ProcurementTeamViewSet)
+
+router.register(r'healthdocscivil', views.HealthDocCivilViewSet)
+router.register(r'accessapprovalscivil', views.AccessApprovalCivilViewSet)
+router.register(r'civilteamtasks', views.CivilTeamViewSet)
+
+router.register(r'foundationimages', views.FoundationImageViewSet)
+router.register(r'setclearingimages', views.SetSiteClearingImageViewSet)
+router.register(r'category', views.CategoryViewSet)
+router.register(r'Icons', views.ProjectIconViewSet)
+router.register(r'projectcosting', views.ProjectCostingViewSet)
+router.register(r'projectpos', views.ProjectPOSViewSet)
+router.register(r'commercialteamtasks', views.CommercialTeamViewSet)
+router.register(r'procurementteamtasks', views.ProcurementTeamViewSet)
+router.register(r'healthdocscivil', views.HealthDocCivilViewSet)
+router.register(r'accessapprovalscivil', views.AccessApprovalCivilViewSet)
+router.register(r'civilteamtasks', views.CivilTeamViewSet)
 
 
 # TASK[1] : Foundation Building
 router.register(r'foundationimages', views.FoundationCreationTaskViewSet)
-         # SubTask (1): Site-Clearing Subtask 
+         # SubTask (1): Site-Clearing Subtask
 router.register(r'setclearingsubtasks', views.SiteClearingSubTaskViewSet)
 router.register(r'setclearingdays', views.SiteClearingDateViewSet)
 router.register(r'setclearingimages', views.SiteClearingImageViewSet)
