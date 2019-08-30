@@ -37,3 +37,10 @@ class FtthPoleInstallationilesView(generics.RetrieveAPIView):
         queryset = FtthPoleInstallation.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
     serializer_class = FtthPoleInstallationSubTaskFilesSerializer
+
+
+class FtthTrenchingSubTaskFilesView(generics.RetrieveAPIView):
+    def get_queryset(self):
+        queryset =  FtthTrenching.objects.filter(project_name_id=self.kwargs["pk"])
+        return queryset
+    serializer_class = FtthTrenchingSubTaskFilesSerializer
