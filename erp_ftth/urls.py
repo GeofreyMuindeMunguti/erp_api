@@ -17,6 +17,7 @@ router.register(r'ftthsurveys', views.ftthSurveyViewSet)
 
 router.register(r'FtthCommercialTeam', views.FtthCommercialTeamViewSet)
 router.register(r'FtthProcurementTeam', views.FtthProcurementTeamViewSet)
+router.register(r'FtthCertificates', views.FtthCertificatesViewSet)
 
 router.register(r'FtthPoleInstallationImage', views.FtthPoleInstallationImageViewSet)
 router.register(r'DailyFtthPoleInstallation', views.DailyFtthPoleInstallationViewSet)
@@ -80,6 +81,11 @@ urlpatterns = [
 
     # path('files/<int:pk>/commercialteamtiles/', filesviews.FttsCommercialTeamFilesView.as_view()),
     # Civil works
+    path('files/<int:pk>/poleinstallation/', filesviews. FtthPoleInstallationilesView.as_view()),
+    path('files/<int:pk>/trenching/', filesviews.FtthTrenchingSubTaskFilesView.as_view()),
+
+    path('files/<int:pk>/backfilling/', filesviews.FtthBackfillingSubTaskFilesView.as_view()),
+    # path('files/<int:pk>/sitemanholeinstall/', filesviews.ManHoleInstallationFilesView.as_view()),
     path('files/<int:pk>/poleinstallation/', filesviews.FtthPoleInstallationASubTaskFilesView.as_view()),
     path('files/<int:pk>/trenching/', filesviews.FtthTrenchingASubTaskFilesView.as_view()),
     path('files/<int:pk>/backfilling/', filesviews.FtthBackfillingASubTaskFilesView.as_view()),

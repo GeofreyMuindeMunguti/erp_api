@@ -1,14 +1,9 @@
-"""Extract files and images per project.
-"""
-#---------
-# Imports
-#---------
+
 from rest_framework import serializers  #, exceptions
 from erp_ftts.models import *
 
 
 ############################ PROJECT FILES SERIALIZERS ###############################################
-
 
 class FTTSProjectFilesSerializer(serializers.ModelSerializer):
     class Meta:
@@ -43,11 +38,6 @@ class FttsSurveyPhotosSubTaskAFilesSerializer(serializers.ModelSerializer):
     class Meta:
         model = FttsSite
         exclude = ("ftts_project","site_name","id","created_at","updated_at", "is_active", "location", "posted_by",)
-
-
-
-
-
 
 # Site TRENCHING  Files Serializers///////////////
 
@@ -109,8 +99,7 @@ class SiteDuctASubTaskFilesSerializer(serializers.ModelSerializer):
         model = FttsSite
         exclude = ("ftts_project","site_name","id","created_at","updated_at", "is_active", "location", "posted_by",)
 
-        
-        # TowerBaseSubTask  Files Serializers///////////////
+            # TowerBaseSubTask  Files Serializers///////////////
 
 class ManHoleInstallationImagesSerializer(serializers.ModelSerializer):
 
@@ -141,10 +130,7 @@ class ManHoleInstallationASubTaskFilesSerializer(serializers.ModelSerializer):
         model = FttsSite
         exclude = ("ftts_project","site_name","id","created_at","updated_at", "is_active", "location", "posted_by",)
 
-        
-
 # Site Clearing  Files Serializers///////////////
-
 
 class SiteCableInstallationImagesSerializer(serializers.ModelSerializer):
 
@@ -173,10 +159,6 @@ class SiteCableInstallationASubTaskFilesSerializer(serializers.ModelSerializer):
     class Meta:
         model = FttsSite
         exclude = ("ftts_project","site_name","id","created_at","updated_at", "is_active", "location", "posted_by",)
-
-        
-
-
 
 # Site Clearing  Files Serializers///////////////
 
@@ -208,15 +190,7 @@ class SiteTerminalInHseASubTaskFilesSerializer(serializers.ModelSerializer):
         model = FttsSite
         exclude = ("ftts_project","site_name","id","created_at","updated_at", "is_active", "location", "posted_by",)
 
-        
-
-
-
-
-
 # Site Clearing  Files Serializers///////////////
-
-
 
 class SiteInterceptionImagesSerializer(serializers.ModelSerializer):
 
@@ -247,8 +221,6 @@ class SiteInterceptionASubTaskFilesSerializer(serializers.ModelSerializer):
         model = FttsSite
         exclude = ("ftts_project","site_name","id","created_at","updated_at", "is_active", "location", "posted_by",)
 
-        
-# Site Clearing  Files Serializers///////////////
 
 # Site Clearing  Files Serializers///////////////
 

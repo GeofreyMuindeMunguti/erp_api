@@ -94,6 +94,13 @@ class FttsProcurementTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
 
+class FttsCertificatesViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = FttsCertificates.objects.order_by('created_at')
+    serializer_class = FttsCertificatesSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
 ################################################ FIBER CIVIL TEAM ##############################################################################################################################################################################################################################################
 class SiteTrenchingImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = SiteTrenchingImage.objects.order_by('created_at')

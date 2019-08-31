@@ -1,14 +1,7 @@
-"""Extract files and images per project.
-"""
-#---------
-# Imports
-#---------
 from rest_framework import serializers  #, exceptions
 from erp_ftth.models import *
 
-
 ############################ PROJECT FILES SERIALIZERS ###############################################
-
 
 class FTTHProjectFilesSerializer(serializers.ModelSerializer):
     class Meta:
@@ -45,8 +38,6 @@ class FtthPoleInstallationSubTaskAFilesSerializer(serializers.ModelSerializer):
     class Meta:
         model = FTTHProject
         exclude = ('project_name','description',"initial_kmz",'signed_operation_acceptance','ftth_final_acceptance_cert','ftth_final_acceptance_cert_comment',"id","created_at","updated_at", "is_active", "created_by",'is_acknowledged',)
-
-
 
 
 class FtthTrenchingImagesSerializer(serializers.ModelSerializer):
@@ -108,11 +99,6 @@ class FtthBackfillingSubTaskAFilesSerializer(serializers.ModelSerializer):
         model = FTTHProject
         exclude = ('project_name','description',"initial_kmz",'signed_operation_acceptance','ftth_final_acceptance_cert','ftth_final_acceptance_cert_comment',"id","created_at","updated_at", "is_active", "created_by",'is_acknowledged',)
 
-
-
-##
-
-
 class FtthCableInstallationImagesSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -173,11 +159,7 @@ class FtthSplicingEnclosureASubTaskFilesSerializer(serializers.ModelSerializer):
         model = FTTHProject
         exclude = ('project_name','description',"initial_kmz",'signed_operation_acceptance','ftth_final_acceptance_cert','ftth_final_acceptance_cert_comment',"id","created_at","updated_at", "is_active", "created_by",'is_acknowledged',)
 
-        
-
 ##
-
-
         # TowerBaseSubTask  Files Serializers///////////////
 
 class FtthSplicingFATImagesSerializer(serializers.ModelSerializer):
@@ -239,12 +221,7 @@ class FtthSplicingFDTASubTaskFilesSerializer(serializers.ModelSerializer):
     class Meta:
         model = FTTHProject
         exclude = ('project_name','description',"initial_kmz",'signed_operation_acceptance','ftth_final_acceptance_cert','ftth_final_acceptance_cert_comment',"id","created_at","updated_at", "is_active", "created_by",'is_acknowledged',)
-
-
-
 #
-
-
         # TowerBaseSubTask  Files Serializers///////////////
 
 class FtthCoreProvisionImagesSerializer(serializers.ModelSerializer):
@@ -338,8 +315,6 @@ class FtthOTDRTracesASubTaskFilesSerializer(serializers.ModelSerializer):
     class Meta:
         model = FTTHProject
         exclude = ('project_name','description',"initial_kmz",'signed_operation_acceptance','ftth_final_acceptance_cert','ftth_final_acceptance_cert_comment',"id","created_at","updated_at", "is_active", "created_by",'is_acknowledged',)
-
-
 
 ################### Main Project Serializer################################
 
