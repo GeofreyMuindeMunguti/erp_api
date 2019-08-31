@@ -148,7 +148,7 @@ class DailyFtthPoleInstallation(TimeStampModel):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
 class FtthPoleInstallation(TimeStampModel,TimeTrackModel):
-    project_name = models.ForeignKey(FTTHProject, on_delete=models.CASCADE,related_name='ftthpoleinstallation', blank=True,null =True)
+    project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE,related_name='ftthpoleinstallations', blank=True,null =True)
     ftth_pole_installation_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/poleinstallation/%Y/%m/%d/')
     ftth_pole_installation_image_2 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/poleinstallation/%Y/%m/%d/')
     ftth_pole_installation_image_3 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/poleinstallation/%Y/%m/%d/')
@@ -208,7 +208,7 @@ class DailyFtthTrenching(TimeStampModel):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
 class FtthTrenching(TimeStampModel,TimeTrackModel):
-    project_name = models.ForeignKey(FTTHProject, on_delete=models.CASCADE,related_name= 'ftthtrenchings', blank=True,null =True)
+    project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE,related_name= 'ftthtrenchings', blank=True,null =True)
     ftth_trenching_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/trenching/%Y/%m/%d/')
     ftth_trenching_image_2 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/trenching/%Y/%m/%d/')
     ftth_trenching_image_3 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/trenching/%Y/%m/%d/')
@@ -267,7 +267,7 @@ class DailyFtthBackfilling(TimeStampModel):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
 class FtthBackfilling(TimeStampModel,TimeTrackModel):
-    project_name = models.ForeignKey(FTTHProject, on_delete=models.CASCADE,related_query_name='ftthbackfilling', blank=True,null =True)
+    project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE,related_query_name='ftthbackfillings', blank=True,null =True)
     ftth_backfilling_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/backfilling/%Y/%m/%d/')
     ftth_backfilling_image_2 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/backfilling/%Y/%m/%d/')
     ftth_backfilling_image_3 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/backfilling/%Y/%m/%d/')
@@ -327,7 +327,7 @@ class DailyFtthCableInstallation(TimeStampModel):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
 class FtthCableInstallation(TimeStampModel,TimeTrackModel):
-    project_name = models.ForeignKey(FTTHProject, on_delete=models.CASCADE, blank=True)
+    project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE,related_name = 'ftthcableinstallations', blank=True,null =True)
     ftth_cable_installation_image_1 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
     ftth_cable_installation_image_2 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
     ftth_cable_installation_image_3 = models.ImageField(upload_to='images/ftth/CivilWorksTeam/cableinstallation/%Y/%m/%d/')
@@ -409,8 +409,8 @@ class FtthCivilTeam(TimeStampModel):
 
 ######################################################## FTTH INSTALLATION TEAM ########################################################################################################################################################################################
 class FtthSplicingEnclosureImage(TimeStampModel):
-    day_image = models.ForeignKey('DailyFtthSplicingEnclosure', on_delete=models.CASCADE ,related_name='splicingencoreimage')
-    splicingencore_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingencore/%Y/%m/%d/')
+    day_image = models.ForeignKey('DailyFtthSplicingEnclosure', on_delete=models.CASCADE ,related_name='splicingenclosureimage')
+    splicingencore_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingenclosure/%Y/%m/%d/')
     splicingencore_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
@@ -442,10 +442,10 @@ class DailyFtthSplicingEnclosure(TimeStampModel):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
 class FtthSplicingEnclosure(TimeStampModel,TimeTrackModel):
-    project_name = models.ForeignKey(FTTHProject, on_delete=models.CASCADE, blank=True)
-    ftth_splicing_encore_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingencore/%Y/%m/%d/')
-    ftth_splicing_encore_image_2 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingencore/%Y/%m/%d/')
-    ftth_splicing_encore_image_3 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingencore/%Y/%m/%d/')
+    project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE,related_name ='ftthsplicingenclosures')
+    ftth_splicing_encore_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingenclosure/%Y/%m/%d/')
+    ftth_splicing_encore_image_2 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingenclosure/%Y/%m/%d/')
+    ftth_splicing_encore_image_3 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingenclosuresplicingenclosure/%Y/%m/%d/')
     ftth_splicing_encore_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
@@ -503,7 +503,7 @@ class DailyFtthSplicingFAT(TimeStampModel):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
 class FtthSplicingFAT(TimeStampModel,TimeTrackModel):
-    project_name = models.ForeignKey(FTTHProject, on_delete=models.CASCADE, blank=True)
+    project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE,related_name ='ftthsplicingfat')
     ftth_splicing_fat_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingFAT/%Y/%m/%d/')
     ftth_splicing_fat_image_2 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingFAT/%Y/%m/%d/')
     ftth_splicing_fat_image_3 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingFAT/%Y/%m/%d/')
@@ -564,7 +564,7 @@ class DailyFtthSplicingFDT(TimeStampModel):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
 class FtthSplicingFDT(TimeStampModel,TimeTrackModel):
-    project_name = models.ForeignKey(FTTHProject, on_delete=models.CASCADE, blank=True)
+    project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE,related_name='ftthsplicingfdts')
     ftth_splicing_fdt_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingFDT/%Y/%m/%d/')
     ftth_splicing_fdt_image_2 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingFDT/%Y/%m/%d/')
     ftth_splicing_fdt_image_3 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingFDT/%Y/%m/%d/')
@@ -682,7 +682,7 @@ class FtthPowerLevelsImage(TimeStampModel):
         return str(self.day_image)
 
 class DailyFtthPowerLevels(TimeStampModel):
-    sub_task = models.ForeignKey('FtthPowerLevels', on_delete=models.CASCADE ,related_name='powerlevels')
+    sub_task = models.ForeignKey('FtthPowerLevels', on_delete=models.CASCADE ,related_name='ftthpowerlevelsdays')
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     casuals_list = models.FileField(upload_to='files/ftth/Casuals/powerlevels/%Y/%m/%d/',blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
@@ -707,7 +707,7 @@ class DailyFtthPowerLevels(TimeStampModel):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
 class FtthPowerLevels(TimeStampModel,TimeTrackModel):
-    project_name = models.ForeignKey(FTTHProject, on_delete=models.CASCADE, blank=True)
+    project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE, related_name= 'ftthpowerlevels')
     ftth_power_level_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/powerlevels/%Y/%m/%d/')
     ftth_power_level_image_2 = models.ImageField(upload_to='images/ftth/InstallationTeam/powerlevels/%Y/%m/%d/')
     ftth_power_level_image_3 = models.ImageField(upload_to='images/ftth/InstallationTeam/powerlevels/%Y/%m/%d/')
@@ -768,7 +768,11 @@ class DailyFtthOTDRTraces(TimeStampModel):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
 class FtthOTDRTraces(TimeStampModel,TimeTrackModel):
+<<<<<<< HEAD
     project_name = models.ForeignKey(FTTHProject, on_delete=models.CASCADE, blank=True)
+=======
+    project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE,related_name = 'otdrtraces')
+>>>>>>> 580d18ff634ead5ee9cdc3724d05b98f83f6792e
     ftth_otdr_traces_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/OTDRTraces/%Y/%m/%d/')
     ftth_otdr_traces_image_2 = models.ImageField(upload_to='images/ftth/InstallationTeam/OTDRTraces/%Y/%m/%d/')
     ftth_otdr_traces_image_3 = models.ImageField(upload_to='images/ftth/InstallationTeam/OTDRTraces/%Y/%m/%d/')
