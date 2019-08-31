@@ -41,7 +41,7 @@ class FTTHProjectGetView(generics.RetrieveAPIView,DefaultsMixin):
 class FtthPoleInstallationASubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
     queryset = FTTHProject.objects.all()
     serializer_class = FtthPoleInstallationSubTaskAFilesSerializer
-    
+
 
 # class FtthTrenchingSubTaskFilesView(generics.RetrieveAPIView):
 #     def get_queryset(self):
@@ -65,13 +65,9 @@ class FtthBackfillingASubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
     queryset = FTTHProject.objects.all()
     serializer_class = FtthBackfillingSubTaskAFilesSerializer
 
-
-
 class FtthCableInstallationASubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
     queryset = FTTHProject.objects.all()
     serializer_class = FtthCableInstallationSubTaskAFilesSerializer
-
-
 
 class FtthSplicingEnclosureASubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
     queryset = FTTHProject.objects.all()
@@ -98,9 +94,3 @@ class FtthPowerLevelsASubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
 class FtthOTDRTracesASubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
     queryset = FTTHProject.objects.all()
     serializer_class =FtthOTDRTracesASubTaskFilesSerializer
-
-
-
-
-
-    

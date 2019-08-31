@@ -768,11 +768,7 @@ class DailyFtthOTDRTraces(TimeStampModel):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
 class FtthOTDRTraces(TimeStampModel,TimeTrackModel):
-<<<<<<< HEAD
-    project_name = models.ForeignKey(FTTHProject, on_delete=models.CASCADE, blank=True)
-=======
-    project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE,related_name = 'otdrtraces')
->>>>>>> 580d18ff634ead5ee9cdc3724d05b98f83f6792e
+    project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE,related_name = 'otdrtrace')
     ftth_otdr_traces_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/OTDRTraces/%Y/%m/%d/')
     ftth_otdr_traces_image_2 = models.ImageField(upload_to='images/ftth/InstallationTeam/OTDRTraces/%Y/%m/%d/')
     ftth_otdr_traces_image_3 = models.ImageField(upload_to='images/ftth/InstallationTeam/OTDRTraces/%Y/%m/%d/')
