@@ -11,7 +11,7 @@ class FttsSiteInline(admin.TabularInline):
 
 class FTTSProjectAdmin(admin.ModelAdmin):
 
-    list_display = ['id','project_name','ftts_activation','ftts_activation_comment','ftts_final_acceptance_cert','ftts_final_acceptance_cert_comment',
+    list_display = ['id','project_name','site_activation','site_activation_comment','ftts_final_acceptance_cert','ftts_final_acceptance_cert_comment',
                     'ftts_sites_count','sites_list','start_date','end_date','posted_by', 'created_at', 'updated_at', 'is_active']
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
