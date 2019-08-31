@@ -11,8 +11,8 @@ class FttsSiteInline(admin.TabularInline):
 
 class FTTSProjectAdmin(admin.ModelAdmin):
 
-    list_display = ['id','project_name','ftts_activation','ftts_activation_comment','ftts_final_acceptance_cert','ftts_final_acceptance_cert_comment',
-                    'ftts_sites_count','sites_list','start_date','end_date','posted_by', 'created_at', 'updated_at', 'is_active']
+    list_display = ['id','project_name','ftts_activation','ftts_activation_comment','ftts_sites_count','sites_list',
+                    'start_date','end_date','posted_by', 'created_at', 'updated_at', 'is_active']
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)
@@ -83,6 +83,15 @@ class FttsProcurementTeamAdmin(admin.ModelAdmin):
     list_editable = ('is_active',)
 
 admin.site.register(FttsProcurementTeam, FttsProcurementTeamAdmin)
+
+class FttsCertificatesAdmin(admin.ModelAdmin):
+    list_display = ('id','site_name', 'ftts_snag_document','ftts_snag_document_comment','ftts_final_acceptance_cert', 'ftts_final_acceptance_cert_comment', 'ftts_operational_acceptance_cert','ftts_operational_acceptance_cert_comment',
+                'ftts_homepass_acceptance_cert','ftts_homepass_acceptance_cert_comment','ftts_conditional_acceptance_cert','ftts_conditional_acceptance_cert_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('site_name', )
+    search_fields = ('site_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(FttsCertificates, FttsCertificatesAdmin)
 
 ######################################################## FIBER CIVIL TEAM ########################################################################################################################################################################################
 class SiteTrenchingImageAdmin(admin.ModelAdmin):
@@ -294,8 +303,8 @@ class FttsIssuesAdmin(admin.ModelAdmin):
 admin.site.register(FttsIssues, FttsIssuesAdmin)
 
 class FttsInstallationTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','ftts_terminal_in_hse', 'ftts_interception','ftts_integration','ftts_integration_comment','ftts_installation_team_comment','ftts_asbuit_received','ftts_asbuilt_comment','snag_document',
-                    'snag_document_comment','project_issues','conditional_acceptance_cert','conditional_acceptance_cert_comment', 'posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','ftts_terminal_in_hse', 'ftts_interception','ftts_integration','ftts_integration_comment','ftts_installation_team_comment','ftts_asbuit_received','ftts_asbuilt_comment',
+                    'project_issues', 'posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
@@ -340,4 +349,3 @@ class FTTSCasualDailyRegisterAdmin(admin.ModelAdmin):
     list_editable = ('is_active',)
 
 admin.site.register(FTTSCasualDailyRegister, FTTSCasualDailyRegisterAdmin)
-

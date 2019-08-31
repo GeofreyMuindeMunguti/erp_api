@@ -63,6 +63,13 @@ class FttsProcurementTeamSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+class FttsCertificatesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FttsCertificates
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
 ################################################ FIBER CIVIL TEAM ##############################################################################################################################################################################################################################################
 
 class SiteTrenchingImageSerializer(serializers.ModelSerializer):

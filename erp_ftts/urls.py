@@ -20,6 +20,7 @@ router.register(r'fttssurveys', views.fttsSurveyViewSet)
 
 router.register(r'FttsCommercialTeam', views.FttsCommercialTeamViewSet)
 router.register(r'FttsProcurementTeam', views.FttsProcurementTeamViewSet)
+router.register(r'FttsCertificates', views.FttsCertificatesViewSet)
 
 router.register(r'SiteTrenchingImage', views.SiteTrenchingImageViewSet)
 router.register(r'DailySiteTrenching', views.DailySiteTrenchingViewSet)

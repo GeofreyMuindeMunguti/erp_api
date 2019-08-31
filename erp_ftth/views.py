@@ -71,6 +71,13 @@ class FtthProcurementTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
+class FtthCertificatesViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = FtthCertificates.objects.order_by('created_at')
+    serializer_class = FtthCertificatesSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
 ################################################ FIBER CIVIL TEAM ##############################################################################################################################################################################################################################################
 class FtthPoleInstallationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = FtthPoleInstallationImage.objects.order_by('created_at')
