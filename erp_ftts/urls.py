@@ -20,6 +20,7 @@ router.register(r'fttssurveys', views.fttsSurveyViewSet)
 
 router.register(r'FttsCommercialTeam', views.FttsCommercialTeamViewSet)
 router.register(r'FttsProcurementTeam', views.FttsProcurementTeamViewSet)
+router.register(r'FttsCertificates', views.FttsCertificatesViewSet)
 
 router.register(r'SiteTrenchingImage', views.SiteTrenchingImageViewSet)
 router.register(r'DailySiteTrenching', views.DailySiteTrenchingViewSet)
@@ -75,14 +76,21 @@ urlpatterns = [
 
     path('files/<int:pk>/', filesviews.FttsSiteFilesView.as_view()),# Main
 
-    # path('files/<int:pk>/commercialteamtiles/', filesviews.FttsCommercialTeamFilesView.as_view()),
+    path('files/<int:pk>/commercialteamtiles/', filesviews.FttsCommercialTeamASubTaskFilesView.as_view()),
     # Civil works
-    path('files/<int:pk>/sitetrenchings/', filesviews.SiteTrenchingFilesFilesView.as_view()),
-    path('files/<int:pk>/siteductinstall/', filesviews.SiteDuctInstallationFilesView.as_view()),
-    path('files/<int:pk>/sitemanholeinstall/', filesviews.ManHoleInstallationFilesView.as_view()),
 
-    path('files/<int:pk>/sitecableinstallation/', filesviews.SiteCableInstallationFilesView.as_view()),
-    path('files/<int:pk>/siteterminalinhse/', filesviews.SiteTerminalInHseFilesView.as_view()),
-    path('files/<int:pk>/siteinterception/', filesviews.SiteInterceptionFilesView.as_view()),
+    
+    # path('files/<int:pk>/siteductinstalls/', filesviews.SiteDuctInstallationFilesView.as_view()),
+    # path('files/<int:pk>/sitemanholeinstall/', filesviews.ManHoleInstallationFilesView.as_view()),
+
+    
+    path('files/<int:pk>/sitesurvey/', filesviews.FttsSurveyPhotosASubTaskFilesView.as_view()),
+    path('files/<int:pk>/sitetrenchings/', filesviews.SiteTrenchingASubTaskFilesView.as_view()),
+    path('files/<int:pk>/siteductinstall/', filesviews.SiteDuctASubTaskFilesView.as_view()),
+    path('files/<int:pk>/manholeinstallation/', filesviews.ManHoleInstallationASubTaskFilesView.as_view()),
+    path('files/<int:pk>/sitecableinstallation/', filesviews.SiteCableInstallationASubTaskFilesView.as_view()),
+    path('files/<int:pk>/siteterminalinhses/', filesviews.SiteTerminalInHseASubTaskFilesView.as_view()),
+    path('files/<int:pk>/siteinterception/', filesviews.SiteInterceptionASubTaskFilesView.as_view()),
+
 
 ]

@@ -1,14 +1,9 @@
-"""Extract files and images per project.
-"""
-#---------
-# Imports
-#---------
+
 from rest_framework import serializers  #, exceptions
 from erp_ftts.models import *
 
 
 ############################ PROJECT FILES SERIALIZERS ###############################################
-
 
 class FTTSProjectFilesSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,6 +17,27 @@ class FttsCommercialTeamFilesSerializer(serializers.ModelSerializer):
         fields = ('ftts_quote', 'ftts_po_requisition','ftts_wayleave_application', 'ftts_project_plan', 'ftts_initial_invoice','ftts_po_client',)
        # read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+
+class FttsCommercialTeamASubTaskFilesSerializer(serializers.ModelSerializer):
+    fttscommercialteams = FttsCommercialTeamFilesSerializer(read_only =True)
+
+    class Meta:
+        model = FTTSProject
+        exclude = ("start_date","end_date","project_name","description","id","created_at","updated_at", "is_active", "posted_by",)
+
+
+class fttsSurveyPhotosSubTaskFilesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = fttsSurveyPhotos
+        fields = ('survey_image_2', 'survey_image_3', 'survey_images_comment',)
+
+class FttsSurveyPhotosSubTaskAFilesSerializer(serializers.ModelSerializer):
+    fttssurveyphotos = fttsSurveyPhotosSubTaskFilesSerializer(read_only =True)
+
+    class Meta:
+        model = FttsSite
+        exclude = ("ftts_project","site_name","id","created_at","updated_at", "is_active", "location", "posted_by",)
 
 # Site TRENCHING  Files Serializers///////////////
 
@@ -47,12 +63,12 @@ class SiteTrenchingSubTaskFilesSerializer(serializers.ModelSerializer):
         model = SiteTrenching
         fields = ('site_trenching_image_1', 'site_trenching_image_2','site_trenching_image_3', 'site_trenching_comment','dailysitetrenchings',)
 
-# class SiteTrenchingSubTaskAFilesSerializer(serializers.ModelSerializer):
-#     sitetrenching = SiteTrenchingSubTaskFilesSerializer(read_only =True)
+class SiteTrenchingSubTaskAFilesSerializer(serializers.ModelSerializer):
+    sitetrenching = SiteTrenchingSubTaskFilesSerializer(read_only =True)
 
-#     class Meta:
-#         model = FttsSite
-#         exclude = ("ftts_project","site_name","id","created_at","updated_at", "is_active", "location", "posted_by",)
+    class Meta:
+        model = FttsSite
+        exclude = ("ftts_project","site_name","id","created_at","updated_at", "is_active", "location", "posted_by",)
 
 # Duct InstallationSubTask  Files Serializers///////////////
 
@@ -76,15 +92,14 @@ class SiteDuctInstallationSubTaskFilesSerializer(serializers.ModelSerializer):
         model = SiteDuctInstallation
         fields = ('site_duct_installation_image_1','site_duct_installation_image_2', 'site_duct_installation_image_3', 'site_duct_installation_comment','dailyduct',)
 
-# class SiteClearingSubTaskAFilesSerializer(serializers.ModelSerializer):
-#     siteductinstallation = SiteDuctInstallationSubTaskFilesSerializer(read_only =True)
+class SiteDuctASubTaskFilesSerializer(serializers.ModelSerializer):
+    siteductinstallation = SiteDuctInstallationSubTaskFilesSerializer(read_only =True)
 
-#     class Meta:
-#         model = BtsSite
-#         exclude = ("ftts_project","site_name","id","created_at","updated_at", "is_active", "location", "posted_by",)
+    class Meta:
+        model = FttsSite
+        exclude = ("ftts_project","site_name","id","created_at","updated_at", "is_active", "location", "posted_by",)
 
-        
-        # TowerBaseSubTask  Files Serializers///////////////
+            # TowerBaseSubTask  Files Serializers///////////////
 
 class ManHoleInstallationImagesSerializer(serializers.ModelSerializer):
 
@@ -107,8 +122,15 @@ class ManHoleInstallationSubTaskFilesSerializer(serializers.ModelSerializer):
         model = ManHoleInstallation
         fields = ('manhole_image_1','manhole_image_2','manhole_image_3','manholeinstalldays',)
 
-# Site Clearing  Files Serializers///////////////
 
+class ManHoleInstallationASubTaskFilesSerializer(serializers.ModelSerializer):
+    manholeinstallations = ManHoleInstallationSubTaskFilesSerializer(read_only =True)
+
+    class Meta:
+        model = FttsSite
+        exclude = ("ftts_project","site_name","id","created_at","updated_at", "is_active", "location", "posted_by",)
+
+# Site Clearing  Files Serializers///////////////
 
 class SiteCableInstallationImagesSerializer(serializers.ModelSerializer):
 
@@ -129,6 +151,14 @@ class SiteCableInstallationSubTaskFilesSerializer(serializers.ModelSerializer):
     class Meta:
         model = SiteCableInstallation
         fields = ('site_cable_installation_image_1','site_cable_installation_image_2','site_cable_installation_image_3','site_cable_installation_comment','cableinstalldays',)
+
+
+class SiteCableInstallationASubTaskFilesSerializer(serializers.ModelSerializer):
+    sitecableinstallations = SiteCableInstallationSubTaskFilesSerializer(read_only =True)
+
+    class Meta:
+        model = FttsSite
+        exclude = ("ftts_project","site_name","id","created_at","updated_at", "is_active", "location", "posted_by",)
 
 # Site Clearing  Files Serializers///////////////
 
@@ -153,9 +183,14 @@ class SiteTerminalInHseSubTaskFilesSerializer(serializers.ModelSerializer):
         model = SiteTerminalInHse
         fields = ('site_terminal_in_hse_image_1','site_terminal_in_hse_image_2','site_terminal_in_hse_image_3','site_terminal_in_hse_comment','terminalinhsedays',)
 
+class SiteTerminalInHseASubTaskFilesSerializer(serializers.ModelSerializer):
+    siteterminalinhses = SiteTerminalInHseSubTaskFilesSerializer(read_only =True)
+
+    class Meta:
+        model = FttsSite
+        exclude = ("ftts_project","site_name","id","created_at","updated_at", "is_active", "location", "posted_by",)
+
 # Site Clearing  Files Serializers///////////////
-
-
 
 class SiteInterceptionImagesSerializer(serializers.ModelSerializer):
 
@@ -178,20 +213,27 @@ class SiteInterceptionSubTaskFilesSerializer(serializers.ModelSerializer):
         model = SiteInterception
         fields = ('site_interception_image_1', 'site_interception_image_2','site_interception_image_3', 'site_interception_comment','interceptiondays',)
 
-# Site Clearing  Files Serializers///////////////
+
+class SiteInterceptionASubTaskFilesSerializer(serializers.ModelSerializer):
+    siteinterceptions = SiteInterceptionSubTaskFilesSerializer(read_only =True)
+
+    class Meta:
+        model = FttsSite
+        exclude = ("ftts_project","site_name","id","created_at","updated_at", "is_active", "location", "posted_by",)
+
 
 # Site Clearing  Files Serializers///////////////
 
 ################### Main Project Serializer################################
 
 class FttsSiteFilesSerializer(serializers.ModelSerializer):
+    fttscommercialteams = FttsCommercialTeamFilesSerializer(read_only =True)
     # Civil >One per site
     sitetrenching = SiteTrenchingSubTaskFilesSerializer(read_only =True)
     siteductinstallation = SiteDuctInstallationSubTaskFilesSerializer(read_only =True)
-    manHoleinstallation = ManHoleInstallationSubTaskFilesSerializer(read_only =True)
-    siteterminalinhse =  SiteTerminalInHseSubTaskFilesSerializer(read_only =True)
-
-    siteinterception  = SiteInterceptionSubTaskFilesSerializer(read_only=True)
+    manholeinstallations = ManHoleInstallationSubTaskFilesSerializer(read_only =True)
+    siteterminalinhses = SiteTerminalInHseSubTaskFilesSerializer(read_only =True)
+    siteinterceptions = SiteInterceptionSubTaskFilesSerializer(read_only =True)
 
 
     class Meta:

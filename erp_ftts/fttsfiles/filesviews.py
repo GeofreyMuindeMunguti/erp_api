@@ -32,59 +32,102 @@ class FttsSiteFilesView(generics.RetrieveAPIView):
 
 #     # Views for individual files type
 
-class FttsCommercialTeamFilesView(generics.RetrieveAPIView):
-    def get_queryset(self):
-        queryset = FttsCommercialTeam.objects.filter(site_name_id=self.kwargs["pk"])
-        return queryset
-    serializer_class = FttsCommercialTeamFilesSerializer
-
-class SiteTrenchingFilesFilesView(generics.RetrieveAPIView,DefaultsMixin):
-    def get_queryset(self):
-        queryset = SiteTrenching.objects.filter(site_name_id=self.kwargs["pk"])
-        return queryset
-    serializer_class = SiteTrenchingSubTaskFilesSerializer
+# class FttsCommercialTeamFilesView(generics.RetrieveAPIView):
+#     def get_queryset(self):
+#         queryset = FttsCommercialTeam.objects.filter(site_name_id=self.kwargs["pk"])
+#         return queryset
+#     serializer_class = FttsCommercialTeamFilesSerializer
 
 
-# class SiteTrenchingSubTaskSubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
-#     queryset = FttsSite.objects.all()
-#     serializer_class = SiteTrenchingSubTaskAFilesSerializer
+
+class FttsCommercialTeamASubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    queryset = FTTSProject.objects.all()
+    serializer_class = FttsCommercialTeamASubTaskFilesSerializer
 
 
-class SiteTrenchingFilesFilesView(generics.RetrieveAPIView,DefaultsMixin):
-    def get_queryset(self):
-        queryset = SiteTrenching.objects.filter(site_name_id=self.kwargs["pk"])
-        return queryset
-    serializer_class = SiteTrenchingSubTaskFilesSerializer
+class FttsSurveyPhotosASubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    queryset = FttsSite.objects.all()
+    serializer_class = FttsSurveyPhotosSubTaskAFilesSerializer
+
+# class SiteTrenchingFilesFilesView(generics.RetrieveAPIView,DefaultsMixin):
+#     def get_queryset(self):
+#         queryset = SiteTrenching.objects.filter(site_name_id=self.kwargs["pk"])
+#         return queryset
+#     serializer_class = SiteTrenchingSubTaskFilesSerializer
+
+##
+class SiteTrenchingASubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    queryset = FttsSite.objects.all()
+    serializer_class = SiteTrenchingSubTaskAFilesSerializer
 
 
-class SiteDuctInstallationFilesView(generics.RetrieveAPIView,DefaultsMixin):
-    def get_queryset(self):
-        queryset = SiteDuctInstallation.objects.filter(site_name_id=self.kwargs["pk"])
-        return queryset
-    serializer_class = SiteDuctInstallationSubTaskFilesSerializer
+##
+# class SiteTrenchingFilesFilesView(generics.RetrieveAPIView,DefaultsMixin):
+#     def get_queryset(self):
+#         queryset = SiteTrenching.objects.filter(site_name_id=self.kwargs["pk"])
+#         return queryset
+#     serializer_class = SiteTrenchingSubTaskFilesSerializer
 
 
-class ManHoleInstallationFilesView(generics.RetrieveAPIView,DefaultsMixin):
-    def get_queryset(self):
-        queryset = ManHoleInstallation.objects.filter(site_name_id=self.kwargs["pk"])
-        return queryset
-    serializer_class = ManHoleInstallationSubTaskFilesSerializer
 
-class SiteCableInstallationFilesView(generics.RetrieveAPIView,DefaultsMixin):
-    def get_queryset(self):
-        queryset = SiteCableInstallation.objects.filter(site_name_id=self.kwargs["pk"])
-        return queryset
-    serializer_class = SiteCableInstallationSubTaskFilesSerializer
+##
+class SiteDuctASubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    queryset = FttsSite.objects.all()
+    serializer_class = SiteDuctASubTaskFilesSerializer
+
+##
 
 
-class SiteTerminalInHseFilesView(generics.RetrieveAPIView,DefaultsMixin):
-    def get_queryset(self):
-        queryset = SiteTerminalInHse.objects.filter(site_name_id=self.kwargs["pk"])
-        return queryset
-    serializer_class = SiteTerminalInHseSubTaskFilesSerializer
+# class SiteDuctInstallationFilesView(generics.RetrieveAPIView,DefaultsMixin):
+#     def get_queryset(self):
+#         queryset = SiteDuctInstallation.objects.filter(site_name_id=self.kwargs["pk"])
+#         return queryset
+#     serializer_class = SiteDuctInstallationSubTaskFilesSerializer
+
+class ManHoleInstallationASubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    queryset = FttsSite.objects.all()
+    serializer_class = ManHoleInstallationASubTaskFilesSerializer
+
+
+# class ManHoleInstallationFilesView(generics.RetrieveAPIView,DefaultsMixin):
+#     def get_queryset(self):
+#         queryset = ManHoleInstallation.objects.filter(site_name_id=self.kwargs["pk"])
+#         return queryset
+#     serializer_class = ManHoleInstallationSubTaskFilesSerializer
+
+# class SiteCableInstallationFilesView(generics.RetrieveAPIView,DefaultsMixin):
+#     def get_queryset(self):
+#         queryset = SiteCableInstallation.objects.filter(site_name_id=self.kwargs["pk"])
+#         return queryset
+#     serializer_class = SiteCableInstallationSubTaskFilesSerializer
+
+
+class SiteCableInstallationASubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    queryset = FttsSite.objects.all()
+    serializer_class = SiteCableInstallationASubTaskFilesSerializer
+
+
+# class SiteTerminalInHseFilesView(generics.RetrieveAPIView,DefaultsMixin):
+#     def get_queryset(self):
+#         queryset = SiteTerminalInHse.objects.filter(site_name_id=self.kwargs["pk"])
+#         return queryset
+#     serializer_class = SiteTerminalInHseSubTaskFilesSerializer
+
+
+
+class SiteTerminalInHseASubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    queryset = FttsSite.objects.all()
+    serializer_class = SiteTerminalInHseASubTaskFilesSerializer
+
+
 
 class SiteInterceptionFilesView(generics.RetrieveAPIView,DefaultsMixin):
     def get_queryset(self):
         queryset = SiteInterception.objects.filter(site_name_id=self.kwargs["pk"])
         return queryset
     serializer_class = SiteInterceptionSubTaskFilesSerializer
+
+
+class SiteInterceptionASubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    queryset = FttsSite.objects.all()
+    serializer_class = SiteInterceptionASubTaskFilesSerializer
