@@ -380,7 +380,7 @@ class FoundationTaskProgressView(APIView):
         concrete_curing_status = ''
         project_id = pk
         try:
-            progress_object = FoundationCreationTask.objects.get(project_name=project_id)
+            progress_object = FoundationTask.objects.get(project_name=project_id)
         except Exception as e:
             return Response({'error': 'Task not started', 'no_of_tasks': automatic_total_tasks,})
         setting_site = progress_object.setting_site_clearing

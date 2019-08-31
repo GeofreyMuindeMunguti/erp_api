@@ -21,11 +21,10 @@ class ProjectIcon(models.Model):
     def __str__(self):
         return self.site_owner
 
-
 class BtsProject(models.Model):
     bts_project_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
     icon = models.ForeignKey(ProjectIcon, on_delete=models.DO_NOTHING, blank=True, null=True)
-    created_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
+    created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
@@ -36,35 +35,27 @@ class BtsProject(models.Model):
     class Meta:
         verbose_name_plural = 'BTS PROJECTS'
 
-
-
 class BtsSite(TimeStampModel):
     ''' Create site and associate with project'''
     project_name = models.ForeignKey(BtsProject, on_delete=models.CASCADE, blank=True, null=True)
     site_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
-     # Site details
     site_number = models.CharField(max_length=100, unique=True, blank=True, null=True)
     BTS_type = models.CharField(max_length=100, blank=True, null=True)
     site_owner = models.CharField(max_length=100, blank=True, null=True)
     icon = models.ForeignKey(ProjectIcon, on_delete=models.DO_NOTHING, blank=True, null=True)
     location = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
-     # Site Docs
     geotech_file = models.FileField(upload_to= UploadToProjectDir(file_path,'files/Project/geotech/'), blank=True, null=True)
     access_letter = models.FileField(upload_to=UploadToProjectDir(file_path,'files/Project/accessletters/'), blank=True, null=True)
     approved_drawing = models.FileField(upload_to= UploadToProjectDir(file_path,'files/Project/approveddrawings/'), blank=True, null=True)
     final_acceptance_cert = models.FileField(upload_to=UploadToProjectDir(file_path,'files/SafaricomTeam/finalcert/'), blank=True, null=True)
     final_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
-
+    created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        #return str(self.site_name)
         return '{}:{}'.format(self.site_name,self.project_name)
 
     class Meta:
         verbose_name_plural = 'BTS SITES'
-
-
 
     def status(self):
         try:
@@ -244,21 +235,13 @@ class BtsBudget(models.Model):
         return float(self.quantity * self.rate)
 ####################################### END ########################################################################################################################################
 # TASK [1]: FOUNDATION CREATION TASK ########################################################################################################################################
-
-    # SubTask (1)://///////////Site-Clearing Subtask //////////////////
-
-
 class SiteClearingImage(TimeStampModel):
     day_image = models.ForeignKey('SiteClearingDate', on_delete=models.CASCADE ,related_name= 'siteclearingimages' )
-
-    # DailyPhotos
     setting_site_clearing_image = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/siteclearing/') ,max_length=250,blank=True, null=True)
     setting_site_clearing_comment = models.CharField(max_length=100, blank=True, null=True)
 
-
     def __str__(self):
-        #return str(self.project_name)
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
     def bts_site_id(self): #NN
         try:
@@ -269,48 +252,14 @@ class SiteClearingImage(TimeStampModel):
         except Exception as e:
             return
 
-
 class SiteClearingDate(TimeStampModel):
     sub_task = models.ForeignKey('SiteClearingSubTask', on_delete=models.CASCADE,related_name='siteclearingdates')
     work_day =  models.DateField(unique = True ,blank=True, null=True)
-    # Casuals
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/SiteSiteClearing/'),max_length=250,blank=True, null=True)
-
-    def __str__(self):
-        #return str(self.project_name)
-        return '{}: Date: {}'.format(self.sub_task ,self.work_day)
-
-
-    def image_list(self):
-        try:
-            return [SiteClearingImage.objects.get(setting_site_clearing_image = _dimage.setting_site_clearing_image).id for _dimage in SiteClearingImage.objects.filter(day_image_id = self.id).all()]
-
-        except Exception as e:
-            return e
-
-class SiteClearingSubtask(TimeTrackModel,TimeStampModel):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
 
-        # Sammary Photos
-    setting_site_clearing_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/siteclearing/'), blank=True, null=True)
-    setting_site_clearing_image_2 = models.ImageField(upload_to= UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/siteclearing/'),blank=True, null=True)
-    setting_site_clearing_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/siteclearing/'),blank=True, null=True)
-
-    setting_site_clearing_comment = models.CharField(max_length=100, blank=True, null=True)
-
-
     def __str__(self):
-       # return str(self.project_name)
-        return 'SiteClearingSubTask: {}'.format(self.project_name)
-
-    def days_list(self):
-        try:
-            return [SiteClearingDate.objects.get(work_day= _pday.work_day).id for _pday in SiteClearingDate.objects.filter(sub_task_id = self.id).all()]
-
-        except Exception as e:
-            return e
-
+        return str(self.sub_task)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -373,7 +322,7 @@ class SiteClearingSubtask(TimeTrackModel,TimeStampModel):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = FoundationCreationTask.objects.get(project_name=self.project_name)
+                engineer_data = FoundationTask.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -396,7 +345,7 @@ class SiteClearingSubtask(TimeTrackModel,TimeStampModel):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = FoundationCreationTask.objects.get(project_name=self.project_name)
+                engineer_data = FoundationTask.objects.get(project_name=self.project_name)
                 engineer_count = engineer_data.engineers_atsite.count()
                 casual_count = self.no_of_casuals_atsite.count()
                 cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
@@ -407,6 +356,30 @@ class SiteClearingSubtask(TimeTrackModel,TimeStampModel):
         except Exception as e:
             error = "Rates does not exist"
             return error
+
+    def image_list(self):
+        try:
+            return [SiteClearingImage.objects.get(setting_site_clearing_image = _dimage.setting_site_clearing_image).id for _dimage in SiteClearingImage.objects.filter(day_image_id = self.id).all()]
+
+        except Exception as e:
+            return e
+
+class SiteClearingSubtask(TimeTrackModel,TimeStampModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    setting_site_clearing_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/siteclearing/'), blank=True, null=True)
+    setting_site_clearing_image_2 = models.ImageField(upload_to= UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/siteclearing/'),blank=True, null=True)
+    setting_site_clearing_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/siteclearing/'),blank=True, null=True)
+    setting_site_clearing_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+       return str(self.project_name)
+
+    def days_list(self):
+        try:
+            return [SiteClearingDate.objects.get(work_day= _pday.work_day).id for _pday in SiteClearingDate.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
 
     def raise_flag(self):
         try:
@@ -438,24 +411,19 @@ class SiteClearingSubtask(TimeTrackModel,TimeStampModel):
 
     def task_id(self):
         try:
-            task = FoundationCreationTask.objects.get(project_name=self.project_name)
+            task = FoundationTask.objects.get(project_name=self.project_name)
             task_id = task.id
             return task_id
         except Exception as e:
             return
 
-    # SubTask (2)://///////////Site-TowerBase Images Subtask //////////////////
-
-
 class TowerBaseImage(TimeStampModel):
     day_image = models.ForeignKey('TowerBaseDate', on_delete=models.CASCADE,related_name ='towerbaseimages')
-
     towerbase_image = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/towerbase/'),blank=True, null=True)
     tower_base_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        #return str(self.project_name)
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
     def bts_site_id(self):
         try:
@@ -470,37 +438,12 @@ class TowerBaseImage(TimeStampModel):
 class TowerBaseDate(TimeStampModel,):
     sub_task = models.ForeignKey('TowerBaseSubTask', on_delete=models.CASCADE ,related_name= 'towerbasedates')
     work_day = models.DateField(blank=True ,null=True )
-    #Casuals
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/TowerBase/'),blank=True, null=True)
-
     tower_base_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        #return str(self.project_name)
-        return '{}: Date: {}'.format(self.sub_task,self.work_day)
-
-class TowerBaseSubtask(TimeStampModel,TimeTrackModel):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING )#,related_name = 'towerbasesubtasks')
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-
-    towerbase_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/towerbase/'),blank=True, null=True)
-    towerbase_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/towerbase/'),blank=True, null=True)
-    towerbase_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/towerbase/'),blank=True, null=True)
-    tower_base_comment = models.CharField(max_length=100, blank=True, null=True)
-
-    def __str__(self):
-       # return str(self.project_name)
-        return 'TowerBaseSubTask  : {}'.format(self.project_name)
-
-    def days_list(self):
-        try:
-            return [TowerBaseDate.objects.get(work_day= _pday.work_day).id for _pday in TowerBaseDate.objects.filter(sub_task_id = self.id).all()]
-
-        except Exception as e:
-            return e
-
-
+        return str(self.sub_task)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -508,6 +451,34 @@ class TowerBaseSubtask(TimeStampModel,TimeTrackModel):
 
     def names_of_casuals(self):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def check_cost(self):
+        now = datetime.now(timezone.utc)
+        date_diff = date_difference(self.start_date, now)
+        return date_diff
+
+    def date_casual_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            total_cost = 0
+            default_diff = 1
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                date_diff = date_difference(self.start_date, now)
+            else:
+                date_diff = date_difference(self.start_date, self.end_date)
+            while date_diff > default_diff:
+                updated_count = self.no_of_casuals_atsite.count()
+                casual_count += count
+                casual_diff = casual_count - count
+                cost = (casual_diff * casual_rate)
+                total_cost += cost
+                default_diff += 1
+            return total_cost
+        except Exception as e:
+            return e
 
     def casuals_cost(self):
         try:
@@ -535,7 +506,7 @@ class TowerBaseSubtask(TimeStampModel,TimeTrackModel):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = FoundationCreationTask.objects.get(project_name=self.project_name)
+                engineer_data = TowerBaseSubtask.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -545,6 +516,48 @@ class TowerBaseSubtask(TimeStampModel,TimeTrackModel):
         except Exception as e:
             error = "Rates does not exist"
             return error
+
+    def labour_cost(self):
+        try:
+            engineer_rate_data = Rates.objects.get(worker_type='Engineer')
+            casual_rate_data = Rates.objects.get(worker_type='Casual')
+            engineer_rate = engineer_rate_data.rate
+            casual_rate = casual_rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = TowerBaseSubtask.objects.get(project_name=self.project_name)
+                engineer_count = engineer_data.engineers_atsite.count()
+                casual_count = self.no_of_casuals_atsite.count()
+                cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+class TowerBaseSubtask(TimeStampModel,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING )#,related_name = 'towerbasesubtasks')
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
+    towerbase_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/towerbase/'),blank=True, null=True)
+    towerbase_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/towerbase/'),blank=True, null=True)
+    towerbase_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/towerbase/'),blank=True, null=True)
+    tower_base_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+       return str(self.project_name)
+
+    def days_list(self):
+        try:
+            return [TowerBaseDate.objects.get(work_day= _pday.work_day).id for _pday in TowerBaseDate.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
 
     def raise_flag(self):
         try:
@@ -576,25 +589,19 @@ class TowerBaseSubtask(TimeStampModel,TimeTrackModel):
 
     def task_id(self):
         try:
-            task = FoundationCreationTask.objects.get(project_name=self.project_name)
+            task = FoundationTask.objects.get(project_name=self.project_name)
             task_id = task.id
             return task_id
         except Exception as e:
             return
 
-    # SubTask (3)://///////////Blinding Subtask //////////////////
-
 class BlindingImage(TimeStampModel):
     day_image = models.ForeignKey('BlindingDate', on_delete=models.CASCADE,related_name ='blindingimages',blank=True, null=True)
-
-    # DailyPhotos
     blinding_image = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/Blinding/'),blank=True, null=True)
     blinding_image_comment = models.CharField(max_length=100, blank=True, null=True)
 
-
     def __str__(self):
-        #return str(self.project_name)
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
     def bts_site_id(self):
         try:
@@ -608,35 +615,11 @@ class BlindingImage(TimeStampModel):
 class BlindingDate(TimeStampModel):
     sub_task = models.ForeignKey('BlindingSubTask', on_delete=models.CASCADE,related_name= 'blindingdates',blank=True, null=True)
     work_day =  models.DateField(blank=True, null=True)
-    # Casuals
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/Blinding/'),blank=True, null=True)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
 
     def __str__(self):
-        #return str(self.project_name)
-        return '{} :Date: {}'.format(self.sub_task,self.work_day)
-
-
-class BlindingSubtask(TimeStampModel ,TimeTrackModel):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING,blank=True, null=True)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True ) # RM
-
-    # Summary Photos
-    blinding_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/binding/'),blank=True, null=True)
-    blinding_image_2 = models.ImageField(upload_to= UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/binding/'),blank=True, null=True)
-    blinding_image_3 = models.ImageField(upload_to= UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/binding/'),blank=True, null=True)
-    blinding_comment = models.CharField(max_length=100, blank=True, null=True)
-
-    def __str__(self):
-        #return str(self.project_name)
-        return 'BlindingSubTask  : {}'.format(self.project_name)
-
-    def days_list(self):
-        try:
-            return [BlindingDate.objects.get(work_day= _pday.work_day).id for _pday in BlindingDate.objects.filter(sub_task_id = self.id).all()]
-
-        except Exception as e:
-            return e
+        return str(self.sub_task)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -644,6 +627,34 @@ class BlindingSubtask(TimeStampModel ,TimeTrackModel):
 
     def names_of_casuals(self):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def check_cost(self):
+        now = datetime.now(timezone.utc)
+        date_diff = date_difference(self.start_date, now)
+        return date_diff
+
+    def date_casual_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            total_cost = 0
+            default_diff = 1
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                date_diff = date_difference(self.start_date, now)
+            else:
+                date_diff = date_difference(self.start_date, self.end_date)
+            while date_diff > default_diff:
+                updated_count = self.no_of_casuals_atsite.count()
+                casual_count += count
+                casual_diff = casual_count - count
+                cost = (casual_diff * casual_rate)
+                total_cost += cost
+                default_diff += 1
+            return total_cost
+        except Exception as e:
+            return e
 
     def casuals_cost(self):
         try:
@@ -671,7 +682,7 @@ class BlindingSubtask(TimeStampModel ,TimeTrackModel):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = FoundationCreationTask.objects.get(project_name=self.project_name)
+                engineer_data = FoundationTask.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -681,6 +692,48 @@ class BlindingSubtask(TimeStampModel ,TimeTrackModel):
         except Exception as e:
             error = "Rates does not exist"
             return error
+
+    def labour_cost(self):
+        try:
+            engineer_rate_data = Rates.objects.get(worker_type='Engineer')
+            casual_rate_data = Rates.objects.get(worker_type='Casual')
+            engineer_rate = engineer_rate_data.rate
+            casual_rate = casual_rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = BlindingSubtask.objects.get(project_name=self.project_name)
+                engineer_count = engineer_data.engineers_atsite.count()
+                casual_count = self.no_of_casuals_atsite.count()
+                cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+class BlindingSubtask(TimeStampModel ,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING,blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
+    blinding_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/binding/'),blank=True, null=True)
+    blinding_image_2 = models.ImageField(upload_to= UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/binding/'),blank=True, null=True)
+    blinding_image_3 = models.ImageField(upload_to= UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/binding/'),blank=True, null=True)
+    blinding_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+    def days_list(self):
+        try:
+            return [BlindingDate.objects.get(work_day= _pday.work_day).id for _pday in BlindingDate.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
 
     def raise_flag(self):
         try:
@@ -713,25 +766,19 @@ class BlindingSubtask(TimeStampModel ,TimeTrackModel):
 
     def task_id(self):
         try:
-            task = FoundationCreationTask.objects.get(project_name=self.project_name)
+            task = FoundationTask.objects.get(project_name=self.project_name)
             task_id = task.id
             return task_id
         except Exception as e:
             return
 
-    # SubTask (3)://///////////SteelFixFormwork Subtask //////////////////
-
 class SteelFixFormworkImage(TimeStampModel):
     day_image = models.ForeignKey('SteelFixFormworkDate', on_delete=models.CASCADE,related_name = 'steelfixformworkimages',blank=True, null=True)
-
-    # DailyPhotos
     steel_fixformwork_image = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/SteelFix/'),blank=True, null=True)
     steel_fixformwork_comment = models.CharField(max_length=100, blank=True, null=True)
 
-
     def __str__(self):
-        #return str(self.project_name)
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
     def bts_site_id(self):
         try:
@@ -746,34 +793,11 @@ class SteelFixFormworkImage(TimeStampModel):
 class SteelFixFormworkDate(TimeStampModel):
     sub_task = models.ForeignKey('SteelFixFormworkSubTask', on_delete=models.CASCADE,related_name ='steelfixformworkdates',blank=True, null=True)
     work_day =  models.DateField(blank=True, null=True)
-    # Casuals
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/SteelFixFormwork/'),blank=True, null=True)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
 
     def __str__(self):
-        #return str(self.project_name)
-        return '{} :Date: {}'.format(self.sub_task,self.work_day)
-
-class SteelFixFormworkSubtask(TimeStampModel,TimeTrackModel):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING,blank=True, null=True)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-
-    steel_fix_formwork_image_1 = models.ImageField(upload_to= UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/steelfix/'),blank=True, null=True)
-    steel_fix_formwork_image_2 = models.ImageField(upload_to= UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/steelfix/'),blank=True, null=True)
-    steel_fix_formwork_image_3 = models.ImageField(upload_to= UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/steelfix/'),blank=True, null=True)
-    steel_fix_formwork_comment = models.CharField(max_length=100, blank=True, null=True)
-
-
-    def __str__(self):
-        #return str(self.project_name)
-        return 'SteelFixFormworkSubTask : {}'.format(self.project_name)
-
-    def days_list(self):
-        try:
-            return [SteelFixFormworkDate.objects.get(work_day= _pday.work_day).id for _pday in SteelFixFormworkDate.objects.filter(sub_task_id = self.id).all()]
-
-        except Exception as e:
-            return e
+        return str(self.sub_task)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -781,6 +805,34 @@ class SteelFixFormworkSubtask(TimeStampModel,TimeTrackModel):
 
     def names_of_casuals(self):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def check_cost(self):
+        now = datetime.now(timezone.utc)
+        date_diff = date_difference(self.start_date, now)
+        return date_diff
+
+    def date_casual_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            total_cost = 0
+            default_diff = 1
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                date_diff = date_difference(self.start_date, now)
+            else:
+                date_diff = date_difference(self.start_date, self.end_date)
+            while date_diff > default_diff:
+                updated_count = self.no_of_casuals_atsite.count()
+                casual_count += count
+                casual_diff = casual_count - count
+                cost = (casual_diff * casual_rate)
+                total_cost += cost
+                default_diff += 1
+            return total_cost
+        except Exception as e:
+            return e
 
     def casuals_cost(self):
         try:
@@ -808,7 +860,7 @@ class SteelFixFormworkSubtask(TimeStampModel,TimeTrackModel):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = FoundationCreationTask.objects.get(project_name=self.project_name)
+                engineer_data = FoundationTask.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -818,6 +870,48 @@ class SteelFixFormworkSubtask(TimeStampModel,TimeTrackModel):
         except Exception as e:
             error = "Rates does not exist"
             return error
+
+    def labour_cost(self):
+        try:
+            engineer_rate_data = Rates.objects.get(worker_type='Engineer')
+            casual_rate_data = Rates.objects.get(worker_type='Casual')
+            engineer_rate = engineer_rate_data.rate
+            casual_rate = casual_rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = FoundationTask.objects.get(project_name=self.project_name)
+                engineer_count = engineer_data.engineers_atsite.count()
+                casual_count = self.no_of_casuals_atsite.count()
+                cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+class SteelFixFormworkSubtask(TimeStampModel,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING,blank=True, null=True)
+    steel_fix_formwork_image_1 = models.ImageField(upload_to= UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/steelfix/'),blank=True, null=True)
+    steel_fix_formwork_image_2 = models.ImageField(upload_to= UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/steelfix/'),blank=True, null=True)
+    steel_fix_formwork_image_3 = models.ImageField(upload_to= UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/steelfix/'),blank=True, null=True)
+    steel_fix_formwork_comment = models.CharField(max_length=100, blank=True, null=True)
+
+
+    def __str__(self):
+        return str(self.project_name)
+
+    def days_list(self):
+        try:
+            return [SteelFixFormworkDate.objects.get(work_day= _pday.work_day).id for _pday in SteelFixFormworkDate.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
 
     def raise_flag(self):
         try:
@@ -849,27 +943,19 @@ class SteelFixFormworkSubtask(TimeStampModel,TimeTrackModel):
 
     def task_id(self):
         try:
-            task = FoundationCreationTask.objects.get(project_name=self.project_name)
+            task = FoundationTask.objects.get(project_name=self.project_name)
             task_id = task.id
             return task_id
         except Exception as e:
             return
 
-
-    # SubTask (4)://///////////ConcretePourImage Subtask //////////////////
-
-
 class ConcretePourImage(TimeStampModel):
     day_image = models.ForeignKey('ConcretePourDate', on_delete=models.CASCADE,related_name = 'concretepourdates',blank=True, null=True)
-
-    # DailyPhotos
     concrete_pour_curing_image = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/concretepour/'),blank=True, null=True)
     concrete_pour_curing_comment = models.CharField(max_length=100, blank=True, null=True)
 
-
     def __str__(self):
-        #return str(self.project_name)
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
     def bts_site_id(self):
         try:
@@ -884,34 +970,11 @@ class ConcretePourImage(TimeStampModel):
 class ConcretePourDate(TimeStampModel):
     sub_task = models.ForeignKey('ConcretePourSubtask', on_delete=models.CASCADE,related_name= 'concretepourdates',blank=True, null=True)
     work_day =  models.DateField(blank=True, null=True)
-    # Casuals
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/ConcretePour/'),blank=True, null=True)
     casuals_atsite = models.ManyToManyField(Casual, blank=True )
 
     def __str__(self):
-        #return str(self.project_name)
-        return '{} :Date: {}'.format(self.sub_task,self.work_day)
-
-class ConcretePourSubtask(TimeStampModel,TimeTrackModel):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING,blank=True, null=True)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )  #RM
-
-    concrete_pour_curing_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/concretepour/'),blank=True, null=True)
-    concrete_pour_curing_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/concretepour/'),blank=True, null=True)
-    concrete_pour_curing_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/concretepour/'),blank=True, null=True)
-    concrete_pour_curing_comment = models.CharField(max_length=100, blank=True, null=True)
-
-
-    def __str__(self):
-        #return str(self.project_name)
-        return 'ConcretePourSubTask : {}'.format(self.project_name)
-
-    def days_list(self):
-        try:
-            return [ConcretePourDate.objects.get(work_day= _pday.work_day).id for _pday in ConcretePourDate.objects.filter(sub_task_id = self.id).all()]
-
-        except Exception as e:
-            return e
+        return str(self.sub_task)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -919,6 +982,34 @@ class ConcretePourSubtask(TimeStampModel,TimeTrackModel):
 
     def names_of_casuals(self):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def check_cost(self):
+        now = datetime.now(timezone.utc)
+        date_diff = date_difference(self.start_date, now)
+        return date_diff
+
+    def date_casual_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            total_cost = 0
+            default_diff = 1
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                date_diff = date_difference(self.start_date, now)
+            else:
+                date_diff = date_difference(self.start_date, self.end_date)
+            while date_diff > default_diff:
+                updated_count = self.no_of_casuals_atsite.count()
+                casual_count += count
+                casual_diff = casual_count - count
+                cost = (casual_diff * casual_rate)
+                total_cost += cost
+                default_diff += 1
+            return total_cost
+        except Exception as e:
+            return e
 
     def casuals_cost(self):
         try:
@@ -946,7 +1037,7 @@ class ConcretePourSubtask(TimeStampModel,TimeTrackModel):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = FoundationCreationTask.objects.get(project_name=self.project_name)
+                engineer_data = FoundationTask.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -956,6 +1047,47 @@ class ConcretePourSubtask(TimeStampModel,TimeTrackModel):
         except Exception as e:
             error = "Rates does not exist"
             return error
+
+    def labour_cost(self):
+        try:
+            engineer_rate_data = Rates.objects.get(worker_type='Engineer')
+            casual_rate_data = Rates.objects.get(worker_type='Casual')
+            engineer_rate = engineer_rate_data.rate
+            casual_rate = casual_rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = FoundationTask.objects.get(project_name=self.project_name)
+                engineer_count = engineer_data.engineers_atsite.count()
+                casual_count = self.no_of_casuals_atsite.count()
+                cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+class ConcretePourSubtask(TimeStampModel,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING,blank=True, null=True)
+    concrete_pour_curing_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/concretepour/'),blank=True, null=True)
+    concrete_pour_curing_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/concretepour/'),blank=True, null=True)
+    concrete_pour_curing_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/concretepour/'),blank=True, null=True)
+    concrete_pour_curing_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+    def days_list(self):
+        try:
+            return [ConcretePourDate.objects.get(work_day= _pday.work_day).id for _pday in ConcretePourDate.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
 
     def raise_flag(self):
         try:
@@ -987,58 +1119,28 @@ class ConcretePourSubtask(TimeStampModel,TimeTrackModel):
 
     def task_id(self):
         try:
-            task = FoundationCreationTask.objects.get(project_name=self.project_name)
+            task = FoundationTask.objects.get(project_name=self.project_name)
             task_id = task.id
             return task_id
         except Exception as e:
             return
 
-    # SubTask (5)://///////////ConcreteCuringPeriod Subtask //////////////////
-
-
 class ConcreteCuringPeriodImage(TimeStampModel):
     day_image = models.ForeignKey('ConcreteCuringPeriodDate', on_delete=models.CASCADE,related_name ='concretecuringperiodimages',blank=True, null=True)
-
-    # DailyPhotos
     concrete_curing_period_image = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/ConcretePourCuringPeriod/'),blank=True, null=True)
     concrete_curing_period_comment = models.CharField(max_length=100, blank=True, null=True)
 
-
     def __str__(self):
-        #return str(self.project_name)
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
 class ConcreteCuringPeriodDate(TimeStampModel):
     sub_task = models.ForeignKey('ConcreteCuringPeriodSubTask', on_delete=models.CASCADE,related_name= 'concretecuringperioddates',blank=True, null=True)
     work_day =  models.DateField(blank=True, null=True)
-    # Casuals
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/ConcretePourCuringPeriod/'),blank=True, null=True)
     casuals_atsite = models.ManyToManyField(Casual, blank=True )
 
     def __str__(self):
-        #return str(self.project_name)
-        return '{} :Date: {}'.format(self.sub_task,self.work_day)
-
-class ConcreteCuringPeriodSubtask(TimeStampModel,TimeTrackModel):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True ) #RM
-
-    concrete_pour_curing_period_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/ConcretePourCuringPeriod/'),blank=True, null=True)
-    concrete_pour_curing_period_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/ConcretePourCuringPeriod/'),blank=True, null=True)
-    concrete_pour_curing_period_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/ConcretePourCuringPeriod/'),blank=True, null=True)
-    concrete_pour_curing_period_comment = models.CharField(max_length=100, blank=True, null=True)
-
-
-    def __str__(self):
-        #return str(self.project_name)
-        return 'ConcreteCuringPeriodSubTask :{}'.format(self.project_name)
-
-    def days_list(self):
-        try:
-            return [ConcreteCuringPeriodDate.objects.get(work_day= _pday.work_day).id for _pday in ConcreteCuringPeriodDate.objects.filter(sub_task_id = self.id).all()]
-
-        except Exception as e:
-            return e
+        return str(self.sub_task)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -1046,6 +1148,34 @@ class ConcreteCuringPeriodSubtask(TimeStampModel,TimeTrackModel):
 
     def names_of_casuals(self):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def check_cost(self):
+        now = datetime.now(timezone.utc)
+        date_diff = date_difference(self.start_date, now)
+        return date_diff
+
+    def date_casual_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            total_cost = 0
+            default_diff = 1
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                date_diff = date_difference(self.start_date, now)
+            else:
+                date_diff = date_difference(self.start_date, self.end_date)
+            while date_diff > default_diff:
+                updated_count = self.no_of_casuals_atsite.count()
+                casual_count += count
+                casual_diff = casual_count - count
+                cost = (casual_diff * casual_rate)
+                total_cost += cost
+                default_diff += 1
+            return total_cost
+        except Exception as e:
+            return e
 
     def casuals_cost(self):
         try:
@@ -1073,7 +1203,7 @@ class ConcreteCuringPeriodSubtask(TimeStampModel,TimeTrackModel):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = FoundationCreationTask.objects.get(project_name=self.project_name)
+                engineer_data = FoundationTask.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -1083,6 +1213,47 @@ class ConcreteCuringPeriodSubtask(TimeStampModel,TimeTrackModel):
         except Exception as e:
             error = "Rates does not exist"
             return error
+
+    def labour_cost(self):
+        try:
+            engineer_rate_data = Rates.objects.get(worker_type='Engineer')
+            casual_rate_data = Rates.objects.get(worker_type='Casual')
+            engineer_rate = engineer_rate_data.rate
+            casual_rate = casual_rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = FoundationTask.objects.get(project_name=self.project_name)
+                engineer_count = engineer_data.engineers_atsite.count()
+                casual_count = self.no_of_casuals_atsite.count()
+                cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+class ConcreteCuringPeriodSubtask(TimeStampModel,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    concrete_pour_curing_period_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/ConcretePourCuringPeriod/'),blank=True, null=True)
+    concrete_pour_curing_period_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/ConcretePourCuringPeriod/'),blank=True, null=True)
+    concrete_pour_curing_period_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/ConcretePourCuringPeriod/'),blank=True, null=True)
+    concrete_pour_curing_period_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+    def days_list(self):
+        try:
+            return [ConcreteCuringPeriodDate.objects.get(work_day= _pday.work_day).id for _pday in ConcreteCuringPeriodDate.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
 
     def raise_flag(self):
         try:
@@ -1114,34 +1285,28 @@ class ConcreteCuringPeriodSubtask(TimeStampModel,TimeTrackModel):
 
     def task_id(self):
         try:
-            task = FoundationCreationTask.objects.get(project_name=self.project_name)
+            task = FoundationTask.objects.get(project_name=self.project_name)
             task_id = task.id
             return task_id
         except Exception as e:
             return
 
-#TASK (1):              |||||| FAUNDATION |||||||
-
-class FoundationCreationTask(TimeTrackModel,TimeStampModel):
+class FoundationTask(TimeTrackModel,TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-
     engineers_atsite = models.ManyToManyField(Engineer, blank=True )
-    #Sub Tasks
     setting_site_clearing = models.OneToOneField(SiteClearingSubtask, on_delete=models.DO_NOTHING, blank=True, null=True)
     excavation_tower_base = models.OneToOneField(TowerBaseSubtask, on_delete=models.DO_NOTHING, blank=True, null=True)
     blinding = models.OneToOneField(BlindingSubtask, on_delete=models.DO_NOTHING, blank=True, null=True)
     steel_fix_formwork = models.OneToOneField(SteelFixFormworkSubtask, on_delete=models.DO_NOTHING, blank=True, null=True)
     concrete_pour_curing_period = models.OneToOneField(ConcretePourSubtask, on_delete=models.DO_NOTHING, blank=True, null=True)
     concrete_curing_period = models.OneToOneField(ConcreteCuringPeriodSubtask, on_delete=models.DO_NOTHING, blank=True, null=True)
-
     foundation_and_curing_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        #return str(self.project_name)
-        return 'Foundation Creation for {}'.format(self.project_name)
+        return str(self.project_name)
 
     class Meta:
-        verbose_name_plural  = 'Fountain Creation TASKS'
+        verbose_name_plural  = 'Fountain Task'
 
     def engineers(self):
         count = self.engineers_atsite.count()
@@ -1189,54 +1354,22 @@ class FoundationCreationTask(TimeTrackModel,TimeStampModel):
 ######################################## END #######################################################################################################################################
 
 #######################################BS241 & GENERATOR FOUNDATION ###########################################################################################################################
-
-    # SubTask (1)://///////////excavation_image Subtask //////////////////
-
-
 class ExcavationImage(TimeStampModel):
     day_image = models.ForeignKey('ExcavationDate', on_delete=models.CASCADE,related_name ='excavationimages',blank=True, null=True)
-
-    # DailyPhotos
     excavation_image = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/Excavation/'),blank=True, null=True)
     excavation_image_comment = models.CharField(max_length=100, blank=True, null=True)
 
-
     def __str__(self):
-        #return str(self.project_name)
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
 class ExcavationDate(TimeStampModel):
     sub_task = models.ForeignKey('ExcavationSubTask', on_delete=models.CASCADE,related_name= 'excavationdates')
     work_day =  models.DateField(blank=True, null=True)
-    # Casuals
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/Excavation/'),blank=True, null=True)
     casuals_atsite = models.ManyToManyField(Casual, blank=True )
 
     def __str__(self):
-        #return str(self.project_name)
-        return '{} :Date: {}'.format(self.sub_task,self.work_day)
-
-
-class ExcavationSubtask(TimeStampModel ,TimeTrackModel):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-
-    excavation_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/Excavation/'),blank=True, null=True)
-    excavation_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/Excavation/'),blank=True, null=True)
-    excavation_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/Excavation/'),blank=True, null=True)
-    excavation_comment = models.CharField(max_length=100, blank=True, null=True)
-
-
-    def __str__(self):
-        #return str(self.project_name)
-        return 'ExcavationSubTask :{}'.format(self.project_name)
-
-    def days_list(self):
-        try:
-            return [ExcavationDate.objects.get(work_day= _pday.work_day).id for _pday in ExcavationDate.objects.filter(sub_task_id = self.id).all()]
-
-        except Exception as e:
-            return e
+        return str(self.sub_task)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -1244,6 +1377,34 @@ class ExcavationSubtask(TimeStampModel ,TimeTrackModel):
 
     def names_of_casuals(self):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def check_cost(self):
+        now = datetime.now(timezone.utc)
+        date_diff = date_difference(self.start_date, now)
+        return date_diff
+
+    def date_casual_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            total_cost = 0
+            default_diff = 1
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                date_diff = date_difference(self.start_date, now)
+            else:
+                date_diff = date_difference(self.start_date, self.end_date)
+            while date_diff > default_diff:
+                updated_count = self.no_of_casuals_atsite.count()
+                casual_count += count
+                casual_diff = casual_count - count
+                cost = (casual_diff * casual_rate)
+                total_cost += cost
+                default_diff += 1
+            return total_cost
+        except Exception as e:
+            return e
 
     def casuals_cost(self):
         try:
@@ -1271,7 +1432,7 @@ class ExcavationSubtask(TimeStampModel ,TimeTrackModel):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = BS241AndGeneatorSlabTask.objects.get(project_name=self.project_name)
+                engineer_data = BS241AndGeneratorSlabTask.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -1281,6 +1442,47 @@ class ExcavationSubtask(TimeStampModel ,TimeTrackModel):
         except Exception as e:
             error = "Rates does not exist"
             return error
+
+    def labour_cost(self):
+        try:
+            engineer_rate_data = Rates.objects.get(worker_type='Engineer')
+            casual_rate_data = Rates.objects.get(worker_type='Casual')
+            engineer_rate = engineer_rate_data.rate
+            casual_rate = casual_rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = BS241AndGeneratorSlabTask.objects.get(project_name=self.project_name)
+                engineer_count = engineer_data.engineers_atsite.count()
+                casual_count = self.no_of_casuals_atsite.count()
+                cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+class ExcavationSubtask(TimeStampModel ,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    excavation_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/Excavation/'),blank=True, null=True)
+    excavation_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/Excavation/'),blank=True, null=True)
+    excavation_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/Excavation/'),blank=True, null=True)
+    excavation_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+    def days_list(self):
+        try:
+            return [ExcavationDate.objects.get(work_day= _pday.work_day).id for _pday in ExcavationDate.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
 
     def raise_flag(self):
         try:
@@ -1318,52 +1520,22 @@ class ExcavationSubtask(TimeStampModel ,TimeTrackModel):
         except Exception as e:
             return
 
-    # SubTask (2)://///////////BS241ConcretePourCuringPeriod Subtask //////////////////
-
-
 class BS241ConcretePourCuringPeriodImage(TimeStampModel):
     day_image = models.ForeignKey('BS241ConcretePourCuringPeriodDate', on_delete=models.CASCADE,related_name ='bs241Concretepourcuringperiodimages',blank=True, null=True)
-
-    # DailyPhotos
     bs241_concrete_pour_curing_period_image = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/BS241ConcretePourCuringPeriod/'),max_length = 250,blank=True, null=True)
     bs241_concrete_pour_curing_period_comment = models.CharField(max_length=100, blank=True, null=True)
 
-
     def __str__(self):
-        #return str(self.project_name)
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
 class BS241ConcretePourCuringPeriodDate(TimeStampModel):
     sub_task = models.ForeignKey('BS241ConcretePourCuringPeriodSubTask', on_delete=models.CASCADE,related_name= 'bs241Concretepourcuringperioddates')
     work_day =  models.DateField(blank=True, null=True)
-    # Casuals
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/BS241ConcretePourCuringPeriod/'),blank=True, null=True)
     casuals_atsite = models.ManyToManyField(Casual, blank=True )
 
     def __str__(self):
-        #return str(self.project_name)
-        return '{} :Date: {}'.format(self.sub_task,self.work_day)
-
-class BS241ConcretePourCuringPeriodSubtask(TimeStampModel,TimeTrackModel):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-
-    bs241_concrete_pour_curing_period_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/BS241ConcretePourCuringPeriod/'), blank=True, null=True)
-    bs241_concrete_pour_curing_period_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/BS241ConcretePourCuringPeriod/'), blank=True, null=True)
-    bs241_concrete_pour_curing_period_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/BS241ConcretePourCuringPeriod/'), blank=True, null=True)
-    bs241_concrete_pour_curing_period_comment = models.CharField(max_length=100, blank=True, null=True)
-
-
-    def __str__(self):
-       # return str(self.project_name)
-        return 'BS241ConcretePourCuringPeriodSubTask :{}'.format(self.project_name)
-
-    def days_list(self):
-        try:
-            return [BS241ConcretePourCuringPeriodDate.objects.get(work_day= _pday.work_day).id for _pday in BS241ConcretePourCuringPeriodDate.objects.filter(sub_task_id = self.id).all()]
-
-        except Exception as e:
-            return e
+        return str(self.sub_task)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -1371,6 +1543,34 @@ class BS241ConcretePourCuringPeriodSubtask(TimeStampModel,TimeTrackModel):
 
     def names_of_casuals(self):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def check_cost(self):
+        now = datetime.now(timezone.utc)
+        date_diff = date_difference(self.start_date, now)
+        return date_diff
+
+    def date_casual_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            total_cost = 0
+            default_diff = 1
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                date_diff = date_difference(self.start_date, now)
+            else:
+                date_diff = date_difference(self.start_date, self.end_date)
+            while date_diff > default_diff:
+                updated_count = self.no_of_casuals_atsite.count()
+                casual_count += count
+                casual_diff = casual_count - count
+                cost = (casual_diff * casual_rate)
+                total_cost += cost
+                default_diff += 1
+            return total_cost
+        except Exception as e:
+            return e
 
     def casuals_cost(self):
         try:
@@ -1409,6 +1609,47 @@ class BS241ConcretePourCuringPeriodSubtask(TimeStampModel,TimeTrackModel):
             error = "Rates does not exist"
             return error
 
+    def labour_cost(self):
+        try:
+            engineer_rate_data = Rates.objects.get(worker_type='Engineer')
+            casual_rate_data = Rates.objects.get(worker_type='Casual')
+            engineer_rate = engineer_rate_data.rate
+            casual_rate = casual_rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = BS241AndGeneratorSlabTask.objects.get(project_name=self.project_name)
+                engineer_count = engineer_data.engineers_atsite.count()
+                casual_count = self.no_of_casuals_atsite.count()
+                cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+class BS241ConcretePourCuringPeriodSubtask(TimeStampModel,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    bs241_concrete_pour_curing_period_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/BS241ConcretePourCuringPeriod/'), blank=True, null=True)
+    bs241_concrete_pour_curing_period_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/BS241ConcretePourCuringPeriod/'), blank=True, null=True)
+    bs241_concrete_pour_curing_period_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/BS241ConcretePourCuringPeriod/'), blank=True, null=True)
+    bs241_concrete_pour_curing_period_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+       return str(self.project_name)
+
+    def days_list(self):
+        try:
+            return [BS241ConcretePourCuringPeriodDate.objects.get(work_day= _pday.work_day).id for _pday in BS241ConcretePourCuringPeriodDate.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
+
     def raise_flag(self):
         try:
             kpi_data = SubTask.objects.get(subtask_name='Upload concerete pour and curing images')
@@ -1445,20 +1686,16 @@ class BS241ConcretePourCuringPeriodSubtask(TimeStampModel,TimeTrackModel):
         except Exception as e:
             return
 
-# TASK [2]
-
 class BS241AndGeneratorSlabTask(TimeStampModel ,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     engineers_atsite = models.ManyToManyField(Engineer, blank=True )
-    #Sub Tasks
     foundation_foot_pouring = models.OneToOneField(ExcavationSubtask, on_delete=models.DO_NOTHING, blank=True, null=True)
     bs241_concrete_pour_pouring_period = models.OneToOneField(BS241ConcretePourCuringPeriodSubtask, on_delete=models.DO_NOTHING, blank=True, null=True)
     bs241_and_generator_slabs_comment = models.CharField(max_length=100, blank=True, null=True)
 
-
     def __str__(self):
         return str(self.project_name)
-        return 'BS241 & Generator Slab Task :{}'.format(self.project_name)
+
     class Meta:
         verbose_name_plural = 'BS241 and Generator Slab TASKS'
 
@@ -1508,54 +1745,22 @@ class BS241AndGeneratorSlabTask(TimeStampModel ,TimeTrackModel):
 ######################################## END #######################################################################################################################################
 
 ####################################### BOUNDARY WALL ###########################################################################################################################
-
-    # SubTask (1)://///////////FoundFootPour Subtask //////////////////
-
-
 class FoundFootPourImage(TimeStampModel):
     day_image = models.ForeignKey('FoundFootPourDate', on_delete=models.CASCADE,related_name ='foundfootpourimages',blank=True, null=True)
-
-    # DailyPhotos
     foundfootpour_image = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/FoundFootPour/'),max_length = 250,blank=True, null=True)
     foundfootpour_comment = models.CharField(max_length=100, blank=True, null=True)
 
-
-
     def __str__(self):
-        #return str(self.project_name)
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
 class FoundFootPourDate(TimeStampModel):
     sub_task = models.ForeignKey('FoundFootPourSubtask', on_delete=models.CASCADE,related_name= 'foundfootpourdates')
     work_day =  models.DateField(blank=True, null=True)
-    # Casuals
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/FoundFootPour/'),blank=True, null=True)
     casuals_atsite = models.ManyToManyField(Casual, blank=True )
 
     def __str__(self):
-        #return str(self.project_name)
-        return '{} :Date: {}'.format(self.sub_task,self.work_day)
-
-class FoundFootPourSubtask(TimeStampModel ,TimeTrackModel):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-
-    foundfootpour_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/FoundFootPour/'),blank=True, null=True)
-    foundfootpour_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/FoundFootPour/'),blank=True, null=True)
-    foundfootpour_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/FoundFootPour/'),blank=True, null=True)
-    foundfootpour_comment = models.CharField(max_length=100, blank=True, null=True)
-
-
-    def __str__(self):
-        #return str(self.project_name)
-        return 'FoundFootPourSubtask :{}'.format(self.project_name)
-
-    def days_list(self):
-        try:
-            return [FoundFootPourDate.objects.get(work_day= _pday.work_day).id for _pday in FoundFootPourDate.objects.filter(sub_task_id = self.id).all()]
-
-        except Exception as e:
-            return e
+        return str(self.sub_task)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -1563,6 +1768,34 @@ class FoundFootPourSubtask(TimeStampModel ,TimeTrackModel):
 
     def names_of_casuals(self):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def check_cost(self):
+        now = datetime.now(timezone.utc)
+        date_diff = date_difference(self.start_date, now)
+        return date_diff
+
+    def date_casual_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            total_cost = 0
+            default_diff = 1
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                date_diff = date_difference(self.start_date, now)
+            else:
+                date_diff = date_difference(self.start_date, self.end_date)
+            while date_diff > default_diff:
+                updated_count = self.no_of_casuals_atsite.count()
+                casual_count += count
+                casual_diff = casual_count - count
+                cost = (casual_diff * casual_rate)
+                total_cost += cost
+                default_diff += 1
+            return total_cost
+        except Exception as e:
+            return e
 
     def casuals_cost(self):
         try:
@@ -1600,6 +1833,47 @@ class FoundFootPourSubtask(TimeStampModel ,TimeTrackModel):
         except Exception as e:
             error = "Rates does not exist"
             return error
+
+    def labour_cost(self):
+        try:
+            engineer_rate_data = Rates.objects.get(worker_type='Engineer')
+            casual_rate_data = Rates.objects.get(worker_type='Casual')
+            engineer_rate = engineer_rate_data.rate
+            casual_rate = casual_rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = BoundaryWallTask.objects.get(project_name=self.project_name)
+                engineer_count = engineer_data.engineers_atsite.count()
+                casual_count = self.no_of_casuals_atsite.count()
+                cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+class FoundFootPourSubtask(TimeStampModel ,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    foundfootpour_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/FoundFootPour/'),blank=True, null=True)
+    foundfootpour_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/FoundFootPour/'),blank=True, null=True)
+    foundfootpour_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/FoundFootPour/'),blank=True, null=True)
+    foundfootpour_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+    def days_list(self):
+        try:
+            return [FoundFootPourDate.objects.get(work_day= _pday.work_day).id for _pday in FoundFootPourDate.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
 
     def raise_flag(self):
         try:
@@ -1637,53 +1911,22 @@ class FoundFootPourSubtask(TimeStampModel ,TimeTrackModel):
         except Exception as e:
             return
 
-
-    # SubTask (1)://///////////FoundFootPour Subtask //////////////////
-
-
 class BlockworkPanelConstImage(TimeStampModel):
     day_image = models.ForeignKey('BlockworkPanelConstDate', on_delete=models.CASCADE,blank=True, null=True)
-
-    # DailyPhotos
     blockwallpanelconst_image = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/BlockworkPanelConst//'),max_length = 250,blank=True, null=True)
     blockwallpanelconst_comment = models.CharField(max_length=100, blank=True, null=True)
 
-
     def __str__(self):
-        #return str(self.project_name)
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
 class BlockworkPanelConstDate(TimeStampModel):
     sub_task = models.ForeignKey('BlockworkPanelConstSubtask', on_delete=models.CASCADE)
     work_day =  models.DateField(blank=True, null=True)
-    # Casuals
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/BlockworkPanelConst/'),blank=True, null=True)
     casuals_atsite = models.ManyToManyField(Casual, blank=True )
 
     def __str__(self):
-        #return str(self.project_name)
-        return '{} :Date: {}'.format(self.sub_task,self.work_day)
-
-class BlockworkPanelConstSubtask(TimeStampModel,TimeTrackModel):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-
-    blockwallpanelconst_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/BlockworkPanelConst/') ,blank=True, null=True)
-    blockwallpanelconst_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/BlockworkPanelConst/') ,blank=True, null=True)
-    blockwallpanelconst_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/BlockworkPanelConst/') ,blank=True, null=True)
-    blockwallpanelconst_comment = models.CharField(max_length=100 ,blank=True, null=True)
-
-
-    def __str__(self):
-        #return str(self.project_name)
-        return 'BlockworkPanelConstSubtask :{}'.format(self.project_name)
-
-    def days_list(self):
-        try:
-            return [BlockworkPanelConstDate.objects.get(work_day= _pday.work_day).id for _pday in BlockworkPanelConstDate.objects.filter(sub_task_id = self.id).all()]
-
-        except Exception as e:
-            return e
+        return str(self.sub_task)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -1691,6 +1934,34 @@ class BlockworkPanelConstSubtask(TimeStampModel,TimeTrackModel):
 
     def names_of_casuals(self):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def check_cost(self):
+        now = datetime.now(timezone.utc)
+        date_diff = date_difference(self.start_date, now)
+        return date_diff
+
+    def date_casual_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            total_cost = 0
+            default_diff = 1
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                date_diff = date_difference(self.start_date, now)
+            else:
+                date_diff = date_difference(self.start_date, self.end_date)
+            while date_diff > default_diff:
+                updated_count = self.no_of_casuals_atsite.count()
+                casual_count += count
+                casual_diff = casual_count - count
+                cost = (casual_diff * casual_rate)
+                total_cost += cost
+                default_diff += 1
+            return total_cost
+        except Exception as e:
+            return e
 
     def casuals_cost(self):
         try:
@@ -1729,6 +2000,47 @@ class BlockworkPanelConstSubtask(TimeStampModel,TimeTrackModel):
             error = "Rates does not exist"
             return error
 
+    def labour_cost(self):
+        try:
+            engineer_rate_data = Rates.objects.get(worker_type='Engineer')
+            casual_rate_data = Rates.objects.get(worker_type='Casual')
+            engineer_rate = engineer_rate_data.rate
+            casual_rate = casual_rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = BoundaryWallTask.objects.get(project_name=self.project_name)
+                engineer_count = engineer_data.engineers_atsite.count()
+                casual_count = self.no_of_casuals_atsite.count()
+                cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+class BlockworkPanelConstSubtask(TimeStampModel,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    blockwallpanelconst_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/BlockworkPanelConst/') ,blank=True, null=True)
+    blockwallpanelconst_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/BlockworkPanelConst/') ,blank=True, null=True)
+    blockwallpanelconst_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/BlockworkPanelConst/') ,blank=True, null=True)
+    blockwallpanelconst_comment = models.CharField(max_length=100 ,blank=True, null=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+    def days_list(self):
+        try:
+            return [BlockworkPanelConstDate.objects.get(work_day= _pday.work_day).id for _pday in BlockworkPanelConstDate.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
+
     def raise_flag(self):
         try:
             kpi_data = SubTask.objects.get(subtask_name='Upload panel construction images')
@@ -1764,44 +2076,129 @@ class BlockworkPanelConstSubtask(TimeStampModel,TimeTrackModel):
             return task_id
         except Exception as e:
             return
-    # SubTask (1)://///////////GateInstallation Subtask //////////////////
-
 
 class GateInstallationImage(TimeStampModel):
     day_image = models.ForeignKey('GateInstallationDate', on_delete=models.CASCADE,related_name ='gateinstallationimages',blank=True, null=True)
-
-    # DailyPhotos
     gateinstallation_image = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/GateInstallation/'),max_length = 250,blank=True, null=True)
     gateinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
 
-
     def __str__(self):
-        #return str(self.project_name)
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
 class GateInstallationDate(TimeStampModel):
     sub_task = models.ForeignKey('GateInstallationSubtask', on_delete=models.CASCADE,related_name= 'gateinstallationdates')
     work_day =  models.DateField(blank=True, null=True)
-    # Casuals
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/GateInstallation/'),blank=True, null=True)
     casuals_atsite = models.ManyToManyField(Casual, blank=True )
 
     def __str__(self):
-        #return str(self.project_name)
-        return '{} :Date: {}'.format(self.sub_task,self.work_day)
+        return str(self.sub_task)
+
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def check_cost(self):
+        now = datetime.now(timezone.utc)
+        date_diff = date_difference(self.start_date, now)
+        return date_diff
+
+    def date_casual_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            total_cost = 0
+            default_diff = 1
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                date_diff = date_difference(self.start_date, now)
+            else:
+                date_diff = date_difference(self.start_date, self.end_date)
+            while date_diff > default_diff:
+                updated_count = self.no_of_casuals_atsite.count()
+                casual_count += count
+                casual_diff = casual_count - count
+                cost = (casual_diff * casual_rate)
+                total_cost += cost
+                default_diff += 1
+            return total_cost
+        except Exception as e:
+            return e
+
+    def casuals_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate * days_spent)
+            return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Engineer')
+            engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = BoundaryWallTask.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+    def labour_cost(self):
+        try:
+            engineer_rate_data = Rates.objects.get(worker_type='Engineer')
+            casual_rate_data = Rates.objects.get(worker_type='Casual')
+            engineer_rate = engineer_rate_data.rate
+            casual_rate = casual_rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = BoundaryWallTask.objects.get(project_name=self.project_name)
+                engineer_count = engineer_data.engineers_atsite.count()
+                casual_count = self.no_of_casuals_atsite.count()
+                cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
 
 class GateInstallationSubtask(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-
     gateinstallation_image_1 = models.ImageField(upload_to= UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/GateInstallation/'),blank=True, null=True)
     gateinstallation_image_2 = models.ImageField(upload_to= UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/GateInstallation/'),blank=True, null=True)
     gateinstallation_image_3 = models.ImageField(upload_to= UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/GateInstallation/'),blank=True, null=True)
     gateinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        #return str(self.project_name)
-        return 'GateInstallationSubtask :{}'.format(self.project_name)
+        return str(self.project_name)
 
     def days_list(self):
         try:
@@ -1810,12 +2207,93 @@ class GateInstallationSubtask(TimeStampModel,TimeTrackModel):
         except Exception as e:
             return e
 
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name='Upload gate installation images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
+    def task_id(self):
+        try:
+            task = BoundaryWallTask.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
+class RazorElectricFenceImage(TimeStampModel):
+    day_image = models.ForeignKey('RazorElectricFenceDate', on_delete=models.CASCADE,related_name= 'razorelectricfenceimages',blank=True, null=True)
+    razorelectricfance_image = models.ImageField(upload_to= UploadToProjectDirImage(file_path,'images/CivilWorksTeam/RazorElectricFence/'),max_length = 250,blank=True, null=True)
+    razorelectricfance_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.day_image)
+
+class RazorElectricFenceDate(TimeStampModel):
+    sub_task = models.ForeignKey('RazorElectricFenceSubtask', on_delete=models.CASCADE,related_name='razorelectricfencedates')
+    work_day =  models.DateField(blank=True, null=True)
+    casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/RazorElectricFence/'),blank=True, null=True)
+    casuals_atsite = models.ManyToManyField(Casual, blank=True )
+
+    def __str__(self):
+        return str(self.sub_task)
+
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
         return "\n , ".join(str(count))
 
     def names_of_casuals(self):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def check_cost(self):
+        now = datetime.now(timezone.utc)
+        date_diff = date_difference(self.start_date, now)
+        return date_diff
+
+    def date_casual_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            total_cost = 0
+            default_diff = 1
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                date_diff = date_difference(self.start_date, now)
+            else:
+                date_diff = date_difference(self.start_date, self.end_date)
+            while date_diff > default_diff:
+                updated_count = self.no_of_casuals_atsite.count()
+                casual_count += count
+                casual_diff = casual_count - count
+                cost = (casual_diff * casual_rate)
+                total_cost += cost
+                default_diff += 1
+            return total_cost
+        except Exception as e:
+            return e
 
     def casuals_cost(self):
         try:
@@ -1854,117 +2332,12 @@ class GateInstallationSubtask(TimeStampModel,TimeTrackModel):
             error = "Engineer Rates does not exist"
             return error
 
-    def raise_flag(self):
+    def labour_cost(self):
         try:
-            kpi_data = SubTask.objects.get(subtask_name='Upload gate installation images')
-            kpi = kpi_data.kpi
-            projected_end_date = self.start_date + timedelta(days=kpi)
-            flag = ""
-
-            if bool(self.end_date) is False:
-                today = datetime.now(timezone.utc)
-
-                if today < projected_end_date:
-                    flag = "OnTrack"
-                    return flag
-                else:
-                    flag = "OffTrack"
-                    return flag
-
-            else:
-                if self.end_date < projected_end_date:
-                    flag = "OnTrack"
-                    return flag
-                else:
-                    flag = "OffTrack"
-                    return flag
-
-        except Exception as e:
-            return e
-
-    def task_id(self):
-        try:
-            task = BoundaryWallTask.objects.get(project_name=self.project_name)
-            task_id = task.id
-            return task_id
-        except Exception as e:
-            return
-
-    # SubTask (1)://///////////RazorElectricFence Subtask //////////////////
-
-
-class RazorElectricFenceImage(TimeStampModel):
-    day_image = models.ForeignKey('RazorElectricFenceDate', on_delete=models.CASCADE,related_name= 'razorelectricfenceimages',blank=True, null=True)
-
-    # DailyPhotos
-    razorelectricfance_image = models.ImageField(upload_to= UploadToProjectDirImage(file_path,'images/CivilWorksTeam/RazorElectricFence/'),max_length = 250,blank=True, null=True)
-    razorelectricfance_comment = models.CharField(max_length=100, blank=True, null=True)
-
-
-    def __str__(self):
-        #return str(self.project_name)
-        return 'Image for {}'.format(self.day_image)
-
-class RazorElectricFenceDate(TimeStampModel):
-    sub_task = models.ForeignKey('RazorElectricFenceSubtask', on_delete=models.CASCADE,related_name='razorelectricfencedates')
-    work_day =  models.DateField(blank=True, null=True)
-    # Casuals
-    casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/RazorElectricFence/'),blank=True, null=True)
-    casuals_atsite = models.ManyToManyField(Casual, blank=True )
-
-    def __str__(self):
-        #return str(self.project_name)
-        return '{} :Date: {}'.format(self.sub_task,self.work_day)
-
-
-class RazorElectricFenceSubtask(TimeStampModel ,TimeTrackModel):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-
-    razorelectricfance_image_1 = models.ImageField(upload_to= UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/RazorElectricFence/'),blank=True, null=True)
-    razorelectricfance_image_2 = models.ImageField(upload_to= UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/RazorElectricFence/'),blank=True, null=True)
-    razorelectricfance_image_3 = models.ImageField(upload_to= UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/RazorElectricFence/'),blank=True, null=True)
-    razorelectricfance_comment = models.CharField(max_length=100, blank=True, null=True)
-
-
-    def __str__(self):
-        #return str(self.project_name)
-        return 'RazorElectricFenceSubtask :{}'.format(self.project_name)
-
-    def days_list(self):
-        try:
-            return [RazorElectricFenceDate.objects.get(work_day= _pday.work_day).id for _pday in RazorElectricFenceDate.objects.filter(sub_task_id = self.id).all()]
-
-        except Exception as e:
-            return e
-
-    def no_of_casuals(self):
-        count = self.no_of_casuals_atsite.count()
-        return "\n , ".join(str(count))
-
-    def names_of_casuals(self):
-        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
-
-    def casuals_cost(self):
-        try:
-            rate_data = Rates.objects.get(worker_type='Casual')
-            casual_rate = rate_data.rate
-            now = datetime.now(timezone.utc)
-            if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, now)
-            else:
-                days_spent = date_difference(self.start_date, self.end_date)
-            count = self.no_of_casuals_atsite.count()
-            cost = (count * casual_rate * days_spent)
-            return cost
-        except Exception as e:
-            error = "Casuals Rates does not exist"
-            return error
-
-    def engineers_cost(self):
-        try:
-            rate_data = Rates.objects.get(worker_type='Engineer')
-            engineer_rate = rate_data.rate
+            engineer_rate_data = Rates.objects.get(worker_type='Engineer')
+            casual_rate_data = Rates.objects.get(worker_type='Casual')
+            engineer_rate = engineer_rate_data.rate
+            casual_rate = casual_rate_data.rate
             now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
                 days_spent = date_difference(self.start_date, now)
@@ -1972,15 +2345,33 @@ class RazorElectricFenceSubtask(TimeStampModel ,TimeTrackModel):
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
                 engineer_data = BoundaryWallTask.objects.get(project_name=self.project_name)
-                count = engineer_data.engineers_atsite.count()
-                cost = (count * engineer_rate * days_spent)
+                engineer_count = engineer_data.engineers_atsite.count()
+                casual_count = self.no_of_casuals_atsite.count()
+                cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
                 return cost
             except Exception as e:
                 error = "No engineers assigned to project"
                 return error
         except Exception as e:
-            error = "Engineer Rates does not exist"
+            error = "Rates does not exist"
             return error
+
+class RazorElectricFenceSubtask(TimeStampModel ,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    razorelectricfance_image_1 = models.ImageField(upload_to= UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/RazorElectricFence/'),blank=True, null=True)
+    razorelectricfance_image_2 = models.ImageField(upload_to= UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/RazorElectricFence/'),blank=True, null=True)
+    razorelectricfance_image_3 = models.ImageField(upload_to= UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/RazorElectricFence/'),blank=True, null=True)
+    razorelectricfance_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+    def days_list(self):
+        try:
+            return [RazorElectricFenceDate.objects.get(work_day= _pday.work_day).id for _pday in RazorElectricFenceDate.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
 
     def raise_flag(self):
         try:
@@ -2018,12 +2409,9 @@ class RazorElectricFenceSubtask(TimeStampModel ,TimeTrackModel):
         except Exception as e:
             return
 
-
-# TASK[ BOUNDARY WALL SUBTASK]
 class BoundaryWallTask(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    engineers_atsite = models.ManyToManyField(Engineer, blank=True )
-    #Subtasks
+    engineers_atsite = models.ManyToManyField(Engineer, blank=True)
     foundation_foot_pouring = models.OneToOneField(FoundFootPourSubtask, on_delete=models.DO_NOTHING, blank=True, null=True)
     block_construction = models.OneToOneField(BlockworkPanelConstSubtask, on_delete=models.DO_NOTHING, blank=True, null=True)
     gate_installation = models.OneToOneField(GateInstallationSubtask, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -2031,8 +2419,7 @@ class BoundaryWallTask(TimeStampModel,TimeTrackModel):
     boundary_wall_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        #return str(self.project_name)
-        return 'BoundaryWall Task :{}'.format(self.project_name)
+        return str(self.project_name)
     class Meta:
         verbose_name_plural ='Boundary Wall TASKS'
 
@@ -2079,52 +2466,25 @@ class BoundaryWallTask(TimeStampModel,TimeTrackModel):
         except Exception as e:
             return
 
-# END
-
 ######################################## END #######################################################################################################################################
 
 ####################################### TOWER & ANTENNA_COAX ###########################################################################################################################
-
-# START
-    # SubTask (1)://///////////RazorElectricFence Subtask //////////////////
-
-
 class TowerErectionImage(TimeStampModel):
     day_image = models.ForeignKey('TowerErectionDate', on_delete=models.CASCADE,related_name ='towererectionimages',blank=True, null=True)
-
-    # DailyPhotos
     tower_erection_image = models.ImageField(upload_to= UploadToProjectDirImage(file_path,'images/CivilWorksTeam/towererection/'),max_length = 250,blank=True, null=True)
     tower_erection_comment = models.CharField(max_length=100, blank=True, null=True)
 
-
     def __str__(self):
-        #return str(self.project_name)
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
 class TowerErectionDate(TimeStampModel):
     sub_task = models.ForeignKey('TowerErectionSubtask', on_delete=models.CASCADE,related_name= 'towererectiondates')
     work_day =  models.DateField(blank=True, null=True)
-    # Casuals
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/Towererection/'),blank=True, null=True)
     casuals_atsite = models.ManyToManyField(Casual, blank=True )
 
     def __str__(self):
-        #return str(self.project_name)
-        return '{} :Date: {}'.format(self.sub_task,self.work_day)
-
-class TowerErectionSubtask(TimeStampModel ,TimeTrackModel):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-
-    tower_erection_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/towererection/'),blank=True, null=True)
-    tower_erection_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/towererection/'),blank=True, null=True)
-    tower_erection_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/towererection/'),blank=True, null=True)
-    tower_erection_comment = models.CharField(max_length=100, blank=True, null=True)
-
-
-    def __str__(self):
-       # return str(self.project_name)
-        return 'TowerErectionSubtask :{}'.format(self.project_name)
+        return str(self.sub_task)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -2132,6 +2492,34 @@ class TowerErectionSubtask(TimeStampModel ,TimeTrackModel):
 
     def names_of_casuals(self):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def check_cost(self):
+        now = datetime.now(timezone.utc)
+        date_diff = date_difference(self.start_date, now)
+        return date_diff
+
+    def date_casual_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            total_cost = 0
+            default_diff = 1
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                date_diff = date_difference(self.start_date, now)
+            else:
+                date_diff = date_difference(self.start_date, self.end_date)
+            while date_diff > default_diff:
+                updated_count = self.no_of_casuals_atsite.count()
+                casual_count += count
+                casual_diff = casual_count - count
+                cost = (casual_diff * casual_rate)
+                total_cost += cost
+                default_diff += 1
+            return total_cost
+        except Exception as e:
+            return e
 
     def casuals_cost(self):
         try:
@@ -2151,7 +2539,7 @@ class TowerErectionSubtask(TimeStampModel ,TimeTrackModel):
 
     def engineers_cost(self):
         try:
-            rate_data = Rates.objects.get(worker_type='Enginner')
+            rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
             now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
@@ -2169,6 +2557,41 @@ class TowerErectionSubtask(TimeStampModel ,TimeTrackModel):
         except Exception as e:
             error = "Engineer Rates does not exist"
             return error
+
+    def labour_cost(self):
+        try:
+            engineer_rate_data = Rates.objects.get(worker_type='Engineer')
+            casual_rate_data = Rates.objects.get(worker_type='Casual')
+            engineer_rate = engineer_rate_data.rate
+            casual_rate = casual_rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = TowerAntennaCoaxTask.objects.get(project_name=self.project_name)
+                engineer_count = engineer_data.engineers_atsite.count()
+                casual_count = self.no_of_casuals_atsite.count()
+                cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+class TowerErectionSubtask(TimeStampModel ,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    tower_erection_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/towererection/'),blank=True, null=True)
+    tower_erection_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/towererection/'),blank=True, null=True)
+    tower_erection_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/towererection/'),blank=True, null=True)
+    tower_erection_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+       return str(self.project_name)
+
 
     def raise_flag(self):
         try:
@@ -2206,49 +2629,54 @@ class TowerErectionSubtask(TimeStampModel ,TimeTrackModel):
         except Exception as e:
             return
 
-    # SubTask (1)://///////////TowerPaint Subtask //////////////////
-
-
 class TowerPaintImage(TimeStampModel):
     day_image = models.ForeignKey('TowerPaintDate', on_delete=models.CASCADE,related_name ='towerpaintimages',blank=True, null=True)
-
-    # DailyPhotos
     tower_painting_image = models.ImageField(upload_to= UploadToProjectDirImage(file_path,'images/CivilWorksTeam/towerpainting/'),max_length = 250,blank=True, null=True)
     tower_painting_comment = models.CharField(max_length=100, blank=True, null=True)
 
-
     def __str__(self):
-        #return str(self.project_name)
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
 class TowerPaintDate(TimeStampModel):
     sub_task = models.ForeignKey('TowerPaintSubtask', on_delete=models.CASCADE,related_name= 'towerpaintdates')
     work_day =  models.DateField(blank=True, null=True)
-    # Casuals
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/Towerpainting/'),blank=True, null=True)
     casuals_atsite = models.ManyToManyField(Casual, blank=True )
 
     def __str__(self):
-        #return str(self.project_name)
-        return '{} :Date: {}'.format(self.sub_task,self.work_day)
-
-class TowerPaintSubtask(TimeStampModel,TimeTrackModel):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-
-    tower_painting_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/towerpainting/'),blank=True,null=True)
-    tower_painting_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/towerpainting/'),blank=True,null=True)
-    tower_painting_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/towerpainting/'),blank=True,null=True)
-    tower_painting_comment = models.CharField(max_length=100, blank=True, null=True)
-
-
-    def __str__(self):
-        #return str(self.project_name)
-        return 'TowerPaintSubtask :{}'.format(self.project_name)
+        return str(self.sub_task)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
         return "\n , ".join(str(count))
+
+    def check_cost(self):
+        now = datetime.now(timezone.utc)
+        date_diff = date_difference(self.start_date, now)
+        return date_diff
+
+    def date_casual_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            total_cost = 0
+            default_diff = 1
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                date_diff = date_difference(self.start_date, now)
+            else:
+                date_diff = date_difference(self.start_date, self.end_date)
+            while date_diff > default_diff:
+                updated_count = self.no_of_casuals_atsite.count()
+                casual_count += count
+                casual_diff = casual_count - count
+                cost = (casual_diff * casual_rate)
+                total_cost += cost
+                default_diff += 1
+            return total_cost
+        except Exception as e:
+            return e
 
     def names_of_casuals(self):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
@@ -2266,7 +2694,7 @@ class TowerPaintSubtask(TimeStampModel,TimeTrackModel):
             cost = (count * casual_rate * days_spent)
             return cost
         except Exception as e:
-            error = "Casual Rates does not exist"
+            error = "Casuals Rates does not exist"
             return error
 
     def engineers_cost(self):
@@ -2289,6 +2717,41 @@ class TowerPaintSubtask(TimeStampModel,TimeTrackModel):
         except Exception as e:
             error = "Engineer Rates does not exist"
             return error
+
+    def labour_cost(self):
+        try:
+            engineer_rate_data = Rates.objects.get(worker_type='Engineer')
+            casual_rate_data = Rates.objects.get(worker_type='Casual')
+            engineer_rate = engineer_rate_data.rate
+            casual_rate = casual_rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = TowerAntennaCoaxTask.objects.get(project_name=self.project_name)
+                engineer_count = engineer_data.engineers_atsite.count()
+                casual_count = self.no_of_casuals_atsite.count()
+                cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+class TowerPaintSubtask(TimeStampModel,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    tower_painting_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/towerpainting/'),blank=True,null=True)
+    tower_painting_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/towerpainting/'),blank=True,null=True)
+    tower_painting_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/towerpainting/'),blank=True,null=True)
+    tower_painting_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
 
     def raise_flag(self):
         try:
@@ -2326,52 +2789,56 @@ class TowerPaintSubtask(TimeStampModel,TimeTrackModel):
         except Exception as e:
             return
 
-    # SubTask (1)://///////////CableWays Subtask //////////////////
-
-
 class CableWaysImage(TimeStampModel):
     day_image = models.ForeignKey('CableWaysDate', on_delete=models.CASCADE,related_name ='cablewaysimages',blank=True, null=True)
-
-    # DailyPhotos
     cable_ways_image = models.ImageField(upload_to= UploadToProjectDirImage(file_path,'images/CivilWorksTeam/cableways/'),max_length = 250,blank=True, null=True)
     cable_ways_comment = models.CharField(max_length=100, blank=True, null=True)
 
-
     def __str__(self):
-        #return str(self.project_name)
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
 class CableWaysDate(TimeStampModel):
     sub_task = models.ForeignKey('CableWaysSubtask', on_delete=models.CASCADE,related_name= 'cablewaysdates')
     work_day =  models.DateField(blank=True, null=True)
-    # Casuals
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/Cableways/'),blank=True, null=True)
     casuals_atsite = models.ManyToManyField(Casual, blank=True )
 
     def __str__(self):
-        #return str(self.project_name)
-        return '{} :Date: {}'.format(self.sub_task,self.work_day)
-
-class CableWaysSubtask(TimeStampModel ,TimeTrackModel):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-
-    cable_ways_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/cableways/'),blank =True,null =True)
-    cable_ways_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/cableways/'),blank =True,null =True)
-    cable_ways_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/cableways/'),blank =True,null =True)
-    cable_ways_comment = models.CharField(max_length=100, blank=True, null=True)
-
-
-    def __str__(self):
-        #return str(self.project_name)
-        return 'CableWaysSubtask :{}'.format(self.project_name)
-
+        return str(self.sub_task)
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
         return "\n , ".join(str(count))
 
     def names_of_casuals(self):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def check_cost(self):
+        now = datetime.now(timezone.utc)
+        date_diff = date_difference(self.start_date, now)
+        return date_diff
+
+    def date_casual_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            total_cost = 0
+            default_diff = 1
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                date_diff = date_difference(self.start_date, now)
+            else:
+                date_diff = date_difference(self.start_date, self.end_date)
+            while date_diff > default_diff:
+                updated_count = self.no_of_casuals_atsite.count()
+                casual_count += count
+                casual_diff = casual_count - count
+                cost = (casual_diff * casual_rate)
+                total_cost += cost
+                default_diff += 1
+            return total_cost
+        except Exception as e:
+            return e
 
     def casuals_cost(self):
         try:
@@ -2409,6 +2876,40 @@ class CableWaysSubtask(TimeStampModel ,TimeTrackModel):
         except Exception as e:
             error = "Engineer Rates does not exist"
             return error
+
+    def labour_cost(self):
+        try:
+            engineer_rate_data = Rates.objects.get(worker_type='Engineer')
+            casual_rate_data = Rates.objects.get(worker_type='Casual')
+            engineer_rate = engineer_rate_data.rate
+            casual_rate = casual_rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = TowerAntennaCoaxTask.objects.get(project_name=self.project_name)
+                engineer_count = engineer_data.engineers_atsite.count()
+                casual_count = self.no_of_casuals_atsite.count()
+                cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+class CableWaysSubtask(TimeStampModel ,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    cable_ways_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/cableways/'),blank =True,null =True)
+    cable_ways_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/cableways/'),blank =True,null =True)
+    cable_ways_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/cableways/'),blank =True,null =True)
+    cable_ways_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.project_name)
 
     def raise_flag(self):
         try:
@@ -2446,49 +2947,54 @@ class CableWaysSubtask(TimeStampModel ,TimeTrackModel):
         except Exception as e:
             return
 
-    # SubTask (1)://///////////AntennaCoaxInstall Subtask //////////////////
-
-
 class AntennaCoaxInstallImage(TimeStampModel):
     day_image = models.ForeignKey('AntennaCoaxInstallDate', on_delete=models.CASCADE,related_name ='antennacoaxinstallimages',blank=True, null=True)
-
-    # DailyPhotos
     antenna_coax_installation_image = models.ImageField(upload_to= UploadToProjectDirImage(file_path,'images/CivilWorksTeam/antennacoaxinstallation/'),max_length = 250,blank=True, null=True)
     antenna_coax_installation_comment = models.CharField(max_length=100, blank=True, null=True)
 
-
     def __str__(self):
-        #return str(self.project_name)
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
 class AntennaCoaxInstallDate(TimeStampModel):
     sub_task = models.ForeignKey('AntennaCoaxInstallSubtask', on_delete=models.CASCADE,related_name= 'antennacoaxinstalldates')
     work_day =  models.DateField(blank=True, null=True)
-    # Casuals
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/Antennacoaxinstallation/'),blank=True, null=True)
     casuals_atsite = models.ManyToManyField(Casual, blank=True )
 
     def __str__(self):
-        #return str(self.project_name)
-        return '{} :Date: {}'.format(self.sub_task,self.work_day)
-
-
-class AntennaCoaxInstallSubtask(TimeStampModel ,TimeTrackModel):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-
-    antenna_coax_installation_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/antennacoaxinstallation/'),blank =True ,null=True)
-    antenna_coax_installation_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/antennacoaxinstallation/'),blank =True ,null=True)
-    antenna_coax_installation_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/antennacoaxinstallation/'),blank =True ,null=True)
-    antenna_coax_installation_comment = models.CharField(max_length=100, blank=True, null=True)
-
-    def __str__(self):
-        #return str(self.project_name)
-        return 'AntenaCoaxInstallSubtask :{}'.format(self.project_name)
+        return str(self.sub_task)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
         return "\n , ".join(str(count))
+
+    def check_cost(self):
+        now = datetime.now(timezone.utc)
+        date_diff = date_difference(self.start_date, now)
+        return date_diff
+
+    def date_casual_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            total_cost = 0
+            default_diff = 1
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                date_diff = date_difference(self.start_date, now)
+            else:
+                date_diff = date_difference(self.start_date, self.end_date)
+            while date_diff > default_diff:
+                updated_count = self.no_of_casuals_atsite.count()
+                casual_count += count
+                casual_diff = casual_count - count
+                cost = (casual_diff * casual_rate)
+                total_cost += cost
+                default_diff += 1
+            return total_cost
+        except Exception as e:
+            return e
 
     def names_of_casuals(self):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
@@ -2530,6 +3036,41 @@ class AntennaCoaxInstallSubtask(TimeStampModel ,TimeTrackModel):
             error = "Engineer Rates does not exist"
             return error
 
+    def labour_cost(self):
+        try:
+            engineer_rate_data = Rates.objects.get(worker_type='Engineer')
+            casual_rate_data = Rates.objects.get(worker_type='Casual')
+            engineer_rate = engineer_rate_data.rate
+            casual_rate = casual_rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = TowerAntennaCoaxTask.objects.get(project_name=self.project_name)
+                engineer_count = engineer_data.engineers_atsite.count()
+                casual_count = self.no_of_casuals_atsite.count()
+                cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+class AntennaCoaxInstallSubtask(TimeStampModel ,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    antenna_coax_installation_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/antennacoaxinstallation/'),blank =True ,null=True)
+    antenna_coax_installation_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/antennacoaxinstallation/'),blank =True ,null=True)
+    antenna_coax_installation_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/antennacoaxinstallation/'),blank =True ,null=True)
+    antenna_coax_installation_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+
     def raise_flag(self):
         try:
             kpi_data = SubTask.objects.get(subtask_name='Upload Antenna Coax Installation images')
@@ -2566,12 +3107,9 @@ class AntennaCoaxInstallSubtask(TimeStampModel ,TimeTrackModel):
         except Exception as e:
             return
 
-# TASK [4]
-
 class TowerAntennaCoaxTask(TimeStampModel ,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     engineers_atsite = models.ManyToManyField(Engineer, blank=True )
-    #Subtasks
     tower_erection = models.OneToOneField(TowerErectionSubtask, on_delete=models.DO_NOTHING, blank=True, null=True)
     tower_painting = models.OneToOneField(TowerPaintSubtask, on_delete=models.DO_NOTHING, blank=True, null=True)
     cable_ways = models.OneToOneField(CableWaysSubtask, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -2630,8 +3168,6 @@ class TowerAntennaCoaxTask(TimeStampModel ,TimeTrackModel):
 ######################################## END #######################################################################################################################################
 
 ####################################### INSTALLATION ###########################################################################################################################
-
-
 class ProjectPurchaseOrder(TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     po_file = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/CommercialTeam/pofile/'), blank=True, null=True)
@@ -2640,14 +3176,12 @@ class ProjectPurchaseOrder(TimeStampModel):
     total_cost_of_po = models.IntegerField()
     is_approved = models.BooleanField(default=False)
 
-
     def __str__(self):
         return str(self.project_name)
 
     def totalPOS(self):
         count = self.objects.all().count()
         return count
-
 
 class ProjectCosting(TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
@@ -2657,14 +3191,12 @@ class ProjectCosting(TimeStampModel):
     total_projected_cost = models.IntegerField()
     is_approved = models.BooleanField(default=False)
 
-
     def __str__(self):
         return str(self.project_name)
 
     def totalProjectCosts(self):
         count = self.objects.all().count()
         return count
-
 
 class CommercialTeam(TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
@@ -2674,13 +3206,11 @@ class CommercialTeam(TimeStampModel):
     project_costing_data = models.OneToOneField(ProjectCosting, on_delete=models.CASCADE, blank=True, null=True)
     initial_invoice = models.FileField(upload_to='files/CommercialTeam/initialinvoice/%Y/%m/%d/', blank=True, null=True)
     initial_invoice_comment = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
-
 
     def __str__(self):
         return str(self.project_name)
-
 
 ####################################### PROCURMENT TEAM ###########################################################################################################################
 class ProcurementTeam(TimeStampModel):
@@ -2691,21 +3221,17 @@ class ProcurementTeam(TimeStampModel):
     # po_electrical_materials_quantity = models.IntegerField(blank=True, null=True)
     po_subcontractors = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/ProcurementTeam/posubcontractor/'), blank=True, null=True)
     po_subcontractors_amount = models.IntegerField(blank=True, null=True)
-    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
-
 
     def __str__(self):
         return str(self.project_name)
 
 ######################################## END #######################################################################################################################################
-
-
 class AccessApprovalCivil(TimeStampModel):
     project_name = models.ForeignKey(BtsSite,related_name= 'accessapprovalcivil', on_delete=models.DO_NOTHING)
     access_approval = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/CivilWorksTeam/accessapproval/'))
     access_approval_comment = models.CharField(max_length=100, blank=True, null=True)
-
 
     def __str__(self):
         return str(self.project_name)
@@ -2724,24 +3250,20 @@ class HealthDocumentsCivilTeam(TimeStampModel):
     health_documents_comment = models.CharField(max_length=100, blank=True, null=True)
     access_approval = models.OneToOneField(AccessApprovalCivil, on_delete=models.DO_NOTHING, blank=True, null=True)
     safety_picture = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/HealthDocumentsCivilTeam/'), blank=True, null=True)
-    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
-
 
     def __str__(self):
         return str(self.project_name)
 
-
 class CivilWorksTeam(TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     health_documents = models.ManyToManyField(HealthDocumentsCivilTeam, blank=True )
-
-    #TASKS
-    foundation_and_curing_images = models.OneToOneField(FoundationCreationTask, on_delete=models.DO_NOTHING, blank=True, null=True)
+    foundation_and_curing_images = models.OneToOneField(FoundationTask, on_delete=models.DO_NOTHING, blank=True, null=True)
     bs241_and_generator_slabs_images = models.OneToOneField(BS241AndGeneratorSlabTask, on_delete=models.DO_NOTHING, blank=True, null=True)
     site_walling_images_field = models.OneToOneField(BoundaryWallTask, on_delete=models.DO_NOTHING, blank=True, null=True)
     tower_data = models.OneToOneField(TowerAntennaCoaxTask, on_delete=models.DO_NOTHING, blank=True, null=True)
-    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
 
 
@@ -2758,8 +3280,6 @@ class CivilWorksTeam(TimeStampModel):
         return [v.project_name for v in self.access_approvals_field.all()]
 
 ######################################################3 INSTALLATION TEAM ##################################################################################################################################################################3
-
-
 class AccessApprovalInstallation(TimeStampModel):
     project_name = models.ForeignKey(BtsSite, on_delete=models.DO_NOTHING)
     access_approval = models.FileField(upload_to=UploadToProjectDir(file_path,'files/InstallationTeam/accessapproval/'))
@@ -2767,7 +3287,6 @@ class AccessApprovalInstallation(TimeStampModel):
 
     def __str__(self):
         return str(self.project_name)
-
 
 class HealthDocumentsInstallationTeam(TimeStampModel):
     project_name = models.ForeignKey(BtsSite, on_delete=models.DO_NOTHING)
@@ -2782,64 +3301,32 @@ class HealthDocumentsInstallationTeam(TimeStampModel):
     health_documents_comment = models.CharField(max_length=100, blank=True, null=True)
     access_approval = models.OneToOneField(AccessApprovalInstallation, on_delete=models.CASCADE, blank=True, null=True)
     safety_picture = models.ImageField(upload_to=UploadToProjectDir(file_path,'images/HealthDocumentsInstallationTeam/'), blank=True, null=True)
-    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
-
 
     def __str__(self):
         return str(self.project_name)
 
-
-
-    # SubTask (1)://///////////UndergroundTask Subtask //////////////////
-
-
 class UndergroundTaskImage(TimeStampModel):
     day_image = models.ForeignKey('UndergroundTaskDate', on_delete=models.CASCADE,related_name ='undergroundtaskimages',blank=True, null=True)
-
-    # DailyPhotos
     underground_ducting_and_manholes_image = models.ImageField(upload_to= UploadToProjectDirImage(file_path,'images/CivilWorksTeam/antennacoaxinstallation/'),max_length = 250,blank=True, null=True)
     underground_ducting_and_manholes_comment = models.CharField(max_length=100, blank=True, null=True)
 
-
     def __str__(self):
-        #return str(self.project_name)
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
 class UndergroundTaskDate(TimeStampModel):
     sub_task = models.ForeignKey('UndergroundTask', on_delete=models.CASCADE,related_name= 'undergroundtaskdates')
     work_day =  models.DateField(blank=True, null=True)
-    # Casuals
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/UnderGroundTasks/'),blank=True, null=True)
     casuals_atsite = models.ManyToManyField(Casual, blank=True )
 
     def __str__(self):
-        #return str(self.project_name)
-        return '{} :Date: {}'.format(self.sub_task,self.work_day)
+        return str(self.sub_task)
 
     def image_list(self):
         try:
             return [UndergroundTaskImage.objects.get(underground_ducting_and_manholes_image = _dimage.underground_ducting_and_manholes_image).id for _dimage in UndergroundTaskImage.objects.filter(day_image_id = self.id).all()]
-
-        except Exception as e:
-            return e
-
-class UndergroundTask(TimeStampModel,TimeTrackModel):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-    underground_ducting_and_manholes_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/UndergroundTask/'), blank=True, null=True)
-    underground_ducting_and_manholes_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/UndergroundTask/'), blank=True, null=True)
-    underground_ducting_and_manholes_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/UndergroundTask/'), blank=True, null=True)
-    underground_ducting_and_manholes_images_comment = models.CharField(max_length=100, blank=True, null=True)
-
-
-    def __str__(self):
-        #return str(self.project_name)
-        return 'UndergroundSubtask :{}'.format(self.project_name)
-
-    def days_list(self):
-        try:
-            return [UndergroundTaskDate.objects.get(work_day= _pday.work_day).id for _pday in UndergroundTaskDate.objects.filter(sub_task_id = self.id).all()]
 
         except Exception as e:
             return e
@@ -2850,6 +3337,34 @@ class UndergroundTask(TimeStampModel,TimeTrackModel):
 
     def names_of_casuals(self):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def check_cost(self):
+        now = datetime.now(timezone.utc)
+        date_diff = date_difference(self.start_date, now)
+        return date_diff
+
+    def date_casual_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            total_cost = 0
+            default_diff = 1
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                date_diff = date_difference(self.start_date, now)
+            else:
+                date_diff = date_difference(self.start_date, self.end_date)
+            while date_diff > default_diff:
+                updated_count = self.no_of_casuals_atsite.count()
+                casual_count += count
+                casual_diff = casual_count - count
+                cost = (casual_diff * casual_rate)
+                total_cost += cost
+                default_diff += 1
+            return total_cost
+        except Exception as e:
+            return e
 
     def casuals_cost(self):
         try:
@@ -2864,7 +3379,7 @@ class UndergroundTask(TimeStampModel,TimeTrackModel):
             cost = (count * casual_rate * days_spent)
             return cost
         except Exception as e:
-            error = "Casuals Rates does not exist"
+            error = "Casual Rates does not exist"
             return error
 
     def engineers_cost(self):
@@ -2877,7 +3392,7 @@ class UndergroundTask(TimeStampModel,TimeTrackModel):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = ElectricalTask.objects.get(project_name=self.project_name)
+                engineer_data = TelecomTasks.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -2887,6 +3402,47 @@ class UndergroundTask(TimeStampModel,TimeTrackModel):
         except Exception as e:
             error = "Engineer Rates does not exist"
             return error
+
+    def labour_cost(self):
+        try:
+            engineer_rate_data = Rates.objects.get(worker_type='Engineer')
+            casual_rate_data = Rates.objects.get(worker_type='Casual')
+            engineer_rate = engineer_rate_data.rate
+            casual_rate = casual_rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = TelecomTasks.objects.get(project_name=self.project_name)
+                engineer_count = engineer_data.engineers_atsite.count()
+                casual_count = self.no_of_casuals_atsite.count()
+                cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+class UndergroundTask(TimeStampModel,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    underground_ducting_and_manholes_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/UndergroundTask/'), blank=True, null=True)
+    underground_ducting_and_manholes_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/UndergroundTask/'), blank=True, null=True)
+    underground_ducting_and_manholes_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/UndergroundTask/'), blank=True, null=True)
+    underground_ducting_and_manholes_images_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+    def days_list(self):
+        try:
+            return [UndergroundTaskDate.objects.get(work_day= _pday.work_day).id for _pday in UndergroundTaskDate.objects.filter(sub_task_id = self.id).all()]
+
+        except Exception as e:
+            return e
 
     def raise_flag(self):
         try:
@@ -2924,44 +3480,22 @@ class UndergroundTask(TimeStampModel,TimeTrackModel):
         except Exception as e:
             return
 
-    # SubTask (1)://///////////AntennaCoaxInstall Subtask //////////////////
-
-
 class ReticulationAPSinstallationImage(TimeStampModel):
     day_image = models.ForeignKey('ReticulationAPSinstallationDate', on_delete=models.CASCADE,related_name ='reticulationAPSinstallationimages',blank=True, null=True)
-
-    # DailyPhotos
     electricalreticulation_APSInstallation_image = models.ImageField(upload_to= UploadToProjectDirImage(file_path,'images/InstallationTeam/Electrical/ReticulationAPSinstallation/'),max_length = 250,blank=True, null=True)
     electricalreticulation_APSInstallation_comment = models.CharField(max_length=100, blank=True, null=True)
 
-
     def __str__(self):
-        #return str(self.project_name)
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
 class ReticulationAPSinstallationDate(TimeStampModel):
     sub_task = models.ForeignKey('ReticulationAPSinstallation', on_delete=models.CASCADE,related_name= 'reticulationAPSinstallationdates')
     work_day =  models.DateField(blank=True, null=True)
-    # Casuals
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/ReticulationAPSinstallation/'),blank=True, null=True)
     casuals_atsite = models.ManyToManyField(Casual, blank=True )
 
     def __str__(self):
-        #return str(self.project_name)
-        return '{} :Date: {}'.format(self.sub_task,self.work_day)
-
-class ReticulationAPSinstallation(TimeStampModel,TimeTrackModel):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-    electricalreticulation_APSInstallation_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/ReticulationAPSinstallation/'), blank=True, null=True)
-    electricalreticulation_APSInstallation_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/ReticulationAPSinstallation/'), blank=True, null=True)
-    electricalreticulation_APSInstallation_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/ReticulationAPSinstallation/'), blank=True, null=True)
-    electricalreticulation_APSInstallation_images_comment = models.CharField(max_length=100, blank=True, null=True)
-
-
-    def __str__(self):
-        #return str(self.project_name)
-        return 'ReticulationAPSinstallationSubtask :{}'.format(self.project_name)
+        return str(self.sub_task)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -2969,6 +3503,34 @@ class ReticulationAPSinstallation(TimeStampModel,TimeTrackModel):
 
     def names_of_casuals(self):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def check_cost(self):
+        now = datetime.now(timezone.utc)
+        date_diff = date_difference(self.start_date, now)
+        return date_diff
+
+    def date_casual_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            total_cost = 0
+            default_diff = 1
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                date_diff = date_difference(self.start_date, now)
+            else:
+                date_diff = date_difference(self.start_date, self.end_date)
+            while date_diff > default_diff:
+                updated_count = self.no_of_casuals_atsite.count()
+                casual_count += count
+                casual_diff = casual_count - count
+                cost = (casual_diff * casual_rate)
+                total_cost += cost
+                default_diff += 1
+            return total_cost
+        except Exception as e:
+            return e
 
     def casuals_cost(self):
         try:
@@ -2996,7 +3558,7 @@ class ReticulationAPSinstallation(TimeStampModel,TimeTrackModel):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = ElectricalTask.objects.get(project_name=self.project_name)
+                engineer_data = TelecomTasks.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -3006,6 +3568,46 @@ class ReticulationAPSinstallation(TimeStampModel,TimeTrackModel):
         except Exception as e:
             error = "Engineer Rates does not exist"
             return error
+
+    def labour_cost(self):
+        try:
+            engineer_rate_data = Rates.objects.get(worker_type='Engineer')
+            casual_rate_data = Rates.objects.get(worker_type='Casual')
+            engineer_rate = engineer_rate_data.rate
+            casual_rate = casual_rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = TelecomTasks.objects.get(project_name=self.project_name)
+                engineer_count = engineer_data.engineers_atsite.count()
+                casual_count = self.no_of_casuals_atsite.count()
+                cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+class ReticulationAPSinstallation(TimeStampModel,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    electricalreticulation_APSInstallation_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/ReticulationAPSinstallation/'), blank=True, null=True)
+    electricalreticulation_APSInstallation_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/ReticulationAPSinstallation/'), blank=True, null=True)
+    electricalreticulation_APSInstallation_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/ReticulationAPSinstallation/'), blank=True, null=True)
+    electricalreticulation_APSInstallation_images_comment = models.CharField(max_length=100, blank=True, null=True)
+
+
+    def __str__(self):
+        return str(self.project_name)
+
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
+        return "\n , ".join(str(count))
+
 
     def raise_flag(self):
         try:
@@ -3043,44 +3645,22 @@ class ReticulationAPSinstallation(TimeStampModel,TimeTrackModel):
         except Exception as e:
             return
 
-    # SubTask (1)://///////////AntennaCoaxInstall Subtask //////////////////
-
-
 class ElectricalEarthingImage(TimeStampModel):
     day_image = models.ForeignKey('ElectricalEarthingDate', on_delete=models.CASCADE,related_name ='electricalearthingimages',blank=True, null=True)
-
-    # DailyPhotos
     earthing_connections_and_testing_image = models.ImageField(upload_to= UploadToProjectDirImage(file_path,'images/InstallationTeam/Electrical/Generator_FuelTank_Install/'),max_length = 250,blank=True, null=True)
     earthing_connections_and_testing_comment = models.CharField(max_length=100, blank=True, null=True)
 
-
     def __str__(self):
-        #return str(self.project_name)
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
 class ElectricalEarthingDate(TimeStampModel):
     sub_task = models.ForeignKey('ElectricalEarthing', on_delete=models.CASCADE,related_name= 'electricalearthingdates')
     work_day =  models.DateField(blank=True, null=True)
-    # Casuals
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/GeneratorElectricalsInstalls/'),blank=True, null=True)
     casuals_atsite = models.ManyToManyField(Casual, blank=True )
 
     def __str__(self):
-        #return str(self.project_name)
-        return '{} :Date: {}'.format(self.sub_task,self.work_day)
-
-class ElectricalEarthing(TimeStampModel,TimeTrackModel):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-    earthing_connections_and_testing_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/Generator_FuelTank_Install/'), blank=True, null=True)
-    earthing_connections_and_testing_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/Generator_FuelTank_Install/'), blank=True, null=True)
-    earthing_connections_and_testing_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/Generator_FuelTank_Install/'), blank=True, null=True)
-    earthing_connections_and_testing_images_comment = models.CharField(max_length=100, blank=True, null=True)
-
-
-    def __str__(self):
-        #return str(self.project_name)
-        return 'ElectricalEarthingSubtask :{}'.format(self.project_name)
+        return str(self.sub_task)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -3088,6 +3668,34 @@ class ElectricalEarthing(TimeStampModel,TimeTrackModel):
 
     def names_of_casuals(self):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def check_cost(self):
+        now = datetime.now(timezone.utc)
+        date_diff = date_difference(self.start_date, now)
+        return date_diff
+
+    def date_casual_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            total_cost = 0
+            default_diff = 1
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                date_diff = date_difference(self.start_date, now)
+            else:
+                date_diff = date_difference(self.start_date, self.end_date)
+            while date_diff > default_diff:
+                updated_count = self.no_of_casuals_atsite.count()
+                casual_count += count
+                casual_diff = casual_count - count
+                cost = (casual_diff * casual_rate)
+                total_cost += cost
+                default_diff += 1
+            return total_cost
+        except Exception as e:
+            return e
 
     def casuals_cost(self):
         try:
@@ -3107,7 +3715,7 @@ class ElectricalEarthing(TimeStampModel,TimeTrackModel):
 
     def engineers_cost(self):
         try:
-            rate_data = Rates.objects.get(worker_type='Enginner')
+            rate_data = Rates.objects.get(worker_type='Engineer')
             engineer_rate = rate_data.rate
             now = datetime.now(timezone.utc)
             if bool(self.end_date) is False:
@@ -3115,7 +3723,7 @@ class ElectricalEarthing(TimeStampModel,TimeTrackModel):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = ElectricalTask.objects.get(project_name=self.project_name)
+                engineer_data = TelecomTasks.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -3123,8 +3731,43 @@ class ElectricalEarthing(TimeStampModel,TimeTrackModel):
                 error = "No engineers assigned to project"
                 return error
         except Exception as e:
-            error = "Enginner Rates does not exist"
+            error = "Engineer Rates does not exist"
             return error
+
+    def labour_cost(self):
+        try:
+            engineer_rate_data = Rates.objects.get(worker_type='Engineer')
+            casual_rate_data = Rates.objects.get(worker_type='Casual')
+            engineer_rate = engineer_rate_data.rate
+            casual_rate = casual_rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = TelecomTasks.objects.get(project_name=self.project_name)
+                engineer_count = engineer_data.engineers_atsite.count()
+                casual_count = self.no_of_casuals_atsite.count()
+                cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+class ElectricalEarthing(TimeStampModel,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    earthing_connections_and_testing_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/Generator_FuelTank_Install/'), blank=True, null=True)
+    earthing_connections_and_testing_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/Generator_FuelTank_Install/'), blank=True, null=True)
+    earthing_connections_and_testing_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/Generator_FuelTank_Install/'), blank=True, null=True)
+    earthing_connections_and_testing_images_comment = models.CharField(max_length=100, blank=True, null=True)
+
+
+    def __str__(self):
+        return str(self.project_name)
 
     def raise_flag(self):
         try:
@@ -3162,50 +3805,22 @@ class ElectricalEarthing(TimeStampModel,TimeTrackModel):
         except Exception as e:
             return
 
-    # SubTask (1)://///////////GeneratorInstallation Subtask //////////////////
-
-
 class GeneratorInstallationImage(TimeStampModel):
     day_image = models.ForeignKey('AntennaCoaxInstallDate', on_delete=models.CASCADE,related_name ='generatorinstallationimages',blank=True, null=True)
-
-    # DailyPhotos
     generator_image = models.ImageField(upload_to= UploadToProjectDirImage(file_path,'images/CivilWorksTeam/generatorinstallation/'),max_length = 250,blank=True, null=True)
     generator_comment = models.CharField(max_length=100, blank=True, null=True)
 
-
     def __str__(self):
-        #return str(self.project_name)
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
 class GeneratorInstallationDate(TimeStampModel):
     sub_task = models.ForeignKey('AntennaCoaxInstallSubtask', on_delete=models.CASCADE,related_name= 'generatorinstallationdates')
     work_day =  models.DateField(blank=True, null=True)
-    # Casuals
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/GeneratorInstall/'),blank=True, null=True)
     casuals_atsite = models.ManyToManyField(Casual, blank=True )
 
     def __str__(self):
-        #return str(self.project_name)
-        return '{} :Date: {}'.format(self.sub_task,self.work_day)
-
-class GeneratorInstallation(TimeStampModel,TimeTrackModel):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-
-    Generator_and_Fuel_Tank_Installation_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/Generator_FuelTank_Install/'), blank=True, null=True)
-    Generator_and_Fuel_Tank_Installation_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/Generator_FuelTank_Install/'), blank=True, null=True)
-    Generator_and_Fuel_Tank_Installation_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/Generator_FuelTank_Install/'), blank=True, null=True)
-
-    before_fuel_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/Fueling/'),blank=True ,null =True)
-    before_fuel_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/Fueling/'),blank=True ,null =True)
-    after_fuel_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/Fueling/'),blank=True ,null =True)
-    after_fuel_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/Fueling/'),blank=True ,null =True)
-    Generator_and_Fuel_Tank_Installation_comment = models.CharField(max_length=100, blank=True, null=True)
-
-
-    def __str__(self):
-        #return str(self.project_name)
-        return 'GeneratorInstallationSubtask :{}'.format(self.project_name)
+        return str(self.sub_task)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -3213,6 +3828,34 @@ class GeneratorInstallation(TimeStampModel,TimeTrackModel):
 
     def names_of_casuals(self):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def check_cost(self):
+        now = datetime.now(timezone.utc)
+        date_diff = date_difference(self.start_date, now)
+        return date_diff
+
+    def date_casual_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            total_cost = 0
+            default_diff = 1
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                date_diff = date_difference(self.start_date, now)
+            else:
+                date_diff = date_difference(self.start_date, self.end_date)
+            while date_diff > default_diff:
+                updated_count = self.no_of_casuals_atsite.count()
+                casual_count += count
+                casual_diff = casual_count - count
+                cost = (casual_diff * casual_rate)
+                total_cost += cost
+                default_diff += 1
+            return total_cost
+        except Exception as e:
+            return e
 
     def casuals_cost(self):
         try:
@@ -3240,7 +3883,7 @@ class GeneratorInstallation(TimeStampModel,TimeTrackModel):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = ElectricalTask.objects.get(project_name=self.project_name)
+                engineer_data = TelecomTasks.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -3250,6 +3893,45 @@ class GeneratorInstallation(TimeStampModel,TimeTrackModel):
         except Exception as e:
             error = "Engineer Rates does not exist"
             return error
+
+    def labour_cost(self):
+        try:
+            engineer_rate_data = Rates.objects.get(worker_type='Engineer')
+            casual_rate_data = Rates.objects.get(worker_type='Casual')
+            engineer_rate = engineer_rate_data.rate
+            casual_rate = casual_rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = TelecomTasks.objects.get(project_name=self.project_name)
+                engineer_count = engineer_data.engineers_atsite.count()
+                casual_count = self.no_of_casuals_atsite.count()
+                cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+class GeneratorInstallation(TimeStampModel,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    Generator_and_Fuel_Tank_Installation_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/Generator_FuelTank_Install/'), blank=True, null=True)
+    Generator_and_Fuel_Tank_Installation_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/Generator_FuelTank_Install/'), blank=True, null=True)
+    Generator_and_Fuel_Tank_Installation_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/Generator_FuelTank_Install/'), blank=True, null=True)
+    before_fuel_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/Fueling/'),blank=True ,null =True)
+    before_fuel_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/Fueling/'),blank=True ,null =True)
+    after_fuel_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/Fueling/'),blank=True ,null =True)
+    after_fuel_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Electrical/Fueling/'),blank=True ,null =True)
+    Generator_and_Fuel_Tank_Installation_comment = models.CharField(max_length=100, blank=True, null=True)
+
+
+    def __str__(self):
+        return str(self.project_name)
 
     def raise_flag(self):
         try:
@@ -3287,45 +3969,22 @@ class GeneratorInstallation(TimeStampModel,TimeTrackModel):
         except Exception as e:
             return
 
-    # SubTask (1)://///////////KPLCSolar Subtask //////////////////
-
-
 class KPLCSolarImage(TimeStampModel):
     day_image = models.ForeignKey('KPLCSolarDate', on_delete=models.CASCADE,related_name ='kplcsolarimages',blank=True, null=True)
-
-    # DailyPhotos
     kplc_solar_installation_image = models.ImageField(upload_to= UploadToProjectDirImage(file_path,'images/CivilWorksTeam/KPLCSolar/'),max_length = 250,blank=True, null=True)
     kplc_solar_installation_comment = models.CharField(max_length=100, blank=True, null=True)
 
-
     def __str__(self):
-        #return str(self.project_name)
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
 class KPLCSolarDate(TimeStampModel):
     sub_task = models.ForeignKey('KPLCSolarSubtask', on_delete=models.CASCADE,related_name= 'kplcsolardates')
     work_day =  models.DateField(blank=True, null=True)
-    # Casuals
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/KPLCSolar/'),blank=True, null=True)
     casuals_atsite = models.ManyToManyField(Casual, blank=True )
 
     def __str__(self):
-        #return str(self.project_name)
-        return '{} :Date: {}'.format(self.sub_task,self.work_day)
-
-class KPLCSolarSubtask(TimeStampModel ,TimeTrackModel):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-
-    kplc_solar_installation_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/KPLCSolar/'), blank=True, null=True)
-    kplc_solar_installation_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/KPLCSolar/'), blank=True, null=True)
-    kplc_solar_installation_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/KPLCSolar/'), blank=True, null=True)
-    kplc_solar_installation_comment = models.CharField(max_length=100, blank=True, null=True)
-
-
-    def __str__(self):
-        #return str(self.project_name)
-        return 'KplcSolarSubTaskSubtask :{}'.format(self.project_name)
+        return str(self.sub_task)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -3333,6 +3992,34 @@ class KPLCSolarSubtask(TimeStampModel ,TimeTrackModel):
 
     def names_of_casuals(self):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def check_cost(self):
+        now = datetime.now(timezone.utc)
+        date_diff = date_difference(self.start_date, now)
+        return date_diff
+
+    def date_casual_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            total_cost = 0
+            default_diff = 1
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                date_diff = date_difference(self.start_date, now)
+            else:
+                date_diff = date_difference(self.start_date, self.end_date)
+            while date_diff > default_diff:
+                updated_count = self.no_of_casuals_atsite.count()
+                casual_count += count
+                casual_diff = casual_count - count
+                cost = (casual_diff * casual_rate)
+                total_cost += cost
+                default_diff += 1
+            return total_cost
+        except Exception as e:
+            return e
 
     def casuals_cost(self):
         try:
@@ -3360,7 +4047,7 @@ class KPLCSolarSubtask(TimeStampModel ,TimeTrackModel):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = ElectricalTask.objects.get(project_name=self.project_name)
+                engineer_data = TelecomTasks.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -3370,6 +4057,41 @@ class KPLCSolarSubtask(TimeStampModel ,TimeTrackModel):
         except Exception as e:
             error = "Engineer Rates does not exist"
             return error
+
+    def labour_cost(self):
+        try:
+            engineer_rate_data = Rates.objects.get(worker_type='Engineer')
+            casual_rate_data = Rates.objects.get(worker_type='Casual')
+            engineer_rate = engineer_rate_data.rate
+            casual_rate = casual_rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = TelecomTasks.objects.get(project_name=self.project_name)
+                engineer_count = engineer_data.engineers_atsite.count()
+                casual_count = self.no_of_casuals_atsite.count()
+                cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+class KPLCSolarSubtask(TimeStampModel ,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    kplc_solar_installation_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/KPLCSolar/'), blank=True, null=True)
+    kplc_solar_installation_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/KPLCSolar/'), blank=True, null=True)
+    kplc_solar_installation_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/KPLCSolar/'), blank=True, null=True)
+    kplc_solar_installation_comment = models.CharField(max_length=100, blank=True, null=True)
+
+
+    def __str__(self):
+        return str(self.project_name)
 
     def raise_flag(self):
         try:
@@ -3411,7 +4133,6 @@ class KPLCSolarSubtask(TimeStampModel ,TimeTrackModel):
 class ElectricalTask(TimeStampModel ,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     engineers_atsite = models.ManyToManyField(Engineer, blank=True )
-
     underground_ducting_and_manholes = models.OneToOneField(UndergroundTask, on_delete=models.DO_NOTHING, blank=True, null=True)
     electricalreticulation_APSInstallation = models.OneToOneField(ReticulationAPSinstallation, on_delete=models.DO_NOTHING, blank=True, null=True)
     earthing_connections_and_testing = models.OneToOneField(ElectricalEarthing, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -3465,45 +4186,22 @@ class ElectricalTask(TimeStampModel ,TimeTrackModel):
         except Exception as e:
             return
 
-    # SubTask (1)://///////////MWInstallationTaskSubtask //////////////////
-
-
 class BTSinstallationTaskImage(TimeStampModel):
     day_image = models.ForeignKey('BTSinstallationTaskDate', on_delete=models.CASCADE,related_name ='btsinstallationtaskimages',blank=True, null=True)
-
-    # DailyPhotos
     mWinstallation_image = models.ImageField(upload_to= UploadToProjectDirImage(file_path,'images/installationTeam/Telecom/MWinstallation/'),max_length = 250,blank=True, null=True)
     mWinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
 
-
     def __str__(self):
-        #return str(self.project_name)
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
 class BTSinstallationTaskDate(TimeStampModel):
     sub_task = models.ForeignKey('BTSinstallationTask', on_delete=models.CASCADE,related_name= 'btsinstallationtaskdates')
     work_day =  models.DateField(blank=True, null=True)
-    # Casuals
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/MWInstallationTask/'),blank=True, null=True)
     casuals_atsite = models.ManyToManyField(Casual, blank=True )
 
     def __str__(self):
-        #return str(self.project_name)
-        return '{} :Date: {}'.format(self.sub_task,self.work_day)
-
-class BTSinstallationTask(TimeStampModel ,TimeTrackModel):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-
-    BTSinstallation_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Telecom/BTSinstallation/'), blank=True, null=True)
-    BTSinstallation_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Telecom/BTSinstallation/'), blank=True, null=True)
-    BTSinstallation_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Telecom/BTSinstallation/'), blank=True, null=True)
-    BTSinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
-
-
-    def __str__(self):
-       # return str(self.project_name)
-        return 'BTSinstallationTask :{}'.format(self.project_name)
+        return str(self.sub_task)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -3511,6 +4209,34 @@ class BTSinstallationTask(TimeStampModel ,TimeTrackModel):
 
     def names_of_casuals(self):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def check_cost(self):
+        now = datetime.now(timezone.utc)
+        date_diff = date_difference(self.start_date, now)
+        return date_diff
+
+    def date_casual_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            total_cost = 0
+            default_diff = 1
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                date_diff = date_difference(self.start_date, now)
+            else:
+                date_diff = date_difference(self.start_date, self.end_date)
+            while date_diff > default_diff:
+                updated_count = self.no_of_casuals_atsite.count()
+                casual_count += count
+                casual_diff = casual_count - count
+                cost = (casual_diff * casual_rate)
+                total_cost += cost
+                default_diff += 1
+            return total_cost
+        except Exception as e:
+            return e
 
     def casuals_cost(self):
         try:
@@ -3538,7 +4264,7 @@ class BTSinstallationTask(TimeStampModel ,TimeTrackModel):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = TelecomTask.objects.get(project_name=self.project_name)
+                engineer_data = TelecomTasks.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -3548,6 +4274,40 @@ class BTSinstallationTask(TimeStampModel ,TimeTrackModel):
         except Exception as e:
             error = "Engineer Rates does not exist"
             return error
+
+    def labour_cost(self):
+        try:
+            engineer_rate_data = Rates.objects.get(worker_type='Engineer')
+            casual_rate_data = Rates.objects.get(worker_type='Casual')
+            engineer_rate = engineer_rate_data.rate
+            casual_rate = casual_rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = TelecomTasks.objects.get(project_name=self.project_name)
+                engineer_count = engineer_data.engineers_atsite.count()
+                casual_count = self.no_of_casuals_atsite.count()
+                cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+class BTSinstallationTask(TimeStampModel ,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    BTSinstallation_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Telecom/BTSinstallation/'), blank=True, null=True)
+    BTSinstallation_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Telecom/BTSinstallation/'), blank=True, null=True)
+    BTSinstallation_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Telecom/BTSinstallation/'), blank=True, null=True)
+    BTSinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+       return str(self.project_name)
 
     def raise_flag(self):
         try:
@@ -3585,45 +4345,22 @@ class BTSinstallationTask(TimeStampModel ,TimeTrackModel):
         except Exception as e:
             return
 
-
-    # SubTask (1)://///////////MWInstallationTaskSubtask //////////////////
-
-
 class MWInstallationTaskImage(TimeStampModel):
     day_image = models.ForeignKey('MWInstallationTaskDate', on_delete=models.CASCADE,related_name ='mwinstallationtaskimages',blank=True, null=True)
-
-    # DailyPhotos
     mWinstallation_image = models.ImageField(upload_to= UploadToProjectDirImage(file_path,'images/installationTeam/Telecom/MWinstallation/'),max_length = 250,blank=True, null=True)
     mWinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
 
-
     def __str__(self):
-        #return str(self.project_name)
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
 class MWInstallationTaskDate(TimeStampModel):
     sub_task = models.ForeignKey('MWInstallationTask', on_delete=models.CASCADE,related_name= 'mwinstallationtaskdates')
     work_day =  models.DateField(blank=True, null=True)
-    # Casuals
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/MWInstallationTask/'),blank=True, null=True)
     casuals_atsite = models.ManyToManyField(Casual, blank=True )
 
     def __str__(self):
-        #return str(self.project_name)
-        return '{} :Date: {}'.format(self.sub_task,self.work_day)
-
-class MWInstallationTask(TimeStampModel,TimeTrackModel):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-
-    mWinstallation_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Telecom/MWinstallation/'), blank=True, null=True)
-    mWinstallation_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Telecom/MWinstallation/'), blank=True, null=True)
-    mWinstallation_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Telecom/MWinstallation/'), blank=True, null=True)
-    mWinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
-
-    def __str__(self):
-       # return str(self.project_name)
-        return 'MWInstallationTask :{}'.format(self.project_name)
+        return str(self.sub_task)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -3631,6 +4368,34 @@ class MWInstallationTask(TimeStampModel,TimeTrackModel):
 
     def names_of_casuals(self):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def check_cost(self):
+        now = datetime.now(timezone.utc)
+        date_diff = date_difference(self.start_date, now)
+        return date_diff
+
+    def date_casual_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            total_cost = 0
+            default_diff = 1
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                date_diff = date_difference(self.start_date, now)
+            else:
+                date_diff = date_difference(self.start_date, self.end_date)
+            while date_diff > default_diff:
+                updated_count = self.no_of_casuals_atsite.count()
+                casual_count += count
+                casual_diff = casual_count - count
+                cost = (casual_diff * casual_rate)
+                total_cost += cost
+                default_diff += 1
+            return total_cost
+        except Exception as e:
+            return e
 
     def casuals_cost(self):
         try:
@@ -3658,7 +4423,7 @@ class MWInstallationTask(TimeStampModel,TimeTrackModel):
             else:
                 days_spent = date_difference(self.start_date, self.end_date)
             try:
-                engineer_data = TelecomTask.objects.get(project_name=self.project_name)
+                engineer_data = TelecomTasks.objects.get(project_name=self.project_name)
                 count = engineer_data.engineers_atsite.count()
                 cost = (count * engineer_rate * days_spent)
                 return cost
@@ -3668,6 +4433,40 @@ class MWInstallationTask(TimeStampModel,TimeTrackModel):
         except Exception as e:
             error = "Engineer Rates does not exist"
             return error
+
+    def labour_cost(self):
+        try:
+            engineer_rate_data = Rates.objects.get(worker_type='Engineer')
+            casual_rate_data = Rates.objects.get(worker_type='Casual')
+            engineer_rate = engineer_rate_data.rate
+            casual_rate = casual_rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = TelecomTasks.objects.get(project_name=self.project_name)
+                engineer_count = engineer_data.engineers_atsite.count()
+                casual_count = self.no_of_casuals_atsite.count()
+                cost = (engineer_count * days_spent * engineer_rate) + (casual_count * days_spent * casual_rate)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+class MWInstallationTask(TimeStampModel,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    mWinstallation_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Telecom/MWinstallation/'), blank=True, null=True)
+    mWinstallation_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Telecom/MWinstallation/'), blank=True, null=True)
+    mWinstallation_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/Telecom/MWinstallation/'), blank=True, null=True)
+    mWinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+       return str(self.project_name)
 
     def raise_flag(self):
         try:
@@ -3713,7 +4512,6 @@ class TelecomTask(TimeStampModel ,TimeTrackModel):
     Installation_of_MW_links = models.OneToOneField(MWInstallationTask, on_delete=models.DO_NOTHING, blank=True, null=True)
     link_commissioning = models.BooleanField(default=False)
     is_approved = models.BooleanField(default=False)
-
 
     def __str__(self):
         return str(self.project_name)
@@ -3768,11 +4566,10 @@ class Issue(TimeStampModel):
     issue_image = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/issue/'), blank=True, null=True)
     issue_sorted_image = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/issue/%Y/%m/%d/'), blank=True, null=True)
     closed = models.BooleanField(default=False)
-    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.issue
-
 
 class InstallationTeam(TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
@@ -3791,7 +4588,7 @@ class InstallationTeam(TimeStampModel):
     issue = models.ManyToManyField(Issue, blank=True)
     conditional_acceptance_cert = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/SafaricomTeam/conditionalcert/'), blank=True, null=True)
     conditional_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
 
 
@@ -3819,20 +4616,18 @@ class WarrantyCertificate(TimeStampModel):
     civilworks_installation_certificate = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/WarrantyCertificates/civilworks/'), blank=True, null=True)
     connectors_torque_certificate = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/WarrantyCertificates/connectorsTorque/'), blank=True, null=True)
     safe_to_climb_certificate = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/WarrantyCertificates/SafeToClimb/'), blank=True, null=True)
-    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
-
 
     def __str__(self):
         return str(self.project_name)
-
 
 class TestCetificate(TimeStampModel):
     project_name =models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     cube_test_7days = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/TestCertificates/cubetest7/'), blank=True, null=True)
     cube_test_28days = models.FileField(upload_to=UploadToProjectDir(file_path,'files/TestCertificates/cubetest28/%Y/'), blank=True, null=True)
     earth_test = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/TestCertificates/earthtest/'), blank=True, null=True)
-    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
 
     def __str__(self):

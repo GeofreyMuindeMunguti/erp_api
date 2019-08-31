@@ -154,16 +154,14 @@ class SubTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
 ######################################## END #######################################################################################################################################
 
 ####################################### START FOUNDATION IMAGES ###########################################################################################################################
-# >>>TASK [1]<<<
-class FoundationCreationTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
+
+class FoundationTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
-    queryset = FoundationCreationTask.objects.order_by('created_at')
-    serializer_class = FoundationCreationTaskSerializer
+    queryset = FoundationTask.objects.order_by('created_at')
+    serializer_class = FoundationTaskSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
-
-    # SubTask (1)://///////////Site-Clearing Subtask //////////////////
 
 class SiteClearingSubTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
@@ -203,9 +201,6 @@ class DailySiteClearingList(generics.ListCreateAPIView):
 #         queryset = SiteClearingImage.objects.filter(daily_site_clearing_id=self.kwargs["pk"])
 #         return queryset
 #     serializer_class = SiteClearingImageSerializer
-    
-
-    # SubTask (2)://///////////Tower-Base Subtask //////////////////
 
 class TowerBaseSubTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating tower base  subtasks for civil team."""
@@ -232,9 +227,6 @@ class TowerBaseImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
-
-    # SubTask (3)://///////////BlindingSubTask Subtask //////////////////
-
 class BlindingSubTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating site blindingsubtask for civil team."""
     queryset = BlindingSubtask.objects.order_by('created_at')
@@ -259,8 +251,6 @@ class BlindingImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('day_image', )
     ordering_fields = ('updated_at', 'day_image', )
 
-  # SubTask (4):///////////// SteelFixFormwork Subtask //////////////////
-
 class SteelFixFormworkSubtaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = SteelFixFormworkSubtask.objects.order_by('created_at')
@@ -268,7 +258,7 @@ class SteelFixFormworkSubtaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
-    
+
 class SteelFixFormworkDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating f oundation images for civil team."""
     queryset = SteelFixFormworkDate.objects.order_by('created_at')
@@ -284,9 +274,6 @@ class SteelFixFormworkImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('day_image', )
     ordering_fields = ('updated_at', 'image_day', )
-
-    
-# SubTask (5)://///////////ConcretePour Subtask //////////////////
 
 class ConcretePourSubTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
@@ -311,8 +298,6 @@ class ConcretePourImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('image_day', )
     ordering_fields = ('updated_at', 'image_day',)
-
-    # SubTask (6)://///////////ConcreteCuringPeriod Subtask //////////////////
 
 class ConcreteCuringPeriodSubTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
@@ -342,7 +327,7 @@ class ConcreteCuringPeriodImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
 ######################################## END #######################################################################################################################################
 
 #######################################BS241 & GENERATOR FOUNDATION ###########################################################################################################################
-    # SubTask (6)://///////////ConcreteCuringPeriod Subtask //////////////////
+
 class ExcavationSubTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = ExcavationSubtask.objects.order_by('created_at')
@@ -367,8 +352,6 @@ class ExcavationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('day_image', )
     ordering_fields = ('updated_at', 'day_image', )
 
-
-    # SubTask (6)://///////////ConcreteCuringPeriod Subtask //////////////////
 class Bs241ConcretePourCuringPeriodSubTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = BS241ConcretePourCuringPeriodSubtask.objects.order_by('created_at')
@@ -392,9 +375,7 @@ class Bs241ConcretePourCuringPeriodImageViewSet(DefaultsMixin, viewsets.ModelVie
 
     search_fields = ('day_image', )
     ordering_fields = ('updated_at', 'day_image', )
-    
 
-    # SubTask (6)://///////////ConcreteCuringPeriod Subtask //////////////////
 class BS241AndGeneatorSlabTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = BS241AndGeneratorSlabTask.objects.order_by('created_at')
@@ -406,8 +387,7 @@ class BS241AndGeneatorSlabTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
 ######################################## END #######################################################################################################################################
 
 ####################################### BOUNDARY WALL ###########################################################################################################################
-    
-    # SubTask (6)://///////////FoundFootPour Subtask //////////////////
+
 class FoundFootPourSubtaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = FoundFootPourSubtask.objects.order_by('created_at')
@@ -415,7 +395,6 @@ class FoundFootPourSubtaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
-
 
 class FoundFootPourDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
@@ -432,10 +411,7 @@ class FoundFootPourImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('day_image', )
     ordering_fields = ('updated_at', 'day_image', )
-    
 
-    
-    # SubTask (2)://///////////ConcreteCuringPeriod Subtask //////////////////
 class BlockworkPanelConstSubtaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = BlockworkPanelConstSubtask.objects.order_by('created_at')
@@ -459,9 +435,6 @@ class BlockworkPanelConstImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('day_image', )
     ordering_fields = ('updated_at', 'day_image', )
-
-
-    # SubTask (3)://///////////GateInstallation Subtask //////////////////
 
 class GateInstallationSubtaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
@@ -488,8 +461,6 @@ class GateInstallationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('day_image', )
     ordering_fields = ('updated_at', 'day_image', )
 
-
-    # SubTask (3)://///////////RazorElectricFence Subtask //////////////////
 class RazorElectricFenceSubtaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = RazorElectricFenceSubtask.objects.order_by('created_at')
@@ -514,9 +485,6 @@ class RazorElectricFenceImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('day_image', )
     ordering_fields = ('updated_at', 'day_image', )
 
-
-   # TASK (3):BoundaryWall TASK
-
 class BoundaryWallTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = BoundaryWallTask.objects.order_by('created_at')
@@ -528,8 +496,7 @@ class BoundaryWallTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
 ######################################## END #######################################################################################################################################
 
 ####################################### TOWER & ANTENNA_COAX ###########################################################################################################################
- 
-     # SubTask (1)://///////////TowerErection Subtask //////////////////
+
 class TowerErectionSubtaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = TowerErectionSubtask.objects.order_by('created_at')
@@ -554,8 +521,6 @@ class TowerErectionImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('day_image', )
     ordering_fields = ('updated_at', 'day_image', )
 
-
-    # SubTask (2)://///////////TowerPaint Subtask //////////////////
 class TowerPaintSubtaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = TowerPaintSubtask.objects.order_by('created_at')
@@ -580,8 +545,6 @@ class TowerPaintImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('day_image', )
     ordering_fields = ('updated_at', 'day_image', )
 
-
-    # SubTask (3)://///////////CableWaysImageV Subtask //////////////////
 class CableWaysSubtaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = CableWaysSubtask.objects.order_by('created_at')
@@ -606,8 +569,6 @@ class CableWaysImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('day_image', )
     ordering_fields = ('updated_at', 'day_image', )
 
-
-    # SubTask (4)://///////////AntennaCoaxInstall Subtask //////////////////
 class AntennaCoaxInstallSubtaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = AntennaCoaxInstallSubtask.objects.order_by('created_at')
@@ -632,7 +593,6 @@ class AntennaCoaxInstallImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('day_image', )
     ordering_fields = ('updated_at', 'day_image', )
 
-    # SubTask (3)://///////////TowerAntennaCoaxTask Subtask //////////////////
 class TowerAntennaCoaxTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = TowerAntennaCoaxTask.objects.order_by('created_at')
@@ -651,7 +611,6 @@ class CivilTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
-
 class InstallationTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating installation team."""
     queryset = InstallationTeam.objects.order_by('created_at')
@@ -660,7 +619,6 @@ class InstallationTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
-    # SubTask (3)://///////////TowerAntennaCoaxTask Subtask //////////////////
 class ElectricalTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating Electrical Tasks."""
     queryset = ElectricalTask.objects.order_by('created_at')
@@ -668,10 +626,6 @@ class ElectricalTaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
-
-
-    # SubTask (3)://///////////GeneratorInstallation Subtask //////////////////
-
 
 class GeneratorInstallationViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating generator installation tasks."""
@@ -697,10 +651,6 @@ class GeneratorInstallationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('image_day', )
     ordering_fields = ('updated_at', 'image_day', )
 
-
-
-
-
 class EarthingSubtaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating electrical earthing tasks."""
     queryset = ElectricalEarthing.objects.order_by('created_at')
@@ -724,8 +674,6 @@ class EarthingImagesViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('image_day', )
     ordering_fields = ('updated_at', 'image_day', )
-
-
 
 class ReticulationAPSViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating aps and reticulation tasks."""
@@ -823,7 +771,6 @@ class BTSInstallationTaskDatesViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('day_image', )
     ordering_fields = ('updated_at', 'day_image', )
 
-    
 class BTSInstallationTaskImagesViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = BTSinstallationTaskImage.objects.order_by('created_at')
@@ -831,8 +778,6 @@ class BTSInstallationTaskImagesViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('day_image', )
     ordering_fields = ('updated_at', 'day_image', )
-
-
 
 class HealthDocumentsInstallationTeamViewset(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating HealthDocument for electrical installation  team."""
@@ -842,7 +787,6 @@ class HealthDocumentsInstallationTeamViewset(DefaultsMixin, viewsets.ModelViewSe
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
-
 class AccessApprovalInstallationViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating installation team."""
     queryset = AccessApprovalInstallation.objects.order_by('created_at')
@@ -850,7 +794,6 @@ class AccessApprovalInstallationViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
-
 
 class KPLCSolarSubtaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating KPLC & Solar images for Electrical team."""
@@ -868,7 +811,7 @@ class KPLCSolarDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('day_image', )
     ordering_fields = ('updated_at', 'day_image', )
 
-    
+
 class KPLCSolarImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset =  KPLCSolarImage.objects.order_by('created_at')
@@ -876,8 +819,6 @@ class KPLCSolarImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('day_image', )
     ordering_fields = ('updated_at', 'day_image', )
-
-    # SubTask (3)://///////////TowerAntennaCoaxTask Subtask //////////////////
 
 class WarrantyCertificateViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating Warranty certificates."""
@@ -902,10 +843,8 @@ class IssueViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = Issue.objects.order_by('created_at')
     serializer_class = IssueSerializer
 
-
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
-
 
 def status_function(model_class, request):
     """Function to return status of previous team before posting """
