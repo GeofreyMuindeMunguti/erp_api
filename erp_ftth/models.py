@@ -75,8 +75,8 @@ class ftthSurvey(TimeStampModel,TimeTrackModel):
 class FtthCommercialTeam(TimeStampModel):
     project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE, blank=True)
     ftth_po = models.FileField(upload_to='files/ftth/CommercialTeam/po/%Y/%m/%d/', blank=True, null=True)
-    ftts_po_no = models.IntegerField(blank=True, null=True)
-    ftts_po_amount = models.IntegerField(blank=True, null=True)
+    ftth_po_no = models.IntegerField(blank=True, null=True)
+    ftth_po_amount = models.IntegerField(blank=True, null=True)
     ftth_boq = models.FileField(upload_to='files/ftth/CommercialTeam/boq/%Y/%m/%d/', blank=True, null=True)
     ftth_quote = models.FileField(upload_to='files/ftth/CommercialTeam/quote/%Y/%m/%d/', blank=True, null=True)
     ftth_wayleave_application = models.FileField(upload_to='files/ftth/CommercialTeam/wayleaveapplication/%Y/%m/%d/', blank=True, null=True)
