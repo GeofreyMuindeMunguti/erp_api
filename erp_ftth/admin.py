@@ -40,7 +40,7 @@ admin.site.register(ftthSurveyPhotos, ftthSurveyPhotosAdmin)
 
 
 class ftthSurveyAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'start_date', 'end_date', 'ftth_interception_point', 'site_latitude', 'site_longitude', 'distance_from_ip', 'high_level_design', 'county', 'posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'start_date', 'end_date', 'ftth_interception_point', 'site_latitude', 'site_longitude', 'distance_from_ip', 'no_of_fdts','high_level_design', 'county', 'posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)
@@ -52,7 +52,7 @@ admin.site.register(ftthSurvey, ftthSurveyAdmin)
 
 class FtthCommercialTeamAdmin(admin.ModelAdmin):
 
-    list_display = ('id','project_name','ftth_po','ftts_po_no','ftts_po_amount','ftth_boq','ftth_quote','ftth_wayleave_application','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id','project_name','ftth_po','ftth_po_no','ftth_po_amount','ftth_boq','ftth_quote','ftth_wayleave_application','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)
@@ -60,12 +60,21 @@ class FtthCommercialTeamAdmin(admin.ModelAdmin):
 admin.site.register(FtthCommercialTeam, FtthCommercialTeamAdmin)
 
 class FtthProcurementTeamAdmin(admin.ModelAdmin):
-    list_display = ('id','project_name','ftth_bom','ftth_initial_invoice','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id','project_name','ftth_bom','po_to_supplier','ftth_initial_invoice','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)
 
 admin.site.register(FtthProcurementTeam, FtthProcurementTeamAdmin)
+
+class FtthCertificatesAdmin(admin.ModelAdmin):
+    list_display = ('id','project_name', 'ftth_snag_document','ftth_snag_document_comment','ftth_crq_ticketno','ftth_crq_document','ftth_crq_comment', 'ftth_final_acceptance_cert', 'ftth_final_acceptance_cert_comment','ftth_operational_acceptance_cert','ftth_operational_acceptance_cert_comment',
+                'ftth_homepass_acceptance_cert','ftth_homepass_acceptance_cert_comment','ftth_conditional_acceptance_cert','ftth_conditional_acceptance_cert_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(FtthCertificates, FtthCertificatesAdmin)
 
 ######################################################## FTTH CIVIL TEAM ########################################################################################################################################################################################
 class FtthPoleInstallationImageAdmin(admin.ModelAdmin):
@@ -77,7 +86,7 @@ class FtthPoleInstallationImageAdmin(admin.ModelAdmin):
 admin.site.register(FtthPoleInstallationImage, FtthPoleInstallationImageAdmin)
 
 class DailyFtthPoleInstallationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','poleinstallation_date','poleinstallation_comment','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','poleinstallation_comment','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     search_fields = ('sub_task', )
     list_editable = ('is_active',)
@@ -100,7 +109,7 @@ class FtthTrenchingImageAdmin(admin.ModelAdmin):
 admin.site.register(FtthTrenchingImage, FtthTrenchingImageAdmin)
 
 class DailyFtthTrenchingAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','trenching_date','trenching_comment','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','trenching_comment','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     search_fields = ('sub_task', )
     list_editable = ('is_active',)
@@ -124,7 +133,7 @@ class FtthBackfillingImageAdmin(admin.ModelAdmin):
 admin.site.register(FtthBackfillingImage, FtthBackfillingImageAdmin)
 
 class DailyFtthBackfillingAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','backfilling_date','backfilling_comment','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','backfilling_comment','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     search_fields = ('sub_task', )
     list_editable = ('is_active',)
@@ -161,6 +170,27 @@ class FtthCableInstallationAdmin(admin.ModelAdmin):
     readonly_fields = ['created_at', 'updated_at', 'is_active']
 
 admin.site.register(FtthCableInstallation, FtthCableInstallationAdmin)
+"""END"""
+
+class FtthAccessApprovalCivilAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'access_approval', 'access_approval_comment',
+                    'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(FtthAccessApprovalCivil, FtthAccessApprovalCivilAdmin)
+
+class FtthHealthDocumentsCivilTeamAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name','project_safety_comm_plan', 'project_safety_comm_plan_comment','hazard_analysis_form','hazard_analysis_form_comment','attendance_form','attendance_form_comment','incident_report','incident_report_comment',
+                    'health_documents_comment','access_approval','posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active', 'is_approved')
+
+
+admin.site.register(FtthHealthDocumentsCivilTeam, FtthHealthDocumentsCivilTeamAdmin)
 
 class FtthCivilTeamAdmin(admin.ModelAdmin):
     list_display = ('id','project_name','ftth_pole_installation', 'ftth_trenching','ftth_backfiling', 'ftth_cable_installation','is_approved','posted_by', 'created_at', 'updated_at', 'is_active')
@@ -191,7 +221,7 @@ admin.site.register(DailyFtthSplicingEnclosure, DailyFtthSplicingEnclosureAdmin)
 
 class FtthSplicingEnclosureAdmin(admin.ModelAdmin):
 
-    list_display = ('id','project_name','days_list','start_date','end_date','ftth_splicing_encore_image_1', 'ftth_splicing_encore_image_2','ftth_splicing_encore_image_3', 'ftth_splicing_encore_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id','project_name','days_list','start_date','end_date','splicing_encore_distance','ftth_splicing_encore_image_1', 'ftth_splicing_encore_image_2','ftth_splicing_encore_image_3', 'ftth_splicing_encore_comment','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)
@@ -361,6 +391,26 @@ class FtthSignalTestingAdmin(admin.ModelAdmin):
 
 admin.site.register(FtthSignalTesting, FtthSignalTestingAdmin)
 
+"""END"""
+
+class FtthAccessApprovalInstallationAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'access_approval', 'access_approval_comment',
+                    'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(FtthAccessApprovalInstallation, FtthAccessApprovalInstallationAdmin)
+
+class FtthHealthDocsInstallationTeamAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name','project_safety_comm_plan', 'project_safety_comm_plan_comment','hazard_analysis_form','hazard_analysis_form_comment','attendance_form','attendance_form_comment',
+                    'incident_report','incident_report_comment','health_documents_comment','access_approval','posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active', 'is_approved')
+
+admin.site.register(FtthHealthDocsInstallationTeam, FtthHealthDocsInstallationTeamAdmin)
 
 class FtthIssuesAdmin(admin.ModelAdmin):
     list_display = ('id','project_name','ftth_issue', 'ftth_issue_image', 'ftth_issue_sorted_image', 'closed', 'posted_by', 'created_at', 'updated_at', 'is_active')
@@ -373,8 +423,8 @@ admin.site.register(FtthIssues, FtthIssuesAdmin)
 
 class FtthInstallationTeamAdmin(admin.ModelAdmin):
 
-    list_display = ('id','project_name','ftth_splicing','ftth_signal_testing','project_issues','ftth_crq_document','ftth_homepass_report','ftth_operation_acceptance','ftth_asbuit_received','ftth_asbuilt_comment',
-    'ftth_network_activation','ftth_network_activation_comment','snag_document','snag_document_comment','conditional_acceptance_cert','conditional_acceptance_cert_comment','ftth_installation_team_comment','is_approved','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id','project_name','ftth_splicing','ftth_signal_testing','project_issues','ftth_asbuit_received','ftth_asbuilt_comment',
+    'ftth_network_activation','ftth_network_activation_comment','ftth_installation_team_comment','is_approved','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)

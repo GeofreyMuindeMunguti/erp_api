@@ -121,42 +121,32 @@ class HealthDocumentsCivilTeamAdmin(admin.ModelAdmin):
 admin.site.register(HealthDocumentsCivilTeam, HealthDocumentsCivilTeamAdmin)
 
 #######################################START FOUNDATION IMAGES########################################################################################################################################
-class FoundationCreationTaskAdmin(admin.ModelAdmin):
+class FoundationTaskAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'team_task_id', 'setting_site_clearing', 'excavation_tower_base', 'blinding', 'steel_fix_formwork','concrete_pour_curing_period', 'concrete_curing_period','foundation_and_curing_comment','engineers', 'names_of_engineers','start_date','end_date', 'raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
     list_editable = ('is_active',)
 
-
-admin.site.register(FoundationCreationTask, FoundationCreationTaskAdmin)
-
-
-
-
-    # SubTask (1): Site-Clearing Subtask //////////////////
+admin.site.register(FoundationTask, FoundationTaskAdmin)
 
 class SiteClearingSubtaskAdmin(admin.ModelAdmin):
-    #list_display = ('id', 'project_name','task_id', 'setting_site_clearing_image_1', 'setting_site_clearing_image_2', 'setting_site_clearing_image_3', 'setting_site_clearing_comment', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-    list_display = ('id', 'project_name','task_id', 'setting_site_clearing_image_1', 'setting_site_clearing_image_2', 'setting_site_clearing_image_3', 'setting_site_clearing_comment', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name','task_id', 'setting_site_clearing_image_1', 'setting_site_clearing_image_2', 'setting_site_clearing_image_3', 'setting_site_clearing_comment','start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
     list_editable = ('is_active',)
 
-
 admin.site.register(SiteClearingSubtask, SiteClearingSubtaskAdmin)
 
 class SiteClearingDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     list_filter = ('sub_task','work_day')
     search_fields = ('sub_task', )
     list_editable = ('is_active',)
 
-
 admin.site.register(SiteClearingDate, SiteClearingDateAdmin)
-
 
 class SiteClearingImageAdmin(admin.ModelAdmin):
     list_display = ('id', 'day_image', 'setting_site_clearing_image',  'setting_site_clearing_comment', 'created_at', 'updated_at', 'is_active')
@@ -165,22 +155,19 @@ class SiteClearingImageAdmin(admin.ModelAdmin):
     search_fields = ('day_image', )
     list_editable = ('is_active',)
 
-
 admin.site.register(SiteClearingImage, SiteClearingImageAdmin)
 
-    # SubTask (2): Tower-Base Subtask //////////////////
-
 class TowerBaseSubtaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','task_id', 'towerbase_image_1', 'towerbase_image_2', 'towerbase_image_3', 'tower_base_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name','task_id', 'towerbase_image_1', 'towerbase_image_2', 'towerbase_image_3', 'tower_base_comment','start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
     list_editable = ('is_active',)
-    
+
 admin.site.register(TowerBaseSubtask, TowerBaseSubtaskAdmin)
 
 class TowerBaseDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','work_day', 'tower_base_comment','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','work_day', 'tower_base_comment','casuals_list','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     list_filter = ('sub_task',)
     search_fields = ('sub_task', )
@@ -196,26 +183,23 @@ class TowerBaseImageAdmin(admin.ModelAdmin):
     list_editable = ('is_active',)
 
 admin.site.register(TowerBaseImage, TowerBaseImageAdmin)
-    # SubTask (3):Blinding Subtask //////////////////
 
 class BlindingSubtaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'task_id', 'blinding_image_1', 'blinding_image_2', 'blinding_image_3', 'blinding_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'task_id', 'blinding_image_1', 'blinding_image_2', 'blinding_image_3', 'blinding_comment','start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
     list_editable = ('is_active',)
 
-
 admin.site.register(BlindingSubtask, BlindingSubtaskAdmin)
 
 
 class BlindingDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','work_day','casuals_list','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     list_filter = ('sub_task','work_day')
     search_fields = ('sub_task', )
     list_editable = ('is_active',)
-
 
 admin.site.register(BlindingDate, BlindingDateAdmin)
 
@@ -226,25 +210,19 @@ class BlindingImageAdmin(admin.ModelAdmin):
     search_fields = ('day_image', )
     list_editable = ('is_active',)
 
-
 admin.site.register(BlindingImage, BlindingImageAdmin)
 
-
-    # SubTask (4): SteelFixFormwork Subtask //////////////////
-
 class SteelFixFormworkSubtaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'task_id', 'steel_fix_formwork_image_1', 'steel_fix_formwork_image_2', 'steel_fix_formwork_image_3', 'steel_fix_formwork_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'task_id', 'steel_fix_formwork_image_1', 'steel_fix_formwork_image_2', 'steel_fix_formwork_image_3', 'steel_fix_formwork_comment','start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
     list_editable = ('is_active',)
 
-
 admin.site.register(SteelFixFormworkSubtask, SteelFixFormworkSubtaskAdmin)
 
-
 class SteelFixFormworkDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     list_filter = ('sub_task','work_day')
     search_fields = ('sub_task', )
@@ -262,11 +240,8 @@ class SteelFixFormworkImageAdmin(admin.ModelAdmin):
 
 admin.site.register(SteelFixFormworkImage, SteelFixFormworkImageAdmin)
 
-    # SubTask (5): ConcretePour Subtask //////////////////
-
-
 class ConcretePourSubtaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'task_id', 'concrete_pour_curing_image_1', 'concrete_pour_curing_image_2', 'concrete_pour_curing_image_3', 'concrete_pour_curing_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'task_id', 'concrete_pour_curing_image_1', 'concrete_pour_curing_image_2', 'concrete_pour_curing_image_3', 'concrete_pour_curing_comment','start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -276,7 +251,7 @@ class ConcretePourSubtaskAdmin(admin.ModelAdmin):
 admin.site.register(ConcretePourSubtask, ConcretePourSubtaskAdmin)
 
 class ConcretePourDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     list_filter = ('sub_task','work_day')
     search_fields = ('sub_task', )
@@ -294,12 +269,8 @@ class ConcretePourImageAdmin(admin.ModelAdmin):
 
 admin.site.register(ConcretePourImage, ConcretePourImageAdmin)
 
-
-
-    # SubTask (5): ConcretePourCuring Period Subtask //////////////////
-
 class ConcreteCuringPeriodSubtaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'task_id', 'concrete_pour_curing_period_image_1', 'concrete_pour_curing_period_image_2', 'concrete_pour_curing_period_image_3', 'concrete_pour_curing_period_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'task_id', 'concrete_pour_curing_period_image_1', 'concrete_pour_curing_period_image_2', 'concrete_pour_curing_period_image_3', 'concrete_pour_curing_period_comment','start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -309,7 +280,7 @@ class ConcreteCuringPeriodSubtaskAdmin(admin.ModelAdmin):
 admin.site.register(ConcreteCuringPeriodSubtask, ConcreteCuringPeriodSubtaskAdmin)
 
 class ConcreteCuringPeriodDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     list_filter = ('sub_task','work_day')
     search_fields = ('sub_task', )
@@ -331,9 +302,9 @@ admin.site.register(ConcreteCuringPeriodImage, ConcreteCuringPeriodImageAdmin)
 # ######################################## END #######################################################################################################################################
 
 # #######################################BS241 & GENERATOR FOUNDATION ###########################################################################################################################
-    # SubTask (1): ConcretePourCuring Period Subtask //////////////////
+
 class ExcavationImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'task_id', 'excavation_image_1', 'excavation_image_2', 'excavation_image_3', 'excavation_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'raise_flag','start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'task_id', 'excavation_image_1', 'excavation_image_2', 'excavation_image_3', 'excavation_comment','raise_flag','start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -344,7 +315,7 @@ admin.site.register(ExcavationSubtask, ExcavationImageAdmin)
 
 
 class ExcavationDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     list_filter = ('sub_task','work_day')
     search_fields = ('sub_task', )
@@ -363,8 +334,6 @@ class ExcavationImageAdmin(admin.ModelAdmin):
 
 admin.site.register(ExcavationImage, ExcavationImageAdmin)
 
-
-    # SubTask (2): BS241ConcretePourCuringPeriodI Subtask //////////////////
 class BS241ConcretePourCuringPeriodImageAdmin(admin.ModelAdmin):
     list_display = ('id', 'day_image', 'bs241_concrete_pour_curing_period_image', 'bs241_concrete_pour_curing_period_comment','created_at', 'updated_at', 'is_active')
     list_display_links = ('day_image', )
@@ -377,12 +346,11 @@ admin.site.register(BS241ConcretePourCuringPeriodImage, BS241ConcretePourCuringP
 
 
 class BS241ConcretePourCuringPeriodDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','work_day','casuals_list','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     list_filter = ('sub_task','work_day')
     search_fields = ('sub_task', )
     list_editable = ('is_active',)
-
 
 admin.site.register(BS241ConcretePourCuringPeriodDate, BS241ConcretePourCuringPeriodDateAdmin)
 
@@ -393,10 +361,7 @@ class BS241ConcretePourCuringPeriodSubtaskAdmin(admin.ModelAdmin):
     search_fields = ('project_name', )
     list_editable = ('is_active',)
 
-
 admin.site.register(BS241ConcretePourCuringPeriodSubtask, BS241ConcretePourCuringPeriodSubtaskAdmin)
-
-    # TASK [2]: BS241AndGeneatorSlab Subtask //////////////////
 
 class BS241AndGeneratorSlabTaskAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'team_task_id', 'foundation_foot_pouring', 'bs241_concrete_pour_pouring_period','bs241_and_generator_slabs_comment','engineers', 'names_of_engineers', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
@@ -405,14 +370,12 @@ class BS241AndGeneratorSlabTaskAdmin(admin.ModelAdmin):
     search_fields = ('project_name', )
     list_editable = ('is_active',)
 
-
 admin.site.register(BS241AndGeneratorSlabTask, BS241AndGeneratorSlabTaskAdmin)
 
 # ######################################## END #######################################################################################################################################
 
 # ####################################### BOUNDARY WALL ###########################################################################################################################
-   
-    # SubTasl  [1]: FoundFootPour Subtask //////////////////
+
 class FoundFootPourImageAdmin(admin.ModelAdmin):
     list_display = ('id', 'day_image', 'foundfootpour_image', 'foundfootpour_comment','created_at', 'updated_at', 'is_active')
     list_display_links = ('day_image', )
@@ -420,34 +383,28 @@ class FoundFootPourImageAdmin(admin.ModelAdmin):
     search_fields = ('day_image', )
     list_editable = ('is_active',)
 
-
 admin.site.register(FoundFootPourImage, FoundFootPourImageAdmin)
 
-
 class FoundFootPourDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','work_day','casuals_list','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     list_filter = ('sub_task','work_day')
     search_fields = ('sub_task', )
     list_editable = ('is_active',)
 
-
 admin.site.register(FoundFootPourDate, FoundFootPourDateAdmin)
 
 class FoundFootPourSubtaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'task_id', 'foundfootpour_image_1', 'foundfootpour_image_2', 'foundfootpour_image_3', 'foundfootpour_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'task_id', 'foundfootpour_image_1', 'foundfootpour_image_2', 'foundfootpour_image_3', 'foundfootpour_comment','start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
     list_editable = ('is_active',)
 
-
 admin.site.register(FoundFootPourSubtask, FoundFootPourSubtaskAdmin)
 
-    # SubTasl  [2]: BlockworkPanelConst Subtask //////////////////
-    
 class BlockworkPanelConstSubtaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'task_id', 'blockwallpanelconst_image_1', 'blockwallpanelconst_image_2', 'blockwallpanelconst_image_3', 'blockwallpanelconst_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'task_id', 'blockwallpanelconst_image_1', 'blockwallpanelconst_image_2', 'blockwallpanelconst_image_3', 'blockwallpanelconst_comment','start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -458,7 +415,7 @@ admin.site.register(BlockworkPanelConstSubtask, BlockworkPanelConstSubtaskAdmin)
 
 
 class BlockworkPanelConstDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     list_filter = ('sub_task','work_day')
     search_fields = ('sub_task', )
@@ -477,10 +434,9 @@ class BlockworkPanelConstImageAdmin(admin.ModelAdmin):
 
 admin.site.register(BlockworkPanelConstImage, BlockworkPanelConstImageAdmin)
 
-    # SubTasl  [3]: GateInstallation Subtask //////////////////
 
 class GateInstallationSubtaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'task_id', 'gateinstallation_image_1', 'gateinstallation_image_2', 'gateinstallation_image_3','gateinstallation_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'task_id', 'gateinstallation_image_1', 'gateinstallation_image_2', 'gateinstallation_image_3','gateinstallation_comment','start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -488,7 +444,7 @@ class GateInstallationSubtaskAdmin(admin.ModelAdmin):
 admin.site.register(GateInstallationSubtask, GateInstallationSubtaskAdmin)
 
 class GateInstallationDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','work_day','casuals_list','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     list_filter = ('sub_task','work_day')
     search_fields = ('sub_task', )
@@ -505,10 +461,8 @@ class GateInstallationImageAdmin(admin.ModelAdmin):
 
 admin.site.register(GateInstallationImage, GateInstallationImageAdmin)
 
-    # SubTasl  [3]: GateInstallation Subtask //////////////////
-
 class RazorElectricFenceSubtaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'task_id', 'razorelectricfance_image_1', 'razorelectricfance_image_2', 'razorelectricfance_image_3', 'razorelectricfance_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'task_id', 'razorelectricfance_image_1', 'razorelectricfance_image_2', 'razorelectricfance_image_3', 'razorelectricfance_comment','start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -517,9 +471,8 @@ class RazorElectricFenceSubtaskAdmin(admin.ModelAdmin):
 
 admin.site.register(RazorElectricFenceSubtask, RazorElectricFenceSubtaskAdmin)
 
-
 class RazorElectricFenceDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','work_day','casuals_list','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     list_filter = ('sub_task','work_day')
     search_fields = ('sub_task', )
@@ -536,10 +489,6 @@ class RazorElectricFenceImageAdmin(admin.ModelAdmin):
 
 admin.site.register(RazorElectricFenceImage, RazorElectricFenceImageAdmin)
 
-
-
-
-
 class BoundaryWallTaskAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'team_task_id', 'foundation_foot_pouring', 'block_construction', 'gate_installation', 'razor_electric_fence','boundary_wall_comment','engineers', 'names_of_engineers', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
@@ -550,7 +499,6 @@ class BoundaryWallTaskAdmin(admin.ModelAdmin):
 
 admin.site.register(BoundaryWallTask, BoundaryWallTaskAdmin)
 # ####################################### END###########################################################################################################################
-
 
 # #######################################  TOWER & ANTENNA_COAX ###########################################################################################################################
 
@@ -565,7 +513,7 @@ class TowerErectionSubtaskAdmin(admin.ModelAdmin):
 admin.site.register(TowerErectionSubtask, TowerErectionSubtaskAdmin)
 
 class TowerErectionDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     list_filter = ('sub_task','work_day')
     search_fields = ('sub_task', )
@@ -584,7 +532,7 @@ admin.site.register(TowerErectionImage, TowerErectionImageAdmin)
 
 ####
 class TowerPaintSubtaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'task_id', 'tower_painting_image_1', 'tower_painting_image_2', 'tower_painting_image_3', 'tower_painting_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost','engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'task_id', 'tower_painting_image_1', 'tower_painting_image_2', 'tower_painting_image_3', 'tower_painting_comment','start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -594,7 +542,7 @@ class TowerPaintSubtaskAdmin(admin.ModelAdmin):
 admin.site.register(TowerPaintSubtask, TowerPaintSubtaskAdmin)
 
 class TowerPaintDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','work_day','casuals_list','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     list_filter = ('sub_task','work_day')
     search_fields = ('sub_task', )
@@ -613,7 +561,7 @@ admin.site.register(TowerPaintImage, TowerPaintImageAdmin)
 #####
 
 class CableWaysSubtaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'task_id', 'cable_ways_image_1', 'cable_ways_image_2', 'cable_ways_image_3','cable_ways_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost','engineers_cost', 'start_date','end_date','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'task_id', 'cable_ways_image_1', 'cable_ways_image_2', 'cable_ways_image_3','cable_ways_comment','start_date','end_date','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -623,7 +571,7 @@ class CableWaysSubtaskAdmin(admin.ModelAdmin):
 admin.site.register(CableWaysSubtask, CableWaysSubtaskAdmin)
 
 class CableWaysDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     list_filter = ('sub_task','work_day')
     search_fields = ('sub_task', )
@@ -641,7 +589,7 @@ class CableWaysImageAdmin(admin.ModelAdmin):
 admin.site.register(CableWaysImage, CableWaysImageAdmin)
 
 class AntennaCoaxInstallSubtaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'task_id', 'antenna_coax_installation_image_1', 'antenna_coax_installation_image_2', 'antenna_coax_installation_image_3', 'antenna_coax_installation_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost','engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'task_id', 'antenna_coax_installation_image_1', 'antenna_coax_installation_image_2', 'antenna_coax_installation_image_3', 'antenna_coax_installation_comment','start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -651,7 +599,7 @@ class AntennaCoaxInstallSubtaskAdmin(admin.ModelAdmin):
 admin.site.register(AntennaCoaxInstallSubtask, AntennaCoaxInstallSubtaskAdmin)
 
 class AntennaCoaxInstallDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','work_day','casuals_list','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     list_filter = ('sub_task','work_day')
     search_fields = ('sub_task', )
@@ -668,8 +616,6 @@ class AntennaCoaxInstallImageAdmin(admin.ModelAdmin):
 
 admin.site.register(AntennaCoaxInstallImage,AntennaCoaxInstallImageAdmin)
 
-
-# TASK
 class TowerAntennaCoaxTaskAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'team_task_id', 'tower_erection', 'tower_painting', 'cable_ways', 'antenna_coax_installation','tower_antenna_coax_comment','engineers', 'names_of_engineers', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
@@ -683,7 +629,7 @@ admin.site.register(TowerAntennaCoaxTask, TowerAntennaCoaxTaskAdmin)
 # ####################################### END###########################################################################################################################
 
 class BTSinstallationTaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'task_id', 'no_of_casuals', 'names_of_casuals', 'casuals_cost','engineers_cost',  'start_date', 'BTSinstallation_image_1', 'BTSinstallation_image_2', 'BTSinstallation_image_3', 'BTSinstallation_comment',
+    list_display = ('id', 'project_name', 'task_id', 'start_date', 'BTSinstallation_image_1', 'BTSinstallation_image_2', 'BTSinstallation_image_3', 'BTSinstallation_comment',
                      'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -694,7 +640,7 @@ admin.site.register(BTSinstallationTask, BTSinstallationTaskAdmin)
 
 
 class MWInstallationTaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'task_id', 'no_of_casuals', 'names_of_casuals', 'casuals_cost','engineers_cost',  'start_date','mWinstallation_image_1', 'mWinstallation_image_2', 'mWinstallation_image_3', 'mWinstallation_comment',
+    list_display = ('id', 'project_name', 'task_id','start_date','mWinstallation_image_1', 'mWinstallation_image_2', 'mWinstallation_image_3', 'mWinstallation_comment',
                      'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -704,7 +650,7 @@ class MWInstallationTaskAdmin(admin.ModelAdmin):
 admin.site.register(MWInstallationTask, MWInstallationTaskAdmin)
 
 class MWInstallationTaskDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','work_day','casuals_list','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     list_filter = ('sub_task','work_day')
     search_fields = ('sub_task', )
@@ -721,9 +667,6 @@ class MWInstallationTaskImageAdmin(admin.ModelAdmin):
 
 admin.site.register(MWInstallationTaskImage,MWInstallationTaskImageAdmin)
 
-
-
-
 class TelecomTaskAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'team_task_id', 'engineers', 'names_of_engineers', 'Installation_of_BTS', 'Installation_of_MW_links', 'link_commissioning', 'is_approved',
                      'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
@@ -737,7 +680,7 @@ admin.site.register(TelecomTask, TelecomTaskAdmin)
 
 
 class UndergroundTaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'task_id', 'days_list','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost',  'start_date', 'underground_ducting_and_manholes_image_1', 'underground_ducting_and_manholes_image_2', 'underground_ducting_and_manholes_image_3', 'underground_ducting_and_manholes_images_comment',
+    list_display = ('id', 'project_name', 'task_id', 'days_list','start_date', 'underground_ducting_and_manholes_image_1', 'underground_ducting_and_manholes_image_2', 'underground_ducting_and_manholes_image_3', 'underground_ducting_and_manholes_images_comment',
                      'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -748,7 +691,7 @@ class UndergroundTaskAdmin(admin.ModelAdmin):
 admin.site.register(UndergroundTask, UndergroundTaskAdmin)
 
 class UndergroundTaskDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','work_day','image_list','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','work_day','image_list','casuals_list','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     list_filter = ('sub_task','work_day')
     search_fields = ('sub_task', )
@@ -768,7 +711,7 @@ admin.site.register(UndergroundTaskImage,UndergroundTaskImageAdmin)
 #Reticulation
 
 class ReticulationAPSinstallationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'task_id', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost',  'start_date', 'electricalreticulation_APSInstallation_image_1', 'electricalreticulation_APSInstallation_image_2', 'electricalreticulation_APSInstallation_image_3', 'electricalreticulation_APSInstallation_images_comment',
+    list_display = ('id', 'project_name', 'task_id','start_date', 'electricalreticulation_APSInstallation_image_1', 'electricalreticulation_APSInstallation_image_2', 'electricalreticulation_APSInstallation_image_3', 'electricalreticulation_APSInstallation_images_comment',
                      'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -778,7 +721,7 @@ class ReticulationAPSinstallationAdmin(admin.ModelAdmin):
 admin.site.register(ReticulationAPSinstallation, ReticulationAPSinstallationAdmin)
 
 class ReticulationAPSinstallationDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','work_day','casuals_list','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     list_filter = ('sub_task','work_day')
     search_fields = ('sub_task', )
@@ -797,7 +740,7 @@ admin.site.register(ReticulationAPSinstallationImage,ReticulationAPSinstallation
 
 # ELECTRICAL E
 class ElectricalEarthingAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'task_id', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date', 'earthing_connections_and_testing_image_1', 'earthing_connections_and_testing_image_2', 'earthing_connections_and_testing_image_3', 'earthing_connections_and_testing_images_comment',
+    list_display = ('id', 'project_name', 'task_id', 'earthing_connections_and_testing_image_1', 'earthing_connections_and_testing_image_2', 'earthing_connections_and_testing_image_3', 'earthing_connections_and_testing_images_comment',
                      'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -808,7 +751,7 @@ class ElectricalEarthingAdmin(admin.ModelAdmin):
 admin.site.register(ElectricalEarthing, ElectricalEarthingAdmin)
 
 class ElectricalEarthingDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     list_filter = ('sub_task','work_day')
     search_fields = ('sub_task', )
@@ -828,7 +771,7 @@ admin.site.register(ElectricalEarthingImage,ElectricalEarthingImageAdmin)
 ## Generator
 
 class GeneratorInstallationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'task_id', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost',  'start_date', 'Generator_and_Fuel_Tank_Installation_image_1', 'Generator_and_Fuel_Tank_Installation_image_2', 'Generator_and_Fuel_Tank_Installation_image_3', 'before_fuel_image_1',
+    list_display = ('id', 'project_name', 'task_id', 'start_date', 'Generator_and_Fuel_Tank_Installation_image_1', 'Generator_and_Fuel_Tank_Installation_image_2', 'Generator_and_Fuel_Tank_Installation_image_3', 'before_fuel_image_1',
                     'before_fuel_image_2', 'after_fuel_image_1', 'after_fuel_image_2', 'Generator_and_Fuel_Tank_Installation_comment', 'start_date','end_date','raise_flag', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -839,7 +782,7 @@ class GeneratorInstallationAdmin(admin.ModelAdmin):
 admin.site.register(GeneratorInstallation, GeneratorInstallationAdmin)
 
 class GeneratorInstallationDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     list_filter = ('sub_task','work_day')
     search_fields = ('sub_task', )
@@ -859,7 +802,7 @@ admin.site.register(GeneratorInstallationImage,GeneratorInstallationImageAdmin)
 
 # KPLC Subtask
 class KPLCSolarSubtaskAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'task_id', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost',  'start_date', 'kplc_solar_installation_image_1', 'kplc_solar_installation_image_2', 'kplc_solar_installation_image_3', 'kplc_solar_installation_comment',
+    list_display = ('id', 'project_name', 'task_id','start_date', 'kplc_solar_installation_image_1', 'kplc_solar_installation_image_2', 'kplc_solar_installation_image_3', 'kplc_solar_installation_comment',
                      'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -870,7 +813,7 @@ class KPLCSolarSubtaskAdmin(admin.ModelAdmin):
 admin.site.register(KPLCSolarSubtask, KPLCSolarSubtaskAdmin)
 
 class KPLCSolarDateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','work_day','casuals_list', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','work_day','casuals_list', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     list_filter = ('sub_task','work_day')
     search_fields = ('sub_task', )
@@ -935,17 +878,17 @@ class IssueAdmin(admin.ModelAdmin):
 admin.site.register(Issue, IssueAdmin)
 
 
-# class InstallationTeamAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'project_name', 'health_documents_installation', 'electrical_tasks_data',
-#                     'telecom_tasks_data', 'as_built', 'signoff', 'signoff_comment','rfi_document','rfi_document_comment', 'integration_parameter', 'integration_parameter_comment', 'snag_document', 'snag_document_comment',
-#                     'project_issues', 'conditional_acceptance_cert', 'conditional_acceptance_cert_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
-#     list_display_links = ('project_name', )
-#     list_filter = ('project_name',)
-#     search_fields = ('project_name', )
-#     list_editable = ('is_active',)
+class InstallationTeamAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'health_documents_installation', 'electrical_tasks_data',
+                    'telecom_tasks_data', 'as_built', 'signoff', 'signoff_comment','rfi_document','rfi_document_comment', 'integration_parameter', 'integration_parameter_comment', 'snag_document', 'snag_document_comment',
+                    'project_issue', 'conditional_acceptance_cert', 'conditional_acceptance_cert_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
 
 
-# admin.site.register(InstallationTeam, InstallationTeamAdmin)
+admin.site.register(InstallationTeam, InstallationTeamAdmin)
 
 
 class WarrantyCertificateAdmin(admin.ModelAdmin):

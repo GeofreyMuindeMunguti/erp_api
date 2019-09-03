@@ -11,8 +11,8 @@ class FttsSiteInline(admin.TabularInline):
 
 class FTTSProjectAdmin(admin.ModelAdmin):
 
-    list_display = ['id','project_name','ftts_activation','ftts_activation_comment','ftts_final_acceptance_cert','ftts_final_acceptance_cert_comment',
-                    'ftts_sites_count','sites_list','start_date','end_date','posted_by', 'created_at', 'updated_at', 'is_active']
+    list_display = ['id','project_name','ftts_activation','ftts_activation_comment','ftts_sites_count','sites_list',
+                    'start_date','end_date','posted_by', 'created_at', 'updated_at', 'is_active']
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)
@@ -84,6 +84,15 @@ class FttsProcurementTeamAdmin(admin.ModelAdmin):
 
 admin.site.register(FttsProcurementTeam, FttsProcurementTeamAdmin)
 
+class FttsCertificatesAdmin(admin.ModelAdmin):
+    list_display = ('id','site_name', 'ftts_snag_document','ftts_snag_document_comment','ftts_crq_ticketno','ftts_crq_document','ftts_crq_comment', 'ftts_final_acceptance_cert', 'ftts_final_acceptance_cert_comment', 'ftts_operational_acceptance_cert','ftts_operational_acceptance_cert_comment',
+                'ftts_homepass_acceptance_cert','ftts_homepass_acceptance_cert_comment','ftts_conditional_acceptance_cert','ftts_conditional_acceptance_cert_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('site_name', )
+    search_fields = ('site_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(FttsCertificates, FttsCertificatesAdmin)
+
 ######################################################## FIBER CIVIL TEAM ########################################################################################################################################################################################
 class SiteTrenchingImageAdmin(admin.ModelAdmin):
     list_display = ('id', 'day_image','site_trenching_image_1', 'site_trenching_comment','created_at', 'updated_at', 'is_active')
@@ -143,7 +152,7 @@ class ManHoleInstallationImageAdmin(admin.ModelAdmin):
 admin.site.register(ManHoleInstallationImage, ManHoleInstallationImageAdmin)
 
 class DailyManHoleInstallationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','no_of_casuals', 'casuals_list','work_day','distance_manhole', 'manhole_comment','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','no_of_casuals', 'casuals_list','work_day','manhole_installed', 'manhole_comment','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     search_fields = ('sub_task', )
     list_editable = ('is_active',)
@@ -151,7 +160,7 @@ class DailyManHoleInstallationAdmin(admin.ModelAdmin):
 admin.site.register(DailyManHoleInstallation, DailyManHoleInstallationAdmin)
 
 class ManHoleInstallationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','ftts_task_id','start_date','end_date','site_manhole_distance','manhole_image_1','manhole_image_2','manhole_image_3','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','ftts_task_id','start_date','end_date','site_manhole_installed','manhole_image_1','manhole_image_2','manhole_image_3','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
@@ -224,7 +233,7 @@ class SiteTerminalInHseImageAdmin(admin.ModelAdmin):
 admin.site.register(SiteTerminalInHseImage, SiteTerminalInHseImageAdmin)
 
 class DailySiteTerminalInHseAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','no_of_casuals', 'casuals_list','work_day','distance_terminal', 'terminal_comment','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','no_of_casuals', 'casuals_list','work_day','terminal_odf_no', 'terminal_comment','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     search_fields = ('sub_task', )
     list_editable = ('is_active',)
@@ -237,6 +246,7 @@ class SiteTerminalInHseAdmin(admin.ModelAdmin):
     readonly_fields = ['created_at', 'updated_at', 'is_active']
 
 admin.site.register(SiteTerminalInHse, SiteTerminalInHseAdmin)
+
 """END"""
 
 class SiteInterceptionImageAdmin(admin.ModelAdmin):
@@ -293,8 +303,8 @@ class FttsIssuesAdmin(admin.ModelAdmin):
 admin.site.register(FttsIssues, FttsIssuesAdmin)
 
 class FttsInstallationTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','ftts_terminal_in_hse', 'ftts_interception','ftts_integration','ftts_integration_comment','ftts_installation_team_comment','ftts_asbuit_received','ftts_asbuilt_comment','snag_document',
-                    'snag_document_comment','project_issues','conditional_acceptance_cert','conditional_acceptance_cert_comment', 'posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','ftts_terminal_in_hse', 'ftts_interception','ftts_integration','ftts_integration_comment','ftts_installation_team_comment','ftts_asbuit_received','ftts_asbuilt_comment',
+                    'project_issues', 'posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
@@ -339,4 +349,3 @@ class FTTSCasualDailyRegisterAdmin(admin.ModelAdmin):
     list_editable = ('is_active',)
 
 admin.site.register(FTTSCasualDailyRegister, FTTSCasualDailyRegisterAdmin)
-
