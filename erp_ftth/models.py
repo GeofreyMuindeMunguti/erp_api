@@ -61,7 +61,8 @@ class ftthSurvey(TimeStampModel,TimeTrackModel):
     ftth_interception_point = models.ForeignKey(FtthInterceptionPoint, on_delete=models.CASCADE, blank=True, null=True)
     site_latitude = models.FloatField()
     site_longitude = models.FloatField()
-    distance_from_ip = models.FloatField(blank=True, null=True)
+    distance_from_ip = models.FloatField(blank=True, null=True) #total
+    no_of_fdts = models.IntegerField(blank=True, null=True)
     survey_photos = models.ManyToManyField(ftthSurveyPhotos)
     high_level_design = models.FileField(upload_to='files/ftth/survey/highleveldesigns/%Y/%m/%d/', blank=True, null=True)
     county = models.ForeignKey(Location, on_delete=models.CASCADE, blank=True, null=True)
@@ -86,9 +87,24 @@ class FtthCommercialTeam(TimeStampModel):
     def __str__(self):
         return str(self.project_name)
 
+class FtthPoToSupplier(TimeStampModel):
+    project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE, blank=True)
+    ftth_duct = models.FileField(upload_to='files/ftth/ProcurementTeam/poduct/%Y/%m/%d/', blank=True, null=True)
+    ftth_cable = models.FileField(upload_to='files/ftth/ProcurementTeam/pocable/%Y/%m/%d/', blank=True, null=True)
+    ftth_manholes = models.FileField(upload_to='files/ftth/ProcurementTeam/pomanholes/%Y/%m/%d/', blank=True, null=True)
+    ftth_cabinets = models.FileField(upload_to='files/ftth/ProcurementTeam/pocabinets/%Y/%m/%d/', blank=True, null=True)
+    ftth_poles = models.FileField(upload_to='files/ftth/ProcurementTeam/popoles/%Y/%m/%d/', blank=True, null=True)
+    is_approved = models.BooleanField(default=False)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.project_name)
+
+
 class FtthProcurementTeam(TimeStampModel):
     project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE, blank=True)
     ftth_bom = models.FileField(upload_to='files/ftth/ProcurementTeam/bom/%Y/%m/%d/', blank=True, null=True)
+    po_to_supplier = models.OneToOneField(FtthPoToSupplier, on_delete=models.CASCADE, blank=True)
     ftth_initial_invoice = models.FileField(upload_to='files/ftth/ProcurementTeam/initialinvoice/%Y/%m/%d/', blank=True, null=True)
     # ftth_budget = models.FileField(upload_to='files/ftth/ProcurementTeam/budget/%Y/%m/%d/', blank=True, null=True)
     is_approved = models.BooleanField(default=False)
@@ -101,6 +117,9 @@ class FtthCertificates(TimeStampModel):
     project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE)
     ftth_snag_document = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/SafaricomTeamftth/snag/'), blank=True, null=True)
     ftth_snag_document_comment = models.CharField(max_length=100, blank=True, null=True)
+    ftth_crq_ticketno = models.IntegerField(blank=True, null=True)
+    ftth_crq_document = models.FileField(upload_to='files/SafaricomTeamftth/crq/%Y/%m/%d/', blank=True, null=True)
+    ftth_crq_comment = models.CharField(max_length=100, blank=True, null=True)
     ftth_final_acceptance_cert = models.FileField(upload_to=UploadToProjectDir(file_path ,'files/SafaricomTeamftth/finalcert/'), blank=True, null=True)
     ftth_final_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
     ftth_operational_acceptance_cert = models.FileField(upload_to=UploadToProjectDir(file_path ,'files/SafaricomTeamftth/opsacceptance/'), blank=True, null=True)
@@ -375,6 +394,8 @@ class FtthHealthDocumentsCivilTeam(TimeStampModel):
     attendance_form_comment = models.CharField(max_length=100, blank=True, null=True)
     OHS_risk_treatment_plan = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/CivilWorksTeam/ftth/OHSrtp/'))
     OHS_risk_treatment_plan_comment = models.CharField(max_length=100, blank=True, null=True)
+    incident_report = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/CivilWorksTeam/ftth/OHSrtp/'))
+    incident_report_comment = models.CharField(max_length=100, blank=True, null=True)
     health_documents_comment = models.CharField(max_length=100, blank=True, null=True)
     access_approval = models.OneToOneField(FtthAccessApprovalCivil, on_delete=models.CASCADE, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
@@ -443,6 +464,7 @@ class DailyFtthSplicingEnclosure(TimeStampModel):
 
 class FtthSplicingEnclosure(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE,related_name ='ftthsplicingenclosures')
+    splicing_encore_distance  = models.FloatField(default=0)
     ftth_splicing_encore_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingenclosure/%Y/%m/%d/')
     ftth_splicing_encore_image_2 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingenclosure/%Y/%m/%d/')
     ftth_splicing_encore_image_3 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingenclosuresplicingenclosure/%Y/%m/%d/')
@@ -835,6 +857,8 @@ class FtthHealthDocsInstallationTeam(TimeStampModel):
     hazard_analysis_form_comment = models.CharField(max_length=100, blank=True, null=True)
     attendance_form = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/InstallationTeamFtth/attendanceform/'))
     attendance_form_comment = models.CharField(max_length=100, blank=True, null=True)
+    incident_report = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/InstallationTeamFtth/ftth/OHSrtp/'))
+    incident_report_comment = models.CharField(max_length=100, blank=True, null=True)
     health_documents_comment = models.CharField(max_length=100, blank=True, null=True)
     access_approval = models.OneToOneField(FtthAccessApprovalInstallation, on_delete=models.CASCADE, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
@@ -859,8 +883,6 @@ class FtthInstallationTeam(TimeStampModel):
     ftth_splicing = models.OneToOneField(FtthSplicing, on_delete=models.CASCADE, blank=True, null=True)
     ftth_signal_testing = models.OneToOneField(FtthSignalTesting, on_delete=models.CASCADE, blank=True, null=True)
     ftth_issues = models.ManyToManyField(FtthIssues, blank=True)
-    ftth_crq_ticketno = models.IntegerField(blank=True, null=True)
-    ftth_crq_document = models.FileField(upload_to='files/SafaricomTeamftth/crq/%Y/%m/%d/', blank=True, null=True)
     ftth_asbuit_received = models.BooleanField(default=False)
     ftth_asbuilt_comment = models.CharField(max_length=200, blank=True, null=True)
     ftth_network_activation = models.BooleanField(default=False)
