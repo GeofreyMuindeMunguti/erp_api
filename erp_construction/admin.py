@@ -61,7 +61,6 @@ class AccessApprovalInstallationAdmin(admin.ModelAdmin):
 
 admin.site.register(AccessApprovalInstallation, AccessApprovalInstallationAdmin)
 
-
 class ProjectCostingAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'project_costing_file', 'material_cost',
                     'labour_cost', 'total_projected_cost', 'is_approved',

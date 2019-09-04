@@ -56,7 +56,7 @@ admin.site.register(fttsSurveyPhotos, fttsSurveyPhotosAdmin)
 
 
 class fttsSurveyAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name', 'start_date', 'end_date', 'ftts_interception_point', 'site_latitude', 'site_longitude', 'distance_from_ip', 'high_level_design', 'county','survey_comment', 'posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name', 'start_date', 'end_date', 'raise_flag','ftts_interception_point', 'site_latitude', 'site_longitude', 'distance_from_ip', 'high_level_design', 'county','survey_comment', 'posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
@@ -111,7 +111,7 @@ class DailySiteTrenchingAdmin(admin.ModelAdmin):
 admin.site.register(DailySiteTrenching, DailySiteTrenchingAdmin)
 
 class SiteTrenchingAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','ftts_task_id', 'start_date','end_date','site_trenched_distance','site_trenching_image_1', 'site_trenching_image_2','site_trenching_image_3', 'site_trenching_comment','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','ftts_task_id', 'start_date','end_date','raise_flag','site_trenched_distance','site_trenching_image_1', 'site_trenching_image_2','site_trenching_image_3', 'site_trenching_comment','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
@@ -135,7 +135,7 @@ class DailySiteDuctInstallationAdmin(admin.ModelAdmin):
 admin.site.register(DailySiteDuctInstallation, DailySiteDuctInstallationAdmin)
 
 class SiteDuctInstallationAdmin(admin.ModelAdmin):
-    list_display = ('id','site_name','ftts_task_id','start_date','end_date','site_duct_distance','site_duct_installation_image_1','site_duct_installation_image_2', 'site_duct_installation_image_3', 'site_duct_installation_comment','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display = ('id','site_name','ftts_task_id','start_date','end_date','raise_flag','site_duct_distance','site_duct_installation_image_1','site_duct_installation_image_2', 'site_duct_installation_image_3', 'site_duct_installation_comment','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
@@ -160,7 +160,7 @@ class DailyManHoleInstallationAdmin(admin.ModelAdmin):
 admin.site.register(DailyManHoleInstallation, DailyManHoleInstallationAdmin)
 
 class ManHoleInstallationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','ftts_task_id','start_date','end_date','site_manhole_installed','manhole_image_1','manhole_image_2','manhole_image_3','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','ftts_task_id','start_date','end_date','raise_flag','site_manhole_installed','manhole_image_1','manhole_image_2','manhole_image_3','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
@@ -186,7 +186,7 @@ admin.site.register(DailySiteCableInstallation, DailySiteCableInstallationAdmin)
 
 class SiteCableInstallationAdmin(admin.ModelAdmin):
 
-    list_display = ['id','site_name','ftts_task_id','start_date','end_date','site_cable_distance','site_cable_installation_image_1','site_cable_installation_image_2','site_cable_installation_image_3','site_cable_installation_comment', 'raise_flag','created_at', 'updated_at', 'is_active']
+    list_display = ['id','site_name','ftts_task_id','start_date','end_date','raise_flag','site_cable_distance','site_cable_installation_image_1','site_cable_installation_image_2','site_cable_installation_image_3','site_cable_installation_comment', 'raise_flag','created_at', 'updated_at', 'is_active']
     readonly_fields = ['created_at', 'updated_at', 'is_active']
 
 admin.site.register(SiteCableInstallation, SiteCableInstallationAdmin)
@@ -213,7 +213,7 @@ class FttsHealthDocumentsCivilTeamAdmin(admin.ModelAdmin):
 admin.site.register(FttsHealthDocumentsCivilTeam, FttsHealthDocumentsCivilTeamAdmin)
 
 class FttsCivilTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','ftts_trenching','ftts_duct_installation', 'ftts_cable_installation','ftts_manhole_installation','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','ftts_trenching','raise_flag','ftts_duct_installation', 'ftts_cable_installation','ftts_manhole_installation','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
@@ -242,7 +242,7 @@ admin.site.register(DailySiteTerminalInHse, DailySiteTerminalInHseAdmin)
 
 class SiteTerminalInHseAdmin(admin.ModelAdmin):
 
-    list_display = ['id','site_name','ftts_task_id','start_date','end_date','site_terminal_in_hse_image_1','site_terminal_in_hse_image_2','site_terminal_in_hse_image_3','site_terminal_in_hse_comment','raise_flag','created_at', 'updated_at', 'is_active']
+    list_display = ['id','site_name','ftts_task_id','start_date','end_date','raise_flag','site_terminal_in_hse_image_1','site_terminal_in_hse_image_2','site_terminal_in_hse_image_3','site_terminal_in_hse_comment','raise_flag','created_at', 'updated_at', 'is_active']
     readonly_fields = ['created_at', 'updated_at', 'is_active']
 
 admin.site.register(SiteTerminalInHse, SiteTerminalInHseAdmin)
@@ -266,7 +266,7 @@ class DailySiteInterceptionAdmin(admin.ModelAdmin):
 admin.site.register(DailySiteInterception, DailySiteInterceptionAdmin)
 
 class SiteInterceptionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','ftts_task_id','site_interception_distance','manhole','start_date','end_date','site_interception_image_1', 'site_interception_image_2','site_interception_image_3', 'site_interception_comment','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','ftts_task_id','raise_flag','site_interception_distance','manhole','start_date','end_date','site_interception_image_1', 'site_interception_image_2','site_interception_image_3', 'site_interception_comment','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)

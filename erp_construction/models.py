@@ -234,6 +234,7 @@ class BtsBudget(models.Model):
     def amount(self):
         return float(self.quantity * self.rate)
 ####################################### END ########################################################################################################################################
+
 # TASK [1]: FOUNDATION CREATION TASK ########################################################################################################################################
 class SiteClearingImage(TimeStampModel):
     day_image = models.ForeignKey('SiteClearingDate', on_delete=models.CASCADE ,related_name= 'siteclearingimages' )

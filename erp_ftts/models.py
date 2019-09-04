@@ -1,7 +1,7 @@
 from django.db import models
+from erp_core.models import *
 from erp_core.models import Project as CreateProject
 from erp_core.base import *
-from erp_core.models import *
 from erp_construction.models import *
 from users.models import *
 from django.contrib.postgres.fields import ArrayField
@@ -52,6 +52,69 @@ class FttsSite(TimeStampModel):
 
     class Meta:
         unique_together = (['site_name', 'ftts_project',])
+
+"""FIBER"""
+
+####################################### FIBER KPI ###############################################################################################################################
+class FttsKpi(TimeStampModel):
+    kpi = models.IntegerField(blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    is_approved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.kpi)
+
+######################################## END #######################################################################################################################################
+
+####################################### TASKS ###############################################################################################################################
+class FttsTask(TimeStampModel):
+    category_name = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    task_name = models.CharField(blank=True, null=True, max_length=150, unique=True)
+    kpi = models.IntegerField(blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    is_approved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.task_name)
+
+######################################## END #######################################################################################################################################
+
+####################################### SUBTASKS ###############################################################################################################################
+class FttsSubTask(TimeStampModel):
+    task_name = models.ForeignKey(FttsTask, on_delete=models.DO_NOTHING)
+    subtask_name = models.CharField(blank=True, null=True, max_length=150, unique=True)
+    kpi = models.IntegerField(blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    is_approved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.subtask_name)
+
+######################################## END #######################################################################################################################################
+"""END"""
+
+####################################### BUDGET ########################################################################################################################################
+
+class FiberBudget(TimeStampModel):
+    site_name = models.OneToOneField(FttsSite, on_delete=models.DO_NOTHING, blank=True, null=True)
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.DO_NOTHING, blank=True, null=True)
+    beneficiary_name = models.CharField(max_length=100, blank=True, null=True)
+    description = models.CharField(max_length=350, blank=True, null=True)
+    date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    phoneNumber = models.CharField(max_length=100, blank=True, null=True)
+    quantity = models.IntegerField(blank=True, null=True)
+    rate = models.IntegerField(blank=True, null=True)
+    unit = models.IntegerField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+    is_approved = models.BooleanField(default=False, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.beneficiary_name)
+
+    def amount(self):
+        return float(self.quantity * self.rate)
+####################################### END ########################################################################################################################################
 
 ##########################################SURVEY DETAILS################################################################################################################################################################33
 class ManHole(TimeStampModel):
@@ -116,6 +179,34 @@ class fttsSurvey(TimeStampModel,TimeTrackModel):
     def __str__(self):
         return str(self.site_name)
 
+    def raise_flag(self):
+        try:
+            kpi_data = FttsTask.objects.get(task_name='Survey Task')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
 ##############################################END OF FTTH SURVEY#############################################33
 
 class FttsCommercialTeam(TimeStampModel):
@@ -124,9 +215,6 @@ class FttsCommercialTeam(TimeStampModel):
     ftts_po_requisition = models.FileField(upload_to=UploadToProjectDir(file_path,'files/CommercialTeam/requisition/'), blank=True, null=True)
     ftts_po_requisition_no = models.IntegerField(blank=True, null=True)
     ftts_po_requisition_amount = models.IntegerField(blank=True, null=True)
-    ftts_crq_ticketno = models.IntegerField(blank=True, null=True)
-    ftts_crq_document = models.FileField(upload_to='files/SafaricomTeamftth/crq/%Y/%m/%d/', blank=True, null=True)
-    ftts_crq_comment = models.CharField(max_length=100, blank=True, null=True)
     ftts_wayleave_application = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/CommercialTeam/wayleaveapplication/'), blank=True, null=True)
     ftts_project_plan = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/CommercialTeam/projectplan/'), blank=True, null=True)
     ftts_initial_invoice = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/CommercialTeam/initialinvoice/'), blank=True, null=True)
@@ -239,7 +327,7 @@ class SiteTrenching(TimeStampModel,TimeTrackModel):
 
     def raise_flag(self):
         try:
-            kpi_data = FiberSubTask.objects.get(task_name='Upload Site Trenching Images')
+            kpi_data = FttsSubTask.objects.get(subtask_name='Upload Site Trenching Images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -264,6 +352,7 @@ class SiteTrenching(TimeStampModel,TimeTrackModel):
 
         except Exception as e:
             return e
+
 """END"""
 
 class SiteDuctInstallationImage(TimeStampModel):
@@ -329,7 +418,7 @@ class SiteDuctInstallation(TimeStampModel,TimeTrackModel):
 
     def raise_flag(self):
         try:
-            kpi_data = FiberSubTask.objects.get(task_name='Upload Site Duct Installation Images')
+            kpi_data = FttsSubTask.objects.get(subtask_name='Upload Site Duct Installation Images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -419,7 +508,7 @@ class ManHoleInstallation(TimeStampModel,TimeTrackModel):
 
     def raise_flag(self):
         try:
-            kpi_data = FiberSubTask.objects.get(task_name='Upload Site Manhole Installation Images')
+            kpi_data = FttsSubTask.objects.get(subtask_name='Upload Site Manhole Installation Images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -509,7 +598,7 @@ class SiteCableInstallation(TimeStampModel,TimeTrackModel):
 
     def raise_flag(self):
         try:
-            kpi_data = FiberSubTask.objects.get(task_name='Upload Site Cable Installation Images')
+            kpi_data = FttsSubTask.objects.get(subtask_name='Upload Site Cable Installation Images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -687,7 +776,7 @@ class SiteTerminalInHse(TimeStampModel,TimeTrackModel):
 
     def raise_flag(self):
         try:
-            kpi_data = FiberSubTask.objects.get(task_name='Upload Site Terminal-In-House Images')
+            kpi_data = FttsSubTask.objects.get(subtask_name='Upload Site Terminal-In-House Images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -778,7 +867,7 @@ class SiteInterception(TimeStampModel,TimeTrackModel):
 
     def raise_flag(self):
         try:
-            kpi_data = FiberSubTask.objects.get(task_name='Upload Site Interception Images')
+            kpi_data = FttsSubTask.objects.get(subtask_name='Upload Site Interception Images')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
