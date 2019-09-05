@@ -650,6 +650,7 @@ class DailyFtthSplicingEnclosure(TimeStampModel):
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
     casuals_list = models.FileField(upload_to='files/ftth/Casuals/splicingencore/%Y/%m/%d/',blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
+    splicing_encore_distance  = models.FloatField(default=0)
     splicingencore_date = models.DateField(unique =True, blank=True, null=True)
     splicingencore_comment = models.CharField(max_length=100, blank=True, null=True)
 
@@ -672,7 +673,6 @@ class DailyFtthSplicingEnclosure(TimeStampModel):
 
 class FtthSplicingEnclosure(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE,related_name ='ftthsplicingenclosures')
-    splicing_encore_distance  = models.FloatField(default=0)
     ftth_splicing_encore_image_1 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingenclosure/%Y/%m/%d/')
     ftth_splicing_encore_image_2 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingenclosure/%Y/%m/%d/')
     ftth_splicing_encore_image_3 = models.ImageField(upload_to='images/ftth/InstallationTeam/splicingenclosuresplicingenclosure/%Y/%m/%d/')

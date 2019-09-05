@@ -53,6 +53,205 @@ class FttsSite(TimeStampModel):
     class Meta:
         unique_together = (['site_name', 'ftts_project',])
 
+    def fttsstatus(self):
+        try:
+            if bool(FttsCertificates.ftts_final_acceptance_cert) is False:
+                site_status = "Open"
+            else:
+                site_status = "Closed"
+            return site_status
+        except Exception as e:
+            return e
+
+    def ftts_turn_around_time(self):
+        if bool(FttsCertificates.ftts_final_acceptance_cert) is False:
+            today = datetime.now(timezone.utc)
+            days = date_difference(self.created_at, today)
+        else:
+            days = date_difference(self.created_at, self.updated_at)
+        return days
+
+    def progress(self):
+        try:
+            category = Category.objects.get(category_name='FTTS Commercial Team')
+            category_id = category.id
+            automatic_total_comtasks = FttsTask.objects.filter(category_name=category_id).count()
+            completed_ctasks = 0
+            site_id = self.id
+            progress_object = FttsCommercialTeam.objects.get(site_name=site_id)
+            ftts_approved_quote = progress_object.ftts_quote
+            ftts_po = progress_object.ftts_po_data
+            fttsinitialinvoice = progress_object.ftts_initial_invoice
+            if bool(ftts_po) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            if bool(fttsinitialinvoice) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            if bool(ftts_approved_quote) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            commercial_percentage = ftts_percentage_function(completed_ctasks, automatic_total_comtasks)
+        except Exception as e:
+            commercial_percentage = 0
+
+        # PROGRESS FOR PROCUREMENTEAM
+        try:
+            category = Category.objects.get(category_name='FTTS Procurement Team')
+            category_id = category.id
+            automatic_total_protasks = FttsTask.objects.filter(category_name=category_id).count()
+            completed_ptasks = 0
+            site_id = self.id
+            progress_object = FttsProcurementTeam.objects.get(site_name=site_id)
+            site_material_requisition = progress_object.ftts_material_requisition
+            site_po_subcontractors = progress_object.ftts_po_subcontractors
+            ftts_po_quote_serviceno = progress_object.ftts_po_quote_serviceno
+            if bool(site_material_requisition) is False:
+                completed_ptasks += 0
+            else:
+                completed_ptasks += 1
+            if bool(site_po_subcontractors) is False:
+                completed_ptasks += 0
+            else:
+                completed_ptasks += 1
+            if bool(ftts_po_quote_serviceno) is False:
+                completed_ptasks += 0
+            else:
+                completed_ptasks += 1
+            procurement_percentage = percentage_function(completed_ptasks, automatic_total_protasks)
+        except Exception as e:
+            procurement_percentage = 0
+
+        #PROGRESS FOR CIVIL TEAM
+        try:
+            category = Category.objects.get(category_name='FTTS Civil Team')
+            category_id = category.id
+            automatic_total_civtasks = FttsTask.objects.filter(category_name=category_id).count()
+            completed_cltasks = 0
+            site_id = self.id
+            progress_object = FttsCivilTeam.objects.get(site_name=site_id)
+            ftts_trenching = progress_object.ftts_trenching
+            ftts_duct_installation = progress_object.ftts_duct_installation
+            ftts_cable_installation = progress_object.ftts_cable_installation
+            ftts_manhole_installation = progress_object.ftts_manhole_installation
+            if bool(ftts_trenching) is False:
+                completed_cltasks += 0
+            else:
+                completed_cltasks += 1
+            if bool(ftts_duct_installation) is False:
+                completed_cltasks += 0
+            else:
+                completed_cltasks += 1
+            if bool(ftts_cable_installation) is False:
+                completed_cltasks += 0
+            else:
+                completed_cltasks += 1
+            if bool(ftts_manhole_installation) is False:
+                completed_cltasks += 0
+            else:
+                completed_cltasks += 1
+            civil_percentage = percentage_function(completed_cltasks, automatic_total_civtasks)
+        except Exception as e:
+            civil_percentage = 0
+
+        #PROGRESS FOR INSTALLATION TEAM
+        try:
+            category = Category.objects.get(category_name='FTTS Installation Team')
+            category_id = category.id
+            automatic_total_instasks = FttsTask.objects.filter(category_name=category_id).count()
+            completed_intasks = 0
+            site_id = self.id
+            progress_object = FttsInstallationTeam.objects.get(site_name=site_id)
+            ftts_terminal_in_hse = progress_object.ftts_terminal_in_hse
+            ftts_interception = progress_object.ftts_interception
+            ftts_integration = progress_object.ftts_integration
+            if bool(ftts_terminal_in_hse) is False:
+                completed_intasks += 0
+            else:
+                completed_intasks += 1
+            if bool(ftts_interception) is False:
+                completed_intasks += 0
+            else:
+                completed_intasks += 1
+            if bool(ftts_integration) is False:
+                completed_intasks += 0
+            else:
+                completed_intasks += 1
+            installation_percentage = percentage_function(completed_intasks, automatic_total_instasks)
+        except Exception as e:
+            installation_percentage = 0
+
+        project_percentage = ((commercial_percentage + civil_percentage + procurement_percentage + installation_percentage )/4)
+
+        return project_percentage
+
+class FttsProjectPurchaseOrder(TimeStampModel):
+    site_name = models.OneToOneField(FTTSProject, on_delete=models.CASCADE,related_name ='projectpurchaseorders')
+    ftts_po_requisition = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/CommercialTeam/requisition/'), blank=True, null=True)
+    ftts_po_requisition_no = models.IntegerField(blank=True, null=True)
+    ftts_po_requisition_amount = models.IntegerField(blank=True, null=True)
+    ftts_po_client = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/CommercialTeam/poclient/'), blank=True, null=True)
+    ftts_po_client_no = models.IntegerField(blank=True, null=True)
+    ftts_po_client_amount = models.IntegerField(blank=True, null=True)
+    is_approved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.site_name)
+
+    def FttstotalPOS(self):
+        count = self.ftts_po_client.objects.all().count()
+        return count
+
+class FttsCommercialTeam(TimeStampModel):
+    site_name = models.OneToOneField(FTTSProject, on_delete=models.CASCADE,related_name ='fttscommercialteams')
+    ftts_quote = models.FileField(upload_to=UploadToProjectDir(file_path ,'files/CommercialTeam/quote/'), blank=True, null=True)
+    ftts_po_data = models.OneToOneField(FttsProjectPurchaseOrder, on_delete=models.CASCADE, blank=True, null=True)
+    ftts_wayleave_application = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/CommercialTeam/wayleaveapplication/'), blank=True, null=True)
+    ftts_project_plan = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/CommercialTeam/projectplan/'), blank=True, null=True)
+    ftts_initial_invoice = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/CommercialTeam/initialinvoice/'), blank=True, null=True)
+    ftts_accumulated_BOM_survey = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'FTTS/files/accumulatedBOM/'), blank=True, null=True)
+    ftts_accumulated_BOM_survey_comment = models.CharField(max_length=100, blank=True, null=True)
+    is_approved = models.BooleanField(default=False)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.site_name)
+
+class FttsProcurementTeam(TimeStampModel):
+    site_name = models.OneToOneField(FTTSProject, on_delete=models.CASCADE)
+    ftts_material_requisition = models.FileField(upload_to=UploadToProjectDir(file_path,'files/CommercialTeam/materialrequisition/'), blank=True, null=True)
+    ftts_po_quote_serviceno = models.IntegerField(blank=True, null=True)
+    ftts_po_quote_serviceamount = models.IntegerField(blank=True, null=True)
+    ftts_po_subcontractors = models.FileField(upload_to=UploadToProjectDir(file_path,'files/CommercialTeam/posubcontractors/'), blank=True, null=True)
+    ftts_po_quote_subconamount = models.IntegerField(blank=True, null=True)
+    ftts_po_quote_subconno = models.IntegerField(blank=True, null=True)
+    is_approved = models.BooleanField(default=False)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.site_name)
+
+class FttsCertificates(TimeStampModel):
+    site_name = models.OneToOneField(FTTSProject, on_delete=models.CASCADE)
+    ftts_snag_document = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/SafaricomTeamftts/snag/'), blank=True, null=True)
+    ftts_snag_document_comment = models.CharField(max_length=100, blank=True, null=True)
+    ftts_crq_ticketno = models.IntegerField(blank=True, null=True)
+    ftts_crq_document = models.FileField(upload_to='files/SafaricomTeamftth/crq/%Y/%m/%d/', blank=True, null=True)
+    ftts_crq_comment = models.CharField(max_length=100, blank=True, null=True)
+    ftts_final_acceptance_cert = models.FileField(upload_to=UploadToProjectDir(file_path ,'files/SafaricomTeamftts/finalcert/'), blank=True, null=True)
+    ftts_final_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
+    ftts_operational_acceptance_cert = models.FileField(upload_to=UploadToProjectDir(file_path ,'files/SafaricomTeamftts/opsacceptance/'), blank=True, null=True)
+    ftts_operational_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
+    ftts_conditional_acceptance_cert = models.FileField(upload_to=UploadToProjectDirSubTask(file_path ,'files/SafaricomTeamftts/conditionalcert/'), blank=True, null=True)
+    ftts_conditional_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.site_name)
+
 """FIBER FTTS TRACKING"""
 
 ####################################### FIBER KPI ###############################################################################################################################
@@ -208,60 +407,6 @@ class fttsSurvey(TimeStampModel,TimeTrackModel):
             return e
 
 ##############################################END OF FTTH SURVEY#############################################33
-
-class FttsCommercialTeam(TimeStampModel):
-    site_name = models.OneToOneField(FTTSProject, on_delete=models.CASCADE,related_name ='fttscommercialteams')
-    ftts_quote = models.FileField(upload_to=UploadToProjectDir(file_path ,'files/CommercialTeam/quote/'), blank=True, null=True)
-    ftts_po_requisition = models.FileField(upload_to=UploadToProjectDir(file_path,'files/CommercialTeam/requisition/'), blank=True, null=True)
-    ftts_po_requisition_no = models.IntegerField(blank=True, null=True)
-    ftts_po_requisition_amount = models.IntegerField(blank=True, null=True)
-    ftts_wayleave_application = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/CommercialTeam/wayleaveapplication/'), blank=True, null=True)
-    ftts_project_plan = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/CommercialTeam/projectplan/'), blank=True, null=True)
-    ftts_initial_invoice = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/CommercialTeam/initialinvoice/'), blank=True, null=True)
-    ftts_po_client = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/CommercialTeam/poclient/'), blank=True, null=True)
-    ftts_po_client_no = models.IntegerField(blank=True, null=True)
-    ftts_po_client_amount = models.IntegerField(blank=True, null=True)
-    ftts_accumulated_BOM_survey = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'FTTS/files/accumulatedBOM/'), blank=True, null=True)
-    ftts_accumulated_BOM_survey_comment = models.CharField(max_length=100, blank=True, null=True)
-    is_approved = models.BooleanField(default=False)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return str(self.site_name)
-
-class FttsProcurementTeam(TimeStampModel):
-    site_name = models.OneToOneField(FTTSProject, on_delete=models.CASCADE)
-    ftts_material_requisition = models.FileField(upload_to=UploadToProjectDir(file_path,'files/CommercialTeam/materialrequisition/'), blank=True, null=True)
-    ftts_po_quote_serviceno = models.IntegerField(blank=True, null=True)
-    ftts_po_quote_serviceamount = models.IntegerField(blank=True, null=True)
-    ftts_po_subcontractors = models.FileField(upload_to=UploadToProjectDir(file_path,'files/CommercialTeam/posubcontractors/'), blank=True, null=True)
-    ftts_po_quote_subconamount = models.IntegerField(blank=True, null=True)
-    ftts_po_quote_subconno = models.IntegerField(blank=True, null=True)
-    is_approved = models.BooleanField(default=False)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return str(self.site_name)
-
-class FttsCertificates(TimeStampModel):
-    site_name = models.OneToOneField(FTTSProject, on_delete=models.CASCADE)
-    ftts_snag_document = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/SafaricomTeamftts/snag/'), blank=True, null=True)
-    ftts_snag_document_comment = models.CharField(max_length=100, blank=True, null=True)
-    ftts_crq_ticketno = models.IntegerField(blank=True, null=True)
-    ftts_crq_document = models.FileField(upload_to='files/SafaricomTeamftth/crq/%Y/%m/%d/', blank=True, null=True)
-    ftts_crq_comment = models.CharField(max_length=100, blank=True, null=True)
-    ftts_final_acceptance_cert = models.FileField(upload_to=UploadToProjectDir(file_path ,'files/SafaricomTeamftts/finalcert/'), blank=True, null=True)
-    ftts_final_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
-    ftts_operational_acceptance_cert = models.FileField(upload_to=UploadToProjectDir(file_path ,'files/SafaricomTeamftts/opsacceptance/'), blank=True, null=True)
-    ftts_operational_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
-    ftts_homepass_acceptance_cert = models.FileField(upload_to=UploadToProjectDir(file_path ,'files/SafaricomTeamftts/opsacceptance/'), blank=True, null=True)
-    ftts_homepass_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
-    ftts_conditional_acceptance_cert = models.FileField(upload_to=UploadToProjectDirSubTask(file_path ,'files/SafaricomTeamftts/conditionalcert/'), blank=True, null=True)
-    ftts_conditional_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return str(self.site_name)
 
 ######################################################## FIBER CIVIL TEAM ########################################################################################################################################################################################
 class SiteTrenchingImage(TimeStampModel):
@@ -675,7 +820,7 @@ class FttsCivilTeam(TimeStampModel):
 
     def raise_flag(self):
         try:
-            kpi_data =FiberTask.objects.get(task_name='Civil Team')
+            kpi_data = FiberTask.objects.get(task_name='Civil Team')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -961,6 +1106,35 @@ class FttsInstallationTeam(TimeStampModel):
     def access_approvals(self):
         return [v.site_name for v in self.access_approvals_field.all()]
 
+
+    def raise_flag(self):
+        try:
+            kpi_data = FiberTask.objects.get(task_name='Installation Team')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
     def team_task_id(self):
         try:
             team = FttsInstallationTeam.objects.get(project_name=self.site_name)
@@ -968,6 +1142,11 @@ class FttsInstallationTeam(TimeStampModel):
             return team_id
         except Exception as e:
             return
+
+def date_difference(start_date, end_date):
+    diff = end_date - start_date
+    no_of_days = (diff.days + 1)
+    return no_of_days
 
 class FttsTeam(TimeStampModel):
     site_name = models.OneToOneField(FttsSite, on_delete=models.CASCADE)
@@ -979,6 +1158,10 @@ class FttsTeam(TimeStampModel):
     def __str__(self):
         return str(self.site_name)
 
+def ftts_percentage_function(no_of_complete, total_task):
+    """Function to return perecentage of progress  """
+    percentage = round(((no_of_complete/total_task) * 100))
+    return percentage
 ######################################################## END ################################################################################################################################################################################################
 
 ####DAILY ACTIVITY

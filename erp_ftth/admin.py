@@ -212,7 +212,7 @@ class FtthSplicingEnclosureImageAdmin(admin.ModelAdmin):
 admin.site.register(FtthSplicingEnclosureImage, FtthSplicingEnclosureImageAdmin)
 
 class DailyFtthSplicingEnclosureAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','splicingencore_date','splicingencore_comment','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','splicing_encore_distance','splicingencore_date','splicingencore_comment','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     search_fields = ('sub_task', )
     list_editable = ('is_active',)
@@ -221,7 +221,7 @@ admin.site.register(DailyFtthSplicingEnclosure, DailyFtthSplicingEnclosureAdmin)
 
 class FtthSplicingEnclosureAdmin(admin.ModelAdmin):
 
-    list_display = ('id','project_name','days_list','start_date','end_date','raise_flag','splicing_encore_distance','ftth_splicing_encore_image_1', 'ftth_splicing_encore_image_2','ftth_splicing_encore_image_3', 'ftth_splicing_encore_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id','project_name','days_list','start_date','end_date','raise_flag','ftth_splicing_encore_image_1', 'ftth_splicing_encore_image_2','ftth_splicing_encore_image_3', 'ftth_splicing_encore_comment','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)

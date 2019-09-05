@@ -24,14 +24,48 @@ class FTTSProjectAdmin(admin.ModelAdmin):
 admin.site.register(FTTSProject, FTTSProjectAdmin)
 
 class FttsSiteAdmin(admin.ModelAdmin):
-    list_display = ('id','site_name','location','created_at','posted_by',  'updated_at', 'is_active')
+    list_display = ('id','site_name','location', 'fttsstatus','ftts_turn_around_time','created_at','posted_by',  'updated_at', 'is_active')
     list_display_links = ('site_name',)
     search_fields = ('site_name',)
     list_editable = ('is_active',)
     readonly_fields = ['created_at', 'updated_at', 'is_active']
 
-
 admin.site.register(FttsSite, FttsSiteAdmin)
+
+class FttsProjectPurchaseOrderAdmin(admin.ModelAdmin):
+    list_display = ('id','site_name', 'ftts_po_requisition','ftts_po_requisition_no','ftts_po_requisition_amount','ftts_po_client','ftts_po_client_no',
+                    'ftts_po_client_amount','created_at', 'is_approved','updated_at', 'is_active')
+    list_display_links = ('site_name',)
+    search_fields = ('site_name',)
+    list_editable = ('is_active',)
+    readonly_fields = ['created_at', 'updated_at', 'is_active']
+
+admin.site.register(FttsProjectPurchaseOrder, FttsProjectPurchaseOrderAdmin)
+
+class FttsCommercialTeamAdmin(admin.ModelAdmin):
+    list_display = ('id', 'site_name','ftts_quote','ftts_wayleave_application', 'ftts_project_plan', 'ftts_initial_invoice','ftts_accumulated_BOM_survey','ftts_accumulated_BOM_survey_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('site_name', )
+    search_fields = ('site_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(FttsCommercialTeam, FttsCommercialTeamAdmin)
+
+class FttsProcurementTeamAdmin(admin.ModelAdmin):
+    list_display = ('id','site_name', 'ftts_material_requisition','ftts_po_quote_serviceno','ftts_po_quote_serviceamount', 'ftts_po_subcontractors', 'ftts_po_quote_subconamount','ftts_po_quote_subconno','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('site_name', )
+    search_fields = ('site_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(FttsProcurementTeam, FttsProcurementTeamAdmin)
+
+class FttsCertificatesAdmin(admin.ModelAdmin):
+    list_display = ('id','site_name','ftts_snag_document','ftts_snag_document_comment','ftts_crq_ticketno','ftts_crq_document','ftts_crq_comment', 'ftts_final_acceptance_cert', 'ftts_final_acceptance_cert_comment', 'ftts_operational_acceptance_cert','ftts_operational_acceptance_cert_comment',
+                'ftts_conditional_acceptance_cert','ftts_conditional_acceptance_cert_comment','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('site_name', )
+    search_fields = ('site_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(FttsCertificates, FttsCertificatesAdmin)
 
 ##########################FTTH SURVEY###########################################
 
@@ -65,33 +99,6 @@ class fttsSurveyAdmin(admin.ModelAdmin):
 admin.site.register(fttsSurvey, fttsSurveyAdmin)
 
 ##########################END OF FTTH SURVEY#####################################
-
-class FttsCommercialTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','ftts_quote', 'ftts_po_requisition','ftts_po_requisition_no','ftts_po_requisition_amount','ftts_wayleave_application', 'ftts_project_plan', 'ftts_initial_invoice','ftts_po_client','ftts_po_client_no',
-                    'ftts_po_client_amount','ftts_accumulated_BOM_survey','ftts_accumulated_BOM_survey_comment','posted_by', 'created_at', 'updated_at', 'is_active')
-    list_display_links = ('site_name', )
-    search_fields = ('site_name', )
-    list_editable = ('is_active',)
-
-admin.site.register(FttsCommercialTeam, FttsCommercialTeamAdmin)
-
-
-class FttsProcurementTeamAdmin(admin.ModelAdmin):
-    list_display = ('id','site_name', 'ftts_material_requisition','ftts_po_quote_serviceno','ftts_po_quote_serviceamount', 'ftts_po_subcontractors', 'ftts_po_quote_subconamount','ftts_po_quote_subconno','posted_by', 'created_at', 'updated_at', 'is_active')
-    list_display_links = ('site_name', )
-    search_fields = ('site_name', )
-    list_editable = ('is_active',)
-
-admin.site.register(FttsProcurementTeam, FttsProcurementTeamAdmin)
-
-class FttsCertificatesAdmin(admin.ModelAdmin):
-    list_display = ('id','site_name', 'ftts_snag_document','ftts_snag_document_comment','ftts_crq_ticketno','ftts_crq_document','ftts_crq_comment', 'ftts_final_acceptance_cert', 'ftts_final_acceptance_cert_comment', 'ftts_operational_acceptance_cert','ftts_operational_acceptance_cert_comment',
-                'ftts_homepass_acceptance_cert','ftts_homepass_acceptance_cert_comment','ftts_conditional_acceptance_cert','ftts_conditional_acceptance_cert_comment','posted_by', 'created_at', 'updated_at', 'is_active')
-    list_display_links = ('site_name', )
-    search_fields = ('site_name', )
-    list_editable = ('is_active',)
-
-admin.site.register(FttsCertificates, FttsCertificatesAdmin)
 
 ######################################################## FIBER CIVIL TEAM ########################################################################################################################################################################################
 class SiteTrenchingImageAdmin(admin.ModelAdmin):
@@ -213,7 +220,7 @@ class FttsHealthDocumentsCivilTeamAdmin(admin.ModelAdmin):
 admin.site.register(FttsHealthDocumentsCivilTeam, FttsHealthDocumentsCivilTeamAdmin)
 
 class FttsCivilTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','ftts_trenching','raise_flag','ftts_duct_installation', 'ftts_cable_installation','ftts_manhole_installation','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'site_name','raise_flag','ftts_trenching','ftts_duct_installation', 'ftts_cable_installation','ftts_manhole_installation','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
     list_editable = ('is_active',)
@@ -303,7 +310,7 @@ class FttsIssuesAdmin(admin.ModelAdmin):
 admin.site.register(FttsIssues, FttsIssuesAdmin)
 
 class FttsInstallationTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'site_name','ftts_terminal_in_hse', 'ftts_interception','ftts_integration','ftts_integration_comment','ftts_installation_team_comment','ftts_asbuit_received','ftts_asbuilt_comment',
+    list_display = ('id', 'site_name','raise_flag','ftts_terminal_in_hse', 'ftts_interception','ftts_integration','ftts_integration_comment','ftts_installation_team_comment','ftts_asbuit_received','ftts_asbuilt_comment',
                     'project_issues', 'posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )

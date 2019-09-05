@@ -22,6 +22,29 @@ class FttsSiteSerializer(serializers.ModelSerializer):
         model = FttsSite
         fields = ('__all__')
 
+class FttsCommercialTeamSerializer(serializers.ModelSerializer):
+    ftts_turn_around_time = serializers.IntegerField(read_only=True)
+    # progress = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = FttsCommercialTeam
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class FttsProcurementTeamSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FttsProcurementTeam
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class FttsCertificatesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FttsCertificates
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
 ###############################FTTH SURVEY###################################
 
 class InterceptionPointSerializer(serializers.ModelSerializer):
@@ -49,27 +72,6 @@ class fttsSurveySerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 ###############################END OF FTTH SURVEY############################
-
-class FttsCommercialTeamSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = FttsCommercialTeam
-        fields = ('__all__')
-        read_only_fields = ('created_at', 'updated_at', 'is_active')
-
-class FttsProcurementTeamSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = FttsProcurementTeam
-        fields = ('__all__')
-        read_only_fields = ('created_at', 'updated_at', 'is_active')
-
-class FttsCertificatesSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = FttsCertificates
-        fields = ('__all__')
-        read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 ################################################ FIBER CIVIL TEAM ##############################################################################################################################################################################################################################################
 

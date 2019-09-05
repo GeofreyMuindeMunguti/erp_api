@@ -7,7 +7,8 @@ from django.urls import path, include
 from .views import *
 from .fttsfiles import filesviews
 from erp_ftts.monitoring import *
-
+from erp_ftts.scorecard import *
+from erp_ftts.progress import *
 
 
 router = DefaultRouter()
@@ -70,15 +71,24 @@ urlpatterns = [
     path('', include(router.urls)),
     # ENDPOINTS FOR DASHBOARD
     path('fttsproject/<int:pk>/fttssites', FttsSiteListView.as_view()),
+    #monitoring
+    path('FttsTaskStatus/', FttsTaskStatusView.as_view()),
+    path('FttsTimesheetSummary/', FttsTimesheetSummaryView.as_view()),
+    path('FttsIssueStatus/', FttsIssueStatusView.as_view()),
+    #scorecard
+    path('FttsTurnAroundTime/', FttsTurnAroundTimeView.as_view()),
+    path('FttsTotalPurchaseOrders/', FttsTotalPurchaseOrdersView.as_view()),
+    path('FttsRevenueDetail/<int:pk>', FttsRevenueDetailView.as_view()),
+    path('Fttsrevenue/', FttsRevenueListView.as_view()),
+    #progress
+    path('FttsProjectProgress/<int:pk>', FttsProjectProgressView.as_view()),
+    path('FttsCommercialTeamProgress/<int:pk>', FttsCommercialTeamProgressView.as_view()),
+    path('FttsProcurementProgressTeam/<int:pk>', FttsProcurementProgressTeamView.as_view()),
+    path('FttsCivilProgress/<int:pk>', FttsCivilProgressView.as_view()),
+    path('FttsInstallationProgress/<int:pk>', FttsInstallationProgressView.as_view()),
 
-    path('fttstaskstatus/', FttsTaskStatusView.as_view()),
-    path('fttstimesheetsummary/', FttsTimesheetSummaryView.as_view()),
-    path('fttsissuestatus/', FttsIssueStatusView.as_view()),
-
-    # path('turnaroundtime/', TurnAroundTimeView.as_view()),
-    # path('totalpurchaseprders/', TotalPurchaseOrdersView.as_view()),
-    # path('revenueperproject/<int:pk>', RevenueDetailView.as_view()),
-    # path('revenue/', RevenueListView.as_view()),
+    path('FttsCivilTeamProgress/<int:pk>', FttsCivilTeamProgressView.as_view()),
+    path('FttsInstallationTeamProgress/<int:pk>', FttsInstallationTeamProgressView.as_view()),
 
     # FILES (PER SITE) ENDPOINTS
 
