@@ -70,7 +70,15 @@ urlpatterns = [
     path('', include(router.urls)),
     # ENDPOINTS FOR DASHBOARD
     path('fttsproject/<int:pk>/fttssites', FttsSiteListView.as_view()),
-    path('issuestatus/', FttsIssueStatusView.as_view()),
+
+    path('fttstaskstatus/', FttsTaskStatusView.as_view()),
+    path('fttstimesheetsummary/', FttsTimesheetSummaryView.as_view()),
+    path('fttsissuestatus/', FttsIssueStatusView.as_view()),
+
+    # path('turnaroundtime/', TurnAroundTimeView.as_view()),
+    # path('totalpurchaseprders/', TotalPurchaseOrdersView.as_view()),
+    # path('revenueperproject/<int:pk>', RevenueDetailView.as_view()),
+    # path('revenue/', RevenueListView.as_view()),
 
     # FILES (PER SITE) ENDPOINTS
 
@@ -79,11 +87,8 @@ urlpatterns = [
     path('files/<int:pk>/commercialteamtiles/', filesviews.FttsCommercialTeamASubTaskFilesView.as_view()),
     # Civil works
 
-    
     # path('files/<int:pk>/siteductinstalls/', filesviews.SiteDuctInstallationFilesView.as_view()),
     # path('files/<int:pk>/sitemanholeinstall/', filesviews.ManHoleInstallationFilesView.as_view()),
-
-    
     path('files/<int:pk>/sitesurvey/', filesviews.FttsSurveyPhotosASubTaskFilesView.as_view()),
     path('files/<int:pk>/sitetrenchings/', filesviews.SiteTrenchingASubTaskFilesView.as_view()),
     path('files/<int:pk>/siteductinstall/', filesviews.SiteDuctASubTaskFilesView.as_view()),
