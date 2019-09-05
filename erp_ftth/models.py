@@ -24,6 +24,46 @@ class FTTHProject(CreateProject):
     def __str__(self):
         return str(self.project_name)
 
+"""FIBER FTTH TRACKING"""
+
+####################################### FIBER KPI ###############################################################################################################################
+class FtthKpi(TimeStampModel):
+    kpi = models.IntegerField(blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    is_approved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.kpi)
+
+######################################## END #######################################################################################################################################
+
+####################################### TASKS ###############################################################################################################################
+class FtthTask(TimeStampModel):
+    category_name = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    task_name = models.CharField(blank=True, null=True, max_length=150, unique=True)
+    kpi = models.IntegerField(blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    is_approved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.task_name)
+
+######################################## END #######################################################################################################################################
+
+####################################### SUBTASKS ###############################################################################################################################
+class FtthSubTask(TimeStampModel):
+    task_name = models.ForeignKey(FtthTask, on_delete=models.DO_NOTHING)
+    subtask_name = models.CharField(blank=True, null=True, max_length=150, unique=True)
+    kpi = models.IntegerField(blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    is_approved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.subtask_name)
+
+######################################## END #######################################################################################################################################
+"""END"""
+
 ##########################################SURVEY DETAILS################################################################################################################################################################33
 
 class FtthInterceptionPoint(TimeStampModel):
@@ -71,6 +111,34 @@ class ftthSurvey(TimeStampModel,TimeTrackModel):
 
     def __str__(self):
         return str(self.project_name)
+
+    def raise_flag(self):
+        try:
+            kpi_data = FtthTask.objects.get(task_name='FTTH Survey Task')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
 
 ##############################################END OF FTTH SURVEY#############################################33
 class FtthCommercialTeam(TimeStampModel):
@@ -192,6 +260,34 @@ class FtthPoleInstallation(TimeStampModel,TimeTrackModel):
         except Exception as e:
             return
 
+    def raise_flag(self):
+        try:
+            kpi_data = FtthSubTask.objects.get(subtask_name='Upload Pole Installation Images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
 
 """END"""
 class FtthTrenchingImage(TimeStampModel):
@@ -252,6 +348,34 @@ class FtthTrenching(TimeStampModel,TimeTrackModel):
         except Exception as e:
             return
 
+    def raise_flag(self):
+        try:
+            kpi_data = FtthSubTask.objects.get(subtask_name='Upload Site Trenching Images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
 """END"""
 class FtthBackfillingImage(TimeStampModel):
     day_image = models.ForeignKey('DailyFtthBackfilling', on_delete=models.CASCADE ,related_name='ftthbackfillingimages')
@@ -310,6 +434,34 @@ class FtthBackfilling(TimeStampModel,TimeTrackModel):
             return task_id
         except Exception as e:
             return
+
+    def raise_flag(self):
+        try:
+            kpi_data = FtthSubTask.objects.get(subtask_name='Upload Backfilling Images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
 
 """END"""
 class FtthCableInstallationImage(TimeStampModel):
@@ -371,6 +523,34 @@ class FtthCableInstallation(TimeStampModel,TimeTrackModel):
         except Exception as e:
             return
 
+    def raise_flag(self):
+        try:
+            kpi_data = FtthSubTask.objects.get(subtask_name='Upload Cable Installation Images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
 """aCCESS APPROVALS"""
 
 class FtthAccessApprovalCivil(TimeStampModel):
@@ -425,6 +605,34 @@ class FtthCivilTeam(TimeStampModel):
             return team_id
         except Exception as e:
             return
+
+    def raise_flag(self):
+        try:
+            kpi_data = FtthTask.objects.get(task_name='FTTH Civil Tasks')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
 
 ######################################################## END ################################################################################################################################################################################################
 
@@ -489,6 +697,34 @@ class FtthSplicingEnclosure(TimeStampModel,TimeTrackModel):
         except Exception as e:
             return
 
+    def raise_flag(self):
+        try:
+            kpi_data = FtthSubTask.objects.get(subtask_name='Upload Enclosure Images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
 """END"""
 
 class FtthSplicingFATImage(TimeStampModel):
@@ -549,6 +785,34 @@ class FtthSplicingFAT(TimeStampModel,TimeTrackModel):
             return task_id
         except Exception as e:
             return
+
+    def raise_flag(self):
+        try:
+            kpi_data = FtthSubTask.objects.get(subtask_name='Upload FAT Images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
 
 """END"""
 
@@ -611,6 +875,34 @@ class FtthSplicingFDT(TimeStampModel,TimeTrackModel):
         except Exception as e:
             return
 
+    def raise_flag(self):
+        try:
+            kpi_data = FtthSubTask.objects.get(subtask_name='Upload FDT Images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
 """END"""
 class FtthSplicing(TimeStampModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.CASCADE, blank=True)
@@ -631,6 +923,34 @@ class FtthSplicing(TimeStampModel):
             return team_id
         except Exception as e:
             return
+
+    def raise_flag(self):
+        try:
+            kpi_data = FtthTask.objects.get(task_name='Splicing Tasks')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
 
 """END SPLICING"""
 
@@ -693,6 +1013,34 @@ class FtthCoreProvision(TimeStampModel,TimeTrackModel):
         except Exception as e:
             return
 
+    def raise_flag(self):
+        try:
+            kpi_data = FtthSubTask.objects.get(subtask_name='Upload Core Provision Images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
 """END"""
 
 class FtthPowerLevelsImage(TimeStampModel):
@@ -753,6 +1101,34 @@ class FtthPowerLevels(TimeStampModel,TimeTrackModel):
             return task_id
         except Exception as e:
             return
+
+    def raise_flag(self):
+        try:
+            kpi_data = FtthSubTask.objects.get(subtask_name='Upload Power Levels Images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
 
 """END"""
 
@@ -815,6 +1191,34 @@ class FtthOTDRTraces(TimeStampModel,TimeTrackModel):
         except Exception as e:
             return
 
+    def raise_flag(self):
+        try:
+            kpi_data = FtthSubTask.objects.get(subtask_name='Upload OTDR Traces Images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
 class FtthSignalTesting(TimeStampModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.CASCADE, blank=True)
     ftth_core_provision = models.OneToOneField(FtthCoreProvision, on_delete=models.CASCADE, blank=True, null=True)
@@ -834,6 +1238,34 @@ class FtthSignalTesting(TimeStampModel):
             return team_id
         except Exception as e:
             return
+
+    def raise_flag(self):
+        try:
+            kpi_data = FtthTask.objects.get(task_name='Signal Testing Task')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
 
 """END SIGNAL TESTING"""
 """aCCESS APPROVALS"""
@@ -905,6 +1337,34 @@ class FtthInstallationTeam(TimeStampModel):
             return team_id
         except Exception as e:
             return
+
+    def raise_flag(self):
+        try:
+            kpi_data = FtthTask.objects.get(task_name='INstallation Tasks')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
 
 class FtthTeam(TimeStampModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.CASCADE, blank=True)

@@ -53,7 +53,7 @@ class FttsSite(TimeStampModel):
     class Meta:
         unique_together = (['site_name', 'ftts_project',])
 
-"""FIBER"""
+"""FIBER FTTS TRACKING"""
 
 ####################################### FIBER KPI ###############################################################################################################################
 class FttsKpi(TimeStampModel):
@@ -181,7 +181,7 @@ class fttsSurvey(TimeStampModel,TimeTrackModel):
 
     def raise_flag(self):
         try:
-            kpi_data = FttsTask.objects.get(task_name='Survey Task')
+            kpi_data = FttsTask.objects.get(task_name='FTTS Survey Task')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""

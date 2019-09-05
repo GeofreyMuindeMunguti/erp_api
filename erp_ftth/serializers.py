@@ -33,6 +33,7 @@ class ftthSurveyPhotosSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class ftthSurveySerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
 
     class Meta:
         model = ftthSurvey
@@ -78,6 +79,7 @@ class DailyFtthPoleInstallationSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class FtthPoleInstallationSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
     ftth_task_id = serializers.IntegerField(read_only=True)
     days_list = serializers.ListField(read_only=True)
 
@@ -102,6 +104,9 @@ class DailyFtthTrenchingSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class FtthTrenchingSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
+    ftth_task_id = serializers.IntegerField(read_only=True)
+    days_list = serializers.ListField(read_only=True)
 
     class Meta:
         model = FtthTrenching
@@ -124,6 +129,7 @@ class DailyFtthBackfillingSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class FtthBackfillingSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
     ftth_task_id = serializers.IntegerField(read_only=True)
     days_list = serializers.ListField(read_only=True)
     class Meta:
@@ -147,6 +153,7 @@ class DailyFtthCableInstallationSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class FtthCableInstallationSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
     ftth_task_id = serializers.IntegerField(read_only=True)
     days_list = serializers.ListField(read_only=True)
     class Meta:
@@ -155,6 +162,8 @@ class FtthCableInstallationSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class FtthCivilTeamSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
+    team_task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = FtthCivilTeam
@@ -178,6 +187,7 @@ class DailyFtthSplicingEnclosureSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class FtthSplicingEnclosureSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
     ftth_task_id = serializers.IntegerField(read_only=True)
     days_list = serializers.ListField(read_only=True)
     class Meta:
@@ -200,6 +210,7 @@ class DailyFtthSplicingFATSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class FtthSplicingFATSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
     ftth_task_id = serializers.IntegerField(read_only=True)
     days_list = serializers.ListField(read_only=True)
     class Meta:
@@ -222,6 +233,7 @@ class DailyFtthSplicingFDTSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class FtthSplicingFDTSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
     ftth_task_id = serializers.IntegerField(read_only=True)
     days_list = serializers.ListField(read_only=True)
     class Meta:
@@ -230,6 +242,8 @@ class FtthSplicingFDTSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class FtthSplicingSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
+    team_task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = FtthSplicing
@@ -252,6 +266,7 @@ class DailyFtthCoreProvisionSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class FtthCoreProvisionSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
     ftth_task_id = serializers.IntegerField(read_only=True)
     days_list = serializers.ListField(read_only=True)
     class Meta:
@@ -274,6 +289,7 @@ class DailyFtthPowerLevelsSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class FtthPowerLevelsSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
     ftth_task_id = serializers.IntegerField(read_only=True)
     days_list = serializers.ListField(read_only=True)
     class Meta:
@@ -296,6 +312,7 @@ class DailyFtthOTDRTracesSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class FtthOTDRTracesSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
     ftth_task_id = serializers.IntegerField(read_only=True)
     days_list = serializers.ListField(read_only=True)
     class Meta:
@@ -305,6 +322,8 @@ class FtthOTDRTracesSerializer(serializers.ModelSerializer):
 
 
 class FtthSignalTestingSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
+    team_task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = FtthSignalTesting
@@ -319,6 +338,7 @@ class FtthIssuesSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class FtthInstallationTeamSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
     team_task_id = serializers.IntegerField(read_only=True)
 
     class Meta:
