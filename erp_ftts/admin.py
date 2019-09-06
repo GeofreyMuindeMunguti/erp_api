@@ -85,7 +85,7 @@ class FttsProcurementTeamAdmin(admin.ModelAdmin):
 admin.site.register(FttsProcurementTeam, FttsProcurementTeamAdmin)
 
 class FttsCertificatesAdmin(admin.ModelAdmin):
-    list_display = ('id','site_name', 'ftts_snag_document','ftts_snag_document_comment','ftts_final_acceptance_cert', 'ftts_final_acceptance_cert_comment', 'ftts_operational_acceptance_cert','ftts_operational_acceptance_cert_comment',
+    list_display = ('id','site_name', 'ftts_snag_document','ftts_snag_document_comment','ftts_crq_ticketno','ftts_crq_document','ftts_crq_comment', 'ftts_final_acceptance_cert', 'ftts_final_acceptance_cert_comment', 'ftts_operational_acceptance_cert','ftts_operational_acceptance_cert_comment',
                 'ftts_homepass_acceptance_cert','ftts_homepass_acceptance_cert_comment','ftts_conditional_acceptance_cert','ftts_conditional_acceptance_cert_comment','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('site_name', )
     search_fields = ('site_name', )
