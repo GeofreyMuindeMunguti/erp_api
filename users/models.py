@@ -236,20 +236,21 @@ class TeamMemberType(models.Model):
 
 
 class ProjectTeamFTTH(models.Model):
-    project_name = models.ForeignKey('erp_ftth.FTTHProject', on_delete=models.CASCADE,help_text='Required for ftth project', blank=True, null=True)
+    project_name = models.ForeignKey('erp_ftth.FTTHProject', on_delete=models.CASCADE )
     engineer_name = models.ForeignKey(Engineer, on_delete=models.DO_NOTHING, blank=True, null=True)
 
     team_member_type = models.ForeignKey(TeamMemberType, on_delete=models.DO_NOTHING, blank=True, null=True)
 
     def __str__(self):
-        return 'Project Team for ftts {}'.format(self.project_name)
+        return 'Project Team for FTTH {}'.format(self.project_name)
 
 
 class ProjectTeamFTTS(models.Model):
-    project_name = models.ForeignKey('erp_ftts.FTTSProject', on_delete=models.CASCADE, blank=True, null=True)
+    project_name = models.ForeignKey('erp_ftts.FTTSProject', on_delete=models.CASCADE )
+    site_name = models.ForeignKey('erp_ftts.FttsSite', on_delete=models.CASCADE, blank=True, null=True)
     engineer_name = models.ForeignKey(Engineer, on_delete=models.DO_NOTHING, blank=True, null=True)
 
     team_member_type = models.ForeignKey(TeamMemberType, on_delete=models.DO_NOTHING, blank=True, null=True)
 
     def __str__(self):
-        return 'Project Team for {}'.format(self.project_name)
+        return 'Project Team for FTTS {}'.format(self.project_name)

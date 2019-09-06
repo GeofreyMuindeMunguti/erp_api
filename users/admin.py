@@ -116,9 +116,9 @@ admin.site.register(ProjectTeamFTTH, ProjectTeamFTTHAdmin)
 
 
 class ProjectTeamFTTSAdmin(admin.ModelAdmin):
-    list_display = ['id','engineer_name','team_member_type','project_name',]
-    list_display_links = ('team_member_type','engineer_name', )
-    search_fields = ('team_member_type' ,)
+    list_display = ['id','engineer_name','team_member_type','project_name','site_name']
+    list_display_links = ('team_member_type','engineer_name','site_name' )
+    search_fields = ('team_member_type' ,'site_name')
     list_filter = ('project_name','team_member_type')
     #readonly_fields = ['team_member_type']
 
