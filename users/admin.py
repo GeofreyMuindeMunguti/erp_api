@@ -89,3 +89,37 @@ class RatesAdmin(admin.ModelAdmin):
     search_fields = ('id', )
 
 admin.site.register(Rates, RatesAdmin)
+
+
+
+class TeamMemberTypeAdmin(admin.ModelAdmin):
+    list_display = ['role','created_by']
+    list_display_links = ('role', )
+    search_fields = ('role', )
+    list_filter = ('role',)
+
+
+admin.site.register(TeamMemberType, TeamMemberTypeAdmin)
+
+
+
+class ProjectTeamFTTHAdmin(admin.ModelAdmin):
+    list_display = ['id','engineer_name','team_member_type','project_name',]
+    list_display_links = ('team_member_type','engineer_name', )
+    search_fields = ('team_member_type' ,)
+    list_filter = ('project_name','team_member_type')
+    #readonly_fields = ['team_member_type']
+
+admin.site.register(ProjectTeamFTTH, ProjectTeamFTTHAdmin)
+
+
+
+
+class ProjectTeamFTTSAdmin(admin.ModelAdmin):
+    list_display = ['id','engineer_name','team_member_type','project_name','site_name']
+    list_display_links = ('team_member_type','engineer_name','site_name' )
+    search_fields = ('team_member_type' ,'site_name')
+    list_filter = ('project_name','team_member_type')
+    #readonly_fields = ['team_member_type']
+
+admin.site.register(ProjectTeamFTTS, ProjectTeamFTTSAdmin)
