@@ -82,6 +82,7 @@ urlpatterns = [
     path('Fttsrevenue/', FttsRevenueListView.as_view()),
     #progress
     path('FttsProjectProgress/<int:pk>', FttsProjectProgressView.as_view()),
+    path('FttsSurveyTeamProgress/<int:pk>', FttsSurveyTeamProgressView.as_view()),
     path('FttsCommercialTeamProgress/<int:pk>', FttsCommercialTeamProgressView.as_view()),
     path('FttsProcurementProgressTeam/<int:pk>', FttsProcurementProgressTeamView.as_view()),
     path('FttsCivilProgress/<int:pk>', FttsCivilProgressView.as_view()),

@@ -72,6 +72,55 @@ class FttsSite(TimeStampModel):
         return days
 
     def progress(self):
+                # PROGRESS FOR SURVEYTEAM
+        try:
+            category = Category.objects.get(category_name='FTTS Survey Team')
+            category_id = category.id
+            automatic_total_comtasks = FttsTask.objects.filter(category_name=category_id).count()
+            completed_ctasks = 0
+            site_id = self.id
+            progress_object = FttsCommercialTeam.objects.get(site_name=site_id)
+            ftts_interception_point = progress_object.ftts_interception_point
+            site_latitude = progress_object.site_latitude
+            site_longitude = progress_object.site_longitude
+            distance_from_ip = progress_object.distance_from_ip
+            survey_photos = progress_object.survey_photos
+            high_level_design = progress_object.high_level_design
+            county = progress_object.county
+            if bool(ftts_interception_point) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            if bool(site_latitude) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            if bool(site_longitude) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            if bool(distance_from_ip) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            if bool(survey_photos) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            if bool(high_level_design) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            if bool(county) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+
+            commercial_percentage = ftts_percentage_function(completed_ctasks, automatic_total_comtasks)
+        except Exception as e:
+            commercial_percentage = 0
+
+        # PROGRESS FOR COMMERCIALTEAM
         try:
             category = Category.objects.get(category_name='FTTS Commercial Team')
             category_id = category.id
@@ -98,7 +147,7 @@ class FttsSite(TimeStampModel):
         except Exception as e:
             commercial_percentage = 0
 
-        # PROGRESS FOR PROCUREMENTEAM
+        # PROGRESS FOR PROCUREMENTTEAM
         try:
             category = Category.objects.get(category_name='FTTS Procurement Team')
             category_id = category.id
