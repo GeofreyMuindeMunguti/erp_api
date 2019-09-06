@@ -74,10 +74,28 @@ router.register(r'FtthTeam', views.FtthTeamViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('files/<int:pk>/', filesviews.FTTHProjectGetView.as_view()),
+    # #monitoring
+    # path('FttsTaskStatus/', FttsTaskStatusView.as_view()),
+    # path('FttsTimesheetSummary/', FttsTimesheetSummaryView.as_view()),
+    # path('FttsIssueStatus/', FttsIssueStatusView.as_view()),
+    # #scorecard
+    # path('FttsTurnAroundTime/', FttsTurnAroundTimeView.as_view()),
+    # path('FttsTotalPurchaseOrders/', FttsTotalPurchaseOrdersView.as_view()),
+    # path('FttsRevenueDetail/<int:pk>', FttsRevenueDetailView.as_view()),
+    # path('Fttsrevenue/', FttsRevenueListView.as_view()),
+    # #progress
+    # path('FttsProjectProgress/<int:pk>', FttsProjectProgressView.as_view()),
+    # path('FttsSurveyTeamProgress/<int:pk>', FttsSurveyTeamProgressView.as_view()),
+    # path('FttsCommercialTeamProgress/<int:pk>', FttsCommercialTeamProgressView.as_view()),
+    # path('FttsProcurementProgressTeam/<int:pk>', FttsProcurementProgressTeamView.as_view()),
+    # path('FttsCivilProgress/<int:pk>', FttsCivilProgressView.as_view()),
+    # path('FttsInstallationProgress/<int:pk>', FttsInstallationProgressView.as_view()),
+    #
+    # path('FttsCivilTeamProgress/<int:pk>', FttsCivilTeamProgressView.as_view()),
+    # path('FttsInstallationTeamProgress/<int:pk>', FttsInstallationTeamProgressView.as_view()),
 
-      # FILES (PER SITE) ENDPOINTS
-
-    path('files/<int:pk>/', filesviews.FTTHProjectGetView.as_view()),# Main
+    #FILES
 
     # path('files/<int:pk>/commercialteamtiles/', filesviews.FttsCommercialTeamFilesView.as_view()),
     # Civil works
