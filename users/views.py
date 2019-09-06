@@ -141,3 +141,22 @@ class ContentTypeViewSet(viewsets.ModelViewSet):
     serializer_class = ContentTypeSerializer
 
     search_fields = ('id', )
+
+
+
+
+class ProjectTeamFTTSViewSet(viewsets.ModelViewSet):
+    """ViewSet for the ProjectTeam class"""
+
+    queryset = ProjectTeamFTTS.objects.all()
+    serializer_class = ProjectTeamFTTSSerializer
+   # permission_classes = [permissions.IsAuthenticated]
+
+
+class ProjectTeamFTTHViewSet(viewsets.ModelViewSet):
+    """ViewSet for the ProjectTeam class"""
+
+    queryset = ProjectTeamFTTH.objects.all()
+    serializer_class = ProjectTeamFTTHSerializer
+   # permission_classes = [permissions.IsAuthenticated]
+
