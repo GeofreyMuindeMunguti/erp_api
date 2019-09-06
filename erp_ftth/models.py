@@ -24,6 +24,194 @@ class FTTHProject(CreateProject):
     def __str__(self):
         return str(self.project_name)
 
+    def progress(self):
+                # PROGRESS FOR SURVEYTEAM
+        try:
+            category = Category.objects.get(category_name='FTTH Survey Team')
+            category_id = category.id
+            automatic_total_comtasks = FtthTask.objects.filter(category_name=category_id).count()
+            completed_ctasks = 0
+            project_id = self.id
+            progress_object = ftthSurvey.objects.get(project_name=project_id)
+            ftth_interception_point = progress_object.ftth_interception_point
+            site_latitude = progress_object.site_latitude
+            site_longitude = progress_object.site_longitude
+            distance_from_ip = progress_object.distance_from_ip
+            no_of_fdts = progress_object.no_of_fdts
+            survey_photos = progress_object.survey_photos
+            high_level_design = progress_object.high_level_design
+            county = progress_object.county
+            if bool(ftth_interception_point) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            if bool(site_latitude) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            if bool(site_longitude) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            if bool(distance_from_ip) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            if bool(no_of_fdts) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            if bool(survey_photos) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            if bool(high_level_design) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            if bool(county) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+
+            survey_percentage = ftth_percentage_function(completed_ctasks, automatic_total_comtasks)
+        except Exception as e:
+            survey_percentage = 0
+
+        # PROGRESS FOR COMMERCIALTEAM
+        try:
+            category = Category.objects.get(category_name='FTTH Commercial Team')
+            category_id = category.id
+            automatic_total_comtasks = FtthTask.objects.filter(category_name=category_id).count()
+            completed_ctasks = 0
+            project_id = self.id
+            progress_object = FtthCommercialTeam.objects.get(project_name=project_id)
+            ftth_po = progress_object.ftth_po
+            ftth_boq = progress_object.ftth_boq
+            ftth_quote = progress_object.ftth_quote
+            ftth_wayleave_application = progress_object.ftth_wayleave_application
+            if bool(ftth_po) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            if bool(ftth_boq) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            if bool(ftth_quote) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            if bool(ftth_wayleave_application) is False:
+                completed_ctasks += 0
+            else:
+                completed_ctasks += 1
+            commercial_percentage = ftts_percentage_function(completed_ctasks, automatic_total_comtasks)
+        except Exception as e:
+            commercial_percentage = 0
+
+        # PROGRESS FOR PROCUREMENTTEAM
+        try:
+            category = Category.objects.get(category_name='FTTH Procurement Team')
+            category_id = category.id
+            automatic_total_protasks = FttsTask.objects.filter(category_name=category_id).count()
+            completed_ptasks = 0
+            project_id = self.id
+            progress_object = FtthProcurementTeam.objects.get(project_name=project_id)
+            ftth_bom = progress_object.ftth_bom
+            po_to_supplier = progress_object.po_to_supplier
+            ftth_initial_invoice = progress_object.ftth_initial_invoice
+            if bool(ftth_bom) is False:
+                completed_ptasks += 0
+            else:
+                completed_ptasks += 1
+            if bool(po_to_supplier) is False:
+                completed_ptasks += 0
+            else:
+                completed_ptasks += 1
+            if bool(ftth_initial_invoice) is False:
+                completed_ptasks += 0
+            else:
+                completed_ptasks += 1
+            procurement_percentage = percentage_function(completed_ptasks, automatic_total_protasks)
+        except Exception as e:
+            procurement_percentage = 0
+
+        #PROGRESS FOR CIVIL TEAM
+        try:
+            category = Category.objects.get(category_name='FTTH Civil Team')
+            category_id = category.id
+            automatic_total_civtasks = FtthTask.objects.filter(category_name=category_id).count()
+            completed_cltasks = 0
+            project_id = self.id
+            progress_object = FtthCivilTeam.objects.get(project_name=project_id)
+            ftth_pole_installation = progress_object.ftth_pole_installation
+            ftth_trenching = progress_object.ftth_trenching
+            ftth_backfiling = progress_object.ftth_backfiling
+            ftth_cable_installation = progress_object.ftth_cable_installation
+            if bool(ftth_pole_installation) is False:
+                completed_cltasks += 0
+            else:
+                completed_cltasks += 1
+            if bool(ftth_trenching) is False:
+                completed_cltasks += 0
+            else:
+                completed_cltasks += 1
+            if bool(ftth_backfiling) is False:
+                completed_cltasks += 0
+            else:
+                completed_cltasks += 1
+            if bool(ftth_cable_installation) is False:
+                completed_cltasks += 0
+            else:
+                completed_cltasks += 1
+            civil_percentage = percentage_function(completed_cltasks, automatic_total_civtasks)
+        except Exception as e:
+            civil_percentage = 0
+
+        #PROGRESS FOR INSTALLATION TEAM
+        try:
+            category = Category.objects.get(category_name='FTTH Installation Team')
+            category_id = category.id
+            automatic_total_instasks = FtthTask.objects.filter(category_name=category_id).count()
+            completed_intasks = 0
+            project_id = self.id
+            progress_object = FtthInstallationTeam.objects.get(project_name=project_id)
+            ftth_splicing = progress_object.ftth_splicing
+            ftth_signal_testing = progress_object.ftth_signal_testing
+            ftts_integration = progress_object.ftts_integration
+            ftth_asbuit_received = progress_object.ftth_asbuit_received
+            ftth_network_activation = progress_object.ftth_network_activation
+            if bool(ftth_splicing) is False:
+                completed_intasks += 0
+            else:
+                completed_intasks += 1
+            if bool(ftth_signal_testing) is False:
+                completed_intasks += 0
+            else:
+                completed_intasks += 1
+            if bool(ftts_integration) is False:
+                completed_intasks += 0
+            else:
+                completed_intasks += 1
+            if bool(ftth_asbuit_received) is False:
+                completed_intasks += 0
+            else:
+                completed_intasks += 1
+            if bool(ftth_network_activation) is False:
+                completed_intasks += 0
+            else:
+                completed_intasks += 1
+            installation_percentage = percentage_function(completed_intasks, automatic_total_instasks)
+        except Exception as e:
+            installation_percentage = 0
+
+        project_percentage = ((survey_percentage + commercial_percentage + civil_percentage + procurement_percentage + installation_percentage )/4)
+
+        return project_percentage
+
+
+
 """FIBER FTTH TRACKING"""
 
 ####################################### FIBER KPI ###############################################################################################################################
@@ -1376,4 +1564,8 @@ class FtthTeam(TimeStampModel):
     def __str__(self):
         return str(self.project_name)
 
+def ftth_percentage_function(no_of_complete, total_task):
+    """Function to return perecentage of progress  """
+    percentage = round(((no_of_complete/total_task) * 100))
+    return percentage
 ######################################################## END ###############################################################################################################################################################################################

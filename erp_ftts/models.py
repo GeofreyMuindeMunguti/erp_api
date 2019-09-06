@@ -79,7 +79,7 @@ class FttsSite(TimeStampModel):
             automatic_total_comtasks = FttsTask.objects.filter(category_name=category_id).count()
             completed_ctasks = 0
             site_id = self.id
-            progress_object = FttsCommercialTeam.objects.get(site_name=site_id)
+            progress_object = fttsSurvey.objects.get(site_name=site_id)
             ftts_interception_point = progress_object.ftts_interception_point
             site_latitude = progress_object.site_latitude
             site_longitude = progress_object.site_longitude
@@ -116,9 +116,9 @@ class FttsSite(TimeStampModel):
             else:
                 completed_ctasks += 1
 
-            commercial_percentage = ftts_percentage_function(completed_ctasks, automatic_total_comtasks)
+            survey_percentage = ftts_percentage_function(completed_ctasks, automatic_total_comtasks)
         except Exception as e:
-            commercial_percentage = 0
+            survey_percentage = 0
 
         # PROGRESS FOR COMMERCIALTEAM
         try:
@@ -233,7 +233,7 @@ class FttsSite(TimeStampModel):
         except Exception as e:
             installation_percentage = 0
 
-        project_percentage = ((commercial_percentage + civil_percentage + procurement_percentage + installation_percentage )/4)
+        project_percentage = ((survey_percentage + commercial_percentage + civil_percentage + procurement_percentage + installation_percentage )/4)
 
         return project_percentage
 
@@ -653,7 +653,7 @@ class DailyManHoleInstallation(TimeStampModel):
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/manhole/'),blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
-    manhole_installed = models.IntegerField(blank=True, null=True)
+    distance_manhole = models.FloatField(blank=True, null=True)
     manhole_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
@@ -676,7 +676,7 @@ class DailyManHoleInstallation(TimeStampModel):
 
 class ManHoleInstallation(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(FttsSite, on_delete=models.CASCADE ,related_name='manholeinstallations')
-    site_manhole_installed = models.IntegerField(default=0)
+    site_manhole_distance  = models.FloatField(default=0)
     manhole_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/manhole/'),blank =True ,null =True)
     manhole_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/manhole/'),blank =True ,null =True)
     manhole_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/manhole/'),blank =True ,null =True)

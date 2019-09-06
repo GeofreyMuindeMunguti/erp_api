@@ -166,7 +166,7 @@ class FttsProjectProgressView(APIView):
         except Exception as e:
             installation_percentage = 0
 
-        project_percentage = ((commercial_percentage + civil_percentage + procurement_percentage + installation_percentage )/4)
+        project_percentage = ((survey_percentage + commercial_percentage + civil_percentage + procurement_percentage + installation_percentage )/4)
 
         return Response({'progress': project_percentage, 'site_id': pk})
 

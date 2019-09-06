@@ -76,9 +76,9 @@ urlpatterns = [
     path('', include(router.urls)),
     path('files/<int:pk>/', filesviews.FTTHProjectGetView.as_view()),
     # #monitoring
-    # path('FttsTaskStatus/', FttsTaskStatusView.as_view()),
-    # path('FttsTimesheetSummary/', FttsTimesheetSummaryView.as_view()),
-    # path('FttsIssueStatus/', FttsIssueStatusView.as_view()),
+    # path('FtthTaskStatus/', FtthTaskStatusView.as_view()),
+    # path('FtthTimesheetSummary/', FtthTimesheetSummaryView.as_view()),
+    # path('FtthIssueStatus/', FtthIssueStatusView.as_view()),
     # #scorecard
     # path('FttsTurnAroundTime/', FttsTurnAroundTimeView.as_view()),
     # path('FttsTotalPurchaseOrders/', FttsTotalPurchaseOrdersView.as_view()),
