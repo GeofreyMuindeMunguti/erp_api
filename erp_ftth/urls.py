@@ -6,6 +6,9 @@ from users.models import *
 from django.urls import path, include
 from .views import *
 from .ftthfiles import filesviews
+from erp_ftth.monitoring import *
+from erp_ftth.scorecard import *
+from erp_ftth.progress import *
 
 
 router = DefaultRouter()
@@ -74,10 +77,27 @@ router.register(r'FtthTeam', views.FtthTeamViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('files/<int:pk>/', filesviews.FTTHProjectGetView.as_view()),
+    #monitoring
+    path('FtthTaskStatus/', FtthTaskStatusView.as_view()),
+    path('FtthTimesheetSummary/', FtthTimesheetSummaryView.as_view()),
+    path('FtthIssueStatus/', FtthIssueStatusView.as_view()),
+    #scorecard
+    path('FtthTurnAroundTime/', FtthTurnAroundTimeView.as_view()),
+    # path('FtthRevenueDetail/<int:pk>', FtthRevenueDetailView.as_view()),
+    # path('FtthRevenueList/', FtthRevenueListView.as_view()),
+    #progress
+    path('FtthProjectProgress/<int:pk>', FtthProjectProgressView.as_view()),
+    path('FtthSurveyTeamProgress/<int:pk>', FtthSurveyTeamProgressView.as_view()),
+    path('FtthCommercialTeamProgress/<int:pk>', FtthCommercialTeamProgressView.as_view()),
+    path('FtthProcurementTeamProgress/<int:pk>', FtthProcurementTeamProgressView.as_view()),
+    path('FtthCivilTeamProgress/<int:pk>', FtthCivilTeamProgressView.as_view()),
+    path('FtthInstallationTeamProgress/<int:pk>', FtthInstallationTeamProgressView.as_view()),
 
-      # FILES (PER SITE) ENDPOINTS
+    path('FtthSplicingProgress/<int:pk>', FtthSplicingProgressView.as_view()),
+    path('FtthSignalTestingProgress/<int:pk>', FtthSignalTestingProgressView.as_view()),
 
-    path('files/<int:pk>/', filesviews.FTTHProjectGetView.as_view()),# Main
+    #FILES
 
     # path('files/<int:pk>/commercialteamtiles/', filesviews.FttsCommercialTeamFilesView.as_view()),
     # Civil works
