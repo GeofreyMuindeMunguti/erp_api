@@ -225,7 +225,7 @@ class BtsBudget(models.Model):
     unit = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
-    is_approved = models.NullBooleanField(default=False, blank=True, null=True)
+    is_approved = models.BooleanField(default=False, blank=True, null=True)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
