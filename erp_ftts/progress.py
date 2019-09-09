@@ -195,7 +195,7 @@ class FttsSurveyTeamProgressView(APIView):
         county_status = ''
         site_id = pk
         try:
-            progress_object = FttsCommercialTeam.objects.get(site_name=site_id)
+            progress_object = fttsSurvey.objects.get(site_name=site_id)
         except Exception as e:
             return Response({'error': 'Task not started', 'no_of_tasks': automatic_total_tasks,})
         ftts_interception_point = progress_object.ftts_interception_point
@@ -287,7 +287,7 @@ class FttsCommercialTeamProgressView(APIView):
          'ftts_po_data_status': ftts_po_data_status, 'ftts_initial_invoice_status': ftts_initial_invoice_status, 'progress': commercial_percentage})
 
 
-class FttsProcurementProgressTeamView(APIView):
+class FttsProcurementTeamProgressView(APIView):
 
     def get(self, request, pk):
         total_tasks = 3 #HARDCODED WILL LEAVE HERE FOR CONFIMATION WHEN TESTING.
@@ -329,7 +329,7 @@ class FttsProcurementProgressTeamView(APIView):
         'ftts_po_quote_serviceno_status': ftts_po_quote_serviceno_status, 'progress': procurement_percentage})
 
 
-class FttsCivilProgressView(APIView):
+class FttsCivilTeamProgressView(APIView):
 
     def get(self, request, pk):
         total_tasks = 4 #HARDCODED WILL LEAVE HERE FOR CONFIMATION WHEN TESTING.
@@ -338,7 +338,7 @@ class FttsCivilProgressView(APIView):
             category_id = category.id
         except Exception as e:
             return Response({'error': 'Civil Team does not exist'})
-        automatic_total_tasks = FiberTask.objects.filter(category_name=category_id).count()
+        automatic_total_tasks = FttsTask.objects.filter(category_name=category_id).count()
         completed_tasks = 0
         ftts_trenching_status = ''
         ftts_duct_installation_status = ''
@@ -346,7 +346,7 @@ class FttsCivilProgressView(APIView):
         ftts_manhole_installation_status = ''
         site_id = pk
         try:
-            progress_object = CivilWorksTeam.objects.get(project_name=project_id)
+            progress_object = FttsCivilTeam.objects.get(project_name=project_id)
         except Exception as e:
             return Response({'error': 'Task not started', 'no_of_tasks': automatic_total_tasks,})
         ftts_trenching = progress_object.ftts_trenching
@@ -379,10 +379,10 @@ class FttsCivilProgressView(APIView):
          'ftts_cable_installation_status': ftts_cable_installation_status, 'ftts_manhole_installation_status': ftts_manhole_installation_status, 'progress': civil_percentage})
 
 
-class FttsInstallationProgressView(APIView):
+class FttsInstallationTeamProgressView(APIView):
 
     def get(self, request, pk):
-        total_tasks = 3 #HARDCODED WILL LEAVE HERE FOR CONFIMATION WHEN TESTING.
+        total_tasks = 4 #HARDCODED WILL LEAVE HERE FOR CONFIMATION WHEN TESTING.
         try:
             category = Category.objects.get(category_name='Installation Team Tasks')
             category_id = category.id
@@ -393,6 +393,7 @@ class FttsInstallationProgressView(APIView):
         ftts_terminal_in_hse_status = ''
         ftts_interception_status = ''
         ftts_integration_status = ''
+        ftts_asbuit_received_status = ''
         site_id = pk
         try:
             progress_object = FttsInstallationTeam.objects.get(site_name=site_id)
@@ -401,6 +402,7 @@ class FttsInstallationProgressView(APIView):
         ftts_terminal_in_hse = progress_object.ftts_terminal_in_hse
         ftts_interception = progress_object.ftts_interception
         ftts_integration = progress_object.ftts_integration
+        ftts_asbuit_received = progress_object.ftts_asbuit_received
         if bool(ftts_terminal_in_hse) is False:
             ftts_terminal_in_hse_status = "Not uploaded"
         else:
@@ -416,114 +418,17 @@ class FttsInstallationProgressView(APIView):
         else:
             completed_tasks += 1
             ftts_integration_status = "Uploaded"
+        if bool(ftts_asbuit_received) is False:
+            ftts_asbuit_received_status = "Not Uploaded"
+        else:
+            completed_tasks += 1
+            ftts_asbuit_received_status = "Uploaded"
         installation_percentage = percentage_function(completed_tasks, automatic_total_tasks)
-        return Response({'no_of_tasks': automatic_total_tasks, 'ftts_terminal_in_hse_status': ftts_terminal_in_hse_status, 'ftts_interception_status': ftts_interception_status, 'ftts_integration_status': ftts_integration_status,'progress': installation_percentage})
+        return Response({'no_of_tasks': automatic_total_tasks, 'ftts_terminal_in_hse_status': ftts_terminal_in_hse_status, 'ftts_interception_status': ftts_interception_status,
+         'ftts_integration_status': ftts_integration_status,'ftts_asbuit_received_status': ftts_asbuit_received_status,'progress': installation_percentage})
 
 
 """END OF TEAM PROGRESS"""
-
-
-"""VIEWS TO CALCULATE PROGRESS OF TASKS"""
-
-
-"""CIVIL TEAM TASKS"""
-
-
-class FttsCivilTeamProgressView(APIView):
-
-    def get(self, request, pk):
-        total_tasks = 4
-        try:
-            task = FiberTask.objects.get(task_name='Civil Team')
-            task_id = task.id
-        except Exception as e:
-            return Response({'error': 'Civil Team Task does not exist'})
-        automatic_total_tasks = FttsSubTask.objects.filter(task_name=task_id).count()
-        completed_tasks = 0
-        ftts_trenching_status = ''
-        ftts_duct_installation_status = ''
-        ftts_manhole_installation_status = ''
-        ftts_cable_installation_status = ''
-        site_id = pk
-        try:
-            progress_object = FttsCivilTeam.objects.get(site_name=site_id)
-        except Exception as e:
-            return Response({'error': 'Task not started', 'no_of_tasks': automatic_total_tasks,})
-        ftts_trenching = progress_object.ftts_trenching
-        ftts_duct_installation = progress_object.ftts_duct_installation
-        ftts_manhole_installation = progress_object.ftts_manhole_installation
-        ftts_cable_installation = progress_object.ftts_cable_installation
-        if bool(ftts_trenching) is False:
-            ftts_trenching_status = "Not uploaded"
-        else:
-            completed_tasks += 1
-            ftts_trenching_status = "Uploaded"
-        if bool(ftts_duct_installation) is False:
-            ftts_duct_installation_status = "Not Uploaded"
-        else:
-            completed_tasks += 1
-            ftts_duct_installation_status = "Uploaded"
-        if bool(ftts_manhole_installation) is False:
-            ftts_manhole_installation_status = "Not Uploaded"
-        else:
-            completed_tasks += 1
-            ftts_manhole_installation_status = "Uploaded"
-        if bool(ftts_cable_installation) is False:
-            ftts_cable_installation_status = "Not Uploaded"
-        else:
-            completed_tasks += 1
-            ftts_cable_installation_status = "Uploaded"
-        civilteam_percentage = percentage_function(completed_tasks, automatic_total_tasks)
-        return Response({'no_of_tasks': automatic_total_tasks, 'ftts_trenching_status': ftts_trenching_status, 'ftts_duct_installation_status': ftts_duct_installation_status, 'ftts_manhole_installation_status': ftts_manhole_installation_status, 'ftts_cable_installation_status': ftts_cable_installation_status,'progress': civilteam_percentage})
-
-"""END OF CIVIL TASKS"""
-
-
-"""INSTALLATION TEAM TASKS"""
-
-
-class FttsInstallationTeamProgressView(APIView):
-
-    def get(self, request, pk):
-        total_tasks = 3
-        try:
-            task = FiberTask.objects.get(task_name='Installation Team')
-            task_id = task.id
-        except Exception as e:
-            return Response({'error': 'Electrical Tasks does not exist'})
-        automatic_total_tasks = FttsSubTask.objects.filter(task_name=task_id).count()
-        completed_tasks = 0
-        ftts_terminal_in_hse_status = ''
-        ftts_interception_status = ''
-        ftts_integration_status = ''
-        site_id = pk
-        try:
-            progress_object = ElectricalTask.objects.get(site_name=site_id)
-        except Exception as e:
-            return Response({'error': 'Task not started', 'no_of_tasks': automatic_total_tasks,})
-        ftts_terminal_in_hse = progress_object.ftts_terminal_in_hse
-        ftts_interception = progress_object.ftts_interception
-        ftts_integration = progress_object.ftts_integration
-        if bool(ftts_terminal_in_hse) is False:
-            ftts_terminal_in_hse_status = "Not uploaded"
-        else:
-            completed_tasks += 1
-            ftts_terminal_in_hse_status = "Uploaded"
-        if bool(ftts_interception) is False:
-            ftts_interception_status = "Not Uploaded"
-        else:
-            completed_tasks += 1
-            ftts_interception_status = "Uploaded"
-        if bool(ftts_integration) is False:
-            ftts_integration_status = "Not Uploaded"
-        else:
-            completed_tasks += 1
-            ftts_integration_status = "Uploaded"
-        installationteam_percentage = percentage_function(completed_tasks, automatic_total_tasks)
-        return Response({'no_of_tasks': automatic_total_tasks, 'ftts_terminal_in_hse_status': ftts_terminal_in_hse_status, 'ftts_interception_status': ftts_interception_status, 'ftts_integration_status': ftts_integration_status, 'progress': installationteam_percentage})
-
-
-"""END OF INSTALLATION TASKS"""
 
 
 def percentage_function(no_of_complete, total_task):

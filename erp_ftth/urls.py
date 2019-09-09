@@ -6,6 +6,9 @@ from users.models import *
 from django.urls import path, include
 from .views import *
 from .ftthfiles import filesviews
+from erp_ftth.monitoring import *
+from erp_ftth.scorecard import *
+from erp_ftth.progress import *
 
 
 router = DefaultRouter()
@@ -75,25 +78,24 @@ router.register(r'FtthTeam', views.FtthTeamViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('files/<int:pk>/', filesviews.FTTHProjectGetView.as_view()),
-    # #monitoring
-    # path('FtthTaskStatus/', FtthTaskStatusView.as_view()),
-    # path('FtthTimesheetSummary/', FtthTimesheetSummaryView.as_view()),
-    # path('FtthIssueStatus/', FtthIssueStatusView.as_view()),
-    # #scorecard
-    # path('FttsTurnAroundTime/', FttsTurnAroundTimeView.as_view()),
-    # path('FttsTotalPurchaseOrders/', FttsTotalPurchaseOrdersView.as_view()),
-    # path('FttsRevenueDetail/<int:pk>', FttsRevenueDetailView.as_view()),
-    # path('Fttsrevenue/', FttsRevenueListView.as_view()),
-    # #progress
-    # path('FttsProjectProgress/<int:pk>', FttsProjectProgressView.as_view()),
-    # path('FttsSurveyTeamProgress/<int:pk>', FttsSurveyTeamProgressView.as_view()),
-    # path('FttsCommercialTeamProgress/<int:pk>', FttsCommercialTeamProgressView.as_view()),
-    # path('FttsProcurementProgressTeam/<int:pk>', FttsProcurementProgressTeamView.as_view()),
-    # path('FttsCivilProgress/<int:pk>', FttsCivilProgressView.as_view()),
-    # path('FttsInstallationProgress/<int:pk>', FttsInstallationProgressView.as_view()),
-    #
-    # path('FttsCivilTeamProgress/<int:pk>', FttsCivilTeamProgressView.as_view()),
-    # path('FttsInstallationTeamProgress/<int:pk>', FttsInstallationTeamProgressView.as_view()),
+    #monitoring
+    path('FtthTaskStatus/', FtthTaskStatusView.as_view()),
+    path('FtthTimesheetSummary/', FtthTimesheetSummaryView.as_view()),
+    path('FtthIssueStatus/', FtthIssueStatusView.as_view()),
+    #scorecard
+    path('FtthTurnAroundTime/', FtthTurnAroundTimeView.as_view()),
+    # path('FtthRevenueDetail/<int:pk>', FtthRevenueDetailView.as_view()),
+    # path('FtthRevenueList/', FtthRevenueListView.as_view()),
+    #progress
+    path('FtthProjectProgress/<int:pk>', FtthProjectProgressView.as_view()),
+    path('FtthSurveyTeamProgress/<int:pk>', FtthSurveyTeamProgressView.as_view()),
+    path('FtthCommercialTeamProgress/<int:pk>', FtthCommercialTeamProgressView.as_view()),
+    path('FtthProcurementTeamProgress/<int:pk>', FtthProcurementTeamProgressView.as_view()),
+    path('FtthCivilTeamProgress/<int:pk>', FtthCivilTeamProgressView.as_view()),
+    path('FtthInstallationTeamProgress/<int:pk>', FtthInstallationTeamProgressView.as_view()),
+
+    path('FtthSplicingProgress/<int:pk>', FtthSplicingProgressView.as_view()),
+    path('FtthSignalTestingProgress/<int:pk>', FtthSignalTestingProgressView.as_view()),
 
     #FILES
 

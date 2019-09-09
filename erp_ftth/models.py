@@ -1114,7 +1114,7 @@ class FtthSplicing(TimeStampModel):
 
     def raise_flag(self):
         try:
-            kpi_data = FtthTask.objects.get(task_name='Splicing Tasks')
+            kpi_data = FtthTask.objects.get(task_name='FTTH Splicing Tasks')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""
@@ -1429,7 +1429,7 @@ class FtthSignalTesting(TimeStampModel):
 
     def raise_flag(self):
         try:
-            kpi_data = FtthTask.objects.get(task_name='Signal Testing Task')
+            kpi_data = FtthTask.objects.get(task_name='FTTH Signal Testing Task')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""

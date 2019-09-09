@@ -84,10 +84,7 @@ urlpatterns = [
     path('FttsProjectProgress/<int:pk>', FttsProjectProgressView.as_view()),
     path('FttsSurveyTeamProgress/<int:pk>', FttsSurveyTeamProgressView.as_view()),
     path('FttsCommercialTeamProgress/<int:pk>', FttsCommercialTeamProgressView.as_view()),
-    path('FttsProcurementProgressTeam/<int:pk>', FttsProcurementProgressTeamView.as_view()),
-    path('FttsCivilProgress/<int:pk>', FttsCivilProgressView.as_view()),
-    path('FttsInstallationProgress/<int:pk>', FttsInstallationProgressView.as_view()),
-
+    path('FttsProcurementTeamProgress/<int:pk>', FttsProcurementTeamProgressView.as_view()),
     path('FttsCivilTeamProgress/<int:pk>', FttsCivilTeamProgressView.as_view()),
     path('FttsInstallationTeamProgress/<int:pk>', FttsInstallationTeamProgressView.as_view()),
 
