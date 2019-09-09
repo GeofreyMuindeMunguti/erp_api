@@ -7,7 +7,7 @@ from erp_core.base import *
 from erp_construction.models import *
 from .fileshandler.filemixin import UploadToProjectDir
 from django.contrib.postgres.fields import ArrayField
-from datetime import datetime, timezone, timedelta
+from datetime import datetime,  timedelta
 from erp_ftts.models import *
 from erp_ftth.models import *
 

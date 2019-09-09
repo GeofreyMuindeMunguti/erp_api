@@ -5,7 +5,7 @@ from erp_core.base import *
 from erp_construction.models import *
 from users.models import *
 from django.contrib.postgres.fields import ArrayField
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timedelta
 from django.contrib.auth.models import User
 from erp_core.fileshandler.filemixin import *
 from erp_ftth.models import *

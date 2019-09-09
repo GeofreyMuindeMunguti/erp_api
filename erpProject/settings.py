@@ -45,10 +45,14 @@ INSTALLED_APPS = [
     'erp_ftth',
     'users',
     'inventory',
+    'fcm_devices',
+    'fcm',
+    'fcm_messaging',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
     'corsheaders',
+
 ]
 
 MIDDLEWARE = [
@@ -64,6 +68,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'erpProject.urls'
+
+FCM_APIKEY = config('FCM_APIKEY')
+FCM_DEVICE_MODEL = config('FCM_DEVICE_MODEL')
+
 
 TEMPLATES = [
     {
@@ -96,6 +104,8 @@ DATABASES = {
             'PORT': config('PORT'),
         }
     }
+
+
 
 CACHES = {
    'default': {

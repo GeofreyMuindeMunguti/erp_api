@@ -5,14 +5,14 @@ from erp_construction.models import *
 from users.models import *
 from erp_core.models import *
 from django.contrib.postgres.fields import ArrayField
-from datetime import datetime, timezone, timedelta
+from datetime import datetime,timedelta
 from django.contrib.auth.models import User
 from erp_core.fileshandler.filemixin import UploadToProjectDir # create Folders(Project name) with images & files per project in /media/..
 from erp_ftts.models import *
 
 class FTTHProject(CreateProject):
     initial_kmz = models.FileField(upload_to='files/ftth/InitialKMZ/%Y/%m/%d/', blank=True, null=True)
-    signed_operation_acceptance = models.BooleanField(default=False, blank=True, null=True)
+    signed_operation_acceptance = models.NullBooleanField(default=False, blank=True, null=True)
     ftth_final_acceptance_cert = models.FileField(upload_to='files/ftth/SafaricomTeamftth/finalcert/%Y/%m/%d/', blank=True, null=True)
     ftth_final_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)

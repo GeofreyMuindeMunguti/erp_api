@@ -1,11 +1,12 @@
 from rest_framework.routers import DefaultRouter
 from rest_framework.urlpatterns import format_suffix_patterns
 from . import views
+# from django.urls import path, include
 from django.urls import path, include
-from .views import *
-from .progress import *
-from .monitoring import *
-from .scorecard import *
+from erp_construction.views import *
+from erp_construction.progress import *
+from erp_construction.monitoring import *
+from erp_construction.scorecard import *
 from .btsfiles import filesviews
 
 
