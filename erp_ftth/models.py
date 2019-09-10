@@ -279,7 +279,7 @@ class ftthSurveyPhotos(TimeStampModel):
 
     def ftth_survey_id(self):
         try:
-            survey = ftthSurvey.objects.get(site_name=self.site_name)
+            survey = ftthSurvey.objects.get(project_name=self.project_name)
             survey_id = survey.id
             return survey_id
         except Exception as e:
