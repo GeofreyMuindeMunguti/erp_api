@@ -1,7 +1,7 @@
 from django.db import models
 from users.models import *
 from .fileshandler.filemixin import UploadToProjectDir
-
+file_path = 'FTTSProjects'
 
 class TimeStampModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -39,17 +39,17 @@ class Category(TimeStampModel):
 
 class CommercialFiles(TimeStampModel):
       # TODO
-    quote = models.FileField(upload_to=UploadToProjectDir('FTTS/files/Quote/'), blank=True, null=True)
-    wayleave_application = models.FileField(upload_to=UploadToProjectDir('FTTS/files/wayleave_application/'), blank=True, null=True)
-    wayleave_approval = models.FileField( upload_to=UploadToProjectDir('FTTS/files/wayleave_approval/'), blank=True, null=True)
+    quote = models.FileField(upload_to=UploadToProjectDir(file_path,'FTTS/files/Quote/'), blank=True, null=True)
+    wayleave_application = models.FileField(upload_to=UploadToProjectDir(file_path,'FTTS/files/wayleave_application/'), blank=True, null=True)
+    wayleave_approval = models.FileField( upload_to=UploadToProjectDir(file_path,'FTTS/files/wayleave_approval/'), blank=True, null=True)
 
     class Meta:
         abstract = True
 
 class ProcurementFiles(TimeStampModel):
       # TODO
-    bill_of_materials = models.FileField(upload_to=UploadToProjectDir('FTTS/files/BOM/'), blank=True, null=True)
-    material_receipt_order = models.FileField(upload_to=UploadToProjectDir('FTTS/files/MRO/'), blank=True, null=True)
+    bill_of_materials = models.FileField(upload_to=UploadToProjectDir(file_path,'FTTS/files/BOM/'), blank=True, null=True)
+    material_receipt_order = models.FileField(upload_to=UploadToProjectDir(file_path,'FTTS/files/MRO/'), blank=True, null=True)
 
     class Meta:
         abstract = True
