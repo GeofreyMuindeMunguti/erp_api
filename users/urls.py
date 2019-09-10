@@ -25,6 +25,10 @@ router.register(r'rates', views.RatesViewSet)
 router.register(r'permissions', views.PermissionMapViewSet)
 router.register(r'contenttype', views.ContentTypeViewSet)
 
+router.register(r'projectteamftts', views.ProjectTeamFTTSViewSet)
+router.register(r'projectteamftth', views.ProjectTeamFTTHViewSet)
+
+
 
 urlpatterns = [
     path('', include(router.urls)),
