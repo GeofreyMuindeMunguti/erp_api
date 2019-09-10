@@ -30,7 +30,7 @@ admin.site.register(FtthInterceptionPoint, FtthInterceptionPointAdmin)
 
 
 class ftthSurveyPhotosAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'survey_image_1', 'survey_image_2', 'survey_image_3', 'survey_images_comment', 'ftth_survey_id', 'posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'work_day','survey_image_1', 'survey_image_2', 'survey_image_3', 'survey_images_comment', 'ftth_survey_id', 'posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)

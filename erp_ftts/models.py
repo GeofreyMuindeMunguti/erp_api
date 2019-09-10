@@ -1,6 +1,6 @@
 from django.db import models
 from erp_core.models import *
-from erp_core.models import Project as CreateProject
+# from erp_core.models import Project as CreateProject
 from erp_core.base import *
 from erp_construction.models import *
 from users.models import *
@@ -13,7 +13,8 @@ from erp_ftth.models import *
 file_path = 'FTTSProjects'
 
 # Create your models here.
-class FTTSProject(CreateProject,TimeTrackModel):
+class FTTSProject(TimeStampModel,TimeTrackModel):
+    project_name = models.CharField(max_length=100, unique = True, blank=True, null=True)
     ftts_activation = models.BooleanField(default=False)
     ftts_activation_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -395,6 +396,7 @@ class InterceptionPoint(TimeStampModel):
 
 class fttsSurveyPhotos(TimeStampModel):
     site_name = models.OneToOneField(FttsSite, on_delete=models.DO_NOTHING,related_name ='fttssurveyphotos')
+    work_day = models.DateField(unique =True, blank=True, null=True)
     survey_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/survey/'), blank=True, null=True)
     survey_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/survey/'), blank=True, null=True)
     survey_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/survey/'), blank=True, null=True)
@@ -418,7 +420,7 @@ class fttsSurvey(TimeStampModel,TimeTrackModel):
     site_latitude = models.FloatField(blank=True, null=True)
     site_longitude = models.FloatField(blank=True, null=True)
     distance_from_ip = models.FloatField(blank=True, null=True)
-    survey_photos = models.ManyToManyField(fttsSurveyPhotos)
+    survey_photos = models.ManyToManyField(fttsSurveyPhotos,blank=True, null=True)
     high_level_design = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/survey/highleveldesigns/'), blank=True, null=True)
     county = models.ForeignKey(Location, on_delete=models.CASCADE, blank=True, null=True)
     survey_comment = models.CharField(max_length=200, blank=True, null=True)

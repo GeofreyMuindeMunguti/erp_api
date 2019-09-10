@@ -10,7 +10,8 @@ from django.contrib.auth.models import User
 from erp_core.fileshandler.filemixin import UploadToProjectDir # create Folders(Project name) with images & files per project in /media/..
 from erp_ftts.models import *
 
-class FTTHProject(CreateProject):
+class FTTHProject(TimeStampModel,TimeTrackModel):
+    project_name = models.CharField(max_length=100,unique=True)
     initial_kmz = models.FileField(upload_to='files/ftth/InitialKMZ/%Y/%m/%d/', blank=True, null=True)
     signed_operation_acceptance = models.NullBooleanField(default=False, blank=True, null=True)
     ftth_final_acceptance_cert = models.FileField(upload_to='files/ftth/SafaricomTeamftth/finalcert/%Y/%m/%d/', blank=True, null=True)
@@ -256,8 +257,8 @@ class FtthSubTask(TimeStampModel):
 
 class FtthInterceptionPoint(TimeStampModel):
     interception_point_name = models.CharField(max_length=50)
-    latitude = models.FloatField()
-    longitude = models.FloatField()
+    latitude = models.FloatField(blank=True, null=True)
+    longitude = models.FloatField(blank=True, null=True)
     county = models.ForeignKey(Location, on_delete=models.CASCADE, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
@@ -266,6 +267,7 @@ class FtthInterceptionPoint(TimeStampModel):
 
 class ftthSurveyPhotos(TimeStampModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.CASCADE, blank=True)
+    work_day = models.DateField(unique =True, blank=True, null=True)
     survey_image_1 = models.ImageField(upload_to='images/ftth/survey/%Y/%m/%d/')
     survey_image_2 = models.ImageField(upload_to='images/ftth/survey/%Y/%m/%d/', blank=True, null=True)
     survey_image_3 = models.ImageField(upload_to='images/ftth/survey/%Y/%m/%d/', blank=True, null=True)
@@ -287,11 +289,11 @@ class ftthSurveyPhotos(TimeStampModel):
 class ftthSurvey(TimeStampModel,TimeTrackModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.CASCADE, blank=True)
     ftth_interception_point = models.ForeignKey(FtthInterceptionPoint, on_delete=models.CASCADE, blank=True, null=True)
-    site_latitude = models.FloatField()
-    site_longitude = models.FloatField()
+    site_latitude = models.FloatField(blank=True, null=True)
+    site_longitude = models.FloatField(blank=True, null=True)
     distance_from_ip = models.FloatField(blank=True, null=True) #total
     no_of_fdts = models.IntegerField(blank=True, null=True)
-    survey_photos = models.ManyToManyField(ftthSurveyPhotos)
+    survey_photos = models.ManyToManyField(ftthSurveyPhotos,blank=True, null=True)
     high_level_design = models.FileField(upload_to='files/ftth/survey/highleveldesigns/%Y/%m/%d/', blank=True, null=True)
     county = models.ForeignKey(Location, on_delete=models.CASCADE, blank=True, null=True)
     ftth_survey_comment = models.CharField(max_length=200, blank=True, null=True)
@@ -772,7 +774,7 @@ class FtthHealthDocumentsCivilTeam(TimeStampModel):
     def __str__(self):
         return str(self.project_name)
 
-class FtthCivilTeam(TimeStampModel):
+class FtthCivilTeam(TimeStampModel,TimeTrackModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.CASCADE, blank=True)
     ftth_pole_installation = models.OneToOneField(FtthPoleInstallation, on_delete=models.CASCADE, blank=True, null=True)
     ftth_trenching = models.OneToOneField(FtthTrenching, on_delete=models.CASCADE, blank=True, null=True)
@@ -1498,7 +1500,7 @@ class FtthIssues(TimeStampModel):
     def __str__(self):
         return str(self.ftts_issue)
 
-class FtthInstallationTeam(TimeStampModel):
+class FtthInstallationTeam(TimeStampModel,TimeTrackModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.CASCADE, blank=True)
     ftth_splicing = models.OneToOneField(FtthSplicing, on_delete=models.CASCADE, blank=True, null=True)
     ftth_signal_testing = models.OneToOneField(FtthSignalTesting, on_delete=models.CASCADE, blank=True, null=True)
