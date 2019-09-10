@@ -223,3 +223,36 @@ class Rates(models.Model):
 
     def __str__(self):
         return str(self.worker_type)
+
+
+
+
+# Project Team 
+
+class TeamMemberType(models.Model):
+    role = models.CharField(max_length=100, blank=True, null=True)
+    created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.role)
+
+
+class ProjectTeamFTTH(models.Model):
+    project_name = models.ForeignKey('erp_ftth.FTTHProject', on_delete=models.CASCADE )
+    engineer_name = models.ForeignKey(Engineer, on_delete=models.DO_NOTHING, blank=True, null=True)
+
+    team_member_type = models.ForeignKey(TeamMemberType, on_delete=models.DO_NOTHING, blank=True, null=True)
+
+    def __str__(self):
+        return 'Project Team for FTTH {}'.format(self.project_name)
+
+
+class ProjectTeamFTTS(models.Model):
+    project_name = models.ForeignKey('erp_ftts.FTTSProject', on_delete=models.CASCADE )
+    site_name = models.ForeignKey('erp_ftts.FttsSite', on_delete=models.CASCADE, blank=True, null=True)
+    engineer_name = models.ForeignKey(Engineer, on_delete=models.DO_NOTHING, blank=True, null=True)
+
+    team_member_type = models.ForeignKey(TeamMemberType, on_delete=models.DO_NOTHING, blank=True, null=True)
+
+    def __str__(self):
+        return 'Project Team for FTTS {}'.format(self.project_name)
