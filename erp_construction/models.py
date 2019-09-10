@@ -4,9 +4,9 @@ from django.contrib.auth.models import User
 from users.models import *
 from erp_core.models import *
 from django.contrib.postgres.fields import ArrayField
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timedelta
 import math
-from erp_core.fileshandler.filemixin import *# UploadToProjectDir ,UploadToProjectDirDate ,UploadToProjectDirSubTask ,UploadToProjectDirImage
+from erp_core.fileshandler.filemixin import * # UploadToProjectDir ,UploadToProjectDirDate ,UploadToProjectDirSubTask ,UploadToProjectDirImage
 
 file_path = 'BTSProjects'
 
@@ -234,6 +234,7 @@ class BtsBudget(models.Model):
     def amount(self):
         return float(self.quantity * self.rate)
 ####################################### END ########################################################################################################################################
+
 # TASK [1]: FOUNDATION CREATION TASK ########################################################################################################################################
 class SiteClearingImage(TimeStampModel):
     day_image = models.ForeignKey('SiteClearingDate', on_delete=models.CASCADE ,related_name= 'siteclearingimages' )

@@ -141,7 +141,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ('user_id', 'customuser_phone_no','customuser_profile_pic','team', 'position','last_seen','online')
+        fields = ('user_id', 'customuser_phone_no','customuser_profile_pic','team', 'position','last_seen','online','device')
         read_only_fields = ('is_active', 'is_staff')
 
 

@@ -7,7 +7,8 @@ from django.urls import path, include
 from .views import *
 from .fttsfiles import filesviews
 from erp_ftts.monitoring import *
-
+from erp_ftts.scorecard import *
+from erp_ftts.progress import *
 
 
 router = DefaultRouter()
@@ -70,7 +71,22 @@ urlpatterns = [
     path('', include(router.urls)),
     # ENDPOINTS FOR DASHBOARD
     path('fttsproject/<int:pk>/fttssites', FttsSiteListView.as_view()),
-    path('issuestatus/', FttsIssueStatusView.as_view()),
+    #monitoring
+    path('FttsTaskStatus/', FttsTaskStatusView.as_view()),
+    path('FttsTimesheetSummary/', FttsTimesheetSummaryView.as_view()),
+    path('FttsIssueStatus/', FttsIssueStatusView.as_view()),
+    #scorecard
+    path('FttsTurnAroundTime/', FttsTurnAroundTimeView.as_view()),
+    path('FttsTotalPurchaseOrders/', FttsTotalPurchaseOrdersView.as_view()),
+    path('FttsRevenueDetail/<int:pk>', FttsRevenueDetailView.as_view()),
+    path('Fttsrevenue/', FttsRevenueListView.as_view()),
+    #progress
+    path('FttsProjectProgress/<int:pk>', FttsProjectProgressView.as_view()),
+    path('FttsSurveyTeamProgress/<int:pk>', FttsSurveyTeamProgressView.as_view()),
+    path('FttsCommercialTeamProgress/<int:pk>', FttsCommercialTeamProgressView.as_view()),
+    path('FttsProcurementTeamProgress/<int:pk>', FttsProcurementTeamProgressView.as_view()),
+    path('FttsCivilTeamProgress/<int:pk>', FttsCivilTeamProgressView.as_view()),
+    path('FttsInstallationTeamProgress/<int:pk>', FttsInstallationTeamProgressView.as_view()),
 
     # FILES (PER SITE) ENDPOINTS
 
@@ -79,11 +95,8 @@ urlpatterns = [
     path('files/<int:pk>/commercialteamtiles/', filesviews.FttsCommercialTeamASubTaskFilesView.as_view()),
     # Civil works
 
-    
     # path('files/<int:pk>/siteductinstalls/', filesviews.SiteDuctInstallationFilesView.as_view()),
     # path('files/<int:pk>/sitemanholeinstall/', filesviews.ManHoleInstallationFilesView.as_view()),
-
-    
     path('files/<int:pk>/sitesurvey/', filesviews.FttsSurveyPhotosASubTaskFilesView.as_view()),
     path('files/<int:pk>/sitetrenchings/', filesviews.SiteTrenchingASubTaskFilesView.as_view()),
     path('files/<int:pk>/siteductinstall/', filesviews.SiteDuctASubTaskFilesView.as_view()),
