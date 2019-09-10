@@ -22,7 +22,6 @@ class BtsProjectSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class BtsSiteSerializer(serializers.ModelSerializer):
-
     turn_around_time = serializers.IntegerField(read_only=True)
     progress = serializers.IntegerField(read_only=True)
 

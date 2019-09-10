@@ -141,6 +141,7 @@ class Migration(migrations.Migration):
                 ('customuser_phone_no', models.CharField(blank=True, max_length=10, null=True)),
                 ('customuser_profile_pic', models.ImageField(blank=True, null=True, upload_to='ProfilePictures/Employee')),
                 ('team', models.CharField(max_length=150)),
+                ('devid', models.IntegerField(blank=True, null=True)),
                 ('position', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='group', to='auth.Group')),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='profile', to=settings.AUTH_USER_MODEL)),
             ],

@@ -22,34 +22,9 @@ class FttsSiteSerializer(serializers.ModelSerializer):
         model = FttsSite
         fields = ('__all__')
 
-###############################FTTH SURVEY###################################
-
-class InterceptionPointSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = InterceptionPoint
-        fields = ('__all__')
-        read_only_fields = ('created_at', 'updated_at', 'is_active')
-
-class fttsSurveyPhotosSerializer(serializers.ModelSerializer):
-
-    ftts_survey_id = serializers.IntegerField(read_only=True)
-
-    class Meta:
-        model = fttsSurveyPhotos
-        fields = ('__all__')
-        read_only_fields = ('created_at', 'updated_at', 'is_active')
-
-class fttsSurveySerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = fttsSurvey
-        fields = ('__all__')
-        read_only_fields = ('created_at', 'updated_at', 'is_active')
-
-###############################END OF FTTH SURVEY############################
-
 class FttsCommercialTeamSerializer(serializers.ModelSerializer):
+    ftts_turn_around_time = serializers.IntegerField(read_only=True)
+    # progress = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = FttsCommercialTeam
@@ -70,6 +45,34 @@ class FttsCertificatesSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+###############################FTTH SURVEY###################################
+
+class InterceptionPointSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = InterceptionPoint
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class fttsSurveyPhotosSerializer(serializers.ModelSerializer):
+
+    ftts_survey_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = fttsSurveyPhotos
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class fttsSurveySerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
+
+    class Meta:
+        model = fttsSurvey
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+###############################END OF FTTH SURVEY############################
+
 ################################################ FIBER CIVIL TEAM ##############################################################################################################################################################################################################################################
 
 class SiteTrenchingImageSerializer(serializers.ModelSerializer):
@@ -87,6 +90,7 @@ class DailySiteTrenchingSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class SiteTrenchingSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
     ftts_task_id = serializers.IntegerField(read_only=True)
     days_list = serializers.ListField(read_only=True)
     class Meta:
@@ -109,6 +113,7 @@ class DailySiteDuctInstallationSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class SiteDuctInstallationSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
     ftts_task_id = serializers.IntegerField(read_only=True)
     days_list = serializers.ListField(read_only=True)
     class Meta:
@@ -153,6 +158,7 @@ class DailySiteCableInstallationSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class SiteCableInstallationSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
     ftts_task_id = serializers.IntegerField(read_only=True)
     days_list = serializers.ListField(read_only=True)
     class Meta:
@@ -201,6 +207,7 @@ class DailySiteTerminalInHseSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class SiteTerminalInHseSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
     ftts_task_id = serializers.IntegerField(read_only=True)
     days_list = serializers.ListField(read_only=True)
     class Meta:
@@ -223,6 +230,7 @@ class DailySiteInterceptionSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class SiteInterceptionSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
     ftts_task_id = serializers.IntegerField(read_only=True)
     days_list = serializers.ListField(read_only=True)
     class Meta:
