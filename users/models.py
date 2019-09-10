@@ -9,13 +9,15 @@ import datetime
 from django.conf import settings
 
 
+
 class CustomUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     customuser_phone_no = models.CharField(max_length=10, blank=True, null=True)
     customuser_profile_pic = models.ImageField(upload_to='ProfilePictures/Employee', blank=True, null=True)
     team = models.CharField(max_length=150)
     position = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='group', blank=True, null=True)
-
+    device = models.IntegerField(blank=True, null=True)
+     
     def __str__(self):
         return self.user.username
 
@@ -221,3 +223,36 @@ class Rates(models.Model):
 
     def __str__(self):
         return str(self.worker_type)
+
+
+
+
+# Project Team 
+
+class TeamMemberType(models.Model):
+    role = models.CharField(max_length=100, blank=True, null=True)
+    created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.role)
+
+
+class ProjectTeamFTTH(models.Model):
+    project_name = models.ForeignKey('erp_ftth.FTTHProject', on_delete=models.CASCADE )
+    engineer_name = models.ForeignKey(Engineer, on_delete=models.DO_NOTHING, blank=True, null=True)
+
+    team_member_type = models.ForeignKey(TeamMemberType, on_delete=models.DO_NOTHING, blank=True, null=True)
+
+    def __str__(self):
+        return 'Project Team for FTTH {}'.format(self.project_name)
+
+
+class ProjectTeamFTTS(models.Model):
+    project_name = models.ForeignKey('erp_ftts.FTTSProject', on_delete=models.CASCADE )
+    site_name = models.ForeignKey('erp_ftts.FttsSite', on_delete=models.CASCADE, blank=True, null=True)
+    engineer_name = models.ForeignKey(Engineer, on_delete=models.DO_NOTHING, blank=True, null=True)
+
+    team_member_type = models.ForeignKey(TeamMemberType, on_delete=models.DO_NOTHING, blank=True, null=True)
+
+    def __str__(self):
+        return 'Project Team for FTTS {}'.format(self.project_name)

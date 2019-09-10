@@ -141,7 +141,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ('user_id', 'customuser_phone_no','customuser_profile_pic','team', 'position','last_seen','online')
+        fields = ('user_id', 'customuser_phone_no','customuser_profile_pic','team', 'position','last_seen','online','device')
         read_only_fields = ('is_active', 'is_staff')
 
 
@@ -231,4 +231,17 @@ class RatesSerializer(serializers.ModelSerializer):
 class ContentTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = ContentType
+        fields = ('__all__')
+
+
+class ProjectTeamFTTHSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ProjectTeamFTTH
+        fields = ('__all__')
+        
+class ProjectTeamFTTSSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ProjectTeamFTTS
         fields = ('__all__')
