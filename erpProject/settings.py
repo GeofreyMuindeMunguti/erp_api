@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 from decouple import config
+from django.conf import settings
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,6 +27,8 @@ DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = [ ]
 
+USER_ONLINE_TIMEOUT = 300
+USER_LASTSEEN_TIMEOUT = 60 * 60 * 24 * 7
 
 # Application definition
 
@@ -42,10 +45,14 @@ INSTALLED_APPS = [
     'erp_ftth',
     'users',
     'inventory',
+    'fcm_devices',
+    'fcm',
+    'fcm_messaging',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
     'corsheaders',
+
 ]
 
 MIDDLEWARE = [
@@ -57,9 +64,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'users.middleware.ActiveUserMiddleware',
 ]
 
 ROOT_URLCONF = 'erpProject.urls'
+
+FCM_APIKEY = config('FCM_APIKEY')
+FCM_DEVICE_MODEL = config('FCM_DEVICE_MODEL')
+
 
 TEMPLATES = [
     {
@@ -92,6 +104,15 @@ DATABASES = {
             'PORT': config('PORT'),
         }
     }
+
+
+
+CACHES = {
+   'default': {
+       'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+       'LOCATION': '127.0.0.1:11211',
+   }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

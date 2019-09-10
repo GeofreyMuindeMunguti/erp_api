@@ -14,8 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+
 from django.urls import path, include
-from django.conf.urls import url
 from erp_construction.urls import router
 from erp_core.urls import router
 from erp_ftts.urls import router
@@ -36,4 +36,6 @@ urlpatterns = [
     path('erp_ftth/', include('erp_ftth.urls')),
     path('', include('users.urls')),
     path('inventory/', include('inventory.urls')),
+    path('devices/', include('fcm_devices.urls')),
+    path('messaging/', include('fcm_messaging.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

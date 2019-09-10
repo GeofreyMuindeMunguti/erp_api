@@ -7,24 +7,14 @@ from erp_core.base import *
 from erp_construction.models import *
 from .fileshandler.filemixin import UploadToProjectDir
 from django.contrib.postgres.fields import ArrayField
-from datetime import datetime, timezone, timedelta
+from datetime import datetime,  timedelta
+from erp_ftts.models import *
+from erp_ftth.models import *
 
 # Create your models here.
 
-# 
-# class MainSite(TimeStampModel):
-#     site_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
-#     location = models.ForeignKey(Location,on_delete=models.CASCADE, related_name="mainsites", blank=True, null=True )
-#
-#     class Meta:
-#         ordering = ('-pk',)
-#
-#
-#     def __str__(self):
-#         return str(self.site_name)
-
-
-####################################### KPI ###############################################################################################################################
+"""BTS"""
+####################################### BTS KPI ###############################################################################################################################
 class Kpi(TimeStampModel):
     kpi = models.IntegerField(blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
@@ -35,7 +25,7 @@ class Kpi(TimeStampModel):
 
 ######################################## END #######################################################################################################################################
 
-####################################### TASKS ###############################################################################################################################
+####################################### BTS TASKS ###############################################################################################################################
 class Task(TimeStampModel):
     category_name = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
     task_name = models.CharField(blank=True, null=True, max_length=150, unique=True)
@@ -48,7 +38,7 @@ class Task(TimeStampModel):
 
 ######################################## END #######################################################################################################################################
 
-####################################### SUBTASKS ###############################################################################################################################
+####################################### BTS SUBTASKS ###############################################################################################################################
 class SubTask(TimeStampModel):
     task_name = models.ForeignKey(Task, on_delete=models.DO_NOTHING)
     subtask_name = models.CharField(blank=True, null=True, max_length=150, unique=True)
@@ -60,3 +50,4 @@ class SubTask(TimeStampModel):
         return str(self.subtask_name)
 
 ######################################## END #######################################################################################################################################
+"""END"""

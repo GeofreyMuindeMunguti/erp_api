@@ -3,16 +3,18 @@ from django.contrib.auth.models import User
 from users.serializers import *
 from datetime import datetime
 
-from rest_framework import generics, permissions, viewsets, serializers, permissions, filters, status
+from rest_framework import generics,viewsets, serializers, filters, status
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework_jwt.views import ObtainJSONWebToken
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
+# from rest_framework.permissions import AllowAny
 
 from .serializers import JWTSerializer
 from django.contrib.contenttypes.models import ContentType
 
+# from users.permissions import IsLoggedInUserOrAdmin, IsAdminUser
 
 # Create your views here.
 # API
@@ -50,6 +52,49 @@ class ObtainJWTView(ObtainJSONWebToken):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+    # def get_permissions(self):
+    #     permission_classes = []
+    #     if self.action == 'create':
+    #         permission_classes = [AllowAny]
+    #     elif self.action == 'retrieve' or self.action == 'update' or self.action == 'partial_update':
+    #         permission_classes = [IsLoggedInUserOrAdmin]
+    #     elif self.action == 'list' or self.action == 'destroy':
+    #         permission_classes = [IsAdminUser]
+    #         return [permission() for permission in permission_classes]
+
+class LogViewSet(viewsets.ModelViewSet):
+    queryset = Log.objects.all()
+    serializer_class = LogSerializer
+
+
+"""MESSAGING"""
+
+"""CHAT"""
+class ChatViewSet(viewsets.ModelViewSet):
+
+    serializer_class = MessageSerializer
+    queryset = Message.objects.all()
+    def get_queryset(self):
+     queryset = self.queryset
+     query_set = (queryset.filter(sender=self.request.user)|queryset.filter(receiver=self.request.user))
+     return query_set
+
+class SentEmailViewSet(viewsets.ModelViewSet):
+
+    serializer_class = SentEmailSerializer
+    queryset = SentEmail.objects.all()
+    def get_queryset(self):
+        queryset = self.queryset
+        query_set = (queryset.filter(sender=self.request.user)|queryset.filter(receiver=self.request.user))
+        return query_set
+
+class EmailConfigViewSet(viewsets.ModelViewSet):
+
+    serializer_class = EmailConfigSerializer
+    queryset = EmailConfig.objects.all()
+
+"""END"""
 
 # Permission
 class PermissionMapViewSet(viewsets.ModelViewSet):
@@ -96,3 +141,22 @@ class ContentTypeViewSet(viewsets.ModelViewSet):
     serializer_class = ContentTypeSerializer
 
     search_fields = ('id', )
+
+
+
+
+class ProjectTeamFTTSViewSet(viewsets.ModelViewSet):
+    """ViewSet for the ProjectTeam class"""
+
+    queryset = ProjectTeamFTTS.objects.all()
+    serializer_class = ProjectTeamFTTSSerializer
+   # permission_classes = [permissions.IsAuthenticated]
+
+
+class ProjectTeamFTTHViewSet(viewsets.ModelViewSet):
+    """ViewSet for the ProjectTeam class"""
+
+    queryset = ProjectTeamFTTH.objects.all()
+    serializer_class = ProjectTeamFTTHSerializer
+   # permission_classes = [permissions.IsAuthenticated]
+
