@@ -31,6 +31,13 @@ class BtsSiteSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+class BtsBudgetSerializer(serializers.ModelSerializer):
+    amount = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = BtsBudget
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class CategorySerializer(serializers.ModelSerializer):
 

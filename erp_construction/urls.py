@@ -21,8 +21,11 @@ router.register(r'category', views.CategoryViewSet)
 router.register(r'Icons', views.ProjectIconViewSet)
 router.register(r'projectcosting', views.ProjectCostingViewSet)
 router.register(r'projectpos', views.ProjectPOSViewSet)
+router.register(r'BtsBudget',views.BtsBudgetViewSet)
+
 router.register(r'commercialteamtasks', views.CommercialTeamViewSet)
 router.register(r'procurementteamtasks', views.ProcurementTeamViewSet)
+
 router.register(r'healthdocscivil', views.HealthDocCivilViewSet)
 router.register(r'accessapprovalscivil', views.AccessApprovalCivilViewSet)
 router.register(r'civilteamtasks', views.CivilTeamViewSet)

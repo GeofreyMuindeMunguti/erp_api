@@ -231,7 +231,29 @@ class BtsSite(models.Model):
         return project_percentage
 
 
-#######################################START FOUNDATION IMAGES########################################################################################################################################
+
+####################################### BUDGET ########################################################################################################################################
+
+class BtsBudget(models.Model):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    beneficiary_name = models.CharField(max_length=100, blank=True, null=True)
+    description = models.CharField(max_length=350, blank=True, null=True)
+    date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    phoneNumber = models.CharField(max_length=100, blank=True, null=True)
+    quantity = models.IntegerField(blank=True, null=True)
+    rate = models.IntegerField(blank=True, null=True)
+    unit = models.IntegerField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+    is_approved = models.BooleanField(default=False, blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.beneficiary_name)
+
+    def amount(self):
+        return float(self.quantity * self.rate)
+####################################### END ########################################################################################################################################
 
 """BTS"""
 ####################################### BTS KPI ###############################################################################################################################
@@ -272,6 +294,7 @@ class SubTask(models.Model):
 ######################################## END #######################################################################################################################################
 """END"""
 
+#######################################START FOUNDATION IMAGES########################################################################################################################################
 class SetSiteClearingImage(models.Model):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
