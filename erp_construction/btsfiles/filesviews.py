@@ -14,7 +14,7 @@ from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
 from rest_framework import status, viewsets
 from rest_framework.decorators import parser_classes
 from rest_framework.decorators import detail_route
-from .filemixin import DefaultsMixin
+from erp_construction.fileshandler.filemixin import DefaultsMixin
 
 
 
@@ -28,10 +28,10 @@ class FilesView(APIView):
         return Response(resp)
 
 
-class SiteFilesView(generics.RetrieveAPIView,DefaultsMixin):
+class BtsSiteFilesView(generics.RetrieveAPIView,DefaultsMixin):
     ''' Main View to return all files per project'''
 
-    queryset = Site.objects.all()
+    queryset = BtsSite.objects.all()
     serializer_class = SiteFilesSerializer
 
 

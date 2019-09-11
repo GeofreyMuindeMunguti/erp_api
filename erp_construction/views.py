@@ -42,16 +42,22 @@ class DefaultsMixin(object):
     ViewSet . We configure the OrderingFilter by adding a list of fields, which can be used
     for ordering the ordering_fields .
     '''
-
-
-class SiteViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    
+class BtsProjectViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating a project."""
-    queryset = Site.objects.order_by('created_at')
-    serializer_class = SiteSerializer
+    queryset = BtsProject.objects.order_by('created_at')
+    serializer_class = BtsProjectSerializer
 
-    search_fields = ('site_name', )
-    ordering_fields = ('updated_at', 'site_name', )
+    search_fields = ('bts_project_name', )
+    ordering_fields = ('updated_at', 'bts_project_name', )
 
+class BtsSiteViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating a project."""
+    queryset = BtsSite.objects.order_by('created_at')
+    serializer_class = BtsSiteSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
 
 class ProjectIconViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating a project icons."""
