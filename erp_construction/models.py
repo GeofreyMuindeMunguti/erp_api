@@ -58,13 +58,6 @@ class BtsSite(models.Model):
     class Meta:
         verbose_name_plural = 'BTS SITES'
 
-
-    # def delete(self, *args, **kwargs):
-    #     if self.is_active is False:
-    #         return "Item already deleted"
-    #     else:
-    #         self.is_active = False
-
     def status(self):
         try:
             if bool(self.final_acceptance_cert) is False:
