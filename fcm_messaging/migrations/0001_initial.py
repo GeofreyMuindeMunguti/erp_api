@@ -12,16 +12,15 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name='Message',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('is_active', models.BooleanField(default=True)),
-                ('category_name', models.CharField(max_length=100, unique=True)),
+                ('title', models.CharField(max_length=30)),
+                ('body', models.CharField(max_length=200)),
+                ('timestamp', models.DateTimeField(auto_now_add=True)),
             ],
             options={
-                'abstract': False,
+                'ordering': ('-timestamp',),
             },
         ),
     ]

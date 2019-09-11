@@ -2,23 +2,13 @@ from django.db import models
 from django.db.models import Sum, F
 from django.contrib.auth.models import User
 from users.models import *
+from erp_core.base import *
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime, timezone, timedelta
 import math
 from erp_construction.fileshandler.filemixin import *
 
 file_path = 'BTSProjects'
-
-class Category(models.Model):
-    category_name = models.CharField(max_length=100, unique=True)
-    created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
-
-    def __str__(self):
-        return self.category_name
-
 
 class ProjectIcons(models.Model):
     icon = models.ImageField(upload_to='images/Project/Icons/%Y/%m/%d/')
