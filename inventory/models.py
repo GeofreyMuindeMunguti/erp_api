@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from users.models import *
+#from users.models import *
 from erp_construction.models import *
 
 ############################## PROCUREMENT TEAM ########################################################################################################################################################
