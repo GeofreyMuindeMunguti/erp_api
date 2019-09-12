@@ -24,45 +24,57 @@ class Client(TimeStampModel):
         ordering = ('-created_by',)
 
     def __str__(self):
-        return f'Client Name :{self.first_name} {self.second_name}'
+        return f'{self.first_name} {self.second_name}'
 
 
 class Technology(models.Model):
-    tech_name =models.CharField(max_length=150)
+    tech_name =models.CharField(max_length=150,blank=True ,null=True)
 
     def __str__(self):
         return f'{self.tech_name}'
 
 
 class Service(models.Model):
-    service_name =models.CharField(max_length=150)
-    technology = ForeignKey(Technology, on_delete=models.CASCADE, related_name="services" )
+    service_name =models.CharField(max_length=150,blank=True ,null=True)
+    technology = ForeignKey(Technology, on_delete=models.CASCADE, related_name="services" ,blank=True ,null=True)
 
     def __str__(self):
-        return f'Service:{self.service_name},Technology:{self.technology}'
+        return f'{self.service_name}-{self.technology}'
 
 
 class Building(TimeStampModel):
     name =CharField(max_length=150, blank=True ,null=True)
-    latitude = CharField(max_length=150)
-    longitude = CharField(max_length=150)
+    latitude = CharField(max_length=150,blank=True ,null=True)
+    longitude = CharField(max_length=150,blank=True ,null=True)
+    building_image_1 = models.ImageField(upload_to='images/Fixed_data/building/', blank=True, null=True)
+    building_image_2 = models.ImageField(upload_to='images/Fixed_data/building/', blank=True, null=True)
 
 
-    def __unicode__(self):
+    def __str__(self):
         return f'{self.name}'
 
 
 class Link(TimeStampModel):
 
     circuit_id = IntegerField()
-    
+    survey_file = models.FileField(upload_to='files/Fixed_data/surveyfile/', blank=True, null=True)
     service = ForeignKey(Service, on_delete=models.CASCADE, related_name="servicelinks")
     client = ForeignKey(Client, on_delete=models.CASCADE, related_name="links")
-
     building = ForeignKey(Building, on_delete=models.CASCADE, related_name="links")
 
     class Meta:
         ordering = ('-pk',)
 
     def __str__(self):
-        return f'{self.pk}'
+        return f'{self.circuit_id}'
+
+    def technology_id(self):
+        try:
+            link = Service.objects.get(technology=self.service)
+        
+            return link.id
+        except Exception as e:
+            return
+
+
+    
