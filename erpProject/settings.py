@@ -69,9 +69,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'erpProject.urls'
 
-FCM_APIKEY = config('FCM_APIKEY')
-FCM_DEVICE_MODEL = config('FCM_DEVICE_MODEL')
+# FCM_APIKEY = config('FCM_APIKEY')
+# FCM_DEVICE_MODEL = config('FCM_DEVICE_MODEL')
 
+FCM_APIKEY = 'AAAAm1ls-XE:APA91bF0f2rR8Y4b33ddkO-B7djXsNrz1EBR3hV_TPovF8B6UXrk8JeS-KVfuo-H6uTGK8Un4dRu5wa8lggT8toy_SOF7RDsgmdnd36bBhpJaadlGDJCZjWF5_UF2ojWzaXs-VAwGwlp'
+FCM_DEVICE_MODEL = 'fcm_devices.MyDevice'
 
 TEMPLATES = [
     {
