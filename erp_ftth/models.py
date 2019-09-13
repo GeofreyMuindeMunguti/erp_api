@@ -774,7 +774,7 @@ class FtthHealthDocumentsCivilTeam(TimeStampModel):
         return str(self.project_name)
 
 class FtthCivilTeam(TimeStampModel,TimeTrackModel):
-    project_name = models.ForeignKey(FTTHProject, on_delete=models.CASCADE, blank=True)
+    project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE, blank=True)
     ftth_pole_installation = models.OneToOneField(FtthPoleInstallation, on_delete=models.CASCADE, blank=True, null=True)
     ftth_trenching = models.OneToOneField(FtthTrenching, on_delete=models.CASCADE, blank=True, null=True)
     ftth_backfiling = models.OneToOneField(FtthBackfilling, on_delete=models.CASCADE, blank=True, null=True)
@@ -1094,7 +1094,7 @@ class FtthSplicingFDT(TimeStampModel,TimeTrackModel):
 
 """END"""
 class FtthSplicing(TimeStampModel):
-    project_name = models.ForeignKey(FTTHProject, on_delete=models.CASCADE, blank=True)
+    project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE, blank=True)
     ftth_splicing_encore = models.OneToOneField(FtthSplicingEnclosure, on_delete=models.CASCADE, blank=True, null=True)
     ftth_splicing_fat = models.OneToOneField(FtthSplicingFAT, on_delete=models.CASCADE, blank=True, null=True)
     ftth_splicing_fdt = models.OneToOneField(FtthSplicingFDT, on_delete=models.CASCADE, blank=True, null=True)
@@ -1409,7 +1409,7 @@ class FtthOTDRTraces(TimeStampModel,TimeTrackModel):
             return e
 
 class FtthSignalTesting(TimeStampModel):
-    project_name = models.ForeignKey(FTTHProject, on_delete=models.CASCADE, blank=True)
+    project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE, blank=True)
     ftth_core_provision = models.OneToOneField(FtthCoreProvision, on_delete=models.CASCADE, blank=True, null=True)
     ftth_power_levels = models.OneToOneField(FtthPowerLevels, on_delete=models.CASCADE, blank=True, null=True)
     ftth_otdr_traces = models.OneToOneField(FtthOTDRTraces, on_delete=models.CASCADE, blank=True, null=True)
@@ -1500,7 +1500,7 @@ class FtthIssues(TimeStampModel):
         return str(self.ftts_issue)
 
 class FtthInstallationTeam(TimeStampModel,TimeTrackModel):
-    project_name = models.ForeignKey(FTTHProject, on_delete=models.CASCADE, blank=True)
+    project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE, blank=True)
     ftth_splicing = models.OneToOneField(FtthSplicing, on_delete=models.CASCADE, blank=True, null=True)
     ftth_signal_testing = models.OneToOneField(FtthSignalTesting, on_delete=models.CASCADE, blank=True, null=True)
     ftth_issues = models.ManyToManyField(FtthIssues, blank=True)
