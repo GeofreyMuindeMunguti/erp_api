@@ -359,7 +359,7 @@ class FtthPoToSupplier(TimeStampModel):
 class FtthProcurementTeam(TimeStampModel):
     project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE, blank=True)
     ftth_bom = models.FileField(upload_to='files/ftth/ProcurementTeam/bom/%Y/%m/%d/', blank=True, null=True)
-    po_to_supplier = models.OneToOneField(FtthPoToSupplier, on_delete=models.CASCADE, blank=True)
+    po_to_supplier = models.OneToOneField(FtthPoToSupplier, on_delete=models.CASCADE, blank=True, null=True)
     ftth_initial_invoice = models.FileField(upload_to='files/ftth/ProcurementTeam/initialinvoice/%Y/%m/%d/', blank=True, null=True)
     # ftth_budget = models.FileField(upload_to='files/ftth/ProcurementTeam/budget/%Y/%m/%d/', blank=True, null=True)
     is_approved = models.BooleanField(default=False)

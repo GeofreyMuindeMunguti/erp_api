@@ -58,6 +58,14 @@ class FtthCommercialTeamAdmin(admin.ModelAdmin):
 
 admin.site.register(FtthCommercialTeam, FtthCommercialTeamAdmin)
 
+class FtthPoToSupplierAdmin(admin.ModelAdmin):
+    list_display = ('id','project_name','ftth_duct','ftth_cable','ftth_manholes','ftth_cabinets','ftth_poles','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(FtthPoToSupplier, FtthPoToSupplierAdmin)
+
 class FtthProcurementTeamAdmin(admin.ModelAdmin):
     list_display = ('id','project_name','ftth_bom','po_to_supplier','ftth_initial_invoice','posted_by', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )

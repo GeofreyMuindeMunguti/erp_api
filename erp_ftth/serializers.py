@@ -48,6 +48,13 @@ class FtthCommercialTeamSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+class FtthPoToSupplierSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FtthPoToSupplier
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
 class FtthProcurementTeamSerializer(serializers.ModelSerializer):
 
     class Meta:
