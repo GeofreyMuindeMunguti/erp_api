@@ -7,7 +7,7 @@ from users.models import *
 
 class FTTHProjectAdmin(admin.ModelAdmin):
 
-    list_display = ['id','project_name','initial_kmz','signed_operation_acceptance','ftth_final_acceptance_cert','ftth_final_acceptance_cert_comment','posted_by','is_acknowledged','created_at', 'updated_at', 'is_active']
+    list_display = ['id','project_name','initial_kmz','signed_operation_acceptance','posted_by','is_acknowledged','created_at', 'updated_at', 'is_active']
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active','is_acknowledged',)
