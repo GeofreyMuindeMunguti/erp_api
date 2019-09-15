@@ -17,7 +17,7 @@ class CustomUser(models.Model):
     customuser_profile_pic = models.ImageField(upload_to='ProfilePictures/Employee', blank=True, null=True)
     team = models.CharField(max_length=150)
     position = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='group', blank=True, null=True)
-    # device = models.IntegerField(blank=True, null=True)
+    device = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.user.username
