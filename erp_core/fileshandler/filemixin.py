@@ -118,7 +118,3 @@ class UploadToProjectDirImage(object):
 
             return self.path.format(self.main_path ,'FILES', self.sub_path,date_path,  filename)
 
-
-
-
-
