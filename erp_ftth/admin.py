@@ -333,7 +333,7 @@ class FtthPowerLevelsImageAdmin(admin.ModelAdmin):
 admin.site.register(FtthPowerLevelsImage, FtthPowerLevelsImageAdmin)
 
 class DailyFtthPowerLevelsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','powerlevels_date','powerlevels_comment','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','powerlevels_comment','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     search_fields = ('sub_task', )
     list_editable = ('is_active',)
