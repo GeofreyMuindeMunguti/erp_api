@@ -121,4 +121,42 @@ class UploadToProjectDirImage(object):
 
 
 
+# from django.core.files.storage import FileSystemStorage
+# # from django.conf import settings
+# # import os
 
+# class OverwriteStorage(FileSystemStorage):
+
+#     def get_available_name(self, name, max_length=None):
+#         self.delete(name)
+#         return name
+
+import os
+
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+
+class OverwriteStorage(FileSystemStorage):
+    
+    def get_available_name(self, name,max_length=None):
+        """
+        Returns a filename that's free on the target storage system, and
+        available for new content to be written to.
+        """
+        # If the filename already exists, remove it as if it was a true file system
+        if self.exists(name):
+            #os.remove(os.path.join(settings.MEDIA_ROOT, name))
+            self.delete(name)
+        return name
+
+# from django.core.files.storage import FileSystemStorage
+
+
+
+# class OverwriteStorage(FileSystemStorage):
+#     def _save(self, name, content):
+#         if self.exists(name):
+#             self.delete(name)
+#         return super(OverwriteStorage, self)._save(name, content)
+#     def get_available_name(self, name ,max_length =None):
+#         return name
