@@ -397,9 +397,9 @@ class InterceptionPoint(TimeStampModel):
 class fttsSurveyPhotos(TimeStampModel):
     site_name = models.OneToOneField(FttsSite, on_delete=models.DO_NOTHING,related_name ='fttssurveyphotos')
     work_day = models.DateField(unique =True, blank=True, null=True)
-    survey_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/survey/'),storage=OverwriteStorage(), blank=True, null=True)
-    survey_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/survey/'),storage=OverwriteStorage(), blank=True, null=True)
-    survey_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/survey/'),storage=OverwriteStorage(), blank=True, null=True)
+    survey_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/survey/'), blank=True, null=True)
+    survey_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/survey/'), blank=True, null=True)
+    survey_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/survey/'), blank=True, null=True)
     survey_images_comment = models.CharField(max_length=200, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
