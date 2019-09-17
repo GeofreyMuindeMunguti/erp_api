@@ -13,6 +13,49 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='ActiveFiberInstallation',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
+                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
+                ('is_active', models.BooleanField(default=True)),
+            ],
+            options={
+                'abstract': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='ActiveFiberPMaintenance',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
+                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
+                ('is_active', models.BooleanField(default=True)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='ActiveFibertestCriteria',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
+                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
+                ('is_active', models.BooleanField(default=True)),
+                ('wan_ip', models.GenericIPAddressField(blank=True, null=True)),
+                ('management_ip', models.GenericIPAddressField(blank=True, null=True)),
+                ('management_vlan', models.IntegerField(blank=True, null=True)),
+                ('confiqured_ar_interface', models.CharField(blank=True, max_length=150, null=True)),
+                ('image', models.FileField(blank=True, help_text='Tag No', null=True, upload_to='files/Fixed_data/ActiveFiber/')),
+                ('router_type', models.CharField(blank=True, max_length=150, null=True)),
+                ('router_model', models.IntegerField(blank=True, null=True)),
+                ('router_SNMP_CMP_enable', models.BooleanField(default=False)),
+                ('lan_status', models.BooleanField(default=True)),
+                ('power_status', models.BooleanField(default=True)),
+            ],
+            options={
+                'abstract': False,
+            },
+        ),
+        migrations.CreateModel(
             name='Building',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -58,14 +101,12 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
                 ('updated_at', models.DateTimeField(auto_now=True, null=True)),
                 ('is_active', models.BooleanField(default=True)),
-                ('wan_ip', models.GenericIPAddressField(blank=True, null=True)),
-                ('dbm', models.IntegerField(blank=True, null=True)),
-                ('snir', models.IntegerField(blank=True, null=True)),
+                ('hsu_pss', models.IntegerField(blank=True, null=True)),
+                ('hsu_ip', models.GenericIPAddressField(blank=True, null=True)),
+                ('vlan', models.GenericIPAddressField(blank=True, null=True)),
                 ('connecting_bts', models.CharField(blank=True, max_length=150, null=True)),
-                ('image', models.FileField(blank=True, null=True, upload_to='files/Fixed_data/Winax/')),
-                ('router_model', models.IntegerField(blank=True, null=True)),
-                ('router_SNMP_CMP_enable', models.BooleanField(default=False)),
-                ('power_status', models.BooleanField(default=True)),
+                ('aggregation', models.CharField(blank=True, max_length=150, null=True)),
+                ('image', models.FileField(blank=True, null=True, upload_to='files/Fixed_data/Ceragon/')),
             ],
             options={
                 'abstract': False,
@@ -80,8 +121,8 @@ class Migration(migrations.Migration):
                 ('is_active', models.BooleanField(default=True)),
                 ('first_name', models.CharField(max_length=150)),
                 ('second_name', models.CharField(max_length=150)),
-                ('email', models.EmailField(max_length=150)),
-                ('phone_no', models.PositiveIntegerField()),
+                ('email', models.EmailField(blank=True, max_length=150, null=True)),
+                ('phone_no', models.PositiveIntegerField(blank=True, null=True)),
             ],
             options={
                 'ordering': ('-created_by',),
@@ -141,6 +182,20 @@ class Migration(migrations.Migration):
                 ('is_active', models.BooleanField(default=True)),
                 ('consumable', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='lteinstallations', to='fixed_data.Consumable')),
                 ('link', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='lteinstallations', to='fixed_data.Link')),
+            ],
+            options={
+                'abstract': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='MWInstallation',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
+                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
+                ('is_active', models.BooleanField(default=True)),
+                ('consumable', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='MWinstallations', to='fixed_data.Consumable')),
+                ('link', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='MWinstallations', to='fixed_data.Link')),
             ],
             options={
                 'abstract': False,
@@ -231,7 +286,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='LTEtestCriteria',
+            name='MWtestCriteria',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
@@ -245,6 +300,42 @@ class Migration(migrations.Migration):
                 ('router_model', models.IntegerField(blank=True, null=True)),
                 ('router_SNMP_CMP_enable', models.BooleanField(default=False)),
                 ('power_status', models.BooleanField(default=True)),
+                ('link', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='MWriterias', to='fixed_data.Link')),
+            ],
+            options={
+                'abstract': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='MWPMaintenance',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
+                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
+                ('is_active', models.BooleanField(default=True)),
+                ('consumable', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='MWmaintenamce', to='fixed_data.Consumable')),
+                ('link', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='MWmaintenances', to='fixed_data.MWInstallation')),
+                ('test_criteria', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='MWmaintenances', to='fixed_data.MWtestCriteria')),
+            ],
+        ),
+        migrations.AddField(
+            model_name='mwinstallation',
+            name='test_criteria',
+            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='MWinstallations', to='fixed_data.MWtestCriteria'),
+        ),
+        migrations.CreateModel(
+            name='LTEtestCriteria',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
+                ('updated_at', models.DateTimeField(auto_now=True, null=True)),
+                ('is_active', models.BooleanField(default=True)),
+                ('wan_ip', models.GenericIPAddressField(blank=True, null=True)),
+                ('rss_i', models.CharField(blank=True, max_length=250, null=True)),
+                ('snir', models.IntegerField(blank=True, null=True)),
+                ('snir_capacity', models.IntegerField(blank=True, null=True)),
+                ('image', models.FileField(blank=True, help_text='Interface Photo', null=True, upload_to='files/Fixed_data/LTE/')),
+                ('router_available', models.IntegerField(blank=True, null=True)),
                 ('link', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='ltecriteria', to='fixed_data.Link')),
             ],
             options={

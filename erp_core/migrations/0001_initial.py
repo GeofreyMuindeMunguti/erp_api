@@ -64,7 +64,7 @@ class Migration(migrations.Migration):
                 ('task_name', models.CharField(blank=True, max_length=150, null=True, unique=True)),
                 ('kpi', models.IntegerField(blank=True, null=True)),
                 ('is_approved', models.BooleanField(default=False)),
-                ('category_name', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='erp_core.Category')),
+                ('category_name', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='erp_core.Category')),
             ],
             options={
                 'abstract': False,
