@@ -98,3 +98,118 @@ class SupportAdmin(admin.ModelAdmin):
     #readonly_fields = ['circuit_id']
 
 admin.site.register(Support, SupportAdmin)
+
+
+
+# lte
+
+class LTEtestCriteriaAdmin(admin.ModelAdmin):
+    list_display = ['id','link','wan_ip','dbm','snir','connecting_bts','created_at', 'updated_at', 'is_active']
+    readonly_fields = ['created_at', 'updated_at', 'is_active']
+    link_display_link = ['id','wan_ip',]
+    search_fields = ('link', )
+    list_editable = ('is_active',)
+    #readonly_fields = ['circuit_id']
+
+admin.site.register(LTEtestCriteria, LTEtestCriteriaAdmin)
+
+
+class LTEInstallationAdmin(admin.ModelAdmin):
+    list_display = ['id','link','test_criteria','consumable','created_at', 'updated_at', 'is_active']
+    readonly_fields = ['created_at', 'updated_at', 'is_active']
+    link_display_link = ['id','link',]
+    search_fields = ('id','link__id' )
+    list_editable = ('is_active',)
+    #readonly_fields = ['circuit_id']
+
+admin.site.register(LTEInstallation, LTEInstallationAdmin)
+
+
+
+
+class LTEPMaintenanceAdmin(admin.ModelAdmin):
+    list_display = ['id','link','test_criteria','consumable','created_at', 'updated_at', 'is_active']
+    readonly_fields = ['created_at', 'updated_at', 'is_active']
+    link_display_link = ['id','link','test_criteria',]
+    search_fields = ('link', )
+    list_editable = ('is_active',)
+    #readonly_fields = ['circuit_id']
+
+admin.site.register(LTEPMaintenance, LTEPMaintenanceAdmin)
+
+
+##FIber
+
+class FibertestCriteriaAdmin(admin.ModelAdmin):
+    list_display = ['id','link','wan_ip','dbm','snir','connecting_bts','created_at', 'updated_at', 'is_active']
+    readonly_fields = ['created_at', 'updated_at', 'is_active']
+    link_display_link = ['id','wan_ip',]
+    search_fields = ('link', )
+    list_editable = ('is_active',)
+    #readonly_fields = ['circuit_id']
+
+admin.site.register(FibertestCriteria, FibertestCriteriaAdmin)
+
+
+class FiberInstallationAdmin(admin.ModelAdmin):
+    list_display = ['id','link','test_criteria','consumable','created_at', 'updated_at', 'is_active']
+    readonly_fields = ['created_at', 'updated_at', 'is_active']
+    link_display_link = ['id','link',]
+    search_fields = ('id','link__id' )
+    list_editable = ('is_active',)
+    #readonly_fields = ['circuit_id']
+
+admin.site.register(FiberInstallation, FiberInstallationAdmin)
+
+
+
+
+class FiberPMaintenanceAdmin(admin.ModelAdmin):
+    list_display = ['id','link','test_criteria','consumable','created_at', 'updated_at', 'is_active']
+    readonly_fields = ['created_at', 'updated_at', 'is_active']
+    link_display_link = ['id','link','test_criteria',]
+    search_fields = ('link', )
+    list_editable = ('is_active',)
+    #readonly_fields = ['circuit_id']
+
+admin.site.register(FiberPMaintenance, FiberPMaintenanceAdmin)
+
+
+##Ceragon
+
+
+
+
+class CeragontestCriteriaAdmin(admin.ModelAdmin):
+    list_display = ['id','link','wan_ip','dbm','snir','connecting_bts','created_at', 'updated_at', 'is_active']
+    readonly_fields = ['created_at', 'updated_at', 'is_active']
+    link_display_link = ['id','wan_ip',]
+    search_fields = ('link', )
+    list_editable = ('is_active',)
+    #readonly_fields = ['circuit_id']
+
+admin.site.register(CeragontestCriteria, CeragontestCriteriaAdmin)
+
+
+class CeragonInstallationAdmin(admin.ModelAdmin):
+    list_display = ['id','link','test_criteria','consumable','created_at', 'updated_at', 'is_active']
+    readonly_fields = ['created_at', 'updated_at', 'is_active']
+    link_display_link = ['id','link',]
+    search_fields = ('id','link__id' )
+    list_editable = ('is_active',)
+    #readonly_fields = ['circuit_id']
+
+admin.site.register(CeragonInstallation, CeragonInstallationAdmin)
+
+
+
+
+class CeragonPMaintenanceAdmin(admin.ModelAdmin):
+    list_display = ['id','link','test_criteria','consumable','created_at', 'updated_at', 'is_active']
+    readonly_fields = ['created_at', 'updated_at', 'is_active']
+    link_display_link = ['id','link','test_criteria',]
+    search_fields = ('link', )
+    list_editable = ('is_active',)
+    #readonly_fields = ['circuit_id']
+
+admin.site.register(CeragonPMaintenance, CeragonPMaintenanceAdmin)

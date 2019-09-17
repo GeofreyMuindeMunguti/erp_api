@@ -73,7 +73,7 @@ class Link(TimeStampModel):
 
 
 class WiMaxtestCriteria(TimeStampModel):
-    link = models.ForeignKey(Link, on_delete=models.CASCADE, related_name="mimaxctriteria", blank=True, null=True)#reduntant
+    link = models.ForeignKey(Link, on_delete=models.CASCADE, related_name="wimaxcriteria", blank=True, null=True)#reduntant
     wan_ip = models.GenericIPAddressField(blank=True,null=True)
     #radio_param = models.ForeignKey('RadioParam')
     dbm = models.IntegerField(blank =True ,null=True)
@@ -122,6 +122,145 @@ class WiMaxPMaintenance(TimeStampModel):
         unique_together = (['link', 'test_criteria',])
 
     
+
+
+
+###LTE
+
+
+class LTEtestCriteria(TimeStampModel):
+    link = models.ForeignKey(Link, on_delete=models.CASCADE, related_name="ltecriteria", blank=True, null=True)#reduntant
+    wan_ip = models.GenericIPAddressField(blank=True,null=True)
+    #radio_param = models.ForeignKey('RadioParam')
+    dbm = models.IntegerField(blank =True ,null=True)
+    snir = models.IntegerField(blank =True ,null=True)
+    connecting_bts = models.CharField(max_length=150,blank=True ,null=True)###FK
+    image = models.FileField(upload_to='files/Fixed_data/Winax/', blank=True, null=True)
+    
+    router_model = models.IntegerField(blank =True ,null=True)
+    router_SNMP_CMP_enable = models.BooleanField(default=False)
+    power_status= models.BooleanField(default=True)
+
+
+    def __str__(self):
+        return f'Test Criteria for {self.link}'
+
+
+
+class LTEInstallation(TimeStampModel):
+    link = models.ForeignKey(Link, on_delete=models.CASCADE, related_name="lteinstallations",blank=True ,null=True)
+    test_criteria =models.OneToOneField(LTEtestCriteria, on_delete=models.CASCADE, related_name="lteinstallations")
+    consumable = models.ForeignKey(Consumable, on_delete=models.CASCADE, related_name="lteinstallations",blank=True ,null=True)
+
+    def __str__(self):
+        return f'{self.link}'
+
+
+class LTEPMaintenance(TimeStampModel):
+    link = models.ForeignKey(LTEInstallation, on_delete=models.CASCADE, related_name="ltemaintenances",blank=True ,null=True)
+    test_criteria =models.ForeignKey(LTEtestCriteria, on_delete=models.CASCADE, related_name="ltemaintenances",blank=True ,null=True)
+    consumable = models.ForeignKey(Consumable, on_delete=models.CASCADE, related_name="ltemaintenamces",blank=True ,null=True)
+
+
+    def __str__(self):
+        return f'{self.link}'
+
+    class Meta:
+        unique_together = (['link', 'test_criteria',])
+
+
+
+##FIBER
+
+
+class FibertestCriteria(TimeStampModel):
+    link = models.ForeignKey(Link, on_delete=models.CASCADE, related_name="fibercriterias", blank=True, null=True)#reduntant
+    wan_ip = models.GenericIPAddressField(blank=True,null=True)
+    #radio_param = models.ForeignKey('RadioParam')
+    dbm = models.IntegerField(blank =True ,null=True)
+    snir = models.IntegerField(blank =True ,null=True)
+    connecting_bts = models.CharField(max_length=150,blank=True ,null=True)###FK
+    image = models.FileField(upload_to='files/Fixed_data/Winax/', blank=True, null=True)
+    
+    router_model = models.IntegerField(blank =True ,null=True)
+    router_SNMP_CMP_enable = models.BooleanField(default=False)
+    power_status= models.BooleanField(default=True)
+
+
+    def __str__(self):
+        return f'Test Criteria for {self.link}'
+
+
+
+
+class FiberInstallation(TimeStampModel):
+    link = models.ForeignKey(Link, on_delete=models.CASCADE, related_name="fiberinstallations",blank=True ,null=True)
+    test_criteria =models.OneToOneField(FibertestCriteria, on_delete=models.CASCADE, related_name="fiberinstallations")
+    consumable = models.ForeignKey(Consumable, on_delete=models.CASCADE, related_name="fiberinstallations",blank=True ,null=True)
+
+    def __str__(self):
+        return f'{self.link}'
+
+
+class FiberPMaintenance(TimeStampModel):
+    link = models.ForeignKey(FiberInstallation, on_delete=models.CASCADE, related_name="fibermaintenance",blank=True ,null=True)
+    test_criteria =models.ForeignKey(FibertestCriteria, on_delete=models.CASCADE, related_name="fibermaintenances",blank=True ,null=True)
+    consumable = models.ForeignKey(Consumable, on_delete=models.CASCADE, related_name="fibermaintenances",blank=True ,null=True)
+
+
+    def __str__(self):
+        return f'{self.link}'
+
+    class Meta:
+        unique_together = (['link', 'test_criteria',])
+
+
+
+###CERAGON
+
+
+class CeragontestCriteria(TimeStampModel):
+    link = models.ForeignKey(Link, on_delete=models.CASCADE, related_name="ceragonriterias", blank=True, null=True)#reduntant
+    wan_ip = models.GenericIPAddressField(blank=True,null=True)
+    #radio_param = models.ForeignKey('RadioParam')
+    dbm = models.IntegerField(blank =True ,null=True)
+    snir = models.IntegerField(blank =True ,null=True)
+    connecting_bts = models.CharField(max_length=150,blank=True ,null=True)###FK
+    image = models.FileField(upload_to='files/Fixed_data/Winax/', blank=True, null=True)
+    
+    router_model = models.IntegerField(blank =True ,null=True)
+    router_SNMP_CMP_enable = models.BooleanField(default=False)
+    power_status= models.BooleanField(default=True)
+
+
+    def __str__(self):
+        return f'Test Criteria for {self.link}'
+
+
+
+
+class CeragonInstallation(TimeStampModel):
+    link = models.ForeignKey(Link, on_delete=models.CASCADE, related_name="ceragoninstallations",blank=True ,null=True)
+    test_criteria =models.OneToOneField(CeragontestCriteria, on_delete=models.CASCADE, related_name="ceragoninstallations")
+    consumable = models.ForeignKey(Consumable, on_delete=models.CASCADE, related_name="ceragoninstallations",blank=True ,null=True)
+
+    def __str__(self):
+        return f'{self.link}'
+
+
+class CeragonPMaintenance(TimeStampModel):
+    link = models.ForeignKey(CeragonInstallation, on_delete=models.CASCADE, related_name="ceragonmaintenances",blank=True ,null=True)
+    test_criteria =models.ForeignKey(CeragontestCriteria, on_delete=models.CASCADE, related_name="ceragonmaintenances",blank=True ,null=True)
+    consumable = models.ForeignKey(Consumable, on_delete=models.CASCADE, related_name="ceragonmaintenamce",blank=True ,null=True)
+
+
+    def __str__(self):
+        return f'{self.link}'
+
+    class Meta:
+        unique_together = (['link', 'test_criteria',])
+
+
 class Support(TimeStampModel):
     link = models.ForeignKey(WiMaxInstallation, on_delete=models.CASCADE, related_name="supports",blank=True ,null=True)
     issue = models.CharField(max_length=250 ,blank=True ,null=True)
@@ -132,3 +271,8 @@ class Support(TimeStampModel):
     
     def __str__(self):
         return f'{self.link}'
+
+
+##Fiber
+
+
