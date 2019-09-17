@@ -295,7 +295,7 @@ class ftthSurvey(TimeStampModel,TimeTrackModel):
     site_longitude = models.FloatField(blank=True, null=True)
     distance_from_ip = models.FloatField(blank=True, null=True) #total
     no_of_fdts = models.IntegerField(blank=True, null=True)
-    survey_photos = models.ManyToManyField(ftthSurveyPhotos,blank=True, null=True)
+    survey_photos = models.ManyToManyField(ftthSurveyPhotos,blank=True )
     high_level_design = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/ftth/survey/highleveldesigns/'), blank=True, null=True)
     county = models.ForeignKey(Location, on_delete=models.CASCADE, blank=True, null=True)
     ftth_survey_comment = models.CharField(max_length=200, blank=True, null=True)

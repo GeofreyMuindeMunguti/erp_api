@@ -420,7 +420,7 @@ class fttsSurvey(TimeStampModel,TimeTrackModel):
     site_latitude = models.FloatField(blank=True, null=True)
     site_longitude = models.FloatField(blank=True, null=True)
     distance_from_ip = models.FloatField(blank=True, null=True)
-    survey_photos = models.ManyToManyField(fttsSurveyPhotos,blank=True, null=True)
+    survey_photos = models.ManyToManyField(fttsSurveyPhotos,blank=True)
     high_level_design = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/survey/highleveldesigns/'), blank=True, null=True)
     county = models.ForeignKey(Location, on_delete=models.CASCADE, blank=True, null=True)
     survey_comment = models.CharField(max_length=200, blank=True, null=True)

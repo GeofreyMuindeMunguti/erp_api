@@ -42,7 +42,7 @@ class Building(TimeStampModel):
     longitude = models.CharField(max_length=150,blank=True ,null=True)
     building_image_1 = models.ImageField(upload_to='images/Fixed_data/building/', blank=True, null=True)
     building_image_2 = models.ImageField(upload_to='images/Fixed_data/building/', blank=True, null=True)
-
+    fiber_ready = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.name}'
@@ -55,6 +55,7 @@ class Link(TimeStampModel):
     service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name="servicelinks")
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="links")
     building = models.ForeignKey(Building, on_delete=models.CASCADE, related_name="links")
+    decomisioned = models.BooleanField(default=False)
 
     class Meta:
         ordering = ('-pk',)
@@ -72,6 +73,7 @@ class Link(TimeStampModel):
 
 
 class WiMaxtestCriteria(TimeStampModel):
+    link = models.ForeignKey(Link, on_delete=models.CASCADE, related_name="mimaxctriteria", blank=True, null=True)#reduntant
     wan_ip = models.GenericIPAddressField(blank=True,null=True)
     #radio_param = models.ForeignKey('RadioParam')
     dbm = models.IntegerField(blank =True ,null=True)
@@ -84,23 +86,49 @@ class WiMaxtestCriteria(TimeStampModel):
     power_status= models.BooleanField(default=True)
 
 
+    def __str__(self):
+        return f'Test Criteria for {self.link}'
 
 
+class Consumable(TimeStampModel):
+    link = models.ForeignKey(Link, on_delete=models.CASCADE, related_name="consumables",blank=True ,null=True)
+    item = models.CharField(max_length=250 ,blank=True ,null=True)
+    quantity =models.FloatField(default=0)
+    unit_price =models.FloatField(blank=True,null=True)
+
+
+    def __str__(self):
+        return f'Consumable for {self.link}'
 
 class WiMaxInstallation(TimeStampModel):
-    link = models.ForeignKey(Link, on_delete=models.CASCADE, related_name="mwinstallation")
+    link = models.ForeignKey(Link, on_delete=models.CASCADE, related_name="mwpmaintenance",blank=True ,null=True)
     test_criteria =models.OneToOneField(WiMaxtestCriteria, on_delete=models.CASCADE, related_name="mwinstallations")
+    consumable = models.ForeignKey(Consumable, on_delete=models.CASCADE, related_name="mwinstallation",blank=True ,null=True)
 
     def __str__(self):
         return f'{self.link}'
 
 
 class WiMaxPMaintenance(TimeStampModel):
-    link = models.ForeignKey(WiMaxInstallation, on_delete=models.CASCADE, related_name="mwpmaintenance")
-    test_criteria =models.ForeignKey(WiMaxtestCriteria, on_delete=models.CASCADE, related_name="mwpmaintenances")
-    
+    link = models.ForeignKey(WiMaxInstallation, on_delete=models.CASCADE, related_name="mwpmaintenance",blank=True ,null=True)
+    test_criteria =models.ForeignKey(WiMaxtestCriteria, on_delete=models.CASCADE, related_name="mwpmaintenances",blank=True ,null=True)
+    consumable = models.ForeignKey(Consumable, on_delete=models.CASCADE, related_name="mwpmaintenamce",blank=True ,null=True)
+
 
     def __str__(self):
         return f'{self.link}'
 
+    class Meta:
+        unique_together = (['link', 'test_criteria',])
 
+    
+class Support(TimeStampModel):
+    link = models.ForeignKey(WiMaxInstallation, on_delete=models.CASCADE, related_name="supports",blank=True ,null=True)
+    issue = models.CharField(max_length=250 ,blank=True ,null=True)
+    resolution = models.CharField(max_length=250 ,blank=True ,null=True)
+    fiber_ready  = models.BooleanField(default=False)
+    remacks = models.CharField(max_length=250 ,blank=True ,null=True)
+
+    
+    def __str__(self):
+        return f'{self.link}'
