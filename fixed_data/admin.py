@@ -213,3 +213,39 @@ class CeragonPMaintenanceAdmin(admin.ModelAdmin):
     #readonly_fields = ['circuit_id']
 
 admin.site.register(CeragonPMaintenance, CeragonPMaintenanceAdmin)
+
+
+
+class MWtestCriteriaAdmin(admin.ModelAdmin):
+    list_display = ['id','link','wan_ip','dbm','snir','connecting_bts','created_at', 'updated_at', 'is_active']
+    readonly_fields = ['created_at', 'updated_at', 'is_active']
+    link_display_link = ['id','wan_ip',]
+    search_fields = ('link', )
+    list_editable = ('is_active',)
+    #readonly_fields = ['circuit_id']
+
+admin.site.register(MWtestCriteria, MWtestCriteriaAdmin)
+
+
+class MWInstallationAdmin(admin.ModelAdmin):
+    list_display = ['id','link','test_criteria','consumable','created_at', 'updated_at', 'is_active']
+    readonly_fields = ['created_at', 'updated_at', 'is_active']
+    link_display_link = ['id','link',]
+    search_fields = ('id','link__id' )
+    list_editable = ('is_active',)
+    #readonly_fields = ['circuit_id']
+
+admin.site.register(MWInstallation, MWInstallationAdmin)
+
+
+
+
+class MWPMaintenanceAdmin(admin.ModelAdmin):
+    list_display = ['id','link','test_criteria','consumable','created_at', 'updated_at', 'is_active']
+    readonly_fields = ['created_at', 'updated_at', 'is_active']
+    link_display_link = ['id','link','test_criteria',]
+    search_fields = ('link', )
+    list_editable = ('is_active',)
+    #readonly_fields = ['circuit_id']
+
+admin.site.register(MWPMaintenance, MWPMaintenanceAdmin)
