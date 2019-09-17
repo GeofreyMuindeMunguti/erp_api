@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django import forms
-from .models import Client, Technology, Service, Building, Link
+from .models import *
 
 
 
@@ -47,4 +47,23 @@ class LinkAdmin(admin.ModelAdmin):
 admin.site.register(Link, LinkAdmin)
 
 
+class WiMaxInstallationAdmin(admin.ModelAdmin):
+    list_display = ['id','link','test_criteria','created_at', 'updated_at', 'is_active']
+    readonly_fields = ['created_at', 'updated_at', 'is_active']
+    link_display_link = ['id','link',]
+    search_fields = ('link', )
+    list_editable = ('is_active',)
+    #readonly_fields = ['circuit_id']
 
+admin.site.register(WiMaxInstallation, WiMaxInstallationAdmin)
+
+
+class WiMaxtestCriteriaAdmin(admin.ModelAdmin):
+    list_display = ['id','wan_ip','dbm','snir','connecting_bts','created_at', 'updated_at', 'is_active']
+    readonly_fields = ['created_at', 'updated_at', 'is_active']
+    link_display_link = ['id','wan_ip',]
+    search_fields = ('wan_ip', )
+    list_editable = ('is_active',)
+    #readonly_fields = ['circuit_id']
+
+admin.site.register(WiMaxtestCriteria, WiMaxtestCriteriaAdmin)
