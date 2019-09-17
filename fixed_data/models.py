@@ -8,9 +8,8 @@ from erp_core.base import TimeStampModel
 class Client(TimeStampModel):
     first_name =models.CharField(max_length=150)
     second_name =models.CharField(max_length=150)
-    email =models.EmailField(max_length= 150)
-   
-    phone_no = models.PositiveIntegerField()
+    email =models.EmailField(max_length= 150,blank=True ,null=True)
+    phone_no = models.PositiveIntegerField(blank=True ,null=True)
 
     created_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING, related_name="clients",blank=True ,null=True)
 
@@ -273,6 +272,49 @@ class Support(TimeStampModel):
         return f'{self.link}'
 
 
-##Fiber
+
+###MW
+
+
+class MWtestCriteria(TimeStampModel):
+    link = models.ForeignKey(Link, on_delete=models.CASCADE, related_name="MWriterias", blank=True, null=True)#reduntant
+    wan_ip = models.GenericIPAddressField(blank=True,null=True)
+    #radio_param = models.ForeignKey('RadioParam')
+    dbm = models.IntegerField(blank =True ,null=True)
+    snir = models.IntegerField(blank =True ,null=True)
+    connecting_bts = models.CharField(max_length=150,blank=True ,null=True)###FK
+    image = models.FileField(upload_to='files/Fixed_data/Winax/', blank=True, null=True)
+    
+    router_model = models.IntegerField(blank =True ,null=True)
+    router_SNMP_CMP_enable = models.BooleanField(default=False)
+    power_status= models.BooleanField(default=True)
+
+
+    def __str__(self):
+        return f'Test Criteria for {self.link}'
+
+
+
+
+class MWInstallation(TimeStampModel):
+    link = models.ForeignKey(Link, on_delete=models.CASCADE, related_name="MWinstallations",blank=True ,null=True)
+    test_criteria =models.OneToOneField(MWtestCriteria, on_delete=models.CASCADE, related_name="MWinstallations")
+    consumable = models.ForeignKey(Consumable, on_delete=models.CASCADE, related_name="MWinstallations",blank=True ,null=True)
+
+    def __str__(self):
+        return f'{self.link}'
+
+
+class MWPMaintenance(TimeStampModel):
+    link = models.ForeignKey(MWInstallation, on_delete=models.CASCADE, related_name="MWmaintenances",blank=True ,null=True)
+    test_criteria =models.ForeignKey(MWtestCriteria, on_delete=models.CASCADE, related_name="MWmaintenances",blank=True ,null=True)
+    consumable = models.ForeignKey(Consumable, on_delete=models.CASCADE, related_name="MWmaintenamce",blank=True ,null=True)
+
+
+    def __str__(self):
+        return f'{self.link}'
+
+    class Meta:
+        unique_together = (['link', 'test_criteria',])
 
 

@@ -18,7 +18,7 @@ class FTTHProject(TimeStampModel,TimeTrackModel):
     signed_operation_acceptance = models.NullBooleanField(default=False, blank=True, null=True)
     ftth_final_acceptance_cert = models.FileField(upload_to=UploadToProjectDir(file_path,'files/ftth/SafaricomTeamftth/finalcert/'), blank=True, null=True)
     ftth_final_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    created_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
     is_acknowledged = models.BooleanField(default=False)
 
     class Meta:
@@ -220,7 +220,7 @@ class FTTHProject(TimeStampModel,TimeTrackModel):
 ####################################### FIBER KPI ###############################################################################################################################
 class FtthKpi(TimeStampModel):
     kpi = models.IntegerField(blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
 
     def __str__(self):
@@ -233,7 +233,7 @@ class FtthTask(TimeStampModel):
     category_name = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
     task_name = models.CharField(blank=True, null=True, max_length=150, unique=True)
     kpi = models.IntegerField(blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
 
     def __str__(self):
@@ -246,7 +246,7 @@ class FtthSubTask(TimeStampModel):
     task_name = models.ForeignKey(FtthTask, on_delete=models.DO_NOTHING)
     subtask_name = models.CharField(blank=True, null=True, max_length=150, unique=True)
     kpi = models.IntegerField(blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
 
     def __str__(self):
@@ -262,7 +262,7 @@ class FtthInterceptionPoint(TimeStampModel):
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
     county = models.ForeignKey(Location, on_delete=models.CASCADE, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.interception_point_name)
@@ -274,7 +274,7 @@ class ftthSurveyPhotos(TimeStampModel):
     survey_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftth/survey/'), blank=True, null=True)
     survey_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftth/survey/'), blank=True, null=True)
     survey_images_comment = models.CharField(max_length=200, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'FTTHSurveyPhotos  : {self.project_name}'
@@ -299,7 +299,7 @@ class ftthSurvey(TimeStampModel,TimeTrackModel):
     high_level_design = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/ftth/survey/highleveldesigns/'), blank=True, null=True)
     county = models.ForeignKey(Location, on_delete=models.CASCADE, blank=True, null=True)
     ftth_survey_comment = models.CharField(max_length=200, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'FTTHSurvey : {self.project_name}'
@@ -342,7 +342,7 @@ class FtthCommercialTeam(TimeStampModel):
     ftth_quote = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/ftth/CommercialTeam/quote/'), blank=True, null=True)
     ftth_wayleave_application = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/ftth/CommercialTeam/wayleaveapplication/'), blank=True, null=True)
     is_approved = models.BooleanField(default=False)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'FTTHCommercial  : {self.project_name}'
@@ -355,7 +355,7 @@ class FtthPoToSupplier(TimeStampModel):
     ftth_cabinets = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/ftth/ProcurementTeam/pocabinets/'), blank=True, null=True)
     ftth_poles = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/ftth/ProcurementTeam/popoles/'), blank=True, null=True)
     is_approved = models.BooleanField(default=False)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'FTTHPOtoSupllier  : {self.project_name}'
@@ -368,7 +368,7 @@ class FtthProcurementTeam(TimeStampModel):
     ftth_initial_invoice = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/ftth/ProcurementTeam/initialinvoice/'), blank=True, null=True)
     # ftth_budget = models.FileField(upload_to='files/ftth/ProcurementTeam/budget/%Y/%m/%d/', blank=True, null=True)
     is_approved = models.BooleanField(default=False)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'FTTHProcurement : {self.project_name}'
@@ -388,7 +388,7 @@ class FtthCertificates(TimeStampModel):
     ftth_homepass_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
     ftth_conditional_acceptance_cert = models.FileField(upload_to=UploadToProjectDirSubTask(file_path ,'files/SafaricomTeamftth/conditionalcert/'), blank=True, null=True)
     ftth_conditional_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'FTTHCertificates  : {self.project_name}'
@@ -432,7 +432,7 @@ class FtthPoleInstallation(TimeStampModel,TimeTrackModel):
     ftth_pole_installation_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftth/CivilWorksTeam/poleinstallation/'),blank=True,null=True)
     ftth_pole_installation_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftth/CivilWorksTeam/poleinstallation/'),blank=True,null=True)
     ftth_pole_installation_comment = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'FTTHPoleInstallation  : {self.project_name}'
@@ -520,7 +520,7 @@ class FtthTrenching(TimeStampModel,TimeTrackModel):
     ftth_trenching_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftth/CivilWorksTeam/trenching/'),blank=True,null=True)
     ftth_trenching_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftth/CivilWorksTeam/trenching/'),blank=True,null=True)
     ftth_trenching_comment = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'FTTHTrenching  : {self.project_name}'
@@ -607,7 +607,7 @@ class FtthBackfilling(TimeStampModel,TimeTrackModel):
     ftth_backfilling_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftth/CivilWorksTeam/backfilling/'),blank=True,null=True)
     ftth_backfilling_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftth/CivilWorksTeam/backfilling/'),blank=True,null=True)
     ftth_backfilling_comment = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'FtthBackfilling  : {self.project_name}'
@@ -695,7 +695,7 @@ class FtthCableInstallation(TimeStampModel,TimeTrackModel):
     ftth_cable_installation_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftth/CivilWorksTeam/cableinstallation/'), blank=True,null =True)
     ftth_cable_installation_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftth/CivilWorksTeam/cableinstallation/'), blank=True,null =True)
     ftth_cable_installation_comment = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'FTTHCableInstall : {self.project_name}'
@@ -749,7 +749,7 @@ class FtthAccessApprovalCivil(TimeStampModel):
     project_name = models.OneToOneField(FTTHProject,related_name= 'ftthcivilaccessapproval', on_delete=models.CASCADE)
     access_approval = models.FileField(upload_to='files/CivilWorksTeam/ftth/accessapproval/%Y/%m/%d/')
     access_approval_comment = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.site_name)
@@ -771,7 +771,7 @@ class FtthHealthDocumentsCivilTeam(TimeStampModel):
     health_documents_comment = models.CharField(max_length=100, blank=True, null=True)
     access_approval = models.OneToOneField(FtthAccessApprovalCivil, on_delete=models.CASCADE, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'FTTHealthDocsCivilTeam  : {self.project_name}'
@@ -785,7 +785,7 @@ class FtthCivilTeam(TimeStampModel,TimeTrackModel):
     health_documents = models.ManyToManyField(FtthHealthDocumentsCivilTeam, blank=True )
     ftth_civil_team_comment = models.CharField(max_length=100, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.project_name)
@@ -869,7 +869,7 @@ class FtthSplicingEnclosure(TimeStampModel,TimeTrackModel):
     ftth_splicing_encore_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftth/InstallationTeam/splicingenclosure/'), blank=True,null =True)
     ftth_splicing_encore_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftth/InstallationTeam/splicingenclosure/'), blank=True,null =True)
     ftth_splicing_encore_comment = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.project_name)
@@ -958,7 +958,7 @@ class FtthSplicingFAT(TimeStampModel,TimeTrackModel):
     ftth_splicing_fat_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftth/InstallationTeam/splicingFAT/'), blank=True,null =True)
     ftth_splicing_fat_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftth/InstallationTeam/splicingFAT/'), blank=True,null =True)
     ftth_splicing_fat_comment = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'FTTHSplicing  : {self.project_name}'
@@ -1047,7 +1047,7 @@ class FtthSplicingFDT(TimeStampModel,TimeTrackModel):
     ftth_splicing_fdt_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftth/InstallationTeam/splicingFDT/'), blank=True,null =True)
     ftth_splicing_fdt_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftth/InstallationTeam/splicingFDT/'), blank=True,null =True)
     ftth_splicing_fdt_comment = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'FTTHSplicing  : {self.project_name}'
@@ -1103,7 +1103,7 @@ class FtthSplicing(TimeStampModel):
     ftth_splicing_fdt = models.OneToOneField(FtthSplicingFDT, on_delete=models.CASCADE, blank=True, null=True)
     ftth_splicing_comment = models.CharField(max_length=100, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.project_name)
@@ -1185,7 +1185,7 @@ class FtthCoreProvision(TimeStampModel,TimeTrackModel):
     ftth_core_provision_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftth/InstallationTeam/coreprovision/'), blank=True,null =True)
     ftth_core_provision_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftth/InstallationTeam/coreprovision/'), blank=True,null =True)
     ftth_core_provision_comment = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'FTTHCoreProvision  : {self.project_name}'
@@ -1274,7 +1274,7 @@ class FtthPowerLevels(TimeStampModel,TimeTrackModel):
     ftth_power_level_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftth/InstallationTeam/powerlevels/'), blank=True,null =True)
     ftth_power_level_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftth/InstallationTeam/powerlevels/'), blank=True,null =True)
     ftth_power_level_comment = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'FTTHPowerLevels  : {self.project_name}'
@@ -1363,7 +1363,7 @@ class FtthOTDRTraces(TimeStampModel,TimeTrackModel):
     ftth_otdr_traces_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftth/InstallationTeam/OTDRTraces/'), blank=True,null =True)
     ftth_otdr_traces_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftth/InstallationTeam/OTDRTraces/'), blank=True,null =True)
     ftth_otdr_traces_comment = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'FTTHTRACES  : {self.project_name}'
@@ -1418,7 +1418,7 @@ class FtthSignalTesting(TimeStampModel):
     ftth_otdr_traces = models.OneToOneField(FtthOTDRTraces, on_delete=models.CASCADE, blank=True, null=True)
     ftth_signal_testing_comment = models.CharField(max_length=100, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'FTTHSignalTesting  : {self.project_name}'
@@ -1466,7 +1466,7 @@ class FtthAccessApprovalInstallation(TimeStampModel):
     project_name = models.OneToOneField(FTTHProject,related_name= 'ftthaccessapprovalinstallation', on_delete=models.CASCADE)
     access_approval = models.FileField(upload_to='files/InstallationTeamFtth/accessapproval/%Y/%m/%d/')
     access_approval_comment = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.project_name)
@@ -1486,7 +1486,7 @@ class FtthHealthDocsInstallationTeam(TimeStampModel):
     health_documents_comment = models.CharField(max_length=100, blank=True, null=True)
     access_approval = models.OneToOneField(FtthAccessApprovalInstallation, on_delete=models.CASCADE, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'FTTHHealthDocs : {self.project_name}'
@@ -1497,7 +1497,7 @@ class FtthIssues(TimeStampModel):
     ftth_issue_image = models.ImageField(upload_to='images/InstallationTeamFtth/issues/%Y/%m/%d/', blank=True, null=True)
     ftth_issue_sorted_image = models.ImageField(upload_to='images/InstallationTeamFtth/issues/%Y/%m/%d/', blank=True, null=True)
     closed = models.BooleanField(default=False)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.ftts_issue)
@@ -1514,7 +1514,7 @@ class FtthInstallationTeam(TimeStampModel,TimeTrackModel):
     health_documents = models.ManyToManyField(FtthHealthDocsInstallationTeam, blank=True )
     ftth_installation_team_comment = models.CharField(max_length=200, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.project_name)
@@ -1563,7 +1563,7 @@ class FtthTeam(TimeStampModel):
     ftth_survey = models.OneToOneField(ftthSurvey, on_delete=models.CASCADE, blank=True, null=True)
     ftth_civil_team = models.OneToOneField(FtthCivilTeam, on_delete=models.CASCADE, blank=True, null=True)
     ftth_installation_team = models.OneToOneField(FtthInstallationTeam, on_delete=models.CASCADE, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.project_name)
