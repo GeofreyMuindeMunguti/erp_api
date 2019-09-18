@@ -104,7 +104,7 @@ admin.site.register(Support, SupportAdmin)
 # lte
 
 class LTEtestCriteriaAdmin(admin.ModelAdmin):
-    list_display = ['id','link','wan_ip','dbm','snir','connecting_bts','created_at', 'updated_at', 'is_active']
+    list_display = ['id','link','wan_ip','snir','snir_capacity','router_available','created_at', 'updated_at', 'is_active']
     readonly_fields = ['created_at', 'updated_at', 'is_active']
     link_display_link = ['id','wan_ip',]
     search_fields = ('link', )
@@ -181,9 +181,9 @@ admin.site.register(FiberPMaintenance, FiberPMaintenanceAdmin)
 
 
 class CeragontestCriteriaAdmin(admin.ModelAdmin):
-    list_display = ['id','link','wan_ip','dbm','snir','connecting_bts','created_at', 'updated_at', 'is_active']
+    list_display = ['id','link','hsu_pss','hsu_ip','connecting_bts','vlan','created_at', 'updated_at', 'is_active']
     readonly_fields = ['created_at', 'updated_at', 'is_active']
-    link_display_link = ['id','wan_ip',]
+    link_display_link = ['id',]
     search_fields = ('link', )
     list_editable = ('is_active',)
     #readonly_fields = ['circuit_id']
@@ -249,3 +249,43 @@ class MWPMaintenanceAdmin(admin.ModelAdmin):
     #readonly_fields = ['circuit_id']
 
 admin.site.register(MWPMaintenance, MWPMaintenanceAdmin)
+
+
+
+
+##Active Fiber
+
+
+class ActiveFibertestCriteriaAdmin(admin.ModelAdmin):
+    list_display = ['id','link','wan_ip','management_ip','management_vlan','confiqured_ar_interface','router_type','router_model','lan_status','created_at', 'updated_at', 'is_active']
+    readonly_fields = ['created_at', 'updated_at', 'is_active']
+    link_display_link = ['id','wan_ip',]
+    search_fields = ('link', )
+    list_editable = ('is_active',)
+    #readonly_fields = ['circuit_id']
+
+admin.site.register(ActiveFibertestCriteria, ActiveFibertestCriteriaAdmin)
+
+
+class ActiveFiberInstallationAdmin(admin.ModelAdmin):
+    list_display = ['id','link','test_criteria','consumable','created_at', 'updated_at', 'is_active']
+    readonly_fields = ['created_at', 'updated_at', 'is_active']
+    link_display_link = ['id','link',]
+    search_fields = ('id','link__id' )
+    list_editable = ('is_active',)
+    #readonly_fields = ['circuit_id']
+
+admin.site.register(ActiveFiberInstallation, ActiveFiberInstallationAdmin)
+
+
+
+
+class ActiveFiberPMaintenanceAdmin(admin.ModelAdmin):
+    list_display = ['id','link','test_criteria','consumable','created_at', 'updated_at', 'is_active']
+    readonly_fields = ['created_at', 'updated_at', 'is_active']
+    link_display_link = ['id','link','test_criteria',]
+    search_fields = ('link', )
+    list_editable = ('is_active',)
+    #readonly_fields = ['circuit_id']
+
+admin.site.register(ActiveFiberPMaintenance, ActiveFiberPMaintenanceAdmin)

@@ -74,10 +74,13 @@ class Link(TimeStampModel):
 class WiMaxtestCriteria(TimeStampModel):
     link = models.ForeignKey(Link, on_delete=models.CASCADE, related_name="wimaxcriteria", blank=True, null=True)#reduntant
     wan_ip = models.GenericIPAddressField(blank=True,null=True)
+        #Radio Param
     #radio_param = models.ForeignKey('RadioParam')
     dbm = models.IntegerField(blank =True ,null=True)
     snir = models.IntegerField(blank =True ,null=True)
+
     connecting_bts = models.CharField(max_length=150,blank=True ,null=True)###FK
+
     image = models.FileField(upload_to='files/Fixed_data/Winax/', blank=True, null=True)
     
     router_model = models.IntegerField(blank =True ,null=True)
@@ -126,23 +129,24 @@ class WiMaxPMaintenance(TimeStampModel):
 
 ###LTE
 
-
 class LTEtestCriteria(TimeStampModel):
     link = models.ForeignKey(Link, on_delete=models.CASCADE, related_name="ltecriteria", blank=True, null=True)#reduntant
     wan_ip = models.GenericIPAddressField(blank=True,null=True)
     #radio_param = models.ForeignKey('RadioParam')
-    dbm = models.IntegerField(blank =True ,null=True)
+  #  dbm = models.IntegerField(blank =True ,null=True)
+    rss_i = models.CharField(max_length=250 , blank =True ,null=True)
     snir = models.IntegerField(blank =True ,null=True)
-    connecting_bts = models.CharField(max_length=150,blank=True ,null=True)###FK
-    image = models.FileField(upload_to='files/Fixed_data/Winax/', blank=True, null=True)
+    snir_capacity = models.IntegerField(blank =True ,null=True)
+    #connecting_bts = models.CharField(max_length=150,blank=True ,null=True)###FK
+    image = models.FileField(upload_to='files/Fixed_data/LTE/',help_text= 'Interface Photo', blank=True, null=True)
     
-    router_model = models.IntegerField(blank =True ,null=True)
-    router_SNMP_CMP_enable = models.BooleanField(default=False)
-    power_status= models.BooleanField(default=True)
-
+   # router_model = models.IntegerField(blank =True ,null=True)
+    router_available = models.IntegerField(blank =True ,null=True)
+    # router_SNMP_CMP_enable = models.BooleanField(default=False)
+    # power_status= models.BooleanField(default=True)
 
     def __str__(self):
-        return f'Test Criteria for {self.link}'
+        return f'LTE Test Criteria for {self.link}'
 
 
 
@@ -169,49 +173,6 @@ class LTEPMaintenance(TimeStampModel):
 
 
 
-##FIBER
-
-
-class FibertestCriteria(TimeStampModel):
-    link = models.ForeignKey(Link, on_delete=models.CASCADE, related_name="fibercriterias", blank=True, null=True)#reduntant
-    wan_ip = models.GenericIPAddressField(blank=True,null=True)
-    #radio_param = models.ForeignKey('RadioParam')
-    dbm = models.IntegerField(blank =True ,null=True)
-    snir = models.IntegerField(blank =True ,null=True)
-    connecting_bts = models.CharField(max_length=150,blank=True ,null=True)###FK
-    image = models.FileField(upload_to='files/Fixed_data/Winax/', blank=True, null=True)
-    
-    router_model = models.IntegerField(blank =True ,null=True)
-    router_SNMP_CMP_enable = models.BooleanField(default=False)
-    power_status= models.BooleanField(default=True)
-
-
-    def __str__(self):
-        return f'Test Criteria for {self.link}'
-
-
-
-
-class FiberInstallation(TimeStampModel):
-    link = models.ForeignKey(Link, on_delete=models.CASCADE, related_name="fiberinstallations",blank=True ,null=True)
-    test_criteria =models.OneToOneField(FibertestCriteria, on_delete=models.CASCADE, related_name="fiberinstallations")
-    consumable = models.ForeignKey(Consumable, on_delete=models.CASCADE, related_name="fiberinstallations",blank=True ,null=True)
-
-    def __str__(self):
-        return f'{self.link}'
-
-
-class FiberPMaintenance(TimeStampModel):
-    link = models.ForeignKey(FiberInstallation, on_delete=models.CASCADE, related_name="fibermaintenance",blank=True ,null=True)
-    test_criteria =models.ForeignKey(FibertestCriteria, on_delete=models.CASCADE, related_name="fibermaintenances",blank=True ,null=True)
-    consumable = models.ForeignKey(Consumable, on_delete=models.CASCADE, related_name="fibermaintenances",blank=True ,null=True)
-
-
-    def __str__(self):
-        return f'{self.link}'
-
-    class Meta:
-        unique_together = (['link', 'test_criteria',])
 
 
 
@@ -220,20 +181,22 @@ class FiberPMaintenance(TimeStampModel):
 
 class CeragontestCriteria(TimeStampModel):
     link = models.ForeignKey(Link, on_delete=models.CASCADE, related_name="ceragonriterias", blank=True, null=True)#reduntant
-    wan_ip = models.GenericIPAddressField(blank=True,null=True)
+         
+         ## Radio Param
     #radio_param = models.ForeignKey('RadioParam')
-    dbm = models.IntegerField(blank =True ,null=True)
-    snir = models.IntegerField(blank =True ,null=True)
-    connecting_bts = models.CharField(max_length=150,blank=True ,null=True)###FK
-    image = models.FileField(upload_to='files/Fixed_data/Winax/', blank=True, null=True)
-    
-    router_model = models.IntegerField(blank =True ,null=True)
-    router_SNMP_CMP_enable = models.BooleanField(default=False)
-    power_status= models.BooleanField(default=True)
+    hsu_pss = models.IntegerField(blank =True ,null=True)
+    hsu_ip = models.GenericIPAddressField(blank=True,null=True)
+    vlan = models.GenericIPAddressField(blank=True,null=True)
 
+
+    connecting_bts = models.CharField(max_length=150,blank=True ,null=True)###FK
+    aggregation =  models.CharField(max_length=150,blank=True ,null=True)###FK
+
+    image = models.FileField(upload_to='files/Fixed_data/Ceragon/', blank=True, null=True)
+     
 
     def __str__(self):
-        return f'Test Criteria for {self.link}'
+        return f'Ceragon Test Criteria for {self.link}'
 
 
 
@@ -318,3 +281,94 @@ class MWPMaintenance(TimeStampModel):
         unique_together = (['link', 'test_criteria',])
 
 
+##FIBER
+
+
+class FibertestCriteria(TimeStampModel):
+    link = models.ForeignKey(Link, on_delete=models.CASCADE, related_name="fibercriterias", blank=True, null=True)#reduntant
+    wan_ip = models.GenericIPAddressField(blank=True,null=True)
+    #radio_param = models.ForeignKey('RadioParam')
+    dbm = models.IntegerField(blank =True ,null=True)
+    snir = models.IntegerField(blank =True ,null=True)
+    connecting_bts = models.CharField(max_length=150,blank=True ,null=True)###FK
+    image = models.FileField(upload_to='files/Fixed_data/Winax/', blank=True, null=True)
+    
+    router_model = models.IntegerField(blank =True ,null=True)
+    router_SNMP_CMP_enable = models.BooleanField(default=False)
+    power_status= models.BooleanField(default=True)
+
+
+    def __str__(self):
+        return f'Test Criteria for {self.link}'
+
+
+
+
+class FiberInstallation(TimeStampModel):
+    link = models.ForeignKey(Link, on_delete=models.CASCADE, related_name="fiberinstallations",blank=True ,null=True)
+    test_criteria =models.OneToOneField(FibertestCriteria, on_delete=models.CASCADE, related_name="fiberinstallations")
+    consumable = models.ForeignKey(Consumable, on_delete=models.CASCADE, related_name="fiberinstallations",blank=True ,null=True)
+
+    def __str__(self):
+        return f'{self.link}'
+
+
+class FiberPMaintenance(TimeStampModel):
+    link = models.ForeignKey(FiberInstallation, on_delete=models.CASCADE, related_name="fibermaintenance",blank=True ,null=True)
+    test_criteria =models.ForeignKey(FibertestCriteria, on_delete=models.CASCADE, related_name="fibermaintenances",blank=True ,null=True)
+    consumable = models.ForeignKey(Consumable, on_delete=models.CASCADE, related_name="fibermaintenances",blank=True ,null=True)
+
+
+    def __str__(self):
+        return f'{self.link}'
+
+    class Meta:
+        unique_together = (['link', 'test_criteria',])
+
+
+
+
+
+##ActiveFIBER
+
+
+class ActiveFibertestCriteria(TimeStampModel):
+    link = models.ForeignKey(Link, on_delete=models.CASCADE, related_name="activefibercriterias", blank=True, null=True)#reduntant
+    wan_ip = models.GenericIPAddressField(blank=True,null=True)
+    #radio_param = models.ForeignKey('RadioParam')
+    management_ip = models.GenericIPAddressField(blank=True,null=True)
+    management_vlan = models.IntegerField(blank =True ,null=True)
+    confiqured_ar_interface= models.CharField(max_length=150,blank=True ,null=True)###FK
+    image = models.FileField(upload_to='files/Fixed_data/ActiveFiber/',help_text='Tag No', blank=True, null=True)
+
+    router_type = models.CharField(max_length=150 , blank =True ,null=True)
+    router_model = models.IntegerField(blank =True ,null=True)
+    router_SNMP_CMP_enable = models.BooleanField(default=False)
+    lan_status = models.BooleanField(default=True)
+    power_status= models.BooleanField(default=True)
+
+    def __str__(self):
+        return f'Active FiberTest Criteria for {self.link}'
+
+
+
+class ActiveFiberInstallation(TimeStampModel):
+    link = models.ForeignKey(Link, on_delete=models.CASCADE, related_name="activefiberinstallations",blank=True ,null=True)
+    test_criteria =models.OneToOneField(ActiveFibertestCriteria, on_delete=models.CASCADE, related_name="activefiberinstallations")
+    consumable = models.ForeignKey(Consumable, on_delete=models.CASCADE, related_name="activefiberinstallations",blank=True ,null=True)
+
+    def __str__(self):
+        return f'{self.link}'
+
+
+class ActiveFiberPMaintenance(TimeStampModel):
+    link = models.ForeignKey(ActiveFiberInstallation, on_delete=models.CASCADE, related_name="activefibermaintenance",blank=True ,null=True)
+    test_criteria =models.ForeignKey(ActiveFibertestCriteria, on_delete=models.CASCADE, related_name="Activefibermaintenances",blank=True ,null=True)
+    consumable = models.ForeignKey(Consumable, on_delete=models.CASCADE, related_name="activefibermaintenances",blank=True ,null=True)
+
+
+    def __str__(self):
+        return f'{self.link}'
+
+    class Meta:
+        unique_together = (['link', 'test_criteria',])
