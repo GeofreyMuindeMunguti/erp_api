@@ -7,8 +7,8 @@ from users.models import *
 # Create your models here.
 
 class Message(models.Model):
-    sender =models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='fcmsender')
-    receiver =models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='fcmreceiver')
+    receiver = models.ManyToManyField(MyDevice, blank = True, null=True)
+    sender =models.ForeignKey(MyDevice, on_delete=models.CASCADE, related_name='receiver', null=True)
     title = models.CharField(max_length=30)
     body = models.CharField(max_length=200)
     timestamp = models.DateTimeField(auto_now_add=True)
