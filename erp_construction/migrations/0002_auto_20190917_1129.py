@@ -92,7 +92,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='towerantennacoaximage',
-            name='tower_painting',
+            name='tower_painting',d
             field=models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='erp_construction.TowerPaintImage'),
         ),
         migrations.AddField(
