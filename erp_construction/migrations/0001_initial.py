@@ -15,92 +15,92 @@ class Migration(migrations.Migration):
             name='AccessApprovalCivil',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('access_approval', models.FileField(upload_to='files/CivilWorksTeam/accessapproval/%Y/%m/%d/')),
-                ('access_approval_comment', models.CharField(blank=True, max_length=100, null=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
+                ('access_approval', models.FileField(upload_to=erp_core.fileshandler.filemixin.UploadToProjectDirSubTask('BTSProjects', 'files/CivilWorksTeam/accessapproval/'))),
+                ('access_approval_comment', models.CharField(blank=True, max_length=100, null=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='AccessApprovalInstallation',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('access_approval', models.FileField(upload_to='files/InstallationTeam/accessapproval/%Y/%m/%d/')),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('updated_at', models.DateTimeField(auto_now=True)),
+                ('is_active', models.BooleanField(default=True)),
+                ('access_approval', models.FileField(upload_to=erp_core.fileshandler.filemixin.UploadToProjectDir('BTSProjects', 'files/InstallationTeam/accessapproval/'))),
                 ('access_approval_comment', models.CharField(blank=True, max_length=100, null=True)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
-            name='AntennaCoaxInstallImage',
+            name='AntennaCoaxInstallDate',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('start_date', models.DateTimeField()),
-                ('end_date', models.DateTimeField(blank=True, null=True)),
-                ('antenna_coax_installation_image_1', models.ImageField(upload_to='images/CivilWorksTeam/antennacoaxinstallation/%Y/%m/%d/')),
-                ('antenna_coax_installation_image_2', models.ImageField(upload_to='images/CivilWorksTeam/antennacoaxinstallation/%Y/%m/%d/')),
-                ('antenna_coax_installation_image_3', models.ImageField(upload_to='images/CivilWorksTeam/antennacoaxinstallation/%Y/%m/%d/')),
-                ('antenna_coax_installation_comment', models.CharField(blank=True, max_length=100, null=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
-            name='BindingImage',
+            name='AntennaCoaxInstallSubtask',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('start_date', models.DateTimeField()),
-                ('end_date', models.DateTimeField(blank=True, null=True)),
-                ('binding_image_1', models.ImageField(upload_to='images/CivilWorksTeam/binding/%Y/%m/%d/')),
-                ('binding_image_2', models.ImageField(upload_to='images/CivilWorksTeam/binding/%Y/%m/%d/')),
-                ('binding_image_3', models.ImageField(upload_to='images/CivilWorksTeam/binding/%Y/%m/%d/')),
-                ('binding_comment', models.CharField(blank=True, max_length=100, null=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
-            name='BlockworkPanelConstImage',
+            name='BlindingDate',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('start_date', models.DateTimeField()),
-                ('end_date', models.DateTimeField(blank=True, null=True)),
-                ('blockwallpanelconst_image_1', models.ImageField(upload_to='images/CivilWorksTeam/BlockworkPanelConst/%Y/%m/%d/')),
-                ('blockwallpanelconst_image_2', models.ImageField(upload_to='images/CivilWorksTeam/BlockworkPanelConst/%Y/%m/%d/')),
-                ('blockwallpanelconst_image_3', models.ImageField(upload_to='images/CivilWorksTeam/BlockworkPanelConst/%Y/%m/%d/')),
-                ('blockwallpanelconst_comment', models.CharField(blank=True, max_length=100, null=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
-            name='BoundaryWallImage',
+            name='BlindingSubtask',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('boundary_wall_comment', models.CharField(blank=True, max_length=100, null=True)),
-                ('start_date', models.DateTimeField()),
-                ('end_date', models.DateTimeField(blank=True, null=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
-            name='BS241AndGeneatorSlabsImage',
+            name='BlockworkPanelConstDate',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('bs241_and_generator_slabs_comment', models.CharField(blank=True, max_length=100, null=True)),
-                ('start_date', models.DateTimeField()),
-                ('end_date', models.DateTimeField(blank=True, null=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
+                ('work_day', models.DateField(blank=True, null=True)),
+                ('casuals_list', models.FileField(blank=True, null=True, upload_to=erp_core.fileshandler.filemixin.UploadToProjectDirDate('BTSProjects', 'files/Casuals/BlockworkPanelConst/'))),
+                ('casuals_atsite', models.ManyToManyField(blank=True, to='users.Casual')),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='BS241ConcretePourCuringPeriodImage',
@@ -116,6 +116,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='BtsBudget',
@@ -133,6 +136,9 @@ class Migration(migrations.Migration):
                 ('is_approved', models.BooleanField(blank=True, default=False, null=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'verbose_name_plural': 'Boundary Wall TASKS',
+            },
         ),
         migrations.CreateModel(
             name='BTSinstallationTask',
@@ -148,6 +154,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'verbose_name_plural': 'BS241 and Generator Slab TASKS',
+            },
         ),
         migrations.CreateModel(
             name='BtsProject',
@@ -197,6 +206,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='CivilWorksTeam',
@@ -207,6 +219,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'verbose_name_plural': 'BTS PROJECTS',
+            },
         ),
         migrations.CreateModel(
             name='CommercialTeam',
@@ -221,6 +236,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'verbose_name_plural': 'BTS SITES',
+            },
         ),
         migrations.CreateModel(
             name='ConcreteCuringPeriodImage',
@@ -236,6 +254,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='ConcretePourImage',
@@ -251,6 +272,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='ElectricalEarthing',
@@ -265,7 +289,13 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
+                ('work_day', models.DateField(blank=True, null=True)),
+                ('casuals_list', models.FileField(blank=True, null=True, upload_to=erp_core.fileshandler.filemixin.UploadToProjectDirDate('BTSProjects', 'files/Casuals/ConcretePourCuringPeriod/'))),
+                ('casuals_atsite', models.ManyToManyField(blank=True, to='users.Casual')),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='ElectricalTasks',
@@ -278,6 +308,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='ExcavationImage',
@@ -293,6 +326,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='FoundationImage',
@@ -305,6 +341,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='FoundFootPourImage',
@@ -320,6 +359,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='GateInstallationImage',
@@ -335,6 +377,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='GeneratorInstallation',
@@ -354,6 +399,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='HealthDocumentsCivilTeam',
@@ -374,6 +422,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='HealthDocumentsInstallationTeam',
@@ -394,6 +445,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='InstallationTeam',
@@ -415,6 +469,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='Issues',
@@ -428,6 +485,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='Kpi',
@@ -436,6 +496,9 @@ class Migration(migrations.Migration):
                 ('kpi', models.IntegerField(blank=True, null=True)),
                 ('is_approved', models.BooleanField(default=False)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='KPLCSolarImage',
@@ -451,6 +514,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='MWInstallationTask',
@@ -466,6 +532,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='ProcurementTeam',
@@ -494,6 +563,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='ProjectIcons',
@@ -534,6 +606,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='ReticulationAPSinstallation',
@@ -549,6 +624,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='SetSiteClearingImage',
@@ -564,6 +642,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='SteelFixFormworkImage',
@@ -597,6 +678,9 @@ class Migration(migrations.Migration):
                 ('kpi', models.IntegerField(blank=True, null=True)),
                 ('is_approved', models.BooleanField(default=False)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='TelecomTasks',
@@ -610,6 +694,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='TestCetificate',
@@ -623,6 +710,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='TowerAntennaCoaxImage',
@@ -635,6 +725,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='TowerBaseImage',
@@ -650,6 +743,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='TowerErectionImage',
@@ -665,6 +761,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='TowerPaintImage',
@@ -680,6 +779,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='UndergroundTasks',
@@ -695,6 +797,9 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='WarrantyCertificate',
@@ -708,5 +813,8 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
     ]
