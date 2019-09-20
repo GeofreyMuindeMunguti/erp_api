@@ -19,6 +19,7 @@ router.register(r'ftthsurveyphotos', views.ftthSurveyPhotosViewSet)
 router.register(r'ftthsurveys', views.ftthSurveyViewSet)
 
 router.register(r'FtthCommercialTeam', views.FtthCommercialTeamViewSet)
+router.register(r'FtthPoToSupplier', views.FtthPoToSupplierViewSet)
 router.register(r'FtthProcurementTeam', views.FtthProcurementTeamViewSet)
 router.register(r'FtthCertificates', views.FtthCertificatesViewSet)
 
