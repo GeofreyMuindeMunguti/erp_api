@@ -13,7 +13,7 @@ file_path = 'FTTHProjects'
 
 class FTTHProject(TimeStampModel,TimeTrackModel):
     project_name = models.CharField(max_length=100,unique=True)
-    initial_kmz = models.FileField(upload_to=UploadToProjectDir(file_path,'files/ftth/InitialKMZ/'), blank=True, null=True)
+    initial_kmz = models.FileField(upload_to=UploadToProjectDir(file_path,'files/InitialKMZ/'), blank=True, null=True)
     signed_operation_acceptance = models.NullBooleanField(default=False, blank=True, null=True)
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
     is_acknowledged = models.BooleanField(default=False)
