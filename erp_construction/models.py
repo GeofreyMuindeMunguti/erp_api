@@ -51,6 +51,11 @@ class BtsSite(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
+    rof_8 = models.FileField(upload_to='files/Project/rof8s/%Y/%m/%d/', blank=True, null=True)
+    sign_off = models.FileField(upload_to='files/Project/signoffs/%Y/%m/%d/', blank=True, null=True)
+    rfi = models.FileField(upload_to='files/Project/rfis/%Y/%m/%d/', blank=True, null=True)
+    integration_parameter = models.FileField(upload_to='files/Project/integrationparameters/%Y/%m/%d/', blank=True, null=True)
+    ip_plan = models.FileField(upload_to='files/Project/ipplans/%Y/%m/%d/', blank=True, null=True)
 
     def __str__(self):
         return '{}:{}'.format(self.site_name,self.project_name)
@@ -3211,3 +3216,17 @@ def percentage_function(no_of_complete, total_task):
     """Function to return perecentage of progress  """
     percentage = round(((no_of_complete/total_task) * 100))
     return percentage
+
+class IRROF7Free(models.Model):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING) 
+    tower_complete = models.FileField(upload_to='files/IRROF7Frees/towercomplete/%Y/%m/%d/', blank=True, null=True)
+    free_issue_material = models.FileField(upload_to='files/IRROF7Frees/freeissuematerials/%Y/%m/%d/', blank=True, null=True)
+    link_material = models.FileField(upload_to='files/IRROF7Frees/link_materials/%Y/%m/%d/', blank=True, null=True)
+    is_approved = models.BooleanField(default=False)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.project_name

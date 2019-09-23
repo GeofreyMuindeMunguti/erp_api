@@ -76,6 +76,7 @@ router.register(r'accessapprovalinstallations', views.AccessApprovalInstallation
 router.register(r'kplcsolarsmages', views.KPLCSolarImageViewSet)
 router.register(r'warrantyCertificates', views.WarrantyCertificateViewSet)
 router.register(r'testCetificates', views.TestCetificateViewSet)
+router.register(r'irrof7Frees', views.IRROF7FreeViewSet)
 
 """ ENDPOINTS FOR FRONTEND"""
 

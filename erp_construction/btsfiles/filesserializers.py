@@ -250,6 +250,12 @@ class IssueImageSerializer(serializers.ModelSerializer):
         model = Issues
         fields = ('issue_image', 'issue_sorted_image',)
 
+class IRROF7FreeFilesSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = IRROF7Free
+        fields = ('tower_complete', 'free_issue_material', 'link_material',)
+
 
 ################### Main Project Serializer################################
 
@@ -305,6 +311,7 @@ class SiteFilesSerializer(serializers.ModelSerializer):
     mwinstallationtask = MWInstallationTaskImagesSerializer(read_only=True)
     installationteam = InstallationTeamFilesSerializer(read_only =True)
     issueimages = IssueImageSerializer(read_only=True)
+    irrof7Free = IRROF7FreeFilesSerializer(read_only=True)
 
 
     class Meta:
