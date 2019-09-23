@@ -577,7 +577,7 @@ class FtthBackfillingImage(TimeStampModel):
 class DailyFtthBackfilling(TimeStampModel):
     sub_task = models.ForeignKey('FtthBackfilling', on_delete=models.CASCADE ,related_name='ftthbackfillingdays')
     no_of_casuals_atsite = models.ManyToManyField('users.Casual', blank=True )
-    casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/ftth/Casuals/backfilling/'),blank=True, null=True)
+    casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/backfilling/'),blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
     backfilling_comment = models.CharField(max_length=100, blank=True, null=True)
 

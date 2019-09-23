@@ -26,6 +26,10 @@ class PermissionMixin(object):
 
 
 
+
+# need to be defactored
+
+
 @deconstructible  #fixmigrations issues
 class UploadToProjectDir(object):
     '''Dynamically returns the project directory to which this file should be uploaded.'''
