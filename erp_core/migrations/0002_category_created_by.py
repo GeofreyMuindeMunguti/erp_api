@@ -10,12 +10,12 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('users', '0001_initial'),
-        ('inventory', '0001_initial'),
+        ('erp_core', '0001_initial'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='procurementcostteam',
+            model_name='category',
             name='created_by',
             field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='users.CustomUser'),
         ),

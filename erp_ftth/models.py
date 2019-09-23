@@ -264,7 +264,25 @@ class FtthInterceptionPoint(TimeStampModel):
     def __str__(self):
         return str(self.interception_point_name)
 
+class ftthSurveyPhotos(TimeStampModel):
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.CASCADE, blank=True)
+    work_day = models.DateField(unique =True, blank=True, null=True)
+    survey_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftth/survey/'), blank=True, null=True)
+    survey_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftth/survey/'), blank=True, null=True)
+    survey_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/ftth/survey/'), blank=True, null=True)
+    survey_images_comment = models.CharField(max_length=200, blank=True, null=True)
+    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f'FTTHSurveyPhotos  : {self.project_name}'
+
+    def ftth_survey_id(self):
+        try:
+            survey = ftthSurvey.objects.get(project_name=self.project_name)
+            survey_id = survey.id
+            return survey_id
+        except Exception as e:
+            return
 
 class ftthSurvey(TimeStampModel,TimeTrackModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.CASCADE, blank=True)

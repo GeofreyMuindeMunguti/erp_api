@@ -4,8 +4,8 @@ from .fileshandler.filemixin import UploadToProjectDir
 file_path = 'FTTSProjects'
 
 class TimeStampModel(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True,blank=True ,null=True)
-    updated_at = models.DateTimeField(auto_now=True,blank=True ,null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
 
     class Meta:
