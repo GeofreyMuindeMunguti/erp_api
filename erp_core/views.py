@@ -2,6 +2,7 @@ from django.shortcuts import render
 from erp_core.serializers import *
 from rest_framework import generics, permissions, viewsets, serializers, permissions, filters, status
 from .models import *
+from erp_ftts.models import *
 from django.db.models import Sum, F
 from django.contrib.auth.models import User
 from datetime import datetime

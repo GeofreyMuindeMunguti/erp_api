@@ -119,14 +119,12 @@ class CasualViewSet(viewsets.ModelViewSet):
     search_fields = ('casual_name', )
     ordering_fields = ('updated_at', 'casual_name', )
 
-
 class EngineerViewSet(viewsets.ModelViewSet):
     queryset = Engineer.objects.order_by('created_at')
     serializer_class = EngineerProfileSerializer
 
     lookup_fields = ( 'username')
     ordering_fields = ('updated_at', 'engineer_name', )
-
 
 class RatesViewSet(viewsets.ModelViewSet):
     queryset = Rates.objects.order_by('created_at')
@@ -135,22 +133,23 @@ class RatesViewSet(viewsets.ModelViewSet):
     search_fields = ('id', )
     ordering_fields = ('updated_at', 'engineers_rate', )
 
-
 class ContentTypeViewSet(viewsets.ModelViewSet):
     queryset = ContentType.objects.all()
     serializer_class = ContentTypeSerializer
 
     search_fields = ('id', )
 
+class TeamMemberTypeViewSet(viewsets.ModelViewSet):
+    """ViewSet for the ProjectTeam class"""
 
-
+    queryset = TeamMemberType.objects.all()
+    serializer_class = TeamMemberTypeSerializer
 
 class ProjectTeamFTTSViewSet(viewsets.ModelViewSet):
     """ViewSet for the ProjectTeam class"""
 
     queryset = ProjectTeamFTTS.objects.all()
     serializer_class = ProjectTeamFTTSSerializer
-   # permission_classes = [permissions.IsAuthenticated]
 
 
 class ProjectTeamFTTHViewSet(viewsets.ModelViewSet):
@@ -158,5 +157,3 @@ class ProjectTeamFTTHViewSet(viewsets.ModelViewSet):
 
     queryset = ProjectTeamFTTH.objects.all()
     serializer_class = ProjectTeamFTTHSerializer
-   # permission_classes = [permissions.IsAuthenticated]
-

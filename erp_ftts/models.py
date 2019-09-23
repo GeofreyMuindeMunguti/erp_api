@@ -1,6 +1,4 @@
 from django.db import models
-from erp_core.models import *
-# from erp_core.models import Project as CreateProject
 from erp_core.base import *
 from erp_construction.models import *
 from users.models import *
@@ -471,7 +469,7 @@ class SiteTrenchingImage(TimeStampModel):
 
 class DailySiteTrenching(TimeStampModel):
     sub_task = models.ForeignKey('SiteTrenching', on_delete=models.CASCADE ,related_name='dailysitetrenchings')
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
+    no_of_casuals_atsite = models.ManyToManyField('users.Casual', blank=True)
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path ,'files/Casuals/trenching/'),blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
     distance_trenched = models.FloatField(blank=True, null=True)
@@ -562,7 +560,7 @@ class SiteDuctInstallationImage(TimeStampModel):
 
 class DailySiteDuctInstallation(TimeStampModel):
     sub_task = models.ForeignKey('SiteDuctInstallation', on_delete=models.CASCADE ,related_name='dailyduct')
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
+    no_of_casuals_atsite = models.ManyToManyField('users.Casual', blank=True)
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path ,'files/Casuals/duct/'),blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
     distance_duct = models.FloatField(blank=True, null=True)
@@ -652,7 +650,7 @@ class ManHoleInstallationImage(TimeStampModel):
 
 class DailyManHoleInstallation(TimeStampModel):
     sub_task = models.ForeignKey('ManHoleInstallation', on_delete=models.CASCADE ,related_name='manholeinstalldays')
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
+    no_of_casuals_atsite = models.ManyToManyField('users.Casual', blank=True)
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/manhole/'),blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
     distance_manhole = models.FloatField(blank=True, null=True)
@@ -742,7 +740,7 @@ class SiteCableInstallationImage(TimeStampModel):
 
 class DailySiteCableInstallation(TimeStampModel):
     sub_task = models.ForeignKey('SiteCableInstallation', on_delete=models.CASCADE ,related_name='cableinstalldays')
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
+    no_of_casuals_atsite = models.ManyToManyField('users.Casual', blank=True)
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/cable/'),blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
     distance_cable = models.FloatField(blank=True, null=True)
@@ -848,7 +846,7 @@ class FttsHealthDocumentsCivilTeam(TimeStampModel):
     def __str__(self):
         return str(self.site_name)
 
-class FttsCivilTeam(TimeStampModel):
+class FttsCivilTeam(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(FttsSite, on_delete=models.CASCADE)
     ftts_trenching = models.OneToOneField(SiteTrenching, on_delete=models.CASCADE, blank=True, null=True)
     ftts_duct_installation = models.OneToOneField(SiteDuctInstallation, on_delete=models.CASCADE, blank=True, null=True)
@@ -919,7 +917,7 @@ class SiteTerminalInHseImage(TimeStampModel):
 
 class DailySiteTerminalInHse(TimeStampModel):
     sub_task = models.ForeignKey('SiteTerminalInHse', on_delete=models.CASCADE ,related_name='terminalinhsedays')
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
+    no_of_casuals_atsite = models.ManyToManyField('users.Casual', blank=True)
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/terminalinhse/'),blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
     terminal_odf_no = models.IntegerField(default= 0)
@@ -1010,7 +1008,7 @@ class SiteInterceptionImage(TimeStampModel):
 
 class DailySiteInterception(TimeStampModel):
     sub_task = models.ForeignKey('SiteInterception', on_delete=models.CASCADE ,related_name='interceptiondays')
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
+    no_of_casuals_atsite = models.ManyToManyField('users.Casual', blank=True)
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/interception/'),blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
     distance_interception = models.FloatField(blank=True, null=True)
@@ -1129,9 +1127,9 @@ class FttsIssues(TimeStampModel):
     def __str__(self):
         return self.ftts_issue
 
-class FttsInstallationTeam(TimeStampModel):
+class FttsInstallationTeam(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(FttsSite, on_delete=models.CASCADE)
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
+    no_of_casuals_atsite = models.ManyToManyField('users.Casual', blank=True)
     casuals_list = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/Casuals/installationteam/'),blank=True, null=True)
     ftts_terminal_in_hse = models.OneToOneField(SiteTerminalInHse, on_delete=models.CASCADE, blank=True, null=True)
     ftts_interception = models.OneToOneField(SiteInterception, on_delete=models.CASCADE, blank=True, null=True)
@@ -1282,7 +1280,7 @@ class FTTSCasualDailyRegister(TimeStampModel):
 
     site_name = models.ForeignKey(FttsSite, on_delete=models.CASCADE )
     work_day = models.DateField(blank=True, null=True)
-    ftts_casual =models.ManyToManyField(Casual,related_name= 'fttscasualregister')
+    ftts_casual =models.ManyToManyField('users.Casual',related_name= 'fttscasualregister')
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
 

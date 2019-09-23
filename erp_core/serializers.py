@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from users.models import CustomUser
 from .models import *
+from erp_ftts.models import *
 from rest_framework.authtoken.models import Token
 
 

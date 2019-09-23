@@ -2,7 +2,6 @@ from django.contrib.auth.views import LogoutView
 from rest_framework.routers import DefaultRouter
 from rest_framework.urlpatterns import format_suffix_patterns
 from . import views
-# from . import urls
 from django.urls import path, include
 
 from .views import ObtainJWTView
@@ -24,6 +23,7 @@ router.register(r'rates', views.RatesViewSet)
 router.register(r'permissions', views.PermissionMapViewSet)
 router.register(r'contenttype', views.ContentTypeViewSet)
 
+router.register(r'TeamMemberType', views.TeamMemberTypeViewSet)
 router.register(r'projectteamftts', views.ProjectTeamFTTSViewSet)
 router.register(r'projectteamftth', views.ProjectTeamFTTHViewSet)
 

@@ -3,12 +3,11 @@ from .models import *
 from erp_construction.models import *
 from erp_core.base import *
 from users.models import *
-from erp_core.models import *
 
 
 class FTTHProjectAdmin(admin.ModelAdmin):
 
-    list_display = ['id','project_name','initial_kmz','signed_operation_acceptance','ftth_final_acceptance_cert','ftth_final_acceptance_cert_comment','created_by','is_acknowledged','created_at', 'updated_at', 'is_active']
+    list_display = ['id','project_name','initial_kmz','signed_operation_acceptance','posted_by','is_acknowledged','created_at', 'updated_at', 'is_active']
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active','is_acknowledged',)
@@ -58,6 +57,14 @@ class FtthCommercialTeamAdmin(admin.ModelAdmin):
     list_editable = ('is_active',)
 
 admin.site.register(FtthCommercialTeam, FtthCommercialTeamAdmin)
+
+class FtthPoToSupplierAdmin(admin.ModelAdmin):
+    list_display = ('id','project_name','ftth_duct','ftth_cable','ftth_manholes','ftth_cabinets','ftth_poles','posted_by', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(FtthPoToSupplier, FtthPoToSupplierAdmin)
 
 class FtthProcurementTeamAdmin(admin.ModelAdmin):
     list_display = ('id','project_name','ftth_bom','po_to_supplier','ftth_initial_invoice','posted_by', 'created_at', 'updated_at', 'is_active')

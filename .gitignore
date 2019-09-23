@@ -113,7 +113,6 @@ celerybeat-schedule
 # SageMath parsed files
 *.sage.py
 
-
 # Spyder project settings
 .spyderproject
 .spyproject

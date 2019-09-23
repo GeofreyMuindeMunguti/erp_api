@@ -90,18 +90,13 @@ class RatesAdmin(admin.ModelAdmin):
 
 admin.site.register(Rates, RatesAdmin)
 
-
-
 class TeamMemberTypeAdmin(admin.ModelAdmin):
-    list_display = ['role','created_by']
+    list_display = ['role','posted_by']
     list_display_links = ('role', )
     search_fields = ('role', )
     list_filter = ('role',)
 
-
 admin.site.register(TeamMemberType, TeamMemberTypeAdmin)
-
-
 
 class ProjectTeamFTTHAdmin(admin.ModelAdmin):
     list_display = ['id','engineer_name','team_member_type','project_name',]
@@ -111,9 +106,6 @@ class ProjectTeamFTTHAdmin(admin.ModelAdmin):
     #readonly_fields = ['team_member_type']
 
 admin.site.register(ProjectTeamFTTH, ProjectTeamFTTHAdmin)
-
-
-
 
 class ProjectTeamFTTSAdmin(admin.ModelAdmin):
     list_display = ['id','engineer_name','team_member_type','project_name','site_name']

@@ -64,6 +64,13 @@ class FtthCommercialTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
+class FtthPoToSupplierViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = FtthPoToSupplier.objects.order_by('created_at')
+    serializer_class = FtthPoToSupplierSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
 class FtthProcurementTeamViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = FtthProcurementTeam.objects.order_by('created_at')
     serializer_class = FtthProcurementTeamSerializer
