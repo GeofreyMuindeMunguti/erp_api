@@ -69,7 +69,8 @@ class UploadToProjectDirSubTask(object):
                 project_path = str(instance.site_name).split(':')[1].strip()
                 return self.path.format(self.main_path ,project_path, self.sub_path, filename)
 
-        except:
+        except Exception as e:
+            print(e)
             return self.path.format(self.main_path ,'FILES', self.sub_path, filename)
 
 
