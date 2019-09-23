@@ -515,9 +515,7 @@ class SiteFilesSerializer(serializers.ModelSerializer):
         exclude = ("id","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
            "updated_at", "is_active","icon", "location", "created_by")
 
-        #fields = ('geotech_file','access_letter','approved_drawing','final_acceptance_cert','setsiteclearingimage',
-        #'towerbaseimage','bindingimage','steelfixformworkimage','concretepourcuringimage')
-        #read_only_fields = ('created_at', 'updated_at', 'is_active')
+    
 ################### Main Project Serializer################################
 
 class SiteFilesCSerializer(serializers.ModelSerializer):
