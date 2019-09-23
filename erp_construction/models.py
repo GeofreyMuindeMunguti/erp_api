@@ -218,7 +218,7 @@ class BtsSite(models.Model):
 ####################################### BUDGET ########################################################################################################################################
 
 class BtsBudget(models.Model):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING, blank=True, null=True)
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     beneficiary_name = models.CharField(max_length=100, blank=True, null=True)
     description = models.CharField(max_length=350, blank=True, null=True)
     date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
@@ -2189,7 +2189,7 @@ class CommercialTeam(models.Model):
     project_costing_data = models.OneToOneField(ProjectCosting, on_delete=models.CASCADE, blank=True, null=True)
     initial_invoice = models.FileField(upload_to='files/CommercialTeam/initialinvoice/%Y/%m/%d/', blank=True, null=True)
     initial_invoice_comment = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING, blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -2208,7 +2208,7 @@ class ProcurementTeam(models.Model):
     # po_electrical_materials_quantity = models.IntegerField(blank=True, null=True)
     po_subcontractors = models.FileField(upload_to='files/ProcurementTeam/posubcontractor/%Y/%m/%d/', blank=True, null=True)
     po_subcontractors_amount = models.IntegerField(blank=True, null=True)
-    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING, blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -3153,7 +3153,7 @@ class InstallationTeam(models.Model):
     issues = models.ManyToManyField(Issues, blank=True)
     conditional_acceptance_cert = models.FileField(upload_to='files/SafaricomTeam/conditionalcert/%Y/%m/%d/', blank=True, null=True)
     conditional_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey('users.CustomUser', on_delete=models.DO_NOTHING, blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
