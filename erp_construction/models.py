@@ -814,7 +814,6 @@ class ConcretePourImage(models.Model):
         except Exception as e:
             return
 
-
 class ConcreteCuringPeriodImage(models.Model):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
