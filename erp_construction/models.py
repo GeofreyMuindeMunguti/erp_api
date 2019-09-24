@@ -2139,6 +2139,61 @@ class TowerAntennaCoaxImage(models.Model):
 
 ######################################## END #######################################################################################################################################
 
+####################################### KPI ###############################################################################################################################
+
+
+class Kpi(models.Model):
+    kpi = models.IntegerField(blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    is_approved = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.kpi)
+
+######################################## END #######################################################################################################################################
+
+####################################### TASKS ###############################################################################################################################
+
+
+class Task(models.Model):
+    category_name = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    task_name = models.CharField(blank=True, null=True, max_length=150, unique=True)
+    kpi = models.IntegerField(blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    is_approved = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.task_name)
+
+
+
+######################################## END #######################################################################################################################################
+
+####################################### SUBTASKS ###############################################################################################################################
+
+
+class SubTask(models.Model):
+    task_name = models.ForeignKey(Task, on_delete=models.DO_NOTHING)
+    subtask_name = models.CharField(blank=True, null=True, max_length=150, unique=True)
+    kpi = models.IntegerField(blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    is_approved = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.subtask_name)
+
+
+######################################## END #######################################################################################################################################
+
 ####################################### INSTALLATION ###########################################################################################################################
 
 
@@ -2205,9 +2260,9 @@ class CommercialTeam(models.Model):
 class ProcurementTeam(models.Model):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     po_steel = models.FileField(upload_to='files/ProcurementTeam/posteel/%Y/%m/%d/', blank=True, null=True)
-    # po_steel_quantity = models.IntegerField(blank=True, null=True)
+    po_steel_quantity = models.IntegerField(blank=True, null=True)
     po_electrical_materials = models.FileField(upload_to='files/ProcurementTeam/poelectrical/%Y/%m/%d/', blank=True, null=True)
-    # po_electrical_materials_quantity = models.IntegerField(blank=True, null=True)
+    po_electrical_materials_quantity = models.IntegerField(blank=True, null=True)
     po_subcontractors = models.FileField(upload_to='files/ProcurementTeam/posubcontractor/%Y/%m/%d/', blank=True, null=True)
     po_subcontractors_amount = models.IntegerField(blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
