@@ -814,7 +814,6 @@ class ConcretePourImage(models.Model):
         except Exception as e:
             return
 
-
 class ConcreteCuringPeriodImage(models.Model):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
@@ -2140,6 +2139,61 @@ class TowerAntennaCoaxImage(models.Model):
 
 ######################################## END #######################################################################################################################################
 
+####################################### KPI ###############################################################################################################################
+
+
+class Kpi(models.Model):
+    kpi = models.IntegerField(blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    is_approved = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.kpi)
+
+######################################## END #######################################################################################################################################
+
+####################################### TASKS ###############################################################################################################################
+
+
+class Task(models.Model):
+    category_name = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    task_name = models.CharField(blank=True, null=True, max_length=150, unique=True)
+    kpi = models.IntegerField(blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    is_approved = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.task_name)
+
+
+
+######################################## END #######################################################################################################################################
+
+####################################### SUBTASKS ###############################################################################################################################
+
+
+class SubTask(models.Model):
+    task_name = models.ForeignKey(Task, on_delete=models.DO_NOTHING)
+    subtask_name = models.CharField(blank=True, null=True, max_length=150, unique=True)
+    kpi = models.IntegerField(blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    is_approved = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.subtask_name)
+
+
+######################################## END #######################################################################################################################################
+
 ####################################### INSTALLATION ###########################################################################################################################
 
 
@@ -2186,6 +2240,9 @@ class CommercialTeam(models.Model):
     approved_quote_file = models.FileField(upload_to='files/CommercialTeam/approvedquote/%Y/%m/%d/', blank=True, null=True)
     approved_quote_amount = models.IntegerField(blank=True, null=True)
     po_data = models.OneToOneField(ProjectPurchaseOrders, on_delete=models.CASCADE, blank=True, null=True)
+    drawings_revised_approved = models.FileField(upload_to='files/CommercialTeam/drawings_revised_approved/%Y/%m/%d/', blank=True, null=True)
+    tower_type_allocated = models.FileField(upload_to='files/CommercialTeam/tower_type_allocated/%Y/%m/%d/', blank=True, null=True)
+    customer_issued_quotation = models.FileField(upload_to='files/CommercialTeam/customer_issued_quotation/%Y/%m/%d/', blank=True, null=True)
     project_costing_data = models.OneToOneField(ProjectCosting, on_delete=models.CASCADE, blank=True, null=True)
     initial_invoice = models.FileField(upload_to='files/CommercialTeam/initialinvoice/%Y/%m/%d/', blank=True, null=True)
     initial_invoice_comment = models.CharField(max_length=100, blank=True, null=True)
@@ -2203,9 +2260,9 @@ class CommercialTeam(models.Model):
 class ProcurementTeam(models.Model):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     po_steel = models.FileField(upload_to='files/ProcurementTeam/posteel/%Y/%m/%d/', blank=True, null=True)
-    # po_steel_quantity = models.IntegerField(blank=True, null=True)
+    po_steel_quantity = models.IntegerField(blank=True, null=True)
     po_electrical_materials = models.FileField(upload_to='files/ProcurementTeam/poelectrical/%Y/%m/%d/', blank=True, null=True)
-    # po_electrical_materials_quantity = models.IntegerField(blank=True, null=True)
+    po_electrical_materials_quantity = models.IntegerField(blank=True, null=True)
     po_subcontractors = models.FileField(upload_to='files/ProcurementTeam/posubcontractor/%Y/%m/%d/', blank=True, null=True)
     po_subcontractors_amount = models.IntegerField(blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)

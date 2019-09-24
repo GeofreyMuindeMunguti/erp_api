@@ -77,7 +77,7 @@ class UploadToProjectDirSubTask(object):
 class UploadToProjectDirDate(object):
     '''Dynamically returns the project directory to which this file should be uploaded.'''
     path = "{0}/{1}/{2}{3}/{4}"
-    
+
     def __init__(self, main_path ,sub_path):
         #Initialize instance with sub_path    i.e . #upload_dir = UploadToProjectDir('Projects/images/')
         self.sub_path = sub_path
@@ -113,12 +113,7 @@ class UploadToProjectDirImage(object):
             date_path = str(instance.day_image).split(':')[4].strip()
 
             return self.path.format( self.main_path ,project_path, self.sub_path,date_path, filename)
-            
+
         except:
 
             return self.path.format(self.main_path ,'FILES', self.sub_path,date_path,  filename)
-
-
-
-
-
