@@ -509,3 +509,11 @@ def status_function(model_class, request):
         return status
     else:
         return status
+
+class IRROF7FreeViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating a project."""
+    queryset = IRROF7Free.objects.order_by('created_at')
+    serializer_class = IRROF7FreeSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )

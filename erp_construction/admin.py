@@ -14,11 +14,11 @@ admin.site.register(ProjectIcons, ProjectIconsAdmin)
 
 
 class BtsSiteAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'icon', 'site_number', 'BTS_type', 'site_owner', 'geotech_file', 'access_letter', 'approved_drawing','final_acceptance_cert', 'final_acceptance_cert_comment',
-                    'location', 'created_by', 'status', 'turn_around_time', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'icon', 'site_number', 'BTS_type', 'site_owner', 'geotech_file','geotech_file_comment', 'access_letter', 'approved_drawing','final_acceptance_cert', 'final_acceptance_cert_comment',
+                    'location', 'created_by', 'status', 'turn_around_time','rof_8','rof_8_comment','sign_off','sign_off_comment','rfi','rfi_comment','integration_parameter','integration_parameter_comment','ip_plan','ip_plan_comment')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
-    list_editable = ('is_active',)
+    
 
 
 admin.site.register(BtsSite, BtsSiteAdmin)
@@ -528,7 +528,7 @@ admin.site.register(Issues, IssuesAdmin)
 
 class InstallationTeamAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'health_documents_installation', 'electrical_tasks_data',
-                    'telecom_tasks_data', 'as_built', 'signoff', 'signoff_comment','rfi_document','rfi_document_comment', 'integration_parameter', 'integration_parameter_comment', 'snag_document', 'snag_document_comment',
+                    'telecom_tasks_data', 'as_built', 'snag_document', 'snag_document_comment',
                     'project_issues', 'conditional_acceptance_cert', 'conditional_acceptance_cert_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -557,3 +557,11 @@ class TestCetificateAdmin(admin.ModelAdmin):
 
 
 admin.site.register(TestCetificate, TestCetificateAdmin)
+
+class IRROF7FreeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'tower_complete','tower_complete_comment', 'free_issue_material','free_issue_material_comment', 'link_material','link_material_comment', 'posted_by', 'is_approved')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+  
+
+admin.site.register(IRROF7Free, IRROF7FreeAdmin)

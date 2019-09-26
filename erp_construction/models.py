@@ -34,7 +34,7 @@ class BtsProject(models.Model):
     class Meta:
         verbose_name_plural = 'BTS PROJECTS'
 
-class BtsSite(models.Model):
+class BtsSite(TimeStampModel,TimeTrackModel):
     project_name = models.ForeignKey(BtsProject, on_delete=models.CASCADE, blank=True, null=True)
     site_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
     site_number = models.CharField(max_length=100, unique=True, blank=True, null=True)
@@ -43,14 +43,22 @@ class BtsSite(models.Model):
     icon = models.ForeignKey(ProjectIcons, on_delete=models.DO_NOTHING, blank=True, null=True)
     location = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
     geotech_file = models.FileField(upload_to='files/Project/geotech/%Y/%m/%d/', blank=True, null=True)
+    geotech_file_comment =  models.CharField(max_length=100, blank=True, null=True)
     access_letter = models.FileField(upload_to='files/Project/accessletters/%Y/%m/%d/', blank=True, null=True)
     approved_drawing = models.FileField(upload_to='files/Project/approveddrawings/%Y/%m/%d/', blank=True, null=True)
     final_acceptance_cert = models.FileField(upload_to='files/SafaricomTeam/finalcert/%Y/%m/%d/', blank=True, null=True)
     final_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
+    rof_8 = models.FileField(upload_to='files/Project/rof8s/%Y/%m/%d/', blank=True, null=True)
+    rof_8_comment = models.CharField(max_length=100, blank=True, null=True)
+    sign_off = models.FileField(upload_to='files/Project/signoffs/%Y/%m/%d/', blank=True, null=True)
+    sign_off_comment = models.CharField(max_length=100, blank=True, null=True)
+    rfi = models.FileField(upload_to='files/Project/rfis/%Y/%m/%d/', blank=True, null=True)
+    rfi_comment = models.CharField(max_length=100, blank=True, null=True)
+    integration_parameter = models.FileField(upload_to='files/Project/integrationparameters/%Y/%m/%d/', blank=True, null=True)
+    integration_parameter_comment = models.CharField(max_length=100, blank=True, null=True)
+    ip_plan = models.FileField(upload_to='files/Project/ipplans/%Y/%m/%d/', blank=True, null=True)
+    ip_plan_comment= models.FileField(upload_to='files/Project/ipplans/%Y/%m/%d/', blank=True, null=True) 
 
     def __str__(self):
         return '{}:{}'.format(self.site_name,self.project_name)
@@ -213,7 +221,20 @@ class BtsSite(models.Model):
 
         return project_percentage
 
+#####################################IRROF7Free#########################################################################################
+class IRROF7Free(TimeStampModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING) 
+    tower_complete = models.FileField(upload_to='files/IRROF7Frees/towercomplete/%Y/%m/%d/', blank=True, null=True)
+    tower_complete_comment = models.CharField(max_length=100, blank=True, null=True)
+    free_issue_material = models.FileField(upload_to='files/IRROF7Frees/freeissuematerials/%Y/%m/%d/', blank=True, null=True)
+    free_issue_material_comment = models.CharField(max_length=100, blank=True, null=True)
+    link_material = models.FileField(upload_to='files/IRROF7Frees/linkmaterials/%Y/%m/%d/', blank=True, null=True)
+    link_material_comment = models.CharField(max_length=100, blank=True, null=True)
+    is_approved = models.BooleanField(default=False)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
+    def __str__(self):
+        return str(self.project_name)
 
 ####################################### BUDGET ########################################################################################################################################
 
@@ -3139,18 +3160,12 @@ class Issues(models.Model):
         return self.issue
 
 
-class InstallationTeam(models.Model):
+class InstallationTeam(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     health_documents = models.ManyToManyField(HealthDocumentsInstallationTeam, blank=True )
     electrical_tasks_data = models.OneToOneField(ElectricalTasks, on_delete=models.DO_NOTHING, blank=True, null=True)
     telecom_tasks_data = models.OneToOneField(TelecomTasks, on_delete=models.DO_NOTHING, blank=True, null=True)
     as_built = models.FileField(upload_to='files/SafaricomTeam/as_built/%Y/%m/%d/', blank=True, null=True)
-    signoff = models.FileField(upload_to='files/SafaricomTeam/signoff/%Y/%m/%d/', blank=True, null=True)
-    signoff_comment = models.CharField(max_length=100, blank=True, null=True)
-    rfi_document = models.FileField(upload_to='files/SafaricomTeam/rf/%Y/%m/%d/', blank=True, null=True)
-    rfi_document_comment = models.CharField(max_length=100, blank=True, null=True)
-    integration_parameter = models.BooleanField(default=False)
-    integration_parameter_comment = models.CharField(max_length=100, blank=True, null=True)
     snag_document = models.FileField(upload_to='files/SafaricomTeam/snag/%Y/%m/%d/', blank=True, null=True)
     snag_document_comment = models.CharField(max_length=100, blank=True, null=True)
     issues = models.ManyToManyField(Issues, blank=True)
@@ -3158,9 +3173,6 @@ class InstallationTeam(models.Model):
     conditional_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -3214,3 +3226,4 @@ def percentage_function(no_of_complete, total_task):
     """Function to return perecentage of progress  """
     percentage = round(((no_of_complete/total_task) * 100))
     return percentage
+

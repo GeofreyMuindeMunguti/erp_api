@@ -250,6 +250,12 @@ class IssueImageSerializer(serializers.ModelSerializer):
         model = Issues
         fields = ('issue_image', 'issue_sorted_image',)
 
+class IRROF7FreeFilesSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = IRROF7Free
+        fields = ('tower_complete', 'free_issue_material', 'link_material',)
+
 
 ################### Main Project Serializer################################
 
@@ -305,13 +311,14 @@ class SiteFilesSerializer(serializers.ModelSerializer):
     mwinstallationtask = MWInstallationTaskImagesSerializer(read_only=True)
     installationteam = InstallationTeamFilesSerializer(read_only =True)
     issueimages = IssueImageSerializer(read_only=True)
+    irrof7Free = IRROF7FreeFilesSerializer(read_only=True)
 
 
     class Meta:
         model = BtsSite
        # fields = ('__all__')
-        exclude = ("id","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
-           "updated_at", "is_active","icon", "location", "created_by")
+        exclude = ("id","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment",
+           "icon", "location", "created_by")
 
         #fields = ('geotech_file','access_letter','approved_drawing','final_acceptance_cert','setsiteclearingimage',
         #'towerbaseimage','bindingimage','steelfixformworkimage','concretepourcuringimage')
