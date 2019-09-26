@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+"""FILE PERMISSIONS"""
+
 import os
 import time
 import gc
