@@ -15,7 +15,7 @@ admin.site.register(ProjectIcons, ProjectIconsAdmin)
 
 class BtsSiteAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'icon', 'site_number', 'BTS_type', 'site_owner', 'geotech_file', 'access_letter', 'approved_drawing','final_acceptance_cert', 'final_acceptance_cert_comment',
-                    'location', 'created_by', 'status', 'turn_around_time', 'created_at', 'updated_at', 'is_active')
+                    'location', 'created_by', 'status', 'turn_around_time', 'created_at', 'updated_at', 'is_active','rof_8','sign_off','rfi','integration_parameter','ip_plan')
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
     list_editable = ('is_active',)
@@ -557,3 +557,12 @@ class TestCetificateAdmin(admin.ModelAdmin):
 
 
 admin.site.register(TestCetificate, TestCetificateAdmin)
+
+class IRROF7FreeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'tower_complete', 'free_issue_material', 'link_material', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+    list_editable = ('is_active', 'is_approved') 
+
+
+admin.site.register(IRROF7Free, IRROF7FreeAdmin)

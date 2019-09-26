@@ -3221,7 +3221,7 @@ class IRROF7Free(models.Model):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING) 
     tower_complete = models.FileField(upload_to='files/IRROF7Frees/towercomplete/%Y/%m/%d/', blank=True, null=True)
     free_issue_material = models.FileField(upload_to='files/IRROF7Frees/freeissuematerials/%Y/%m/%d/', blank=True, null=True)
-    link_material = models.FileField(upload_to='files/IRROF7Frees/link_materials/%Y/%m/%d/', blank=True, null=True)
+    link_material = models.FileField(upload_to='files/IRROF7Frees/linkmaterials/%Y/%m/%d/', blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -3229,4 +3229,4 @@ class IRROF7Free(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.project_name
+        return str(self.project_name)

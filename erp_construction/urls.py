@@ -144,7 +144,7 @@ urlpatterns = [
     path('files/<int:pk>/btsinstallationtaskimages/', filesviews.BTSinstallationTaskImagesView.as_view()),
     path('files/<int:pk>/mwinstallationtaskimages/', filesviews.MWInstallationTaskImagesView.as_view()),
     path('files/<int:pk>/installationteamfiles/', filesviews.InstallationTeamFilesView.as_view()),
-    path('files/<int:pk>/issueimages/', filesviews.IssueImageView.as_view()),
+    path('files/<int:pk>/irrof7Freesfiles/', filesviews.IRROF7FreeFilesView.as_view()),
 
     path('taskstatus/', TaskStatusView.as_view()),
     path('timesheetsummary/', TimesheetSummaryView.as_view()),
@@ -153,5 +153,6 @@ urlpatterns = [
     path('totalpurchaseprders/', TotalPurchaseOrdersView.as_view()),
     path('revenueperproject/<int:pk>', RevenueDetailView.as_view()),
     path('revenue/', RevenueListView.as_view()),
+   
 
 ]
