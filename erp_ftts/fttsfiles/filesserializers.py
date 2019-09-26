@@ -154,7 +154,7 @@ class SiteCableInstallationSubTaskFilesSerializer(serializers.ModelSerializer):
 
 
 class SiteCableInstallationASubTaskFilesSerializer(serializers.ModelSerializer):
-    sitecableinstallations = SiteCableInstallationSubTaskFilesSerializer(read_only =True)
+    sitecableinstallation = SiteCableInstallationSubTaskFilesSerializer(read_only =True)
 
     class Meta:
         model = FttsSite
@@ -184,7 +184,7 @@ class SiteTerminalInHseSubTaskFilesSerializer(serializers.ModelSerializer):
         fields = ('site_terminal_in_hse_image_1','site_terminal_in_hse_image_2','site_terminal_in_hse_image_3','site_terminal_in_hse_comment','terminalinhsedays',)
 
 class SiteTerminalInHseASubTaskFilesSerializer(serializers.ModelSerializer):
-    siteterminalinhses = SiteTerminalInHseSubTaskFilesSerializer(read_only =True)
+    siteterminalinhse = SiteTerminalInHseSubTaskFilesSerializer(read_only =True)
 
     class Meta:
         model = FttsSite

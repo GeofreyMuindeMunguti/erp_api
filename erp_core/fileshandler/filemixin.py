@@ -74,7 +74,6 @@ class UploadToProjectDirSubTask(object):
                 return self.path.format(self.main_path ,project_path, self.sub_path, filename)
 
         except Exception as e:
-            print(e)
             return self.path.format(self.main_path ,'FILES', self.sub_path, filename)
 
 

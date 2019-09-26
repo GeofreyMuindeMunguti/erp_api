@@ -392,7 +392,7 @@ class FtthCertificates(TimeStampModel):
 
 ######################################################## FTTH CIVIL TEAM ########################################################################################################################################################################################
 class FtthPoleInstallationImage(TimeStampModel):
-    day_image = models.ForeignKey('DailyFtthPoleInstallation', on_delete=models.CASCADE ,related_name='poleinstallationimage')
+    day_image = models.ForeignKey('DailyFtthPoleInstallation', on_delete=models.CASCADE ,related_name='poleinstallationimages')
     poleinstallation_image_1 = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/poleinstallation/'),blank=True,null=True)
     poleinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
 
@@ -599,7 +599,7 @@ class DailyFtthBackfilling(TimeStampModel):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
 class FtthBackfilling(TimeStampModel,TimeTrackModel):
-    project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE,related_query_name='ftthbackfillings', blank=True,null =True)
+    project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE,related_name='ftthbackfillings', blank=True,null =True)
     ftth_backfilling_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/backfilling/'),blank=True,null=True)
     ftth_backfilling_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/backfilling/'),blank=True,null=True)
     ftth_backfilling_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/CivilWorksTeam/backfilling/'),blank=True,null=True)
@@ -654,7 +654,7 @@ class FtthBackfilling(TimeStampModel,TimeTrackModel):
 
 """END"""
 class FtthCableInstallationImage(TimeStampModel):
-    day_image = models.ForeignKey('DailyFtthCableInstallation', on_delete=models.CASCADE ,related_name='cableinstallationimage')
+    day_image = models.ForeignKey('DailyFtthCableInstallation', on_delete=models.CASCADE ,related_name='cableinstallationimages')
     cableinstallation_image_1 = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/cableinstallation/'),blank=True, null=True)
     cableinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
 
@@ -662,11 +662,11 @@ class FtthCableInstallationImage(TimeStampModel):
         return f'Image for {self.day_image}'
 
 class DailyFtthCableInstallation(TimeStampModel):
-    sub_task = models.ForeignKey('FtthCableInstallation', on_delete=models.CASCADE ,related_name='cableinstallation')
+    sub_task = models.ForeignKey('FtthCableInstallation', on_delete=models.CASCADE ,related_name='cableinstallationdays')
     no_of_casuals_atsite = models.ManyToManyField('users.Casual', blank=True )
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/cableinstallation/'),blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
-    cableinstallation_date = models.DateField(unique =True, blank=True, null=True)
+    #cableinstallation_date = models.DateField(unique =True, blank=True, null=True)
     cableinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
@@ -840,7 +840,7 @@ class DailyFtthSplicingEnclosure(TimeStampModel):
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/splicingencore/'),blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
     splicing_encore_distance  = models.FloatField(default=0)
-    splicingencore_date = models.DateField(unique =True, blank=True, null=True)
+    #splicingencore_date = models.DateField(unique =True, blank=True, null=True)
     splicingencore_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
@@ -869,7 +869,7 @@ class FtthSplicingEnclosure(TimeStampModel,TimeTrackModel):
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.project_name)
+        return  f'SplicingEnclosure : {self.project_name}'
 
     def days_list(self):
         try:
@@ -929,7 +929,7 @@ class DailyFtthSplicingFAT(TimeStampModel):
     no_of_casuals_atsite = models.ManyToManyField('users.Casual', blank=True )
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/splicingFAT/'),blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
-    splicingFAT_date = models.DateField(unique =True, blank=True, null=True)
+    #splicingFAT_date = models.DateField(unique =True, blank=True, null=True)
     splicingFAT_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
@@ -950,7 +950,7 @@ class DailyFtthSplicingFAT(TimeStampModel):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
 class FtthSplicingFAT(TimeStampModel,TimeTrackModel):
-    project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE,related_name ='ftthsplicingfat')
+    project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE,related_name ='ftthsplicingfats')
     ftth_splicing_fat_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/splicingFAT/'), blank=True,null =True)
     ftth_splicing_fat_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/splicingFAT/'), blank=True,null =True)
     ftth_splicing_fat_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/splicingFAT/'), blank=True,null =True)
@@ -1018,7 +1018,7 @@ class DailyFtthSplicingFDT(TimeStampModel):
     no_of_casuals_atsite = models.ManyToManyField('users.Casual', blank=True )
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/splicingFDT/'),blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
-    splicingFDT_date = models.DateField(unique =True, blank=True, null=True)
+    #splicingFDT_date = models.DateField(unique =True, blank=True, null=True)
     splicingFDT_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
@@ -1152,11 +1152,11 @@ class FtthCoreProvisionImage(TimeStampModel):
         return f'Image for {self.day_image}'
 
 class DailyFtthCoreProvision(TimeStampModel):
-    sub_task = models.ForeignKey('FtthCoreProvision', on_delete=models.CASCADE ,related_name='coreprovision')
+    sub_task = models.ForeignKey('FtthCoreProvision', on_delete=models.CASCADE ,related_name='ftthcoreprovisiondays')
     no_of_casuals_atsite = models.ManyToManyField('users.Casual', blank=True )
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/coreprovision/'),blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
-    coreprovision_date = models.DateField(unique =True, blank=True, null=True)
+    #coreprovision_date = models.DateField(unique =True, blank=True, null=True)
     coreprovision_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
@@ -1177,7 +1177,7 @@ class DailyFtthCoreProvision(TimeStampModel):
         return [v.casual_name for v in self.no_of_casuals_atsite.all()]
 
 class FtthCoreProvision(TimeStampModel,TimeTrackModel):
-    project_name = models.ForeignKey(FTTHProject, on_delete=models.CASCADE, blank=True)
+    project_name = models.ForeignKey(FTTHProject, on_delete=models.CASCADE, blank=True ,null =True,related_name= 'ftthcoreprovisions')
     ftth_core_provision_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/coreprovision/'), blank=True,null =True)
     ftth_core_provision_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/coreprovision/'), blank=True,null =True)
     ftth_core_provision_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/coreprovision/'), blank=True,null =True)
@@ -1233,7 +1233,7 @@ class FtthCoreProvision(TimeStampModel,TimeTrackModel):
 """END"""
 
 class FtthPowerLevelsImage(TimeStampModel):
-    day_image = models.ForeignKey('DailyFtthPowerLevels', on_delete=models.CASCADE ,related_name='powerlevelsimage')
+    day_image = models.ForeignKey('DailyFtthPowerLevels', on_delete=models.CASCADE ,related_name='ftthpowerlevelimages')
     powerlevels_image_1 = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/InstallationTeam/powerlevels/'), blank=True,null =True)
     powerlevels_comment = models.CharField(max_length=100, blank=True, null=True)
 
@@ -1330,11 +1330,11 @@ class FtthOTDRTracesImage(TimeStampModel):
         return f'Image for {self.day_image}'
 
 class DailyFtthOTDRTraces(TimeStampModel):
-    sub_task = models.ForeignKey('FtthOTDRTraces', on_delete=models.CASCADE ,related_name='OTDRTraces')
+    sub_task = models.ForeignKey('FtthOTDRTraces', on_delete=models.CASCADE ,related_name='otdrtracesdays')
     no_of_casuals_atsite = models.ManyToManyField('users.Casual', blank=True )
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/OTDRTraces/'),blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
-    OTDRTraces_date = models.DateField(unique =True, blank=True, null=True)
+   # OTDRTraces_date = models.DateField(unique =True, blank=True, null=True)
     OTDRTraces_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):

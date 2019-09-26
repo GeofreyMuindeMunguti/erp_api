@@ -83,6 +83,7 @@ class FtthSplicingFDTASubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
 
 
 class FtthCoreProvisionASubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    ''' View for ftth core provisioning files'''
     queryset = FTTHProject.objects.all()
     serializer_class = FtthCoreProvisionASubTaskFilesSerializer
 

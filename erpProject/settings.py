@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'fcm_devices',
     'fcm',
     'fcm_messaging',
-    'fixed_data',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
