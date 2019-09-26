@@ -15,7 +15,7 @@ class ProjectProgressView(APIView):
             automatic_total_comtasks = Task.objects.filter(category_name=category_id).count()
             completed_ctasks = 0
             project_id = pk
-            progress_object = CommercialTeam.objects.get(site_name=project_id)
+            progress_object = CommercialTeam.objects.get(project_name=project_id)
             approved_quote = progress_object.approved_quote_file
             po = progress_object.po_data
             project_costing = progress_object.project_costing_data
@@ -48,7 +48,7 @@ class ProjectProgressView(APIView):
             automatic_total_protasks = Task.objects.filter(category_name=category_id).count()
             completed_ptasks = 0
             project_id = pk
-            progress_object = ProcurementTeam.objects.get(site_name=project_id)
+            progress_object = ProcurementTeam.objects.get(project_name=project_id)
             po_steel = progress_object.po_steel
             po_electrical_materials = progress_object.po_electrical_materials
             po_subcontractors = progress_object.po_subcontractors
@@ -75,7 +75,7 @@ class ProjectProgressView(APIView):
             automatic_total_civtasks = Task.objects.filter(category_name=category_id).count()
             completed_cltasks = 0
             project_id = pk
-            progress_object = CivilWorksTeam.objects.get(site_name=project_id)
+            progress_object = CivilWorksTeam.objects.get(project_name=project_id)
             foundation_and_curing_images = progress_object.foundation_and_curing_images
             bts_and_generator_slabs_images = progress_object.bs241_and_generator_slabs_images
             site_walling_images_field = progress_object.site_walling_images_field
@@ -107,7 +107,7 @@ class ProjectProgressView(APIView):
             automatic_total_instasks = Task.objects.filter(category_name=category_id).count()
             completed_intasks = 0
             project_id = pk
-            progress_object = InstallationTeam.objects.get(site_name=project_id)
+            progress_object = InstallationTeam.objects.get(project_name=project_id)
             electrical_tasks_data = progress_object.electrical_tasks_data
             telecom_tasks_data = progress_object.telecom_tasks_data
             signoff = progress_object.signoff
@@ -170,7 +170,7 @@ class CommercialTeamProgressView(APIView):
         initial_invoice_status = ''
         project_id = pk
         try:
-            progress_object = CommercialTeam.objects.get(site_name=project_id)
+            progress_object = CommercialTeam.objects.get(project_name=project_id)
         except Exception as e:
             return Response({'error': 'Task not started', 'no_of_tasks': automatic_total_tasks,})
         approved_quote = progress_object.approved_quote_file
@@ -217,7 +217,7 @@ class ProcurementProgressTeamView(APIView):
         po_subcontractors_status = ''
         project_id = pk
         try:
-            progress_object = ProcurementTeam.objects.get(site_name=project_id)
+            progress_object = ProcurementTeam.objects.get(project_name=project_id)
         except Exception as e:
             return Response({'error': 'Task not started', 'no_of_tasks': automatic_total_tasks,})
         po_steel = progress_object.po_steel
@@ -259,7 +259,7 @@ class CivilProgressView(APIView):
         tower_status = ''
         project_id = pk
         try:
-            progress_object = CivilWorksTeam.objects.get(site_name=project_id)
+            progress_object = CivilWorksTeam.objects.get(project_name=project_id)
         except Exception as e:
             return Response({'error': 'Task not started', 'no_of_tasks': automatic_total_tasks,})
         foundation_and_curing_images = progress_object.foundation_and_curing_images
@@ -309,7 +309,7 @@ class InstallationProgressView(APIView):
         conditional_acceptance_status = ''
         project_id = pk
         try:
-            progress_object = InstallationTeam.objects.get(site_name=project_id)
+            progress_object = InstallationTeam.objects.get(project_name=project_id)
         except Exception as e:
             return Response({'error': 'Task not started', 'no_of_tasks': automatic_total_tasks,})
         electrical_tasks_data = progress_object.electrical_tasks_data
@@ -380,7 +380,7 @@ class FoundationTaskProgressView(APIView):
         concrete_curing_status = ''
         project_id = pk
         try:
-            progress_object = FoundationImage.objects.get(site_name=project_id)
+            progress_object = FoundationTask.objects.get(project_name=project_id)
         except Exception as e:
             return Response({'error': 'Task not started', 'no_of_tasks': automatic_total_tasks,})
         setting_site = progress_object.setting_site_clearing
@@ -438,7 +438,7 @@ class BTSandGenTaskProgressView(APIView):
         concrete_pour_status = ''
         project_id = pk
         try:
-            progress_object = BS241AndGeneatorSlabsImage.objects.get(site_name=project_id)
+            progress_object = BS241AndGeneratorSlabTask.objects.get(project_name=project_id)
         except Exception as e:
             return Response({'error': 'Task not started', 'no_of_tasks': automatic_total_tasks,})
         foundation_foot = progress_object.foundation_foot_pouring
@@ -474,7 +474,7 @@ class BoundaryTaskProgressView(APIView):
         razor_electric_status = ''
         project_id = pk
         try:
-            progress_object = BoundaryWallImage.objects.get(site_name=project_id)
+            progress_object = BoundaryWallTask.objects.get(project_name=project_id)
         except Exception as e:
             return Response({'error': 'Task not started', 'no_of_tasks': automatic_total_tasks,})
         foundation_foot = progress_object.foundation_foot_pouring
@@ -522,7 +522,7 @@ class TowerTaskProgressView(APIView):
         antenna_status = ''
         project_id = pk
         try:
-            progress_object = TowerAntennaCoaxImage.objects.get(site_name=project_id)
+            progress_object = TowerAntennaCoaxTask.objects.get(project_name=project_id)
         except Exception as e:
             return Response({'error': 'Task not started', 'no_of_tasks': automatic_total_tasks,})
         erection = progress_object.tower_erection
@@ -577,7 +577,7 @@ class ElectricalTaskProgressView(APIView):
         kplc_status = ''
         project_id = pk
         try:
-            progress_object = ElectricalTasks.objects.get(site_name=project_id)
+            progress_object = ElectricalTask.objects.get(project_name=project_id)
         except Exception as e:
             return Response({'error': 'Task not started', 'no_of_tasks': automatic_total_tasks,})
         underground = progress_object.Underground_ducting_and_manholes
@@ -630,7 +630,7 @@ class TelecomTaskProgressView(APIView):
         link_commissioning_status = ''
         project_id = pk
         try:
-            progress_object = TelecomTasks.objects.get(site_name=project_id)
+            progress_object = TelecomTask.objects.get(project_name=project_id)
         except Exception as e:
             return Response({'error': 'Task not started', 'no_of_tasks': automatic_total_tasks,})
         bts = progress_object.Installation_of_BTS
