@@ -12,16 +12,16 @@ class ProjectIconsAdmin(admin.ModelAdmin):
 
 admin.site.register(ProjectIcons, ProjectIconsAdmin)
 
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('id', 'category_name', 'created_by', 'created_at', 'updated_at', 'is_active')
-    list_display_links = ('category_name', )
-    search_fields = ('category_name', )
-    list_editable = ('is_active',)
+# class CategoryAdmin(admin.ModelAdmin):
+#     list_display = ('id', 'category_name', 'created_by', 'created_at', 'updated_at', 'is_active')
+#     list_display_links = ('category_name', )
+#     search_fields = ('category_name', )
+#     list_editable = ('is_active',)
+#
+#
+# admin.site.register(Category, CategoryAdmin)
 
-
-admin.site.register(Category, CategoryAdmin)
-
-class ProjectAdmin(admin.ModelAdmin):
+class BtsSiteAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'icon', 'site_number', 'BTS_type', 'site_owner', 'geotech_file', 'access_letter', 'approved_drawing','final_acceptance_cert', 'final_acceptance_cert_comment',
                     'location', 'created_by', 'status', 'turn_around_time', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
@@ -29,8 +29,25 @@ class ProjectAdmin(admin.ModelAdmin):
     list_editable = ('is_active',)
 
 
-admin.site.register(Project, ProjectAdmin)
+admin.site.register(BtsSite, BtsSiteAdmin)
 
+class BtsProjectAdmin(admin.ModelAdmin):
+    list_display = ('id', 'bts_project_name', 'icon', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('bts_project_name', )
+    search_fields = ('bts_project_name', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(BtsProject, BtsProjectAdmin)
+
+class BtsBudgetAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'beneficiary_name','description', 'date','phoneNumber','quantity', 'rate','unit','amount','is_approved','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(BtsBudget, BtsBudgetAdmin)
 
 class AccessApprovalCivilAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'access_approval', 'access_approval_comment',
@@ -91,8 +108,7 @@ admin.site.register(CommercialTeam, CommercialTeamAdmin)
 
 
 class ProcurementTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'po_steel', 'po_steel_quantity', 'po_electrical_materials', 'po_electrical_materials_quantity',
-                    'po_subcontractors', 'po_subcontractors_amount', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'po_steel', 'po_electrical_materials', 'po_subcontractors', 'po_subcontractors_amount', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )

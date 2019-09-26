@@ -4,15 +4,20 @@ from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Permission
+from django.core.cache import cache
+import datetime
+from django.conf import settings
+from erp_core.models import *
+
 
 
 class CustomUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    # customuser_phone_no = PhoneNumberField(blank=True, help_text='Phone Number')
     customuser_phone_no = models.CharField(max_length=10, blank=True, null=True)
     customuser_profile_pic = models.ImageField(upload_to='ProfilePictures/Employee', blank=True, null=True)
     team = models.CharField(max_length=150)
-    position = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='group')
+    position = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='group', blank=True, null=True)
+    device = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.user.username
@@ -30,6 +35,79 @@ class CustomUser(models.Model):
     def get_permissions(self):
         perm_tuple = [(x.id, x.name) for x in Permission.objects.filter(group__user=self.user)]
         return perm_tuple
+
+    def last_seen(self):
+        try:
+            return cache.get('last_seen_%s' % self.user.username)
+        except Exception as e:
+            return e
+
+    def online(self):
+        try:
+            if self.last_seen():
+                now = datetime.datetime.now()
+                if now > (self.last_seen() + datetime.timedelta(seconds=settings.USER_ONLINE_TIMEOUT)):
+                    return False
+                else:
+                    return True
+            else:
+                return False
+        except Exception as e:
+            return e
+
+class Log(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='log')
+    action = models.CharField(max_length= 200)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.user)
+
+"""MESSAGING"""
+
+"""CHAT"""
+class Message(models.Model):
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='receiver')
+    message = models.CharField(max_length=1200)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)
+
+
+    def __str__(self):
+        return self.message
+
+    class Meta:
+        ordering = ('timestamp',)
+
+class SentEmail(models.Model):
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='email_sender')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='email_receiver')
+    subject = models.CharField(max_length=255,default="No Subject")
+    message = models.CharField(max_length=5000,default="No Message")
+    timestamp = models.DateTimeField(auto_now_add=True)
+    attachment = models.FileField(upload_to='uploads',blank=True, null=True)
+    is_read = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.message
+
+
+    class Meta:
+        ordering = ('timestamp',)
+
+class EmailConfig(models.Model):
+    email_host = models.CharField(max_length=1200)
+    sender_port = models.IntegerField()
+    email_host_user = models.CharField(max_length=1200)
+    email_host_password = models.CharField(max_length=1200)
+    email_use_ssl =models.BooleanField(default=False)
+    email_use_tls = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.email_host
+
+"""END"""
 
 
 class PermissionMap(models.Model):
@@ -137,7 +215,6 @@ class Engineer(models.Model):
         single_engineer = Engineer.objects.get(engineer=engineer_id)
         return single_engineer
 
-
 class Rates(models.Model):
     worker_type = models.CharField(max_length=100, unique=True)
     rate = models.IntegerField()
@@ -147,3 +224,29 @@ class Rates(models.Model):
 
     def __str__(self):
         return str(self.worker_type)
+
+# Project Team
+
+class TeamMemberType(models.Model):
+    role = models.CharField(max_length=100, blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.role)
+
+class ProjectTeamFTTH(models.Model):
+    project_name = models.ForeignKey('erp_ftth.FTTHProject', on_delete=models.CASCADE )
+    engineer_name = models.ForeignKey(Engineer, on_delete=models.DO_NOTHING, blank=True, null=True)
+    team_member_type = models.ForeignKey(TeamMemberType, on_delete=models.DO_NOTHING, blank=True, null=True)
+
+    def __str__(self):
+        return 'Project Team for FTTH {}'.format(self.project_name)
+
+class ProjectTeamFTTS(models.Model):
+    project_name = models.ForeignKey('erp_ftts.FTTSProject', on_delete=models.CASCADE )
+    site_name = models.ForeignKey('erp_ftts.FttsSite', on_delete=models.CASCADE, blank=True, null=True)
+    engineer_name = models.ForeignKey(Engineer, on_delete=models.DO_NOTHING, blank=True, null=True)
+    team_member_type = models.ForeignKey(TeamMemberType, on_delete=models.DO_NOTHING, blank=True, null=True)
+
+    def __str__(self):
+        return 'Project Team for FTTS {}'.format(self.project_name)

@@ -6,19 +6,26 @@ from .views import *
 from .progress import *
 from .monitoring import *
 from .scorecard import *
-from .fileshandler import filesviews
+from erp_construction.btsfiles import filesviews  # UploadToProjectDir ,UploadToProjectDirDate ,UploadToProjectDirSubTask ,UploadToProjectDirImage
+from erp_construction.btsfiles.filesserializers import *
+
+file_path = 'BTSProjects'
 
 
 
 router = DefaultRouter()
 
-router.register(r'projects', views.ProjectViewSet)
+router.register(r'btsproject', views.BtsProjectViewSet)
+router.register(r'btssite', views.BtsSiteViewSet)
 router.register(r'category', views.CategoryViewSet)
 router.register(r'Icons', views.ProjectIconViewSet)
 router.register(r'projectcosting', views.ProjectCostingViewSet)
 router.register(r'projectpos', views.ProjectPOSViewSet)
+router.register(r'BtsBudget',views.BtsBudgetViewSet)
+
 router.register(r'commercialteamtasks', views.CommercialTeamViewSet)
 router.register(r'procurementteamtasks', views.ProcurementTeamViewSet)
+
 router.register(r'healthdocscivil', views.HealthDocCivilViewSet)
 router.register(r'accessapprovalscivil', views.AccessApprovalCivilViewSet)
 router.register(r'civilteamtasks', views.CivilTeamViewSet)
@@ -89,10 +96,13 @@ urlpatterns = [
     path('telecomprogress/<int:pk>', TelecomTaskProgressView.as_view()),
 
     #PROJECT FILES # allow  GET Method only
-
     path('files/', filesviews.FilesView.as_view()), # Retrieve all projects files :: TO DO
 
-    path('files/<int:pk>/', filesviews.ProjectFilesView.as_view()), # main url path to retrieve files per project
+    path('files/<int:pk>/', filesviews.BtsSiteFilesView.as_view()), # main url path to retrieve files per project
+
+    # path('files/', filesviews.FilesView.as_view()), # Retrieve all projects files :: TO DO
+    #
+    # path('files/<int:pk>/', filesviews.SiteFilesView.as_view()), # main url path to retrieve files per project
     #Paths to retrieve individual files
     path('files/<int:pk>/commercialteamfiles/', filesviews.CommercialTeamFilesView.as_view()),
     path('files/<int:pk>/procurementteamfiles/', filesviews.ProcurementTeamFilesView.as_view()),
