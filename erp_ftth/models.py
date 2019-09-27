@@ -267,9 +267,9 @@ class FtthInterceptionPoint(TimeStampModel):
 class ftthSurveyPhotos(TimeStampModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.CASCADE, blank=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
-    survey_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/survey/'), blank=True, null=True)
-    survey_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/survey/'), blank=True, null=True)
-    survey_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/survey/'), blank=True, null=True)
+    survey_image_1 = models.ImageField(upload_to=UploadToProjectDir(file_path,'images/survey/'), blank=True, null=True)
+    survey_image_2 = models.ImageField(upload_to=UploadToProjectDir(file_path,'images/survey/'), blank=True, null=True)
+    survey_image_3 = models.ImageField(upload_to=UploadToProjectDir(file_path,'images/survey/'), blank=True, null=True)
     survey_images_comment = models.CharField(max_length=200, blank=True, null=True)
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
@@ -292,7 +292,7 @@ class ftthSurvey(TimeStampModel,TimeTrackModel):
     distance_from_ip = models.FloatField(blank=True, null=True) #total
     no_of_fdts = models.IntegerField(blank=True, null=True)
     survey_photos = models.ManyToManyField(ftthSurveyPhotos,blank=True )
-    high_level_design = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/survey/highleveldesigns/'), blank=True, null=True)
+    high_level_design = models.FileField(upload_to=UploadToProjectDir(file_path,'files/survey/highleveldesigns/'), blank=True, null=True)
 
     county = models.ForeignKey('users.Location', on_delete=models.CASCADE, blank=True, null=True)
     ftth_survey_comment = models.CharField(max_length=200, blank=True, null=True)
@@ -332,12 +332,12 @@ class ftthSurvey(TimeStampModel,TimeTrackModel):
 ##############################################END OF FTTH SURVEY#############################################33
 class FtthCommercialTeam(TimeStampModel):
     project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE, blank=True)
-    ftth_po = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/CommercialTeam/po/'), blank=True, null=True)
+    ftth_po = models.FileField(upload_to=UploadToProjectDir(file_path,'files/CommercialTeam/po/'), blank=True, null=True)
     ftth_po_no = models.IntegerField(blank=True, null=True)
     ftth_po_amount = models.IntegerField(blank=True, null=True)
-    ftth_boq = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/CommercialTeam/boq/%Y/'), blank=True, null=True)
-    ftth_quote = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/CommercialTeam/quote/'), blank=True, null=True)
-    ftth_wayleave_application = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/CommercialTeam/wayleaveapplication/'), blank=True, null=True)
+    ftth_boq = models.FileField(upload_to=UploadToProjectDir(file_path,'files/CommercialTeam/boq/%Y/'), blank=True, null=True)
+    ftth_quote = models.FileField(upload_to=UploadToProjectDir(file_path,'files/CommercialTeam/quote/'), blank=True, null=True)
+    ftth_wayleave_application = models.FileField(upload_to=UploadToProjectDir(file_path,'files/CommercialTeam/wayleaveapplication/'), blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
@@ -346,11 +346,11 @@ class FtthCommercialTeam(TimeStampModel):
 
 class FtthPoToSupplier(TimeStampModel):
     project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE, blank=True)
-    ftth_duct = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/ProcurementTeam/poduct/'), blank=True, null=True)
-    ftth_cable = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/ProcurementTeam/pocable/'), blank=True, null=True)
-    ftth_manholes = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/ProcurementTeam/pomanholes/'), blank=True, null=True)
-    ftth_cabinets = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/ProcurementTeam/pocabinets/'), blank=True, null=True)
-    ftth_poles = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/ProcurementTeam/popoles/'), blank=True, null=True)
+    ftth_duct = models.FileField(upload_to=UploadToProjectDir(file_path,'files/ProcurementTeam/poduct/'), blank=True, null=True)
+    ftth_cable = models.FileField(upload_to=UploadToProjectDir(file_path,'files/ProcurementTeam/pocable/'), blank=True, null=True)
+    ftth_manholes = models.FileField(upload_to=UploadToProjectDir(file_path,'files/ProcurementTeam/pomanholes/'), blank=True, null=True)
+    ftth_cabinets = models.FileField(upload_to=UploadToProjectDir(file_path,'files/ProcurementTeam/pocabinets/'), blank=True, null=True)
+    ftth_poles = models.FileField(upload_to=UploadToProjectDir(file_path,'files/ProcurementTeam/popoles/'), blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
@@ -360,9 +360,9 @@ class FtthPoToSupplier(TimeStampModel):
 
 class FtthProcurementTeam(TimeStampModel):
     project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE, blank=True)
-    ftth_bom = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/ProcurementTeam/bom/'), blank=True, null=True)
+    ftth_bom = models.FileField(upload_to=UploadToProjectDir(file_path,'files/ProcurementTeam/bom/'), blank=True, null=True)
     po_to_supplier = models.OneToOneField(FtthPoToSupplier, on_delete=models.CASCADE, blank=True,null= True)
-    ftth_initial_invoice = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/ProcurementTeam/initialinvoice/'), blank=True, null=True)
+    ftth_initial_invoice = models.FileField(upload_to=UploadToProjectDir(file_path,'files/ProcurementTeam/initialinvoice/'), blank=True, null=True)
     # ftth_budget = models.FileField(upload_to='files/ftth/ProcurementTeam/budget/%Y/%m/%d/', blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
@@ -372,18 +372,18 @@ class FtthProcurementTeam(TimeStampModel):
 
 class FtthCertificates(TimeStampModel):
     project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE)
-    ftth_snag_document = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/SafaricomTeamftth/snag/'), blank=True, null=True)
+    ftth_snag_document = models.FileField(upload_to=UploadToProjectDir(file_path,'files/SafaricomTeamftth/snag/'), blank=True, null=True)
     ftth_snag_document_comment = models.CharField(max_length=100, blank=True, null=True)
     ftth_crq_ticketno = models.IntegerField(blank=True, null=True)
-    ftth_crq_document = models.FileField(upload_to=UploadToProjectDirSubTask(file_path,'files/SafaricomTeamftth/crq/'), blank=True, null=True)
+    ftth_crq_document = models.FileField(upload_to=UploadToProjectDir(file_path,'files/SafaricomTeamftth/crq/'), blank=True, null=True)
     ftth_crq_comment = models.CharField(max_length=100, blank=True, null=True)
-    ftth_final_acceptance_cert = models.FileField(upload_to=UploadToProjectDirSubTask(file_path ,'files/SafaricomTeamftth/finalcert/'), blank=True, null=True)
+    ftth_final_acceptance_cert = models.FileField(upload_to=UploadToProjectDir(file_path ,'files/SafaricomTeamftth/finalcert/'), blank=True, null=True)
     ftth_final_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
-    ftth_operational_acceptance_cert = models.FileField(upload_to=UploadToProjectDirSubTask(file_path ,'files/SafaricomTeamftth/opsacceptance/'), blank=True, null=True)
+    ftth_operational_acceptance_cert = models.FileField(upload_to=UploadToProjectDir(file_path ,'files/SafaricomTeamftth/opsacceptance/'), blank=True, null=True)
     ftth_operational_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
-    ftth_homepass_acceptance_cert = models.FileField(upload_to=UploadToProjectDirSubTask(file_path ,'files/SafaricomTeamftth/opsacceptance/'), blank=True, null=True)
+    ftth_homepass_acceptance_cert = models.FileField(upload_to=UploadToProjectDir(file_path ,'files/SafaricomTeamftth/opsacceptance/'), blank=True, null=True)
     ftth_homepass_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
-    ftth_conditional_acceptance_cert = models.FileField(upload_to=UploadToProjectDirSubTask(file_path ,'files/SafaricomTeamftth/conditionalcert/'), blank=True, null=True)
+    ftth_conditional_acceptance_cert = models.FileField(upload_to=UploadToProjectDir(file_path ,'files/SafaricomTeamftth/conditionalcert/'), blank=True, null=True)
     ftth_conditional_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
