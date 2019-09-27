@@ -43,11 +43,26 @@ class DefaultsMixin(object):
     for ordering the ordering_fields .
     '''
 
-
-class ProjectViewSet(DefaultsMixin, viewsets.ModelViewSet):
+class BtsProjectViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating a project."""
-    queryset = Project.objects.order_by('created_at')
-    serializer_class = ProjectSerializer
+    queryset = BtsProject.objects.order_by('created_at')
+    serializer_class = BtsProjectSerializer
+
+    search_fields = ('bts_project_name', )
+    ordering_fields = ('updated_at', 'bts_project_name', )
+
+class BtsSiteViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating a project."""
+    queryset = BtsSite.objects.order_by('created_at')
+    serializer_class = BtsSiteSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+class BtsBudgetViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating a project."""
+    queryset = BtsBudget.objects.order_by('created_at')
+    serializer_class = BtsBudgetSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )

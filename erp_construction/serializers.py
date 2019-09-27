@@ -15,16 +15,29 @@ class ProjectIconsSerializer(serializers.ModelSerializer):
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 
-class ProjectSerializer(serializers.ModelSerializer):
+class BtsProjectSerializer(serializers.ModelSerializer):
 
+    class Meta:
+        model = BtsProject
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class BtsSiteSerializer(serializers.ModelSerializer):
     turn_around_time = serializers.IntegerField(read_only=True)
     progress = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = Project
+        model = BtsSite
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+class BtsBudgetSerializer(serializers.ModelSerializer):
+    amount = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = BtsBudget
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
 
 class CategorySerializer(serializers.ModelSerializer):
 
@@ -32,7 +45,6 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
-
 
 class ProcurementTeamSerializer(serializers.ModelSerializer):
     total_material_cost = serializers.IntegerField(read_only=True)
