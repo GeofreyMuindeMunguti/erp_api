@@ -2,11 +2,13 @@ from rest_framework import serializers  #, exceptions
 from erp_ftth.models import *
 
 ############################ PROJECT FILES SERIALIZERS ###############################################
+excluded_fields = ('project_name',"initial_kmz",'signed_operation_acceptance',"id","created_at","updated_at",'posted_by','end_date','start_date', "is_active",'is_acknowledged',)
+
 
 class FTTHProjectFilesSerializer(serializers.ModelSerializer):
     class Meta:
         model = FTTHProject
-       # fields = ('ftts_final_acceptance_cert','ftts_accumulated_BOM_survey')
+        fields = ('initial_kmz',)
 # Site TRENCHING  Files Serializers///////////////
 
 
@@ -37,7 +39,7 @@ class FtthPoleInstallationSubTaskAFilesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FTTHProject
-        exclude = ('project_name','description',"initial_kmz",'signed_operation_acceptance','ftth_final_acceptance_cert','ftth_final_acceptance_cert_comment',"id","created_at","updated_at", "is_active", "created_by",'is_acknowledged',)
+        exclude = excluded_fields
 
 
 class FtthTrenchingImagesSerializer(serializers.ModelSerializer):
@@ -66,7 +68,7 @@ class FtthTrenchingSubTaskAFilesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FTTHProject
-        exclude = ('project_name','description',"initial_kmz",'signed_operation_acceptance','ftth_final_acceptance_cert','ftth_final_acceptance_cert_comment',"id","created_at","updated_at", "is_active", "created_by",'is_acknowledged',)
+        exclude = excluded_fields
 
 
 
@@ -97,7 +99,7 @@ class FtthBackfillingSubTaskAFilesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FTTHProject
-        exclude = ('project_name','description',"initial_kmz",'signed_operation_acceptance','ftth_final_acceptance_cert','ftth_final_acceptance_cert_comment',"id","created_at","updated_at", "is_active", "created_by",'is_acknowledged',)
+        exclude = excluded_fields
 
 class FtthCableInstallationImagesSerializer(serializers.ModelSerializer):
 
@@ -110,14 +112,14 @@ class FtthCableInstallationDateFilesSerializer(serializers.ModelSerializer):
     cableinstallationimages = FtthCableInstallationImagesSerializer(many = True ,read_only=True)
 
     class Meta:
-        model = DailyFtthBackfilling
+        model = DailyFtthCableInstallation
         fields = ('work_day','casuals_list','cableinstallationimages',)
 
 class FtthCableInstallationSubTaskFilesSerializer(serializers.ModelSerializer):
     cableinstallationdays = FtthCableInstallationDateFilesSerializer(many = True,read_only =True)
 
     class Meta:
-        model = FtthBackfilling
+        model = FtthCableInstallation
         fields = ('ftth_cable_installation_image_1','ftth_cable_installation_image_2','ftth_cable_installation_image_3','ftth_cable_installation_comment','cableinstallationdays',)
 
 
@@ -126,7 +128,7 @@ class FtthCableInstallationSubTaskAFilesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FTTHProject
-        exclude = ('project_name','description',"initial_kmz",'signed_operation_acceptance','ftth_final_acceptance_cert','ftth_final_acceptance_cert_comment',"id","created_at","updated_at", "is_active", "created_by",'is_acknowledged',)
+        exclude = excluded_fields
 
         # TowerBaseSubTask  Files Serializers///////////////
 
@@ -138,18 +140,18 @@ class FtthSplicingEnclosureImagesSerializer(serializers.ModelSerializer):
 
 
 class FtthSplicingEnclosureDateFilesSerializer(serializers.ModelSerializer):
-    ftthsplicingenclosuresimages = FtthSplicingEnclosureImagesSerializer(many =True ,read_only=True)
+    splicingenclosureimage = FtthSplicingEnclosureImagesSerializer(many =True ,read_only=True)
 
     class Meta:
         model = DailyFtthSplicingEnclosure
-        fields = ('work_day','casuals_list','ftthsplicingenclosuresimages',)
+        fields = ('work_day','casuals_list','splicingenclosureimage',)
 
 class FtthSplicingEnclosureSubTaskFilesSerializer(serializers.ModelSerializer):
-    ftthsplicingenclosuresdays =FtthSplicingEnclosureDateFilesSerializer(many = True,read_only =True)
+    splicingencore =FtthSplicingEnclosureDateFilesSerializer(many = True,read_only =True)
 
     class Meta:
         model = FtthSplicingEnclosure
-        fields = ('ftth_splicing_encore_image_1', 'ftth_splicing_encore_image_2','ftth_splicing_encore_image_3', 'ftth_splicing_encore_comment','ftthsplicingenclosuresdays')
+        fields = ('ftth_splicing_encore_image_1', 'ftth_splicing_encore_image_2','ftth_splicing_encore_image_3', 'ftth_splicing_encore_comment','splicingencore')
 
 
 class FtthSplicingEnclosureASubTaskFilesSerializer(serializers.ModelSerializer):
@@ -157,7 +159,7 @@ class FtthSplicingEnclosureASubTaskFilesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FTTHProject
-        exclude = ('project_name','description',"initial_kmz",'signed_operation_acceptance','ftth_final_acceptance_cert','ftth_final_acceptance_cert_comment',"id","created_at","updated_at", "is_active", "created_by",'is_acknowledged',)
+        exclude = excluded_fields
 
 ##
         # TowerBaseSubTask  Files Serializers///////////////
@@ -170,18 +172,18 @@ class FtthSplicingFATImagesSerializer(serializers.ModelSerializer):
 
 
 class FtthSplicingFATDateFilesSerializer(serializers.ModelSerializer):
-    manholeimages = FtthSplicingFATImagesSerializer(many =True ,read_only=True)
+    splicingFATimage = FtthSplicingFATImagesSerializer(many =True ,read_only=True)
 
     class Meta:
         model = DailyFtthSplicingFAT
-        fields = ('work_day','casuals_list','ftthsplicingfatimages',)
+        fields = ('work_day','casuals_list','splicingFATimage',)
 
 class FtthSplicingFATSubTaskFilesSerializer(serializers.ModelSerializer):
-    ftthsplicingfatdays =FtthSplicingFATDateFilesSerializer(many = True,read_only =True)
+    splicingFAT =FtthSplicingFATDateFilesSerializer(many = True,read_only =True)
 
     class Meta:
         model = FtthSplicingFAT
-        fields = ('ftth_splicing_fat_image_1', 'ftth_splicing_fat_image_2','ftth_splicing_fat_image_3', 'ftth_splicing_fat_comment','ftthsplicingfatdays',)
+        fields = ('ftth_splicing_fat_image_1', 'ftth_splicing_fat_image_2','ftth_splicing_fat_image_3', 'ftth_splicing_fat_comment','splicingFAT',)
 
 
 class FtthSplicingFATASubTaskFilesSerializer(serializers.ModelSerializer):
@@ -189,7 +191,7 @@ class FtthSplicingFATASubTaskFilesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FTTHProject
-        exclude = ('project_name','description',"initial_kmz",'signed_operation_acceptance','ftth_final_acceptance_cert','ftth_final_acceptance_cert_comment',"id","created_at","updated_at", "is_active", "created_by",'is_acknowledged',)
+        exclude = excluded_fields
 
         # TowerBaseSubTask  Files Serializers///////////////
 
@@ -201,18 +203,18 @@ class FtthSplicingFDTImagesSerializer(serializers.ModelSerializer):
 
 
 class FtthSplicingFDTDateFilesSerializer(serializers.ModelSerializer):
-    ftthsplicingfdtimages = FtthSplicingFDTImagesSerializer(many =True ,read_only=True)
+    splicingFDTimage = FtthSplicingFDTImagesSerializer(many =True ,read_only=True)
 
     class Meta:
         model = DailyFtthSplicingFDT
-        fields = ('work_day','casuals_list','ftthsplicingfdtimages',)
+        fields = ('work_day','casuals_list','splicingFDTimage',)
 
 class FtthSplicingFDTSubTaskFilesSerializer(serializers.ModelSerializer):
-    ftthsplicingfdtdays =FtthSplicingFDTDateFilesSerializer(many = True,read_only =True)
+    splicingFDT =FtthSplicingFDTDateFilesSerializer(many = True,read_only =True)
 
     class Meta:
         model = FtthSplicingFDT
-        fields = ('ftth_splicing_fdt_image_1', 'ftth_splicing_fdt_image_2','ftth_splicing_fdt_image_3', 'ftth_splicing_fdt_comment','ftthsplicingfdtdays',)
+        fields = ('ftth_splicing_fdt_image_1', 'ftth_splicing_fdt_image_2','ftth_splicing_fdt_image_3', 'ftth_splicing_fdt_comment','splicingFDT',)
 
 
 class FtthSplicingFDTASubTaskFilesSerializer(serializers.ModelSerializer):
@@ -220,7 +222,7 @@ class FtthSplicingFDTASubTaskFilesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FTTHProject
-        exclude = ('project_name','description',"initial_kmz",'signed_operation_acceptance','ftth_final_acceptance_cert','ftth_final_acceptance_cert_comment',"id","created_at","updated_at", "is_active", "created_by",'is_acknowledged',)
+        exclude = excluded_fields
 #
         # TowerBaseSubTask  Files Serializers///////////////
 
@@ -232,11 +234,11 @@ class FtthCoreProvisionImagesSerializer(serializers.ModelSerializer):
 
 
 class FtthCoreProvisionDateFilesSerializer(serializers.ModelSerializer):
-    ftthcoreprovisionimages = FtthCoreProvisionImagesSerializer(many =True ,read_only=True)
+    coreprovisionimage = FtthCoreProvisionImagesSerializer(many =True ,read_only=True)
 
     class Meta:
         model = DailyFtthCoreProvision
-        fields = ('work_day','casuals_list','ftthcoreprovisionimages',)
+        fields = ('work_day','casuals_list','coreprovisionimage',)
 
 class FtthCoreProvisionSubTaskFilesSerializer(serializers.ModelSerializer):
     ftthcoreprovisiondays =FtthCoreProvisionDateFilesSerializer(many = True,read_only =True)
@@ -247,11 +249,11 @@ class FtthCoreProvisionSubTaskFilesSerializer(serializers.ModelSerializer):
 
 
 class FtthCoreProvisionASubTaskFilesSerializer(serializers.ModelSerializer):
-    ftthcoreprovisions = FtthCoreProvisionSubTaskFilesSerializer(read_only =True)
+    ftthcoreprovisions = FtthCoreProvisionSubTaskFilesSerializer(many = True,read_only =True)
 
     class Meta:
         model = FTTHProject
-        exclude = ('project_name','description',"initial_kmz",'signed_operation_acceptance','ftth_final_acceptance_cert','ftth_final_acceptance_cert_comment',"id","created_at","updated_at", "is_active", "created_by",'is_acknowledged',)
+        exclude = excluded_fields
 
 
        # TowerBaseSubTask  Files Serializers///////////////
@@ -271,11 +273,11 @@ class FtthPowerLevelsDateFilesSerializer(serializers.ModelSerializer):
         fields = ('work_day','casuals_list','ftthpowerlevelimages',)
 
 class FtthPowerLevelsSubTaskFilesSerializer(serializers.ModelSerializer):
-    ftthpowerleveldays =FtthPowerLevelsDateFilesSerializer(many = True,read_only =True)
+    ftthpowerlevelsdays =FtthPowerLevelsDateFilesSerializer(many = True,read_only =True)
 
     class Meta:
         model = FtthPowerLevels
-        fields = ('ftth_power_level_image_1', 'ftth_power_level_image_2','ftth_power_level_image_3', 'ftth_power_level_comment','ftthpowerleveldays',)
+        fields = ('ftth_power_level_image_1', 'ftth_power_level_image_2','ftth_power_level_image_3', 'ftth_power_level_comment','ftthpowerlevelsdays',)
 
 
 class FtthPowerLevelsASubTaskFilesSerializer(serializers.ModelSerializer):
@@ -283,7 +285,7 @@ class FtthPowerLevelsASubTaskFilesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FTTHProject
-        exclude = ('project_name','description',"initial_kmz",'signed_operation_acceptance','ftth_final_acceptance_cert','ftth_final_acceptance_cert_comment',"id","created_at","updated_at", "is_active", "created_by",'is_acknowledged',)
+        exclude = excluded_fields
 
         # TowerBaseSubTask  Files Serializers///////////////
 
@@ -295,11 +297,11 @@ class FtthOTDRTracesImagesSerializer(serializers.ModelSerializer):
 
 
 class FtthOTDRTracesDateFilesSerializer(serializers.ModelSerializer):
-    otdrtracesimages = FtthOTDRTracesImagesSerializer(many =True ,read_only=True)
+    OTDRTracesimage = FtthOTDRTracesImagesSerializer(many =True ,read_only=True)
 
     class Meta:
         model = DailyFtthOTDRTraces
-        fields = ('work_day','casuals_list','otdrtracesimages',)
+        fields = ('work_day','casuals_list','OTDRTracesimage',)
 
 class FtthOTDRTracesSubTaskFilesSerializer(serializers.ModelSerializer):
     otdrtracesdays =FtthOTDRTracesDateFilesSerializer(many = True,read_only =True)
@@ -310,29 +312,27 @@ class FtthOTDRTracesSubTaskFilesSerializer(serializers.ModelSerializer):
 
 
 class FtthOTDRTracesASubTaskFilesSerializer(serializers.ModelSerializer):
-    otdrtraces = FtthOTDRTracesSubTaskFilesSerializer(read_only =True)
+    otdrtrace = FtthOTDRTracesSubTaskFilesSerializer(read_only =True)
 
     class Meta:
         model = FTTHProject
-        exclude = ('project_name','description',"initial_kmz",'signed_operation_acceptance','ftth_final_acceptance_cert','ftth_final_acceptance_cert_comment',"id","created_at","updated_at", "is_active", "created_by",'is_acknowledged',)
+        exclude = excluded_fields
 
 ################### Main Project Serializer################################
 
 class FTTHProjectFilesSerializer(serializers.ModelSerializer):
     # Civil >One per site
-    #ftthpoleinstallation = FtthPoleInstallationSubTaskFilesSerializer(read_only =True)
-    # sitetrenching = SiteTrenchingSubTaskFilesSerializer(read_only =True)
-    # siteductinstallation = SiteDuctInstallationSubTaskFilesSerializer(read_only =True)
-    # FtthSplicingEnclosure = FtthSplicingEnclosureSubTaskFilesSerializer(read_only =True)
-    # siteterminalinhse =  SiteTerminalInHseSubTaskFilesSerializer(read_only =True)
-
-    # siteinterception  = SiteInterceptionSubTaskFilesSerializer(read_only=True)
-
+    ftthpoleinstallations = FtthPoleInstallationSubTaskFilesSerializer(read_only =True)
+    ftthtrenchings = FtthTrenchingSubTaskFilesSerializer(read_only =True)
+    ftthbackfillings = FtthBackfillingSubTaskFilesSerializer(read_only =True)
+    ftthcableinstallations = FtthCableInstallationSubTaskFilesSerializer(read_only =True)
+    ftthcoreprovisions = FtthCoreProvisionSubTaskFilesSerializer(many = True,read_only =True)
+    ftthsplicingenclosures = FtthSplicingEnclosureSubTaskFilesSerializer(read_only =True)
+    splicingFAT =FtthSplicingFATDateFilesSerializer(many = True,read_only =True)
+    splicingFDT =FtthSplicingFDTDateFilesSerializer(many = True,read_only =True)
+    otdrtrace = FtthOTDRTracesSubTaskFilesSerializer(read_only =True)
+    
 
     class Meta:
         model = FTTHProject
-        #fields = ('__all__')
-       # fields = ('sitetrenching','siteductinstallation','fttscommercialteam','site_name')
-
-        exclude = ("id","signed_operation_acceptance","created_at",
-           "updated_at", "is_active",)
+        exclude = excluded_fields

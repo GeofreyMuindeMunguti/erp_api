@@ -22,43 +22,17 @@ class FTTHProjectGetView(generics.RetrieveAPIView,DefaultsMixin):
     serializer_class = FTTHProjectFilesSerializer
 
 
-# class FttsSiteFilesView(generics.RetrieveAPIView):
-#     ''' Main View to return all files per project'''
-
-#     queryset = FttsSite.objects.all()
-#     serializer_class = FttsSiteFilesSerializer
-
-
-
 # #     # Views for individual files type
 
-# class FtthPoleInstallationilesView(generics.RetrieveAPIView):
-#     def get_queryset(self):
-#         queryset = FtthPoleInstallation.objects.filter(project_name_id=self.kwargs["pk"])
-#         return queryset
-#     serializer_class = FtthPoleInstallationSubTaskFilesSerializer
 
 class FtthPoleInstallationASubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
     queryset = FTTHProject.objects.all()
     serializer_class = FtthPoleInstallationSubTaskAFilesSerializer
 
 
-# class FtthTrenchingSubTaskFilesView(generics.RetrieveAPIView):
-#     def get_queryset(self):
-#         queryset =  FtthTrenching.objects.filter(project_name_id=self.kwargs["pk"])
-#         return queryset
-#     serializer_class = FtthTrenchingSubTaskFilesSerializer
-
 class FtthTrenchingASubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
     queryset = FTTHProject.objects.all()
     serializer_class = FtthTrenchingSubTaskAFilesSerializer
-
-
-# class FtthBackfillingSubTaskFilesView(generics.RetrieveAPIView):
-#     def get_queryset(self):
-#         queryset =  FtthBackfilling.objects.filter(project_name_id=self.kwargs["pk"])
-#         return queryset
-#     serializer_class = FtthBackfillingSubTaskFilesSerializer
 
 
 class FtthBackfillingASubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
@@ -83,6 +57,7 @@ class FtthSplicingFDTASubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
 
 
 class FtthCoreProvisionASubTaskFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    ''' View for ftth core provisioning files'''
     queryset = FTTHProject.objects.all()
     serializer_class = FtthCoreProvisionASubTaskFilesSerializer
 
