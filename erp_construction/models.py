@@ -34,7 +34,7 @@ class BtsProject(models.Model):
     class Meta:
         verbose_name_plural = 'BTS PROJECTS'
 
-class BtsSite(models.Model):
+class BtsSite(TimeStampModel,TimeTrackModel):
     project_name = models.ForeignKey(BtsProject, on_delete=models.CASCADE, blank=True, null=True)
     site_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
     site_number = models.CharField(max_length=100, unique=True, blank=True, null=True)
@@ -43,14 +43,22 @@ class BtsSite(models.Model):
     icon = models.ForeignKey(ProjectIcons, on_delete=models.DO_NOTHING, blank=True, null=True)
     location = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
     geotech_file = models.FileField(upload_to='files/Project/geotech/%Y/%m/%d/', blank=True, null=True)
+    geotech_file_comment =  models.CharField(max_length=100, blank=True, null=True)
     access_letter = models.FileField(upload_to='files/Project/accessletters/%Y/%m/%d/', blank=True, null=True)
     approved_drawing = models.FileField(upload_to='files/Project/approveddrawings/%Y/%m/%d/', blank=True, null=True)
     final_acceptance_cert = models.FileField(upload_to='files/SafaricomTeam/finalcert/%Y/%m/%d/', blank=True, null=True)
     final_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
+    rof_8 = models.FileField(upload_to='files/Project/rof8s/%Y/%m/%d/', blank=True, null=True)
+    rof_8_comment = models.CharField(max_length=100, blank=True, null=True)
+    sign_off = models.FileField(upload_to='files/Project/signoffs/%Y/%m/%d/', blank=True, null=True)
+    sign_off_comment = models.CharField(max_length=100, blank=True, null=True)
+    rfi = models.FileField(upload_to='files/Project/rfis/%Y/%m/%d/', blank=True, null=True)
+    rfi_comment = models.CharField(max_length=100, blank=True, null=True)
+    integration_parameter = models.FileField(upload_to='files/Project/integrationparameters/%Y/%m/%d/', blank=True, null=True)
+    integration_parameter_comment = models.CharField(max_length=100, blank=True, null=True)
+    ip_plan = models.FileField(upload_to='files/Project/ipplans/%Y/%m/%d/', blank=True, null=True)
+    ip_plan_comment= models.FileField(upload_to='files/Project/ipplans/%Y/%m/%d/', blank=True, null=True) 
 
     def __str__(self):
         return '{}:{}'.format(self.site_name,self.project_name)
@@ -213,7 +221,20 @@ class BtsSite(models.Model):
 
         return project_percentage
 
+#####################################IRROF7Free#########################################################################################
+class IRROF7Free(TimeStampModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING) 
+    tower_complete = models.FileField(upload_to='files/IRROF7Frees/towercomplete/%Y/%m/%d/', blank=True, null=True)
+    tower_complete_comment = models.CharField(max_length=100, blank=True, null=True)
+    free_issue_material = models.FileField(upload_to='files/IRROF7Frees/freeissuematerials/%Y/%m/%d/', blank=True, null=True)
+    free_issue_material_comment = models.CharField(max_length=100, blank=True, null=True)
+    link_material = models.FileField(upload_to='files/IRROF7Frees/linkmaterials/%Y/%m/%d/', blank=True, null=True)
+    link_material_comment = models.CharField(max_length=100, blank=True, null=True)
+    is_approved = models.BooleanField(default=False)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
+    def __str__(self):
+        return str(self.project_name)
 
 ####################################### BUDGET ########################################################################################################################################
 
@@ -813,16 +834,26 @@ class ConcretePourImage(models.Model):
             return task_id
         except Exception as e:
             return
+class ConcreteCuringPeriodDocs(TimeStampModel):
+    Rebar_Concrete_Inspection = models. BooleanField(blank=True)
+    Concrete_Inspection_Report = models. BooleanField(blank=True)
+    Concrete_Cube_Test = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/ConcreteCubeTest/'),blank=True, null=True)
+    def __str__(self):
+        return str(self.Rebar_Concrete_Inspection)           
 
 class ConcreteCuringPeriodImage(models.Model):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
+    concrete_curing_period_docs = models.OneToOneField(ConcreteCuringPeriodDocs, on_delete=models.CASCADE)
     concrete_pour_curing_period_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
     concrete_pour_curing_period_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
     concrete_pour_curing_period_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
     concrete_pour_curing_period_comment = models.CharField(max_length=100, blank=True, null=True)
+    rebar_concrete_inspection = models.BooleanField(blank=True, null=True)
+    concrete_inspection_report = models.BooleanField(blank=True, null=True)
+    concrete_cube_test = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
@@ -972,6 +1003,21 @@ class FoundationImage(models.Model):
             return team_id
         except Exception as e:
             return
+
+####################################### ADDED #############################################################
+class DeliveryOfMaterialandEquipement(TimeStampModel):
+
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    material_and_equipement_image = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/materialandequipement/'),blank=True, null=True)
+    material_and_equipement_comment = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.image)
+
+############################################################################################
+
 
 ######################################## END #######################################################################################################################################
 
@@ -1171,6 +1217,15 @@ class BS241ConcretePourCuringPeriodImage(models.Model):
         except Exception as e:
             return
 
+class BS241Image(TimeStampModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    bs241_image = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/BS241Images/'),max_length = 250,blank=True, null=True)
+    bs241_comment = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.bs241_image)
 
 class BS241AndGeneatorSlabsImage(models.Model):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
@@ -2661,7 +2716,42 @@ class ElectricalEarthing(models.Model):
             return task_id
         except Exception as e:
             return
+###########################################GeneatorSlabsImage#######################################################################################################################
 
+class GenExcavationImage(TimeStampModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    gen_excation_image = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/GenExcationImages/'),max_length = 250,blank=True, null=True)
+    gen_excation_comment = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return str(self.generator_image)
+
+
+class GenConcretePourCuringPeriodImage(TimeStampModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    gen_concrete_pourcuring_image = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/GenExcationCuringPeriodImages/'),max_length = 250,blank=True, null=True)
+    gen_concrete_pourcuring_comment = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.gen_concrete_pourcuring_image)
+
+class GenCableConduitsSettingImage(TimeStampModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    gen_cable_conduits_setting_image = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/GenCableConduitsImages/'),max_length = 250,blank=True, null=True)
+    gen_cable_conduits_setting_comment = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.gen_cable_conduits_setting_image)
+
+
+###########################################END######################################################################################################################################
+ 
 
 class GeneratorInstallation(models.Model):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
@@ -3193,18 +3283,12 @@ class Issues(models.Model):
         return self.issue
 
 
-class InstallationTeam(models.Model):
+class InstallationTeam(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     health_documents = models.ManyToManyField(HealthDocumentsInstallationTeam, blank=True )
     electrical_tasks_data = models.OneToOneField(ElectricalTasks, on_delete=models.DO_NOTHING, blank=True, null=True)
     telecom_tasks_data = models.OneToOneField(TelecomTasks, on_delete=models.DO_NOTHING, blank=True, null=True)
     as_built = models.FileField(upload_to='files/SafaricomTeam/as_built/%Y/%m/%d/', blank=True, null=True)
-    signoff = models.FileField(upload_to='files/SafaricomTeam/signoff/%Y/%m/%d/', blank=True, null=True)
-    signoff_comment = models.CharField(max_length=100, blank=True, null=True)
-    rfi_document = models.FileField(upload_to='files/SafaricomTeam/rf/%Y/%m/%d/', blank=True, null=True)
-    rfi_document_comment = models.CharField(max_length=100, blank=True, null=True)
-    integration_parameter = models.BooleanField(default=False)
-    integration_parameter_comment = models.CharField(max_length=100, blank=True, null=True)
     snag_document = models.FileField(upload_to='files/SafaricomTeam/snag/%Y/%m/%d/', blank=True, null=True)
     snag_document_comment = models.CharField(max_length=100, blank=True, null=True)
     issues = models.ManyToManyField(Issues, blank=True)
@@ -3212,9 +3296,6 @@ class InstallationTeam(models.Model):
     conditional_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -3268,3 +3349,4 @@ def percentage_function(no_of_complete, total_task):
     """Function to return perecentage of progress  """
     percentage = round(((no_of_complete/total_task) * 100))
     return percentage
+
