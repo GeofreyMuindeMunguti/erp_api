@@ -238,12 +238,7 @@ class FttsSiteFilesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FttsSite
-        #fields = ('__all__')
-       # fields = ('sitetrenching','siteductinstallation','fttscommercialteam','site_name')
-
         exclude = ("id","site_name","ftts_project","created_at",
            "updated_at", "is_active", "posted_by","location")
 
-        #fields = ('geotech_file','access_letter','approved_drawing','final_acceptance_cert','setSiteTrenchingimage',
-        #'towerbaseimage','bindingimage','steelfixformworkimage','concretepourcuringimage')
-        #read_only_fields = ('created_at', 'updated_at', 'is_active')
+    
