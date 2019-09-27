@@ -653,7 +653,7 @@ class DailyManHoleInstallation(TimeStampModel):
     no_of_casuals_atsite = models.ManyToManyField('users.Casual', blank=True)
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/manhole/'),blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
-    no_of_manhole_installed = models.IntegerField(blank=True, null=True)
+    no_of_manhole_installed = models.FloatField(blank=True, null=True)
     manhole_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
@@ -676,7 +676,7 @@ class DailyManHoleInstallation(TimeStampModel):
 
 class ManHoleInstallation(TimeStampModel,TimeTrackModel):
     site_name = models.OneToOneField(FttsSite, on_delete=models.CASCADE ,related_name='manholeinstallations')
-    no_of_manhole_installed  = models.IntegerField(default=0)
+    no_of_manhole_installed  = models.FloatField(default=0)
     manhole_image_1 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/manhole/'),blank =True ,null =True)
     manhole_image_2 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/manhole/'),blank =True ,null =True)
     manhole_image_3 = models.ImageField(upload_to=UploadToProjectDirSubTask(file_path,'images/InstallationTeam/manhole/'),blank =True ,null =True)
