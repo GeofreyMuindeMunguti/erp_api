@@ -22,7 +22,7 @@ class FTTSProject(TimeStampModel,TimeTrackModel):
 
 
     def __str__(self):
-        return 'Project:{}'.format(self.project_name)
+        return str(self.project_name)
 
     def ftts_sites_count(self):
         try:

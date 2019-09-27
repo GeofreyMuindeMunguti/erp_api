@@ -22,7 +22,7 @@ class FTTHProject(TimeStampModel,TimeTrackModel):
         ordering = ('-created_at',)
 
     def __str__(self):
-        return f'Project:{self.project_name}'
+        return str(self.project_name)
 
     def progress(self):
                 # PROGRESS FOR SURVEYTEAM
