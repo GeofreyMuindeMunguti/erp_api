@@ -27,6 +27,10 @@ from django.conf.urls.static import static
 
 from users.views import ObtainJWTView
 
+#admin.site.site_title = 'Adrian'
+admin.site.site_header = 'Adrian ERP Admin'
+admin.site.index_title = 'ERP Modules'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', view=ObtainJWTView.as_view(), name='login'),

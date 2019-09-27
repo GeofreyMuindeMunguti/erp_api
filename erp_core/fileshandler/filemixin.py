@@ -26,6 +26,10 @@ class PermissionMixin(object):
 
 
 
+
+# need to be defactored
+
+
 @deconstructible  #fixmigrations issues
 class UploadToProjectDir(object):
     '''Dynamically returns the project directory to which this file should be uploaded.'''
@@ -69,7 +73,7 @@ class UploadToProjectDirSubTask(object):
                 project_path = str(instance.site_name).split(':')[1].strip()
                 return self.path.format(self.main_path ,project_path, self.sub_path, filename)
 
-        except:
+        except Exception as e:
             return self.path.format(self.main_path ,'FILES', self.sub_path, filename)
 
 
@@ -115,10 +119,6 @@ class UploadToProjectDirImage(object):
             return self.path.format( self.main_path ,project_path, self.sub_path,date_path, filename)
             
         except:
-
+            date_path = ''
             return self.path.format(self.main_path ,'FILES', self.sub_path,date_path,  filename)
-
-
-
-
 
