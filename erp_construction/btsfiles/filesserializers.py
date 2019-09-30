@@ -585,9 +585,9 @@ class SiteFilesCSerializer(serializers.ModelSerializer):
     projectcosting = ProjectCostingFileSerializer(read_only=True)
     commercialteam = CommercialTeamFilesSerializer(read_only=True)
     procurementteam = ProcurementTeamFilesSerializer(read_only=True)
-​
-    accessapprovalcivil = AccessApprovalFileCivilSerializer(read_only=True)#
-​
+
+    accessapprovalcivil = AccessApprovalFileCivilSerializer(read_only=True)
+
     class Meta:
         model = BtsSite
        # fields = ('__all__')
