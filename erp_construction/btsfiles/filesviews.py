@@ -14,7 +14,7 @@ from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
 from rest_framework import status, viewsets
 from rest_framework.decorators import parser_classes
 from rest_framework.decorators import detail_route
-from erp_construction.fileshandler.filemixin import DefaultsMixin
+from erp_construction.btsfiles.filemixin import DefaultsMixin
 
 
 
@@ -175,7 +175,7 @@ class AccessApprovalFileInstallationView(generics.RetrieveAPIView,DefaultsMixin)
 
 
 class UndergroundTasksFilesView(generics.RetrieveAPIView,DefaultsMixin):
-    queryset = BtsSite.objects.all()    
+    queryset = BtsSite.objects.all()
     serializer_class = UndergroundTasksFilesSerializer
 
 class ReticulationAPSinstallationFilesView(generics.RetrieveAPIView,DefaultsMixin):
