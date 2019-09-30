@@ -154,6 +154,27 @@ class KpiViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
 ######################################## END #######################################################################################################################################
 
+######################################## GENSLABSIMAGES ############################################################################
+
+class GenExcavationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+
+    queryset = GenExcavationImage.objects.order_by('created_at')
+    serializer_class = GenExcavationImageSerializer
+
+class GenConcretePourCuringPeriodImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+
+    queryset = GenConcretePourCuringPeriodImage.objects.order_by('created_at')
+    serializer_class = GenConcretePourCuringPeriodImageSerializer
+
+class GenCableConduitsSettingImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+
+    queryset = GenCableConduitsSettingImage.objects.order_by('created_at')
+    serializer_class = GenCableConduitsSettingImageSerializer
+
+
+#########################################END #######################################################################################
+
+
 ####################################### TASKS ###############################################################################################################################
 
 class TaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
@@ -220,6 +241,13 @@ class SteelFixFormworkImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
+
+class DeliveryOfMaterialandEquipementViewSet(DefaultsMixin, viewsets.ModelViewSet):
+     
+    queryset = DeliveryOfMaterialandEquipement.objects.order_by('created_at')
+    serializer_class = DeliveryOfMaterialandEquipementSerializer
+
+
 class ConcretePourImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = ConcretePourImage.objects.order_by('created_at')
@@ -249,6 +277,10 @@ class ExcavationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
+class BS241ImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+
+    queryset = BS241Image.objects.order_by('created_at')
+    serializer_class = BS241ImageSerializer
 
 class bs241ConcretePourCuringPeriodImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
@@ -509,3 +541,11 @@ def status_function(model_class, request):
         return status
     else:
         return status
+
+class IRROF7FreeViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating a project."""
+    queryset = IRROF7Free.objects.order_by('created_at')
+    serializer_class = IRROF7FreeSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
