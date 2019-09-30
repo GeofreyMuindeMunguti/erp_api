@@ -6,7 +6,7 @@ from erp_core.base import *
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime, timezone, timedelta
 import math
-from erp_construction.fileshandler.filemixin import *
+from erp_construction.btsfiles.filemixin import *
 
 file_path = 'BTSProjects'
 
