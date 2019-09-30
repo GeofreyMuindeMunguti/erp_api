@@ -214,3 +214,10 @@ class IssueImageView(generics.RetrieveAPIView,DefaultsMixin):
         queryset = Issues.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
     serializer_class = IssueImageSerializer
+
+class IRROF7FreeFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    
+    def get_queryset(self):
+        queryset = IRROF7Free.objects.filter(project_name_id=self.kwargs["pk"])
+        return queryset
+    serializer_class = IRROF7FreeFilesSerializer
