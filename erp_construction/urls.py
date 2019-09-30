@@ -37,11 +37,17 @@ router.register(r'bindingimages', views.BindingImageViewSet)
 router.register(r'steelfixformworkimages', views.SteelFixFormworkImageViewSet)
 router.register(r'concretepourimages', views.ConcretePourImageViewSet)
 router.register(r'concretecuringperiod', views.ConcreteCuringPeriodImageViewSet)
+router.register(r'deliveryofmaterialsandequipement', views.DeliveryOfMaterialandEquipementViewSet)
+
 
 
 router.register(r'excavation', views.ExcavationImageViewSet)
 router.register(r'bs241concretepourcuringperiod', views.bs241ConcretePourCuringPeriodImageViewSet)
 router.register(r'bs241generatorslabs', views.BS241AndGeneatorSlabsImageViewSet)
+router.register(r'generatorexcavationimages', views.GenExcavationImageViewSet)
+router.register(r'generatorconcretepourcuringimages', views.GenConcretePourCuringPeriodImageViewSet)
+router.register(r'generatorcableconduitssettingimages', views.GenCableConduitsSettingImageViewSet)
+router.register(r'bs241images', views.BS241ImageViewSet)
 
 
 router.register(r'foundationfootpour', views.FoundFootPourImageViewSet)

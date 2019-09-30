@@ -834,6 +834,12 @@ class ConcretePourImage(models.Model):
             return task_id
         except Exception as e:
             return
+class ConcreteCuringPeriodDocs(TimeStampModel):
+    Rebar_Concrete_Inspection = models. BooleanField(blank=True)
+    Concrete_Inspection_Report = models. BooleanField(blank=True)
+    Concrete_Cube_Test = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/ConcreteCubeTest/'),blank=True, null=True)
+    def __str__(self):
+        return str(self.Rebar_Concrete_Inspection)           
 
 
 class ConcreteCuringPeriodImage(models.Model):
@@ -841,10 +847,14 @@ class ConcreteCuringPeriodImage(models.Model):
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(blank=True, null=True)
+    concrete_curing_period_docs = models.OneToOneField(ConcreteCuringPeriodDocs, on_delete=models.CASCADE)
     concrete_pour_curing_period_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
     concrete_pour_curing_period_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
     concrete_pour_curing_period_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
     concrete_pour_curing_period_comment = models.CharField(max_length=100, blank=True, null=True)
+    rebar_concrete_inspection = models.BooleanField(blank=True, null=True)
+    concrete_inspection_report = models.BooleanField(blank=True, null=True)
+    concrete_cube_test = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
@@ -994,6 +1004,21 @@ class FoundationImage(models.Model):
             return team_id
         except Exception as e:
             return
+
+####################################### ADDED #############################################################
+class DeliveryOfMaterialandEquipement(TimeStampModel):
+
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    material_and_equipement_image = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/materialandequipement/'),blank=True, null=True)
+    material_and_equipement_comment = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.image)
+
+############################################################################################
+
 
 ######################################## END #######################################################################################################################################
 
@@ -1193,6 +1218,15 @@ class BS241ConcretePourCuringPeriodImage(models.Model):
         except Exception as e:
             return
 
+class BS241Image(TimeStampModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    bs241_image = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/BS241Images/'),max_length = 250,blank=True, null=True)
+    bs241_comment = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.bs241_image)
 
 class BS241AndGeneatorSlabsImage(models.Model):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
@@ -3378,7 +3412,42 @@ class ElectricalEarthing(models.Model):
             return task_id
         except Exception as e:
             return
+###########################################GeneatorSlabsImage#######################################################################################################################
 
+class GenExcavationImage(TimeStampModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    gen_excation_image = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/GenExcationImages/'),max_length = 250,blank=True, null=True)
+    gen_excation_comment = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return str(self.generator_image)
+
+
+class GenConcretePourCuringPeriodImage(TimeStampModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    gen_concrete_pourcuring_image = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/GenExcationCuringPeriodImages/'),max_length = 250,blank=True, null=True)
+    gen_concrete_pourcuring_comment = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.gen_concrete_pourcuring_image)
+
+class GenCableConduitsSettingImage(TimeStampModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    gen_cable_conduits_setting_image = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/GenCableConduitsImages/'),max_length = 250,blank=True, null=True)
+    gen_cable_conduits_setting_comment = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.gen_cable_conduits_setting_image)
+
+
+###########################################END######################################################################################################################################
+ 
 
 class GeneratorInstallation(models.Model):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
