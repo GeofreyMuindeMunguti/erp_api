@@ -274,7 +274,7 @@ class ftthSurveyPhotos(TimeStampModel):
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'FTTHSurveyPhotos  : {self.project_name}'
+        return str(self.project_name)
 
     def ftth_survey_id(self):
         try:
@@ -293,13 +293,12 @@ class ftthSurvey(TimeStampModel,TimeTrackModel):
     no_of_fdts = models.IntegerField(blank=True, null=True)
     survey_photos = models.ManyToManyField(ftthSurveyPhotos,blank=True )
     high_level_design = models.FileField(upload_to=UploadToProjectDir(file_path,'files/survey/highleveldesigns/'), blank=True, null=True)
-
     county = models.ForeignKey('users.Location', on_delete=models.CASCADE, blank=True, null=True)
     ftth_survey_comment = models.CharField(max_length=200, blank=True, null=True)
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'FTTHSurvey : {self.project_name}'
+        return str(self.project_name)
 
     def raise_flag(self):
         try:
@@ -342,7 +341,7 @@ class FtthCommercialTeam(TimeStampModel):
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'FTTHCommercial  : {self.project_name}'
+        return str(self.project_name)
 
 class FtthPoToSupplier(TimeStampModel):
     project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE, blank=True)
@@ -355,7 +354,7 @@ class FtthPoToSupplier(TimeStampModel):
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'FTTHPOtoSupllier  : {self.project_name}'
+        return str(self.project_name)
 
 
 class FtthProcurementTeam(TimeStampModel):
@@ -368,7 +367,7 @@ class FtthProcurementTeam(TimeStampModel):
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'FTTHProcurement : {self.project_name}'
+        return str(self.project_name)
 
 class FtthCertificates(TimeStampModel):
     project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE)
@@ -388,7 +387,7 @@ class FtthCertificates(TimeStampModel):
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'FTTHCertificates  : {self.project_name}'
+        return str(self.project_name)
 
 ######################################################## FTTH CIVIL TEAM ########################################################################################################################################################################################
 class FtthPoleInstallationImage(TimeStampModel):
@@ -397,7 +396,7 @@ class FtthPoleInstallationImage(TimeStampModel):
     poleinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'Image for {self.day_image}'
+        return str(self.day_image)
 
 class DailyFtthPoleInstallation(TimeStampModel):
     sub_task = models.ForeignKey('FtthPoleInstallation', on_delete=models.CASCADE ,related_name='poleinstallationdays')
@@ -407,7 +406,7 @@ class DailyFtthPoleInstallation(TimeStampModel):
     poleinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'{self.sub_task} :Date: {self.work_day}'
+        return str(self.sub_task)
 
     def image_list(self):
         try:
@@ -432,7 +431,7 @@ class FtthPoleInstallation(TimeStampModel,TimeTrackModel):
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'FTTHPoleInstallation  : {self.project_name}'
+        return str(self.project_name)
 
     def days_list(self):
         try:
@@ -485,7 +484,7 @@ class FtthTrenchingImage(TimeStampModel):
     trenching_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'Image for {self.day_image}'
+        return str(self.day_image)
 
 class DailyFtthTrenching(TimeStampModel):
     sub_task = models.ForeignKey('FtthTrenching', on_delete=models.CASCADE ,related_name='ftthtrenchingdays')
@@ -495,7 +494,7 @@ class DailyFtthTrenching(TimeStampModel):
     trenching_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'{self.sub_task} :Date: {self.work_day}'
+        return str(self.sub_task)
 
     def no_of_casuals(self):
         count = self.no_of_casuals_atsite.count()
@@ -520,7 +519,7 @@ class FtthTrenching(TimeStampModel,TimeTrackModel):
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'FTTHTrenching  : {self.project_name}'
+        return str(self.project_name)
 
     def days_list(self):
         try:
@@ -572,7 +571,7 @@ class FtthBackfillingImage(TimeStampModel):
     backfilling_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'Image for {self.day_image}'
+        return str(self.day_image)
 
 class DailyFtthBackfilling(TimeStampModel):
     sub_task = models.ForeignKey('FtthBackfilling', on_delete=models.CASCADE ,related_name='ftthbackfillingdays')
@@ -582,7 +581,7 @@ class DailyFtthBackfilling(TimeStampModel):
     backfilling_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'{self.sub_task} :Date: {self.work_day}'
+        return str(self.sub_task)
 
     def image_list(self):
         try:
@@ -607,7 +606,7 @@ class FtthBackfilling(TimeStampModel,TimeTrackModel):
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'FtthBackfilling  : {self.project_name}'
+        return str(self.project_name)
 
     def days_list(self):
         try:
@@ -659,7 +658,7 @@ class FtthCableInstallationImage(TimeStampModel):
     cableinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'Image for {self.day_image}'
+        return str(self.day_image)
 
 class DailyFtthCableInstallation(TimeStampModel):
     sub_task = models.ForeignKey('FtthCableInstallation', on_delete=models.CASCADE ,related_name='cableinstallationdays')
@@ -670,7 +669,7 @@ class DailyFtthCableInstallation(TimeStampModel):
     cableinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'{self.sub_task} :Date: {self.work_day}'
+        return str(self.sub_task)
 
     def image_list(self):
         try:
@@ -695,7 +694,7 @@ class FtthCableInstallation(TimeStampModel,TimeTrackModel):
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'FTTHCableInstall : {self.project_name}'
+        return str(self.project_name)
 
     def days_list(self):
         try:
@@ -771,7 +770,7 @@ class FtthHealthDocumentsCivilTeam(TimeStampModel):
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'FTTHealthDocsCivilTeam  : {self.project_name}'
+        return str(self.project_name)
 
 class FtthCivilTeam(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(FTTHProject, on_delete=models.CASCADE, blank=True)
@@ -832,7 +831,7 @@ class FtthSplicingEnclosureImage(TimeStampModel):
     splicingencore_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'Image for {self.day_image}'
+        return str(self.day_image)
 
 class DailyFtthSplicingEnclosure(TimeStampModel):
     sub_task = models.ForeignKey('FtthSplicingEnclosure', on_delete=models.CASCADE ,related_name='splicingencore')
@@ -844,7 +843,7 @@ class DailyFtthSplicingEnclosure(TimeStampModel):
     splicingencore_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'{self.sub_task} :Date: {self.work_day}'
+        return str(self.sub_task)
 
     def image_list(self):
         try:
@@ -869,7 +868,7 @@ class FtthSplicingEnclosure(TimeStampModel,TimeTrackModel):
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
-        return  f'SplicingEnclosure : {self.project_name}'
+        return str(self.project_name)
 
     def days_list(self):
         try:
@@ -922,7 +921,7 @@ class FtthSplicingFATImage(TimeStampModel):
     splicingFAT_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'Image for {self.day_image}'
+        return str(self.day_image)
 
 class DailyFtthSplicingFAT(TimeStampModel):
     sub_task = models.ForeignKey('FtthSplicingFAT', on_delete=models.CASCADE ,related_name='splicingFAT')
@@ -933,7 +932,7 @@ class DailyFtthSplicingFAT(TimeStampModel):
     splicingFAT_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'{self.sub_task} :Date: {self.work_day}'
+        return str(self.sub_task)
 
     def image_list(self):
         try:
@@ -958,7 +957,7 @@ class FtthSplicingFAT(TimeStampModel,TimeTrackModel):
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'FTTHSplicing  : {self.project_name}'
+        return str(self.project_name)
 
     def days_list(self):
         try:
@@ -1011,7 +1010,7 @@ class FtthSplicingFDTImage(TimeStampModel):
     splicingFDT_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'Image for {self.day_image}'
+        return str(self.day_image)
 
 class DailyFtthSplicingFDT(TimeStampModel):
     sub_task = models.ForeignKey('FtthSplicingFDT', on_delete=models.CASCADE ,related_name='splicingFDT')
@@ -1022,7 +1021,7 @@ class DailyFtthSplicingFDT(TimeStampModel):
     splicingFDT_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'{self.sub_task} :Date: {self.work_day}'
+        return str(self.sub_task)
 
     def image_list(self):
         try:
@@ -1047,7 +1046,7 @@ class FtthSplicingFDT(TimeStampModel,TimeTrackModel):
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'FTTHSplicing  : {self.project_name}'
+        return str(self.project_name)
 
     def days_list(self):
         try:
@@ -1149,7 +1148,7 @@ class FtthCoreProvisionImage(TimeStampModel):
     coreprovision_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'Image for {self.day_image}'
+        return str(self.day_image)
 
 class DailyFtthCoreProvision(TimeStampModel):
     sub_task = models.ForeignKey('FtthCoreProvision', on_delete=models.CASCADE ,related_name='ftthcoreprovisiondays')
@@ -1160,7 +1159,7 @@ class DailyFtthCoreProvision(TimeStampModel):
     coreprovision_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'{self.sub_task} :Date: {self.work_day}'
+        return str(self.sub_task)
 
     def image_list(self):
         try:
@@ -1185,7 +1184,7 @@ class FtthCoreProvision(TimeStampModel,TimeTrackModel):
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'FTTHCoreProvision  : {self.project_name}'
+        return str(self.project_name)
 
     def days_list(self):
         try:
@@ -1238,7 +1237,7 @@ class FtthPowerLevelsImage(TimeStampModel):
     powerlevels_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'Image for {self.day_image}'
+        return str(self.day_image)
 
 class DailyFtthPowerLevels(TimeStampModel):
     sub_task = models.ForeignKey('FtthPowerLevels', on_delete=models.CASCADE ,related_name='ftthpowerlevelsdays')
@@ -1249,7 +1248,7 @@ class DailyFtthPowerLevels(TimeStampModel):
     powerlevels_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'{self.sub_task} :Date: {self.work_day}'
+        return str(self.sub_task)
 
     def image_list(self):
         try:
@@ -1274,7 +1273,7 @@ class FtthPowerLevels(TimeStampModel,TimeTrackModel):
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'FTTHPowerLevels  : {self.project_name}'
+        return str(self.project_name)
 
     def days_list(self):
         try:
@@ -1327,7 +1326,7 @@ class FtthOTDRTracesImage(TimeStampModel):
     OTDRTraces_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'Image for {self.day_image}'
+        return str(self.day_image)
 
 class DailyFtthOTDRTraces(TimeStampModel):
     sub_task = models.ForeignKey('FtthOTDRTraces', on_delete=models.CASCADE ,related_name='otdrtracesdays')
@@ -1338,7 +1337,7 @@ class DailyFtthOTDRTraces(TimeStampModel):
     OTDRTraces_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'{self.sub_task} :Date: {self.work_day}'
+        return str(self.sub_task)
 
     def image_list(self):
         try:
@@ -1363,7 +1362,7 @@ class FtthOTDRTraces(TimeStampModel,TimeTrackModel):
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'FTTHTRACES  : {self.project_name}'
+        return str(self.project_name)
 
     def days_list(self):
         try:
@@ -1418,7 +1417,7 @@ class FtthSignalTesting(TimeStampModel):
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'FTTHSignalTesting  : {self.project_name}'
+        return str(self.project_name)
 
     def team_task_id(self):
         try:
@@ -1486,7 +1485,7 @@ class FtthHealthDocsInstallationTeam(TimeStampModel):
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'FTTHHealthDocs : {self.project_name}'
+        return str(self.project_name)
 
 class FtthIssues(TimeStampModel):
     project_name = models.ForeignKey(FTTHProject, on_delete=models.CASCADE )

@@ -65,7 +65,7 @@ class BindingImagesSerializer(serializers.ModelSerializer):
 #|||||||||| SteelFix SubTask  Files  Images|||||
 
 class SteelFixFormworkImagesASerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = SteelFixFormworkImage
         fields = ('steel_fix_formwork_image_1', 'steel_fix_formwork_image_2', 'steel_fix_formwork_image_3', 'steel_fix_formwork_comment',)
@@ -149,7 +149,7 @@ class ConcreteCuringPeriodImagesSerializer(serializers.ModelSerializer):
 #|||||||||| BS241ConcreteImages|||||
 
 class FoundFootPourImagesASerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = FoundFootPourImage
         fields = ('foundfootpour_image_1', 'foundfootpour_image_2','foundfootpour_image_3', 'foundfootpour_comment',)
@@ -452,6 +452,12 @@ class IssueImageASerializer(serializers.ModelSerializer):
         model = Issues
         fields = ('issue_image', 'issue_sorted_image',)
 
+class IRROF7FreeFilesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = IRROF7Free
+        fields = ('tower_complete', 'free_issue_material', 'link_material',)
+
 
 class IssueImageSerializer(serializers.ModelSerializer):
     issues = IssueImageASerializer(read_only =True)
@@ -506,7 +512,7 @@ class SiteFilesSerializer(serializers.ModelSerializer):
     btsinstallationtask = BTSinstallationTaskImagesSerializer(read_only=True)
     mwinstallationtask = MWInstallationTaskImagesSerializer(read_only=True)
     installationteam = InstallationTeamFilesSerializer(read_only =True)
- 
+
 
 
     class Meta:
@@ -515,17 +521,18 @@ class SiteFilesSerializer(serializers.ModelSerializer):
         exclude = ("id","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
            "updated_at", "is_active","icon", "location", "created_by")
 
-    
+
+
 ################### Main Project Serializer################################
-
+​
 class SiteFilesCSerializer(serializers.ModelSerializer):
-
+​
     projectpurchaseorders = ProjectPurchaseOrdersFileSerializer(read_only=True)
     projectcosting = ProjectCostingFileSerializer(read_only=True)
     commercialteam = CommercialTeamFilesSerializer(read_only=True)
     procurementteam = ProcurementTeamFilesSerializer(read_only=True)
 
-    accessapprovalcivil = AccessApprovalFileCivilSerializer(read_only=True)#
+    accessapprovalcivil = AccessApprovalFileCivilSerializer(read_only=True)
 
     class Meta:
         model = BtsSite
