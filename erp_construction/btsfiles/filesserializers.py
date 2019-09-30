@@ -77,6 +77,26 @@ class FoundFootPourImagesSerializer(serializers.ModelSerializer):
         model = FoundFootPourImage
         fields = ('foundfootpour_image_1','foundfootpour_image_2','foundfootpour_image_3',)
 
+class BWCableConduitsImageSerializer(serializers.ModelSerializer):
+     class Meta:
+        model = BWCableConduitsImage
+        fields = ('bw_cable_conduits_image_1','bw_cable_conduits_image_2','bw_cable_conduits_image_3',)
+
+class BWBlindingImageSerializer(serializers.ModelSerializer):
+     class Meta:
+        model = BWBlindingImage
+        fields = ('bw_blinding_image_1','bw_blinding_image_2','bw_blinding_image_3',)
+
+class ExcavationstripFoundationsImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExcavationstripFoundationsImage
+        fields = ('excavationstrip_foundations_image_1','excavationstrip_foundations_image_2','excavationstrip_foundations_image_3',)
+
+class BWConcretePourCuringPeriodImageSerializer(serializers.ModelSerializer):
+      class Meta:
+        model = BWConcretePourCuringPeriodImage
+        fields = ('bw_concrete_pour_curing_period_image_1','bw_concrete_pour_curing_period_image_2','bw_concrete_pour_curing_period_image_3',)
+
 
 class BlockworkPanelConstImagesSerializer(serializers.ModelSerializer):
 
@@ -113,6 +133,34 @@ class TowerPaintImagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = TowerPaintImage
         fields = ('tower_painting_image_1','tower_painting_image_2','tower_painting_image_3',)
+
+class TowerDeliveryImageSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = TowerDeliveryImage
+        fields = ('tower_delivery_image_1','tower_delivery_image_2','tower_delivery_image_3',)
+
+
+class CableInstallationImageSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = CableInstallationImage
+        fields = ('cable_installation_image_1','cable_installation_image_2','cable_installation_image_3',)
+
+class EarthInstallationImageSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = EarthInstallationImage
+        fields = ('earth_Installation_image_1','earth_Installation_image_2','earth_Installation_image_3',)
+
+class AviationLightsInstallationImageSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = AviationLightsInstallationImage
+        fields = ('aviation_lights_installation_image_1','aviation_lights_installation_image_2','aviation_lights_installation_image_3',)
+
+
+
 
 
 class CableWaysImagesSerializer(serializers.ModelSerializer):
@@ -282,13 +330,29 @@ class SiteFilesSerializer(serializers.ModelSerializer):
     concretepourcuringieriodimage = ConcreteCuringPeriodImagesSerializer(read_only=True)
 
     foundfootpourimage = FoundFootPourImagesSerializer(read_only=True)
+
+    bwcableconduitsimage=BWCableConduitsImageSerializer(read_only=True)
+    bwblindingimage     =BWBlindingImageSerializer(read_only=True)
+    excavationstripfoundationsimage=  ExcavationstripFoundationsImageSerializer(read_only=True)
+    bwconcretepourcuringperiodimage = BWConcretePourCuringPeriodImageSerializer(read_only=True)
+      
+
     blockworkpanelconstimage = BlockworkPanelConstImagesSerializer(read_only=True)
     gateinstallationimage = GateInstallationImagesSerializer(read_only=True)
     razorelectricfenceimage = RazorElectricFenceImagesSerializer(read_only=True)
 
     towererectionimage = TowerErectionImagesSerializer(read_only=True)
     towerpaintimage = TowerPaintImagesSerializer(read_only=True)
+
+
     cablewaysimage = CableWaysImagesSerializer(read_only=True)
+
+    towerdeliveryimage = TowerDeliveryImageSerializer(read_only=True)
+    cableinstallationimage = CableInstallationImageSerializer(read_only=True)
+    earthinstallationimage = EarthInstallationImageSerializer(read_only=True)
+    aviationlightsinstallationimage = AviationLightsInstallationImageSerializer(read_only=True)
+
+ 
     antennacoaxinstallimage = AntennaCoaxInstallImagesSerializer(read_only=True)
 
     projectpurchaseorders = ProjectPurchaseOrdersFileSerializer(read_only=True)
