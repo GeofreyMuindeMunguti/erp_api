@@ -522,60 +522,6 @@ class SiteFilesSerializer(serializers.ModelSerializer):
            "updated_at", "is_active","icon", "location", "created_by")
 
 
-################### Main Project Serializer################################
-​
-class SiteFilesSerializer(serializers.ModelSerializer):
-​
-    '''
-    Main Serializer class : to access all serializers classes above
-    :: facilitate serialization of all images and files per project
-    :: Files that need not to be serialized can be commented out
-     e.g
-       # setsiteclearingimage = SiteClearingFilesSerializer ( read_only =True)
-    :: More field can be added from the excluded one by removing from exlude variable
-​
-      '''
-​
-    setsiteclearingimage = SiteClearingSubTaskFilesSerializer(read_only =True)
-    towerbaseimage = TowerBaseImagesASerializer(read_only =True)
-    bindingimage = BindingImagesASerializer(read_only =True)
-    steelfixformworkimage = SteelFixFormworkImagesASerializer(read_only=True)
-    concretepourimage = ConcretePourImagesASerializer(read_only=True)
-   # concretecuringimage = ConcreteCuringImagesASerializer(read_only=True)
-    concretecuringperiodimage = ConcreteCuringImagesASerializer(read_only =True)
-​
-    excavationimage = ExcavationImagesASerializer(read_only=True)
-    bs241concretepourcuringperiodimage = ConcreteCuringPeriodImagesASerializer(read_only =True)
-   # concretepourcuringieriodimage = ConcreteCuringPeriodImagesSerializer(read_only=True)
-​
-    foundfootpourimage = FoundFootPourImagesASerializer(read_only=True)
-    blockworkpanelconstimage = BlockworkPanelConstImagesASerializer(read_only=True)
-    gateinstallationimage = GateInstallationImagesASerializer(read_only=True)
-    razorelectricfenceimage = RazorElectricFenceImagesASerializer(read_only=True)
-​
-    towererectionimage = TowerErectionImagesASerializer(read_only=True)
-    towerpaintimage = TowerPaintImagesASerializer(read_only=True)
-    cablewaysimage = CableWaysImagesASerializer(read_only=True)
-    antennacoaxinstallimage = AntennaCoaxInstallImagesASerializer(read_only=True)
-​
-    undergroundtasks = UndergroundTasksFilesASerializer(read_only=True)
-    reticulationapsinstallation = ReticulationAPSinstallationFilesASerializer(read_only=True)
-    electricalearthing = ElectricalEarthingImagesASerializer(read_only =True)
-    generatorinstallation = GeneratorInstallationImagesASerializer(read_only=True)
-    kplcsolarimage = KPLCSolarImagesASerializer(read_only=True)
-​
-    btsinstallationtask = BTSinstallationTaskImagesSerializer(read_only=True)
-    mwinstallationtask = MWInstallationTaskImagesSerializer(read_only=True)
-    installationteam = InstallationTeamFilesSerializer(read_only =True)
-
-​
-​
-    class Meta:
-        model = BtsSite
-       # fields = ('__all__')
-        exclude = ("id","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
-           "updated_at", "is_active","icon", "location", "created_by")
-​
 
 ################### Main Project Serializer################################
 ​
