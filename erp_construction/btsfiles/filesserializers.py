@@ -524,9 +524,9 @@ class SiteFilesSerializer(serializers.ModelSerializer):
 
 
 ################### Main Project Serializer################################
-​
+
 class SiteFilesCSerializer(serializers.ModelSerializer):
-​
+
     projectpurchaseorders = ProjectPurchaseOrdersFileSerializer(read_only=True)
     projectcosting = ProjectCostingFileSerializer(read_only=True)
     commercialteam = CommercialTeamFilesSerializer(read_only=True)
