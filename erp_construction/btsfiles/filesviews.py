@@ -18,7 +18,7 @@ from erp_construction.fileshandler.filemixin import DefaultsMixin
 
 
 
-#################################FILES  HANDLING VIEWS   BLOCK#####################################################
+#################################FILES  HANDLING VIEWS   BLOCK####################################################
 
 class FilesView(APIView):
 
@@ -175,7 +175,7 @@ class AccessApprovalFileInstallationView(generics.RetrieveAPIView,DefaultsMixin)
 
 
 class UndergroundTasksFilesView(generics.RetrieveAPIView,DefaultsMixin):
-    queryset = BtsSite.objects.all()    
+    queryset = BtsSite.objects.all()
     serializer_class = UndergroundTasksFilesSerializer
 
 class ReticulationAPSinstallationFilesView(generics.RetrieveAPIView,DefaultsMixin):
