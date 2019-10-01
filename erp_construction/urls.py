@@ -37,18 +37,42 @@ router.register(r'bindingimages', views.BindingImageViewSet)
 router.register(r'steelfixformworkimages', views.SteelFixFormworkImageViewSet)
 router.register(r'concretepourimages', views.ConcretePourImageViewSet)
 router.register(r'concretecuringperiod', views.ConcreteCuringPeriodImageViewSet)
+router.register(r'deliveryofmaterialsandequipement', views.DeliveryOfMaterialandEquipementViewSet)
+
 
 
 router.register(r'excavation', views.ExcavationImageViewSet)
 router.register(r'bs241concretepourcuringperiod', views.bs241ConcretePourCuringPeriodImageViewSet)
 router.register(r'bs241generatorslabs', views.BS241AndGeneatorSlabsImageViewSet)
+router.register(r'generatorexcavationimages', views.GenExcavationImageViewSet)
+router.register(r'generatorconcretepourcuringimages', views.GenConcretePourCuringPeriodImageViewSet)
+router.register(r'generatorcableconduitssettingimages', views.GenCableConduitsSettingImageViewSet)
+router.register(r'bs241images', views.BS241ImageViewSet)
 
 
 router.register(r'foundationfootpour', views.FoundFootPourImageViewSet)
+router.register(r'bwconcretepourcuringperiod', views.BWConcretePourCuringPeriodImageViewSet)
+router.register(r'excavationstripfoundations', views.ExcavationstripFoundationsImageViewSet)
+router.register(r'bwcableconduits', views.BWCableConduitsImageViewSet)
+router.register(r'bwblinding', views.BWBlindingImageViewSet)
+     
+             
+           
+
 router.register(r'blockworkpanelconstruct', views.BlockworkPanelConstImageViewSet)
 router.register(r'gateinstallation', views.GateInstallationImageViewSet)
 router.register(r'razorelectricfence', views.RazorElectricFenceImageViewSet)
 router.register(r'boundarywall', views.BoundaryWallImageViewSet)
+
+router.register(r'cableinstallation', views.CableInstallationImageViewSet)
+router.register(r'earthinstallation', views.EarthInstallationImageViewSet)
+router.register(r'aviationlightsinstallation', views.AviationLightsInstallationImageViewSet)
+router.register(r'towerdelivery', views.TowerDeliveryImageViewSet)
+                                                   
+                                          
+                                             
+
+
 
 router.register(r'towerantennacoax', views.TowerAntennaCoaxImageViewSet)
 router.register(r'towererection', views.TowerErectionImageViewSet)
@@ -126,13 +150,23 @@ urlpatterns = [
     path('files/<int:pk>/concretepourcuringperiodimages/', filesviews.ConcreteCuringPeriodImagesView.as_view()),
 
     path('files/<int:pk>/foundfootpourimage/', filesviews.FoundFootPourImageView.as_view()),
+    path('files/<int:pk>/bwcableconduitsimage/', filesviews.BWCableConduitsImageView.as_view()),
+    path('files/<int:pk>/bwblindingimage/', filesviews.BWBlindingImageView.as_view()),
+    path('files/<int:pk>/excavationstripfoundationsimage/', filesviews.ExcavationstripFoundationsImageView.as_view()),
+    path('files/<int:pk>/bwconcretepourcuringperiodimage/', filesviews.BWConcretePourCuringPeriodImageView.as_view()),
+
     path('files/<int:pk>/blockworkpanelconstimages/', filesviews.BlockworkPanelConstImagesView.as_view()),
     path('files/<int:pk>/gateinstallationimages/', filesviews.GateInstallationImagesView.as_view()),
     path('files/<int:pk>/razorelectricfenceimages/', filesviews.RazorElectricFenceImagesView.as_view()),
 
     path('files/<int:pk>/towererectionimages/', filesviews.TowerErectionImagesView.as_view()),
     path('files/<int:pk>/towerpaintimages/', filesviews.TowerPaintImagesView.as_view()),
+    path('files/<int:pk>/aviationlightsinstallationimages/', filesviews.AviationLightsInstallationImageView.as_view()),
+    path('files/<int:pk>/earthinstallationimages/', filesviews.EarthInstallationImageView.as_view()),
+    path('files/<int:pk>/cableinstallationimages/', filesviews.CableInstallationImageView.as_view()),
+    path('files/<int:pk>/towerdeliveryimages/', filesviews.TowerDeliveryImageView.as_view()),
     path('files/<int:pk>/cablewaysimages/', filesviews.CableWaysImagesView.as_view()),
+
     path('files/<int:pk>/antennacoaxinstallimages/', filesviews.AntennaCoaxInstallImagesView.as_view()),
 
     path('files/<int:pk>/healthdocumentsfilescivilteam/', filesviews.HealthDocumentsFilesCivilTeamView.as_view()),

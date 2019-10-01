@@ -173,6 +173,47 @@ class FoundationImageAdmin(admin.ModelAdmin):
 
 admin.site.register(FoundationImage, FoundationImageAdmin)
 
+class EarthInstallationImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'earth_Installation_image_1', 'earth_Installation_image_2', 'earth_Installation_image_3', 'earth_Installation_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(EarthInstallationImage, EarthInstallationImageAdmin)
+
+
+
+class CableInstallationImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'cable_installation_image_1', 'cable_installation_image_2', 'cable_installation_image_3', 'cable_installation_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(CableInstallationImage, CableInstallationImageAdmin)
+
+
+
+class AviationLightsInstallationImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'aviation_lights_installation_image_1', 'aviation_lights_installation_image_2', 'aviation_lights_installation_image_3', 'aviation_lights_installation_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(AviationLightsInstallationImage, AviationLightsInstallationImageAdmin)
+
+class TowerDeliveryImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'tower_delivery_image_1', 'tower_delivery_image_2', 'tower_delivery_image_3', 'tower_delivery_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(TowerDeliveryImage, TowerDeliveryImageAdmin)
+
+
 class SetSiteClearingImageAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name','task_id', 'setting_site_clearing_image_1', 'setting_site_clearing_image_2', 'setting_site_clearing_image_3', 'setting_site_clearing_comment', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
@@ -315,8 +356,46 @@ class RazorElectricFenceImageAdmin(admin.ModelAdmin):
     search_fields = ('project_name', )
     list_editable = ('is_active',)
 
-
 admin.site.register(RazorElectricFenceImage, RazorElectricFenceImageAdmin)
+
+class BWConcretePourCuringPeriodImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'bw_concrete_pour_curing_period_image_1', 'bw_concrete_pour_curing_period_image_2', 'bw_concrete_pour_curing_period_image_3', 'bw_concrete_pour_curing_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(BWConcretePourCuringPeriodImage, BWConcretePourCuringPeriodImageAdmin)
+
+class ExcavationstripFoundationsImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'excavationstrip_foundations_image_1', 'excavationstrip_foundations_image_2', 'excavationstrip_foundations_image_3', 'excavationstrip_foundations_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(ExcavationstripFoundationsImage, ExcavationstripFoundationsImageAdmin)
+
+class BWBlindingImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'bw_blinding_image_1', 'bw_blinding_image_2', 'bw_blinding_image_3', 'bw_blinding_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(BWBlindingImage, BWBlindingImageAdmin)
+
+class BWCableConduitsImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'bw_cable_conduits_image_1', 'bw_cable_conduits_image_2', 'bw_cable_conduits_image_3', 'bw_cable_conduits_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(BWCableConduitsImage, BWCableConduitsImageAdmin)
+ 
+
+
 
 class BoundaryWallImageAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'team_task_id', 'foundation_foot_pouring', 'block_construction', 'gate_installation', 'razor_electric_fence','boundary_wall_comment','engineers', 'names_of_engineers', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')

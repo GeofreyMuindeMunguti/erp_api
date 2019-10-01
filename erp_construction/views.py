@@ -154,6 +154,27 @@ class KpiViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
 ######################################## END #######################################################################################################################################
 
+######################################## GENSLABSIMAGES ############################################################################
+
+class GenExcavationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+
+    queryset = GenExcavationImage.objects.order_by('created_at')
+    serializer_class = GenExcavationImageSerializer
+
+class GenConcretePourCuringPeriodImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+
+    queryset = GenConcretePourCuringPeriodImage.objects.order_by('created_at')
+    serializer_class = GenConcretePourCuringPeriodImageSerializer
+
+class GenCableConduitsSettingImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+
+    queryset = GenCableConduitsSettingImage.objects.order_by('created_at')
+    serializer_class = GenCableConduitsSettingImageSerializer
+
+
+#########################################END #######################################################################################
+
+
 ####################################### TASKS ###############################################################################################################################
 
 class TaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
@@ -220,6 +241,13 @@ class SteelFixFormworkImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
 
+
+class DeliveryOfMaterialandEquipementViewSet(DefaultsMixin, viewsets.ModelViewSet):
+     
+    queryset = DeliveryOfMaterialandEquipement.objects.order_by('created_at')
+    serializer_class = DeliveryOfMaterialandEquipementSerializer
+
+
 class ConcretePourImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = ConcretePourImage.objects.order_by('created_at')
@@ -249,6 +277,10 @@ class ExcavationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
 
+class BS241ImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+
+    queryset = BS241Image.objects.order_by('created_at')
+    serializer_class = BS241ImageSerializer
 
 class bs241ConcretePourCuringPeriodImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
@@ -277,6 +309,38 @@ class FoundFootPourImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
+class BWConcretePourCuringPeriodImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = BWConcretePourCuringPeriodImage.objects.order_by('created_at')
+    serializer_class = BWConcretePourCuringPeriodImageSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+class ExcavationstripFoundationsImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = ExcavationstripFoundationsImage.objects.order_by('created_at')
+    serializer_class = ExcavationstripFoundationsImageSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+class BWCableConduitsImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = BWCableConduitsImage.objects.order_by('created_at')
+    serializer_class = BWCableConduitsImageAdminSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
+class BWBlindingImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = BWBlindingImage.objects.order_by('created_at')
+    serializer_class = BWBlindingImageAdminSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name', )
+
+
+
 
 class BlockworkPanelConstImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
@@ -328,6 +392,43 @@ class TowerPaintImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
+
+class TowerDeliveryImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset =  TowerDeliveryImage.objects.order_by('created_at')
+    serializer_class = TowerDeliveryImageSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name',)
+
+class AviationLightsInstallationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = AviationLightsInstallationImage.objects.order_by('created_at')
+    serializer_class = AviationLightsInstallationImageSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name',)
+
+class EarthInstallationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = EarthInstallationImage.objects.order_by('created_at')
+    serializer_class = EarthInstallationImageSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name',)
+
+class CableInstallationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = CableInstallationImage.objects.order_by('created_at')
+    serializer_class = CableInstallationImageSerializer
+
+    search_fields = ('site_name', )
+    ordering_fields = ('updated_at', 'site_name',)
+
+
+
+
+
 
 class CableWaysImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
