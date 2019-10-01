@@ -256,6 +256,25 @@ class IRROF7FreeFilesSerializer(serializers.ModelSerializer):
         model = IRROF7Free
         fields = ('tower_complete', 'free_issue_material', 'link_material',)
 
+class FabricationQualityInspectionImageFilesSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = FabricationQualityInspectionImage
+        fields = ('fabrication_quality_inspection_image_1', 'fabrication_quality_inspection_image_2', 'fabrication_quality_inspection_image_3',)
+
+class FabricationSteelDeckImageFilesSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = FabricationSteelDeckImage
+        fields = ('fabrication_steel_deck_image_1', 'fabrication_steel_deck_image_2', 'fabrication_steel_deck_image_3',)
+
+
+class GalvanisationImageFilesSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = GalvanisationImage
+        fields = ('galvanisation_image_1', 'galvanisation_image_2', 'galvanisation_image_3',)
+
 
 ################### Main Project Serializer################################
 
@@ -312,6 +331,9 @@ class SiteFilesSerializer(serializers.ModelSerializer):
     installationteam = InstallationTeamFilesSerializer(read_only =True)
     issueimages = IssueImageSerializer(read_only=True)
     irrof7Free = IRROF7FreeFilesSerializer(read_only=True)
+    fabricationQualityInspectionImage = FabricationQualityInspectionImageFilesSerializer(read_only=True)
+    fabricationSteelDeckImage = FabricationSteelDeckImageFilesSerializer(read_only=True)
+    galvanisationImage = GalvanisationImageFilesSerializer(read_only=True)
 
 
     class Meta:

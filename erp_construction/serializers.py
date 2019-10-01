@@ -496,4 +496,27 @@ class IRROF7FreeSerializer(serializers.ModelSerializer):
     class Meta:
         model = IRROF7Free
         fields = ('__all__')
-        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class GalvanisationImageSerializer(serializers.ModelSerializer):
+      
+    class Meta:
+        model = GalvanisationImage
+        fields = ('__all__')      
+
+class FabricationSteelDeckImageSerializer(serializers.ModelSerializer):
+      
+    class Meta:
+        model = FabricationSteelDeckImage
+        fields = ('__all__') 
+
+class FabricationQualityInspectionImageSerializer(serializers.ModelSerializer):
+      
+    class Meta:
+        model = FabricationQualityInspectionImage
+        fields = ('__all__')   
+
+class FabricationRooftopImageSerializer(serializers.ModelSerializer):
+      
+    class Meta:
+        model = FabricationRooftopImage
+        fields = ('__all__')  

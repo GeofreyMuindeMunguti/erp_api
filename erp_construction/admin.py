@@ -565,3 +565,32 @@ class IRROF7FreeAdmin(admin.ModelAdmin):
   
 
 admin.site.register(IRROF7Free, IRROF7FreeAdmin)
+
+class FabricationQualityInspectionImageAdmin(admin.ModelAdmin):
+   list_display = ('id', 'project_name','start_date','end_date', 'fabrication_quality_inspection_image_1','fabrication_quality_inspection_image_2','fabrication_quality_inspection_image_3','fabrication_quality_inspection_image_comment')
+   list_display_links = ('project_name', )
+   search_fields = ('project_name', )
+
+admin.site.register(FabricationQualityInspectionImage, FabricationQualityInspectionImageAdmin)
+
+
+class FabricationSteelDeckImageAdmin(admin.ModelAdmin):
+   list_display = ('id', 'project_name','start_date','end_date', 'fabrication_steel_deck_image_1','fabrication_steel_deck_image_2','fabrication_steel_deck_image_3','fabrication_steel_deck_image_comment')
+   list_display_links = ('project_name', )
+   search_fields = ('project_name', )
+
+admin.site.register(FabricationSteelDeckImage, FabricationSteelDeckImageAdmin)
+
+class GalvanisationImageAdmin(admin.ModelAdmin):
+   list_display = ('id', 'project_name','start_date','end_date', 'galvanisation_image_1','galvanisation_image_2','galvanisation_image_3','galvanisation_image_comment')
+   list_display_links = ('project_name', )
+   search_fields = ('project_name', )
+
+admin.site.register(GalvanisationImage, GalvanisationImageAdmin)
+
+class FabricationRooftopImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name','start_date','end_date','fabrication_quality_inspection_image','fabrication_steel_deck_image','galvanization_image','fabrication_rooftop_image_comment')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+
+admin.site.register(FabricationRooftopImage, FabricationRooftopImageAdmin)

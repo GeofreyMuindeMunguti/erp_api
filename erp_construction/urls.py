@@ -77,6 +77,11 @@ router.register(r'kplcsolarsmages', views.KPLCSolarImageViewSet)
 router.register(r'warrantyCertificates', views.WarrantyCertificateViewSet)
 router.register(r'testCetificates', views.TestCetificateViewSet)
 router.register(r'irrof7Frees', views.IRROF7FreeViewSet)
+router.register(r'fabricationRooftopImages', views.FabricationRooftopImageViewSet)
+router.register(r'fabricationQualityInspectionImages', views.FabricationQualityInspectionImageViewSet)
+router.register(r'fabricationSteelDeckImages', views.FabricationSteelDeckImageViewSet)
+router.register(r'galvanisationImages', views.GalvanisationImageViewSet)
+
 
 """ ENDPOINTS FOR FRONTEND"""
 
@@ -145,6 +150,10 @@ urlpatterns = [
     path('files/<int:pk>/mwinstallationtaskimages/', filesviews.MWInstallationTaskImagesView.as_view()),
     path('files/<int:pk>/installationteamfiles/', filesviews.InstallationTeamFilesView.as_view()),
     path('files/<int:pk>/irrof7Freesfiles/', filesviews.IRROF7FreeFilesView.as_view()),
+
+    path('files/<int:pk>/aglvanisationImages/', filesviews.GalvanisationImageFilesView.as_view()),
+    path('files/<int:pk>/fabricationsteeldeckimages/', filesviews.FabricationSteelDeckImageFilesView.as_view()),
+    path('files/<int:pk>/fabricationqualityinspectionimages/', filesviews.FabricationQualityInspectionImageFilesView.as_view()),
 
     path('taskstatus/', TaskStatusView.as_view()),
     path('timesheetsummary/', TimesheetSummaryView.as_view()),

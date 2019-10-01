@@ -512,8 +512,40 @@ def status_function(model_class, request):
 
 class IRROF7FreeViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating a project."""
-    queryset = IRROF7Free.objects.order_by('created_at')
+    queryset = IRROF7Free.objects.all()
     serializer_class = IRROF7FreeSerializer
 
     search_fields = ('project_name', )
-    ordering_fields = ('updated_at', 'project_name', )
+    ordering_fields = ('project_name', )
+
+class GalvanisationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating a project."""
+    queryset = GalvanisationImage.objects.order_by('start_date')
+    serializer_class = GalvanisationImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('start_date','project_name', )
+
+class FabricationSteelDeckImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating a project."""
+    queryset = FabricationSteelDeckImage.objects.order_by('start_date')
+    serializer_class = FabricationSteelDeckImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('start_date','project_name', )
+
+class FabricationQualityInspectionImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating a project."""
+    queryset = FabricationQualityInspectionImage.objects.order_by('start_date')
+    serializer_class = FabricationQualityInspectionImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('start_date','project_name', )
+
+class FabricationRooftopImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating a project."""
+    queryset = FabricationRooftopImage.objects.order_by('start_date')
+    serializer_class = FabricationRooftopImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('start_date','project_name', )

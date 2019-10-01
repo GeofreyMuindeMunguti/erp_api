@@ -294,3 +294,24 @@ class IRROF7FreeFilesView(generics.RetrieveAPIView,DefaultsMixin):
         queryset = IRROF7Free.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
     serializer_class = IRROF7FreeFilesSerializer
+
+class FabricationQualityInspectionImageFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    
+    def get_queryset(self):
+        queryset = FabricationQualityInspectionImage.objects.filter(project_name_id=self.kwargs["pk"])
+        return queryset
+    serializer_class = FabricationQualityInspectionImageFilesSerializer
+
+class FabricationSteelDeckImageFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    
+    def get_queryset(self):
+        queryset = FabricationSteelDeckImage.objects.filter(project_name_id=self.kwargs["pk"])
+        return queryset
+    serializer_class = FabricationSteelDeckImageFilesSerializer
+
+class GalvanisationImageFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    
+    def get_queryset(self):
+        queryset = GalvanisationImage.objects.filter(project_name_id=self.kwargs["pk"])
+        return queryset
+    serializer_class = GalvanisationImageFilesSerializer

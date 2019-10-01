@@ -1705,6 +1705,59 @@ class BoundaryWallImage(models.Model):
         except Exception as e:
             return
 
+class FabricationQualityInspectionImage(TimeStampModel):
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField(blank=True, null=True)
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    fabrication_quality_inspection_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/FabricationQualityInspectionImage/%Y/%m/%d/')
+    fabrication_quality_inspection_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/FabricationQualityInspectionImage/%Y/%m/%d/')
+    fabrication_quality_inspection_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/FabricationQualityInspectionImage/%Y/%m/%d/')
+    fabrication_quality_inspection_image_comment = models.CharField(max_length=100, blank=True, null=True)
+    
+    def __str__(self):
+        return str(self.project_name)
+
+class FabricationSteelDeckImage(TimeStampModel):
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField(blank=True, null=True)
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    fabrication_steel_deck_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/FabricationSteelDeckImage/%Y/%m/%d/')
+    fabrication_steel_deck_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/FabricationSteelDeckImage/%Y/%m/%d/')
+    fabrication_steel_deck_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/FabricationSteelDeckImage/%Y/%m/%d/')
+    fabrication_steel_deck_image_comment = models.CharField(max_length=100, blank=True, null=True)
+    
+    def __str__(self):
+        return str(self.project_name)
+
+class GalvanisationImage(TimeStampModel):
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField(blank=True, null=True)
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    galvanisation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/GalvanisationImage/%Y/%m/%d/')
+    galvanisation_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/GalvanisationImage/%Y/%m/%d/')
+    galvanisation_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/GalvanisationImage/%Y/%m/%d/')
+    galvanisation_image_comment = models.CharField(max_length=100, blank=True, null=True)
+    
+    def __str__(self):
+        return str(self.project_name)
+
+
+class FabricationRooftopImage(TimeStampModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField(blank=True, null=True)
+    fabrication_quality_inspection_image = models.OneToOneField(FabricationQualityInspectionImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    fabrication_steel_deck_image = models.OneToOneField(FabricationSteelDeckImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    galvanization_image = models.OneToOneField(GalvanisationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    fabrication_rooftop_image_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+
+
+
+
 
 ######################################## END #######################################################################################################################################
 
