@@ -37,17 +37,11 @@ router.register(r'bindingimages', views.BindingImageViewSet)
 router.register(r'steelfixformworkimages', views.SteelFixFormworkImageViewSet)
 router.register(r'concretepourimages', views.ConcretePourImageViewSet)
 router.register(r'concretecuringperiod', views.ConcreteCuringPeriodImageViewSet)
-router.register(r'deliveryofmaterialsandequipement', views.DeliveryOfMaterialandEquipementViewSet)
-
 
 
 router.register(r'excavation', views.ExcavationImageViewSet)
 router.register(r'bs241concretepourcuringperiod', views.bs241ConcretePourCuringPeriodImageViewSet)
 router.register(r'bs241generatorslabs', views.BS241AndGeneatorSlabsImageViewSet)
-router.register(r'generatorexcavationimages', views.GenExcavationImageViewSet)
-router.register(r'generatorconcretepourcuringimages', views.GenConcretePourCuringPeriodImageViewSet)
-router.register(r'generatorcableconduitssettingimages', views.GenCableConduitsSettingImageViewSet)
-router.register(r'bs241images', views.BS241ImageViewSet)
 
 
 router.register(r'foundationfootpour', views.FoundFootPourImageViewSet)
@@ -82,7 +76,6 @@ router.register(r'accessapprovalinstallations', views.AccessApprovalInstallation
 router.register(r'kplcsolarsmages', views.KPLCSolarImageViewSet)
 router.register(r'warrantyCertificates', views.WarrantyCertificateViewSet)
 router.register(r'testCetificates', views.TestCetificateViewSet)
-router.register(r'irrof7Frees', views.IRROF7FreeViewSet)
 
 """ ENDPOINTS FOR FRONTEND"""
 
@@ -106,8 +99,8 @@ urlpatterns = [
     path('files/', filesviews.FilesView.as_view()), # Retrieve all projects files :: TO DO
 
     path('files/<int:pk>/', filesviews.BtsSiteFilesView.as_view()), # main url path to retrieve files per project
-    path('filescommon/<int:pk>/', filesviews.BtsSiteFilesCommonView.as_view()), # main url path to retrieve files per project
 
+    # path('files/', filesviews.FilesView.as_view()), # Retrieve all projects files :: TO DO
     #
     # path('files/<int:pk>/', filesviews.SiteFilesView.as_view()), # main url path to retrieve files per project
     #Paths to retrieve individual files
@@ -150,7 +143,7 @@ urlpatterns = [
     path('files/<int:pk>/btsinstallationtaskimages/', filesviews.BTSinstallationTaskImagesView.as_view()),
     path('files/<int:pk>/mwinstallationtaskimages/', filesviews.MWInstallationTaskImagesView.as_view()),
     path('files/<int:pk>/installationteamfiles/', filesviews.InstallationTeamFilesView.as_view()),
-    path('files/<int:pk>/irrof7Freesfiles/', filesviews.IRROF7FreeFilesView.as_view()),
+    path('files/<int:pk>/issueimages/', filesviews.IssueImageView.as_view()),
 
     path('taskstatus/', TaskStatusView.as_view()),
     path('timesheetsummary/', TimesheetSummaryView.as_view()),
@@ -159,6 +152,5 @@ urlpatterns = [
     path('totalpurchaseprders/', TotalPurchaseOrdersView.as_view()),
     path('revenueperproject/<int:pk>', RevenueDetailView.as_view()),
     path('revenue/', RevenueListView.as_view()),
-   
 
 ]
