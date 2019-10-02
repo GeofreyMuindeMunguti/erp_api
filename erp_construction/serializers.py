@@ -133,14 +133,6 @@ class SubTaskSerializer(serializers.ModelSerializer):
 
 ####################################### START FOUNDATION IMAGES ###########################################################################################################################
 
-class DeliveryOfMaterialandEquipementSerializer(serializers.ModelSerializer):
-
-    class Meta: 
-        model = DeliveryOfMaterialandEquipement
-        fields = ('__all__')
-        read_only_fields = ('created_at', 'updated_at')
-
-
 
 class FoundationImageSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
@@ -215,12 +207,6 @@ class ConcreteCuringPeriodImageSerializer(serializers.ModelSerializer):
 
 #######################################BS241 & GENERATOR FOUNDATION ###########################################################################################################################
 
-class BS241ImageSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = BS241Image
-        fields = ('__all__')
-        read_only_fields = ('created_at', 'updated_at')
 
 class ExcavationImageerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
@@ -251,29 +237,6 @@ class BS241AndGeneatorSlabsImageSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 ######################################## END #######################################################################################################################################
-class GenExcavationImageSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = GenExcavationImage
-        fields = ('__all__')
-        read_only_fields = ('created_at', 'updated_at')
-
-class GenConcretePourCuringPeriodImageSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = GenConcretePourCuringPeriodImage
-        fields = ('__all__')
-        read_only_fields = ('created_at', 'updated_at')
-
-class GenCableConduitsSettingImageSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = GenCableConduitsSettingImage
-        fields = ('__all__')
-        read_only_fields = ('created_at', 'updated_at')
-
-
-####################################### END #####################################################################################################################################
 
 ######################################  BOUNDARY WALL ###########################################################################################################################
 
@@ -525,12 +488,5 @@ class IssuesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Issues
-        fields = ('__all__')
-        read_only_fields = ('created_at', 'updated_at', 'is_active')
-
-class IRROF7FreeSerializer(serializers.ModelSerializer):
-  
-    class Meta:
-        model = IRROF7Free
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
