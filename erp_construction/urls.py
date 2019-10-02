@@ -99,8 +99,8 @@ urlpatterns = [
     path('files/', filesviews.FilesView.as_view()), # Retrieve all projects files :: TO DO
 
     path('files/<int:pk>/', filesviews.BtsSiteFilesView.as_view()), # main url path to retrieve files per project
-    path('filescommon/<int:pk>/', filesviews.BtsSiteFilesCommonView.as_view()), # main url path to retrieve files per project
 
+    # path('files/', filesviews.FilesView.as_view()), # Retrieve all projects files :: TO DO
     #
     # path('files/<int:pk>/', filesviews.SiteFilesView.as_view()), # main url path to retrieve files per project
     #Paths to retrieve individual files

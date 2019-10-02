@@ -20,10 +20,17 @@
         dismissClockFunc: [],
         dismissCalendarFunc: [],
         calendarDivName1: 'calendarbox', // name of calendar <div> that gets toggled
+<<<<<<< HEAD
+        calendarDivName2: 'calendarin', // name of <div> that contains calendar
+        calendarLinkName: 'calendarlink', // name of the link that is used to toggle
+        clockDivName: 'clockbox', // name of clock <div> that gets toggled
+        clockLinkName: 'clocklink', // name of the link that is used to toggle
+=======
         calendarDivName2: 'calendarin',  // name of <div> that contains calendar
         calendarLinkName: 'calendarlink',// name of the link that is used to toggle
         clockDivName: 'clockbox',        // name of clock <div> that gets toggled
         clockLinkName: 'clocklink',      // name of the link that is used to toggle
+>>>>>>> 90696d15faae8c0cb87a9190e0c1cc49f55b9f6c
         shortCutsClass: 'datetimeshortcuts', // class of the clock and cal shortcuts
         timezoneWarningClass: 'timezonewarning', // class of the warning for timezone mismatch
         timezoneOffset: 0,
@@ -399,10 +406,17 @@
             var format = get_format('DATE_INPUT_FORMATS')[0];
             // the format needs to be escaped a little
             format = format.replace('\\', '\\\\')
+<<<<<<< HEAD
+                .replace('\r', '\\r')
+                .replace('\n', '\\n')
+                .replace('\t', '\\t')
+                .replace("'", "\\'");
+=======
                            .replace('\r', '\\r')
                            .replace('\n', '\\n')
                            .replace('\t', '\\t')
                            .replace("'", "\\'");
+>>>>>>> 90696d15faae8c0cb87a9190e0c1cc49f55b9f6c
             return function(y, m, d) {
                 DateTimeShortcuts.calendarInputs[num].value = new Date(y, m - 1, d).strftime(format);
                 DateTimeShortcuts.calendarInputs[num].focus();

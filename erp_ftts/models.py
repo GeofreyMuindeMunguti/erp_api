@@ -464,7 +464,7 @@ class SiteTrenchingImage(TimeStampModel):
     site_trenching_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
 
 class DailySiteTrenching(TimeStampModel):
@@ -476,7 +476,7 @@ class DailySiteTrenching(TimeStampModel):
     site_trenching_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return '{} :Date: {}'.format(self.sub_task,self.work_day)
+        return str(self.sub_task)
 
     def image_list(self):
         try:
@@ -502,7 +502,7 @@ class SiteTrenching(TimeStampModel,TimeTrackModel):
     site_trenching_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return 'SiteTrenching  : {}'.format(self.site_name)
+        return str(self.site_name)
 
     def days_list(self):
         try:
@@ -555,7 +555,7 @@ class SiteDuctInstallationImage(TimeStampModel):
     site_duct_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
 
 class DailySiteDuctInstallation(TimeStampModel):
@@ -567,7 +567,7 @@ class DailySiteDuctInstallation(TimeStampModel):
     site_duct_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return '{} :Date: {}'.format(self.sub_task,self.work_day)
+        return str(self.sub_task)
 
     def image_list(self):
         try:
@@ -593,7 +593,7 @@ class SiteDuctInstallation(TimeStampModel,TimeTrackModel):
     site_duct_installation_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return 'SiteDuctInstallation  : {}'.format(self.site_name)
+        return str(self.site_name)
 
     def days_list(self):
         try:
@@ -645,7 +645,7 @@ class ManHoleInstallationImage(TimeStampModel):
     manhole_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
 
 class DailyManHoleInstallation(TimeStampModel):
@@ -657,7 +657,7 @@ class DailyManHoleInstallation(TimeStampModel):
     manhole_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return '{} :Date: {}'.format(self.sub_task,self.work_day)
+        return str(self.sub_task)
 
     def image_list(self):
         try:
@@ -683,7 +683,7 @@ class ManHoleInstallation(TimeStampModel,TimeTrackModel):
     manhole_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return 'ManHoleInstallation  : {}'.format(self.site_name)
+        return str(self.site_name)
 
     def days_list(self):
         try:
@@ -735,7 +735,7 @@ class SiteCableInstallationImage(TimeStampModel):
     cable_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
 
 class DailySiteCableInstallation(TimeStampModel):
@@ -747,7 +747,7 @@ class DailySiteCableInstallation(TimeStampModel):
     cable_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return '{} :Date: {}'.format(self.sub_task,self.work_day)
+        return str(self.sub_task)
 
     def image_list(self):
         try:
@@ -773,7 +773,7 @@ class SiteCableInstallation(TimeStampModel,TimeTrackModel):
     site_cable_installation_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return 'SiteCableInstallation  : {}'.format(self.site_name)
+        return str(self.site_name)
 
     def days_list(self):
         try:
@@ -913,7 +913,7 @@ class SiteTerminalInHseImage(TimeStampModel):
 
     def __str__(self):
 
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
 
 class DailySiteTerminalInHse(TimeStampModel):
@@ -925,7 +925,7 @@ class DailySiteTerminalInHse(TimeStampModel):
     terminal_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return '{} :Date: {}'.format(self.sub_task,self.work_day)
+        return str(self.sub_task)
 
 
     def image_list(self):
@@ -952,7 +952,7 @@ class SiteTerminalInHse(TimeStampModel,TimeTrackModel):
     site_terminal_in_hse_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return 'SiteTerminalInHse  : {}'.format(self.site_name)
+        return str(self.site_name)
 
     def days_list(self):
         try:
@@ -1004,7 +1004,7 @@ class SiteInterceptionImage(TimeStampModel):
     interception_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return 'Image for {}'.format(self.day_image)
+        return str(self.day_image)
 
 
 class DailySiteInterception(TimeStampModel):
@@ -1013,11 +1013,10 @@ class DailySiteInterception(TimeStampModel):
     casuals_list = models.FileField(upload_to=UploadToProjectDirDate(file_path,'files/Casuals/interception/'),blank=True, null=True)
     work_day = models.DateField(unique =True, blank=True, null=True)
     distance_interception = models.FloatField(blank=True, null=True)
-
     interception_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return '{} :Date: {}'.format(self.sub_task,self.work_day)
+        return str(self.sub_task)
 
     def image_list(self):
         try:
@@ -1230,8 +1229,7 @@ class DailyCivilWorkProduction(TimeStampModel):
     posted_by = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
 
     def __str__(self):
-        #return str(self.project_name)
-        return 'Production for {}'.format(self.work_day)
+        return str(self.site_name)
 
 
     class Meta:
