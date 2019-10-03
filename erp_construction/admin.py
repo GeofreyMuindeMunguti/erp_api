@@ -92,8 +92,8 @@ admin.site.register(ProjectPurchaseOrders, ProjectPurchaseOrdersAdmin)
 
 
 class CommercialTeamAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'approved_quote_file', 'approved_quote_amount', 'po_data',
-                    'project_costing_data', 'initial_invoice', 'initial_invoice_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'approved_quote_file', 'approved_quote_amount', 'po_data','drawings_revised_approved','tower_type_allocated',
+    'material_collection_from_steel_supplier','PO_steel_fabrication','customer_issued_quotation','project_costing_data','initial_invoice', 'initial_invoice_comment', 'posted_by', 'is_approved', 'created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )

@@ -244,6 +244,86 @@ class IRROF7Free(TimeStampModel):
     def __str__(self):
         return str(self.project_name)
 
+
+####################################### COMMERCIAL & PROCURMENT TEAM ###########################################################################################################################
+class ProjectPurchaseOrders(models.Model):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    po_file = models.FileField(upload_to=UploadToProjectDir(file_path,'files/CommercialTeam/pofile/'), blank=True, null=True)
+    material_cost = models.IntegerField()
+    labour_cost = models.IntegerField()
+    total_cost_of_po = models.IntegerField()
+    is_approved = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+    def totalPOS(self):
+        count = self.objects.all().count()
+        return count
+
+
+class ProjectCosting(models.Model):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    project_costing_file = models.FileField(upload_to=UploadToProjectDir(file_path,'files/CommercialTeam/projectcosting/'), blank=True, null=True)
+    material_cost = models.IntegerField()
+    labour_cost = models.IntegerField()
+    total_projected_cost = models.IntegerField()
+    is_approved = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+    def totalProjectCosts(self):
+        count = self.objects.all().count()
+        return count
+
+
+class CommercialTeam(TimeStampModel,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    approved_quote_file = models.FileField(upload_to=UploadToProjectDir(file_path,'files/CommercialTeam/approvedquote/'), blank=True, null=True)
+    approved_quote_amount = models.IntegerField(blank=True, null=True)
+    po_data = models.OneToOneField(ProjectPurchaseOrders, on_delete=models.CASCADE, blank=True, null=True)
+    drawings_revised_approved = models.FileField(upload_to=UploadToProjectDir(file_path,'files/CommercialTeam/drawings_revised_approved/'), blank=True, null=True)
+    tower_type_allocated = models.FileField(upload_to=UploadToProjectDir(file_path,'files/CommercialTeam/tower_type_allocated/'), blank=True, null=True)
+    material_collection_from_steel_supplier = models.FileField(upload_to=UploadToProjectDir(file_path,'files/CommercialTeam/materia_collection_from_steel_supplier/'), blank=True, null=True)
+    PO_steel_fabrication = models.FileField(upload_to=UploadToProjectDir(file_path,'files/CommercialTeam/POSteelFabrication/'), blank=True, null=True)
+    customer_issued_quotation = models.FileField(upload_to=UploadToProjectDir(file_path,'files/CommercialTeam/customer_issued_quotation/'), blank=True, null=True)
+    project_costing_data = models.OneToOneField(ProjectCosting, on_delete=models.CASCADE, blank=True, null=True)
+    initial_invoice = models.FileField(upload_to=UploadToProjectDir(file_path,'files/CommercialTeam/initialinvoice/'), blank=True, null=True)
+    initial_invoice_comment = models.CharField(max_length=100, blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    is_approved = models.BooleanField(default=False)
+
+
+    def __str__(self):
+        return str(self.project_name)
+
+
+class ProcurementTeam(models.Model):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    po_steel = models.FileField(upload_to=UploadToProjectDir(file_path,'files/ProcurementTeam/posteel/'), blank=True, null=True)
+    # po_steel_quantity = models.IntegerField(blank=True, null=True)
+    po_electrical_materials = models.FileField(upload_to=UploadToProjectDir(file_path,'files/ProcurementTeam/poelectrical/'), blank=True, null=True)
+    # po_electrical_materials_quantity = models.IntegerField(blank=True, null=True)
+    po_subcontractors = models.FileField(upload_to=UploadToProjectDir(file_path,'files/ProcurementTeam/posubcontractor/'), blank=True, null=True)
+    po_subcontractors_amount = models.IntegerField(blank=True, null=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    is_approved = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+######################################## END #######################################################################################################################################
+
 ####################################### BUDGET ########################################################################################################################################
 
 class BtsBudget(models.Model):
@@ -4285,87 +4365,6 @@ class TowerAntennaCoaxImage(TimeStampModel):
 ######################################## END #######################################################################################################################################
 
 ####################################### INSTALLATION ###########################################################################################################################
-
-
-class ProjectPurchaseOrders(models.Model):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    po_file = models.FileField(upload_to='files/CommercialTeam/pofile/%Y/%m/%d/', blank=True, null=True)
-    material_cost = models.IntegerField()
-    labour_cost = models.IntegerField()
-    total_cost_of_po = models.IntegerField()
-    is_approved = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
-
-    def __str__(self):
-        return str(self.project_name)
-
-    def totalPOS(self):
-        count = self.objects.all().count()
-        return count
-
-
-class ProjectCosting(models.Model):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    project_costing_file = models.FileField(upload_to='files/CommercialTeam/projectcosting/%Y/%m/%d/', blank=True, null=True)
-    material_cost = models.IntegerField()
-    labour_cost = models.IntegerField()
-    total_projected_cost = models.IntegerField()
-    is_approved = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
-
-    def __str__(self):
-        return str(self.project_name)
-
-    def totalProjectCosts(self):
-        count = self.objects.all().count()
-        return count
-
-
-class CommercialTeam(TimeStampModel,TimeTrackModel):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    approved_quote_file = models.FileField(upload_to='files/CommercialTeam/approvedquote/%Y/%m/%d/', blank=True, null=True)
-    approved_quote_amount = models.IntegerField(blank=True, null=True)
-    po_data = models.OneToOneField(ProjectPurchaseOrders, on_delete=models.CASCADE, blank=True, null=True)
-    drawings_revised_approved = models.FileField(upload_to='files/CommercialTeam/drawings_revised_approved/%Y/%m/%d/', blank=True, null=True)
-    tower_type_allocated = models.FileField(upload_to='files/CommercialTeam/tower_type_allocated/%Y/%m/%d/', blank=True, null=True)
-    material_collection_from_steel_supplier = models.FileField(upload_to='files/CommercialTeam/materia_collection_from_steel_supplier/%Y/%m/%d/', blank=True, null=True)
-
-    customer_issued_quotation = models.FileField(upload_to='files/CommercialTeam/customer_issued_quotation/%Y/%m/%d/', blank=True, null=True)
-    project_costing_data = models.OneToOneField(ProjectCosting, on_delete=models.CASCADE, blank=True, null=True)
-    initial_invoice = models.FileField(upload_to='files/CommercialTeam/initialinvoice/%Y/%m/%d/', blank=True, null=True)
-    initial_invoice_comment = models.CharField(max_length=100, blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    is_approved = models.BooleanField(default=False)
-
-
-    def __str__(self):
-        return str(self.project_name)
-
-
-####################################### PROCURMENT TEAM ###########################################################################################################################
-class ProcurementTeam(models.Model):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    po_steel = models.FileField(upload_to='files/ProcurementTeam/posteel/%Y/%m/%d/', blank=True, null=True)
-    # po_steel_quantity = models.IntegerField(blank=True, null=True)
-    po_electrical_materials = models.FileField(upload_to='files/ProcurementTeam/poelectrical/%Y/%m/%d/', blank=True, null=True)
-    # po_electrical_materials_quantity = models.IntegerField(blank=True, null=True)
-    po_subcontractors = models.FileField(upload_to='files/ProcurementTeam/posubcontractor/%Y/%m/%d/', blank=True, null=True)
-    po_subcontractors_amount = models.IntegerField(blank=True, null=True)
-    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    is_approved = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
-
-    def __str__(self):
-        return str(self.project_name)
-
-######################################## END #######################################################################################################################################
-
 
 class AccessApprovalCivil(models.Model):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
