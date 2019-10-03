@@ -12,32 +12,27 @@ file_path = 'BTSProjects'
 
 
 ############################################ PROJECT CREATION ####################################################################################################################
-class ProjectIcons(models.Model):
+class ProjectIcons(TimeStampModel):
     icon = models.ImageField(upload_to='images/Project/Icons/%Y/%m/%d/')
     site_owner = models.CharField(max_length=100)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.site_owner
 
-class BtsProject(models.Model):
+class BtsProject(TimeStampModel):
     '''
     Main Project class creation
     '''
     bts_project_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
     icon = models.ForeignKey(ProjectIcons, on_delete=models.DO_NOTHING, blank=True, null=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.bts_project_name
 
     class Meta:
         verbose_name_plural = 'BTS PROJECTS'
+
 
 class BtsSite(TimeStampModel,TimeTrackModel):
     '''
@@ -52,6 +47,8 @@ class BtsSite(TimeStampModel,TimeTrackModel):
     location = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
     geotech_file = models.FileField(upload_to='files/Project/geotech/%Y/%m/%d/', blank=True, null=True)
     geotech_file_comment =  models.CharField(max_length=100, blank=True, null=True)
+    access_letter = models.FileField(upload_to=UploadToProjectDir(file_path,'files/Project/accessletter/'), blank=True, null=True)
+    access_letter_comment = models.CharField(max_length=100, blank=True, null=True)
     approved_drawing = models.FileField(upload_to=UploadToProjectDir(file_path,'files/Project/approveddrawings/'), blank=True, null=True)
     final_acceptance_cert = models.FileField(upload_to=UploadToProjectDir(file_path,'files/SafaricomTeam/finalcert/'), blank=True, null=True)
     final_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
@@ -246,16 +243,13 @@ class IRROF7Free(TimeStampModel):
 
 
 ####################################### COMMERCIAL & PROCURMENT TEAM ###########################################################################################################################
-class ProjectPurchaseOrders(models.Model):
+class ProjectPurchaseOrders(TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     po_file = models.FileField(upload_to=UploadToProjectDir(file_path,'files/CommercialTeam/pofile/'), blank=True, null=True)
     material_cost = models.IntegerField()
     labour_cost = models.IntegerField()
     total_cost_of_po = models.IntegerField()
     is_approved = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -265,16 +259,13 @@ class ProjectPurchaseOrders(models.Model):
         return count
 
 
-class ProjectCosting(models.Model):
+class ProjectCosting(TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     project_costing_file = models.FileField(upload_to=UploadToProjectDir(file_path,'files/CommercialTeam/projectcosting/'), blank=True, null=True)
     material_cost = models.IntegerField()
     labour_cost = models.IntegerField()
     total_projected_cost = models.IntegerField()
     is_approved = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -305,7 +296,7 @@ class CommercialTeam(TimeStampModel,TimeTrackModel):
         return str(self.project_name)
 
 
-class ProcurementTeam(models.Model):
+class ProcurementTeam(TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     po_steel = models.FileField(upload_to=UploadToProjectDir(file_path,'files/ProcurementTeam/posteel/'), blank=True, null=True)
     # po_steel_quantity = models.IntegerField(blank=True, null=True)
@@ -315,9 +306,6 @@ class ProcurementTeam(models.Model):
     po_subcontractors_amount = models.IntegerField(blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -326,7 +314,7 @@ class ProcurementTeam(models.Model):
 
 ####################################### BUDGET ########################################################################################################################################
 
-class BtsBudget(models.Model):
+class BtsBudget(TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     beneficiary_name = models.CharField(max_length=100, blank=True, null=True)
     description = models.CharField(max_length=350, blank=True, null=True)
@@ -335,10 +323,8 @@ class BtsBudget(models.Model):
     quantity = models.IntegerField(blank=True, null=True)
     rate = models.IntegerField(blank=True, null=True)
     unit = models.IntegerField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
     is_approved = models.BooleanField(default=False, blank=True, null=True)
-    is_active = models.BooleanField(default=True)
+    posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return str(self.beneficiary_name)
@@ -349,7 +335,7 @@ class BtsBudget(models.Model):
 
 """BTS"""
 ####################################### BTS KPI ###############################################################################################################################
-class Kpi(models.Model):
+class Kpi(TimeStampModel):
     kpi = models.IntegerField(blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
@@ -360,7 +346,7 @@ class Kpi(models.Model):
 ######################################## END #######################################################################################################################################
 
 ####################################### BTS TASKS ###############################################################################################################################
-class Task(models.Model):
+class Task(TimeStampModel):
     category_name = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
     task_name = models.CharField(blank=True, null=True, max_length=150, unique=True)
     kpi = models.IntegerField(blank=True, null=True)
@@ -373,7 +359,7 @@ class Task(models.Model):
 ######################################## END #######################################################################################################################################
 
 ####################################### BTS SUBTASKS ###############################################################################################################################
-class SubTask(models.Model):
+class SubTask(TimeStampModel):
     task_name = models.ForeignKey(Task, on_delete=models.DO_NOTHING)
     subtask_name = models.CharField(blank=True, null=True, max_length=150, unique=True)
     kpi = models.IntegerField(blank=True, null=True)
@@ -387,18 +373,13 @@ class SubTask(models.Model):
 """END"""
 
 #######################################START FOUNDATION IMAGES########################################################################################################################################
-class SetSiteClearingImage(models.Model):
+class SetSiteClearingImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     setting_site_clearing_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/siteclearing/%Y/%m/%d/')
     setting_site_clearing_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/siteclearing/%Y/%m/%d/')
     setting_site_clearing_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/siteclearing/%Y/%m/%d/')
     setting_site_clearing_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -536,18 +517,13 @@ class SetSiteClearingImage(models.Model):
             return
 
 
-class TowerBaseImage(models.Model):
+class TowerBaseImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     towerbase_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/towerbase/%Y/%m/%d/')
     towerbase_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/towerbase/%Y/%m/%d/')
     towerbase_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/towerbase/%Y/%m/%d/')
     tower_base_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -633,18 +609,13 @@ class TowerBaseImage(models.Model):
             return
 
 
-class BindingImage(models.Model):
+class BindingImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     binding_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/binding/%Y/%m/%d/')
     binding_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/binding/%Y/%m/%d/')
     binding_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/binding/%Y/%m/%d/')
     binding_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -730,18 +701,13 @@ class BindingImage(models.Model):
             return
 
 
-class SteelFixFormworkImage(models.Model):
+class SteelFixFormworkImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     steel_fix_formwork_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/steelfix/%Y/%m/%d/')
     steel_fix_formwork_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/steelfix/%Y/%m/%d/')
     steel_fix_formwork_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/steelfix/%Y/%m/%d/')
     steel_fix_formwork_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -827,18 +793,13 @@ class SteelFixFormworkImage(models.Model):
             return
 
 
-class ConcretePourImage(models.Model):
+class ConcretePourImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     concrete_pour_curing_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/concretepour/%Y/%m/%d/')
     concrete_pour_curing_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/concretepour/%Y/%m/%d/')
     concrete_pour_curing_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/concretepour/%Y/%m/%d/')
     concrete_pour_curing_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -922,6 +883,8 @@ class ConcretePourImage(models.Model):
             return task_id
         except Exception as e:
             return
+
+
 class ConcreteCuringPeriodDocs(TimeStampModel):
     Rebar_Concrete_Inspection = models. BooleanField(blank=True)
     Concrete_Inspection_Report = models. BooleanField(blank=True)
@@ -930,11 +893,9 @@ class ConcreteCuringPeriodDocs(TimeStampModel):
         return str(self.Rebar_Concrete_Inspection)
 
 
-class ConcreteCuringPeriodImage(models.Model):
+class ConcreteCuringPeriodImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     concrete_curing_period_docs = models.OneToOneField(ConcreteCuringPeriodDocs, on_delete=models.CASCADE)
     concrete_pour_curing_period_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
     concrete_pour_curing_period_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
@@ -943,9 +904,6 @@ class ConcreteCuringPeriodImage(models.Model):
     rebar_concrete_inspection = models.BooleanField(blank=True, null=True)
     concrete_inspection_report = models.BooleanField(blank=True, null=True)
     concrete_cube_test = models.CharField(max_length=100)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -1031,7 +989,7 @@ class ConcreteCuringPeriodImage(models.Model):
             return
 
 
-class FoundationImage(models.Model):
+class FoundationImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     engineers_atsite = models.ManyToManyField(Engineer, blank=True )
     setting_site_clearing = models.OneToOneField(SetSiteClearingImage, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -1041,11 +999,6 @@ class FoundationImage(models.Model):
     concrete_pour_curing_period = models.OneToOneField(ConcretePourImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     concrete_curing_period = models.OneToOneField(ConcreteCuringPeriodImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     foundation_and_curing_comment = models.CharField(max_length=100, blank=True, null=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -1113,18 +1066,13 @@ class DeliveryOfMaterialandEquipement(TimeStampModel):
 #######################################BS241 & GENERATOR FOUNDATION ###########################################################################################################################
 
 
-class ExcavationImage(models.Model):
+class ExcavationImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     excavation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
     excavation_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
     excavation_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
     excavation_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -1210,18 +1158,13 @@ class ExcavationImage(models.Model):
             return
 
 
-class BS241ConcretePourCuringPeriodImage(models.Model):
+class BS241ConcretePourCuringPeriodImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     bs241_concrete_pour_curing_period_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/BS241ConcretePourCuringPeriod/%Y/%m/%d/')
     bs241_concrete_pour_curing_period_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/BS241ConcretePourCuringPeriod/%Y/%m/%d/')
     bs241_concrete_pour_curing_period_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/BS241ConcretePourCuringPeriod/%Y/%m/%d/')
     bs241_concrete_pour_curing_period_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -1316,17 +1259,12 @@ class BS241Image(TimeStampModel):
     def __str__(self):
         return str(self.bs241_image)
 
-class BS241AndGeneatorSlabsImage(models.Model):
+class BS241AndGeneatorSlabsImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     engineers_atsite = models.ManyToManyField(Engineer, blank=True )
     foundation_foot_pouring = models.OneToOneField(ExcavationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     bs241_concrete_pour_pouring_period = models.OneToOneField(BS241ConcretePourCuringPeriodImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     bs241_and_generator_slabs_comment = models.CharField(max_length=100, blank=True, null=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -1379,11 +1317,9 @@ class BS241AndGeneatorSlabsImage(models.Model):
 ####################################### BOUNDARY WALL ###########################################################################################################################
 
 
-class FoundFootPourImage(TimeStampModel):
+class FoundFootPourImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     foundfootpour_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
     foundfootpour_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
     foundfootpour_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/FoundFootPour/%Y/%m/%d/')
@@ -1474,18 +1410,13 @@ class FoundFootPourImage(TimeStampModel):
             return
 
 
-class BlockworkPanelConstImage(TimeStampModel):
+class BlockworkPanelConstImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True )
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     blockwallpanelconst_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/BlockworkPanelConst/%Y/%m/%d/')
     blockwallpanelconst_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/BlockworkPanelConst/%Y/%m/%d/')
     blockwallpanelconst_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/BlockworkPanelConst/%Y/%m/%d/')
     blockwallpanelconst_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -1571,11 +1502,9 @@ class BlockworkPanelConstImage(TimeStampModel):
             return
 
 
-class GateInstallationImage(TimeStampModel):
+class GateInstallationImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     gateinstallation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/GateInstallation/%Y/%m/%d/')
     gateinstallation_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/GateInstallation/%Y/%m/%d/')
     gateinstallation_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/GateInstallation/%Y/%m/%d/')
@@ -1665,11 +1594,9 @@ class GateInstallationImage(TimeStampModel):
             return
 
 
-class RazorElectricFenceImage(TimeStampModel):
+class RazorElectricFenceImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     razorelectricfance_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/RazorElectricFence/%Y/%m/%d/')
     razorelectricfance_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/RazorElectricFence/%Y/%m/%d/')
     razorelectricfance_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/RazorElectricFence/%Y/%m/%d/')
@@ -1759,11 +1686,9 @@ class RazorElectricFenceImage(TimeStampModel):
         except Exception as e:
             return
 
-class BWConcretePourCuringPeriodImage(TimeStampModel):
+class BWConcretePourCuringPeriodImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     bw_concrete_pour_curing_period_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/BWConcretePourCuringPeriodImage/%Y/%m/%d/')
     bw_concrete_pour_curing_period_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/BWConcretePourCuringPeriodImage/%Y/%m/%d/')
     bw_concrete_pour_curing_period_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/BWConcretePourCuringPeriodImage/%Y/%m/%d/')
@@ -1853,11 +1778,9 @@ class BWConcretePourCuringPeriodImage(TimeStampModel):
         except Exception as e:
             return
 
-class ExcavationstripFoundationsImage(TimeStampModel):
+class ExcavationstripFoundationsImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     excavationstrip_foundations_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/ExcavationstripFoundationsImage/%Y/%m/%d/')
     excavationstrip_foundations_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/ExcavationstripFoundationsImage/%Y/%m/%d/')
     excavationstrip_foundations_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/ExcavationstripFoundationsImage/%Y/%m/%d/')
@@ -1947,11 +1870,9 @@ class ExcavationstripFoundationsImage(TimeStampModel):
         except Exception as e:
             return
 
-class BWBlindingImage(TimeStampModel):
+class BWBlindingImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     bw_blinding_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/BWBlindingImage/%Y/%m/%d/')
     bw_blinding_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/BWBlindingImage/%Y/%m/%d/')
     bw_blinding_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/BWBlindingImage/%Y/%m/%d/')
@@ -2041,11 +1962,9 @@ class BWBlindingImage(TimeStampModel):
         except Exception as e:
             return
 
-class BWCableConduitsImage(TimeStampModel):
+class BWCableConduitsImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     bw_cable_conduits_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/BWCableConduitsImage/%Y/%m/%d/')
     bw_cable_conduits_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/BWCableConduitsImage/%Y/%m/%d/')
     bw_cable_conduits_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/BWCableConduitsImage/%Y/%m/%d/')
@@ -2135,7 +2054,7 @@ class BWCableConduitsImage(TimeStampModel):
         except Exception as e:
             return
 
-class BoundaryWallImage(models.Model):
+class BoundaryWallImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     engineers_atsite = models.ManyToManyField(Engineer, blank=True )
 
@@ -2149,13 +2068,7 @@ class BoundaryWallImage(models.Model):
     bw_blinding = models.OneToOneField(BWBlindingImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     bw_cable_conduits = models.OneToOneField(BWCableConduitsImage, on_delete=models.DO_NOTHING, blank=True, null=True)
 
-
     boundary_wall_comment = models.CharField(max_length=100, blank=True, null=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -2209,11 +2122,9 @@ class BoundaryWallImage(models.Model):
 ####################################### TOWER & ANTENNA_COAX ###########################################################################################################################
 
 
-class TowerErectionImage(TimeStampModel):
+class TowerErectionImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     tower_erection_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/towererection/%Y/%m/%d/')
     tower_erection_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/towererection/%Y/%m/%d/')
     tower_erection_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/towererection/%Y/%m/%d/')
@@ -2305,11 +2216,9 @@ class TowerErectionImage(TimeStampModel):
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@TODO REVIEW@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
-class CableInstallationImage(TimeStampModel):
+class CableInstallationImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     cable_installation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/CableInstallationImage/%Y/%m/%d/')
     cable_installation_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/CableInstallationImage/%Y/%m/%d/')
     cable_installation_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/CableInstallationImage/%Y/%m/%d/')
@@ -2399,11 +2308,9 @@ class CableInstallationImage(TimeStampModel):
         except Exception as e:
             return
 
-class AviationLightsInstallationImage(TimeStampModel):
+class AviationLightsInstallationImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     aviation_lights_installation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/aviationlightsinstallationimage/%Y/%m/%d/')
     aviation_lights_installation_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/aviationlightsinstallationimage/%Y/%m/%d/')
     aviation_lights_installation_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/aviationlightsinstallationimage/%Y/%m/%d/')
@@ -2493,11 +2400,9 @@ class AviationLightsInstallationImage(TimeStampModel):
         except Exception as e:
             return
 
-class TowerDeliveryImage(TimeStampModel):
+class TowerDeliveryImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     tower_delivery_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/towerdelivery/%Y/%m/%d/')
     tower_delivery_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/towerdelivery/%Y/%m/%d/')
     tower_delivery_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/towerdelivery/%Y/%m/%d/')
@@ -2588,7 +2493,7 @@ class TowerDeliveryImage(TimeStampModel):
             return
 
 
-class BoundaryWallImage(models.Model):
+class BoundaryWallImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     #engineers_atsite = models.ManyToManyField(Engineer, blank=True )
     foundation_foot_pouring = models.OneToOneField(FoundFootPourImage, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -2596,11 +2501,6 @@ class BoundaryWallImage(models.Model):
     gate_installation = models.OneToOneField(GateInstallationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     razor_electric_fence = models.OneToOneField(RazorElectricFenceImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     boundary_wall_comment = models.CharField(max_length=100, blank=True, null=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -2648,9 +2548,7 @@ class BoundaryWallImage(models.Model):
         except Exception as e:
             return
 
-class FabricationQualityInspectionImage(TimeStampModel):
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
+class FabricationQualityInspectionImage(TimeStampModel,TimeTrackModel):
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     fabrication_quality_inspection_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/FabricationQualityInspectionImage/%Y/%m/%d/')
@@ -2739,9 +2637,7 @@ class FabricationQualityInspectionImage(TimeStampModel):
             return
 
 
-class FabricationSteelDeckImage(TimeStampModel):
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
+class FabricationSteelDeckImage(TimeStampModel,TimeTrackModel):
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     fabrication_steel_deck_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/FabricationSteelDeckImage/%Y/%m/%d/')
@@ -2832,9 +2728,7 @@ class FabricationSteelDeckImage(TimeStampModel):
         except Exception as e:
             return
 
-class GalvanisationImage(TimeStampModel):
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
+class GalvanisationImage(TimeStampModel,TimeTrackModel):
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     galvanisation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/GalvanisationImage/%Y/%m/%d/')
@@ -2926,10 +2820,8 @@ class GalvanisationImage(TimeStampModel):
             return
 
 
-class FabricationRooftopImage(TimeStampModel):
+class FabricationRooftopImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     engineers_atsite = models.ManyToManyField(Engineer, blank=True )
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     fabrication_quality_inspection_image = models.OneToOneField(FabricationQualityInspectionImage, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -2984,9 +2876,7 @@ class FabricationRooftopImage(TimeStampModel):
             return
 
 
-class HackingExistingColumnsImage(TimeStampModel):
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
+class HackingExistingColumnsImage(TimeStampModel,TimeTrackModel):
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     hacking_existing_columns_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/HackingExistingColumnsImage/%Y/%m/%d/')
@@ -3073,9 +2963,9 @@ class HackingExistingColumnsImage(TimeStampModel):
             return task_id
         except Exception as e:
             return
-class FormworkColumnsConcretePourCuringImage(TimeStampModel):
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
+
+
+class FormworkColumnsConcretePourCuringImage(TimeStampModel,TimeTrackModel):
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     formwork_columns_concrete_pour_curing_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/FormworkColumnsConcretePourCuringImage/%Y/%m/%d/')
@@ -3164,9 +3054,7 @@ class FormworkColumnsConcretePourCuringImage(TimeStampModel):
             return
 
 
-class DeliveryToSiteImage(TimeStampModel):
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
+class DeliveryToSiteImage(TimeStampModel,TimeTrackModel):
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     delivery_to_site_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/DeliveryToSiteImage/%Y/%m/%d/')
@@ -3255,9 +3143,7 @@ class DeliveryToSiteImage(TimeStampModel):
             return
 
 
-class LiftingHoistingFreeIssueImage(TimeStampModel):
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
+class LiftingHoistingFreeIssueImage(TimeStampModel,TimeTrackModel):
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     lifting_hoisting_free_issue_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/LiftingHoistingFreeIssueImage/%Y/%m/%d/')
@@ -3345,9 +3231,7 @@ class LiftingHoistingFreeIssueImage(TimeStampModel):
         except Exception as e:
             return
 
-class FenceInstallationImage(TimeStampModel):
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
+class FenceInstallationImage(TimeStampModel,TimeTrackModel):
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     fence_installation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/FenceInstallationImage/%Y/%m/%d/')
@@ -3435,9 +3319,7 @@ class FenceInstallationImage(TimeStampModel):
         except Exception as e:
             return
 
-class SiteRestorationImage(TimeStampModel):
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
+class SiteRestorationImage(TimeStampModel,TimeTrackModel):
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     site_restoration_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/SiteRestorationImage/%Y/%m/%d/')
@@ -3525,10 +3407,8 @@ class SiteRestorationImage(TimeStampModel):
         except Exception as e:
             return
 
-class InstallationRooftopImage(TimeStampModel):
+class InstallationRooftopImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     engineers_atsite = models.ManyToManyField(Engineer, blank=True )
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     hacking_existing_columns_image = models.OneToOneField(HackingExistingColumnsImage, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -3585,9 +3465,7 @@ class InstallationRooftopImage(TimeStampModel):
         except Exception as e:
             return
 
-class ManholeSettingExcavationImage(TimeStampModel):
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
+class ManholeSettingExcavationImage(TimeStampModel,TimeTrackModel):
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     manhole_setting_excavation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/ManholeSettingExcavationImage/%Y/%m/%d/')
@@ -3675,9 +3553,7 @@ class ManholeSettingExcavationImage(TimeStampModel):
         except Exception as e:
             return
 
-class ManholeBlinding(TimeStampModel):
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
+class ManholeBlinding(TimeStampModel,TimeTrackModel):
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     manhole_blinding_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/ManholeBlinding/%Y/%m/%d/')
@@ -3765,9 +3641,7 @@ class ManholeBlinding(TimeStampModel):
         except Exception as e:
             return
 
-class ManholeBlockwork(TimeStampModel):
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
+class ManholeBlockwork(TimeStampModel,TimeTrackModel):
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     manhole_blindingwork_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/ManholeBlockwork/%Y/%m/%d/')
@@ -3855,10 +3729,8 @@ class ManholeBlockwork(TimeStampModel):
         except Exception as e:
             return
 
-class ManholeSettingOutConstructionImage(TimeStampModel):
+class ManholeSettingOutConstructionImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     engineers_atsite = models.ManyToManyField(Engineer, blank=True )
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     manhole_setting_excavation_image = models.OneToOneField(ManholeSettingExcavationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -3918,11 +3790,9 @@ class ManholeSettingOutConstructionImage(TimeStampModel):
 ####################################### TOWER & ANTENNA_COAX ###########################################################################################################################
 
 
-class TowerPaintImage(TimeStampModel):
+class TowerPaintImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     tower_painting_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/towerpainting/%Y/%m/%d/')
     tower_painting_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/towerpainting/%Y/%m/%d/')
     tower_painting_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/towerpainting/%Y/%m/%d/')
@@ -4012,18 +3882,13 @@ class TowerPaintImage(TimeStampModel):
         except Exception as e:
             return
 
-class CableWaysImage(TimeStampModel):
+class CableWaysImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     cable_ways_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/cableways/%Y/%m/%d/')
     cable_ways_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/cableways/%Y/%m/%d/')
     cable_ways_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/cableways/%Y/%m/%d/')
     cable_ways_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -4108,11 +3973,9 @@ class CableWaysImage(TimeStampModel):
         except Exception as e:
             return
 
-class AntennaCoaxInstallImage(TimeStampModel):
+class AntennaCoaxInstallImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     antenna_coax_installation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/antennacoaxinstallation/%Y/%m/%d/')
     antenna_coax_installation_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/antennacoaxinstallation/%Y/%m/%d/')
     antenna_coax_installation_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/antennacoaxinstallation/%Y/%m/%d/')
@@ -4202,11 +4065,9 @@ class AntennaCoaxInstallImage(TimeStampModel):
         except Exception as e:
             return
 
-class EarthInstallationImage(TimeStampModel):
+class EarthInstallationImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     earth_Installation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/EarthInstallationImage/%Y/%m/%d/')
     earth_Installation_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/EarthInstallationImage/%Y/%m/%d/')
     earth_Installation_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/EarthInstallationImage/%Y/%m/%d/')
@@ -4299,7 +4160,7 @@ class EarthInstallationImage(TimeStampModel):
 
 
 
-class TowerAntennaCoaxImage(TimeStampModel):
+class TowerAntennaCoaxImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     engineers_atsite = models.ManyToManyField(Engineer, blank=True )
 
@@ -4312,8 +4173,6 @@ class TowerAntennaCoaxImage(TimeStampModel):
     antenna_coax_installation = models.OneToOneField(AntennaCoaxInstallImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     earth_installation = models.OneToOneField(EarthInstallationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     tower_antenna_coax_comment = models.CharField(max_length=100, blank=True, null=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
 
 
     def __str__(self):
@@ -4366,19 +4225,16 @@ class TowerAntennaCoaxImage(TimeStampModel):
 
 ####################################### INSTALLATION ###########################################################################################################################
 
-class AccessApprovalCivil(models.Model):
+class AccessApprovalCivil(TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     access_approval = models.FileField(upload_to='files/CivilWorksTeam/accessapproval/%Y/%m/%d/')
     access_approval_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
 
 
-class HealthDocumentsCivilTeam(models.Model):
+class HealthDocumentsCivilTeam(TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     job_hazard_form = models.FileField(upload_to='files/HealthDocumentsCivilTeam/jobhazard/%Y/%m/%d/')
     job_hazard_form_comment = models.CharField(max_length=100, blank=True, null=True)
@@ -4393,15 +4249,12 @@ class HealthDocumentsCivilTeam(models.Model):
     safety_picture = models.ImageField(upload_to='images/HealthDocumentsCivilTeam/%Y/%m/%d/', blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
 
 
-class CivilWorksTeam(models.Model):
+class CivilWorksTeam(TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     health_documents = models.ManyToManyField(HealthDocumentsCivilTeam, blank=True )
     foundation_and_curing_images = models.OneToOneField(FoundationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -4410,9 +4263,6 @@ class CivilWorksTeam(models.Model):
     tower_data = models.OneToOneField(TowerAntennaCoaxImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -4426,19 +4276,16 @@ class CivilWorksTeam(models.Model):
 ######################################################3 INSTALLATION TEAM ##################################################################################################################################################################3
 
 
-class AccessApprovalInstallation(models.Model):
+class AccessApprovalInstallation(TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     access_approval = models.FileField(upload_to='files/InstallationTeam/accessapproval/%Y/%m/%d/')
     access_approval_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
 
 
-class HealthDocumentsInstallationTeam(models.Model):
+class HealthDocumentsInstallationTeam(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     job_hazard_form = models.FileField(upload_to='files/HealthDocumentsInstallationTeam/jobhazard/%Y/%m/%d/')
     job_hazard_form_comment = models.CharField(max_length=100, blank=True, null=True)
@@ -4453,26 +4300,18 @@ class HealthDocumentsInstallationTeam(models.Model):
     safety_picture = models.ImageField(upload_to='images/HealthDocumentsInstallationTeam/%Y/%m/%d/', blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
 
 
-class UndergroundTasks(models.Model):
+class UndergroundTasks(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     Underground_ducting_and_manholes_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/UndergroundTasks/%Y/%m/%d/', blank=True, null=True)
     Underground_ducting_and_manholes_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/UndergroundTasks/%Y/%m/%d/', blank=True, null=True)
     Underground_ducting_and_manholes_image_3 = models.ImageField(upload_to='images/InstallationTeam/Electrical/UndergroundTasks/%Y/%m/%d/', blank=True, null=True)
     Underground_ducting_and_manholes_images_comment = models.CharField(max_length=100, blank=True, null=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -4558,18 +4397,13 @@ class UndergroundTasks(models.Model):
             return
 
 
-class ReticulationAPSinstallation(models.Model):
+class ReticulationAPSinstallation(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     Electricalreticulation_APSInstallation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ReticulationAPSinstallation/%Y/%m/%d/', blank=True, null=True)
     Electricalreticulation_APSInstallation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ReticulationAPSinstallation/%Y/%m/%d/', blank=True, null=True)
     Electricalreticulation_APSInstallation_image_3 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ReticulationAPSinstallation/%Y/%m/%d/', blank=True, null=True)
     Electricalreticulation_APSInstallation_images_comment = models.CharField(max_length=100, blank=True, null=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -4655,18 +4489,13 @@ class ReticulationAPSinstallation(models.Model):
             return
 
 
-class ElectricalEarthing(models.Model):
+class ElectricalEarthing(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     Earthing_connections_and_testing_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
     Earthing_connections_and_testing_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
     Earthing_connections_and_testing_image_3 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
     Earthing_connections_and_testing_images_comment = models.CharField(max_length=100, blank=True, null=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -4752,33 +4581,27 @@ class ElectricalEarthing(models.Model):
             return
 ###########################################GeneatorSlabsImage#######################################################################################################################
 
-class GenExcavationImage(TimeStampModel):
+class GenExcavationImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     gen_excation_image = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/GenExcationImages/'),max_length = 250,blank=True, null=True)
     gen_excation_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return str(self.generator_image)
 
 
-class GenConcretePourCuringPeriodImage(TimeStampModel):
+class GenConcretePourCuringPeriodImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     gen_concrete_pourcuring_image = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/GenExcationCuringPeriodImages/'),max_length = 250,blank=True, null=True)
     gen_concrete_pourcuring_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return str(self.gen_concrete_pourcuring_image)
 
-class GenCableConduitsSettingImage(TimeStampModel):
+class GenCableConduitsSettingImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     gen_cable_conduits_setting_image = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/GenCableConduitsImages/'),max_length = 250,blank=True, null=True)
     gen_cable_conduits_setting_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return str(self.gen_cable_conduits_setting_image)
@@ -4787,7 +4610,7 @@ class GenCableConduitsSettingImage(TimeStampModel):
 ###########################################END######################################################################################################################################
 
 
-class GeneratorInstallation(models.Model):
+class GeneratorInstallation(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     Generator_and_Fuel_Tank_Installation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/ElectricalEarthing/%Y/%m/%d/', blank=True, null=True)
@@ -4798,11 +4621,6 @@ class GeneratorInstallation(models.Model):
     after_fuel_image_1 = models.ImageField(upload_to='images/InstallationTeam/Electrical/Fueling/%Y/%m/%d/')
     after_fuel_image_2 = models.ImageField(upload_to='images/InstallationTeam/Electrical/Fueling/%Y/%m/%d/')
     Generator_and_Fuel_Tank_Installation_comment = models.CharField(max_length=100, blank=True, null=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -4888,18 +4706,13 @@ class GeneratorInstallation(models.Model):
             return
 
 
-class KPLCSolarImage(models.Model):
+class KPLCSolarImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     kplc_solar_installation_image_1 = models.ImageField(upload_to='images/InstallationTeam/KPLCSolar/%Y/%m/%d/', blank=True, null=True)
     kplc_solar_installation_image_2 = models.ImageField(upload_to='images/InstallationTeam/KPLCSolar/%Y/%m/%d/', blank=True, null=True)
     kplc_solar_installation_image_3 = models.ImageField(upload_to='images/InstallationTeam/KPLCSolar/%Y/%m/%d/', blank=True, null=True)
     kplc_solar_installation_comment = models.CharField(max_length=100, blank=True, null=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -4985,7 +4798,7 @@ class KPLCSolarImage(models.Model):
             return
 
 
-class ElectricalTasks(models.Model):
+class ElectricalTasks(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     engineers_atsite = models.ManyToManyField(Engineer, blank=True )
     Underground_ducting_and_manholes = models.OneToOneField(UndergroundTasks, on_delete=models.CASCADE, blank=True, null=True)
@@ -4993,12 +4806,7 @@ class ElectricalTasks(models.Model):
     Earthing_connections_and_testing = models.OneToOneField(ElectricalEarthing, on_delete=models.CASCADE, blank=True, null=True)
     Generator_and_Fuel_Tank_Installation = models.OneToOneField(GeneratorInstallation, on_delete=models.CASCADE, blank=True, null=True)
     KPLC_solar_installation = models.OneToOneField(KPLCSolarImage, on_delete=models.CASCADE, blank=True, null=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
     is_approved = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -5047,7 +4855,7 @@ class ElectricalTasks(models.Model):
             return
 
 
-class BTSinstallationTask(models.Model):
+class BTSinstallationTask(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     start_date = models.DateTimeField()
@@ -5055,11 +4863,6 @@ class BTSinstallationTask(models.Model):
     BTSinstallation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Telecom/BTSinstallation/%Y/%m/%d/', blank=True, null=True)
     BTSinstallation_image_3 = models.ImageField(upload_to='images/InstallationTeam/Telecom/BTSinstallation/%Y/%m/%d/', blank=True, null=True)
     BTSinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -5145,18 +4948,13 @@ class BTSinstallationTask(models.Model):
             return
 
 
-class MWInstallationTask(models.Model):
+class MWInstallationTask(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
     MWinstallation_image_1 = models.ImageField(upload_to='images/InstallationTeam/Telecom/MWinstallation/%Y/%m/%d/', blank=True, null=True)
     MWinstallation_image_2 = models.ImageField(upload_to='images/InstallationTeam/Telecom/MWinstallation/%Y/%m/%d/', blank=True, null=True)
     MWinstallation_image_3 = models.ImageField(upload_to='images/InstallationTeam/Telecom/MWinstallation/%Y/%m/%d/', blank=True, null=True)
     MWinstallation_comment = models.CharField(max_length=100, blank=True, null=True)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -5242,18 +5040,13 @@ class MWInstallationTask(models.Model):
             return
 
 
-class TelecomTasks(models.Model):
+class TelecomTasks(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     engineers_atsite = models.ManyToManyField(Engineer, blank=True )
     Installation_of_BTS = models.OneToOneField(BTSinstallationTask, on_delete=models.CASCADE, blank=True, null=True)
     Installation_of_MW_links = models.OneToOneField(MWInstallationTask, on_delete=models.CASCADE, blank=True, null=True)
-    link_commissioning = models.BooleanField(default=False);
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField(blank=True, null=True)
+    link_commissioning = models.BooleanField(default=False)
     is_approved = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
@@ -5302,16 +5095,13 @@ class TelecomTasks(models.Model):
             return
 
 
-class Issues(models.Model):
+class Issues(TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     issue = models.CharField(max_length=100)
     issue_image = models.ImageField(upload_to='images/InstallationTeam/issues/%Y/%m/%d/', blank=True, null=True)
     issue_sorted_image = models.ImageField(upload_to='images/InstallationTeam/issues/%Y/%m/%d/', blank=True, null=True)
     closed = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.issue
@@ -5350,31 +5140,25 @@ def date_difference(start_date, end_date):
     return no_of_days
 
 
-class WarrantyCertificate(models.Model):
+class WarrantyCertificate(TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     civilworks_installation_certificate = models.FileField(upload_to='files/WarrantyCertificates/civilworks/%Y/%m/%d/', blank=True, null=True)
     connectors_torque_certificate = models.FileField(upload_to='files/WarrantyCertificates/connectorsTorque/%Y/%m/%d/', blank=True, null=True)
     safe_to_climb_certificate = models.FileField(upload_to='files/WarrantyCertificates/SafeToClimb/%Y/%m/%d/', blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)
 
 
-class TestCetificate(models.Model):
+class TestCetificate(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     cube_test_7days = models.FileField(upload_to='files/TestCertificates/cubetest7/%Y/%m/%d/', blank=True, null=True)
     cube_test_28days = models.FileField(upload_to='files/TestCertificates/cubetest28/%Y/%m/%d/', blank=True, null=True)
     earth_test = models.FileField(upload_to='files/TestCertificates/earthtest/%Y/%m/%d/', blank=True, null=True)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     is_approved = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.project_name)

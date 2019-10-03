@@ -10,6 +10,12 @@ from erp_construction.models import *
 ############################ PROJECT FILES SERIALIZERS ###############################################
 
 
+class IRROF7FreeFilesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = IRROF7Free
+        fields = ('tower_complete', 'free_issue_material', 'link_material',)
+
 class SiteClearingFilesSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -297,12 +303,6 @@ class IssueImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Issues
         fields = ('issue_image', 'issue_sorted_image',)
-
-class IRROF7FreeFilesSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = IRROF7Free
-        fields = ('tower_complete', 'free_issue_material', 'link_material',)
 
 class FabricationQualityInspectionImageFilesSerializer(serializers.ModelSerializer):
 
