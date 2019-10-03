@@ -10,6 +10,8 @@ from erp_construction.btsfiles.filemixin import *
 
 file_path = 'BTSProjects'
 
+
+############################################ PROJECT CREATION ####################################################################################################################
 class ProjectIcons(models.Model):
     icon = models.ImageField(upload_to='images/Project/Icons/%Y/%m/%d/')
     site_owner = models.CharField(max_length=100)
@@ -21,6 +23,9 @@ class ProjectIcons(models.Model):
         return self.site_owner
 
 class BtsProject(models.Model):
+    '''
+    Main Project class creation
+    '''
     bts_project_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
     icon = models.ForeignKey(ProjectIcons, on_delete=models.DO_NOTHING, blank=True, null=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
@@ -35,6 +40,9 @@ class BtsProject(models.Model):
         verbose_name_plural = 'BTS PROJECTS'
 
 class BtsSite(TimeStampModel,TimeTrackModel):
+    '''
+    Main Site class creation per project
+    '''
     project_name = models.ForeignKey(BtsProject, on_delete=models.CASCADE, blank=True, null=True)
     site_name = models.CharField(max_length=100, unique=True, blank=True, null=True)
     site_number = models.CharField(max_length=100, unique=True, blank=True, null=True)
@@ -44,21 +52,20 @@ class BtsSite(TimeStampModel,TimeTrackModel):
     location = models.ForeignKey(Location, on_delete=models.DO_NOTHING, blank=True, null=True)
     geotech_file = models.FileField(upload_to='files/Project/geotech/%Y/%m/%d/', blank=True, null=True)
     geotech_file_comment =  models.CharField(max_length=100, blank=True, null=True)
-    access_letter = models.FileField(upload_to='files/Project/accessletters/%Y/%m/%d/', blank=True, null=True)
-    approved_drawing = models.FileField(upload_to='files/Project/approveddrawings/%Y/%m/%d/', blank=True, null=True)
-    final_acceptance_cert = models.FileField(upload_to='files/SafaricomTeam/finalcert/%Y/%m/%d/', blank=True, null=True)
+    approved_drawing = models.FileField(upload_to=UploadToProjectDir(file_path,'files/Project/approveddrawings/'), blank=True, null=True)
+    final_acceptance_cert = models.FileField(upload_to=UploadToProjectDir(file_path,'files/SafaricomTeam/finalcert/'), blank=True, null=True)
     final_acceptance_cert_comment = models.CharField(max_length=100, blank=True, null=True)
     created_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
-    rof_8 = models.FileField(upload_to='files/Project/rof8s/%Y/%m/%d/', blank=True, null=True)
+    rof_8 = models.FileField(upload_to=UploadToProjectDir(file_path,'files/Project/rof8s/'), blank=True, null=True)
     rof_8_comment = models.CharField(max_length=100, blank=True, null=True)
-    sign_off = models.FileField(upload_to='files/Project/signoffs/%Y/%m/%d/', blank=True, null=True)
+    sign_off = models.FileField(upload_to=UploadToProjectDir(file_path,'files/Project/signoffs/'), blank=True, null=True)
     sign_off_comment = models.CharField(max_length=100, blank=True, null=True)
-    rfi = models.FileField(upload_to='files/Project/rfis/%Y/%m/%d/', blank=True, null=True)
+    rfi = models.FileField(upload_to=UploadToProjectDir(file_path,'files/Project/rfis/'), blank=True, null=True)
     rfi_comment = models.CharField(max_length=100, blank=True, null=True)
-    integration_parameter = models.FileField(upload_to='files/Project/integrationparameters/%Y/%m/%d/', blank=True, null=True)
+    integration_parameter = models.FileField(upload_to=UploadToProjectDir(file_path,'files/Project/integrationparameters/'), blank=True, null=True)
     integration_parameter_comment = models.CharField(max_length=100, blank=True, null=True)
-    ip_plan = models.FileField(upload_to='files/Project/ipplans/%Y/%m/%d/', blank=True, null=True)
-    ip_plan_comment= models.FileField(upload_to='files/Project/ipplans/%Y/%m/%d/', blank=True, null=True)
+    ip_plan = models.FileField(upload_to=UploadToProjectDir(file_path,'files/Project/ipplans/'), blank=True, null=True)
+    ip_plan_comment= models.FileField(upload_to=UploadToProjectDir(file_path,'files/Project/ipplans/'), blank=True, null=True)
 
     def __str__(self):
         return '{}:{}'.format(self.site_name,self.project_name)
@@ -220,15 +227,16 @@ class BtsSite(TimeStampModel,TimeTrackModel):
         project_percentage = ((commercial_percentage + civil_percentage + procurement_percentage + installation_percentage )/4)
 
         return project_percentage
+##################################### END #########################################################################################
 
 #####################################IRROF7Free#########################################################################################
 class IRROF7Free(TimeStampModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    tower_complete = models.FileField(upload_to='files/IRROF7Frees/towercomplete/%Y/%m/%d/', blank=True, null=True)
+    tower_complete = models.FileField(upload_to=UploadToProjectDir(file_path,'files/IRROF7Frees/towercomplete/'), blank=True, null=True)
     tower_complete_comment = models.CharField(max_length=100, blank=True, null=True)
-    free_issue_material = models.FileField(upload_to='files/IRROF7Frees/freeissuematerials/%Y/%m/%d/', blank=True, null=True)
+    free_issue_material = models.FileField(upload_to=UploadToProjectDir(file_path,'files/IRROF7Frees/freeissuematerials/'), blank=True, null=True)
     free_issue_material_comment = models.CharField(max_length=100, blank=True, null=True)
-    link_material = models.FileField(upload_to='files/IRROF7Frees/linkmaterials/%Y/%m/%d/', blank=True, null=True)
+    link_material = models.FileField(upload_to=UploadToProjectDir(file_path,'files/IRROF7Frees/linkmaterials/'), blank=True, null=True)
     link_material_comment = models.CharField(max_length=100, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     posted_by = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)

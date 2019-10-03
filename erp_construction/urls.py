@@ -16,7 +16,9 @@ file_path = 'BTSProjects'
 router = DefaultRouter()
 
 router.register(r'btsproject', views.BtsProjectViewSet)
+router.register(r'IRROF7Free', views.IRROF7FreeViewSet)
 router.register(r'btssite', views.BtsSiteViewSet)
+
 router.register(r'category', views.CategoryViewSet)
 router.register(r'Icons', views.ProjectIconViewSet)
 router.register(r'projectcosting', views.ProjectCostingViewSet)

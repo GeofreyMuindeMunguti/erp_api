@@ -12,6 +12,21 @@ class ProjectIconsAdmin(admin.ModelAdmin):
 
 admin.site.register(ProjectIcons, ProjectIconsAdmin)
 
+class BtsProjectAdmin(admin.ModelAdmin):
+    list_display = ('id', 'bts_project_name', 'icon', 'created_at', 'updated_at', 'is_active')
+    list_display_links = ('bts_project_name', )
+    search_fields = ('bts_project_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(BtsProject, BtsProjectAdmin)
+
+class IRROF7FreeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'tower_complete','tower_complete_comment', 'free_issue_material','free_issue_material_comment', 'link_material','link_material_comment', 'posted_by', 'is_approved')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+
+
+admin.site.register(IRROF7Free, IRROF7FreeAdmin)
 
 class BtsSiteAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'icon', 'site_number', 'BTS_type', 'site_owner', 'geotech_file','geotech_file_comment', 'access_letter', 'approved_drawing','final_acceptance_cert', 'final_acceptance_cert_comment',
@@ -19,18 +34,7 @@ class BtsSiteAdmin(admin.ModelAdmin):
     list_display_links = ('project_name', )
     search_fields = ('project_name', )
 
-
-
 admin.site.register(BtsSite, BtsSiteAdmin)
-
-class BtsProjectAdmin(admin.ModelAdmin):
-    list_display = ('id', 'bts_project_name', 'icon', 'created_at', 'updated_at', 'is_active')
-    list_display_links = ('bts_project_name', )
-    search_fields = ('bts_project_name', )
-    list_editable = ('is_active',)
-
-
-admin.site.register(BtsProject, BtsProjectAdmin)
 
 class BtsBudgetAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'beneficiary_name','description', 'date','phoneNumber','quantity', 'rate','unit','amount','is_approved','created_at', 'updated_at', 'is_active')
@@ -637,13 +641,6 @@ class TestCetificateAdmin(admin.ModelAdmin):
 
 admin.site.register(TestCetificate, TestCetificateAdmin)
 
-class IRROF7FreeAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'tower_complete','tower_complete_comment', 'free_issue_material','free_issue_material_comment', 'link_material','link_material_comment', 'posted_by', 'is_approved')
-    list_display_links = ('project_name', )
-    search_fields = ('project_name', )
-
-
-admin.site.register(IRROF7Free, IRROF7FreeAdmin)
 
 class FabricationQualityInspectionImageAdmin(admin.ModelAdmin):
    list_display = ('id', 'project_name','task_id','start_date','end_date', 'fabrication_quality_inspection_image_1','fabrication_quality_inspection_image_2','fabrication_quality_inspection_image_3','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost','raise_flag','fabrication_quality_inspection_image_comment')

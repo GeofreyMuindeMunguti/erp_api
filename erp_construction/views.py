@@ -51,6 +51,14 @@ class BtsProjectViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('bts_project_name', )
     ordering_fields = ('updated_at', 'bts_project_name', )
 
+class IRROF7FreeViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating a project."""
+    queryset = IRROF7Free.objects.all()
+    serializer_class = IRROF7FreeSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('project_name', )
+
 class BtsSiteViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating a project."""
     queryset = BtsSite.objects.order_by('created_at')
@@ -576,14 +584,6 @@ def status_function(model_class, request):
         return status
     else:
         return status
-
-class IRROF7FreeViewSet(DefaultsMixin, viewsets.ModelViewSet):
-    """API endpoint for listing and creating a project."""
-    queryset = IRROF7Free.objects.all()
-    serializer_class = IRROF7FreeSerializer
-
-    search_fields = ('project_name', )
-    ordering_fields = ('project_name', )
 
 class GalvanisationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating a project."""
