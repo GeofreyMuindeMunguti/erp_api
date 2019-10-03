@@ -650,3 +650,59 @@ class FabricationRooftopImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('project_name', )
     ordering_fields = ('start_date','project_name', )
+
+class HackingExistingColumnsImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating a project."""
+    queryset = HackingExistingColumnsImage.objects.order_by('start_date')
+    serializer_class = HackingExistingColumnsImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('start_date','project_name', )
+
+class FormworkColumnsConcretePourCuringImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating a project."""
+    queryset = FormworkColumnsConcretePourCuringImage.objects.order_by('start_date')
+    serializer_class = FormworkColumnsConcretePourCuringImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('start_date','project_name', )
+
+class DeliveryToSiteImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating a project."""
+    queryset = DeliveryToSiteImage.objects.order_by('start_date')
+    serializer_class = DeliveryToSiteImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('start_date','project_name', )
+
+class LiftingHoistingFreeIssueImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating a project."""
+    queryset = LiftingHoistingFreeIssueImage.objects.order_by('start_date')
+    serializer_class = LiftingHoistingFreeIssueImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('start_date','project_name', )
+
+class FenceInstallationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating a project."""
+    queryset = FenceInstallationImage.objects.order_by('start_date')
+    serializer_class = FenceInstallationImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('start_date','project_name', )
+
+class SiteRestorationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating a project."""
+    queryset = SiteRestorationImage.objects.order_by('start_date')
+    serializer_class = SiteRestorationImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('start_date','project_name', )
+
+class InstallationRooftopImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating a project."""
+    queryset = InstallationRooftopImage.objects.order_by('start_date')
+    serializer_class = InstallationRooftopImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('start_date','project_name', )

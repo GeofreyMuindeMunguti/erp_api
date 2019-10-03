@@ -323,6 +323,42 @@ class GalvanisationImageFilesSerializer(serializers.ModelSerializer):
         model = GalvanisationImage
         fields = ('galvanisation_image_1', 'galvanisation_image_2', 'galvanisation_image_3',)
 
+class HackingExistingColumnsImageFilesSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = HackingExistingColumnsImage
+        fields = ('hacking_existing_columns_image_1', 'hacking_existing_columns_image_2', 'hacking_existing_columns_image_3',)
+
+class FormworkColumnsConcretePourCuringImageFilesSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = FormworkColumnsConcretePourCuringImage
+        fields = ('formwork_columns_concrete_pour_curing_image_1', 'formwork_columns_concrete_pour_curing_image_2', 'formwork_columns_concrete_pour_curing_image_3',)
+
+class DeliveryToSiteImageFilesSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = DeliveryToSiteImage
+        fields = ('delivery_to_site_image_1', 'delivery_to_site_image_2', 'delivery_to_site_image_3',)
+
+class LiftingHoistingFreeIssueImageFilesSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = LiftingHoistingFreeIssueImage
+        fields = ('lifting_hoisting_free_issue_image_1', 'lifting_hoisting_free_issue_image_2', 'lifting_hoisting_free_issue_image_3',)
+
+class FenceInstallationImageFilesSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = FenceInstallationImage
+        fields = ('fence_installation_image_1', 'fence_installation_image_2', 'fence_installation_image_3',)
+
+class SiteRestorationImageFilesSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = SiteRestorationImage
+        fields = ('site_restoration_image_1', 'site_restoration_image_2', 'site_restoration_image_3',)
+
 
 ################### Main Project Serializer################################
 
@@ -399,8 +435,14 @@ class SiteFilesSerializer(serializers.ModelSerializer):
     fabricationSteelDeckImage = FabricationSteelDeckImageFilesSerializer(read_only=True)
     galvanisationImage = GalvanisationImageFilesSerializer(read_only=True)
 
-
+    hackingExistingColumnsImage = HackingExistingColumnsImageFilesSerializer(read_only=True)
+    formworkColumnsConcretePourCuringImage = FormworkColumnsConcretePourCuringImageFilesSerializer(read_only=True)
+    deliveryToSiteImage = DeliveryToSiteImageFilesSerializer(read_only=True)
+    liftingHoistingFreeIssueImage = LiftingHoistingFreeIssueImageFilesSerializer(read_only=True)
+    fenceInstallationImage = FenceInstallationImageFilesSerializer(read_only=True)
+    siteRestorationImage = SiteRestorationImageFilesSerializer(read_only=True)
     class Meta:
+
         model = BtsSite
        # fields = ('__all__')
         exclude = ("id","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment",

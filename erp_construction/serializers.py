@@ -631,3 +631,46 @@ class FabricationRooftopImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = FabricationRooftopImage
         fields = ('__all__')  
+
+class HackingExistingColumnsImageSerializer(serializers.ModelSerializer):
+      
+    class Meta:
+        model = HackingExistingColumnsImage
+        fields = ('__all__')  
+
+class FormworkColumnsConcretePourCuringImageSerializer(serializers.ModelSerializer):
+      
+    class Meta:
+        model = FormworkColumnsConcretePourCuringImage
+        fields = ('__all__')  
+
+class DeliveryToSiteImageSerializer(serializers.ModelSerializer):
+      
+    class Meta:
+        model = DeliveryToSiteImage
+        fields = ('__all__')  
+
+class LiftingHoistingFreeIssueImageSerializer(serializers.ModelSerializer):
+      
+    class Meta:
+        model = LiftingHoistingFreeIssueImage
+        fields = ('__all__') 
+
+class FenceInstallationImageSerializer(serializers.ModelSerializer):
+      
+    class Meta:
+        model = FenceInstallationImage
+        fields = ('__all__') 
+
+class SiteRestorationImageSerializer(serializers.ModelSerializer):
+      
+    class Meta:
+        model = SiteRestorationImage
+        fields = ('__all__') 
+
+class InstallationRooftopImageSerializer(serializers.ModelSerializer):
+      
+    class Meta:
+        model = InstallationRooftopImage
+        fields = ('__all__') 
+

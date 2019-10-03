@@ -374,3 +374,45 @@ class GalvanisationImageFilesView(generics.RetrieveAPIView,DefaultsMixin):
         queryset = GalvanisationImage.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
     serializer_class = GalvanisationImageFilesSerializer
+
+class HackingExistingColumnsImageFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    
+    def get_queryset(self):
+        queryset = HackingExistingColumnsImage.objects.filter(project_name_id=self.kwargs["pk"])
+        return queryset
+    serializer_class = HackingExistingColumnsImageFilesSerializer
+
+class FormworkColumnsConcretePourCuringImageFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    
+    def get_queryset(self):
+        queryset = FormworkColumnsConcretePourCuringImage.objects.filter(project_name_id=self.kwargs["pk"])
+        return queryset
+    serializer_class = FormworkColumnsConcretePourCuringImageFilesSerializer
+
+class DeliveryToSiteImageFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    
+    def get_queryset(self):
+        queryset = DeliveryToSiteImage.objects.filter(project_name_id=self.kwargs["pk"])
+        return queryset
+    serializer_class =  DeliveryToSiteImageFilesSerializer
+
+class LiftingHoistingFreeIssueImageFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    
+    def get_queryset(self):
+        queryset = LiftingHoistingFreeIssueImage.objects.filter(project_name_id=self.kwargs["pk"])
+        return queryset
+    serializer_class =  LiftingHoistingFreeIssueImageFilesSerializer
+
+class FenceInstallationImageFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    
+    def get_queryset(self):
+        queryset = FenceInstallationImage.objects.filter(project_name_id=self.kwargs["pk"])
+        return queryset
+    serializer_class =  FenceInstallationImageFilesSerializer
+
+class SiteRestorationImageFilesView(generics.RetrieveAPIView,DefaultsMixin):
+    
+    def get_queryset(self):
+        queryset = SiteRestorationImage.objects.filter(project_name_id=self.kwargs["pk"])
+        return queryset
+    serializer_class =  SiteRestorationImageFilesSerializer

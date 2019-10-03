@@ -673,3 +673,80 @@ class FabricationRooftopImageAdmin(admin.ModelAdmin):
     search_fields = ('project_name', )
 
 admin.site.register(FabricationRooftopImage, FabricationRooftopImageAdmin)
+
+class HackingExistingColumnsImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name','start_date','end_date', 'hacking_existing_columns_image_1','hacking_existing_columns_image_2','hacking_existing_columns_image_3','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost','raise_flag','hacking_existing_columns_image_comment')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+
+admin.site.register(HackingExistingColumnsImage, HackingExistingColumnsImageAdmin)
+
+class FormworkColumnsConcretePourCuringImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name','start_date','end_date', 'formwork_columns_concrete_pour_curing_image_1','formwork_columns_concrete_pour_curing_image_2','formwork_columns_concrete_pour_curing_image_3','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost','raise_flag','formwork_columns_concrete_pour_curing_image_comment')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+
+admin.site.register(FormworkColumnsConcretePourCuringImage, FormworkColumnsConcretePourCuringImageAdmin)
+
+class DeliveryToSiteImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name','start_date','end_date', 'delivery_to_site_image_1','delivery_to_site_image_2','delivery_to_site_image_3','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost','raise_flag','delivery_to_site_image_comment')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+
+admin.site.register(DeliveryToSiteImage, DeliveryToSiteImageAdmin)
+
+class LiftingHoistingFreeIssueImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name','start_date','end_date', 'lifting_hoisting_free_issue_image_1','lifting_hoisting_free_issue_image_2','lifting_hoisting_free_issue_image_3','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost','raise_flag','lifting_hoisting_free_issue_image_comment')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+
+admin.site.register(LiftingHoistingFreeIssueImage, LiftingHoistingFreeIssueImageAdmin)
+
+class FenceInstallationImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name','start_date','end_date', 'fence_installation_image_1','fence_installation_image_2','fence_installation_image_3','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost','raise_flag','fence_installation_image_comment')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+
+admin.site.register(FenceInstallationImage, FenceInstallationImageAdmin)
+
+class  SiteRestorationImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name','start_date','end_date', 'site_restoration_image_1','site_restoration_image_2','site_restoration_image_3','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost','raise_flag','site_restoration_image_comment')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+
+admin.site.register( SiteRestorationImage, SiteRestorationImageAdmin)
+
+class InstallationRooftopImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name','team_task_id','start_date','end_date','engineers', 'names_of_engineers','raise_flag','hacking_existing_columns_image','formwork_columns_concrete_pour_curing_image','delivery_to_site_image','lifting_hoisting_freeissue_image','fence_installation_image','site_restoration_image','installation_rooftop_image_comment')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+
+admin.site.register( InstallationRooftopImage, InstallationRooftopImageAdmin)
+
+class  ManholeSettingExcavationImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name','start_date','end_date', 'manhole_setting_excavation_image_1','manhole_setting_excavation_image_2','manhole_setting_excavation_image_3','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost','raise_flag','manhole_setting_excavation_image_comment')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+
+admin.site.register( ManholeSettingExcavationImage, ManholeSettingExcavationImageAdmin)
+
+class  ManholeBlindingAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name','start_date','end_date', 'manhole_blinding_image_1','manhole_blinding_image_2','manhole_blinding_image_3','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost','raise_flag','manhole_blinding_image_comment')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+
+admin.site.register( ManholeBlinding, ManholeBlindingAdmin)
+
+class  ManholeBlockworkAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name','start_date','end_date', 'manhole_blindingwork_image_1','manhole_blindingwork_image_2','manhole_blindingwork_image_3','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost','raise_flag','manhole_blindingwork_image_comment')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+
+admin.site.register( ManholeBlockwork, ManholeBlockworkAdmin)
+
+class ManholeSettingOutConstructionImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name','team_task_id','start_date','end_date','engineers', 'names_of_engineers','raise_flag','manhole_setting_excavation_image','manhole_blinding_image','manhole_blockwork_image','manhole_setting_out_construction_image_comment')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+
+admin.site.register( ManholeSettingOutConstructionImage, ManholeSettingOutConstructionImageAdmin)
