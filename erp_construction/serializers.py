@@ -250,6 +250,42 @@ class FoundFootPourImageSerializer(serializers.ModelSerializer):
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
+class BWConcretePourCuringPeriodImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
+    task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = BWConcretePourCuringPeriodImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class ExcavationstripFoundationsImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
+    task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = ExcavationstripFoundationsImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class BWBlindingImageAdminSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
+    task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = BWBlindingImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class BWCableConduitsImageAdminSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
+    task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = BWCableConduitsImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
 
 class BlockworkPanelConstImageSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
@@ -333,6 +369,44 @@ class AntennaCoaxInstallImageSerializer(serializers.ModelSerializer):
         model = AntennaCoaxInstallImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class TowerDeliveryImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
+    task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = TowerDeliveryImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class AviationLightsInstallationImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
+    task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = AviationLightsInstallationImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class EarthInstallationImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
+    task_id =    serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = EarthInstallationImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class CableInstallationImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
+    task_id =    serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = CableInstallationImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
 
 
 class TowerAntennaCoaxImageSerializer(serializers.ModelSerializer):
@@ -490,3 +564,75 @@ class IssuesSerializer(serializers.ModelSerializer):
         model = Issues
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class IRROF7FreeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = IRROF7Free
+        fields = ('__all__')
+
+class GalvanisationImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = GalvanisationImage
+        fields = ('__all__')
+
+class FabricationSteelDeckImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FabricationSteelDeckImage
+        fields = ('__all__')
+
+class FabricationQualityInspectionImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FabricationQualityInspectionImage
+        fields = ('__all__')
+
+class FabricationRooftopImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FabricationRooftopImage
+        fields = ('__all__')
+
+class HackingExistingColumnsImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = HackingExistingColumnsImage
+        fields = ('__all__')
+
+class FormworkColumnsConcretePourCuringImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FormworkColumnsConcretePourCuringImage
+        fields = ('__all__')
+
+class DeliveryToSiteImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = DeliveryToSiteImage
+        fields = ('__all__')
+
+class LiftingHoistingFreeIssueImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = LiftingHoistingFreeIssueImage
+        fields = ('__all__')
+
+class FenceInstallationImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FenceInstallationImage
+        fields = ('__all__')
+
+class SiteRestorationImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SiteRestorationImage
+        fields = ('__all__')
+
+class InstallationRooftopImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = InstallationRooftopImage
+        fields = ('__all__')
