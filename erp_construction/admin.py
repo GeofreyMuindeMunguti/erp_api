@@ -169,7 +169,7 @@ admin.site.register(HealthDocumentsCivilTeam, HealthDocumentsCivilTeamAdmin)
 
 #######################################START FOUNDATION IMAGES########################################################################################################################################
 class FoundationImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'team_task_id', 'setting_site_clearing', 'excavation_tower_base', 'binding', 'steel_fix_formwork','concrete_pour_curing_period', 'concrete_curing_period','foundation_and_curing_comment','engineers', 'names_of_engineers','start_date','end_date', 'raise_flag','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'team_task_id', 'setting_site_clearing', 'excavation_tower_base', 'binding', 'steel_fix_formwork','concrete_pour_curing_period', 'concrete_curing_period','dom_equipment','foundation_and_curing_comment','engineers', 'names_of_engineers','start_date','end_date', 'raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -187,8 +187,6 @@ class EarthInstallationImageAdmin(admin.ModelAdmin):
 
 admin.site.register(EarthInstallationImage, EarthInstallationImageAdmin)
 
-
-
 class CableInstallationImageAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'task_id', 'cable_installation_image_1', 'cable_installation_image_2', 'cable_installation_image_3', 'cable_installation_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
@@ -197,8 +195,6 @@ class CableInstallationImageAdmin(admin.ModelAdmin):
     list_editable = ('is_active',)
 
 admin.site.register(CableInstallationImage, CableInstallationImageAdmin)
-
-
 
 class AviationLightsInstallationImageAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'task_id', 'aviation_lights_installation_image_1', 'aviation_lights_installation_image_2', 'aviation_lights_installation_image_3', 'aviation_lights_installation_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
@@ -285,6 +281,15 @@ class ConcreteCuringPeriodImageAdmin(admin.ModelAdmin):
 admin.site.register(ConcreteCuringPeriodImage, ConcreteCuringPeriodImageAdmin)
 
 
+class DeliveryOfMaterialandEquipementAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'dom_equipment_image_1', 'dom_equipment_image_2', 'dom_equipment_image_3', 'dom_equipment_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(DeliveryOfMaterialandEquipement, DeliveryOfMaterialandEquipementAdmin)
 ######################################## END #######################################################################################################################################
 
 #######################################BS241 & GENERATOR FOUNDATION ###########################################################################################################################

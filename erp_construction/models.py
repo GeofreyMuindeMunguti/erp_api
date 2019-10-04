@@ -886,11 +886,13 @@ class ConcretePourImage(TimeStampModel,TimeTrackModel):
 
 
 class ConcreteCuringPeriodDocs(TimeStampModel):
-    Rebar_Concrete_Inspection = models. BooleanField(blank=True)
-    Concrete_Inspection_Report = models. BooleanField(blank=True)
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    Rebar_Concrete_Inspection = models.BooleanField(blank=True, null=True)
+    Concrete_Inspection_Report = models.BooleanField(blank=True, null=True)
     Concrete_Cube_Test = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/ConcreteCubeTest/'),blank=True, null=True)
+
     def __str__(self):
-        return str(self.Rebar_Concrete_Inspection)
+        return str(self.project_name)
 
 
 class ConcreteCuringPeriodImage(TimeStampModel,TimeTrackModel):
@@ -901,9 +903,6 @@ class ConcreteCuringPeriodImage(TimeStampModel,TimeTrackModel):
     concrete_pour_curing_period_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
     concrete_pour_curing_period_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/ConcretePourCuringPeriod/%Y/%m/%d/')
     concrete_pour_curing_period_comment = models.CharField(max_length=100, blank=True, null=True)
-    rebar_concrete_inspection = models.BooleanField(blank=True, null=True)
-    concrete_inspection_report = models.BooleanField(blank=True, null=True)
-    concrete_cube_test = models.CharField(max_length=100)
 
     def __str__(self):
         return str(self.project_name)
@@ -988,6 +987,96 @@ class ConcreteCuringPeriodImage(TimeStampModel,TimeTrackModel):
         except Exception as e:
             return
 
+class DeliveryOfMaterialandEquipement(TimeStampModel,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
+    dom_equipment_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/DoMandEquipment/%Y/%m/%d/')
+    dom_equipment_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/DoMandEquipment/%Y/%m/%d/')
+    dom_equipment_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/DoMandEquipment/%Y/%m/%d/')
+    dom_equipment_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def casuals_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate * days_spent)
+            return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Engineer')
+            engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = FoundationImage.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name='Upload Delivery of Material and Equipment')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
+    def task_id(self):
+        try:
+            task = FoundationImage.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
 
 class FoundationImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
@@ -998,6 +1087,7 @@ class FoundationImage(TimeStampModel,TimeTrackModel):
     steel_fix_formwork = models.OneToOneField(SteelFixFormworkImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     concrete_pour_curing_period = models.OneToOneField(ConcretePourImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     concrete_curing_period = models.OneToOneField(ConcreteCuringPeriodImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    dom_equipment = models.OneToOneField(DeliveryOfMaterialandEquipement, on_delete=models.DO_NOTHING, blank=True, null=True)
     foundation_and_curing_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
@@ -1046,25 +1136,9 @@ class FoundationImage(TimeStampModel,TimeTrackModel):
         except Exception as e:
             return
 
-####################################### ADDED #############################################################
-class DeliveryOfMaterialandEquipement(TimeStampModel):
-
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    material_and_equipement_image = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/materialandequipement/'),blank=True, null=True)
-    material_and_equipement_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return str(self.image)
-
-############################################################################################
-
-
 ######################################## END #######################################################################################################################################
 
 #######################################BS241 & GENERATOR FOUNDATION ###########################################################################################################################
-
 
 class ExcavationImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
