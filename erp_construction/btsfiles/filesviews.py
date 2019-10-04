@@ -14,7 +14,7 @@ from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
 from rest_framework import status, viewsets
 from rest_framework.decorators import parser_classes
 from rest_framework.decorators import detail_route
-from erp_construction.fileshandler.filemixin import DefaultsMixin
+from erp_construction.btsfiles.filemixin import DefaultsMixin
 
 
 
@@ -34,6 +34,13 @@ class BtsSiteFilesView(generics.RetrieveAPIView,DefaultsMixin):
     queryset = BtsSite.objects.all()
     serializer_class = SiteFilesSerializer
 
+
+class IRROF7FreeFilesView(generics.RetrieveAPIView,DefaultsMixin):
+
+    def get_queryset(self):
+        queryset = IRROF7Free.objects.filter(project_name_id=self.kwargs["pk"])
+        return queryset
+    serializer_class = IRROF7FreeFilesSerializer
 
 
     # Views for individual files type
@@ -111,28 +118,28 @@ class FoundFootPourImageView(generics.RetrieveAPIView,DefaultsMixin):
     serializer_class = FoundFootPourImagesSerializer
 
 class BWCableConduitsImageView(generics.RetrieveAPIView,DefaultsMixin):
-     
+
     def get_queryset(self):
         queryset = BWCableConduitsImage.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
     serializer_class = BWCableConduitsImageSerializer
 
 class BWBlindingImageView(generics.RetrieveAPIView,DefaultsMixin):
-     
+
     def get_queryset(self):
         queryset = BWBlindingImage.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
     serializer_class = BWBlindingImageSerializer
 
 class ExcavationstripFoundationsImageView(generics.RetrieveAPIView,DefaultsMixin):
-     
+
     def get_queryset(self):
         queryset = ExcavationstripFoundationsImage.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
     serializer_class = ExcavationstripFoundationsImageSerializer
 
 class BWConcretePourCuringPeriodImageView(generics.RetrieveAPIView,DefaultsMixin):
-     
+
     def get_queryset(self):
         queryset = BWConcretePourCuringPeriodImage.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
@@ -191,21 +198,21 @@ class AviationLightsInstallationImageView(generics.RetrieveAPIView,DefaultsMixin
     serializer_class = AviationLightsInstallationImageSerializer
 
 class EarthInstallationImageView(generics.RetrieveAPIView,DefaultsMixin):
-    
+
     def get_queryset(self):
         queryset = EarthInstallationImage.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
     serializer_class = EarthInstallationImageSerializer
 
 class CableInstallationImageView(generics.RetrieveAPIView,DefaultsMixin):
-    
+
     def get_queryset(self):
         queryset = CableInstallationImage.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
     serializer_class = CableInstallationImageSerializer
 
 class TowerDeliveryImageView(generics.RetrieveAPIView,DefaultsMixin):
-   
+
     def get_queryset(self):
         queryset = TowerDeliveryImage.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
@@ -347,71 +354,64 @@ class IssueImageView(generics.RetrieveAPIView,DefaultsMixin):
         return queryset
     serializer_class = IssueImageSerializer
 
-class IRROF7FreeFilesView(generics.RetrieveAPIView,DefaultsMixin):
-    
-    def get_queryset(self):
-        queryset = IRROF7Free.objects.filter(project_name_id=self.kwargs["pk"])
-        return queryset
-    serializer_class = IRROF7FreeFilesSerializer
-
 class FabricationQualityInspectionImageFilesView(generics.RetrieveAPIView,DefaultsMixin):
-    
+
     def get_queryset(self):
         queryset = FabricationQualityInspectionImage.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
     serializer_class = FabricationQualityInspectionImageFilesSerializer
 
 class FabricationSteelDeckImageFilesView(generics.RetrieveAPIView,DefaultsMixin):
-    
+
     def get_queryset(self):
         queryset = FabricationSteelDeckImage.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
     serializer_class = FabricationSteelDeckImageFilesSerializer
 
 class GalvanisationImageFilesView(generics.RetrieveAPIView,DefaultsMixin):
-    
+
     def get_queryset(self):
         queryset = GalvanisationImage.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
     serializer_class = GalvanisationImageFilesSerializer
 
 class HackingExistingColumnsImageFilesView(generics.RetrieveAPIView,DefaultsMixin):
-    
+
     def get_queryset(self):
         queryset = HackingExistingColumnsImage.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
     serializer_class = HackingExistingColumnsImageFilesSerializer
 
 class FormworkColumnsConcretePourCuringImageFilesView(generics.RetrieveAPIView,DefaultsMixin):
-    
+
     def get_queryset(self):
         queryset = FormworkColumnsConcretePourCuringImage.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
     serializer_class = FormworkColumnsConcretePourCuringImageFilesSerializer
 
 class DeliveryToSiteImageFilesView(generics.RetrieveAPIView,DefaultsMixin):
-    
+
     def get_queryset(self):
         queryset = DeliveryToSiteImage.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
     serializer_class =  DeliveryToSiteImageFilesSerializer
 
 class LiftingHoistingFreeIssueImageFilesView(generics.RetrieveAPIView,DefaultsMixin):
-    
+
     def get_queryset(self):
         queryset = LiftingHoistingFreeIssueImage.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
     serializer_class =  LiftingHoistingFreeIssueImageFilesSerializer
 
 class FenceInstallationImageFilesView(generics.RetrieveAPIView,DefaultsMixin):
-    
+
     def get_queryset(self):
         queryset = FenceInstallationImage.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset
     serializer_class =  FenceInstallationImageFilesSerializer
 
 class SiteRestorationImageFilesView(generics.RetrieveAPIView,DefaultsMixin):
-    
+
     def get_queryset(self):
         queryset = SiteRestorationImage.objects.filter(project_name_id=self.kwargs["pk"])
         return queryset

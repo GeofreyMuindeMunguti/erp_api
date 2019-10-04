@@ -154,7 +154,7 @@ class SiteCableInstallationSubTaskFilesSerializer(serializers.ModelSerializer):
 
 
 class SiteCableInstallationASubTaskFilesSerializer(serializers.ModelSerializer):
-    sitecableinstallations = SiteCableInstallationSubTaskFilesSerializer(read_only =True)
+    sitecableinstallation = SiteCableInstallationSubTaskFilesSerializer(read_only =True)
 
     class Meta:
         model = FttsSite
@@ -184,7 +184,7 @@ class SiteTerminalInHseSubTaskFilesSerializer(serializers.ModelSerializer):
         fields = ('site_terminal_in_hse_image_1','site_terminal_in_hse_image_2','site_terminal_in_hse_image_3','site_terminal_in_hse_comment','terminalinhsedays',)
 
 class SiteTerminalInHseASubTaskFilesSerializer(serializers.ModelSerializer):
-    siteterminalinhses = SiteTerminalInHseSubTaskFilesSerializer(read_only =True)
+    siteterminalinhse = SiteTerminalInHseSubTaskFilesSerializer(read_only =True)
 
     class Meta:
         model = FttsSite
@@ -238,12 +238,7 @@ class FttsSiteFilesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FttsSite
-        #fields = ('__all__')
-       # fields = ('sitetrenching','siteductinstallation','fttscommercialteam','site_name')
-
         exclude = ("id","site_name","ftts_project","created_at",
            "updated_at", "is_active", "posted_by","location")
 
-        #fields = ('geotech_file','access_letter','approved_drawing','final_acceptance_cert','setSiteTrenchingimage',
-        #'towerbaseimage','bindingimage','steelfixformworkimage','concretepourcuringimage')
-        #read_only_fields = ('created_at', 'updated_at', 'is_active')
+    

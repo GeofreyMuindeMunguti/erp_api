@@ -164,7 +164,7 @@ class FtthCableInstallationImageAdmin(admin.ModelAdmin):
 admin.site.register(FtthCableInstallationImage, FtthCableInstallationImageAdmin)
 
 class DailyFtthCableInstallationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','cableinstallation_date','cableinstallation_comment','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','cableinstallation_comment','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     search_fields = ('sub_task', )
     list_editable = ('is_active',)
@@ -219,7 +219,7 @@ class FtthSplicingEnclosureImageAdmin(admin.ModelAdmin):
 admin.site.register(FtthSplicingEnclosureImage, FtthSplicingEnclosureImageAdmin)
 
 class DailyFtthSplicingEnclosureAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','splicing_encore_distance','splicingencore_date','splicingencore_comment','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','splicing_encore_distance','splicingencore_comment','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     search_fields = ('sub_task', )
     list_editable = ('is_active',)
@@ -246,7 +246,7 @@ class FtthSplicingFATImageAdmin(admin.ModelAdmin):
 admin.site.register(FtthSplicingFATImage, FtthSplicingFATImageAdmin)
 
 class DailyFtthSplicingFATAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','splicingFAT_date','splicingFAT_comment','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','splicingFAT_comment','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     search_fields = ('sub_task', )
     list_editable = ('is_active',)
@@ -273,7 +273,7 @@ class FtthSplicingFDTImageAdmin(admin.ModelAdmin):
 admin.site.register(FtthSplicingFDTImage, FtthSplicingFDTImageAdmin)
 
 class DailyFtthSplicingFDTAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','splicingFDT_date','splicingFDT_comment','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','splicingFDT_comment','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     search_fields = ('sub_task', )
     list_editable = ('is_active',)
@@ -312,7 +312,7 @@ class FtthCoreProvisionImageAdmin(admin.ModelAdmin):
 admin.site.register(FtthCoreProvisionImage, FtthCoreProvisionImageAdmin)
 
 class DailyFtthCoreProvisionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','coreprovision_date','coreprovision_comment','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','coreprovision_comment','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     search_fields = ('sub_task', )
     list_editable = ('is_active',)
@@ -340,7 +340,7 @@ class FtthPowerLevelsImageAdmin(admin.ModelAdmin):
 admin.site.register(FtthPowerLevelsImage, FtthPowerLevelsImageAdmin)
 
 class DailyFtthPowerLevelsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','powerlevels_date','powerlevels_comment','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','powerlevels_comment','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     search_fields = ('sub_task', )
     list_editable = ('is_active',)
@@ -368,7 +368,7 @@ class FtthOTDRTracesImageAdmin(admin.ModelAdmin):
 admin.site.register(FtthOTDRTracesImage, FtthOTDRTracesImageAdmin)
 
 class DailyFtthOTDRTracesAdmin(admin.ModelAdmin):
-    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','OTDRTraces_date','OTDRTraces_comment','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'sub_task','image_list','no_of_casuals', 'casuals_list','work_day','OTDRTraces_comment','created_at', 'updated_at', 'is_active')
     list_display_links = ('sub_task', )
     search_fields = ('sub_task', )
     list_editable = ('is_active',)

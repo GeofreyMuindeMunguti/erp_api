@@ -1,8 +1,12 @@
+
+#!/usr/bin/env python
+"""FILE PERMISSIONS"""
+
 import os
 import time
 import gc
 
-SLEEP_TIME = 300 # you can change this as per your needs
+SLEEP_TIME = 600 # you can change this as per your needs
 
 
 def update_folder_permissions():

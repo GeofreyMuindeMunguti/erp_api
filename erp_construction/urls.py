@@ -16,7 +16,9 @@ file_path = 'BTSProjects'
 router = DefaultRouter()
 
 router.register(r'btsproject', views.BtsProjectViewSet)
+router.register(r'IRROF7Free', views.IRROF7FreeViewSet)
 router.register(r'btssite', views.BtsSiteViewSet)
+
 router.register(r'category', views.CategoryViewSet)
 router.register(r'Icons', views.ProjectIconViewSet)
 router.register(r'projectcosting', views.ProjectCostingViewSet)
@@ -36,46 +38,57 @@ router.register(r'towerbaseimages', views.TowerBaseImageViewSet)
 router.register(r'bindingimages', views.BindingImageViewSet)
 router.register(r'steelfixformworkimages', views.SteelFixFormworkImageViewSet)
 router.register(r'concretepourimages', views.ConcretePourImageViewSet)
+router.register(r'ConcreteCuringPeriodDocs', views.ConcreteCuringPeriodDocsViewSet)
 router.register(r'concretecuringperiod', views.ConcreteCuringPeriodImageViewSet)
-router.register(r'deliveryofmaterialsandequipement', views.DeliveryOfMaterialandEquipementViewSet)
-
-
+router.register(r'DeliveryOfMaterialandEquipement', views.DeliveryOfMaterialandEquipementViewSet)
 
 router.register(r'excavation', views.ExcavationImageViewSet)
 router.register(r'bs241concretepourcuringperiod', views.bs241ConcretePourCuringPeriodImageViewSet)
+router.register(r'BS241Image', views.BS241ImageViewSet)
 router.register(r'bs241generatorslabs', views.BS241AndGeneatorSlabsImageViewSet)
-router.register(r'generatorexcavationimages', views.GenExcavationImageViewSet)
-router.register(r'generatorconcretepourcuringimages', views.GenConcretePourCuringPeriodImageViewSet)
-router.register(r'generatorcableconduitssettingimages', views.GenCableConduitsSettingImageViewSet)
-router.register(r'bs241images', views.BS241ImageViewSet)
 
+router.register(r'GenExcavationImage', views.GenExcavationImageViewSet)
+router.register(r'GenConcretePourCuringPeriodImage', views.GenConcretePourCuringPeriodImageViewSet)
+router.register(r'GenCableConduitsSettingImage', views.GenCableConduitsSettingImageViewSet)
+router.register(r'GeneatorSlabsImage', views.GeneatorSlabsImageViewSet)
+
+router.register(r'fabricationRooftopImages', views.FabricationRooftopImageViewSet)
+router.register(r'fabricationQualityInspectionImages', views.FabricationQualityInspectionImageViewSet)
+router.register(r'fabricationSteelDeckImages', views.FabricationSteelDeckImageViewSet)
+router.register(r'galvanisationImages', views.GalvanisationImageViewSet)
+
+router.register(r'hackingExistingColumnsImages', views.HackingExistingColumnsImageViewSet)
+router.register(r'formworkColumnsConcretePourCuringImages', views.FormworkColumnsConcretePourCuringImageViewSet)
+router.register(r'deliveryToSiteImages', views.DeliveryToSiteImageViewSet)
+router.register(r'liftingHoistingFreeIssueImages', views.LiftingHoistingFreeIssueImageViewSet)
+router.register(r'fenceInstallationImages', views.FenceInstallationImageViewSet)
+router.register(r'siteRestorationImages', views.SiteRestorationImageViewSet)
+router.register(r'installationRooftopImages', views.InstallationRooftopImageViewSet)
 
 router.register(r'foundationfootpour', views.FoundFootPourImageViewSet)
 router.register(r'bwconcretepourcuringperiod', views.BWConcretePourCuringPeriodImageViewSet)
 router.register(r'excavationstripfoundations', views.ExcavationstripFoundationsImageViewSet)
 router.register(r'bwcableconduits', views.BWCableConduitsImageViewSet)
 router.register(r'bwblinding', views.BWBlindingImageViewSet)
-     
-             
-           
-
 router.register(r'blockworkpanelconstruct', views.BlockworkPanelConstImageViewSet)
 router.register(r'gateinstallation', views.GateInstallationImageViewSet)
 router.register(r'razorelectricfence', views.RazorElectricFenceImageViewSet)
 router.register(r'boundarywall', views.BoundaryWallImageViewSet)
 
+router.register(r'ManholeSettingExcavationImage', views.ManholeSettingExcavationImageViewSet)
+router.register(r'ManholeBlinding', views.ManholeBlindingViewSet)
+router.register(r'ManholeBlockwork', views.ManholeBlockworkViewSet)
+router.register(r'ManholeSettingOutConstructionImage', views.ManholeSettingOutConstructionImageViewSet)
+
+router.register(r'towererection', views.TowerErectionImageViewSet)
+router.register(r'towerpaint', views.TowerPaintImageViewSet)
+router.register(r'cableways', views.CableWaysImageViewSet)
 router.register(r'cableinstallation', views.CableInstallationImageViewSet)
 router.register(r'earthinstallation', views.EarthInstallationImageViewSet)
 router.register(r'aviationlightsinstallation', views.AviationLightsInstallationImageViewSet)
 router.register(r'towerdelivery', views.TowerDeliveryImageViewSet)
-
-
-
-router.register(r'towerantennacoax', views.TowerAntennaCoaxImageViewSet)
-router.register(r'towererection', views.TowerErectionImageViewSet)
-router.register(r'towerpaint', views.TowerPaintImageViewSet)
-router.register(r'cableways', views.CableWaysImageViewSet)
 router.register(r'antennacoaxinstallation', views.AntennaCoaxInstallImageViewSet)
+router.register(r'towerantennacoax', views.TowerAntennaCoaxImageViewSet)
 
 
 router.register(r'kpi', views.KpiViewSet)
@@ -97,20 +110,8 @@ router.register(r'accessapprovalinstallations', views.AccessApprovalInstallation
 router.register(r'kplcsolarsmages', views.KPLCSolarImageViewSet)
 router.register(r'warrantyCertificates', views.WarrantyCertificateViewSet)
 router.register(r'testCetificates', views.TestCetificateViewSet)
-router.register(r'irrof7Frees', views.IRROF7FreeViewSet)
 
-router.register(r'fabricationRooftopImages', views.FabricationRooftopImageViewSet)
-router.register(r'fabricationQualityInspectionImages', views.FabricationQualityInspectionImageViewSet)
-router.register(r'fabricationSteelDeckImages', views.FabricationSteelDeckImageViewSet)
-router.register(r'galvanisationImages', views.GalvanisationImageViewSet)
 
-router.register(r'hackingExistingColumnsImages', views.HackingExistingColumnsImageViewSet)
-router.register(r'formworkColumnsConcretePourCuringImages', views.FormworkColumnsConcretePourCuringImageViewSet)
-router.register(r'deliveryToSiteImages', views.DeliveryToSiteImageViewSet)
-router.register(r'liftingHoistingFreeIssueImages', views.LiftingHoistingFreeIssueImageViewSet)
-router.register(r'fenceInstallationImages', views.FenceInstallationImageViewSet)
-router.register(r'siteRestorationImages', views.SiteRestorationImageViewSet)
-router.register(r'installationRooftopImages', views.InstallationRooftopImageViewSet)
 
 
 """ ENDPOINTS FOR FRONTEND"""
@@ -189,7 +190,7 @@ urlpatterns = [
     path('files/<int:pk>/btsinstallationtaskimages/', filesviews.BTSinstallationTaskImagesView.as_view()),
     path('files/<int:pk>/mwinstallationtaskimages/', filesviews.MWInstallationTaskImagesView.as_view()),
     path('files/<int:pk>/installationteamfiles/', filesviews.InstallationTeamFilesView.as_view()),
-    path('files/<int:pk>/irrof7Freesfiles/', filesviews.IRROF7FreeFilesView.as_view()),
+    path('files/<int:pk>/issueimages/', filesviews.IssueImageView.as_view()),
 
     path('files/<int:pk>/galvanisationImages/', filesviews.GalvanisationImageFilesView.as_view()),
     path('files/<int:pk>/fabricationsteeldeckimages/', filesviews.FabricationSteelDeckImageFilesView.as_view()),
@@ -209,6 +210,5 @@ urlpatterns = [
     path('totalpurchaseprders/', TotalPurchaseOrdersView.as_view()),
     path('revenueperproject/<int:pk>', RevenueDetailView.as_view()),
     path('revenue/', RevenueListView.as_view()),
-   
 
 ]

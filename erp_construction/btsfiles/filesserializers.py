@@ -10,6 +10,12 @@ from erp_construction.models import *
 ############################ PROJECT FILES SERIALIZERS ###############################################
 
 
+class IRROF7FreeFilesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = IRROF7Free
+        fields = ('tower_complete', 'free_issue_material', 'link_material',)
+
 class SiteClearingFilesSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -135,26 +141,26 @@ class TowerPaintImagesSerializer(serializers.ModelSerializer):
         fields = ('tower_painting_image_1','tower_painting_image_2','tower_painting_image_3',)
 
 class TowerDeliveryImageSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = TowerDeliveryImage
         fields = ('tower_delivery_image_1','tower_delivery_image_2','tower_delivery_image_3',)
 
 
 class CableInstallationImageSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = CableInstallationImage
         fields = ('cable_installation_image_1','cable_installation_image_2','cable_installation_image_3',)
 
 class EarthInstallationImageSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = EarthInstallationImage
         fields = ('earth_Installation_image_1','earth_Installation_image_2','earth_Installation_image_3',)
 
 class AviationLightsInstallationImageSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = AviationLightsInstallationImage
         fields = ('aviation_lights_installation_image_1','aviation_lights_installation_image_2','aviation_lights_installation_image_3',)
@@ -298,63 +304,57 @@ class IssueImageSerializer(serializers.ModelSerializer):
         model = Issues
         fields = ('issue_image', 'issue_sorted_image',)
 
-class IRROF7FreeFilesSerializer(serializers.ModelSerializer):
-    
-    class Meta:
-        model = IRROF7Free
-        fields = ('tower_complete', 'free_issue_material', 'link_material',)
-
 class FabricationQualityInspectionImageFilesSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = FabricationQualityInspectionImage
         fields = ('fabrication_quality_inspection_image_1', 'fabrication_quality_inspection_image_2', 'fabrication_quality_inspection_image_3',)
 
 class FabricationSteelDeckImageFilesSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = FabricationSteelDeckImage
         fields = ('fabrication_steel_deck_image_1', 'fabrication_steel_deck_image_2', 'fabrication_steel_deck_image_3',)
 
 
 class GalvanisationImageFilesSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = GalvanisationImage
         fields = ('galvanisation_image_1', 'galvanisation_image_2', 'galvanisation_image_3',)
 
 class HackingExistingColumnsImageFilesSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = HackingExistingColumnsImage
         fields = ('hacking_existing_columns_image_1', 'hacking_existing_columns_image_2', 'hacking_existing_columns_image_3',)
 
 class FormworkColumnsConcretePourCuringImageFilesSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = FormworkColumnsConcretePourCuringImage
         fields = ('formwork_columns_concrete_pour_curing_image_1', 'formwork_columns_concrete_pour_curing_image_2', 'formwork_columns_concrete_pour_curing_image_3',)
 
 class DeliveryToSiteImageFilesSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = DeliveryToSiteImage
         fields = ('delivery_to_site_image_1', 'delivery_to_site_image_2', 'delivery_to_site_image_3',)
 
 class LiftingHoistingFreeIssueImageFilesSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = LiftingHoistingFreeIssueImage
         fields = ('lifting_hoisting_free_issue_image_1', 'lifting_hoisting_free_issue_image_2', 'lifting_hoisting_free_issue_image_3',)
 
 class FenceInstallationImageFilesSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = FenceInstallationImage
         fields = ('fence_installation_image_1', 'fence_installation_image_2', 'fence_installation_image_3',)
 
 class SiteRestorationImageFilesSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = SiteRestorationImage
         fields = ('site_restoration_image_1', 'site_restoration_image_2', 'site_restoration_image_3',)
@@ -390,7 +390,7 @@ class SiteFilesSerializer(serializers.ModelSerializer):
     bwblindingimage     =BWBlindingImageSerializer(read_only=True)
     excavationstripfoundationsimage=  ExcavationstripFoundationsImageSerializer(read_only=True)
     bwconcretepourcuringperiodimage = BWConcretePourCuringPeriodImageSerializer(read_only=True)
-      
+
 
     blockworkpanelconstimage = BlockworkPanelConstImagesSerializer(read_only=True)
     gateinstallationimage = GateInstallationImagesSerializer(read_only=True)
@@ -407,7 +407,7 @@ class SiteFilesSerializer(serializers.ModelSerializer):
     earthinstallationimage = EarthInstallationImageSerializer(read_only=True)
     aviationlightsinstallationimage = AviationLightsInstallationImageSerializer(read_only=True)
 
- 
+
     antennacoaxinstallimage = AntennaCoaxInstallImagesSerializer(read_only=True)
 
     projectpurchaseorders = ProjectPurchaseOrdersFileSerializer(read_only=True)
@@ -430,6 +430,7 @@ class SiteFilesSerializer(serializers.ModelSerializer):
     mwinstallationtask = MWInstallationTaskImagesSerializer(read_only=True)
     installationteam = InstallationTeamFilesSerializer(read_only =True)
     issueimages = IssueImageSerializer(read_only=True)
+
     irrof7Free = IRROF7FreeFilesSerializer(read_only=True)
     fabricationQualityInspectionImage = FabricationQualityInspectionImageFilesSerializer(read_only=True)
     fabricationSteelDeckImage = FabricationSteelDeckImageFilesSerializer(read_only=True)
@@ -445,8 +446,8 @@ class SiteFilesSerializer(serializers.ModelSerializer):
 
         model = BtsSite
        # fields = ('__all__')
-        exclude = ("id","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment",
-           "icon", "location", "created_by")
+        exclude = ("id","site_name","site_number","BTS_type","site_owner","final_acceptance_cert_comment","created_at",
+           "updated_at", "is_active","icon", "location", "created_by")
 
         #fields = ('geotech_file','access_letter','approved_drawing','final_acceptance_cert','setsiteclearingimage',
         #'towerbaseimage','bindingimage','steelfixformworkimage','concretepourcuringimage')
