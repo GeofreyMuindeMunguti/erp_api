@@ -3466,17 +3466,14 @@ class BWCableConduitsImage(TimeStampModel,TimeTrackModel):
 class BoundaryWallImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     engineers_atsite = models.ManyToManyField(Engineer, blank=True )
-
     foundation_foot_pouring = models.OneToOneField(FoundFootPourImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     block_construction = models.OneToOneField(BlockworkPanelConstImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     gate_installation = models.OneToOneField(GateInstallationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     razor_electric_fence = models.OneToOneField(RazorElectricFenceImage, on_delete=models.DO_NOTHING, blank=True, null=True)
-
     bw_concrete_pour_curing_period = models.OneToOneField(BWConcretePourCuringPeriodImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     excavationstrip_foundations = models.OneToOneField(ExcavationstripFoundationsImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     bw_blinding = models.OneToOneField(BWBlindingImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     bw_cable_conduits = models.OneToOneField(BWCableConduitsImage, on_delete=models.DO_NOTHING, blank=True, null=True)
-
     boundary_wall_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):

@@ -70,7 +70,6 @@ router.register(r'bwconcretepourcuringperiod', views.BWConcretePourCuringPeriodI
 router.register(r'excavationstripfoundations', views.ExcavationstripFoundationsImageViewSet)
 router.register(r'bwcableconduits', views.BWCableConduitsImageViewSet)
 router.register(r'bwblinding', views.BWBlindingImageViewSet)
-
 router.register(r'blockworkpanelconstruct', views.BlockworkPanelConstImageViewSet)
 router.register(r'gateinstallation', views.GateInstallationImageViewSet)
 router.register(r'razorelectricfence', views.RazorElectricFenceImageViewSet)

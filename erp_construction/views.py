@@ -440,6 +440,7 @@ class ExcavationstripFoundationsImageViewSet(DefaultsMixin, viewsets.ModelViewSe
 
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name', )
+
 class BWCableConduitsImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = BWCableConduitsImage.objects.order_by('created_at')
