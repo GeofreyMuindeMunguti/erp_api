@@ -332,6 +332,32 @@ class GeneatorSlabsImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
 ######################################## END #######################################################################################################################################
 
+###################################### FABRICATION ###########################################################################################################################
+class FabricationSteelDeckImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating a project."""
+    queryset = FabricationSteelDeckImage.objects.order_by('start_date')
+    serializer_class = FabricationSteelDeckImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('start_date','project_name', )
+
+class FabricationQualityInspectionImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating a project."""
+    queryset = FabricationQualityInspectionImage.objects.order_by('start_date')
+    serializer_class = FabricationQualityInspectionImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('start_date','project_name', )
+
+class FabricationRooftopImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating a project."""
+    queryset = FabricationRooftopImage.objects.order_by('start_date')
+    serializer_class = FabricationRooftopImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('start_date','project_name', )
+######################################## END #######################################################################################################################################
+
 ####################################### BOUNDARY WALL ###########################################################################################################################
 
 class FoundFootPourImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
@@ -454,11 +480,6 @@ class CableInstallationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('site_name', )
     ordering_fields = ('updated_at', 'site_name',)
-
-
-
-
-
 
 class CableWaysImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
@@ -645,30 +666,6 @@ class GalvanisationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating a project."""
     queryset = GalvanisationImage.objects.order_by('start_date')
     serializer_class = GalvanisationImageSerializer
-
-    search_fields = ('project_name', )
-    ordering_fields = ('start_date','project_name', )
-
-class FabricationSteelDeckImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
-    """API endpoint for listing and creating a project."""
-    queryset = FabricationSteelDeckImage.objects.order_by('start_date')
-    serializer_class = FabricationSteelDeckImageSerializer
-
-    search_fields = ('project_name', )
-    ordering_fields = ('start_date','project_name', )
-
-class FabricationQualityInspectionImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
-    """API endpoint for listing and creating a project."""
-    queryset = FabricationQualityInspectionImage.objects.order_by('start_date')
-    serializer_class = FabricationQualityInspectionImageSerializer
-
-    search_fields = ('project_name', )
-    ordering_fields = ('start_date','project_name', )
-
-class FabricationRooftopImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
-    """API endpoint for listing and creating a project."""
-    queryset = FabricationRooftopImage.objects.order_by('start_date')
-    serializer_class = FabricationRooftopImageSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('start_date','project_name', )

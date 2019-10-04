@@ -372,7 +372,6 @@ class GenCableConduitsSettingImageAdmin(admin.ModelAdmin):
     search_fields = ('project_name', )
     list_editable = ('is_active',)
 
-
 admin.site.register(GenCableConduitsSettingImage, GenCableConduitsSettingImageAdmin)
 
 class GeneatorSlabsImageAdmin(admin.ModelAdmin):
@@ -382,9 +381,40 @@ class GeneatorSlabsImageAdmin(admin.ModelAdmin):
     search_fields = ('project_name', )
     list_editable = ('is_active',)
 
-
 admin.site.register(GeneatorSlabsImage, GeneatorSlabsImageAdmin)
 
+######################################## END #######################################################################################################################################
+
+####################################### FABRICATION ###########################################################################################################################
+
+class FabricationQualityInspectionImageAdmin(admin.ModelAdmin):
+   list_display = ('id', 'project_name','task_id','start_date','end_date', 'fabrication_quality_inspection_image_1','fabrication_quality_inspection_image_2','fabrication_quality_inspection_image_3','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost','raise_flag','fabrication_quality_inspection_image_comment')
+   list_display_links = ('project_name', )
+   search_fields = ('project_name', )
+
+admin.site.register(FabricationQualityInspectionImage, FabricationQualityInspectionImageAdmin)
+
+
+class FabricationSteelDeckImageAdmin(admin.ModelAdmin):
+   list_display = ('id', 'project_name','task_id','start_date','end_date', 'fabrication_steel_deck_image_1','fabrication_steel_deck_image_2','fabrication_steel_deck_image_3','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost','raise_flag','fabrication_steel_deck_image_comment')
+   list_display_links = ('project_name', )
+   search_fields = ('project_name', )
+
+admin.site.register(FabricationSteelDeckImage, FabricationSteelDeckImageAdmin)
+
+class GalvanisationImageAdmin(admin.ModelAdmin):
+   list_display = ('id', 'project_name','start_date','end_date', 'galvanisation_image_1','galvanisation_image_2','galvanisation_image_3','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost','raise_flag','galvanisation_image_comment')
+   list_display_links = ('project_name', )
+   search_fields = ('project_name', )
+
+admin.site.register(GalvanisationImage, GalvanisationImageAdmin)
+
+class FabricationRooftopImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name','team_task_id','start_date','end_date','engineers', 'names_of_engineers','raise_flag','fabrication_quality_inspection_image','fabrication_steel_deck_image','galvanization_image','fabrication_rooftop_image_comment')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+
+admin.site.register(FabricationRooftopImage, FabricationRooftopImageAdmin)
 ######################################## END #######################################################################################################################################
 
 ####################################### BOUNDARY WALL ###########################################################################################################################
@@ -704,36 +734,6 @@ class TestCetificateAdmin(admin.ModelAdmin):
 
 
 admin.site.register(TestCetificate, TestCetificateAdmin)
-
-
-class FabricationQualityInspectionImageAdmin(admin.ModelAdmin):
-   list_display = ('id', 'project_name','task_id','start_date','end_date', 'fabrication_quality_inspection_image_1','fabrication_quality_inspection_image_2','fabrication_quality_inspection_image_3','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost','raise_flag','fabrication_quality_inspection_image_comment')
-   list_display_links = ('project_name', )
-   search_fields = ('project_name', )
-
-admin.site.register(FabricationQualityInspectionImage, FabricationQualityInspectionImageAdmin)
-
-
-class FabricationSteelDeckImageAdmin(admin.ModelAdmin):
-   list_display = ('id', 'project_name','task_id','start_date','end_date', 'fabrication_steel_deck_image_1','fabrication_steel_deck_image_2','fabrication_steel_deck_image_3','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost','raise_flag','fabrication_steel_deck_image_comment')
-   list_display_links = ('project_name', )
-   search_fields = ('project_name', )
-
-admin.site.register(FabricationSteelDeckImage, FabricationSteelDeckImageAdmin)
-
-class GalvanisationImageAdmin(admin.ModelAdmin):
-   list_display = ('id', 'project_name','start_date','end_date', 'galvanisation_image_1','galvanisation_image_2','galvanisation_image_3','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost','raise_flag','galvanisation_image_comment')
-   list_display_links = ('project_name', )
-   search_fields = ('project_name', )
-
-admin.site.register(GalvanisationImage, GalvanisationImageAdmin)
-
-class FabricationRooftopImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','team_task_id','start_date','end_date','engineers', 'names_of_engineers','raise_flag','fabrication_quality_inspection_image','fabrication_steel_deck_image','galvanization_image','fabrication_rooftop_image_comment')
-    list_display_links = ('project_name', )
-    search_fields = ('project_name', )
-
-admin.site.register(FabricationRooftopImage, FabricationRooftopImageAdmin)
 
 class HackingExistingColumnsImageAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name','start_date','end_date', 'hacking_existing_columns_image_1','hacking_existing_columns_image_2','hacking_existing_columns_image_3','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost','raise_flag','hacking_existing_columns_image_comment')
