@@ -1323,21 +1323,104 @@ class BS241ConcretePourCuringPeriodImage(TimeStampModel,TimeTrackModel):
         except Exception as e:
             return
 
-class BS241Image(TimeStampModel):
+class BS241Image(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    bs241_image = models.ImageField(upload_to=UploadToProjectDirImage(file_path,'images/CivilWorksTeam/BS241Images/'),max_length = 250,blank=True, null=True)
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
+    bs241_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/BS241ConcretePourCuringPeriod/%Y/%m/%d/')
+    bs241_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/BS241ConcretePourCuringPeriod/%Y/%m/%d/')
+    bs241_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/BS241ConcretePourCuringPeriod/%Y/%m/%d/')
     bs241_comment = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return str(self.bs241_image)
+        return str(self.project_name)
+
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def casuals_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate * days_spent)
+            return cost
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Engineer')
+            engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = BS241AndGeneatorSlabsImage.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Rates does not exist"
+            return error
+
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name='Upload concerete pour and curing images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
+    def task_id(self):
+        try:
+            task = BS241AndGeneatorSlabsImage.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
 
 class BS241AndGeneatorSlabsImage(TimeStampModel,TimeTrackModel):
     project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
     engineers_atsite = models.ManyToManyField(Engineer, blank=True )
     foundation_foot_pouring = models.OneToOneField(ExcavationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
     bs241_concrete_pour_pouring_period = models.OneToOneField(BS241ConcretePourCuringPeriodImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    bs241_image = models.OneToOneField(BS241Image, on_delete=models.DO_NOTHING, blank=True, null=True)
     bs241_and_generator_slabs_comment = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):

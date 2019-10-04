@@ -38,10 +38,13 @@ router.register(r'towerbaseimages', views.TowerBaseImageViewSet)
 router.register(r'bindingimages', views.BindingImageViewSet)
 router.register(r'steelfixformworkimages', views.SteelFixFormworkImageViewSet)
 router.register(r'concretepourimages', views.ConcretePourImageViewSet)
+router.register(r'ConcreteCuringPeriodDocs', views.ConcreteCuringPeriodDocsViewSet)
 router.register(r'concretecuringperiod', views.ConcreteCuringPeriodImageViewSet)
+router.register(r'DeliveryOfMaterialandEquipement', views.DeliveryOfMaterialandEquipementViewSet)
 
 router.register(r'excavation', views.ExcavationImageViewSet)
 router.register(r'bs241concretepourcuringperiod', views.bs241ConcretePourCuringPeriodImageViewSet)
+router.register(r'BS241Image', views.BS241ImageViewSet)
 router.register(r'bs241generatorslabs', views.BS241AndGeneatorSlabsImageViewSet)
 
 router.register(r'foundationfootpour', views.FoundFootPourImageViewSet)

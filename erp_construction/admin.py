@@ -269,6 +269,15 @@ class ConcretePourImageAdmin(admin.ModelAdmin):
 
 admin.site.register(ConcretePourImage, ConcretePourImageAdmin)
 
+class ConcreteCuringPeriodDocsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'Rebar_Concrete_Inspection', 'Concrete_Inspection_Report', 'Concrete_Cube_Test','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(ConcreteCuringPeriodDocs, ConcreteCuringPeriodDocsAdmin)
 
 class ConcreteCuringPeriodImageAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'task_id', 'concrete_pour_curing_period_image_1', 'concrete_pour_curing_period_image_2', 'concrete_pour_curing_period_image_3', 'concrete_pour_curing_period_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
@@ -311,8 +320,17 @@ class BS241ConcretePourCuringPeriodImageAdmin(admin.ModelAdmin):
     search_fields = ('project_name', )
     list_editable = ('is_active',)
 
-
 admin.site.register(BS241ConcretePourCuringPeriodImage, BS241ConcretePourCuringPeriodImageAdmin)
+
+class BS241ImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'bs241_image_1', 'bs241_image_2','bs241_image_3', 'bs241_comment', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(BS241Image, BS241ImageAdmin)
 
 class BS241AndGeneatorSlabsImageAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'team_task_id', 'foundation_foot_pouring', 'bs241_concrete_pour_pouring_period','bs241_and_generator_slabs_comment','engineers', 'names_of_engineers', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')

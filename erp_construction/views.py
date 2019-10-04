@@ -236,6 +236,13 @@ class ConcretePourImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name',)
 
+class ConcreteCuringPeriodDocsViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = ConcreteCuringPeriodDocs.objects.order_by('created_at')
+    serializer_class = ConcreteCuringPeriodDocsSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
 
 class ConcreteCuringPeriodImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
@@ -245,6 +252,13 @@ class ConcreteCuringPeriodImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
+class DeliveryOfMaterialandEquipementViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = DeliveryOfMaterialandEquipement.objects.order_by('created_at')
+    serializer_class = DeliveryOfMaterialandEquipementSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
 
 ######################################## END #######################################################################################################################################
 
@@ -257,11 +271,18 @@ class ExcavationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
-
 class bs241ConcretePourCuringPeriodImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = BS241ConcretePourCuringPeriodImage.objects.order_by('created_at')
     serializer_class = ConcretePourCuringPeriodImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+class BS241ImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = BS241Image.objects.order_by('created_at')
+    serializer_class = BS241ImageSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
