@@ -75,16 +75,20 @@ router.register(r'gateinstallation', views.GateInstallationImageViewSet)
 router.register(r'razorelectricfence', views.RazorElectricFenceImageViewSet)
 router.register(r'boundarywall', views.BoundaryWallImageViewSet)
 
+router.register(r'ManholeSettingExcavationImage', views.ManholeSettingExcavationImageViewSet)
+router.register(r'ManholeBlinding', views.ManholeBlindingViewSet)
+router.register(r'ManholeBlockwork', views.ManholeBlockworkViewSet)
+router.register(r'ManholeSettingOutConstructionImage', views.ManholeSettingOutConstructionImageViewSet)
+
+router.register(r'towererection', views.TowerErectionImageViewSet)
+router.register(r'towerpaint', views.TowerPaintImageViewSet)
+router.register(r'cableways', views.CableWaysImageViewSet)
 router.register(r'cableinstallation', views.CableInstallationImageViewSet)
 router.register(r'earthinstallation', views.EarthInstallationImageViewSet)
 router.register(r'aviationlightsinstallation', views.AviationLightsInstallationImageViewSet)
 router.register(r'towerdelivery', views.TowerDeliveryImageViewSet)
-
-router.register(r'towerantennacoax', views.TowerAntennaCoaxImageViewSet)
-router.register(r'towererection', views.TowerErectionImageViewSet)
-router.register(r'towerpaint', views.TowerPaintImageViewSet)
-router.register(r'cableways', views.CableWaysImageViewSet)
 router.register(r'antennacoaxinstallation', views.AntennaCoaxInstallImageViewSet)
+router.register(r'towerantennacoax', views.TowerAntennaCoaxImageViewSet)
 
 
 router.register(r'kpi', views.KpiViewSet)

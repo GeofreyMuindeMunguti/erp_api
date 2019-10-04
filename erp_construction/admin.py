@@ -178,43 +178,6 @@ class FoundationImageAdmin(admin.ModelAdmin):
 
 admin.site.register(FoundationImage, FoundationImageAdmin)
 
-class EarthInstallationImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'task_id', 'earth_Installation_image_1', 'earth_Installation_image_2', 'earth_Installation_image_3', 'earth_Installation_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    list_filter = ('project_name',)
-    search_fields = ('project_name', )
-    list_editable = ('is_active',)
-
-admin.site.register(EarthInstallationImage, EarthInstallationImageAdmin)
-
-class CableInstallationImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'task_id', 'cable_installation_image_1', 'cable_installation_image_2', 'cable_installation_image_3', 'cable_installation_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    list_filter = ('project_name',)
-    search_fields = ('project_name', )
-    list_editable = ('is_active',)
-
-admin.site.register(CableInstallationImage, CableInstallationImageAdmin)
-
-class AviationLightsInstallationImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'task_id', 'aviation_lights_installation_image_1', 'aviation_lights_installation_image_2', 'aviation_lights_installation_image_3', 'aviation_lights_installation_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    list_filter = ('project_name',)
-    search_fields = ('project_name', )
-    list_editable = ('is_active',)
-
-admin.site.register(AviationLightsInstallationImage, AviationLightsInstallationImageAdmin)
-
-class TowerDeliveryImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'task_id', 'tower_delivery_image_1', 'tower_delivery_image_2', 'tower_delivery_image_3', 'tower_delivery_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
-    list_display_links = ('project_name', )
-    list_filter = ('project_name',)
-    search_fields = ('project_name', )
-    list_editable = ('is_active',)
-
-admin.site.register(TowerDeliveryImage, TowerDeliveryImageAdmin)
-
-
 class SetSiteClearingImageAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name','task_id', 'setting_site_clearing_image_1', 'setting_site_clearing_image_2', 'setting_site_clearing_image_3', 'setting_site_clearing_comment', 'no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'labour_cost', 'date_casual_cost', 'check_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
@@ -506,6 +469,36 @@ class BoundaryWallImageAdmin(admin.ModelAdmin):
 admin.site.register(BoundaryWallImage, BoundaryWallImageAdmin)
 ####################################### END###########################################################################################################################
 
+####################################### MANHOLE SETTING OUT CONSTRUCTION ###########################################################################################################################
+class  ManholeSettingExcavationImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name','start_date','end_date', 'manhole_setting_excavation_image_1','manhole_setting_excavation_image_2','manhole_setting_excavation_image_3','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost','raise_flag','manhole_setting_excavation_image_comment')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+
+admin.site.register( ManholeSettingExcavationImage, ManholeSettingExcavationImageAdmin)
+
+class  ManholeBlindingAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name','start_date','end_date', 'manhole_blinding_image_1','manhole_blinding_image_2','manhole_blinding_image_3','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost','raise_flag','manhole_blinding_image_comment')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+
+admin.site.register( ManholeBlinding, ManholeBlindingAdmin)
+
+class  ManholeBlockworkAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name','start_date','end_date', 'manhole_blindingwork_image_1','manhole_blindingwork_image_2','manhole_blindingwork_image_3','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost','raise_flag','manhole_blindingwork_image_comment')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+
+admin.site.register( ManholeBlockwork, ManholeBlockworkAdmin)
+
+class ManholeSettingOutConstructionImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name','team_task_id','start_date','end_date','engineers', 'names_of_engineers','raise_flag','manhole_setting_excavation_image','manhole_blinding_image','manhole_blockwork_image','manhole_setting_out_construction_image_comment')
+    list_display_links = ('project_name', )
+    search_fields = ('project_name', )
+
+admin.site.register( ManholeSettingOutConstructionImage, ManholeSettingOutConstructionImageAdmin)
+
+#######################################  END ###########################################################################################################################
 
 #######################################  TOWER & ANTENNA_COAX ###########################################################################################################################
 
@@ -550,8 +543,45 @@ class AntennaCoaxInstallImageAdmin(admin.ModelAdmin):
 
 admin.site.register(AntennaCoaxInstallImage, AntennaCoaxInstallImageAdmin)
 
+class EarthInstallationImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'earth_Installation_image_1', 'earth_Installation_image_2', 'earth_Installation_image_3', 'earth_Installation_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(EarthInstallationImage, EarthInstallationImageAdmin)
+
+class CableInstallationImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'cable_installation_image_1', 'cable_installation_image_2', 'cable_installation_image_3', 'cable_installation_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(CableInstallationImage, CableInstallationImageAdmin)
+
+class AviationLightsInstallationImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'aviation_lights_installation_image_1', 'aviation_lights_installation_image_2', 'aviation_lights_installation_image_3', 'aviation_lights_installation_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(AviationLightsInstallationImage, AviationLightsInstallationImageAdmin)
+
+class TowerDeliveryImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'tower_delivery_image_1', 'tower_delivery_image_2', 'tower_delivery_image_3', 'tower_delivery_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(TowerDeliveryImage, TowerDeliveryImageAdmin)
+
 class TowerAntennaCoaxImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name', 'team_task_id', 'tower_erection', 'tower_painting', 'cable_ways', 'antenna_coax_installation','tower_antenna_coax_comment','engineers', 'names_of_engineers', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display = ('id', 'project_name', 'team_task_id', 'tower_erection', 'tower_painting', 'cable_ways', 'antenna_coax_installation','tower_delivery','aviation_lights_installation_image',
+    'earth_installation','cable_installation','tower_antenna_coax_comment','engineers', 'names_of_engineers', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
     search_fields = ('project_name', )
@@ -783,31 +813,3 @@ class InstallationRooftopImageAdmin(admin.ModelAdmin):
     search_fields = ('project_name', )
 
 admin.site.register( InstallationRooftopImage, InstallationRooftopImageAdmin)
-
-class  ManholeSettingExcavationImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','start_date','end_date', 'manhole_setting_excavation_image_1','manhole_setting_excavation_image_2','manhole_setting_excavation_image_3','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost','raise_flag','manhole_setting_excavation_image_comment')
-    list_display_links = ('project_name', )
-    search_fields = ('project_name', )
-
-admin.site.register( ManholeSettingExcavationImage, ManholeSettingExcavationImageAdmin)
-
-class  ManholeBlindingAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','start_date','end_date', 'manhole_blinding_image_1','manhole_blinding_image_2','manhole_blinding_image_3','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost','raise_flag','manhole_blinding_image_comment')
-    list_display_links = ('project_name', )
-    search_fields = ('project_name', )
-
-admin.site.register( ManholeBlinding, ManholeBlindingAdmin)
-
-class  ManholeBlockworkAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','start_date','end_date', 'manhole_blindingwork_image_1','manhole_blindingwork_image_2','manhole_blindingwork_image_3','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost','raise_flag','manhole_blindingwork_image_comment')
-    list_display_links = ('project_name', )
-    search_fields = ('project_name', )
-
-admin.site.register( ManholeBlockwork, ManholeBlockworkAdmin)
-
-class ManholeSettingOutConstructionImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'project_name','team_task_id','start_date','end_date','engineers', 'names_of_engineers','raise_flag','manhole_setting_excavation_image','manhole_blinding_image','manhole_blockwork_image','manhole_setting_out_construction_image_comment')
-    list_display_links = ('project_name', )
-    search_fields = ('project_name', )
-
-admin.site.register( ManholeSettingOutConstructionImage, ManholeSettingOutConstructionImageAdmin)

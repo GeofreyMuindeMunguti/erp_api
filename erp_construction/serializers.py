@@ -327,6 +327,7 @@ class FabricationRooftopImageSerializer(serializers.ModelSerializer):
         model = FabricationRooftopImage
         fields = ('__all__')
 ######################################## END #######################################################################################################################################
+
 ######################################  INSTALLATION ROOTFTOP ###########################################################################################################################
 
 class HackingExistingColumnsImageSerializer(serializers.ModelSerializer):
@@ -455,6 +456,45 @@ class BoundaryWallImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BoundaryWallImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+######################################## END #######################################################################################################################################
+
+######################################  MANHOLE SETTING OUT CONSTRUCTION #########################################################################################################################
+class ManholeSettingExcavationImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
+    task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = ManholeSettingExcavationImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class ManholeBlindingSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
+    task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = ManholeBlinding
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class ManholeBlockworkSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
+    task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = ManholeBlockwork
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class ManholeSettingOutConstructionImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
+    task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = ManholeSettingOutConstructionImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 
