@@ -2133,6 +2133,597 @@ class FabricationRooftopImage(TimeStampModel,TimeTrackModel):
             return
 ############################################### END ################################################################################################################################################3
 
+####################################### INSTALLATION ROOFTOP ###########################################################################################################################
+class HackingExistingColumnsImage(TimeStampModel,TimeTrackModel):
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    hacking_existing_columns_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/HackingExistingColumnsImage/%Y/%m/%d/')
+    hacking_existing_columns_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/HackingExistingColumnsImage/%Y/%m/%d/')
+    hacking_existing_columns_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/HackingExistingColumnsImage/%Y/%m/%d/')
+    hacking_existing_columns_image_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def casuals_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate * days_spent)
+            return cost
+        except Exception as e:
+            error = "Casuals Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Enginner')
+            engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = InstallationRooftopImage.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Engineer Rates does not exist"
+            return error
+
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name='Upload Hacking Existing Columns images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
+    def task_id(self):
+        try:
+            task = InstallationRooftopImage.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
+
+class FormworkColumnsConcretePourCuringImage(TimeStampModel,TimeTrackModel):
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    formwork_columns_concrete_pour_curing_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/FormworkColumnsConcretePourCuringImage/%Y/%m/%d/')
+    formwork_columns_concrete_pour_curing_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/FormworkColumnsConcretePourCuringImage/%Y/%m/%d/')
+    formwork_columns_concrete_pour_curing_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/FormworkColumnsConcretePourCuringImage/%Y/%m/%d/')
+    formwork_columns_concrete_pour_curing_image_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def casuals_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate * days_spent)
+            return cost
+        except Exception as e:
+            error = "Casuals Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Enginner')
+            engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = InstallationRooftopImage.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Engineer Rates does not exist"
+            return error
+
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name='Upload Formwork Columns Congrete Pour Curing images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
+    def task_id(self):
+        try:
+            task = InstallationRooftopImage.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
+
+class DeliveryToSiteImage(TimeStampModel,TimeTrackModel):
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    delivery_to_site_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/DeliveryToSiteImage/%Y/%m/%d/')
+    delivery_to_site_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/DeliveryToSiteImage/%Y/%m/%d/')
+    delivery_to_site_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/DeliveryToSiteImage/%Y/%m/%d/')
+    delivery_to_site_image_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def casuals_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate * days_spent)
+            return cost
+        except Exception as e:
+            error = "Casuals Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Enginner')
+            engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = InstallationRooftopImage.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Engineer Rates does not exist"
+            return error
+
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name='Upload Delivery To Site images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
+    def task_id(self):
+        try:
+            task = InstallationRooftopImage.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
+
+class LiftingHoistingFreeIssueImage(TimeStampModel,TimeTrackModel):
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    lifting_hoisting_free_issue_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/LiftingHoistingFreeIssueImage/%Y/%m/%d/')
+    lifting_hoisting_free_issue_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/LiftingHoistingFreeIssueImage/%Y/%m/%d/')
+    lifting_hoisting_free_issue_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/LiftingHoistingFreeIssueImage/%Y/%m/%d/')
+    lifting_hoisting_free_issue_image_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def casuals_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate * days_spent)
+            return cost
+        except Exception as e:
+            error = "Casuals Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Enginner')
+            engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = InstallationRooftopImage.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Engineer Rates does not exist"
+            return error
+
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name='Upload Lifting Hoisting Free Issue images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
+    def task_id(self):
+        try:
+            task = InstallationRooftopImage.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
+class FenceInstallationImage(TimeStampModel,TimeTrackModel):
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    fence_installation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/FenceInstallationImage/%Y/%m/%d/')
+    fence_installation_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/FenceInstallationImage/%Y/%m/%d/')
+    fence_installation_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/FenceInstallationImage/%Y/%m/%d/')
+    fence_installation_image_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def casuals_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate * days_spent)
+            return cost
+        except Exception as e:
+            error = "Casuals Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Enginner')
+            engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = InstallationRooftopImage.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Engineer Rates does not exist"
+            return error
+
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name='Upload Fence Installation Images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
+    def task_id(self):
+        try:
+            task = InstallationRooftopImage.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
+class SiteRestorationImage(TimeStampModel,TimeTrackModel):
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    site_restoration_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/SiteRestorationImage/%Y/%m/%d/')
+    site_restoration_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/SiteRestorationImage/%Y/%m/%d/')
+    site_restoration_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/SiteRestorationImage/%Y/%m/%d/')
+    site_restoration_image_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def no_of_casuals(self):
+        count = self.no_of_casuals_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_casuals(self):
+        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
+
+    def casuals_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Casual')
+            casual_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            count = self.no_of_casuals_atsite.count()
+            cost = (count * casual_rate * days_spent)
+            return cost
+        except Exception as e:
+            error = "Casuals Rates does not exist"
+            return error
+
+    def engineers_cost(self):
+        try:
+            rate_data = Rates.objects.get(worker_type='Enginner')
+            engineer_rate = rate_data.rate
+            now = datetime.now(timezone.utc)
+            if bool(self.end_date) is False:
+                days_spent = date_difference(self.start_date, now)
+            else:
+                days_spent = date_difference(self.start_date, self.end_date)
+            try:
+                engineer_data = InstallationRooftopImage.objects.get(project_name=self.project_name)
+                count = engineer_data.engineers_atsite.count()
+                cost = (count * engineer_rate * days_spent)
+                return cost
+            except Exception as e:
+                error = "No engineers assigned to project"
+                return error
+        except Exception as e:
+            error = "Engineer Rates does not exist"
+            return error
+
+    def raise_flag(self):
+        try:
+            kpi_data = SubTask.objects.get(subtask_name='Upload Site Restoration Images')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
+    def task_id(self):
+        try:
+            task = InstallationRooftopImage.objects.get(project_name=self.project_name)
+            task_id = task.id
+            return task_id
+        except Exception as e:
+            return
+
+class InstallationRooftopImage(TimeStampModel,TimeTrackModel):
+    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
+    engineers_atsite = models.ManyToManyField(Engineer, blank=True )
+    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
+    hacking_existing_columns_image = models.OneToOneField(HackingExistingColumnsImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    formwork_columns_concrete_pour_curing_image = models.OneToOneField(FormworkColumnsConcretePourCuringImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    delivery_to_site_image = models.OneToOneField(DeliveryToSiteImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    lifting_hoisting_freeissue_image = models.OneToOneField(LiftingHoistingFreeIssueImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    fence_installation_image = models.OneToOneField(FenceInstallationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    site_restoration_image = models.OneToOneField(SiteRestorationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
+    installation_rooftop_image_comment = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.project_name)
+
+    def engineers(self):
+        count = self.engineers_atsite.count()
+        return "\n , ".join(str(count))
+
+    def names_of_engineers(self):
+        return [v.user.username for v in self.engineers_atsite.all()]
+
+    def raise_flag(self):
+        try:
+            kpi_data = Task.objects.get(task_name='Installation Rooftop Image')
+            kpi = kpi_data.kpi
+            projected_end_date = self.start_date + timedelta(days=kpi)
+            flag = ""
+
+            if bool(self.end_date) is False:
+                today = datetime.now(timezone.utc)
+
+                if today < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+            else:
+                if self.end_date < projected_end_date:
+                    flag = "OnTrack"
+                    return flag
+                else:
+                    flag = "OffTrack"
+                    return flag
+
+        except Exception as e:
+            return e
+
+    def team_task_id(self):
+        try:
+            team = CivilWorksTeam.objects.get(project_name=self.project_name)
+            team_id = team.id
+            return team_id
+        except Exception as e:
+            return
+####################################### END ###########################################################################################################################
+
 ####################################### BOUNDARY WALL ###########################################################################################################################
 
 class FoundFootPourImage(TimeStampModel,TimeTrackModel):
@@ -3333,595 +3924,6 @@ class BoundaryWallImage(TimeStampModel,TimeTrackModel):
     def raise_flag(self):
         try:
             kpi_data = Task.objects.get(task_name='Boundary Wall')
-            kpi = kpi_data.kpi
-            projected_end_date = self.start_date + timedelta(days=kpi)
-            flag = ""
-
-            if bool(self.end_date) is False:
-                today = datetime.now(timezone.utc)
-
-                if today < projected_end_date:
-                    flag = "OnTrack"
-                    return flag
-                else:
-                    flag = "OffTrack"
-                    return flag
-
-            else:
-                if self.end_date < projected_end_date:
-                    flag = "OnTrack"
-                    return flag
-                else:
-                    flag = "OffTrack"
-                    return flag
-
-        except Exception as e:
-            return e
-
-    def team_task_id(self):
-        try:
-            team = CivilWorksTeam.objects.get(project_name=self.project_name)
-            team_id = team.id
-            return team_id
-        except Exception as e:
-            return
-
-class HackingExistingColumnsImage(TimeStampModel,TimeTrackModel):
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    hacking_existing_columns_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/HackingExistingColumnsImage/%Y/%m/%d/')
-    hacking_existing_columns_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/HackingExistingColumnsImage/%Y/%m/%d/')
-    hacking_existing_columns_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/HackingExistingColumnsImage/%Y/%m/%d/')
-    hacking_existing_columns_image_comment = models.CharField(max_length=100, blank=True, null=True)
-
-    def no_of_casuals(self):
-        count = self.no_of_casuals_atsite.count()
-        return "\n , ".join(str(count))
-
-    def names_of_casuals(self):
-        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
-
-    def casuals_cost(self):
-        try:
-            rate_data = Rates.objects.get(worker_type='Casual')
-            casual_rate = rate_data.rate
-            now = datetime.now(timezone.utc)
-            if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, now)
-            else:
-                days_spent = date_difference(self.start_date, self.end_date)
-            count = self.no_of_casuals_atsite.count()
-            cost = (count * casual_rate * days_spent)
-            return cost
-        except Exception as e:
-            error = "Casuals Rates does not exist"
-            return error
-
-    def engineers_cost(self):
-        try:
-            rate_data = Rates.objects.get(worker_type='Enginner')
-            engineer_rate = rate_data.rate
-            now = datetime.now(timezone.utc)
-            if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, now)
-            else:
-                days_spent = date_difference(self.start_date, self.end_date)
-            try:
-                engineer_data = InstallationRooftopImage.objects.get(project_name=self.project_name)
-                count = engineer_data.engineers_atsite.count()
-                cost = (count * engineer_rate * days_spent)
-                return cost
-            except Exception as e:
-                error = "No engineers assigned to project"
-                return error
-        except Exception as e:
-            error = "Engineer Rates does not exist"
-            return error
-
-    def raise_flag(self):
-        try:
-            kpi_data = SubTask.objects.get(subtask_name='Upload Hacking Existing Columns images')
-            kpi = kpi_data.kpi
-            projected_end_date = self.start_date + timedelta(days=kpi)
-            flag = ""
-
-            if bool(self.end_date) is False:
-                today = datetime.now(timezone.utc)
-
-                if today < projected_end_date:
-                    flag = "OnTrack"
-                    return flag
-                else:
-                    flag = "OffTrack"
-                    return flag
-
-            else:
-                if self.end_date < projected_end_date:
-                    flag = "OnTrack"
-                    return flag
-                else:
-                    flag = "OffTrack"
-                    return flag
-
-        except Exception as e:
-            return e
-
-    def task_id(self):
-        try:
-            task = InstallationRooftopImage.objects.get(project_name=self.project_name)
-            task_id = task.id
-            return task_id
-        except Exception as e:
-            return
-
-
-class FormworkColumnsConcretePourCuringImage(TimeStampModel,TimeTrackModel):
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    formwork_columns_concrete_pour_curing_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/FormworkColumnsConcretePourCuringImage/%Y/%m/%d/')
-    formwork_columns_concrete_pour_curing_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/FormworkColumnsConcretePourCuringImage/%Y/%m/%d/')
-    formwork_columns_concrete_pour_curing_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/FormworkColumnsConcretePourCuringImage/%Y/%m/%d/')
-    formwork_columns_concrete_pour_curing_image_comment = models.CharField(max_length=100, blank=True, null=True)
-
-    def no_of_casuals(self):
-        count = self.no_of_casuals_atsite.count()
-        return "\n , ".join(str(count))
-
-    def names_of_casuals(self):
-        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
-
-    def casuals_cost(self):
-        try:
-            rate_data = Rates.objects.get(worker_type='Casual')
-            casual_rate = rate_data.rate
-            now = datetime.now(timezone.utc)
-            if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, now)
-            else:
-                days_spent = date_difference(self.start_date, self.end_date)
-            count = self.no_of_casuals_atsite.count()
-            cost = (count * casual_rate * days_spent)
-            return cost
-        except Exception as e:
-            error = "Casuals Rates does not exist"
-            return error
-
-    def engineers_cost(self):
-        try:
-            rate_data = Rates.objects.get(worker_type='Enginner')
-            engineer_rate = rate_data.rate
-            now = datetime.now(timezone.utc)
-            if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, now)
-            else:
-                days_spent = date_difference(self.start_date, self.end_date)
-            try:
-                engineer_data = InstallationRooftopImage.objects.get(project_name=self.project_name)
-                count = engineer_data.engineers_atsite.count()
-                cost = (count * engineer_rate * days_spent)
-                return cost
-            except Exception as e:
-                error = "No engineers assigned to project"
-                return error
-        except Exception as e:
-            error = "Engineer Rates does not exist"
-            return error
-
-    def raise_flag(self):
-        try:
-            kpi_data = SubTask.objects.get(subtask_name='Upload Formwork Columns Congrete Pour Curing images')
-            kpi = kpi_data.kpi
-            projected_end_date = self.start_date + timedelta(days=kpi)
-            flag = ""
-
-            if bool(self.end_date) is False:
-                today = datetime.now(timezone.utc)
-
-                if today < projected_end_date:
-                    flag = "OnTrack"
-                    return flag
-                else:
-                    flag = "OffTrack"
-                    return flag
-
-            else:
-                if self.end_date < projected_end_date:
-                    flag = "OnTrack"
-                    return flag
-                else:
-                    flag = "OffTrack"
-                    return flag
-
-        except Exception as e:
-            return e
-
-    def task_id(self):
-        try:
-            task = InstallationRooftopImage.objects.get(project_name=self.project_name)
-            task_id = task.id
-            return task_id
-        except Exception as e:
-            return
-
-
-class DeliveryToSiteImage(TimeStampModel,TimeTrackModel):
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    delivery_to_site_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/DeliveryToSiteImage/%Y/%m/%d/')
-    delivery_to_site_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/DeliveryToSiteImage/%Y/%m/%d/')
-    delivery_to_site_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/DeliveryToSiteImage/%Y/%m/%d/')
-    delivery_to_site_image_comment = models.CharField(max_length=100, blank=True, null=True)
-
-    def no_of_casuals(self):
-        count = self.no_of_casuals_atsite.count()
-        return "\n , ".join(str(count))
-
-    def names_of_casuals(self):
-        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
-
-    def casuals_cost(self):
-        try:
-            rate_data = Rates.objects.get(worker_type='Casual')
-            casual_rate = rate_data.rate
-            now = datetime.now(timezone.utc)
-            if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, now)
-            else:
-                days_spent = date_difference(self.start_date, self.end_date)
-            count = self.no_of_casuals_atsite.count()
-            cost = (count * casual_rate * days_spent)
-            return cost
-        except Exception as e:
-            error = "Casuals Rates does not exist"
-            return error
-
-    def engineers_cost(self):
-        try:
-            rate_data = Rates.objects.get(worker_type='Enginner')
-            engineer_rate = rate_data.rate
-            now = datetime.now(timezone.utc)
-            if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, now)
-            else:
-                days_spent = date_difference(self.start_date, self.end_date)
-            try:
-                engineer_data = InstallationRooftopImage.objects.get(project_name=self.project_name)
-                count = engineer_data.engineers_atsite.count()
-                cost = (count * engineer_rate * days_spent)
-                return cost
-            except Exception as e:
-                error = "No engineers assigned to project"
-                return error
-        except Exception as e:
-            error = "Engineer Rates does not exist"
-            return error
-
-    def raise_flag(self):
-        try:
-            kpi_data = SubTask.objects.get(subtask_name='Upload Delivery To Site images')
-            kpi = kpi_data.kpi
-            projected_end_date = self.start_date + timedelta(days=kpi)
-            flag = ""
-
-            if bool(self.end_date) is False:
-                today = datetime.now(timezone.utc)
-
-                if today < projected_end_date:
-                    flag = "OnTrack"
-                    return flag
-                else:
-                    flag = "OffTrack"
-                    return flag
-
-            else:
-                if self.end_date < projected_end_date:
-                    flag = "OnTrack"
-                    return flag
-                else:
-                    flag = "OffTrack"
-                    return flag
-
-        except Exception as e:
-            return e
-
-    def task_id(self):
-        try:
-            task = InstallationRooftopImage.objects.get(project_name=self.project_name)
-            task_id = task.id
-            return task_id
-        except Exception as e:
-            return
-
-
-class LiftingHoistingFreeIssueImage(TimeStampModel,TimeTrackModel):
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    lifting_hoisting_free_issue_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/LiftingHoistingFreeIssueImage/%Y/%m/%d/')
-    lifting_hoisting_free_issue_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/LiftingHoistingFreeIssueImage/%Y/%m/%d/')
-    lifting_hoisting_free_issue_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/LiftingHoistingFreeIssueImage/%Y/%m/%d/')
-    lifting_hoisting_free_issue_image_comment = models.CharField(max_length=100, blank=True, null=True)
-
-    def no_of_casuals(self):
-        count = self.no_of_casuals_atsite.count()
-        return "\n , ".join(str(count))
-
-    def names_of_casuals(self):
-        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
-
-    def casuals_cost(self):
-        try:
-            rate_data = Rates.objects.get(worker_type='Casual')
-            casual_rate = rate_data.rate
-            now = datetime.now(timezone.utc)
-            if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, now)
-            else:
-                days_spent = date_difference(self.start_date, self.end_date)
-            count = self.no_of_casuals_atsite.count()
-            cost = (count * casual_rate * days_spent)
-            return cost
-        except Exception as e:
-            error = "Casuals Rates does not exist"
-            return error
-
-    def engineers_cost(self):
-        try:
-            rate_data = Rates.objects.get(worker_type='Enginner')
-            engineer_rate = rate_data.rate
-            now = datetime.now(timezone.utc)
-            if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, now)
-            else:
-                days_spent = date_difference(self.start_date, self.end_date)
-            try:
-                engineer_data = InstallationRooftopImage.objects.get(project_name=self.project_name)
-                count = engineer_data.engineers_atsite.count()
-                cost = (count * engineer_rate * days_spent)
-                return cost
-            except Exception as e:
-                error = "No engineers assigned to project"
-                return error
-        except Exception as e:
-            error = "Engineer Rates does not exist"
-            return error
-
-    def raise_flag(self):
-        try:
-            kpi_data = SubTask.objects.get(subtask_name='Upload Lifting Hoisting Free Issue images')
-            kpi = kpi_data.kpi
-            projected_end_date = self.start_date + timedelta(days=kpi)
-            flag = ""
-
-            if bool(self.end_date) is False:
-                today = datetime.now(timezone.utc)
-
-                if today < projected_end_date:
-                    flag = "OnTrack"
-                    return flag
-                else:
-                    flag = "OffTrack"
-                    return flag
-
-            else:
-                if self.end_date < projected_end_date:
-                    flag = "OnTrack"
-                    return flag
-                else:
-                    flag = "OffTrack"
-                    return flag
-
-        except Exception as e:
-            return e
-
-    def task_id(self):
-        try:
-            task = InstallationRooftopImage.objects.get(project_name=self.project_name)
-            task_id = task.id
-            return task_id
-        except Exception as e:
-            return
-
-class FenceInstallationImage(TimeStampModel,TimeTrackModel):
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    fence_installation_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/FenceInstallationImage/%Y/%m/%d/')
-    fence_installation_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/FenceInstallationImage/%Y/%m/%d/')
-    fence_installation_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/FenceInstallationImage/%Y/%m/%d/')
-    fence_installation_image_comment = models.CharField(max_length=100, blank=True, null=True)
-
-    def no_of_casuals(self):
-        count = self.no_of_casuals_atsite.count()
-        return "\n , ".join(str(count))
-
-    def names_of_casuals(self):
-        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
-
-    def casuals_cost(self):
-        try:
-            rate_data = Rates.objects.get(worker_type='Casual')
-            casual_rate = rate_data.rate
-            now = datetime.now(timezone.utc)
-            if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, now)
-            else:
-                days_spent = date_difference(self.start_date, self.end_date)
-            count = self.no_of_casuals_atsite.count()
-            cost = (count * casual_rate * days_spent)
-            return cost
-        except Exception as e:
-            error = "Casuals Rates does not exist"
-            return error
-
-    def engineers_cost(self):
-        try:
-            rate_data = Rates.objects.get(worker_type='Enginner')
-            engineer_rate = rate_data.rate
-            now = datetime.now(timezone.utc)
-            if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, now)
-            else:
-                days_spent = date_difference(self.start_date, self.end_date)
-            try:
-                engineer_data = InstallationRooftopImage.objects.get(project_name=self.project_name)
-                count = engineer_data.engineers_atsite.count()
-                cost = (count * engineer_rate * days_spent)
-                return cost
-            except Exception as e:
-                error = "No engineers assigned to project"
-                return error
-        except Exception as e:
-            error = "Engineer Rates does not exist"
-            return error
-
-    def raise_flag(self):
-        try:
-            kpi_data = SubTask.objects.get(subtask_name='Upload Fence Installation Images')
-            kpi = kpi_data.kpi
-            projected_end_date = self.start_date + timedelta(days=kpi)
-            flag = ""
-
-            if bool(self.end_date) is False:
-                today = datetime.now(timezone.utc)
-
-                if today < projected_end_date:
-                    flag = "OnTrack"
-                    return flag
-                else:
-                    flag = "OffTrack"
-                    return flag
-
-            else:
-                if self.end_date < projected_end_date:
-                    flag = "OnTrack"
-                    return flag
-                else:
-                    flag = "OffTrack"
-                    return flag
-
-        except Exception as e:
-            return e
-
-    def task_id(self):
-        try:
-            task = InstallationRooftopImage.objects.get(project_name=self.project_name)
-            task_id = task.id
-            return task_id
-        except Exception as e:
-            return
-
-class SiteRestorationImage(TimeStampModel,TimeTrackModel):
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    site_restoration_image_1 = models.ImageField(upload_to='images/CivilWorksTeam/SiteRestorationImage/%Y/%m/%d/')
-    site_restoration_image_2 = models.ImageField(upload_to='images/CivilWorksTeam/SiteRestorationImage/%Y/%m/%d/')
-    site_restoration_image_3 = models.ImageField(upload_to='images/CivilWorksTeam/SiteRestorationImage/%Y/%m/%d/')
-    site_restoration_image_comment = models.CharField(max_length=100, blank=True, null=True)
-
-    def no_of_casuals(self):
-        count = self.no_of_casuals_atsite.count()
-        return "\n , ".join(str(count))
-
-    def names_of_casuals(self):
-        return [v.casual_name for v in self.no_of_casuals_atsite.all()]
-
-    def casuals_cost(self):
-        try:
-            rate_data = Rates.objects.get(worker_type='Casual')
-            casual_rate = rate_data.rate
-            now = datetime.now(timezone.utc)
-            if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, now)
-            else:
-                days_spent = date_difference(self.start_date, self.end_date)
-            count = self.no_of_casuals_atsite.count()
-            cost = (count * casual_rate * days_spent)
-            return cost
-        except Exception as e:
-            error = "Casuals Rates does not exist"
-            return error
-
-    def engineers_cost(self):
-        try:
-            rate_data = Rates.objects.get(worker_type='Enginner')
-            engineer_rate = rate_data.rate
-            now = datetime.now(timezone.utc)
-            if bool(self.end_date) is False:
-                days_spent = date_difference(self.start_date, now)
-            else:
-                days_spent = date_difference(self.start_date, self.end_date)
-            try:
-                engineer_data = InstallationRooftopImage.objects.get(project_name=self.project_name)
-                count = engineer_data.engineers_atsite.count()
-                cost = (count * engineer_rate * days_spent)
-                return cost
-            except Exception as e:
-                error = "No engineers assigned to project"
-                return error
-        except Exception as e:
-            error = "Engineer Rates does not exist"
-            return error
-
-    def raise_flag(self):
-        try:
-            kpi_data = SubTask.objects.get(subtask_name='Upload Site Restoration Images')
-            kpi = kpi_data.kpi
-            projected_end_date = self.start_date + timedelta(days=kpi)
-            flag = ""
-
-            if bool(self.end_date) is False:
-                today = datetime.now(timezone.utc)
-
-                if today < projected_end_date:
-                    flag = "OnTrack"
-                    return flag
-                else:
-                    flag = "OffTrack"
-                    return flag
-
-            else:
-                if self.end_date < projected_end_date:
-                    flag = "OnTrack"
-                    return flag
-                else:
-                    flag = "OffTrack"
-                    return flag
-
-        except Exception as e:
-            return e
-
-    def task_id(self):
-        try:
-            task = InstallationRooftopImage.objects.get(project_name=self.project_name)
-            task_id = task.id
-            return task_id
-        except Exception as e:
-            return
-
-class InstallationRooftopImage(TimeStampModel,TimeTrackModel):
-    project_name = models.OneToOneField(BtsSite, on_delete=models.DO_NOTHING)
-    engineers_atsite = models.ManyToManyField(Engineer, blank=True )
-    no_of_casuals_atsite = models.ManyToManyField(Casual, blank=True)
-    hacking_existing_columns_image = models.OneToOneField(HackingExistingColumnsImage, on_delete=models.DO_NOTHING, blank=True, null=True)
-    formwork_columns_concrete_pour_curing_image = models.OneToOneField(FormworkColumnsConcretePourCuringImage, on_delete=models.DO_NOTHING, blank=True, null=True)
-    delivery_to_site_image = models.OneToOneField(DeliveryToSiteImage, on_delete=models.DO_NOTHING, blank=True, null=True)
-    lifting_hoisting_freeissue_image = models.OneToOneField(LiftingHoistingFreeIssueImage, on_delete=models.DO_NOTHING, blank=True, null=True)
-    fence_installation_image = models.OneToOneField(FenceInstallationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
-    site_restoration_image = models.OneToOneField(SiteRestorationImage, on_delete=models.DO_NOTHING, blank=True, null=True)
-    installation_rooftop_image_comment = models.CharField(max_length=100, blank=True, null=True)
-
-    def __str__(self):
-        return str(self.project_name)
-
-    def engineers(self):
-        count = self.engineers_atsite.count()
-        return "\n , ".join(str(count))
-
-    def names_of_engineers(self):
-        return [v.user.username for v in self.engineers_atsite.all()]
-
-    def raise_flag(self):
-        try:
-            kpi_data = Task.objects.get(task_name='Installation Rooftop Image')
             kpi = kpi_data.kpi
             projected_end_date = self.start_date + timedelta(days=kpi)
             flag = ""

@@ -52,6 +52,19 @@ router.register(r'GenConcretePourCuringPeriodImage', views.GenConcretePourCuring
 router.register(r'GenCableConduitsSettingImage', views.GenCableConduitsSettingImageViewSet)
 router.register(r'GeneatorSlabsImage', views.GeneatorSlabsImageViewSet)
 
+router.register(r'fabricationRooftopImages', views.FabricationRooftopImageViewSet)
+router.register(r'fabricationQualityInspectionImages', views.FabricationQualityInspectionImageViewSet)
+router.register(r'fabricationSteelDeckImages', views.FabricationSteelDeckImageViewSet)
+router.register(r'galvanisationImages', views.GalvanisationImageViewSet)
+
+router.register(r'hackingExistingColumnsImages', views.HackingExistingColumnsImageViewSet)
+router.register(r'formworkColumnsConcretePourCuringImages', views.FormworkColumnsConcretePourCuringImageViewSet)
+router.register(r'deliveryToSiteImages', views.DeliveryToSiteImageViewSet)
+router.register(r'liftingHoistingFreeIssueImages', views.LiftingHoistingFreeIssueImageViewSet)
+router.register(r'fenceInstallationImages', views.FenceInstallationImageViewSet)
+router.register(r'siteRestorationImages', views.SiteRestorationImageViewSet)
+router.register(r'installationRooftopImages', views.InstallationRooftopImageViewSet)
+
 router.register(r'foundationfootpour', views.FoundFootPourImageViewSet)
 router.register(r'bwconcretepourcuringperiod', views.BWConcretePourCuringPeriodImageViewSet)
 router.register(r'excavationstripfoundations', views.ExcavationstripFoundationsImageViewSet)
@@ -95,18 +108,7 @@ router.register(r'kplcsolarsmages', views.KPLCSolarImageViewSet)
 router.register(r'warrantyCertificates', views.WarrantyCertificateViewSet)
 router.register(r'testCetificates', views.TestCetificateViewSet)
 
-router.register(r'fabricationRooftopImages', views.FabricationRooftopImageViewSet)
-router.register(r'fabricationQualityInspectionImages', views.FabricationQualityInspectionImageViewSet)
-router.register(r'fabricationSteelDeckImages', views.FabricationSteelDeckImageViewSet)
-router.register(r'galvanisationImages', views.GalvanisationImageViewSet)
 
-router.register(r'hackingExistingColumnsImages', views.HackingExistingColumnsImageViewSet)
-router.register(r'formworkColumnsConcretePourCuringImages', views.FormworkColumnsConcretePourCuringImageViewSet)
-router.register(r'deliveryToSiteImages', views.DeliveryToSiteImageViewSet)
-router.register(r'liftingHoistingFreeIssueImages', views.LiftingHoistingFreeIssueImageViewSet)
-router.register(r'fenceInstallationImages', views.FenceInstallationImageViewSet)
-router.register(r'siteRestorationImages', views.SiteRestorationImageViewSet)
-router.register(r'installationRooftopImages', views.InstallationRooftopImageViewSet)
 
 
 """ ENDPOINTS FOR FRONTEND"""
