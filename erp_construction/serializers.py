@@ -2,7 +2,7 @@ from rest_framework import serializers, exceptions
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from users.models import CustomUser
+from users.models import *
 from .models import *
 from rest_framework.authtoken.models import Token
 
@@ -319,6 +319,12 @@ class FabricationQualityInspectionImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FabricationQualityInspectionImage
+        fields = ('__all__')
+
+class GalvanisationImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = GalvanisationImage
         fields = ('__all__')
 
 class FabricationRooftopImageSerializer(serializers.ModelSerializer):
@@ -733,9 +739,3 @@ class IssuesSerializer(serializers.ModelSerializer):
         model = Issues
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
-
-class GalvanisationImageSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = GalvanisationImage
-        fields = ('__all__')
