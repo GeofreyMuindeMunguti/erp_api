@@ -375,7 +375,7 @@ class GenCableConduitsSettingImageAdmin(admin.ModelAdmin):
 
 admin.site.register(GenCableConduitsSettingImage, GenCableConduitsSettingImageAdmin)
 
-class GeneatorSlabsImage(admin.ModelAdmin):
+class GeneatorSlabsImageAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'team_task_id', 'gen_excavation', 'gen_concrete_pour_period','gen_cable_conduits','generator_slabs_comment','engineers', 'names_of_engineers', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
     list_display_links = ('project_name', )
     list_filter = ('project_name',)
@@ -383,7 +383,7 @@ class GeneatorSlabsImage(admin.ModelAdmin):
     list_editable = ('is_active',)
 
 
-admin.site.register(GeneatorSlabsImage, GeneatorSlabsImage)
+admin.site.register(GeneatorSlabsImage, GeneatorSlabsImageAdmin)
 
 ######################################## END #######################################################################################################################################
 

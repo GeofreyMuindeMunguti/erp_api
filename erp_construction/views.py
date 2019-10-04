@@ -266,7 +266,7 @@ class DeliveryOfMaterialandEquipementViewSet(DefaultsMixin, viewsets.ModelViewSe
 class ExcavationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = ExcavationImage.objects.order_by('created_at')
-    serializer_class = ExcavationImageserializer
+    serializer_class = ExcavationImageSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
