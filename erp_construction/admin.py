@@ -344,6 +344,49 @@ admin.site.register(BS241AndGeneatorSlabsImage, BS241AndGeneatorSlabsImageAdmin)
 
 ######################################## END #######################################################################################################################################
 
+#######################################GENERATOR SLABS FOUNDATION ###########################################################################################################################
+
+class GenExcavationImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'gen_excavation_image_1', 'gen_excavation_image_2', 'gen_excavation_image_3', 'gen_excavation_comment','no_of_casuals', 'names_of_casuals', 'casuals_cost', 'engineers_cost', 'raise_flag','start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(GenExcavationImage, GenExcavationImageAdmin)
+
+class GenConcretePourCuringPeriodImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'gen_concrete_pour_period_image_1', 'gen_concrete_pour_period_image_2','gen_concrete_pour_period_image_3', 'gen_concrete_pour_period_comment', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+admin.site.register(GenConcretePourCuringPeriodImage, GenConcretePourCuringPeriodImageAdmin)
+
+class GenCableConduitsSettingImageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'task_id', 'gen_cable_conduits_image_1', 'gen_cable_conduits_image_2','gen_cable_conduits_image_3', 'gen_cable_conduits_comment', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(GenCableConduitsSettingImage, GenCableConduitsSettingImageAdmin)
+
+class GeneatorSlabsImage(admin.ModelAdmin):
+    list_display = ('id', 'project_name', 'team_task_id', 'gen_excavation', 'gen_concrete_pour_period','gen_cable_conduits','generator_slabs_comment','engineers', 'names_of_engineers', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')
+    list_display_links = ('project_name', )
+    list_filter = ('project_name',)
+    search_fields = ('project_name', )
+    list_editable = ('is_active',)
+
+
+admin.site.register(GeneatorSlabsImage, GeneatorSlabsImage)
+
+######################################## END #######################################################################################################################################
+
 ####################################### BOUNDARY WALL ###########################################################################################################################
 
 class FoundFootPourImageAdmin(admin.ModelAdmin):
@@ -421,9 +464,6 @@ class BWCableConduitsImageAdmin(admin.ModelAdmin):
     list_editable = ('is_active',)
 
 admin.site.register(BWCableConduitsImage, BWCableConduitsImageAdmin)
-
-
-
 
 class BoundaryWallImageAdmin(admin.ModelAdmin):
     list_display = ('id', 'project_name', 'team_task_id', 'foundation_foot_pouring', 'block_construction', 'gate_installation', 'razor_electric_fence','boundary_wall_comment','engineers', 'names_of_engineers', 'start_date','end_date','raise_flag','created_at', 'updated_at', 'is_active')

@@ -266,7 +266,7 @@ class DeliveryOfMaterialandEquipementViewSet(DefaultsMixin, viewsets.ModelViewSe
 class ExcavationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = ExcavationImage.objects.order_by('created_at')
-    serializer_class = ExcavationImageerializer
+    serializer_class = ExcavationImageserializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
@@ -291,6 +291,41 @@ class BS241AndGeneatorSlabsImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = BS241AndGeneatorSlabsImage.objects.order_by('created_at')
     serializer_class = BS241AndGeneatorSlabsImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+######################################## END #######################################################################################################################################
+
+#######################################GENERATOR SLAB FOUNDATION ###########################################################################################################################
+class GenExcavationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = GenExcavationImage.objects.order_by('created_at')
+    serializer_class = GenExcavationImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+class GenConcretePourCuringPeriodImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = GenConcretePourCuringPeriodImage.objects.order_by('created_at')
+    serializer_class = GenConcretePourCuringPeriodImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+class GenCableConduitsSettingImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = GenCableConduitsSettingImage.objects.order_by('created_at')
+    serializer_class = GenCableConduitsSettingImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+class GeneatorSlabsImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = GeneatorSlabsImage.objects.order_by('created_at')
+    serializer_class = GeneatorSlabsImageSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )

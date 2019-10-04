@@ -229,7 +229,7 @@ class DeliveryOfMaterialandEquipementSerializer(serializers.ModelSerializer):
 #######################################BS241 & GENERATOR FOUNDATION ###########################################################################################################################
 
 
-class ExcavationImageerializer(serializers.ModelSerializer):
+class ExcavationImageSerializer(serializers.ModelSerializer):
     raise_flag = serializers.CharField(read_only=True)
     task_id = serializers.IntegerField(read_only=True)
 
@@ -264,6 +264,46 @@ class BS241AndGeneatorSlabsImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BS241AndGeneatorSlabsImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+######################################## END #######################################################################################################################################
+
+#######################################GENERATOR SLAB FOUNDATION ###########################################################################################################################
+class GenExcavationImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
+    task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = GenExcavationImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class GenConcretePourCuringPeriodImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
+    task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = GenConcretePourCuringPeriodImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+class GenCableConduitsSettingImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
+    task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = GenCableConduitsSettingImage
+        fields = ('__all__')
+        read_only_fields = ('created_at', 'updated_at', 'is_active')
+
+
+class GeneatorSlabsImageSerializer(serializers.ModelSerializer):
+    raise_flag = serializers.CharField(read_only=True)
+    team_task_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = GeneatorSlabsImage
         fields = ('__all__')
         read_only_fields = ('created_at', 'updated_at', 'is_active')
 ######################################## END #######################################################################################################################################
