@@ -33,23 +33,81 @@ router.register(r'accessapprovalscivil', views.AccessApprovalCivilViewSet)
 router.register(r'civilteamtasks', views.CivilTeamViewSet)
 
 router.register(r'foundationimages', views.FoundationImageViewSet)
+###Geo_changes
 router.register(r'setclearingimages', views.SetSiteClearingImageViewSet)
+router.register(r'setclearingimagesdaily', views.SiteClearingImageDailyViewSet)
+router.register(r'setclearingdates', views.SiteClearingDateViewSet)
+####end
+###Geo_changes
 router.register(r'towerbaseimages', views.TowerBaseImageViewSet)
-router.register(r'bindingimages', views.BindingImageViewSet)
-router.register(r'steelfixformworkimages', views.SteelFixFormworkImageViewSet)
-router.register(r'concretepourimages', views.ConcretePourImageViewSet)
-router.register(r'ConcreteCuringPeriodDocs', views.ConcreteCuringPeriodDocsViewSet)
-router.register(r'concretecuringperiod', views.ConcreteCuringPeriodImageViewSet)
-router.register(r'DeliveryOfMaterialandEquipement', views.DeliveryOfMaterialandEquipementViewSet)
+router.register(r'towerbaseimagesdaily', views.TowerBaseImageDailyViewSet)
+router.register(r'towerbasedates', views.TowerBaseDateViewSet)
+###end
 
+##Geo_Changes
+router.register(r'bindingimages', views.BindingImageViewSet)
+router.register(r'bindingimagesdaily', views.BindingImageDailyViewSet)
+router.register(r'bindingdates', views.BindingDateViewSet)
+
+###End
+##Geo_changes
+router.register(r'steelfixformworkimages', views.SteelFixFormworkImageViewSet)
+router.register(r'steelfixformworkimagesdaily', views.SteelFixFormworkImageDailyViewSet)
+router.register(r'steelfixformworkdates', views.SteelFixFormworkDateViewSet)
+###End
+###Geo_changes
+router.register(r'concretepourimages', views.ConcretePourImageViewSet)
+router.register(r'concretepourimagesdaily', views.ConcretePourImageDailyViewSet)
+router.register(r'concretepourdate', views.ConcretePourDateViewSet)
+###End
+
+###Geo_changes
+router.register(r'ConcreteCuringPeriodDocs', views.ConcreteCuringPeriodDocsViewSet)
+router.register(r'ConcreteCuringPeriodImage', views.ConcreteCuringPeriodImageViewSet)
+router.register(r'ConcreteCuringPeriodImageDaily', views.ConcreteCuringPeriodImageDailyViewSet)
+router.register(r'ConcreteCuringPeriodDate', views.ConcreteCuringPeriodDateViewSet)
+
+###End
+router.register(r'concretecuringperiod', views.ConcreteCuringPeriodImageViewSet)
+###Geo_changes
+router.register(r'DeliveryOfMaterialandEquipement', views.DeliveryOfMaterialandEquipementViewSet)
+router.register(r'DeliveryOfMaterialandEquipementdaily', views.DeliveryOfMaterialandEquipementDailyViewSet)
+router.register(r'DeliveryOfMaterialandEquipementdates', views.DeliveryOfMaterialandEquipementDateViewSet)
+
+##End
+###Geo_change
 router.register(r'excavation', views.ExcavationImageViewSet)
+router.register(r'excavationimagedaily', views.ExcavationImageDailyViewSet)
+router.register(r'excavationdate', views.ExcavationDateViewSet)
+####
+
+##Geo_changes
 router.register(r'bs241concretepourcuringperiod', views.bs241ConcretePourCuringPeriodImageViewSet)
+router.register(r'bs241concretepourcuringperiodimagedaily', views.bs241ConcretePourCuringPeriodImageDailyViewSet)
+router.register(r'bs241concretepourcuringperioddates', views.bs241ConcretePourCuringPeriodDateViewSet)
+###End
+
+####Geo_changes
 router.register(r'BS241Image', views.BS241ImageViewSet)
+router.register(r'BS241Imagedaily', views.BS241ImageDailyViewSet)
+router.register(r'BS241Date', views.BS241DateViewSet)
+###End
 router.register(r'bs241generatorslabs', views.BS241AndGeneatorSlabsImageViewSet)
 
+###Geo_changes
 router.register(r'GenExcavationImage', views.GenExcavationImageViewSet)
+router.register(r'GenExcavationImageDaily', views.GenExcavationImageDailyViewSet)
+router.register(r'GenExcavationDate', views.GenExcavationDateViewSet)
+
 router.register(r'GenConcretePourCuringPeriodImage', views.GenConcretePourCuringPeriodImageViewSet)
+router.register(r'GenConcretePourCuringPeriodImageDaily', views.GenConcretePourCuringPeriodImageDailyViewSet)
+router.register(r'GenConcretePourCuringPeriodDate', views.GenConcretePourCuringPeriodDateViewSet)
+
 router.register(r'GenCableConduitsSettingImage', views.GenCableConduitsSettingImageViewSet)
+router.register(r'GenCableConduitsSettingImageDaily', views.GenCableConduitsSettingImageDailyViewSet)
+router.register(r'GenCableConduitsSettingDate', views.GenCableConduitsSettingDateViewSet)
+
+###End
 router.register(r'GeneatorSlabsImage', views.GeneatorSlabsImageViewSet)
 
 router.register(r'fabricationRooftopImages', views.FabricationRooftopImageViewSet)

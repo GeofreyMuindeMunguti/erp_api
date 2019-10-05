@@ -195,6 +195,7 @@ class FoundationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
+###Geo_changes
 
 class SetSiteClearingImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
@@ -204,6 +205,22 @@ class SetSiteClearingImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
+class SiteClearingDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = SiteClearingDate.objects.order_by('created_at')
+    serializer_class = SiteClearingDateSerializer
+    
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+class SiteClearingImageDailyViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = SiteClearingImageDaily.objects.order_by('created_at')
+    serializer_class = SiteClearingImageDailySerializer
+    
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+###end    
+##Geo_changes
 class TowerBaseImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = TowerBaseImage.objects.order_by('created_at')
@@ -211,6 +228,24 @@ class TowerBaseImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
+
+class TowerBaseImageDailyViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = TowerBaseImageDaily.objects.order_by('created_at')
+    serializer_class = TowerBaseImageDailySerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+class TowerBaseDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = TowerBaseDate.objects.order_by('created_at')
+    serializer_class = TowerBaseDateSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+###End
+
+####Geo_changes
 
 class BindingImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
@@ -220,6 +255,23 @@ class BindingImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
+class BindingImageDailyViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = BindingImageDaily.objects.order_by('created_at')
+    serializer_class = BindingImageDailySerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+class BindingDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = BindingDate.objects.order_by('created_at')
+    serializer_class = BindingDateSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+####End
+
+##Geo_changes
 class SteelFixFormworkImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = SteelFixFormworkImage.objects.order_by('created_at')
@@ -228,6 +280,23 @@ class SteelFixFormworkImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
+class SteelFixFormworkImageDailyViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = SteelFixFormworkImageDaily.objects.order_by('created_at')
+    serializer_class = SteelFixFormworkImageDailySerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+class SteelFixFormworkDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = SteelFixFormworkDate.objects.order_by('created_at')
+    serializer_class = SteelFixFormworkDateSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+####End
+
+####Geo_changes
 class ConcretePourImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = ConcretePourImage.objects.order_by('created_at')
@@ -236,6 +305,22 @@ class ConcretePourImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name',)
 
+class ConcretePourDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = ConcretePourDate.objects.order_by('created_at')
+    serializer_class = ConcretePourDateSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name',)
+
+class ConcretePourImageDailyViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = ConcretePourImageDaily.objects.order_by('created_at')
+    serializer_class = ConcretePourImageDailySerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name',)
+
+###End
+###Geo_changes
 class ConcreteCuringPeriodDocsViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = ConcreteCuringPeriodDocs.objects.order_by('created_at')
@@ -252,6 +337,22 @@ class ConcreteCuringPeriodImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
+class ConcreteCuringPeriodImageDailyViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = ConcreteCuringPeriodImageDaily.objects.order_by('created_at')
+    serializer_class = ConcreteCuringPeriodImageDailySerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+class ConcreteCuringPeriodDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = ConcreteCuringPeriodDate.objects.order_by('created_at')
+    serializer_class = ConcreteCuringPeriodDateSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+###End
+###Geo_changes
 class DeliveryOfMaterialandEquipementViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = DeliveryOfMaterialandEquipement.objects.order_by('created_at')
@@ -260,9 +361,24 @@ class DeliveryOfMaterialandEquipementViewSet(DefaultsMixin, viewsets.ModelViewSe
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
+class DeliveryOfMaterialandEquipementDailyViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = DeliveryOfMaterialandEquipementDaily.objects.order_by('created_at')
+    serializer_class = DeliveryOfMaterialandEquipementDailySerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+class DeliveryOfMaterialandEquipementDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = DeliveryOfMaterialandEquipementDate.objects.order_by('created_at')
+    serializer_class = DeliveryOfMaterialandEquipementDateSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
 ######################################## END #######################################################################################################################################
 
 #######################################BS241 & GENERATOR FOUNDATION ###########################################################################################################################
+###Geo_changes
 class ExcavationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = ExcavationImage.objects.order_by('created_at')
@@ -271,6 +387,23 @@ class ExcavationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
+class ExcavationImageDailyViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = ExcavationImageDaily.objects.order_by('created_at')
+    serializer_class = ExcavationImageDailySerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+class ExcavationDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = ExcavationDate.objects.order_by('created_at')
+    serializer_class = ExcavationDateSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+####End
+
+###Geo_changes
 class bs241ConcretePourCuringPeriodImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = BS241ConcretePourCuringPeriodImage.objects.order_by('created_at')
@@ -279,10 +412,43 @@ class bs241ConcretePourCuringPeriodImageViewSet(DefaultsMixin, viewsets.ModelVie
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
+class bs241ConcretePourCuringPeriodImageDailyViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = BS241ConcretePourCuringPeriodImage.objects.order_by('created_at')
+    serializer_class = ConcretePourCuringPeriodImageDailySerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+class bs241ConcretePourCuringPeriodDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    queryset = BS241ConcretePourCuringPeriodImage.objects.order_by('created_at')
+    serializer_class = ConcretePourCuringPeriodDateSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+###End
+
+###Geo_changes
 class BS241ImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = BS241Image.objects.order_by('created_at')
     serializer_class = BS241ImageSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+class BS241ImageDailyViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = BS241ImageDaily.objects.order_by('created_at')
+    serializer_class = BS241ImageDailySerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+class BS241DateViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = BS241Date.objects.order_by('created_at')
+    serializer_class = BS241DateSerializer
 
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
@@ -298,6 +464,7 @@ class BS241AndGeneatorSlabsImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
 ######################################## END #######################################################################################################################################
 
 #######################################GENERATOR SLAB FOUNDATION ###########################################################################################################################
+###Geo_changes
 class GenExcavationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = GenExcavationImage.objects.order_by('created_at')
@@ -306,6 +473,22 @@ class GenExcavationImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
+class GenExcavationImageDailyViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = GenExcavationImageDaily.objects.order_by('created_at')
+    serializer_class = GenExcavationImageDailySerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+class GenExcavationDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = GenExcavationDate.objects.order_by('created_at')
+    serializer_class = GenExcavationDateSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+###
 class GenConcretePourCuringPeriodImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = GenConcretePourCuringPeriodImage.objects.order_by('created_at')
@@ -314,6 +497,22 @@ class GenConcretePourCuringPeriodImageViewSet(DefaultsMixin, viewsets.ModelViewS
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
+class GenConcretePourCuringPeriodImageDailyViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = GenConcretePourCuringPeriodImageDaily.objects.order_by('created_at')
+    serializer_class = GenConcretePourCuringPeriodImageDailySerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+class GenConcretePourCuringPeriodDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = GenConcretePourCuringPeriodDate.objects.order_by('created_at')
+    serializer_class = GenConcretePourCuringPeriodDateSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+###
 class GenCableConduitsSettingImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = GenCableConduitsSettingImage.objects.order_by('created_at')
@@ -322,6 +521,22 @@ class GenCableConduitsSettingImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     search_fields = ('project_name', )
     ordering_fields = ('updated_at', 'project_name', )
 
+class GenCableConduitsSettingImageDailyViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = GenCableConduitsSettingImageDaily.objects.order_by('created_at')
+    serializer_class = GenCableConduitsSettingImageDailySerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+
+class GenCableConduitsSettingDateViewSet(DefaultsMixin, viewsets.ModelViewSet):
+    """API endpoint for listing and creating foundation images for civil team."""
+    queryset = GenCableConduitsSettingDate.objects.order_by('created_at')
+    serializer_class = GenCableConduitsSettingDateSerializer
+
+    search_fields = ('project_name', )
+    ordering_fields = ('updated_at', 'project_name', )
+####End
 class GeneatorSlabsImageViewSet(DefaultsMixin, viewsets.ModelViewSet):
     """API endpoint for listing and creating foundation images for civil team."""
     queryset = GeneatorSlabsImage.objects.order_by('created_at')
