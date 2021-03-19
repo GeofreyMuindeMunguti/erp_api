@@ -16,7 +16,7 @@ django-phonenumber-field==2.4.0
 django-rest-auth==0.9.5
 django-user-tracking==0.4.11
 django-uuidfield==0.5.0
-djangorestframework==3.9.2
+djangorestframework==3.11.2
 djangorestframework-jwt==1.11.0
 drf-tracking==1.5.0
 fcm-django==0.2.21
